@@ -1,4 +1,5 @@
 name: Generate Notes JSON
+
 on:
   push:
     paths:
@@ -8,16 +9,23 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
-      - name: Generate JSON
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Generate courses JSON
+        run: node .github/scripts/generate-courses.js
+        
+      - name: Commit and push if changed
         run: |
-          # Script to scan Notes/ and create courses.json
-          echo '{"courses": [...]}' > Website/v1/courses.json
-      - name: Commit
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add Website/v1/courses.json
-          git commit -m "Update courses data" || exit 0
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update courses.json" && git push)
