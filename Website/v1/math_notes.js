@@ -81,6 +81,14 @@ const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/yuhesui/QRSNTU/main/N
 
 let allCourses = [];
 
+let filterState = {
+    examType: 'all', // 'all', 'finals', 'midterms'
+    selectedCourses: new Set(), // Empty = all selected
+    hasPapers: true,
+    hasSolutions: true,
+    hasNotes: true
+};
+
 // Helper: Extract academic year (e.g. "23-24") from filename
 function extractAcademicYear(name) {
     const match = name.match(/_(\d{2}-\d{2})_/);
@@ -200,21 +208,22 @@ async function loadCourses() {
         if (!response.ok) {
             throw new Error(`Failed to load courses data: ${response.status}`);
         }
-        
+
         const data = await response.json();
         allCourses = data.courses;
-        
+
         loadingState.classList.add('hidden');
         renderCourses(allCourses);
         updateResultsCount(allCourses.length, allCourses.length);
-        
+
         // Show when data was last updated
         if (data.generatedAt) {
             const updateTime = new Date(data.generatedAt).toLocaleString();
             const resultsCount = document.getElementById('results-count');
             resultsCount.innerHTML += ` <span class="text-gray-400">(Updated: ${updateTime})</span>`;
         }
-        
+        // NEW: Setup filters after courses load
+        setupFilters();
     } catch (error) {
         console.error('Error loading courses:', error);
         loadingState.innerHTML = `
@@ -347,25 +356,12 @@ function createCourseCard(course) {
     </div>`;
 }
 
-// Search/filter logic (same as before)
+// Search/filter logic
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        if (query === '') {
-            renderCourses(allCourses);
-            updateResultsCount(allCourses.length, allCourses.length);
-            return;
-        }
-        const filtered = allCourses.filter(course => {
-            const codeMatch = course.code.toLowerCase().includes(query);
-            const nameMatch = course.name.toLowerCase().includes(query);
-            return codeMatch || nameMatch;
-        });
-        renderCourses(filtered);
-        updateResultsCount(filtered.length, allCourses.length);
-    });
+    searchInput.addEventListener('input', applyFilters);
 }
+
 
 function updateResultsCount(showing, total) {
     const resultsCount = document.getElementById('results-count');
@@ -387,5 +383,264 @@ function handleURLParams() {
         setTimeout(() => {
             document.getElementById('courses-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 500);
+    }
+}
+
+// Setup filters after courses load
+function setupFilters() {
+    setupExamTypeFilters();
+    setupCourseDropdown();
+    setupMaterialFilters();
+    setupClearFilters();
+}
+
+// Exam type toggle buttons
+function setupExamTypeFilters() {
+    const buttons = {
+        'filter-all': 'all',
+        'filter-finals': 'finals',
+        'filter-midterms': 'midterms'
+    };
+
+    Object.keys(buttons).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+
+        btn.addEventListener('click', function() {
+            filterState.examType = buttons[btnId];
+
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-500', 'text-white', 'border-blue-500');
+                b.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+            });
+            this.classList.add('active', 'bg-blue-500', 'text-white', 'border-blue-500');
+            this.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+
+            applyFilters();
+        });
+    });
+}
+
+// Course dropdown with checkboxes
+function setupCourseDropdown() {
+    const dropdownBtn = document.getElementById('course-dropdown-btn');
+    const dropdownMenu = document.getElementById('course-dropdown-menu');
+    const checkboxContainer = document.getElementById('course-checkboxes');
+
+    if (!dropdownBtn || !dropdownMenu || !checkboxContainer) return;
+
+    // Generate checkboxes for all courses
+    allCourses.forEach(course => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center px-2 py-1.5 hover:bg-gray-50 cursor-pointer rounded text-xs';
+        label.innerHTML = `
+            <input type="checkbox" value="${course.code}" class="course-checkbox w-3.5 h-3.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+            <span class="ml-2 text-xs text-gray-700"><strong>${course.code}</strong> - ${course.name}</span>
+        `;
+        checkboxContainer.appendChild(label);
+    });
+
+    // Toggle dropdown
+    dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+        lucide.createIcons();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+
+    // Handle checkbox changes
+    document.querySelectorAll('.course-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', updateCourseFilter);
+    });
+
+    // Select/Clear all buttons
+    const selectAllBtn = document.getElementById('select-all-courses');
+    const clearAllBtn = document.getElementById('clear-all-courses');
+
+    if (selectAllBtn) {
+        selectAllBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = true);
+            updateCourseFilter();
+        });
+    }
+
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = false);
+            updateCourseFilter();
+        });
+    }
+}
+
+function updateCourseFilter() {
+    const checkboxes = document.querySelectorAll('.course-checkbox');
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+
+    // Update filter state
+    if (checked.length === checkboxes.length || checked.length === 0) {
+        filterState.selectedCourses.clear(); // All or none selected = no filter
+    } else {
+        filterState.selectedCourses = new Set(checked.map(cb => cb.value));
+    }
+
+    // Update button text
+    const text = document.getElementById('selected-courses-text');
+    if (text) {
+        if (filterState.selectedCourses.size === 0 || checked.length === checkboxes.length) {
+            text.textContent = 'All Courses';
+        } else if (filterState.selectedCourses.size === 1) {
+            text.textContent = Array.from(filterState.selectedCourses)[0];
+        } else {
+            text.textContent = `${filterState.selectedCourses.size} Selected`;
+        }
+    }
+
+    applyFilters();
+}
+
+// Material type checkboxes
+function setupMaterialFilters() {
+    const papersCheckbox = document.getElementById('filter-has-papers');
+    const solutionsCheckbox = document.getElementById('filter-has-solutions');
+    const notesCheckbox = document.getElementById('filter-has-notes');
+
+    if (papersCheckbox) {
+        papersCheckbox.addEventListener('change', function() {
+            filterState.hasPapers = this.checked;
+            applyFilters();
+        });
+    }
+
+    if (solutionsCheckbox) {
+        solutionsCheckbox.addEventListener('change', function() {
+            filterState.hasSolutions = this.checked;
+            applyFilters();
+        });
+    }
+
+    if (notesCheckbox) {
+        notesCheckbox.addEventListener('change', function() {
+            filterState.hasNotes = this.checked;
+            applyFilters();
+        });
+    }
+}
+
+// Clear all filters
+function setupClearFilters() {
+    const clearBtn = document.getElementById('clear-all-filters');
+    if (!clearBtn) return;
+
+    clearBtn.addEventListener('click', () => {
+        // Reset to defaults
+        filterState.examType = 'all';
+        filterState.selectedCourses.clear();
+        filterState.hasPapers = true;
+        filterState.hasSolutions = true;
+        filterState.hasNotes = true;
+
+        // Reset UI
+        const allBtn = document.getElementById('filter-all');
+        if (allBtn) allBtn.click();
+
+        document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = true);
+        document.querySelectorAll('.material-filter').forEach(cb => cb.checked = true);
+
+        // Clear search
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = '';
+
+        updateCourseFilter();
+    });
+}
+
+// Apply all filters
+function applyFilters() {
+    const searchInput = document.getElementById('search-input');
+    const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    let filtered = allCourses.filter(course => {
+        // Text search filter
+        const matchesSearch = searchQuery === '' ||
+            course.code.toLowerCase().includes(searchQuery) ||
+            course.name.toLowerCase().includes(searchQuery);
+
+        if (!matchesSearch) return false;
+
+        // Course selection filter
+        if (filterState.selectedCourses.size > 0 && !filterState.selectedCourses.has(course.code)) {
+            return false;
+        }
+
+        // Exam type filter
+        const hasFinals = Object.keys(course.materials.finals).length > 0;
+        const hasMidterms = Object.keys(course.materials.midterms).length > 0;
+
+        if (filterState.examType === 'finals' && !hasFinals) return false;
+        if (filterState.examType === 'midterms' && !hasMidterms) return false;
+
+        // Material type filter - if none checked, show nothing
+        if (!filterState.hasPapers && !filterState.hasSolutions && !filterState.hasNotes) {
+            return false;
+        }
+
+        // Check if course has any of the requested materials
+        const hasAnyPapers = hasFinals || hasMidterms;
+        const hasAnySolutions = Object.values(course.materials.finals).some(y => y.solutions.length > 0) ||
+            Object.values(course.materials.midterms).some(y => y.solutions.length > 0);
+        const hasRevisionNotes = course.materials.revisionNotes.length > 0;
+
+        let matchesMaterial = false;
+        if (filterState.hasPapers && hasAnyPapers) matchesMaterial = true;
+        if (filterState.hasSolutions && hasAnySolutions) matchesMaterial = true;
+        if (filterState.hasNotes && hasRevisionNotes) matchesMaterial = true;
+
+        return matchesMaterial;
+    });
+
+    renderCourses(filtered);
+    updateResultsCount(filtered.length, allCourses.length);
+    updateActiveFiltersDisplay();
+}
+
+// Show active filter tags
+function updateActiveFiltersDisplay() {
+    const container = document.getElementById('active-filters');
+    const tagsContainer = document.getElementById('filter-tags');
+
+    if (!container || !tagsContainer) return;
+
+    const tags = [];
+
+    if (filterState.examType !== 'all') {
+        tags.push(filterState.examType === 'finals' ? 'Finals Only' : 'Midterms Only');
+    }
+
+    if (filterState.selectedCourses.size > 0) {
+        tags.push(`${filterState.selectedCourses.size} course${filterState.selectedCourses.size > 1 ? 's' : ''}`);
+    }
+
+    const materialFilters = [];
+    if (!filterState.hasPapers) materialFilters.push('No Papers');
+    if (!filterState.hasSolutions) materialFilters.push('No Solutions');
+    if (!filterState.hasNotes) materialFilters.push('No Notes');
+    if (materialFilters.length > 0) tags.push(...materialFilters);
+
+    if (tags.length === 0) {
+        container.classList.add('hidden');
+    } else {
+        container.classList.remove('hidden');
+        tagsContainer.innerHTML = tags.map(tag =>
+            `<span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">${tag}</span>`
+        ).join('');
     }
 }
