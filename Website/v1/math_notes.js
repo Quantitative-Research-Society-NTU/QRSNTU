@@ -191,36 +191,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     handleURLParams();
 });
 
-// Load courses by folder, parse each for materials
+// Replace the entire loadCourses function with this:
 async function loadCourses() {
     const loadingState = document.getElementById('loading-state');
     try {
-        const response = await fetch(GITHUB_API_BASE);
-        const contents = await response.json();
-        const courseFolders = contents.filter(item => item.type === 'dir' && item.name.match(/^[A-Z]{2}\d{4}/));
-        for (const folder of courseFolders) {
-            const courseCode = folder.name;
-            const courseName = COURSE_NAMES[courseCode] || 'Unknown Course';
-            const courseRes = await fetch(folder.url);
-            const courseContents = await courseRes.json();
-            const materials = await parseMaterials(courseContents, courseCode);
-            allCourses.push({
-                code: courseCode,
-                name: courseName,
-                materials,
-                githubUrl: folder.html_url
-            });
+        // Load from pre-generated JSON instead of GitHub API
+        const response = await fetch('courses.json');
+        if (!response.ok) {
+            throw new Error(`Failed to load courses data: ${response.status}`);
         }
+        
+        const data = await response.json();
+        allCourses = data.courses;
+        
         loadingState.classList.add('hidden');
         renderCourses(allCourses);
         updateResultsCount(allCourses.length, allCourses.length);
+        
+        // Show when data was last updated
+        if (data.generatedAt) {
+            const updateTime = new Date(data.generatedAt).toLocaleString();
+            const resultsCount = document.getElementById('results-count');
+            resultsCount.innerHTML += ` <span class="text-gray-400">(Updated: ${updateTime})</span>`;
+        }
+        
     } catch (error) {
         console.error('Error loading courses:', error);
-        loadingState.innerHTML = `<i data-lucide="alert-circle" class="h-12 w-12 text-red-500 mx-auto mb-4"></i>
-        <p class="text-red-600">Failed to load courses. Please try again later.</p>`;
+        loadingState.innerHTML = `
+            <i data-lucide="alert-circle" class="h-12 w-12 text-red-500 mx-auto mb-4"></i>
+            <p class="text-red-600">Failed to load courses</p>
+            <p class="text-sm text-gray-600 mt-2">${error.message}</p>
+        `;
         lucide.createIcons();
     }
 }
+
 
 // Render UI for all courses
 function renderCourses(courses) {
