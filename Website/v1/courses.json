@@ -145,7 +145,13 @@
           }
         },
         "revisionNotes": [],
-        "pastYearZips": []
+        "pastYearZips": [
+          {
+            "name": "MH1100 - Calculus I - Midterm.zip",
+            "path": "Notes/MH1100/MH1100 - Calculus I - Midterm.zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Midterm.zip"
+          }
+        ]
       }
     },
     {
@@ -691,9 +697,15 @@
           }
         },
         "revisionNotes": [],
-        "pastYearZips": []
+        "pastYearZips": [
+          {
+            "name": "MH1300 - Foundations of Mathematics - Midterm.zip",
+            "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterm.zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1300/MH1300%20-%20Foundations%20of%20Mathematics%20-%20Midterm.zip"
+          }
+        ]
       }
     }
   ],
-  "generatedAt": "2025-11-08T15:33:02.769Z"
+  "generatedAt": "2025-11-08T17:30:00.800Z"
 }
