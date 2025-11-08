@@ -1,0 +1,23 @@
+name: Generate Notes JSON
+on:
+  push:
+    paths:
+      - 'Notes/**'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate JSON
+        run: |
+          # Script to scan Notes/ and create courses.json
+          echo '{"courses": [...]}' > Website/v1/courses.json
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add Website/v1/courses.json
+          git commit -m "Update courses data" || exit 0
+          git push
