@@ -1,245 +1,150 @@
-// Course metadata mapping
+// Course metadata mapping - comprehensive list
 const COURSE_NAMES = {
-    'HE1001': 'Microeconomics I',
-    'HE1002': 'Macroeconomics I',
-    'CC0003': 'Ethics & Civics in a Multi-Cultural World',
-    'MH1100': 'Calculus I',
-    'MH1200': 'Linear Algebra I',
-    'MH1300': 'Foundations of Mathematics',
-    'HE2001': 'Microeconomics II',
-    'HE2002': 'Macroeconomics II',
-    'CC0001': 'Inquiry and Communication in an Interdisciplinary World',
-    'CC0015': 'Health & Wellbeing',
-    'MH1101': 'Calculus II',
-    'MH1201': 'Linear Algebra II',
-    'MH1301': 'Discrete Mathematics',
-    'MH4913': 'Professional Attachment',
-    'HE2003': 'Econometrics I',
-    'ML0004': 'Career Design & Workplace Readiness in the V.U.C.A World',
-    'MH2100': 'Calculus III',
-    'MH2500': 'Probability',
-    'MH3100': 'Real Analysis I',
-    'PS0001': 'Introduction to Computational Thinking',
-    'CSL': 'Care, Serve, Learn',
-    'CC0006': 'Sustainability: Society, Economy & Environment',
-    'CC0007': 'Science & Technology for Humanity',
-    'MH2220': 'Algebra I',
-    'MH1403': 'Algorithms and Computing',
-    'MH2510': 'Statistics I',
-    'HE3001': 'Microeconomics III',
-    'MH3101': 'Complex Analysis',
-    'MH3210': 'Number Theory',
-    'MH3220': 'Algebra II',
-    'MH3300': 'Graph Theory',
-    'MH3320': 'Dynamical System Theory with Chaos and Fractals',
-    'MH3400': 'Algorithms for the Real World',
-    'MH3401': 'Signal and Noise in Biology',
-    'MH3510': 'Regression Analysis',
-    'MH3511': 'Data Analysis with Computer',
-    'MH3512': 'Stochastic Processes',
-    'MH3515': 'Stochastic Geometry',
-    'MH3520': 'Mathematics of Deep Learning',
-    'MH3700': 'Numerical Analysis I',
-    'MH3701': 'Basic Optimization',
-    'MH4100': 'Real Analysis II',
-    'MH4110': 'Partial Differential Equations',
-    'MH4200': 'Abstract Algebra II',
-    'MH4300': 'Combinatorics',
-    'MH4301': 'Set Theory and Logic',
-    'MH4302': 'Theory of Computing',
-    'MH4310': 'Coding Theory',
-    'MH4311': 'Cryptography',
-    'MH4320': 'Computational Economics',
-    'MH4500': 'Time Series Analysis',
-    'MH4510': 'Statistical Learning and Data Mining',
-    'MH4511': 'Sampling & Survey',
-    'MH4512': 'Clinical Trials',
-    'MH4513': 'Survival Analysis',
-    'MH4514': 'Financial Mathematics',
-    'MH4515': 'Applied Bayesian Statistics',
-    'MH4516': 'Applied Categorical Data Analysis',
-    'MH4517': 'Data Applications in Natural Sciences',
-    'MH4518': 'Simulation Techniques in Finance',
-    'MH4519': 'Financial Econometrics',
-    'MH4520': 'High Dimensional Probability',
-    'MH4521': 'Reinforcement Learning',
-    'MH4601': 'Differential Geometry',
-    'MH4700': 'Numerical Analysis II',
-    'MH4701': 'Mathematical Programming',
-    'MH4702': 'Probabilistic Methods in OR',
-    'MH4712': 'Geometric Methods in Mathematical Physics',
-    'HE3002': 'Macroeconomics III',
-    'HW0218': 'Communication Across the Sciences',
-    'MH7002': 'Discrete Methods',
-    'HE3003': 'Econometrics II',
-    'PS0002': 'Introduction to Data Science and Artificial Intelligence'
+    'HE1001': 'Microeconomics I', 'HE1002': 'Macroeconomics I', 'CC0003': 'Ethics & Civics in a Multi-Cultural World',
+    'MH1100': 'Calculus I', 'MH1200': 'Linear Algebra I', 'MH1300': 'Foundations of Mathematics',
+    'HE2001': 'Microeconomics II', 'HE2002': 'Macroeconomics II', 'CC0001': 'Inquiry and Communication in an Interdisciplinary World',
+    'CC0015': 'Health & Wellbeing', 'MH1101': 'Calculus II', 'MH1201': 'Linear Algebra II',
+    'MH1301': 'Discrete Mathematics', 'MH4913': 'Professional Attachment', 'HE2003': 'Econometrics I',
+    'ML0004': 'Career Design & Workplace Readiness in the V.U.C.A World', 'MH2100': 'Calculus III', 'MH2500': 'Probability',
+    'MH3100': 'Real Analysis I', 'PS0001': 'Introduction to Computational Thinking', 'CSL': 'Care, Serve, Learn',
+    'CC0006': 'Sustainability: Society, Economy & Environment', 'CC0007': 'Science & Technology for Humanity',
+    'MH2220': 'Algebra I', 'MH1403': 'Algorithms and Computing', 'MH2510': 'Statistics I',
+    'HE3001': 'Microeconomics III', 'MH3101': 'Complex Analysis', 'MH3210': 'Number Theory',
+    'MH3220': 'Algebra II', 'MH3300': 'Graph Theory', 'MH3320': 'Dynamical System Theory with Chaos and Fractals',
+    'MH3400': 'Algorithms for the Real World', 'MH3401': 'Signal and Noise in Biology',
+    'MH3510': 'Regression Analysis', 'MH3511': 'Data Analysis with Computer', 'MH3512': 'Stochastic Processes',
+    'MH3515': 'Stochastic Geometry', 'MH3520': 'Mathematics of Deep Learning', 'MH3700': 'Numerical Analysis I',
+    'MH3701': 'Basic Optimization', 'MH4100': 'Real Analysis II', 'MH4110': 'Partial Differential Equations',
+    'MH4200': 'Abstract Algebra II', 'MH4300': 'Combinatorics', 'MH4301': 'Set Theory and Logic',
+    'MH4302': 'Theory of Computing', 'MH4310': 'Coding Theory', 'MH4311': 'Cryptography',
+    'MH4320': 'Computational Economics', 'MH4500': 'Time Series Analysis', 'MH4510': 'Statistical Learning and Data Mining',
+    'MH4511': 'Sampling & Survey', 'MH4512': 'Clinical Trials', 'MH4513': 'Survival Analysis',
+    'MH4514': 'Financial Mathematics', 'MH4515': 'Applied Bayesian Statistics', 'MH4516': 'Applied Categorical Data Analysis',
+    'MH4517': 'Data Applications in Natural Sciences', 'MH4518': 'Simulation Techniques in Finance',
+    'MH4519': 'Financial Econometrics', 'MH4520': 'High Dimensional Probability', 'MH4521': 'Reinforcement Learning',
+    'MH4601': 'Differential Geometry', 'MH4700': 'Numerical Analysis II', 'MH4701': 'Mathematical Programming',
+    'MH4702': 'Probabilistic Methods in OR', 'MH4712': 'Geometric Methods in Mathematical Physics',
+    'HE3002': 'Macroeconomics III', 'HW0218': 'Communication Across the Sciences', 'MH7002': 'Discrete Methods',
+    'HE3003': 'Econometrics II', 'PS0002': 'Introduction to Data Science and Artificial Intelligence'
 };
 
-// GitHub API base config
-const GITHUB_API_BASE = 'https://api.github.com/repos/yuhesui/QRSNTU/contents/Notes';
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes';
+let allCourses = [], filteredCourses = [], selectedCourses = new Set();
+let filterState = { examType: 'all', showSelectedOnly: false };
 
-let allCourses = [];
-
-let filterState = {
-    examType: 'all', // 'all', 'finals', 'midterms'
-    selectedCourses: new Set(), // Empty = all selected
-    hasPapers: true,
-    hasSolutions: true,
-    hasNotes: true
-};
-
-// Helper: Extract academic year (e.g. "23-24") from filename
-function extractAcademicYear(name) {
-    const match = name.match(/_(\d{2}-\d{2})_/);
-    return match ? match[1] : null;
-}
-
-// Helper: Extract exam type ("Finals", "Midterm") from filename
-function extractExamType(name) {
-    if (name.includes('_Finals_')) return 'Finals';
-    if (name.includes('_Midterm_')) return 'Midterm';
-    return '';
-}
-
-// Helper: Extract material type (QuestionPaper, Solution, Exam Report) and modifier
-function extractMaterialType(name) {
-    if (name.includes('QuestionPaper')) return 'QuestionPaper';
-    if (name.includes("Examiner's Report")) return 'ExaminerReport';
-    if (name.includes('Solution')) {
-        if (name.includes('by QRS')) return 'SolutionByQRS';
-        if (name.includes('Unofficial')) return 'SolutionUnofficial';
-        if (name.includes('Handwritten')) return 'SolutionHandwritten';
-        return 'SolutionOfficial'; // no modifier
-    }
-    return '';
-}
-
-// Helper: Is it a revision note?
-function isRevisionNote(name) {
-    return name.includes('RevisionNotes');
-}
-
-// Helper: Is it past year zip file? (same name as folder, .zip)
-function isPastYearZip(name, folderName) {
-    // Compare with folder name, replacing spaces with %20 for GitHub encoding
-    let folderMatch = folderName.replace(/ /g, '%20');
-    let baseName = name.replace('.zip', '');
-    return folderMatch === baseName;
-}
-
-// Main parser: Recursively parses course folders
-async function parseMaterials(contents, courseCode) {
-    let finals = {}, midterms = {};
-    let revisionNotes = [];
-    let pastYearZips = [];
-
-    for (const item of contents) {
-        // Direct file in course root
-        if (item.type === 'file') {
-            if (isRevisionNote(item.name)) {
-                revisionNotes.push(item);
-            }
-            // Could be zip (past year)
-            if (item.name.endsWith('.zip')) {
-                pastYearZips.push(item);
-            }
-        }
-        // Exam folders (e.g., "MH1200 - Linear Algebra I - Finals")
-        else if (item.type === 'dir') {
-            let examType = item.name.includes('Finals') ? 'Finals'
-                : item.name.includes('Midterm') ? 'Midterm'
-                    : '';
-
-            // Fetch folder contents
-            const folderRes = await fetch(item.url);
-            const folderFiles = await folderRes.json();
-
-            // Check for ZIP file matching folder name
-            folderFiles.forEach(f => {
-                if (f.name.endsWith('.zip') && isPastYearZip(f.name, item.name)) {
-                    pastYearZips.push(f);
-                }
-            });
-
-            // Parse all PDF files inside
-            folderFiles.forEach(f => {
-                if (!f.name.endsWith('.pdf')) return;
-                let year = extractAcademicYear(f.name);
-                let materialType = extractMaterialType(f.name);
-
-                if (!year) return;
-                if (examType === 'Finals') {
-                    if (!finals[year]) finals[year] = { papers: [], solutions: [], reports: [] };
-                    if (materialType === 'QuestionPaper') finals[year].papers.push(f);
-                    else if (materialType.startsWith('Solution')) finals[year].solutions.push(f);
-                    else if (materialType === 'ExaminerReport') finals[year].reports.push(f);
-                } else if (examType === 'Midterm') {
-                    if (!midterms[year]) midterms[year] = { papers: [], solutions: [], reports: [] };
-                    if (materialType === 'QuestionPaper') midterms[year].papers.push(f);
-                    else if (materialType.startsWith('Solution')) midterms[year].solutions.push(f);
-                }
-            });
-        }
-    }
-
-    return {
-        finals,
-        midterms,
-        revisionNotes,
-        pastYearZips
-    };
-}
-
-// Initialize page logic
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
     await loadCourses();
     setupSearch();
+    setupFilters();
     handleURLParams();
 });
 
-// Replace the entire loadCourses function with this:
 async function loadCourses() {
     const loadingState = document.getElementById('loading-state');
     try {
-        // Load from pre-generated JSON instead of GitHub API
         const response = await fetch('courses.json');
-        if (!response.ok) {
-            throw new Error(`Failed to load courses data: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`Failed to load courses data: ${response.status}`);
         const data = await response.json();
         allCourses = data.courses;
-
+        filteredCourses = [...allCourses];
         loadingState.classList.add('hidden');
-        renderCourses(allCourses);
-        updateResultsCount(allCourses.length, allCourses.length);
-
-        // Show when data was last updated
+        renderCourses(filteredCourses);
+        updateResultsCount(filteredCourses.length, allCourses.length);
         if (data.generatedAt) {
             const updateTime = new Date(data.generatedAt).toLocaleString();
-            const resultsCount = document.getElementById('results-count');
-            resultsCount.innerHTML += ` <span class="text-gray-400">(Updated: ${updateTime})</span>`;
+            document.getElementById('results-count').innerHTML += ` <span class="text-gray-500 text-sm">(Updated: ${updateTime})</span>`;
         }
-        // NEW: Setup filters after courses load
-        setupFilters();
     } catch (error) {
         console.error('Error loading courses:', error);
-        loadingState.innerHTML = `
-            <i data-lucide="alert-circle" class="h-12 w-12 text-red-500 mx-auto mb-4"></i>
-            <p class="text-red-600">Failed to load courses</p>
-            <p class="text-sm text-gray-600 mt-2">${error.message}</p>
-        `;
+        loadingState.innerHTML = `<div class="text-center py-12"><i data-lucide="alert-circle" class="w-12 h-12 mx-auto mb-4 text-red-500"></i><p class="text-lg font-medium text-gray-900">Failed to load courses</p><p class="text-gray-600 mt-2">${error.message}</p></div>`;
         lucide.createIcons();
     }
 }
 
+function setupFilters() {
+    document.querySelectorAll('[data-filter-type]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterType = btn.getAttribute('data-filter-type');
+            document.querySelectorAll('[data-filter-type]').forEach(b => {
+                b.classList.remove('active', 'bg-blue-600', 'text-white');
+                b.classList.add('bg-white', 'text-gray-700');
+            });
+            btn.classList.remove('bg-white', 'text-gray-700');
+            btn.classList.add('active', 'bg-blue-600', 'text-white');
+            filterState.examType = filterType;
+            applyFilters();
+        });
+    });
 
-// Render UI for all courses
+    const showSelectedBtn = document.getElementById('show-selected-btn');
+    if (showSelectedBtn) {
+        showSelectedBtn.addEventListener('click', () => {
+            filterState.showSelectedOnly = !filterState.showSelectedOnly;
+            updateShowSelectedButton();
+            applyFilters();
+        });
+    }
+
+    const clearSelectedBtn = document.getElementById('clear-selected-btn');
+    if (clearSelectedBtn) {
+        clearSelectedBtn.addEventListener('click', () => {
+            selectedCourses.clear();
+            filterState.showSelectedOnly = false;
+            updateShowSelectedButton();
+            applyFilters();
+        });
+    }
+}
+
+function updateShowSelectedButton() {
+    const btn = document.getElementById('show-selected-btn');
+    if (btn) {
+        if (filterState.showSelectedOnly) {
+            btn.classList.add('bg-green-600', 'text-white');
+            btn.classList.remove('bg-white', 'text-gray-700');
+            btn.textContent = `Selected (${selectedCourses.size})`;
+        } else {
+            btn.classList.remove('bg-green-600', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-700');
+            btn.textContent = selectedCourses.size > 0 ? `Show Selected (${selectedCourses.size})` : 'Show Selected';
+        }
+    }
+}
+
+function applyFilters() {
+    filteredCourses = allCourses.filter(course => {
+        if (filterState.showSelectedOnly && !selectedCourses.has(course.code)) return false;
+        if (filterState.examType !== 'all') {
+            const examKey = filterState.examType === 'finals' ? 'finals' : 'midterms';
+            if (Object.keys(course.materials[examKey]).length === 0) return false;
+        }
+        return true;
+    });
+    renderCourses(filteredCourses);
+    updateResultsCount(filteredCourses.length, allCourses.length);
+}
+
+function setupSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            filteredCourses = query === '' ? [...allCourses] : allCourses.filter(course =>
+                course.code.toLowerCase().includes(query) || course.name.toLowerCase().includes(query)
+            );
+            applyFilters();
+        });
+    }
+}
+
+function toggleCourseSelection(courseCode) {
+    selectedCourses.has(courseCode) ? selectedCourses.delete(courseCode) : selectedCourses.add(courseCode);
+    updateShowSelectedButton();
+    renderCourses(filteredCourses);
+}
+
 function renderCourses(courses) {
-    const container = document.getElementById('courses-container');
-    const noResults = document.getElementById('no-results');
+    const container = document.getElementById('courses-container'), noResults = document.getElementById('no-results');
     if (courses.length === 0) {
         container.innerHTML = '';
         noResults.classList.remove('hidden');
@@ -248,399 +153,125 @@ function renderCourses(courses) {
     noResults.classList.add('hidden');
     container.innerHTML = courses.map(course => createCourseCard(course)).join('');
     lucide.createIcons();
+    document.querySelectorAll('.course-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target.closest('a')) return;
+            toggleCourseSelection(card.dataset.courseCode);
+        });
+    });
 }
 
-// Create UI card for a course, aggregating years/types, clickable links for zip & revision notes
 function createCourseCard(course) {
-    let finalsYears = Object.keys(course.materials.finals).sort().reverse();
-    let midtermsYears = Object.keys(course.materials.midterms).sort().reverse();
+    const isSelected = selectedCourses.has(course.code);
+    const selectedClass = isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200';
+    const finalsYears = Object.keys(course.materials.finals).sort().reverse();
+    const midtermsYears = Object.keys(course.materials.midterms).sort().reverse();
+    const finalsZips = course.materials.pastYearZips.filter(z => z.name.toLowerCase().includes('final'));
+    const midtermsZips = course.materials.pastYearZips.filter(z => z.name.toLowerCase().includes('midterm'));
+    const otherZips = course.materials.pastYearZips.filter(z => !z.name.toLowerCase().includes('final') && !z.name.toLowerCase().includes('midterm'));
 
     let badges = [];
-    if (finalsYears.length > 0) badges.push('Finals');
-    if (midtermsYears.length > 0) badges.push('Midterms');
-    if (course.materials.revisionNotes.length > 0) badges.push('Notes');
-    if (course.materials.pastYearZips.length > 0) badges.push('ZIP');
+    if (finalsYears.length > 0) badges.push('<span class="material-badge bg-blue-100 text-blue-800">Finals</span>');
+    if (midtermsYears.length > 0) badges.push('<span class="material-badge bg-purple-100 text-purple-800">Midterms</span>');
+    if (course.materials.revisionNotes.length > 0) badges.push('<span class="material-badge bg-green-100 text-green-800">Notes</span>');
 
     let sectionHtml = '';
-    if (finalsYears.length > 0) {
-        sectionHtml += `<div class="mb-3">
-            <h4 class="font-semibold text-sm text-gray-700 mb-1 flex items-center">
-                <i data-lucide="file-text" class="h-4 w-4 mr-2"></i> Finals
-                ${course.materials.pastYearZips.length > 0
-                ? course.materials.pastYearZips.filter(zip => zip.name.includes('Finals')).map(zip =>
-                    `<a href="${zip.html_url}" target="_blank" class="ml-2 btn-view-materials px-2 py-1" download>
-                        <i data-lucide="archive" class="inline h-4 w-4 mr-1"></i>Download ZIP</a>`
-                ).join('') : ''
-            }
-            </h4>
-            <div class="text-xs text-gray-600 space-y-1 pl-5">` +
-            finalsYears.map(year => {
-                let y = course.materials.finals[year];
-                let hasPaper = y.papers.length > 0;
-                let hasSolution = y.solutions.length > 0;
-                let hasReport = y.reports.length > 0;
-                return `<div class="flex items-center">
-                    <span class="font-medium">${year}:</span>
-                    ${hasPaper ? '<span class="ml-2 text-green-600">✓ Paper</span>' : ''}
-                    ${hasSolution ? '<span class="ml-2 text-blue-600">✓ Solution</span>' : ''}
-                    ${hasReport ? '<span class="ml-2 text-purple-600">✓ Report</span>' : ''}
-                </div>`;
-            }).join('') +
-            `</div>
-        </div>`;
-    }
-    if (midtermsYears.length > 0) {
-        sectionHtml += `<div class="mb-3">
-            <h4 class="font-semibold text-sm text-gray-700 mb-1 flex items-center">
-                <i data-lucide="file-edit" class="h-4 w-4 mr-2"></i> Midterms
-                ${course.materials.pastYearZips.length > 0
-                ? course.materials.pastYearZips.filter(zip => zip.name.includes('Midterm')).map(zip =>
-                    `<a href="${zip.html_url}" target="_blank" class="ml-2 btn-view-materials px-2 py-1" download>
-                        <i data-lucide="archive" class="inline h-4 w-4 mr-1"></i>Download ZIP</a>`
-                ).join('') : ''
-            }
-            </h4>
-            <div class="text-xs text-gray-600 space-y-1 pl-5">` +
-            midtermsYears.map(year => {
-                let y = course.materials.midterms[year];
-                let hasPaper = y.papers.length > 0;
-                let hasSolution = y.solutions.length > 0;
-                return `<div class="flex items-center">
-                    <span class="font-medium">${year}:</span>
-                    ${hasPaper ? '<span class="ml-2 text-green-600">✓ Paper</span>' : ''}
-                    ${hasSolution ? '<span class="ml-2 text-blue-600">✓ Solution</span>' : ''}
-                </div>`;
-            }).join('') +
-            `</div>
-        </div>`;
+
+    // Finals
+    if ((filterState.examType === 'all' || filterState.examType === 'finals') && finalsYears.length > 0) {
+        sectionHtml += '<div class="mb-4"><h4 class="text-sm font-bold text-gray-900 flex items-center gap-2 mb-2"><i data-lucide="file-text" class="w-4 h-4 text-blue-600"></i><span>Finals</span>';
+        finalsZips.forEach(zip => {
+            sectionHtml += `<a href="${zip.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-yellow-600 text-white text-xs font-medium rounded hover:bg-yellow-700 transition-colors"><i data-lucide="archive" class="w-3 h-3 mr-1"></i>ZIP</a>`;
+        });
+        sectionHtml += '</h4>';
+        finalsYears.forEach(year => {
+            const materials = course.materials.finals[year];
+            const officialSols = materials.solutions.filter(s => !s.name.includes('by QRS') && !s.name.includes('Unofficial'));
+            const qrsSols = materials.solutions.filter(s => s.name.includes('by QRS'));
+            const unofficialSols = materials.solutions.filter(s => s.name.includes('Unofficial'));
+            const sortedSolutions = [...officialSols, ...qrsSols, ...unofficialSols];
+            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2">AY ${year}:</span>`;
+            materials.papers.forEach(paper => {
+                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
+            });
+            sortedSolutions.forEach(solution => {
+                const isQRS = solution.name.includes('by QRS'), isUnofficial = solution.name.includes('Unofficial');
+                const colorClass = isQRS ? 'bg-green-600 hover:bg-green-700' : isUnofficial ? 'bg-gray-600 hover:bg-gray-700' : 'bg-purple-600 hover:bg-purple-700';
+                const label = isQRS ? 'Solution (QRS)' : isUnofficial ? 'Solution (Other)' : 'Solution';
+                sectionHtml += `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-white text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
+            });
+            materials.reports.forEach(report => {
+                sectionHtml += `<a href="${report.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-gray-600 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Report</a>`;
+            });
+            sectionHtml += '</div>';
+        });
+        sectionHtml += '</div>';
     }
 
-    // Revision Notes
-    let noteHtml = '';
-    if (course.materials.revisionNotes.length) {
-        noteHtml = course.materials.revisionNotes.map(note =>
-            `<div class="mb-2">
-                <a href="${note.html_url}" target="_blank" class="btn-view-materials" download>
-                    <i data-lucide="book-open" class="h-4 w-4 mr-2"></i>
-                    Download Revision Note
-                </a>
-            </div>`).join('');
+    // Midterms
+    if ((filterState.examType === 'all' || filterState.examType === 'midterms') && midtermsYears.length > 0) {
+        sectionHtml += '<div class="mb-4"><h4 class="text-sm font-bold text-gray-900 flex items-center gap-2 mb-2"><i data-lucide="file-text" class="w-4 h-4 text-purple-600"></i><span>Midterms</span>';
+        midtermsZips.forEach(zip => {
+            sectionHtml += `<a href="${zip.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-yellow-600 text-white text-xs font-medium rounded hover:bg-yellow-700 transition-colors"><i data-lucide="archive" class="w-3 h-3 mr-1"></i>ZIP</a>`;
+        });
+        sectionHtml += '</h4>';
+        midtermsYears.forEach(year => {
+            const materials = course.materials.midterms[year];
+            const officialSols = materials.solutions.filter(s => !s.name.includes('by QRS') && !s.name.includes('Unofficial'));
+            const qrsSols = materials.solutions.filter(s => s.name.includes('by QRS'));
+            const unofficialSols = materials.solutions.filter(s => s.name.includes('Unofficial'));
+            const sortedSolutions = [...officialSols, ...qrsSols, ...unofficialSols];
+            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2">AY ${year}:</span>`;
+            materials.papers.forEach(paper => {
+                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
+            });
+            sortedSolutions.forEach(solution => {
+                const isQRS = solution.name.includes('by QRS'), isUnofficial = solution.name.includes('Unofficial');
+                const colorClass = isQRS ? 'bg-green-600 hover:bg-green-700' : isUnofficial ? 'bg-gray-600 hover:bg-gray-700' : 'bg-purple-600 hover:bg-purple-700';
+                const label = isQRS ? 'Solution (QRS)' : isUnofficial ? 'Solution (Other)' : 'Solution';
+                sectionHtml += `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-white text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
+            });
+            sectionHtml += '</div>';
+        });
+        sectionHtml += '</div>';
     }
 
-    return `<div class="course-card bg-white border-2 border-gray-200 rounded-lg p-6 hover:border-blue-500 transition-all duration-300 hover:shadow-lg">
-        <div class="flex justify-between items-start mb-4">
-            <div class="flex-1">
-                <h3 class="text-xl font-bold text-gray-900 font-serif">${course.code}</h3>
-                <p class="text-gray-600 mt-1 text-sm">${course.name}</p>
-            </div>
-            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap ml-2">
-                ${badges.join(', ')}
-            </span>
-        </div>
-        <div class="flex flex-wrap gap-2 mb-4">
-            ${badges.map(badge => `<span class="material-badge">${badge}</span>`).join('')}
-        </div>
-        <div class="space-y-2 mb-4">
-            ${sectionHtml}
-            ${noteHtml}
-        </div>
-        <div class="flex gap-2">
-            <a href="${course.githubUrl}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex-1 btn-view-materials">
-                <i data-lucide="folder-open" class="h-4 w-4 mr-2 inline"></i>
-                View Folder
-            </a>
-        </div>
-    </div>`;
+    // Revision Notes - ALWAYS SHOW
+    if (course.materials.revisionNotes.length > 0) {
+        sectionHtml += '<div class="mb-3"><h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center"><i data-lucide="book-open" class="w-4 h-4 mr-1 text-green-600"></i>Revision Notes</h4><div class="flex flex-wrap gap-2">';
+        course.materials.revisionNotes.forEach(note => {
+            sectionHtml += `<a href="${note.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Revision Notes</a>`;
+        });
+        sectionHtml += '</div></div>';
+    }
+
+
+
+    // Other Archives
+    if (otherZips.length > 0) {
+        sectionHtml += '<div class="mb-3"><h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center"><i data-lucide="archive" class="w-4 h-4 mr-1 text-yellow-600"></i>Archives</h4><div class="flex flex-wrap gap-2">';
+        otherZips.forEach(zip => {
+            sectionHtml += `<a href="${zip.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-3 py-1.5 bg-yellow-600 text-white text-xs font-medium rounded hover:bg-yellow-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${zip.name}</a>`;
+        });
+        sectionHtml += '</div></div>';
+    }
+
+    return `<div class="course-card bg-white rounded-lg border-2 ${selectedClass} p-4 hover:border-blue-500 transition-all duration-200 hover:shadow-md cursor-pointer" data-course-code="${course.code}"><div class="flex items-start justify-between mb-3"><div class="flex-1"><h3 class="text-lg font-bold text-gray-900 mb-1">${course.code}</h3><p class="text-sm text-gray-700 mb-2">${course.name}</p><div class="flex flex-wrap gap-1 mb-2">${badges.join('')}</div></div><a href="${course.githubUrl}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded hover:bg-gray-200 transition-colors flex-shrink-0"><i data-lucide="folder" class="w-3 h-3 mr-1"></i>Folder</a></div>${sectionHtml}</div>`;
 }
-
-// Search/filter logic
-function setupSearch() {
-    const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('input', applyFilters);
-}
-
 
 function updateResultsCount(showing, total) {
-    const resultsCount = document.getElementById('results-count');
-    if (showing === total) {
-        resultsCount.textContent = `Showing all ${total} course${total !== 1 ? 's' : ''}`;
-    } else {
-        resultsCount.textContent = `Showing ${showing} of ${total} course${total !== 1 ? 's' : ''}`;
-    }
+    const element = document.getElementById('results-count');
+    if (element) element.innerHTML = `Showing ${showing} of ${total} courses`;
 }
 
 function handleURLParams() {
     const params = new URLSearchParams(window.location.search);
-    const courseParam = params.get('course');
-    const searchParam = params.get('search');
-    if (courseParam || searchParam) {
+    const course = params.get('course');
+    if (course) {
         const searchInput = document.getElementById('search-input');
-        searchInput.value = courseParam || searchParam;
-        searchInput.dispatchEvent(new Event('input'));
-        setTimeout(() => {
-            document.getElementById('courses-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 500);
-    }
-}
-
-// Setup filters after courses load
-function setupFilters() {
-    setupExamTypeFilters();
-    setupCourseDropdown();
-    setupMaterialFilters();
-    setupClearFilters();
-}
-
-// Exam type toggle buttons
-function setupExamTypeFilters() {
-    const buttons = {
-        'filter-all': 'all',
-        'filter-finals': 'finals',
-        'filter-midterms': 'midterms'
-    };
-
-    Object.keys(buttons).forEach(btnId => {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-
-        btn.addEventListener('click', function() {
-            filterState.examType = buttons[btnId];
-
-            // Update button styles
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('active', 'bg-blue-500', 'text-white', 'border-blue-500');
-                b.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
-            });
-            this.classList.add('active', 'bg-blue-500', 'text-white', 'border-blue-500');
-            this.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
-
-            applyFilters();
-        });
-    });
-}
-
-// Course dropdown with checkboxes
-function setupCourseDropdown() {
-    const dropdownBtn = document.getElementById('course-dropdown-btn');
-    const dropdownMenu = document.getElementById('course-dropdown-menu');
-    const checkboxContainer = document.getElementById('course-checkboxes');
-
-    if (!dropdownBtn || !dropdownMenu || !checkboxContainer) return;
-
-    // Generate checkboxes for all courses
-    allCourses.forEach(course => {
-        const label = document.createElement('label');
-        label.className = 'flex items-center px-2 py-1.5 hover:bg-gray-50 cursor-pointer rounded text-xs';
-        label.innerHTML = `
-            <input type="checkbox" value="${course.code}" class="course-checkbox w-3.5 h-3.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
-            <span class="ml-2 text-xs text-gray-700"><strong>${course.code}</strong> - ${course.name}</span>
-        `;
-        checkboxContainer.appendChild(label);
-    });
-
-    // Toggle dropdown
-    dropdownBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('hidden');
-        lucide.createIcons();
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.classList.add('hidden');
+        if (searchInput) {
+            searchInput.value = course;
+            searchInput.dispatchEvent(new Event('input'));
         }
-    });
-
-    // Handle checkbox changes
-    document.querySelectorAll('.course-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', updateCourseFilter);
-    });
-
-    // Select/Clear all buttons
-    const selectAllBtn = document.getElementById('select-all-courses');
-    const clearAllBtn = document.getElementById('clear-all-courses');
-
-    if (selectAllBtn) {
-        selectAllBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = true);
-            updateCourseFilter();
-        });
-    }
-
-    if (clearAllBtn) {
-        clearAllBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = false);
-            updateCourseFilter();
-        });
-    }
-}
-
-function updateCourseFilter() {
-    const checkboxes = document.querySelectorAll('.course-checkbox');
-    const checked = Array.from(checkboxes).filter(cb => cb.checked);
-
-    // Update filter state
-    if (checked.length === checkboxes.length || checked.length === 0) {
-        filterState.selectedCourses.clear(); // All or none selected = no filter
-    } else {
-        filterState.selectedCourses = new Set(checked.map(cb => cb.value));
-    }
-
-    // Update button text
-    const text = document.getElementById('selected-courses-text');
-    if (text) {
-        if (filterState.selectedCourses.size === 0 || checked.length === checkboxes.length) {
-            text.textContent = 'All Courses';
-        } else if (filterState.selectedCourses.size === 1) {
-            text.textContent = Array.from(filterState.selectedCourses)[0];
-        } else {
-            text.textContent = `${filterState.selectedCourses.size} Selected`;
-        }
-    }
-
-    applyFilters();
-}
-
-// Material type checkboxes
-function setupMaterialFilters() {
-    const papersCheckbox = document.getElementById('filter-has-papers');
-    const solutionsCheckbox = document.getElementById('filter-has-solutions');
-    const notesCheckbox = document.getElementById('filter-has-notes');
-
-    if (papersCheckbox) {
-        papersCheckbox.addEventListener('change', function() {
-            filterState.hasPapers = this.checked;
-            applyFilters();
-        });
-    }
-
-    if (solutionsCheckbox) {
-        solutionsCheckbox.addEventListener('change', function() {
-            filterState.hasSolutions = this.checked;
-            applyFilters();
-        });
-    }
-
-    if (notesCheckbox) {
-        notesCheckbox.addEventListener('change', function() {
-            filterState.hasNotes = this.checked;
-            applyFilters();
-        });
-    }
-}
-
-// Clear all filters
-function setupClearFilters() {
-    const clearBtn = document.getElementById('clear-all-filters');
-    if (!clearBtn) return;
-
-    clearBtn.addEventListener('click', () => {
-        // Reset to defaults
-        filterState.examType = 'all';
-        filterState.selectedCourses.clear();
-        filterState.hasPapers = true;
-        filterState.hasSolutions = true;
-        filterState.hasNotes = true;
-
-        // Reset UI
-        const allBtn = document.getElementById('filter-all');
-        if (allBtn) allBtn.click();
-
-        document.querySelectorAll('.course-checkbox').forEach(cb => cb.checked = true);
-        document.querySelectorAll('.material-filter').forEach(cb => cb.checked = true);
-
-        // Clear search
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) searchInput.value = '';
-
-        updateCourseFilter();
-    });
-}
-
-// Apply all filters
-function applyFilters() {
-    const searchInput = document.getElementById('search-input');
-    const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-    let filtered = allCourses.filter(course => {
-        // Text search filter
-        const matchesSearch = searchQuery === '' ||
-            course.code.toLowerCase().includes(searchQuery) ||
-            course.name.toLowerCase().includes(searchQuery);
-
-        if (!matchesSearch) return false;
-
-        // Course selection filter
-        if (filterState.selectedCourses.size > 0 && !filterState.selectedCourses.has(course.code)) {
-            return false;
-        }
-
-        // Exam type filter
-        const hasFinals = Object.keys(course.materials.finals).length > 0;
-        const hasMidterms = Object.keys(course.materials.midterms).length > 0;
-
-        if (filterState.examType === 'finals' && !hasFinals) return false;
-        if (filterState.examType === 'midterms' && !hasMidterms) return false;
-
-        // Material type filter - if none checked, show nothing
-        if (!filterState.hasPapers && !filterState.hasSolutions && !filterState.hasNotes) {
-            return false;
-        }
-
-        // Check if course has any of the requested materials
-        const hasAnyPapers = hasFinals || hasMidterms;
-        const hasAnySolutions = Object.values(course.materials.finals).some(y => y.solutions.length > 0) ||
-            Object.values(course.materials.midterms).some(y => y.solutions.length > 0);
-        const hasRevisionNotes = course.materials.revisionNotes.length > 0;
-
-        let matchesMaterial = false;
-        if (filterState.hasPapers && hasAnyPapers) matchesMaterial = true;
-        if (filterState.hasSolutions && hasAnySolutions) matchesMaterial = true;
-        if (filterState.hasNotes && hasRevisionNotes) matchesMaterial = true;
-
-        return matchesMaterial;
-    });
-
-    renderCourses(filtered);
-    updateResultsCount(filtered.length, allCourses.length);
-    updateActiveFiltersDisplay();
-}
-
-// Show active filter tags
-function updateActiveFiltersDisplay() {
-    const container = document.getElementById('active-filters');
-    const tagsContainer = document.getElementById('filter-tags');
-
-    if (!container || !tagsContainer) return;
-
-    const tags = [];
-
-    if (filterState.examType !== 'all') {
-        tags.push(filterState.examType === 'finals' ? 'Finals Only' : 'Midterms Only');
-    }
-
-    if (filterState.selectedCourses.size > 0) {
-        tags.push(`${filterState.selectedCourses.size} course${filterState.selectedCourses.size > 1 ? 's' : ''}`);
-    }
-
-    const materialFilters = [];
-    if (!filterState.hasPapers) materialFilters.push('No Papers');
-    if (!filterState.hasSolutions) materialFilters.push('No Solutions');
-    if (!filterState.hasNotes) materialFilters.push('No Notes');
-    if (materialFilters.length > 0) tags.push(...materialFilters);
-
-    if (tags.length === 0) {
-        container.classList.add('hidden');
-    } else {
-        container.classList.remove('hidden');
-        tagsContainer.innerHTML = tags.map(tag =>
-            `<span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">${tag}</span>`
-        ).join('');
     }
 }
