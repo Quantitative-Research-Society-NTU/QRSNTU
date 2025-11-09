@@ -248,7 +248,7 @@ function renderCourses(courses) {
     noResults.classList.add('hidden');
     container.innerHTML = courses.map(course => createCourseCard(course)).join('');
     lucide.createIcons();
-
+    
     document.querySelectorAll('.course-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' || e.target.closest('a')) return;
@@ -256,7 +256,7 @@ function renderCourses(courses) {
             toggleCourseSelection(card.dataset.courseCode);
         });
     });
-
+    
     document.querySelectorAll('[data-toggle-section]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -285,12 +285,12 @@ function createCourseCard(course) {
     const selectedClass = isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200';
     const finalsYears = Object.keys(course.materials.finals || {}).sort().reverse();
     const midtermsYears = Object.keys(course.materials.midterms || {}).sort().reverse();
-
-    const problemSheetsYear = course.materials.problemSheets && course.materials.problemSheets.length > 0
+    
+    const problemSheetsYear = course.materials.problemSheets && course.materials.problemSheets.length > 0 
         ? extractYearFromPath(course.materials.problemSheets[0].path) : null;
-    const lectureNotesYear = course.materials.lectureNotes && course.materials.lectureNotes.length > 0
+    const lectureNotesYear = course.materials.lectureNotes && course.materials.lectureNotes.length > 0 
         ? extractYearFromPath(course.materials.lectureNotes[0].path) : null;
-
+    
     const finalsZips = (course.materials.pastYearZips || []).filter(z => z.name.toLowerCase().includes('final'));
     const midtermsZips = (course.materials.pastYearZips || []).filter(z => z.name.toLowerCase().includes('midterm'));
     const otherZips = (course.materials.pastYearZips || []).filter(z => !z.name.toLowerCase().includes('final') && !z.name.toLowerCase().includes('midterm'));
