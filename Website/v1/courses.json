@@ -145,6 +145,9 @@
           }
         },
         "revisionNotes": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": [],
         "pastYearZips": [
           {
             "name": "MH1100 - Calculus I - Midterm.zip",
@@ -350,6 +353,9 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200_LinearAlgebraI_RevisionNotes.pdf"
           }
         ],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": [],
         "pastYearZips": [
           {
             "name": "MH1200 - Linear Algebra I - Finals.zip",
@@ -697,6 +703,9 @@
           }
         },
         "revisionNotes": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": [],
         "pastYearZips": [
           {
             "name": "MH1300 - Foundations of Mathematics - Midterm.zip",
@@ -708,15 +717,104 @@
     },
     {
       "code": "MH5100",
-      "name": "Unknown Course",
+      "name": "Advanced Investigations in Calculus I",
       "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH5100",
       "materials": {
         "finals": {},
         "midterms": {},
         "revisionNotes": [],
+        "problemSheets": [
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%2010_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%2010_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 11_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 11_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%2011_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%202_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%202_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%203_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%203_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution - Copy.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution - Copy.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%204_Solution%20-%20Copy.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%204_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%205_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%205_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%206_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%206_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%208_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%208_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%209_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%209_Solution.pdf"
+          }
+        ],
+        "lectureNotes": [],
+        "practiceMaterials": [],
         "pastYearZips": []
       }
     }
   ],
-  "generatedAt": "2025-11-09T11:32:19.423Z"
+  "generatedAt": "2025-11-09T12:02:45.161Z"
 }
