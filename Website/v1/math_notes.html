@@ -4,137 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Notes | QRS@NTU</title>
-
+    
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Auto-timestamp for CSS to prevent cache issues -->
+    <script>
+        document.write('<link rel="stylesheet" href="style.css?v=' + Date.now() + '">');
+    </script>
+    
     <link rel="icon" href="../Files/logo-v1.png" type="image/png">
 </head>
 <body class="bg-white text-gray-800 font-body antialiased">
 
-<div id="root">
-    <header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="https://r2.flowith.net/files/o/1757477311492-qrsntu_quantitative_research_society_logo_index_0@1024x1024.png" alt="QRS@NTU Logo" class="h-10 w-10 rounded-md">
-                <span class="font-serif font-bold text-xl text-white">QRS@NTU</span>
-            </a>
-
-            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-100">
-                <i data-lucide="menu" class="h-6 w-6 text-gray-800"></i>
-            </button>
-
-            <div id="mobile-menu" class="hidden md:flex w-full md:w-auto items-center mt-4 md:mt-0">
-                <div class="flex flex-col md:flex-row md:items-center w-full space-y-3 md:space-y-0 md:space-x-4 lg:space-x-5 text-sm">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="about.html" class="nav-link">About</a>
-                    <a href="research.html" class="nav-link">Research</a>
-                    <a href="math_notes.html" class="nav-link">Math Notes</a>
-                    <a href="publications.html" class="nav-link">Publications</a>
-                    <a href="events_learning.html" class="nav-link">Events & Learning</a>
-                    <a href="awards_recognition.html" class="nav-link">Awards & Recognition</a>
-                    <a href="join_us.html" class="nav-link">Join Us</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
+    <div id="root">
+        <header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://r2.flowith.net/files/o/1.757477311492e+12-qrsntu_quantitative_research_society_logo_index_0@1024x1024.png" alt="QRS@NTU Logo" class="h-10 w-10 rounded-md">
+                    <span class="font-serif font-bold text-xl text-white">QRS@NTU</span>
+                </a>
+                
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-100">
+                    <i data-lucide="menu" class="h-6 w-6 text-gray-800"></i>
+                </button>
+                
+                <div id="mobile-menu" class="hidden md:flex w-full md:w-auto items-center mt-4 md:mt-0">
+                    <div class="flex flex-col md:flex-row md:items-center w-full space-y-3 md:space-y-0 md:space-x-4 lg:space-x-5 text-sm">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="research.html" class="nav-link">Research</a>
+                        <a href="events.html" class="nav-link">Events</a>
+                        <a href="math_notes.html" class="nav-link active">Resources</a>
+                        <a href="team.html" class="nav-link">Team</a>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
-    <!-- Main Content -->
-    <main class="pt-32 pb-16">
-        <div class="container mx-auto px-4">
-            <!-- Page Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-5xl font-bold mb-4">Math Notes</h1>
-                <p class="text-xl text-gray-600">
-                    Browse past year papers, solutions, and revision notes
-                </p>
-            </div>
+        <!-- Main Content -->
+        <main class="pt-32 pb-16">
+            <div class="container mx-auto px-4">
+                <!-- Page Header -->
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-bold mb-4">Math Notes</h1>
+                    <p class="text-xl text-gray-600">
+                        Browse past year papers, solutions, and revision notes
+                    </p>
+                </div>
 
-            <!-- Search Bar with Icon -->
-            <div class="max-w-2xl mx-auto mb-6">
-                <div class="relative">
-                    <input
-                            type="text"
-                            id="search-input"
-                            placeholder="Search by course code or name (e.g., MH1200 or Linear Algebra)"
+                <!-- Search Bar with Icon -->
+                <div class="max-w-2xl mx-auto mb-6">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Search by course code or name (e.g., MH1200 or Linear Algebra)" 
                             class="w-full px-5 py-4 pr-12 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                    <i data-lucide="search" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+                        />
+                        <i data-lucide="search" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Compact Single-Line Filter -->
+                <div class="max-w-4xl mx-auto mb-6 flex items-center justify-center gap-2 flex-wrap">
+                    <button data-filter-type="all" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-blue-600 text-white border-blue-600 active">
+                        All
+                    </button>
+                    <button data-filter-type="finals" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-blue-500">
+                        Finals
+                    </button>
+                    <button data-filter-type="midterms" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-blue-500">
+                        Midterms
+                    </button>
+                    <span class="text-gray-300 mx-1">|</span>
+                    <button id="show-selected-btn" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-green-500">
+                        Show Selected
+                    </button>
+                    <button id="clear-selected-btn" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-red-500">
+                        Clear
+                    </button>
+                </div>
+
+                <!-- Results Count -->
+                <div class="text-center mb-6">
+                    <p id="results-count" class="text-gray-600 text-sm"></p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loading-state" class="text-center py-12">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+                    <p class="mt-4 text-gray-600 font-medium">Loading courses from repository...</p>
+                </div>
+
+                <!-- No Results Message -->
+                <div id="no-results" class="hidden text-center py-12 bg-white rounded-lg border-2 border-gray-200">
+                    <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 text-gray-400"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">No courses found</h3>
+                    <p class="text-gray-600">Try adjusting your search or filters</p>
+                </div>
+
+                <!-- Courses Container (3-column grid) -->
+                <div id="courses-container" class="grid gap-4 md:grid-cols-3">
+                    <!-- Course cards will be dynamically inserted here -->
                 </div>
             </div>
+        </main>
 
-            <!-- Compact Single-Line Filter -->
-            <div class="max-w-4xl mx-auto mb-6 flex items-center justify-center gap-2 flex-wrap">
-                <button data-filter-type="all" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-blue-600 text-white border-blue-600 active">
-                    All
-                </button>
-                <button data-filter-type="finals" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-blue-500">
-                    Finals
-                </button>
-                <button data-filter-type="midterms" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-blue-500">
-                    Midterms
-                </button>
-                <span class="text-gray-300 mx-1">|</span>
-                <button id="show-selected-btn" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-green-500">
-                    Show Selected
-                </button>
-                <button id="clear-selected-btn" class="px-3 py-1.5 text-sm font-medium rounded-lg border-2 transition-all bg-white text-gray-700 border-gray-300 hover:border-red-500">
-                    Clear
-                </button>
+        <footer class="bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+                <div class="flex justify-center items-center space-x-6 mb-4">
+                     <a href="https://github.com/qrs-ntu" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
+                        <i data-lucide="github" class="h-6 w-6"></i>
+                    </a>
+                     <a href="https://www.instagram.com/qrsntu/" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
+                        <i data-lucide="instagram" class="h-6 w-6"></i>
+                    </a>
+                     <a href="https://www.linkedin.com/company/quantitative-research-society-ntu/" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
+                        <i data-lucide="linkedin" class="h-6 w-6"></i>
+                    </a>
+                     <a href="mailto:contact@qrsntu.org" class="hover:text-accent-blue transition-colors">
+                        <i data-lucide="mail" class="h-6 w-6"></i>
+                    </a>
+                </div>
+                <p class="font-sans">Contact us at <a href="mailto:contact@qrsntu.org" class="font-medium text-gray-600 hover:text-accent-blue transition-colors">contact@qrsntu.org</a></p>
+                <p class="mt-4 text-sm font-sans">&copy; 2025 QRS@NTU. All Rights Reserved.</p>
             </div>
-
-            <!-- Results Count -->
-            <div class="text-center mb-6">
-                <p id="results-count" class="text-gray-600 text-sm"></p>
-            </div>
-
-            <!-- Loading State -->
-            <div id="loading-state" class="text-center py-12">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
-                <p class="mt-4 text-gray-600 font-medium">Loading courses from repository...</p>
-            </div>
-
-            <!-- No Results Message -->
-            <div id="no-results" class="hidden text-center py-12 bg-white rounded-lg border-2 border-gray-200">
-                <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 text-gray-400"></i>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">No courses found</h3>
-                <p class="text-gray-600">Try adjusting your search or filters</p>
-            </div>
-
-            <!-- Courses Container (3-column grid) -->
-            <div id="courses-container" class="grid gap-4 md:grid-cols-3">
-                <!-- Course cards will be dynamically inserted here -->
-            </div>
-        </div>
-    </main>
-
-    <footer class="bg-gray-50 border-t border-gray-200">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
-            <div class="flex justify-center items-center space-x-6 mb-4">
-                <a href="https://github.com/qrs-ntu" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="github" class="h-6 w-6"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/quantitative-research-society-ntu/" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="linkedin" class="h-6 w-6"></i>
-                </a>
-                <a href="mailto:contact@qrsntu.org" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="mail" class="h-6 w-6"></i>
-                </a>
-            </div>
-            <p class="font-sans">Contact us at <a href="mailto:contact@qrsntu.org" class="font-medium text-gray-600 hover:text-accent-blue transition-colors">contact@qrsntu.org</a></p>
-            <p class="mt-4 text-sm font-sans">&copy; 2025 QRS@NTU. All Rights Reserved.</p>
-        </div>
-    </footer>
-</div>
-
-<script type="module" src="https://esm.run/framer-motion"></script>
-<script type="module" src="script.js"></script>
-<script type="module" src="math_notes.js"></script>
+        </footer>
+    </div>
+    
+    <script type="module" src="https://esm.run/framer-motion"></script>
+    
+    <!-- Auto-timestamp for JavaScript files to prevent cache issues -->
+    <script>
+        const timestamp = Date.now();
+        
+        // Load script.js with timestamp
+        const script1 = document.createElement('script');
+        script1.type = 'module';
+        script1.src = 'script.js?v=' + timestamp;
+        document.body.appendChild(script1);
+        
+        // Load math_notes_final.js with timestamp
+        const script2 = document.createElement('script');
+        script2.type = 'module';
+        script2.src = 'math_notes_final.js?v=' + timestamp;
+        document.body.appendChild(script2);
+    </script>
 </body>
 </html>
