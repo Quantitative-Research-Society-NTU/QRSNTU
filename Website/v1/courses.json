@@ -5,7 +5,166 @@
       "name": "Calculus I",
       "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1100",
       "materials": {
-        "finals": {},
+        "finals": {
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "20-21": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100%20-%20Calculus%20I%20-%20Finals/MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
         "midterms": {
           "17-18": {
             "papers": [
@@ -771,6 +930,11 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%204_QuestionPaper.pdf"
           },
           {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution - Copy.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution - Copy.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%204_Solution%20-%20Copy.pdf"
+          },
+          {
             "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
             "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100%20-%20Advanced%20Investigations%20in%20Calculus%20I%20-%20Problem%20Sheets%20(AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week%204_Solution.pdf"
@@ -822,5 +986,5 @@
       }
     }
   ],
-  "generatedAt": "2025-11-10T02:19:30.797Z"
+  "generatedAt": "2025-11-12T07:24:04.405Z"
 }
