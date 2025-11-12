@@ -303,7 +303,13 @@
             "reports": []
           }
         },
-        "revisionNotes": [],
+        "revisionNotes": [
+          {
+            "name": "MH1100_CalculusI_RevisionNotes.pdf",
+            "path": "Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf"
+          }
+        ],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": [],
@@ -986,5 +992,5 @@
       }
     }
   ],
-  "generatedAt": "2025-11-12T07:24:04.405Z"
+  "generatedAt": "2025-11-12T07:27:15.201Z"
 }
