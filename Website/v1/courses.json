@@ -154,6 +154,22 @@
         ],
         "lectureNotes": [],
         "practiceMaterials": {
+          "Practice": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf"
+              }
+            ]
+          },
           "Practice 1": {
             "papers": [
               {
@@ -231,22 +247,6 @@
                 "name": "HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
                 "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Practice": {
-            "papers": [
-              {
-                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
-                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
-                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf"
               }
             ]
           }
@@ -1255,21 +1255,7 @@
         "practiceMaterials": {},
         "pastYearZips": []
       }
-    },
-    {
-      "code": "MH5200",
-      "name": "Advanced Investigations in Linear Algebra I",
-      "folderName": "MH5200",
-      "materials": {
-        "finals": {},
-        "midterms": {},
-        "revisionNotes": [],
-        "problemSheets": [],
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
     }
   ],
-  "generatedAt": "2025-11-15T06:48:40.759Z"
+  "generatedAt": "2025-11-15T07:35:10.875Z"
 }
