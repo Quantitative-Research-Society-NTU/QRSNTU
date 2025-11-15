@@ -88,7 +88,7 @@ function scanDirectory() {
 
             if (itemStat.isDirectory()) {
                 const examType = itemName.includes('Finals') ? 'Finals'
-                    : itemName.includes('Midterm') ? 'Midterm'
+                    : itemName.includes('Midterms') ? 'Midterms'
                     : '';
                 if (examType) {
                     const examFiles = fs.readdirSync(itemPath);
