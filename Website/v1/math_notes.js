@@ -3,7 +3,7 @@ let filterState = { examType: 'all', showSelectedOnly: false };
 let expandedSections = new Set();
 
 // Manual version for cache busting. Bump this when courses.json changes.
-const APP_VERSION = '1';
+const APP_VERSION = '1.1';
 
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();

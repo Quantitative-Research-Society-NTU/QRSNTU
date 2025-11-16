@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: write
     env:
-      NOTES_VERSION: '1'   # <--- bump manually
+      NOTES_VERSION: '1.1'   # <--- bump manually
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
