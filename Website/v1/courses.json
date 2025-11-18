@@ -34,7 +34,72 @@
         ],
         "problemSheets": [],
         "lectureNotes": [],
-        "practiceMaterials": {},
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 3": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 4": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
         "pastYearZips": []
       }
     },
@@ -1264,5 +1329,5 @@
       }
     }
   ],
-  "generatedAt": "2025-11-17T10:44:55.126Z"
+  "generatedAt": "2025-11-18T11:05:07.495Z"
 }
