@@ -496,4 +496,4 @@ function handleURLParams() {
             searchInput.dispatchEvent(new Event('input'));
         }
     }
-}
+
