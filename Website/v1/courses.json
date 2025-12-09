@@ -44,6 +44,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001_MicroeconomicsI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {
@@ -129,6 +130,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002_MacroeconomicsI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [
           {
             "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_QuestionPaper.pdf",
@@ -243,22 +245,6 @@
         ],
         "lectureNotes": [],
         "practiceMaterials": {
-          "Practice": {
-            "papers": [
-              {
-                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
-                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
-                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf"
-              }
-            ]
-          },
           "Practice 1": {
             "papers": [
               {
@@ -336,6 +322,22 @@
                 "name": "HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
                 "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf"
               }
             ]
           }
@@ -659,6 +661,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -872,6 +875,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200_LinearAlgebraI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1036,14 +1040,14 @@
             ],
             "solutions": [
               {
-                "name": "MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf",
-                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf"
-              },
-              {
                 "name": "MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution by QRS.pdf",
                 "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution by QRS.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_23-24_Sem1_Solution Handwritten.pdf"
               }
             ],
             "reports": []
@@ -1058,14 +1062,14 @@
             ],
             "solutions": [
               {
-                "name": "MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf",
-                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf"
-              },
-              {
                 "name": "MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution by QRS.pdf",
                 "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution by QRS.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_FoundationsofMathematics_Finals_24-25_Sem1_Solution Handwritten.pdf"
               }
             ],
             "reports": []
@@ -1232,6 +1236,7 @@
           }
         },
         "revisionNotes": [],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1242,6 +1247,27 @@
             "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterm.zip"
           }
         ]
+      }
+    },
+    {
+      "code": "MH4514",
+      "name": "Financial Mathematics",
+      "folderName": "MH4514",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH4514_RevisionNotes.pdf",
+            "path": "Notes/MH4514/MH4514_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
       }
     },
     {
@@ -1258,6 +1284,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100_AdvancedInvestigationsinCalculusI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [
           {
             "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
@@ -1349,7 +1376,22 @@
         "practiceMaterials": {},
         "pastYearZips": []
       }
+    },
+    {
+      "code": "MH5200",
+      "name": "Advanced Investigations in Linear Algebra I",
+      "folderName": "MH5200",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
     }
   ],
-  "generatedAt": "2025-12-02T08:19:51.797Z"
+  "generatedAt": "2025-12-09T03:10:49.911Z"
 }

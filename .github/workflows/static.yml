@@ -1,35 +1,50 @@
 # .github/workflows/deploy.yml
 name: Deploy site to GitHub Pages
+
 on:
+  # Old trigger: still deploy if someone manually pushes changes under Website/v1/**
   push:
     branches: [ main ]
     paths:
       - 'Website/v1/**'
+
+  # Manual trigger via Actions tab
   workflow_dispatch:
+
+  # NEW: Run this workflow whenever "Generate Notes JSON" completes
+  workflow_run:
+    workflows: ["Generate Notes JSON"]
+    types:
+      - completed
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: 'pages'
   cancel-in-progress: true
+
 jobs:
   build:
+    # NEW: if triggered by workflow_run, only run when it succeeded
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
           working-directory: ./Website/v1
-      
+
       - name: Build Jekyll site
         run: |
           cd Website/v1
@@ -68,12 +83,12 @@ jobs:
           
           bundle install
           bundle exec jekyll build
-      
+
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: Website/v1/_site
-          
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

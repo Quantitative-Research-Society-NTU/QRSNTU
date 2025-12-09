@@ -27,9 +27,19 @@ function isRevisionNote(name) {
     return name.includes('RevisionNotes');
 }
 
+// New: recognise Cheatsheet / CheatSheet files (case-insensitive)
+function isCheatSheet(name) {
+    const lower = name.toLowerCase();
+    return (
+        lower.includes('cheatsheet') || // Cheatsheet / CheatSheet
+        lower.includes('cheat_sheet') ||
+        lower.includes('cheat-sheet')
+    );
+}
+
 function extractAcademicYear(name) {
-    // Expect pattern like _21-22_ in filename
-    const match = name.match(/_(\d{2}-\d{2})_/);
+    // Expect pattern like _21-22_ or _21-22 at end; be a bit more flexible
+    const match = name.match(/_(\d{2}-\d{2})(?:_|$)/);
     return match ? match[1] : null;
 }
 
@@ -58,18 +68,29 @@ function makeZipUrl(relativePath) {
     return `https://github.com/yuhesui/QRSNTU/raw/main/${relativePath}`;
 }
 
-// Extracts "Practice 1" from names like
-// "HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf"
-// "HE1002_MacroeconomicsI_Finals_Practice1_Solution by QRS.pdf"
+// Extracts identifiers for practice / weekly problem sheets from filenames like:
+//   "HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf"
+//   "MH5100_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf"
+//   "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf"
 function extractPracticeIdentifier(fileName) {
-    const matchNum = fileName.match(/_Practice\s*(\d+)[_. ]/);
+    // 1) Week-based pattern (e.g. _Week 2_)
+    const weekMatch = fileName.match(/_Week\s*(\d+)[_. ]/i);
+    if (weekMatch) {
+        return `Week ${weekMatch[1]}`;
+    }
+
+    // 2) Original "Practice 1" pattern
+    const matchNum = fileName.match(/_Practice\s*(\d+)[_. ]/i);
     if (matchNum) {
         return `Practice ${matchNum[1]}`;
     }
-    // Fallback: if the word "Practice" exists but no number, just label as "Practice"
-    if (fileName.includes('Practice')) {
+
+    // 3) Fallback: if the word "Practice" exists but no number, just label as "Practice"
+    if (fileName.toLowerCase().includes('practice')) {
         return 'Practice';
     }
+
+    // 4) Generic fallback
     return 'Practice';
 }
 
@@ -96,9 +117,10 @@ function scanDirectory() {
         const finals = {};
         const midterms = {};
         const revisionNotes = [];
+        const cheatSheets = []; // NEW: cheatsheets at course level
         const problemSheets = [];
         const lectureNotes = [];
-        const practiceMaterials = {}; // <-- now an object keyed by "Practice 1", etc.
+        const practiceMaterials = {}; // object keyed by "Practice 1", "Week 2", etc.
         const pastYearZips = [];
 
         const courseContents = fs.readdirSync(folderPath);
@@ -112,6 +134,17 @@ function scanDirectory() {
                 if (isRevisionNote(itemName) && itemName.endsWith('.pdf')) {
                     const relPath = `Notes/${courseCode}/${itemName}`;
                     revisionNotes.push({
+                        name: itemName,
+                        path: relPath,
+                        downloadUrl: makeRawUrl(relPath)
+                    });
+                    return;
+                }
+
+                // NEW: Cheatsheets in root, parallel to RevisionNotes
+                if (isCheatSheet(itemName) && itemName.endsWith('.pdf')) {
+                    const relPath = `Notes/${courseCode}/${itemName}`;
+                    cheatSheets.push({
                         name: itemName,
                         path: relPath,
                         downloadUrl: makeRawUrl(relPath)
@@ -155,7 +188,11 @@ function scanDirectory() {
 
                         if (!fileName.endsWith('.pdf')) return;
 
-                        const identifier = extractPracticeIdentifier(fileName); // e.g. "Practice 1"
+                        // NEW: can now pick up Week-based problem sheet naming, and
+                        // does not care whether course name is present in the file name
+                        // (e.g. MH5100_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf
+                        //  or MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf)
+                        const identifier = extractPracticeIdentifier(fileName); // e.g. "Practice 1" or "Week 2"
                         if (!practiceMaterials[identifier]) {
                             practiceMaterials[identifier] = { papers: [], solutions: [] };
                         }
@@ -180,8 +217,10 @@ function scanDirectory() {
                 }
 
                 // 2. Finals / Midterms folders
-                const examType = itemName.includes('Finals') ? 'Finals'
-                    : itemName.includes('Midterms') ? 'Midterms'
+                const examType = itemName.includes('Finals')
+                    ? 'Finals'
+                    : itemName.includes('Midterms')
+                        ? 'Midterms'
                         : '';
 
                 if (examType) {
@@ -280,6 +319,7 @@ function scanDirectory() {
                 finals,
                 midterms,
                 revisionNotes,
+                cheatSheets,      // NEW
                 problemSheets,
                 lectureNotes,
                 practiceMaterials,
@@ -293,7 +333,7 @@ function scanDirectory() {
 
 const courses = scanDirectory();
 const outputPath = path.join(__dirname, '../../Website/v1/courses.json');
-//const outputPath = 'D:/Projects/QRSNTU/Archived/Test_Nov15/courses.json';
+// const outputPath = 'D:/Projects/QRSNTU/Archived/Test_Nov15/courses.json';
 
 fs.writeFileSync(
     outputPath,
@@ -301,18 +341,33 @@ fs.writeFileSync(
 );
 console.log(`✓ Generated courses.json with ${courses.length} courses`);
 console.log(
-    `  - Problem Sheets: ${courses.filter(c =>
-        c.materials.problemSheets && c.materials.problemSheets.length > 0
-    ).length} courses`
+    `  - Problem Sheets: ${
+        courses.filter(
+            c => c.materials.problemSheets && c.materials.problemSheets.length > 0
+        ).length
+    } courses`
 );
 console.log(
-    `  - Lecture Notes: ${courses.filter(c =>
-        c.materials.lectureNotes && c.materials.lectureNotes.length > 0
-    ).length} courses`
+    `  - Lecture Notes: ${
+        courses.filter(
+            c => c.materials.lectureNotes && c.materials.lectureNotes.length > 0
+        ).length
+    } courses`
 );
 console.log(
-    `  - Practice Materials: ${courses.filter(c =>
-        c.materials.practiceMaterials &&
-        Object.keys(c.materials.practiceMaterials).length > 0
-    ).length} courses`
+    `  - Practice Materials: ${
+        courses.filter(
+            c =>
+                c.materials.practiceMaterials &&
+                Object.keys(c.materials.practiceMaterials).length > 0
+        ).length
+    } courses`
+);
+// NEW: stats for cheatsheets
+console.log(
+    `  - Cheat Sheets: ${
+        courses.filter(
+            c => c.materials.cheatSheets && c.materials.cheatSheets.length > 0
+        ).length
+    } courses`
 );
