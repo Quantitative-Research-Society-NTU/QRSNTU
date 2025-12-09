@@ -3,7 +3,7 @@ let filterState = { examType: 'all', showSelectedOnly: false };
 let expandedSections = new Set();
 
 // Manual version for cache busting. Bump this when courses.json changes.
-const APP_VERSION = '1.2';
+const APP_VERSION = '1.5';
 
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
@@ -212,11 +212,14 @@ function createCourseCard(course) {
         badges.push('<span class="material-badge bg-pink-100 text-pink-800">Practice</span>');
     }
 
-    // --- Helper function for rendering solution buttons ---
+    /**
+     * Helper to render solution buttons.
+     * Updated: Wraps output in a vertical flex container.
+     */
     function renderSolutions(solutions) {
         if (!solutions || solutions.length === 0) return '';
 
-        // 1. Sort: QRS -> Standard/Clean Solution -> Others
+        // 1. Sort logic
         const sorted = [...solutions].sort((a, b) => {
             const aQRS = a.name.includes('by QRS');
             const bQRS = b.name.includes('by QRS');
@@ -234,26 +237,36 @@ function createCourseCard(course) {
         // 2. Limit to max 2
         const sliced = sorted.slice(0, 2);
 
-        // 3. Render
-        return sliced.map(solution => {
+        // 3. Create Button HTML
+        const buttonsHtml = sliced.map(solution => {
             let label = 'Solution';
-            let colorClass = 'bg-purple-600 hover:bg-purple-700';
+            // Default Standard: Purple with white text
+            let colorClass = 'bg-purple-600 hover:bg-purple-700 text-white';
             const lowerName = solution.name.toLowerCase();
 
             if (solution.name.includes('by QRS')) {
                 label = 'Solution (QRS)';
-                colorClass = 'bg-green-600 hover:bg-green-700';
+                // QRS: Green with white text
+                colorClass = 'bg-green-600 hover:bg-green-700 text-white';
             } else if (lowerName.includes('handwritten')) {
                 label = 'Solution Handwritten';
+                // Handwritten: Grey box, Dark text, Italic
+                colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (lowerName.includes('scanned')) {
                 label = 'Solution Scanned';
+                // Scanned: Grey box, Dark text, Italic
+                colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (solution.name.includes('Unofficial')) {
                 label = 'Solution (Other)';
-                colorClass = 'bg-gray-600 hover:bg-gray-700';
+                // Unofficial: Dark Grey with white text
+                colorClass = 'bg-gray-600 hover:bg-gray-700 text-white';
             }
 
-            return `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-white text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
+            return `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
         }).join('');
+
+        // 4. Wrap in a vertical flex container
+        return `<div class="inline-flex flex-col gap-1 ml-1">${buttonsHtml}</div>`;
     }
 
     let sectionHtml = '';
@@ -273,7 +286,8 @@ function createCourseCard(course) {
         sectionHtml += `</h4><div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         finalsYears.forEach(year => {
             const materials = course.materials.finals[year];
-            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2">AY ${year}:</span>`;
+            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
             });
@@ -301,7 +315,8 @@ function createCourseCard(course) {
         sectionHtml += `</h4><div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         midtermsYears.forEach(year => {
             const materials = course.materials.midterms[year];
-            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2">AY ${year}:</span>`;
+            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
             });
@@ -311,7 +326,7 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    // Problem Sheets - Grouped by Week (With natural sort fix)
+    // Problem Sheets
     if (course.materials.problemSheets && course.materials.problemSheets.length > 0) {
         const uniqueId = `problem-sheets-${course.code}`;
         const isExpanded = expandedSections.has(uniqueId);
@@ -326,10 +341,10 @@ function createCourseCard(course) {
             </h4>
             <div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
 
-        // Use numeric: true to fix Week 1, Week 2 ... Week 10 sorting
         Object.keys(grouped).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })).forEach(identifier => {
             const group = grouped[identifier];
-            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2">${identifier}:</span>`;
+            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${identifier}:</span>`;
             group.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
             });
@@ -339,7 +354,7 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    // Lecture Notes - Grouped by Week
+    // Lecture Notes
     if (course.materials.lectureNotes && course.materials.lectureNotes.length > 0) {
         const uniqueId = `lecture-notes-${course.code}`;
         const isExpanded = expandedSections.has(uniqueId);
@@ -355,7 +370,8 @@ function createCourseCard(course) {
             <div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         Object.keys(grouped).sort().forEach(identifier => {
             const group = grouped[identifier];
-            sectionHtml += `<div class="mb-2 flex items-center flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2">${identifier}:</span>`;
+            // CHANGE: items-start
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${identifier}:</span>`;
             group.papers.forEach(note => {
                 sectionHtml += `<a href="${note.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Notes</a>`;
             });
@@ -368,7 +384,6 @@ function createCourseCard(course) {
     if (course.materials.practiceMaterials && Object.keys(course.materials.practiceMaterials).length > 0) {
         const uniqueId = `practice-materials-${course.code}`;
         const isExpanded = expandedSections.has(uniqueId);
-
         const practiceData = course.materials.practiceMaterials || {};
         const allKeys = Object.keys(practiceData);
 
@@ -381,25 +396,19 @@ function createCourseCard(course) {
             });
 
         const otherKeys = allKeys.filter(k => !/^Practice\s+\d+$/.test(k));
-
         const practiceZips = (course.materials.pastYearZips || []).filter(z =>
             z.name.toLowerCase().includes('practice')
         );
-
         const practiceGroupCount = numberedKeys.length + (otherKeys.length > 0 ? 1 : 0);
 
         sectionHtml += `
         <div class="mb-3">
             <h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center cursor-pointer hover:text-gray-700"
                 data-toggle-section="${uniqueId}">
-                <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}"
-                   data-toggle-icon
-                   class="w-4 h-4 mr-1 text-pink-600"></i>
-                <i data-lucide="folder-open"
-                   class="w-4 h-4 mr-1 text-pink-600"></i>
+                <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" data-toggle-icon class="w-4 h-4 mr-1 text-pink-600"></i>
+                <i data-lucide="folder-open" class="w-4 h-4 mr-1 text-pink-600"></i>
                 Practice Materials (${practiceGroupCount})
     `;
-
         practiceZips.forEach(zip => {
             sectionHtml += `
             <a href="${zip.downloadUrl}" download onclick="event.stopPropagation()"
@@ -407,42 +416,26 @@ function createCourseCard(course) {
                 <i data-lucide="archive" class="w-3 h-3 mr-1"></i>ZIP
             </a>`;
         });
-
-        sectionHtml += `
-            </h4>
-            <div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">
-    `;
+        sectionHtml += `</h4><div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
 
         // Numbered practices
         numberedKeys.forEach(name => {
             const group = practiceData[name];
-
-            sectionHtml += `
-            <div class="mb-2 flex items-center flex-wrap gap-2">
-                <span class="text-xs font-semibold text-gray-800 mr-2">${name}:</span>
-            `;
+            // CHANGE: items-start, mt-1
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-800 mr-2 mt-1">${name}:</span>`;
             (group.papers || []).forEach(paper => {
-                sectionHtml += `
-                <a href="${paper.downloadUrl}" download onclick="event.stopPropagation()"
-                   class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors">
-                    <i data-lucide="download" class="w-3 h-3 mr-1"></i>Question
-                </a>`;
+                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
             });
             sectionHtml += renderSolutions(group.solutions);
-            sectionHtml += `
-            </div>
-        `;
+            sectionHtml += `</div>`;
         });
 
-        // Other practices wrapped into a single "Other Practices" folder
+        // Other practices
         if (otherKeys.length > 0) {
             const otherFolderId = `${uniqueId}-other`;
             const otherExpanded = expandedSections.has(otherFolderId);
-
-            // Separate papers and solutions from all "other" keys
             const otherPapers = [];
             const otherSolutions = [];
-
             otherKeys.forEach(k => {
                 const g = practiceData[k];
                 (g.papers || []).forEach(p => otherPapers.push(p));
@@ -451,39 +444,20 @@ function createCourseCard(course) {
 
             sectionHtml += `
             <div class="mb-2">
-                <div class="flex items-center cursor-pointer hover:text-gray-700"
-                     data-toggle-section="${otherFolderId}">
-                    <i data-lucide="${otherExpanded ? 'chevron-down' : 'chevron-right'}"
-                       data-toggle-icon
-                       class="w-3 h-3 mr-1 text-pink-600"></i>
-                    <i data-lucide="folder"
-                       class="w-4 h-4 mr-2 text-pink-600"></i>
+                <div class="flex items-center cursor-pointer hover:text-gray-700" data-toggle-section="${otherFolderId}">
+                    <i data-lucide="${otherExpanded ? 'chevron-down' : 'chevron-right'}" data-toggle-icon class="w-3 h-3 mr-1 text-pink-600"></i>
+                    <i data-lucide="folder" class="w-4 h-4 mr-2 text-pink-600"></i>
                     <span class="text-xs font-semibold text-gray-800">Other Practices</span>
                 </div>
-                <div id="${otherFolderId}" class="${otherExpanded ? '' : 'hidden'} pl-6 mt-1 flex flex-wrap gap-2">
+                <div id="${otherFolderId}" class="${otherExpanded ? '' : 'hidden'} pl-6 mt-1 flex flex-wrap items-start gap-2">
             `;
-
-            otherPapers.forEach(paper => {
-                sectionHtml += `
-                    <a href="${paper.downloadUrl}" download onclick="event.stopPropagation()"
-                       class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors">
-                        <i data-lucide="download" class="w-3 h-3 mr-1"></i>Question
-                    </a>`;
+            otherPapers.forEach(item => {
+                sectionHtml += `<a href="${item.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
             });
-
-            // Render sorted solutions for the "Other" block
             sectionHtml += renderSolutions(otherSolutions);
-
-            sectionHtml += `
-                </div>
-            </div>
-        `;
+            sectionHtml += `</div></div>`;
         }
-
-        sectionHtml += `
-            </div>
-        </div>
-    `;
+        sectionHtml += `</div></div>`;
     }
 
     // Revision Notes
@@ -522,4 +496,4 @@ function handleURLParams() {
             searchInput.dispatchEvent(new Event('input'));
         }
     }
-}
+
