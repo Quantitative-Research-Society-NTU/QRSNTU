@@ -1,0 +1,398 @@
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --border-color: #E5E7EB;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --text-headings: #11182C;
+
+    --accent-blue: #3B82F6;
+    --accent-green: #22C55E;
+    --accent-yellow: #EAB308;
+    --accent-red: #EF4444;
+
+    --font-body: 'inter', sans-serif;
+    --font-sans: 'Playfair Display', serif;
+    --font-heading: 'Playfair Display', serif;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.75;
+}
+
+.font-body { font-family: var(--font-body); }
+.font-sans { font-family: var(--font-sans); }
+.font-serif { font-family: var(--font-heading); }
+
+header.fixed {
+    background-color: #11182C;
+    border-bottom: 1px solid #1f2937;
+}
+
+.nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+    color: #d1d5db;
+}
+
+.nav-link:hover {
+    color: var(--text-headings);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-blue);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    border: 1px solid transparent;
+}
+
+.btn-red {
+    background-color: var(--accent-red);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: #d83a3a;
+    border-color: #d83a3a;
+}
+
+.btn-blue {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.btn-blue:hover {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+.btn-green {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.btn-green:hover {
+    background-color: var(--accent-green);
+    color: white;
+}
+
+section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+    section {
+        padding-top: 7rem;
+        padding-bottom: 7rem;
+    }
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-headings);
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+.section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-secondary);
+}
+
+.project-card, .quick-link-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    transition: border-color 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.project-card:hover, .quick-link-card:hover {
+    border-color: var(--accent-blue);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-headings);
+}
+
+.card-description {
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+.card-link {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.quick-link-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.text-accent-blue { color: var(--accent-blue); }
+.text-accent-green { color: var(--accent-green); }
+.text-accent-yellow { color: var(--accent-yellow); }
+.text-accent-red { color: var(--accent-red); }
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+}
+
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 767px) {
+    .nav-link::after {
+        display: none;
+    }
+    #mobile-menu .nav-link {
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    #mobile-menu .nav-link:hover {
+        background-color: var(--bg-secondary);
+        color: var(--text-headings);
+    }
+}
+
+/* Hero Section Redesign */
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: #ffffff;
+    overflow: hidden;
+    background-image:
+            linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)),
+            url('https://images.unsplash.com/photo-1644088379091-d574269d422f');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.hero-title {
+    font-family: 'Montserrat', 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.2;
+    text-align: center;
+    color: #e6f1ff;
+    max-width: 1200px;
+    margin: 0;
+    padding: 0 1rem;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    z-index: 1;
+}
+
+/* Footer and Text Color Overrides for Dark Theme */
+body > #root > footer {
+    background-color: #11182C;
+    border-top-color: #1f2937;
+}
+
+/* Footer text color overrides */
+body > #root > footer,
+body > #root > footer p {
+    color: #9ca3af;
+}
+
+body > #root > footer a {
+    color: #d1d5db;
+    transition: color 0.3s;
+}
+
+body > #root > footer a:hover,
+body > #root > footer a:hover i {
+    color: var(--accent-blue);
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+    font-family: 'Playfair Display', serif !important;
+}
+
+/* ===================================== */
+/* Math Notes Specific Styles - START */
+/* ===================================== */
+
+/* Course card styling for math notes page */
+.course-card {
+    opacity: 1;
+    transform: none;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Material type badges */
+.material-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: #EFF6FF;
+    color: #1E40AF;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Button for viewing materials */
+.btn-view-materials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
+    background-color: var(--accent-blue);
+    color: white;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-view-materials:hover {
+    background-color: #2563EB;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Search input styling for math notes */
+#search-input {
+    font-family: var(--font-body);
+}
+
+#search-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+/* Results count text */
+#results-count {
+    font-family: var(--font-sans);
+}
+
+/* Loading state spinner */
+#loading-state {
+    font-family: var(--font-sans);
+}
+
+/* No results message */
+#no-results {
+    font-family: var(--font-sans);
+}
+
+/* Year breakdown inside course cards */
+.course-card h4 {
+    font-family: var(--font-sans);
+}
+
+/* Download links for revision notes and ZIP files */
+.course-card a[download] {
+    text-decoration: none;
+}
+
+.course-card a[download]:hover {
+    text-decoration: underline;
+}
+
+/* Checkmark indicators for materials */
+.course-card .text-green-600,
+.course-card .text-blue-600,
+.course-card .text-purple-600 {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* ===================================== */
+/* Math Notes Specific Styles - END */
+/* ===================================== */

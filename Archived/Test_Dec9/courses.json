@@ -44,6 +44,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001_MicroeconomicsI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {
@@ -129,6 +130,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002_MacroeconomicsI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [
           {
             "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_QuestionPaper.pdf",
@@ -659,6 +661,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -849,6 +852,7 @@
         },
         "midterms": {},
         "revisionNotes": [],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1051,6 +1055,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200_LinearAlgebraI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1451,6 +1456,7 @@
           }
         },
         "revisionNotes": [],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1477,6 +1483,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1497,6 +1504,7 @@
             "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100_AdvancedInvestigationsinCalculusI_RevisionNotes.pdf"
           }
         ],
+        "cheatSheets": [],
         "problemSheets": [
           {
             "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
@@ -1597,6 +1605,7 @@
         "finals": {},
         "midterms": {},
         "revisionNotes": [],
+        "cheatSheets": [],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1604,5 +1613,5 @@
       }
     }
   ],
-  "generatedAt": "2025-12-09T08:51:48.982Z"
+  "generatedAt": "2025-12-09T08:52:01.790Z"
 }
