@@ -117,7 +117,7 @@ function scanDirectory() {
         const finals = {};
         const midterms = {};
         const revisionNotes = [];
-        const cheatSheets = []; // NEW: cheatsheets at course level
+        const cheatSheets = []; // cheatsheets at course level
         const problemSheets = [];
         const lectureNotes = [];
         const practiceMaterials = {}; // object keyed by "Practice 1", "Week 2", etc.
@@ -141,7 +141,7 @@ function scanDirectory() {
                     return;
                 }
 
-                // NEW: Cheatsheets in root, parallel to RevisionNotes
+                // Cheatsheets in root, parallel to RevisionNotes
                 if (isCheatSheet(itemName) && itemName.endsWith('.pdf')) {
                     const relPath = `Notes/${courseCode}/${itemName}`;
                     cheatSheets.push({
@@ -188,10 +188,8 @@ function scanDirectory() {
 
                         if (!fileName.endsWith('.pdf')) return;
 
-                        // NEW: can now pick up Week-based problem sheet naming, and
+                        // Can now pick up Week-based problem sheet naming, and
                         // does not care whether course name is present in the file name
-                        // (e.g. MH5100_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf
-                        //  or MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf)
                         const identifier = extractPracticeIdentifier(fileName); // e.g. "Practice 1" or "Week 2"
                         if (!practiceMaterials[identifier]) {
                             practiceMaterials[identifier] = { papers: [], solutions: [] };
@@ -319,7 +317,7 @@ function scanDirectory() {
                 finals,
                 midterms,
                 revisionNotes,
-                cheatSheets,      // NEW
+                cheatSheets,
                 problemSheets,
                 lectureNotes,
                 practiceMaterials,
@@ -339,35 +337,216 @@ fs.writeFileSync(
     outputPath,
     JSON.stringify({ courses, generatedAt: new Date().toISOString() }, null, 2)
 );
+
 console.log(`✓ Generated courses.json with ${courses.length} courses`);
+
+// ---------- Aggregated stats ----------
+
+const courseHasProblemSheets = courses.filter(
+    c => c.materials.problemSheets && c.materials.problemSheets.length > 0
+).length;
+const totalProblemSheets = courses.reduce(
+    (sum, c) => sum + (c.materials.problemSheets ? c.materials.problemSheets.length : 0),
+    0
+);
+
+const courseHasLectureNotes = courses.filter(
+    c => c.materials.lectureNotes && c.materials.lectureNotes.length > 0
+).length;
+const totalLectureNotes = courses.reduce(
+    (sum, c) => sum + (c.materials.lectureNotes ? c.materials.lectureNotes.length : 0),
+    0
+);
+
+const courseHasPractice = courses.filter(
+    c =>
+        c.materials.practiceMaterials &&
+        Object.keys(c.materials.practiceMaterials).length > 0
+).length;
+
+const practiceStats = courses.reduce(
+    (acc, c) => {
+        const pm = c.materials.practiceMaterials || {};
+        acc.identifiers += Object.keys(pm).length;
+        Object.values(pm).forEach(entry => {
+            acc.papers += entry.papers.length;
+            acc.solutions += entry.solutions.length;
+        });
+        return acc;
+    },
+    { identifiers: 0, papers: 0, solutions: 0 }
+);
+
+const courseHasCheatSheets = courses.filter(
+    c => c.materials.cheatSheets && c.materials.cheatSheets.length > 0
+).length;
+const totalCheatSheets = courses.reduce(
+    (sum, c) => sum + (c.materials.cheatSheets ? c.materials.cheatSheets.length : 0),
+    0
+);
+
+const courseHasRevisionNotes = courses.filter(
+    c => c.materials.revisionNotes && c.materials.revisionNotes.length > 0
+).length;
+const totalRevisionNotes = courses.reduce(
+    (sum, c) => sum + (c.materials.revisionNotes ? c.materials.revisionNotes.length : 0),
+    0
+);
+
+const totalPastYearZips = courses.reduce(
+    (sum, c) => sum + (c.materials.pastYearZips ? c.materials.pastYearZips.length : 0),
+    0
+);
+
+// Finals / Midterms totals
+const examTotals = {
+    finals: { papers: 0, solutions: 0, reports: 0 },
+    midterms: { papers: 0, solutions: 0, reports: 0 }
+};
+
+courses.forEach(c => {
+    const { finals, midterms } = c.materials;
+
+    Object.values(finals || {}).forEach(yearData => {
+        examTotals.finals.papers += yearData.papers.length;
+        examTotals.finals.solutions += yearData.solutions.length;
+        examTotals.finals.reports += yearData.reports.length;
+    });
+
+    Object.values(midterms || {}).forEach(yearData => {
+        examTotals.midterms.papers += yearData.papers.length;
+        examTotals.midterms.solutions += yearData.solutions.length;
+        examTotals.midterms.reports += yearData.reports.length;
+    });
+});
+
 console.log(
-    `  - Problem Sheets: ${
-        courses.filter(
-            c => c.materials.problemSheets && c.materials.problemSheets.length > 0
-        ).length
-    } courses`
+    `  - Problem Sheets: ${courseHasProblemSheets} courses, ${totalProblemSheets} files`
 );
 console.log(
-    `  - Lecture Notes: ${
-        courses.filter(
-            c => c.materials.lectureNotes && c.materials.lectureNotes.length > 0
-        ).length
-    } courses`
+    `  - Lecture Notes: ${courseHasLectureNotes} courses, ${totalLectureNotes} files`
 );
 console.log(
-    `  - Practice Materials: ${
-        courses.filter(
-            c =>
-                c.materials.practiceMaterials &&
-                Object.keys(c.materials.practiceMaterials).length > 0
-        ).length
-    } courses`
+    `  - Practice Materials: ${courseHasPractice} courses, ${practiceStats.identifiers} sets, ${practiceStats.papers} papers, ${practiceStats.solutions} solutions`
 );
-// NEW: stats for cheatsheets
 console.log(
-    `  - Cheat Sheets: ${
-        courses.filter(
-            c => c.materials.cheatSheets && c.materials.cheatSheets.length > 0
-        ).length
-    } courses`
+    `  - Revision Notes: ${courseHasRevisionNotes} courses, ${totalRevisionNotes} files`
 );
+console.log(
+    `  - Cheat Sheets: ${courseHasCheatSheets} courses, ${totalCheatSheets} files`
+);
+console.log(
+    `  - Past-year ZIPs: ${totalPastYearZips} archives`
+);
+console.log(
+    `  - Finals: ${examTotals.finals.papers} papers, ${examTotals.finals.solutions} solutions, ${examTotals.finals.reports} reports`
+);
+console.log(
+    `  - Midterms: ${examTotals.midterms.papers} papers, ${examTotals.midterms.solutions} solutions, ${examTotals.midterms.reports} reports`
+);
+
+// ---------- Solution / QuestionPaper table for past-year papers ----------
+
+const pastYearRows = [];
+
+// Collect per-course, per-year data for finals & midterms
+courses.forEach(c => {
+    const { finals, midterms } = c.materials;
+
+    Object.keys(finals || {}).forEach(year => {
+        const data = finals[year];
+        pastYearRows.push({
+            course: c.code,
+            exam: 'Finals',
+            year,
+            papers: data.papers.length,
+            solutions: data.solutions.length,
+            reports: data.reports.length
+        });
+    });
+
+    Object.keys(midterms || {}).forEach(year => {
+        const data = midterms[year];
+        pastYearRows.push({
+            course: c.code,
+            exam: 'Midterms',
+            year,
+            papers: data.papers.length,
+            solutions: data.solutions.length,
+            reports: data.reports.length
+        });
+    });
+});
+
+if (pastYearRows.length > 0) {
+    const headers = {
+        course: 'Course',
+        exam: 'Exam',
+        year: 'Year',
+        papers: 'QuestionPapers',
+        solutions: 'Solutions',
+        reports: 'Reports'
+    };
+
+    const colWidths = {
+        course: Math.max(
+            headers.course.length,
+            ...pastYearRows.map(r => r.course.length)
+        ),
+        exam: Math.max(
+            headers.exam.length,
+            ...pastYearRows.map(r => r.exam.length)
+        ),
+        year: Math.max(
+            headers.year.length,
+            ...pastYearRows.map(r => r.year.length)
+        ),
+        papers: Math.max(
+            headers.papers.length,
+            ...pastYearRows.map(r => String(r.papers).length)
+        ),
+        solutions: Math.max(
+            headers.solutions.length,
+            ...pastYearRows.map(r => String(r.solutions).length)
+        ),
+        reports: Math.max(
+            headers.reports.length,
+            ...pastYearRows.map(r => String(r.reports).length)
+        )
+    };
+
+    const pad = (value, width) => String(value).padEnd(width, ' ');
+
+    const headerLine =
+        pad(headers.course, colWidths.course) + ' | ' +
+        pad(headers.exam, colWidths.exam) + ' | ' +
+        pad(headers.year, colWidths.year) + ' | ' +
+        pad(headers.papers, colWidths.papers) + ' | ' +
+        pad(headers.solutions, colWidths.solutions) + ' | ' +
+        pad(headers.reports, colWidths.reports);
+
+    const separator =
+        '-'.repeat(colWidths.course) + '-+-' +
+        '-'.repeat(colWidths.exam) + '-+-' +
+        '-'.repeat(colWidths.year) + '-+-' +
+        '-'.repeat(colWidths.papers) + '-+-' +
+        '-'.repeat(colWidths.solutions) + '-+-' +
+        '-'.repeat(colWidths.reports);
+
+    console.log('\nPast-year paper summary (Finals & Midterms):');
+    console.log(headerLine);
+    console.log(separator);
+
+    pastYearRows.forEach(r => {
+        const line =
+            pad(r.course, colWidths.course) + ' | ' +
+            pad(r.exam, colWidths.exam) + ' | ' +
+            pad(r.year, colWidths.year) + ' | ' +
+            pad(r.papers, colWidths.papers) + ' | ' +
+            pad(r.solutions, colWidths.solutions) + ' | ' +
+            pad(r.reports, colWidths.reports);
+        console.log(line);
+    });
+} else {
+    console.log('No past-year Finals/Midterms papers detected.');
+}
