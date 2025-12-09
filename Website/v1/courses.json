@@ -1456,7 +1456,13 @@
           }
         },
         "revisionNotes": [],
-        "cheatSheets": [],
+        "cheatSheets": [
+          {
+            "name": "MH1300_Cheatsheet.pdf",
+            "path": "Notes/MH1300/MH1300_Cheatsheet.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_Cheatsheet.pdf"
+          }
+        ],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1598,5 +1604,5 @@
       }
     }
   ],
-  "generatedAt": "2025-12-09T08:52:39.280Z"
+  "generatedAt": "2025-12-09T09:38:17.177Z"
 }
