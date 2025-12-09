@@ -850,7 +850,64 @@
             "reports": []
           }
         },
-        "midterms": {},
+        "midterms": {
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
         "revisionNotes": [],
         "cheatSheets": [],
         "problemSheets": [],
@@ -1604,5 +1661,5 @@
       }
     }
   ],
-  "generatedAt": "2025-12-09T11:35:09.812Z"
+  "generatedAt": "2025-12-09T14:29:53.037Z"
 }
