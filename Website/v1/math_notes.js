@@ -343,8 +343,24 @@ function createCourseCard(course) {
 
         Object.keys(grouped).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })).forEach(identifier => {
             const group = grouped[identifier];
-            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
-            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${identifier}:</span>`;
+
+            // --- UPDATED DISPLAY LOGIC START ---
+            let displayName = identifier;
+
+            // Regex to catch "ProblemSheet_1", "Problem Sheet 1", "Sheet_1", etc.
+            // It captures the digits at the end into group 1
+            const match = identifier.match(/^(?:Problem[_ ]?Sheet[_ ]?|Sheet[_ ]?)(\d+)$/i);
+
+            if (match) {
+                // If it matches "ProblemSheet_1", display "#1"
+                displayName = `#${match[1]}`;
+            } else if (/^\d+$/.test(identifier)) {
+                // If it is already just "1", display "#1"
+                displayName = `#${identifier}`;
+            }
+            // --- UPDATED DISPLAY LOGIC END ---
+
+            sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${displayName}:</span>`;
             group.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
             });
