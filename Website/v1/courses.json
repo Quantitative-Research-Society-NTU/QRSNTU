@@ -667,11 +667,6 @@
         "practiceMaterials": {},
         "pastYearZips": [
           {
-            "name": "MH1100 - Calculus I - Finals.zip",
-            "path": "Notes/MH1100/MH1100 - Calculus I - Finals.zip",
-            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100 - Calculus I - Finals.zip"
-          },
-          {
             "name": "MH1100 - Calculus I - Midterm.zip",
             "path": "Notes/MH1100/MH1100 - Calculus I - Midterm.zip",
             "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100 - Calculus I - Midterm.zip"
@@ -1512,7 +1507,13 @@
             "reports": []
           }
         },
-        "revisionNotes": [],
+        "revisionNotes": [
+          {
+            "name": "MH1300_RevisionNotes.pdf",
+            "path": "Notes/MH1300/MH1300_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_RevisionNotes.pdf"
+          }
+        ],
         "cheatSheets": [
           {
             "name": "MH1300_Cheatsheet.pdf",
@@ -1723,5 +1724,5 @@
       }
     }
   ],
-  "generatedAt": "2025-12-10T08:25:30.771Z"
+  "generatedAt": "2025-12-10T11:53:59.945Z"
 }
