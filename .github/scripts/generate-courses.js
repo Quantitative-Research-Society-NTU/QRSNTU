@@ -313,6 +313,7 @@ function scanDirectory() {
             code: courseCode,
             name: courseName,
             folderName,
+            githubUrl: `https://github.com/yuhesui/QRSNTU/tree/main/Notes/${folderName}`,
             materials: {
                 finals,
                 midterms,

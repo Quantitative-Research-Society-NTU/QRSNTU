@@ -4,6 +4,7 @@
       "code": "HE1001",
       "name": "Microeconomics I",
       "folderName": "HE1001",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/HE1001",
       "materials": {
         "finals": {
           "25-26": {
@@ -120,6 +121,7 @@
       "code": "HE1002",
       "name": "Macroeconomics I",
       "folderName": "HE1002",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/HE1002",
       "materials": {
         "finals": {},
         "midterms": {},
@@ -355,6 +357,7 @@
       "code": "MH1100",
       "name": "Calculus I",
       "folderName": "MH1100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1100",
       "materials": {
         "finals": {
           "15-16": {
@@ -667,11 +670,6 @@
         "practiceMaterials": {},
         "pastYearZips": [
           {
-            "name": "MH1100 - Calculus I - Finals.zip",
-            "path": "Notes/MH1100/MH1100 - Calculus I - Finals.zip",
-            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100 - Calculus I - Finals.zip"
-          },
-          {
             "name": "MH1100 - Calculus I - Midterm.zip",
             "path": "Notes/MH1100/MH1100 - Calculus I - Midterm.zip",
             "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100 - Calculus I - Midterm.zip"
@@ -683,6 +681,7 @@
       "code": "MH1101",
       "name": "Calculus II",
       "folderName": "MH1101",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1101",
       "materials": {
         "finals": {
           "12-13": {
@@ -850,7 +849,64 @@
             "reports": []
           }
         },
-        "midterms": {},
+        "midterms": {
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
         "revisionNotes": [],
         "cheatSheets": [],
         "problemSheets": [],
@@ -863,6 +919,7 @@
       "code": "MH1200",
       "name": "Linear Algebra I",
       "folderName": "MH1200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1200",
       "materials": {
         "finals": {
           "12-13": {
@@ -1072,6 +1129,7 @@
       "code": "MH1300",
       "name": "Foundations of Mathematics",
       "folderName": "MH1300",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1300",
       "materials": {
         "finals": {
           "15-16": {
@@ -1455,8 +1513,20 @@
             "reports": []
           }
         },
-        "revisionNotes": [],
-        "cheatSheets": [],
+        "revisionNotes": [
+          {
+            "name": "MH1300_RevisionNotes.pdf",
+            "path": "Notes/MH1300/MH1300_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "MH1300_Cheatsheet.pdf",
+            "path": "Notes/MH1300/MH1300_Cheatsheet.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_Cheatsheet.pdf"
+          }
+        ],
         "problemSheets": [],
         "lectureNotes": [],
         "practiceMaterials": {},
@@ -1473,6 +1543,7 @@
       "code": "MH4514",
       "name": "Financial Mathematics",
       "folderName": "MH4514",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4514",
       "materials": {
         "finals": {},
         "midterms": {},
@@ -1494,6 +1565,7 @@
       "code": "MH5100",
       "name": "Advanced Investigations in Calculus I",
       "folderName": "MH5100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH5100",
       "materials": {
         "finals": {},
         "midterms": {},
@@ -1601,17 +1673,65 @@
       "code": "MH5200",
       "name": "Advanced Investigations in Linear Algebra I",
       "folderName": "MH5200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH5200",
       "materials": {
         "finals": {},
         "midterms": {},
-        "revisionNotes": [],
+        "revisionNotes": [
+          {
+            "name": "MH5200_RevisionNotes.pdf",
+            "path": "Notes/MH5200/MH5200_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200_RevisionNotes.pdf"
+          }
+        ],
         "cheatSheets": [],
-        "problemSheets": [],
+        "problemSheets": [
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf"
+          }
+        ],
         "lectureNotes": [],
         "practiceMaterials": {},
         "pastYearZips": []
       }
     }
   ],
-  "generatedAt": "2025-12-09T08:52:01.790Z"
+  "generatedAt": "2025-12-10T12:04:34.099Z"
 }

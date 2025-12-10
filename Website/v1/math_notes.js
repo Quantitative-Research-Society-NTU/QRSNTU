@@ -1,9 +1,9 @@
 let allCourses = [], filteredCourses = [], selectedCourses = new Set();
-let filterState = { examType: 'all', showSelectedOnly: false };
+// FIX: Added 'searchQuery' to global state
+let filterState = { examType: 'all', showSelectedOnly: false, searchQuery: '' };
 let expandedSections = new Set();
 
-// Manual version for cache busting. Bump this when courses.json changes.
-const APP_VERSION = '1.5';
+const APP_VERSION = '1.7';
 
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
@@ -85,27 +85,38 @@ function updateShowSelectedButton() {
     }
 }
 
+// FIX: Completely rewritten applyFilters to handle Search + Selection + Exams together
 function applyFilters() {
     filteredCourses = allCourses.filter(course => {
+        // 1. Search Filter
+        if (filterState.searchQuery) {
+            const q = filterState.searchQuery;
+            const matchesSearch = course.code.toLowerCase().includes(q) ||
+                course.name.toLowerCase().includes(q);
+            if (!matchesSearch) return false;
+        }
+
+        // 2. Selection Filter
         if (filterState.showSelectedOnly && !selectedCourses.has(course.code)) return false;
+
+        // 3. Exam Type Filter
         if (filterState.examType !== 'all') {
             const examKey = filterState.examType === 'finals' ? 'finals' : 'midterms';
             if (Object.keys(course.materials[examKey]).length === 0) return false;
         }
         return true;
     });
+
     renderCourses(filteredCourses);
     updateResultsCount(filteredCourses.length, allCourses.length);
 }
 
+// FIX: setupSearch now updates state and calls applyFilters
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            filteredCourses = query === '' ? [...allCourses] : allCourses.filter(course =>
-                course.code.toLowerCase().includes(query) || course.name.toLowerCase().includes(query)
-            );
+            filterState.searchQuery = e.target.value.toLowerCase().trim();
             applyFilters();
         });
     }
@@ -114,7 +125,8 @@ function setupSearch() {
 function toggleCourseSelection(courseCode) {
     selectedCourses.has(courseCode) ? selectedCourses.delete(courseCode) : selectedCourses.add(courseCode);
     updateShowSelectedButton();
-    renderCourses(filteredCourses);
+    // Re-apply filters to refresh view (e.g. if we are in "Show Selected" mode)
+    applyFilters();
 }
 
 function extractYearFromPath(path) {
@@ -190,6 +202,10 @@ function renderCourses(courses) {
 function createCourseCard(course) {
     const isSelected = selectedCourses.has(course.code);
     const selectedClass = isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200';
+
+    // FIX: Generate folder URL dynamically. Works even if JSON is slightly old.
+    const folderUrl = course.githubUrl || `https://github.com/yuhesui/QRSNTU/tree/main/Notes/${course.folderName || course.code}`;
+
     const finalsYears = Object.keys(course.materials.finals || {}).sort().reverse();
     const midtermsYears = Object.keys(course.materials.midterms || {}).sort().reverse();
 
@@ -206,72 +222,60 @@ function createCourseCard(course) {
     if (finalsYears.length > 0) badges.push('<span class="material-badge bg-blue-100 text-blue-800">Finals</span>');
     if (midtermsYears.length > 0) badges.push('<span class="material-badge bg-purple-100 text-purple-800">Midterms</span>');
     if (course.materials.revisionNotes && course.materials.revisionNotes.length > 0) badges.push('<span class="material-badge bg-green-100 text-green-800">Notes</span>');
+
+    // NEW: Cheatsheets Badge
+    if (course.materials.cheatSheets && course.materials.cheatSheets.length > 0) {
+        badges.push('<span class="material-badge bg-orange-100 text-orange-800">Cheatsheets</span>');
+    }
+
     if (course.materials.problemSheets && course.materials.problemSheets.length > 0) badges.push('<span class="material-badge bg-yellow-100 text-yellow-800">Problem Sheets</span>');
     if (course.materials.lectureNotes && course.materials.lectureNotes.length > 0) badges.push('<span class="material-badge bg-indigo-100 text-indigo-800">Lecture Notes</span>');
     if (course.materials.practiceMaterials && Object.keys(course.materials.practiceMaterials).length > 0) {
         badges.push('<span class="material-badge bg-pink-100 text-pink-800">Practice</span>');
     }
 
-    /**
-     * Helper to render solution buttons.
-     * Updated: Wraps output in a vertical flex container.
-     */
     function renderSolutions(solutions) {
         if (!solutions || solutions.length === 0) return '';
-
-        // 1. Sort logic
         const sorted = [...solutions].sort((a, b) => {
             const aQRS = a.name.includes('by QRS');
             const bQRS = b.name.includes('by QRS');
             if (aQRS && !bQRS) return -1;
             if (!aQRS && bQRS) return 1;
-
             const aIsClean = /Solution\.pdf$/i.test(a.name);
             const bIsClean = /Solution\.pdf$/i.test(b.name);
             if (aIsClean && !bIsClean) return -1;
             if (!aIsClean && bIsClean) return 1;
-
             return a.name.localeCompare(b.name);
         });
 
-        // 2. Limit to max 2
         const sliced = sorted.slice(0, 2);
 
-        // 3. Create Button HTML
         const buttonsHtml = sliced.map(solution => {
             let label = 'Solution';
-            // Default Standard: Purple with white text
             let colorClass = 'bg-purple-600 hover:bg-purple-700 text-white';
             const lowerName = solution.name.toLowerCase();
 
             if (solution.name.includes('by QRS')) {
                 label = 'Solution (QRS)';
-                // QRS: Green with white text
                 colorClass = 'bg-green-600 hover:bg-green-700 text-white';
             } else if (lowerName.includes('handwritten')) {
                 label = 'Solution Handwritten';
-                // Handwritten: Grey box, Dark text, Italic
                 colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (lowerName.includes('scanned')) {
                 label = 'Solution Scanned';
-                // Scanned: Grey box, Dark text, Italic
                 colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (solution.name.includes('Unofficial')) {
                 label = 'Solution (Other)';
-                // Unofficial: Dark Grey with white text
                 colorClass = 'bg-gray-600 hover:bg-gray-700 text-white';
             }
-
             return `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
         }).join('');
-
-        // 4. Wrap in a vertical flex container
         return `<div class="inline-flex flex-col gap-1 ml-1">${buttonsHtml}</div>`;
     }
 
     let sectionHtml = '';
 
-    // Finals - Collapsible
+    // Finals
     if ((filterState.examType === 'all' || filterState.examType === 'finals') && finalsYears.length > 0) {
         const uniqueId = `finals-${course.code}`;
         const isExpanded = expandedSections.has(uniqueId);
@@ -286,7 +290,6 @@ function createCourseCard(course) {
         sectionHtml += `</h4><div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         finalsYears.forEach(year => {
             const materials = course.materials.finals[year];
-            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
@@ -300,7 +303,7 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    // Midterms - Collapsible
+    // Midterms
     if ((filterState.examType === 'all' || filterState.examType === 'midterms') && midtermsYears.length > 0) {
         const uniqueId = `midterms-${course.code}`;
         const isExpanded = expandedSections.has(uniqueId);
@@ -315,7 +318,6 @@ function createCourseCard(course) {
         sectionHtml += `</h4><div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         midtermsYears.forEach(year => {
             const materials = course.materials.midterms[year];
-            // CHANGE: items-start to align top, mt-1 on span to fix text baseline
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
@@ -344,21 +346,15 @@ function createCourseCard(course) {
         Object.keys(grouped).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })).forEach(identifier => {
             const group = grouped[identifier];
 
-            // --- UPDATED DISPLAY LOGIC START ---
+            // FIX: Problem Sheet Renaming Logic (e.g. "ProblemSheet_1" -> "#1")
             let displayName = identifier;
-
-            // Regex to catch "ProblemSheet_1", "Problem Sheet 1", "Sheet_1", etc.
-            // It captures the digits at the end into group 1
             const match = identifier.match(/^(?:Problem[_ ]?Sheet[_ ]?|Sheet[_ ]?)(\d+)$/i);
 
             if (match) {
-                // If it matches "ProblemSheet_1", display "#1"
                 displayName = `#${match[1]}`;
             } else if (/^\d+$/.test(identifier)) {
-                // If it is already just "1", display "#1"
                 displayName = `#${identifier}`;
             }
-            // --- UPDATED DISPLAY LOGIC END ---
 
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${displayName}:</span>`;
             group.papers.forEach(paper => {
@@ -386,7 +382,6 @@ function createCourseCard(course) {
             <div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
         Object.keys(grouped).sort().forEach(identifier => {
             const group = grouped[identifier];
-            // CHANGE: items-start
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${identifier}:</span>`;
             group.papers.forEach(note => {
                 sectionHtml += `<a href="${note.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Notes</a>`;
@@ -437,7 +432,6 @@ function createCourseCard(course) {
         // Numbered practices
         numberedKeys.forEach(name => {
             const group = practiceData[name];
-            // CHANGE: items-start, mt-1
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-800 mr-2 mt-1">${name}:</span>`;
             (group.papers || []).forEach(paper => {
                 sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
@@ -485,6 +479,15 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
+    // NEW: Cheatsheets Section
+    if (course.materials.cheatSheets && course.materials.cheatSheets.length > 0) {
+        sectionHtml += '<div class="mb-3"><h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center"><i data-lucide="file-text" class="w-4 h-4 mr-1 text-orange-600"></i>Cheatsheets</h4><div class="flex flex-wrap gap-2">';
+        course.materials.cheatSheets.forEach(sheet => {
+            sectionHtml += `<a href="${sheet.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white text-xs font-medium rounded hover:bg-orange-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Cheatsheet</a>`;
+        });
+        sectionHtml += '</div></div>';
+    }
+
     // Other Archives
     if (otherZips.length > 0) {
         sectionHtml += '<div class="mb-3"><h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center"><i data-lucide="archive" class="w-4 h-4 mr-1 text-yellow-600"></i>Archives</h4><div class="flex flex-wrap gap-2">';
@@ -494,7 +497,8 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    return `<div class="course-card bg-white rounded-lg border-2 ${selectedClass} p-4 hover:border-blue-500 transition-all duration-200 hover:shadow-md cursor-pointer" data-course-code="${course.code}"><div class="flex items-start justify-between mb-3"><div class="flex-1"><h3 class="text-lg font-bold text-gray-900 mb-1">${course.code}</h3><p class="text-sm text-gray-700 mb-2">${course.name}</p><div class="flex flex-wrap gap-1 mb-2">${badges.join('')}</div></div><a href="${course.githubUrl}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded hover:bg-gray-200 transition-colors flex-shrink-0"><i data-lucide="folder" class="w-3 h-3 mr-1"></i>Folder</a></div>${sectionHtml}</div>`;
+    // FIX: Using folderUrl in the final card
+    return `<div class="course-card bg-white rounded-lg border-2 ${selectedClass} p-4 hover:border-blue-500 transition-all duration-200 hover:shadow-md cursor-pointer" data-course-code="${course.code}"><div class="flex items-start justify-between mb-3"><div class="flex-1"><h3 class="text-lg font-bold text-gray-900 mb-1">${course.code}</h3><p class="text-sm text-gray-700 mb-2">${course.name}</p><div class="flex flex-wrap gap-1 mb-2">${badges.join('')}</div></div><a href="${folderUrl}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded hover:bg-gray-200 transition-colors flex-shrink-0"><i data-lucide="folder" class="w-3 h-3 mr-1"></i>Folder</a></div>${sectionHtml}</div>`;
 }
 
 function updateResultsCount(showing, total) {
