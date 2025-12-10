@@ -62,6 +62,7 @@
   "MH4519": "Financial Econometrics",
   "MH4520": "High Dimensional Probability",
   "MH4521": "Reinforcement Learning",
+  "MH4600": "Algebraic Topology",
   "MH4601": "Differential Geometry",
   "MH4700": "Numerical Analysis II",
   "MH4701": "Mathematical Programming",
@@ -89,5 +90,17 @@
   "MH5200": "Advanced Investigations in Linear Algebra I",
   "MH5201": "Advanced Investigations in Linear Algebra II",
   "MH9102": "Advanced Investigations in Calculus III",
-  "MH9300": "Advanced Investigations in Discrete Mathematics"
+  "MH9300": "Advanced Investigations in Discrete Mathematics",
+  "BR2207": "Quantitative Analysis",
+  "BR2208": "Foundations of Risk Management",
+  "BR2210": "Financial Markets and Products",
+  "BR2211": "Financial and Risk Analytics I",
+  "BR3213": "Valuation and Risk Models",
+  "BR3214": "Financial and Risk Analytics I",
+  "MH3110": "Ordinary Differential Equations",
+  "MH3200": "Abstract Algebra I",
+  "MH2200": "Groups and Symmetry",
+  "MH3500": "Statistics",
+  "MH4501": "Multivariate Analysis",
+  "MH4522": "Spatial Data Science"
 }

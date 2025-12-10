@@ -1,0 +1,3524 @@
+{
+  "courses": [
+    {
+      "code": "MH1300",
+      "name": "Foundations of Mathematics",
+      "folderName": "MH1300",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1300",
+      "materials": {
+        "finals": {
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_15-16_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_15-16_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_15-16_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_15-16_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_16-17_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_16-17_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_16-17_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_16-17_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_17-18_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_17-18_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_17-18_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_17-18_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_18-19_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_18-19_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_18-19_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_18-19_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_19-20_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_19-20_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_19-20_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_19-20_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "20-21": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_20-21_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_20-21_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_20-21_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_20-21_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_21-22_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_21-22_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_21-22_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_21-22_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_22-23_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_22-23_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_22-23_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_23-24_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_23-24_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_23-24_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1300_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_Finals_24-25_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_Solution by QRS.pdf"
+              },
+              {
+                "name": "MH1300_Finals_24-25_Sem1_Solution Handwritten.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Finals/MH1300_Finals_24-25_Sem1_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_15-16_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_16-17_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_17-18_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_18-19_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_19-20_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "20-21": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_20-21_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_20-21_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_20-21_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_21-22_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_22-23_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_22-23_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_22-23_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_23-24_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_Solution.pdf",
+                "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterms/MH1300_FoundationsofMathematics_Midterm_24-25_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "revisionNotes": [
+          {
+            "name": "MH1300_RevisionNotes.pdf",
+            "path": "Notes/MH1300/MH1300_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "MH1300_Cheatsheet.pdf",
+            "path": "Notes/MH1300/MH1300_Cheatsheet.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1300/MH1300_Cheatsheet.pdf"
+          }
+        ],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": [
+          {
+            "name": "MH1300 - Foundations of Mathematics - Midterm.zip",
+            "path": "Notes/MH1300/MH1300 - Foundations of Mathematics - Midterm.zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1300/MH1300 - Foundations of Mathematics - Midterm.zip"
+          }
+        ]
+      }
+    },
+    {
+      "code": "HE1002",
+      "name": "Macroeconomics I",
+      "folderName": "HE1002",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/HE1002",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "HE1002_MacroeconomicsI_RevisionNotes.pdf",
+            "path": "Notes/HE1002/HE1002_MacroeconomicsI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002_MacroeconomicsI_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_10_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_12_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_QuestionPaper.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_QuestionPaper.pdf"
+          },
+          {
+            "name": "HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_Solution by QRS.pdf",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26)/HE1002_MacroeconomicsI_25-26_Sem1_ProblemSheet_9_Solution by QRS.pdf"
+          }
+        ],
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice1_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice2_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice2_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 3": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice3_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice3_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 4": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice4_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice4_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 5": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice5_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Finals_Practice5_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice": {
+            "papers": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "path": "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/HE1002_MacroeconomicsI_Final_MockFinalExam_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": [
+          {
+            "name": "HE1002 - Macroeconomics I - Problem Sheets (AY25-26).zip",
+            "path": "Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26).zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/HE1002/HE1002 - Macroeconomics I - Problem Sheets (AY25-26).zip"
+          }
+        ]
+      }
+    },
+    {
+      "code": "MH1100",
+      "name": "Calculus I",
+      "folderName": "MH1100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1100",
+      "materials": {
+        "finals": {
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_15-16_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_16-17_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_17-18_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_18-19_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_19-20_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "20-21": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_20-21_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_21-22_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_22-23_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_23-24_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Finals/MH1100_CalculusI_Finals_Sem1_24-25_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_17-18_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_17-18_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_17-18_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_17-18_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_17-18_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_17-18_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_18-19_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_18-19_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_18-19_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_18-19_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_18-19_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_18-19_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_19-20_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_19-20_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_19-20_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_19-20_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_19-20_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_19-20_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_21-22_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_21-22_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_21-22_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_21-22_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_21-22_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_21-22_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_22-23_Sem1_QuestionPaper.pdf.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_22-23_Sem1_QuestionPaper.pdf.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_22-23_Sem1_QuestionPaper.pdf.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_22-23_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_22-23_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_22-23_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_23-24_Sem1_QuestionPaper.pdf.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_23-24_Sem1_QuestionPaper.pdf.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_23-24_Sem1_QuestionPaper.pdf.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_23-24_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_23-24_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_23-24_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_24-25_Sem1_QuestionPaper.pdf.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_24-25_Sem1_QuestionPaper.pdf.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_24-25_Sem1_QuestionPaper.pdf.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_24-25_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_24-25_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_24-25_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "25-26": {
+            "papers": [
+              {
+                "name": "MH1100_CalculusI_Midterm_25-26_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_25-26_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_25-26_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1100_CalculusI_Midterm_25-26_Sem1_Solution.pdf",
+                "path": "Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_25-26_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100 - Calculus I - Midterms/MH1100_CalculusI_Midterm_25-26_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "revisionNotes": [
+          {
+            "name": "MH1100_CalculusI_RevisionNotes.pdf",
+            "path": "Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1100/MH1100_CalculusI_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": [
+          {
+            "name": "MH1100 - Calculus I - Midterm.zip",
+            "path": "Notes/MH1100/MH1100 - Calculus I - Midterm.zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1100/MH1100 - Calculus I - Midterm.zip"
+          }
+        ]
+      }
+    },
+    {
+      "code": "MH1101",
+      "name": "Calculus II",
+      "folderName": "MH1101",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1101",
+      "materials": {
+        "finals": {
+          "12-13": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_12-13_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_12-13_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_12-13_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_12-13_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_12-13_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_12-13_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "13-14": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_13-14_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_13-14_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_13-14_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_13-14_Sem2_Solution Scanned.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_13-14_Sem2_Solution Scanned.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_13-14_Sem2_Solution Scanned.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "14-15": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_14-15_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_14-15_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_14-15_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_14-15_Sem2_Solution Handwritten.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_14-15_Sem2_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_14-15_Sem2_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_15-16_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_15-16_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_15-16_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_15-16_Sem2_Solution Handwritten.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_15-16_Sem2_Solution Handwritten.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_15-16_Sem2_Solution Handwritten.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_16-17_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_16-17_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_16-17_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_16-17_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_16-17_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_16-17_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_17-18_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_17-18_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_17-18_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_17-18_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_17-18_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_17-18_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_18-19_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_18-19_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_18-19_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_18-19_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_18-19_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_18-19_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "20-21": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_20-21_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_20-21_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_20-21_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_20-21_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_20-21_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_20-21_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Finals_22-23_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_22-23_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_22-23_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Finals/MH1101_CalculusII_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_17-18_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_18-19_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_19-20_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "path": "Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1101/MH1101 - Calculus II - Midterms/MH1101_CalculusII_Midterm_21-22_Sem2_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH1200",
+      "name": "Linear Algebra I",
+      "folderName": "MH1200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1200",
+      "materials": {
+        "finals": {
+          "12-13": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_12-13_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_12-13_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_12-13_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_12-13_Sem1_Solution.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_12-13_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_12-13_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "13-14": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_13-14_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_13-14_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_13-14_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_13-14_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_13-14_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_13-14_Sem1_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "15-16": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_15-16_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_15-16_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_15-16_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_15-16_Sem1_Solution.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_15-16_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_15-16_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "16-17": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_16-17_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_16-17_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_16-17_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_16-17_Sem1_Solution.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_16-17_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_16-17_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "17-18": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_17-18_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_17-18_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_17-18_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_17-18_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_17-18_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_17-18_Sem1_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_18-19_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_18-19_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_18-19_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_18-19_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_18-19_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_18-19_Sem1_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_19-20_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_19-20_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_19-20_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_19-20_Sem1_Solution by QRS.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_19-20_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_19-20_Sem1_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_21-22_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_21-22_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_21-22_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_21-22_Sem1_Examiner's Report.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_21-22_Sem1_Examiner's Report.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_21-22_Sem1_Examiner's Report.pdf"
+              }
+            ]
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_22-23_Sem1_Solution.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_22-23_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_22-23_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_23-24_Sem1_Solution.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_23-24_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_23-24_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1200_LinearAlgebraI_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals/MH1200_LinearAlgebraI_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH1200_LinearAlgebraI_RevisionNotes.pdf",
+            "path": "Notes/MH1200/MH1200_LinearAlgebraI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1200/MH1200_LinearAlgebraI_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": [
+          {
+            "name": "MH1200 - Linear Algebra I - Finals.zip",
+            "path": "Notes/MH1200/MH1200 - Linear Algebra I - Finals.zip",
+            "downloadUrl": "https://github.com/yuhesui/QRSNTU/raw/main/Notes/MH1200/MH1200 - Linear Algebra I - Finals.zip"
+          }
+        ]
+      }
+    },
+    {
+      "code": "MH5100",
+      "name": "Advanced Investigations in Calculus I",
+      "folderName": "MH5100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH5100",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_RevisionNotes.pdf",
+            "path": "Notes/MH5100/MH5100_AdvancedInvestigationsinCalculusI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100_AdvancedInvestigationsinCalculusI_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 10_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 11_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 11_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 11_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 3_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 4_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 5_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 6_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 8_Solution.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_QuestionPaper.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_QuestionPaper.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_QuestionPaper.pdf"
+          },
+          {
+            "name": "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_Solution.pdf",
+            "path": "Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_Solution.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5100/MH5100 - Advanced Investigations in Calculus I - Problem Sheets (AY25-26)/MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 9_Solution.pdf"
+          }
+        ],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "HE1001",
+      "name": "Microeconomics I",
+      "folderName": "HE1001",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/HE1001",
+      "materials": {
+        "finals": {
+          "25-26": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_25-26_Sem1_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals/HE1001_MicroeconomicsI_Final_25-26_Sem1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals/HE1001_MicroeconomicsI_Final_25-26_Sem1_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "25-26": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Midterm_25-26_Sem1_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Midterms/HE1001_MicroeconomicsI_Midterm_25-26_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Midterms/HE1001_MicroeconomicsI_Midterm_25-26_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Midterm_25-26_Sem1_Solution.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Midterms/HE1001_MicroeconomicsI_Midterm_25-26_Sem1_Solution.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Midterms/HE1001_MicroeconomicsI_Midterm_25-26_Sem1_Solution.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "revisionNotes": [
+          {
+            "name": "HE1001_MicroeconomicsI_RevisionNotes.pdf",
+            "path": "Notes/HE1001/HE1001_MicroeconomicsI_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001_MicroeconomicsI_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 3": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 4": {
+            "papers": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf",
+                "path": "Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/HE1001/HE1001 - Microeconomics I - Finals - Practice/HE1001_MicroeconomicsI_Final_Practice4_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH5200",
+      "name": "Advanced Investigations in Linear Algebra I",
+      "folderName": "MH5200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH5200",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH5200_RevisionNotes.pdf",
+            "path": "Notes/MH5200/MH5200_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_1_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_2_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_3_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_4_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_5_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_6_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_7_Solution by QRS.pdf"
+          },
+          {
+            "name": "MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "path": "Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH5200/MH5200 - Advanced Investigations in Linear Algebra I - Problem Sheets/MH5200_25-26_Sem1_ProblemSheet_8_Solution by QRS.pdf"
+          }
+        ],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4514",
+      "name": "Financial Mathematics",
+      "folderName": "MH4514",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4514",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4514_FinancialMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4514_FinancialMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4514_FinancialMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514 - Financial Mathematics - Finals/MH4514_FinancialMathematics_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH4514_RevisionNotes.pdf",
+            "path": "Notes/MH4514/MH4514_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4514/MH4514_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "BR2207",
+      "name": "Quantitative Analysis",
+      "folderName": "BR2207",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/BR2207",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "BR2207_QuantitativeAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "BR2207_QuantitativeAnalysis_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "BR2207_QuantitativeAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2207/BR2207 - Quantitative Analysis - Finals/BR2207_QuantitativeAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "BR2210",
+      "name": "Financial Markets and Products",
+      "folderName": "BR2210",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/BR2210",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "BR2210_FinancialMarketsandProducts_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "BR2210_FinancialMarketsandProducts_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "BR2210_FinancialMarketsandProducts_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2210/BR2210 - Financial Markets and Products - Finals/BR2210_FinancialMarketsandProducts_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "BR2211",
+      "name": "Financial and Risk Analytics I",
+      "folderName": "BR2211",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/BR2211",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "BR2211_FinancialandRiskAnalyticsI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "BR2211_FinancialandRiskAnalyticsI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "BR2211_FinancialandRiskAnalyticsI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR2211/BR2211 - Financial and Risk Analytics I - Finals/BR2211_FinancialandRiskAnalyticsI_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "BR3213",
+      "name": "Valuation and Risk Models",
+      "folderName": "BR3213",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/BR3213",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "BR3213_ValuationandRiskModels_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "BR3213_ValuationandRiskModels_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH1201",
+      "name": "Linear Algebra II",
+      "folderName": "MH1201",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1201",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH1301",
+      "name": "Discrete Mathematics",
+      "folderName": "MH1301",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1301",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH1403",
+      "name": "Algorithms and Computing",
+      "folderName": "MH1403",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH1403",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1403_AlgorithmsandComputing_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1403_AlgorithmsandComputing_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH2500",
+      "name": "Probability",
+      "folderName": "MH2500",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH2500",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH2500_Probability_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH2500_Probability_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH2500_Probability_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2500/MH2500 - Probability - Finals/MH2500_Probability_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3100",
+      "name": "Real Analysis I",
+      "folderName": "MH3100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3100",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3300",
+      "name": "Graph Theory",
+      "folderName": "MH3300",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3300",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3300_GraphTheory_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3300_GraphTheory_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3300_GraphTheory_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3300/MH3300 - Graph Theory - Finals/MH3300_GraphTheory_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3500",
+      "name": "MH3500",
+      "folderName": "MH3500",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3500",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3500_Statistics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3500_Statistics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3500_Statistics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3500/MH3500 - Statistics - Finals/MH3500_Statistics_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3700",
+      "name": "Numerical Analysis I",
+      "folderName": "MH3700",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3700",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3700_NumericalAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3700_NumericalAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3700_NumericalAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3700/MH3700 - Numerical Analysis I - Finals/MH3700_NumericalAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3701",
+      "name": "Basic Optimization",
+      "folderName": "MH3701",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3701",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3701_BasicOptimization_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3701_BasicOptimization_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3701_BasicOptimization_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3701/MH3701 - Basic Optimization - Finals/MH3701_BasicOptimization_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4100",
+      "name": "Real Analysis II",
+      "folderName": "MH4100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4100",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4100_RealAnalysisII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4100_RealAnalysisII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4100_RealAnalysisII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4100/MH4100 - Real Analysis II - Finals/MH4100_RealAnalysisII_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4110",
+      "name": "Partial Differential Equations",
+      "folderName": "MH4110",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4110",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4110_PartialDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4110_PartialDifferentialEquations_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4110_PartialDifferentialEquations_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4110/MH4110 - Partial Differential Equations - Finals/MH4110_PartialDifferentialEquations_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4200",
+      "name": "Abstract Algebra II",
+      "folderName": "MH4200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4200",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4200_AbstractAlgebraII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4200_AbstractAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4200_AbstractAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4200/MH4200 - Abstract Algebra II - Finals/MH4200_AbstractAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4300",
+      "name": "Combinatorics",
+      "folderName": "MH4300",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4300",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4300_Combinatorics_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4300_Combinatorics_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4300_Combinatorics_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4300/MH4300 - Combinatorics - Finals/MH4300_Combinatorics_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4311",
+      "name": "Cryptography",
+      "folderName": "MH4311",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4311",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4311_Cryptography_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4311_Cryptography_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4311_Cryptography_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4311/MH4311 - Cryptography - Finals/MH4311_Cryptography_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4501",
+      "name": "MH4501",
+      "folderName": "MH4501",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4501",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4501_MH4501_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4501_MH4501_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4501_MH4501_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4501/MH4501 - MH4501 - Finals/MH4501_MH4501_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4511",
+      "name": "Sampling & Survey",
+      "folderName": "MH4511",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4511",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4511_SamplingSurvey_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4511_SamplingSurvey_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4511_SamplingSurvey_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4511/MH4511 - Sampling & Survey - Finals/MH4511_SamplingSurvey_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4512",
+      "name": "Clinical Trials",
+      "folderName": "MH4512",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4512",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4512_ClinicalTrials_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4512_ClinicalTrials_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4512_ClinicalTrials_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4512/MH4512 - Clinical Trials - Finals/MH4512_ClinicalTrials_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4518",
+      "name": "Simulation Techniques in Finance",
+      "folderName": "MH4518",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4518",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4518_SimulationTechniquesinFinance_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4518_SimulationTechniquesinFinance_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4518_SimulationTechniquesinFinance_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4518/MH4518 - Simulation Techniques in Finance - Finals/MH4518_SimulationTechniquesinFinance_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4700",
+      "name": "Numerical Analysis II",
+      "folderName": "MH4700",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4700",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4700_NumericalAnalysisII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4700_NumericalAnalysisII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4700_NumericalAnalysisII_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4700/MH4700 - Numerical Analysis II - Finals/MH4700_NumericalAnalysisII_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4701",
+      "name": "Mathematical Programming",
+      "folderName": "MH4701",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4701",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4701_MathematicalProgramming_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4701_MathematicalProgramming_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4701_MathematicalProgramming_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4701/MH4701 - Mathematical Programming - Finals/MH4701_MathematicalProgramming_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "BR3208",
+      "name": "BR3208",
+      "folderName": "BR3208",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/BR3208",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "BR3208_OperationalRiskManagement_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR3208/BR3208 - Operational Risk Management - Finals/BR3208_OperationalRiskManagement_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR3208/BR3208 - Operational Risk Management - Finals/BR3208_OperationalRiskManagement_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "BR3208_OperationalRiskManagement_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/BR3208/BR3208 - Operational Risk Management - Finals/BR3208_OperationalRiskManagement_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/BR3208/BR3208 - Operational Risk Management - Finals/BR3208_OperationalRiskManagement_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH2100",
+      "name": "Calculus III",
+      "folderName": "MH2100",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH2100",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH2220",
+      "name": "Algebra I",
+      "folderName": "MH2220",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH2220",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH2220_AlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH2220/MH2220 - Algebra I - Finals/MH2220_AlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2220/MH2220 - Algebra I - Finals/MH2220_AlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH2220_AlgebraI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH2220/MH2220 - Algebra I - Finals/MH2220_AlgebraI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH2220/MH2220 - Algebra I - Finals/MH2220_AlgebraI_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3220",
+      "name": "Algebra II",
+      "folderName": "MH3220",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3220",
+      "materials": {
+        "finals": {
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3220_AlgebraII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3220/MH3220 - Algebra II - Finals/MH3220_AlgebraII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3220/MH3220 - Algebra II - Finals/MH3220_AlgebraII_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3220_AlgebraII_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3220/MH3220 - Algebra II - Finals/MH3220_AlgebraII_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3220/MH3220 - Algebra II - Finals/MH3220_AlgebraII_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3510",
+      "name": "Regression Analysis",
+      "folderName": "MH3510",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3510",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3510_RegressionAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3510/MH3510 - Regression Analysis - Finals/MH3510_RegressionAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3510/MH3510 - Regression Analysis - Finals/MH3510_RegressionAnalysis_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3510_RegressionAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3510/MH3510 - Regression Analysis - Finals/MH3510_RegressionAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3510/MH3510 - Regression Analysis - Finals/MH3510_RegressionAnalysis_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4320",
+      "name": "Computational Economics",
+      "folderName": "MH4320",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4320",
+      "materials": {
+        "finals": {
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4320_ComputationalEconomics_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4320/MH4320 - Computational Economics - Finals/MH4320_ComputationalEconomics_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4320/MH4320 - Computational Economics - Finals/MH4320_ComputationalEconomics_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4320_ComputationalEconomics_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4320/MH4320 - Computational Economics - Finals/MH4320_ComputationalEconomics_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4320/MH4320 - Computational Economics - Finals/MH4320_ComputationalEconomics_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4600",
+      "name": "Algebraic Topology",
+      "folderName": "MH4600",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4600",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4600_AlgebraicTopology_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4600/MH4600 - Algebraic Topology - Finals/MH4600_AlgebraicTopology_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4600/MH4600 - Algebraic Topology - Finals/MH4600_AlgebraicTopology_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4600_AlgebraicTopology_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4600/MH4600 - Algebraic Topology - Finals/MH4600_AlgebraicTopology_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4600/MH4600 - Algebraic Topology - Finals/MH4600_AlgebraicTopology_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3110",
+      "name": "MH3110",
+      "folderName": "MH3110",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3110",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3110_OrdinaryDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3110/MH3110 - Ordinary Differential Equations - Finals/MH3110_OrdinaryDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3110/MH3110 - Ordinary Differential Equations - Finals/MH3110_OrdinaryDifferentialEquations_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3200",
+      "name": "MH3200",
+      "folderName": "MH3200",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3200",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3200_AbstractAlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3200/MH3200 - Abstract Algebra I - Finals/MH3200_AbstractAlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3200/MH3200 - Abstract Algebra I - Finals/MH3200_AbstractAlgebraI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH3210",
+      "name": "Number Theory",
+      "folderName": "MH3210",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH3210",
+      "materials": {
+        "finals": {
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3210_NumberTheory_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH3210/MH3210 - Number Theory - Finals/MH3210_NumberTheory_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH3210/MH3210 - Number Theory - Finals/MH3210_NumberTheory_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4301",
+      "name": "Set Theory and Logic",
+      "folderName": "MH4301",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4301",
+      "materials": {
+        "finals": {
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4301_SetTheoryandLogic_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4301/MH4301 - Set Theory and Logic - Finals/MH4301_SetTheoryandLogic_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4301/MH4301 - Set Theory and Logic - Finals/MH4301_SetTheoryandLogic_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4500",
+      "name": "Time Series Analysis",
+      "folderName": "MH4500",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4500",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4500_TimeSeriesAnalysis_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4500/MH4500 - Time Series Analysis - Finals/MH4500_TimeSeriesAnalysis_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4500/MH4500 - Time Series Analysis - Finals/MH4500_TimeSeriesAnalysis_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4517",
+      "name": "Data Applications in Natural Sciences",
+      "folderName": "MH4517",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4517",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4517_DataApplicationsinNaturalSciences_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4517/MH4517 - Data Applications in Natural Sciences - Finals/MH4517_DataApplicationsinNaturalSciences_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4517/MH4517 - Data Applications in Natural Sciences - Finals/MH4517_DataApplicationsinNaturalSciences_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4521",
+      "name": "Reinforcement Learning",
+      "folderName": "MH4521",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4521",
+      "materials": {
+        "finals": {
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4521_ReinforcementLearning_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4521/MH4521 - Reinforcement Learning - Finals/MH4521_ReinforcementLearning_Finals_24-25_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4521/MH4521 - Reinforcement Learning - Finals/MH4521_ReinforcementLearning_Finals_24-25_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4522",
+      "name": "MH4522",
+      "folderName": "MH4522",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4522",
+      "materials": {
+        "finals": {
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH4522_SpatialDataScience_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4522/MH4522 - Spatial Data Science - Finals/MH4522_SpatialDataScience_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4522/MH4522 - Spatial Data Science - Finals/MH4522_SpatialDataScience_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4601",
+      "name": "Differential Geometry",
+      "folderName": "MH4601",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4601",
+      "materials": {
+        "finals": {
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH4601_DifferentialGeometry_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH4601/MH4601 - Differential Geometry - Finals/MH4601_DifferentialGeometry_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4601/MH4601 - Differential Geometry - Finals/MH4601_DifferentialGeometry_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH4930",
+      "name": "Special Topics in Mathematics",
+      "folderName": "MH4930",
+      "githubUrl": "https://github.com/yuhesui/QRSNTU/tree/main/Notes/MH4930",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH4930_SpecialTopicsinMathematics_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH4930/MH4930 - Special Topics in Mathematics - Finals/MH4930_SpecialTopicsinMathematics_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/yuhesui/QRSNTU/main/Notes/MH4930/MH4930 - Special Topics in Mathematics - Finals/MH4930_SpecialTopicsinMathematics_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    }
+  ],
+  "generatedAt": "2025-12-10T14:33:30.227Z"
+}

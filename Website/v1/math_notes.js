@@ -1,9 +1,8 @@
 let allCourses = [], filteredCourses = [], selectedCourses = new Set();
-// FIX: Added 'searchQuery' to global state
 let filterState = { examType: 'all', showSelectedOnly: false, searchQuery: '' };
 let expandedSections = new Set();
 
-const APP_VERSION = '1.7';
+const APP_VERSION = '1.8';
 
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
@@ -13,6 +12,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     handleURLParams();
 });
 
+// --- NEW: Helper to calculate file count for sorting ---
+function getCourseFileCount(course) {
+    let count = 0;
+    const m = course.materials;
+    if (!m) return 0;
+
+    count += (m.revisionNotes || []).length;
+    count += (m.cheatSheets || []).length;
+    count += (m.problemSheets || []).length;
+    count += (m.lectureNotes || []).length;
+    count += (m.pastYearZips || []).length;
+
+    if (m.finals) {
+        Object.values(m.finals).forEach(y => {
+            count += (y.papers || []).length + (y.solutions || []).length + (y.reports || []).length;
+        });
+    }
+    if (m.midterms) {
+        Object.values(m.midterms).forEach(y => {
+            count += (y.papers || []).length + (y.solutions || []).length + (y.reports || []).length;
+        });
+    }
+    if (m.practiceMaterials) {
+        Object.values(m.practiceMaterials).forEach(p => {
+            count += (p.papers || []).length + (p.solutions || []).length;
+        });
+    }
+    return count;
+}
+// ------------------------------------------------------
+
 async function loadCourses() {
     const loadingState = document.getElementById('loading-state');
     try {
@@ -20,6 +50,11 @@ async function loadCourses() {
         if (!response.ok) throw new Error(`Failed to load courses data: ${response.status}`);
         const data = await response.json();
         allCourses = data.courses;
+
+        // --- NEW: Force sort by file count on load ---
+        allCourses.sort((a, b) => getCourseFileCount(b) - getCourseFileCount(a));
+        // ---------------------------------------------
+
         filteredCourses = [...allCourses];
         loadingState.classList.add('hidden');
         renderCourses(filteredCourses);
@@ -85,7 +120,6 @@ function updateShowSelectedButton() {
     }
 }
 
-// FIX: Completely rewritten applyFilters to handle Search + Selection + Exams together
 function applyFilters() {
     filteredCourses = allCourses.filter(course => {
         // 1. Search Filter
@@ -107,11 +141,14 @@ function applyFilters() {
         return true;
     });
 
+    // Since allCourses is pre-sorted, filteredCourses retains that order.
+    // However, if you want to rank specifically by the COUNT of materials matching the filter (advanced),
+    // you would sort here again. For now, general "richness" ranking is usually preferred.
+
     renderCourses(filteredCourses);
     updateResultsCount(filteredCourses.length, allCourses.length);
 }
 
-// FIX: setupSearch now updates state and calls applyFilters
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -125,7 +162,6 @@ function setupSearch() {
 function toggleCourseSelection(courseCode) {
     selectedCourses.has(courseCode) ? selectedCourses.delete(courseCode) : selectedCourses.add(courseCode);
     updateShowSelectedButton();
-    // Re-apply filters to refresh view (e.g. if we are in "Show Selected" mode)
     applyFilters();
 }
 
@@ -203,7 +239,7 @@ function createCourseCard(course) {
     const isSelected = selectedCourses.has(course.code);
     const selectedClass = isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200';
 
-    // FIX: Generate folder URL dynamically. Works even if JSON is slightly old.
+    // Uses the one from JSON if it exists, otherwise constructs it manually
     const folderUrl = course.githubUrl || `https://github.com/yuhesui/QRSNTU/tree/main/Notes/${course.folderName || course.code}`;
 
     const finalsYears = Object.keys(course.materials.finals || {}).sort().reverse();
@@ -223,7 +259,7 @@ function createCourseCard(course) {
     if (midtermsYears.length > 0) badges.push('<span class="material-badge bg-purple-100 text-purple-800">Midterms</span>');
     if (course.materials.revisionNotes && course.materials.revisionNotes.length > 0) badges.push('<span class="material-badge bg-green-100 text-green-800">Notes</span>');
 
-    // NEW: Cheatsheets Badge
+    // Cheatsheets Badge
     if (course.materials.cheatSheets && course.materials.cheatSheets.length > 0) {
         badges.push('<span class="material-badge bg-orange-100 text-orange-800">Cheatsheets</span>');
     }
@@ -346,7 +382,7 @@ function createCourseCard(course) {
         Object.keys(grouped).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })).forEach(identifier => {
             const group = grouped[identifier];
 
-            // FIX: Problem Sheet Renaming Logic (e.g. "ProblemSheet_1" -> "#1")
+            // Problem Sheet Renaming Logic
             let displayName = identifier;
             const match = identifier.match(/^(?:Problem[_ ]?Sheet[_ ]?|Sheet[_ ]?)(\d+)$/i);
 
@@ -479,7 +515,7 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    // NEW: Cheatsheets Section
+    // Cheatsheets Section
     if (course.materials.cheatSheets && course.materials.cheatSheets.length > 0) {
         sectionHtml += '<div class="mb-3"><h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center"><i data-lucide="file-text" class="w-4 h-4 mr-1 text-orange-600"></i>Cheatsheets</h4><div class="flex flex-wrap gap-2">';
         course.materials.cheatSheets.forEach(sheet => {
@@ -497,7 +533,6 @@ function createCourseCard(course) {
         sectionHtml += '</div></div>';
     }
 
-    // FIX: Using folderUrl in the final card
     return `<div class="course-card bg-white rounded-lg border-2 ${selectedClass} p-4 hover:border-blue-500 transition-all duration-200 hover:shadow-md cursor-pointer" data-course-code="${course.code}"><div class="flex items-start justify-between mb-3"><div class="flex-1"><h3 class="text-lg font-bold text-gray-900 mb-1">${course.code}</h3><p class="text-sm text-gray-700 mb-2">${course.name}</p><div class="flex flex-wrap gap-1 mb-2">${badges.join('')}</div></div><a href="${folderUrl}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded hover:bg-gray-200 transition-colors flex-shrink-0"><i data-lucide="folder" class="w-3 h-3 mr-1"></i>Folder</a></div>${sectionHtml}</div>`;
 }
 

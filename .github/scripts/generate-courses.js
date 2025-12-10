@@ -17,9 +17,6 @@ function isLectureNotesFolder(name) {
 
 function isPracticeMaterialsFolder(name) {
     // Treat any folder containing "Practice" as practice materials
-    // e.g. "HE1002 - Macroeconomics I - Finals - Practice"
-    //      "HE1002 - Macroeconomics I - Midterms - Practice"
-    //      "Practice Materials"
     return name.includes('Practice');
 }
 
@@ -68,10 +65,7 @@ function makeZipUrl(relativePath) {
     return `https://github.com/yuhesui/QRSNTU/raw/main/${relativePath}`;
 }
 
-// Extracts identifiers for practice / weekly problem sheets from filenames like:
-//   "HE1002_MacroeconomicsI_Finals_Practice1_QuestionPaper.pdf"
-//   "MH5100_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf"
-//   "MH5100_AdvancedInvestigationsinCalculusI_25-26_Sem1_ProblemSheet_Week 2_QuestionPaper.pdf"
+// Extracts identifiers for practice / weekly problem sheets
 function extractPracticeIdentifier(fileName) {
     // 1) Week-based pattern (e.g. _Week 2_)
     const weekMatch = fileName.match(/_Week\s*(\d+)[_. ]/i);
@@ -93,6 +87,43 @@ function extractPracticeIdentifier(fileName) {
     // 4) Generic fallback
     return 'Practice';
 }
+
+// --- NEW HELPER: Count total files in a course for sorting ---
+function getCourseFileCount(course) {
+    let count = 0;
+    const m = course.materials;
+    if (!m) return 0;
+
+    // Direct arrays
+    count += (m.revisionNotes || []).length;
+    count += (m.cheatSheets || []).length;
+    count += (m.problemSheets || []).length;
+    count += (m.lectureNotes || []).length;
+    count += (m.pastYearZips || []).length;
+
+    // Nested objects (Finals)
+    if (m.finals) {
+        Object.values(m.finals).forEach(y => {
+            count += (y.papers || []).length + (y.solutions || []).length + (y.reports || []).length;
+        });
+    }
+
+    // Nested objects (Midterms)
+    if (m.midterms) {
+        Object.values(m.midterms).forEach(y => {
+            count += (y.papers || []).length + (y.solutions || []).length + (y.reports || []).length;
+        });
+    }
+
+    // Nested objects (Practice)
+    if (m.practiceMaterials) {
+        Object.values(m.practiceMaterials).forEach(p => {
+            count += (p.papers || []).length + (p.solutions || []).length;
+        });
+    }
+    return count;
+}
+// -------------------------------------------------------------
 
 function scanDirectory() {
     const courses = [];
@@ -188,8 +219,7 @@ function scanDirectory() {
 
                         if (!fileName.endsWith('.pdf')) return;
 
-                        // Can now pick up Week-based problem sheet naming, and
-                        // does not care whether course name is present in the file name
+                        // Can now pick up Week-based problem sheet naming
                         const identifier = extractPracticeIdentifier(fileName); // e.g. "Practice 1" or "Week 2"
                         if (!practiceMaterials[identifier]) {
                             practiceMaterials[identifier] = { papers: [], solutions: [] };
@@ -327,19 +357,22 @@ function scanDirectory() {
         });
     });
 
+    // --- NEW: Sort courses by number of files (descending) ---
+    courses.sort((a, b) => getCourseFileCount(b) - getCourseFileCount(a));
+    // ---------------------------------------------------------
+
     return courses;
 }
 
 const courses = scanDirectory();
 const outputPath = path.join(__dirname, '../../Website/v1/courses.json');
-// const outputPath = 'D:/Projects/QRSNTU/Archived/Test_Nov15/courses.json';
 
 fs.writeFileSync(
     outputPath,
     JSON.stringify({ courses, generatedAt: new Date().toISOString() }, null, 2)
 );
 
-console.log(`✓ Generated courses.json with ${courses.length} courses`);
+console.log(`✓ Generated courses.json with ${courses.length} courses (Sorted by file count)`);
 
 // ---------- Aggregated stats ----------
 
