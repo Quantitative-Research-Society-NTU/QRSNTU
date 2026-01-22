@@ -2,7 +2,7 @@
 title: "Quant & FinTech Events Guide - 2026 Jan"
 layout: default
 collection: publications
-permalink: /publications/EventsGuide2026Ja/
+permalink: /publications/EventsGuide2026Jan/
 ---
 
 # Quant & FinTech Events Guide - 2026 Jan
