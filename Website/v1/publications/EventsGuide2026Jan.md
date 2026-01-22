@@ -1,4 +1,11 @@
-# Finance, Trading, Quant & FinTech Events Guide 2026 Jan
+---
+title: "Quant & FinTech Events Guide - 2026 Jan"
+layout: default
+collection: publications
+permalink: /publications/EventsGuide2026Ja/
+---
+
+# Quant & FinTech Events Guide - 2026 Jan
 **Comprehensive Student Resource | Last Updated: January 22, 2026**
 
 ***
