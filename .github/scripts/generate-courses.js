@@ -8,7 +8,7 @@ const COURSE_NAMES = JSON.parse(
 
 // Helper functions
 function isProblemSheetFolder(name) {
-    return name.includes('Problem Sheets');
+    return name.includes('Problem Sheets') || name.includes('Tutorials');
 }
 
 function isLectureNotesFolder(name) {
