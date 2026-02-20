@@ -81,11 +81,11 @@ function getCourseName(courseCode, folderName) {
 
 function makeRawUrl(relativePath) {
     // relativePath like "Notes/HE1002/HE1002 - Macroeconomics I - Finals - Practice/file.pdf"
-    return `https://raw.githubusercontent.com/yuhesui/QRSNTU/main/${relativePath}`;
+    return `https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/${relativePath}`;
 }
 
 function makeZipUrl(relativePath) {
-    return `https://github.com/yuhesui/QRSNTU/raw/main/${relativePath}`;
+    return `https://github.com/Quantitative-Research-Society-NTU/QRSNTU/raw/main/${relativePath}`;
 }
 
 // Extracts identifiers for practice / weekly problem sheets
@@ -418,7 +418,7 @@ function scanDirectory() {
             code: courseCode,
             name: courseName,
             folderName,
-            githubUrl: `https://github.com/yuhesui/QRSNTU/tree/main/Notes/${folderName}`,
+            githubUrl: `https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/${folderName}`,
             materials: {
                 finals,
                 midterms,
