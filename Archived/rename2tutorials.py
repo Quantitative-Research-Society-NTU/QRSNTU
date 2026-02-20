@@ -1,8 +1,9 @@
 import os
 import re
+from pathlib import Path
 
-# Set your target directory
-folder_path = r"D:\Projects\QRSNTU\Notes\HE2002 - Macroeconomics II\HE2002 - Macroeconomics II - Tutorials"
+# Set your target directory (relative to this script's location)
+folder_path = Path(__file__).parent / 'Notes' / 'HE2002 - Macroeconomics II' / 'HE2002 - Macroeconomics II - Tutorials'
 
 # SAFETY SWITCH: Set to False only when you are ready to actually rename the files
 dry_run = False
