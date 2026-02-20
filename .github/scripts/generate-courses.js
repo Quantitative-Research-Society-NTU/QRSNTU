@@ -11,6 +11,10 @@ function isProblemSheetFolder(name) {
     return name.includes('Problem Sheets');
 }
 
+function isTutorialFolder(name) {
+    return name.includes('Tutorial');
+}
+
 function isLectureNotesFolder(name) {
     return name.includes('Lecture Notes');
 }
@@ -32,6 +36,25 @@ function isCheatSheet(name) {
         lower.includes('cheat_sheet') ||
         lower.includes('cheat-sheet')
     );
+}
+
+// New: recognise Tutorial files (case-insensitive)
+function isTutorialFile(name) {
+    return name.toLowerCase().includes('tutorial');
+}
+
+function extractTutorialIdentifier(fileName) {
+    // Preferred patterns like:
+    //   *_Tutorials_Tutorial 10_Solution by QRS.pdf
+    //   *_Tutorial_Tutorial 10_QuestionPaper.pdf
+    const match = fileName.match(/_Tutorials?_(Tutorial\s*\d+)_/i);
+    if (match) return match[1].replace(/\s+/g, ' ').trim(); // normalise spaces
+
+    // Fallback: any "Tutorial 10" anywhere in the filename
+    const fallback = fileName.match(/(Tutorial\s*\d+)/i);
+    if (fallback) return fallback[1].replace(/\s+/g, ' ').trim();
+
+    return 'Tutorial';
 }
 
 function extractAcademicYear(name) {
@@ -121,6 +144,14 @@ function getCourseFileCount(course) {
             count += (p.papers || []).length + (p.solutions || []).length;
         });
     }
+
+    // Nested objects (Tutorials)
+    if (m.tutorials) {
+        Object.values(m.tutorials).forEach(t => {
+            count += (t.papers || []).length + (t.solutions || []).length;
+        });
+    }
+
     return count;
 }
 // -------------------------------------------------------------
@@ -150,6 +181,7 @@ function scanDirectory() {
         const revisionNotes = [];
         const cheatSheets = []; // cheatsheets at course level
         const problemSheets = [];
+        const tutorials = {}; // grouped by "Tutorial 10", etc.
         const lectureNotes = [];
         const practiceMaterials = {}; // object keyed by "Practice 1", "Week 2", etc.
         const pastYearZips = [];
@@ -180,6 +212,24 @@ function scanDirectory() {
                         path: relPath,
                         downloadUrl: makeRawUrl(relPath)
                     });
+                    return;
+                }
+
+                // NEW: Catch root-level Tutorial files and treat as Problem Sheets
+                if (isTutorialFile(itemName) && itemName.endsWith('.pdf')) {
+                    const relPath = `Notes/${courseCode}/${itemName}`;
+                    const identifier = extractTutorialIdentifier(itemName);
+                    if (!tutorials[identifier]) tutorials[identifier] = { papers: [], solutions: [] };
+
+                    const materialType = extractMaterialType(itemName);
+                    const fileData = {
+                        name: itemName,
+                        path: relPath,
+                        downloadUrl: makeRawUrl(relPath)
+                    };
+
+                    if (materialType === 'Solution') tutorials[identifier].solutions.push(fileData);
+                    else tutorials[identifier].papers.push(fileData);
                     return;
                 }
 
@@ -319,7 +369,32 @@ function scanDirectory() {
                     return;
                 }
 
-                // 4. Lecture Notes
+                // 4. Tutorials
+                if (isTutorialFolder(itemName)) {
+                    const files = fs.readdirSync(itemPath);
+                    files.forEach(fileName => {
+                        const filePath = path.join(itemPath, fileName);
+                        if (!fs.statSync(filePath).isFile()) return;
+                        if (!fileName.endsWith('.pdf')) return;
+
+                        const relPath = `Notes/${courseCode}/${itemName}/${fileName}`;
+                        const identifier = extractTutorialIdentifier(fileName); // e.g. "Tutorial 10"
+                        if (!tutorials[identifier]) tutorials[identifier] = { papers: [], solutions: [] };
+
+                        const materialType = extractMaterialType(fileName);
+                        const fileData = {
+                            name: fileName,
+                            path: relPath,
+                            downloadUrl: makeRawUrl(relPath)
+                        };
+
+                        if (materialType === 'Solution') tutorials[identifier].solutions.push(fileData);
+                        else tutorials[identifier].papers.push(fileData);
+                    });
+                    return;
+                }
+
+                // 5. Lecture Notes
                 if (isLectureNotesFolder(itemName)) {
                     const files = fs.readdirSync(itemPath);
                     files.forEach(fileName => {
@@ -350,6 +425,7 @@ function scanDirectory() {
                 revisionNotes,
                 cheatSheets,
                 problemSheets,
+                tutorials,
                 lectureNotes,
                 practiceMaterials,
                 pastYearZips
@@ -584,3 +660,4 @@ if (pastYearRows.length > 0) {
 } else {
     console.log('No past-year Finals/Midterms papers detected.');
 }
+
