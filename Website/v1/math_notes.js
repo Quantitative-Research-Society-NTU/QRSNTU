@@ -429,9 +429,15 @@ function createCourseCard(course) {
 
         tutorialKeys
             .sort((a, b) => {
-                const na = parseInt((a.match(/\d+/) || [0])[0], 10);
-                const nb = parseInt((b.match(/\d+/) || [0])[0], 10);
-                return na - nb;
+                const naMatch = a.match(/\d+/);
+                const nbMatch = b.match(/\d+/);
+                const na = naMatch ? parseInt(naMatch[0], 10) : Number.MAX_SAFE_INTEGER;
+                const nb = nbMatch ? parseInt(nbMatch[0], 10) : Number.MAX_SAFE_INTEGER;
+                if (na !== nb) {
+                    return na - nb;
+                }
+                // Fallback to lexicographical order when numeric parts are equal or absent
+                return a.localeCompare(b);
             })
             .forEach(identifier => {
                 const group = tutorialData[identifier];
