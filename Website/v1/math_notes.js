@@ -24,6 +24,12 @@ function getCourseFileCount(course) {
     count += (m.lectureNotes || []).length;
     count += (m.pastYearZips || []).length;
 
+    if (m.tutorials) {
+        Object.values(m.tutorials).forEach(t => {
+            count += (t.papers || []).length + (t.solutions || []).length;
+        });
+    }
+
     if (m.finals) {
         Object.values(m.finals).forEach(y => {
             count += (y.papers || []).length + (y.solutions || []).length + (y.reports || []).length;
@@ -171,7 +177,7 @@ function extractYearFromPath(path) {
 }
 
 function extractIdentifier(filename) {
-    const match = filename.match(/_(Week \d+|Problem[_ ]?Sheet[_ ]?\d+|Lecture[_ ]?\d+|\d+)_/);
+    const match = filename.match(/_(Tutorial\s+\d+|Week \d+|Problem[_ ]?Sheet[_ ]?\d+|Lecture[_ ]?\d+|\d+)_/);
     return match ? match[1] : 'Uncategorized';
 }
 
@@ -249,6 +255,8 @@ function createCourseCard(course) {
         ? extractYearFromPath(course.materials.problemSheets[0].path) : null;
     const lectureNotesYear = course.materials.lectureNotes && course.materials.lectureNotes.length > 0
         ? extractYearFromPath(course.materials.lectureNotes[0].path) : null;
+    const tutorialsYear = course.materials.tutorials && Object.keys(course.materials.tutorials).length > 0
+        ? extractYearFromPath(Object.values(course.materials.tutorials)[0].solutions[0]?.path || Object.values(course.materials.tutorials)[0].papers[0]?.path || '') : null;
 
     const finalsZips = (course.materials.pastYearZips || []).filter(z => z.name.toLowerCase().includes('final'));
     const midtermsZips = (course.materials.pastYearZips || []).filter(z => z.name.toLowerCase().includes('midterm'));
@@ -265,6 +273,7 @@ function createCourseCard(course) {
     }
 
     if (course.materials.problemSheets && course.materials.problemSheets.length > 0) badges.push('<span class="material-badge bg-yellow-100 text-yellow-800">Problem Sheets</span>');
+    if (course.materials.tutorials && Object.keys(course.materials.tutorials).length > 0) badges.push('<span class="material-badge bg-teal-100 text-teal-800">Tutorials</span>');
     if (course.materials.lectureNotes && course.materials.lectureNotes.length > 0) badges.push('<span class="material-badge bg-indigo-100 text-indigo-800">Lecture Notes</span>');
     if (course.materials.practiceMaterials && Object.keys(course.materials.practiceMaterials).length > 0) {
         badges.push('<span class="material-badge bg-pink-100 text-pink-800">Practice</span>');
@@ -399,6 +408,41 @@ function createCourseCard(course) {
             sectionHtml += renderSolutions(group.solutions);
             sectionHtml += '</div>';
         });
+        sectionHtml += '</div></div>';
+    }
+
+    // Tutorials
+    if (course.materials.tutorials && Object.keys(course.materials.tutorials).length > 0) {
+        const uniqueId = `tutorials-${course.code}`;
+        const isExpanded = expandedSections.has(uniqueId);
+        const tutorialData = course.materials.tutorials;
+        const tutorialKeys = Object.keys(tutorialData);
+        const groupCount = tutorialKeys.length;
+        const yearLabel = tutorialsYear ? ` (AY${tutorialsYear})` : '';
+        sectionHtml += `<div class="mb-3">
+            <h4 class="text-sm font-bold mb-2 text-gray-900 flex items-center cursor-pointer hover:text-gray-700" data-toggle-section="${uniqueId}">
+                <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" data-toggle-icon class="w-4 h-4 mr-1 text-teal-600"></i>
+                <i data-lucide="list-checks" class="w-4 h-4 mr-1 text-teal-600"></i>
+                Tutorials${yearLabel} (${groupCount})
+            </h4>
+            <div id="${uniqueId}" class="${isExpanded ? '' : 'hidden'} pl-5">`;
+
+        tutorialKeys
+            .sort((a, b) => {
+                const na = parseInt((a.match(/\d+/) || [0])[0], 10);
+                const nb = parseInt((b.match(/\d+/) || [0])[0], 10);
+                return na - nb;
+            })
+            .forEach(identifier => {
+                const group = tutorialData[identifier];
+                // Display as "Tutorial 10" directly (identifier is already the display name)
+                sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs font-semibold text-gray-700 mr-2 mt-1">${identifier}:</span>`;
+                (group.papers || []).forEach(paper => {
+                    sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Question</a>`;
+                });
+                sectionHtml += renderSolutions(group.solutions);
+                sectionHtml += '</div>';
+            });
         sectionHtml += '</div></div>';
     }
 

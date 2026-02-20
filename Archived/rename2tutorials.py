@@ -2,7 +2,7 @@ import os
 import re
 
 # Set your target directory
-folder_path = r"D:\Projects\QRSNTU\Notes\MH1101\MH1101 - Calculus II - Tutorials (AY25-26)"
+folder_path = r"D:\Projects\QRSNTU\Notes\HE2002 - Macroeconomics II\HE2002 - Macroeconomics II - Tutorials"
 
 # SAFETY SWITCH: Set to False only when you are ready to actually rename the files
 dry_run = False
@@ -33,7 +33,7 @@ def main():
         old_path = os.path.join(folder_path, filename)
 
         # Construct the new filename
-        new_filename = f"MH1101_CalculusII_25-26_Sem1_Tutorials_Tutorial {index}_Solution by QRS.pdf"
+        new_filename = f"HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial {index}_Solution by QRS.pdf"
         new_path = os.path.join(folder_path, new_filename)
 
         if dry_run:

@@ -15,6 +15,21 @@ function isLectureNotesFolder(name) {
     return name.includes('Lecture Notes');
 }
 
+function isTutorialFolder(name) {
+    return name.includes('Tutorial');
+}
+
+// Extracts "Tutorial 10" from names like
+// "MH1101_CalculusII_25-26_Sem1_Tutorials_Tutorial 10_Solution by QRS.pdf"
+function extractTutorialIdentifier(fileName) {
+    const match = fileName.match(/_Tutorials?_(Tutorial\s*\d+)_/);
+    if (match) return match[1];
+    // Fallback: match any "Tutorial N" segment
+    const fallback = fileName.match(/(Tutorial\s*\d+)/);
+    if (fallback) return fallback[1];
+    return 'Tutorial';
+}
+
 function isPracticeMaterialsFolder(name) {
     // Treat any folder containing "Practice" as practice materials
     // e.g. "HE1002 - Macroeconomics I - Finals - Practice"
@@ -97,6 +112,7 @@ function scanDirectory() {
         const midterms = {};
         const revisionNotes = [];
         const problemSheets = [];
+        const tutorials = {};
         const lectureNotes = [];
         const practiceMaterials = {}; // <-- now an object keyed by "Practice 1", etc.
         const pastYearZips = [];
@@ -252,7 +268,39 @@ function scanDirectory() {
                     return;
                 }
 
-                // 4. Lecture Notes
+                // 4. Tutorials
+                if (isTutorialFolder(itemName)) {
+                    const files = fs.readdirSync(itemPath);
+                    files.forEach(fileName => {
+                        const filePath = path.join(itemPath, fileName);
+                        if (!fs.statSync(filePath).isFile()) return;
+                        if (!fileName.endsWith('.pdf')) return;
+
+                        const relPath = `Notes/${courseCode}/${itemName}/${fileName}`;
+                        const identifier = extractTutorialIdentifier(fileName); // e.g. "Tutorial 10"
+                        if (!tutorials[identifier]) {
+                            tutorials[identifier] = { papers: [], solutions: [] };
+                        }
+
+                        const materialType = extractMaterialType(fileName);
+                        const fileData = {
+                            name: fileName,
+                            path: relPath,
+                            downloadUrl: makeRawUrl(relPath)
+                        };
+
+                        if (materialType === 'QuestionPaper') {
+                            tutorials[identifier].papers.push(fileData);
+                        } else if (materialType === 'Solution') {
+                            tutorials[identifier].solutions.push(fileData);
+                        } else {
+                            tutorials[identifier].papers.push(fileData);
+                        }
+                    });
+                    return;
+                }
+
+                // 5. Lecture Notes
                 if (isLectureNotesFolder(itemName)) {
                     const files = fs.readdirSync(itemPath);
                     files.forEach(fileName => {
@@ -281,6 +329,7 @@ function scanDirectory() {
                 midterms,
                 revisionNotes,
                 problemSheets,
+                tutorials,
                 lectureNotes,
                 practiceMaterials,
                 pastYearZips
@@ -303,6 +352,11 @@ console.log(`✓ Generated courses.json with ${courses.length} courses`);
 console.log(
     `  - Problem Sheets: ${courses.filter(c =>
         c.materials.problemSheets && c.materials.problemSheets.length > 0
+    ).length} courses`
+);
+console.log(
+    `  - Tutorials: ${courses.filter(c =>
+        c.materials.tutorials && Object.keys(c.materials.tutorials).length > 0
     ).length} courses`
 );
 console.log(
