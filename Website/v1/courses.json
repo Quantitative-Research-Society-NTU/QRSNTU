@@ -1842,8 +1842,8 @@
     {
       "code": "HE2002",
       "name": "Macroeconomics II",
-      "folderName": "HE2002 - Macroeconomics II",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2002 - Macroeconomics II",
+      "folderName": "HE2002",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2002",
       "materials": {
         "finals": {},
         "midterms": {},
@@ -3781,5 +3781,5 @@
       }
     }
   ],
-  "generatedAt": "2026-02-20T10:11:14.130Z"
+  "generatedAt": "2026-02-20T10:35:30.807Z"
 }
