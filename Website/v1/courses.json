@@ -1930,6 +1930,66 @@
       }
     },
     {
+      "code": "HE2001",
+      "name": "Microeconomics II",
+      "folderName": "HE2001",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2001",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 1": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf"
+              },
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf"
+              },
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "MH4514",
       "name": "Financial Mathematics",
       "folderName": "MH4514",
@@ -3781,5 +3841,5 @@
       }
     }
   ],
-  "generatedAt": "2026-02-20T10:36:03.827Z"
+  "generatedAt": "2026-02-23T10:13:55.372Z"
 }
