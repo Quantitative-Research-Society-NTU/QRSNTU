@@ -2,7 +2,7 @@ let allCourses = [], filteredCourses = [], selectedCourses = new Set();
 let filterState = { examType: 'all', showSelectedOnly: false, searchQuery: '' };
 let expandedSections = new Set();
 
-const APP_VERSION = '1.8';
+const APP_VERSION = '1.9';
 
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
