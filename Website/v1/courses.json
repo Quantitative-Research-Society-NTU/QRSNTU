@@ -2377,6 +2377,165 @@
       }
     },
     {
+      "code": "MH2100",
+      "name": "Calculus III",
+      "folderName": "MH2100",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH2100",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "25-26": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Finals_25-26_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_25-26_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_25-26_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "18-19": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_18-19_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "19-20": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_19-20_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_21-22_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_22-23_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_23-24_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 1.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 1.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 1.pdf"
+              },
+              {
+                "name": "MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 2.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 2.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_24-25_Sem1_QuestionPaper 2.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "25-26": {
+            "papers": [
+              {
+                "name": "MH2100_CalculusIII_Midterms_25-26_Sem1_QuestionPaper.pdf",
+                "path": "Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_25-26_Sem1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Midterms/MH2100_CalculusIII_Midterms_25-26_Sem1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "revisionNotes": [],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "tutorials": {},
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "HE2002",
       "name": "Macroeconomics II",
       "folderName": "HE2002",
@@ -3930,46 +4089,6 @@
       }
     },
     {
-      "code": "MH2100",
-      "name": "Calculus III",
-      "folderName": "MH2100",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH2100",
-      "materials": {
-        "finals": {
-          "22-23": {
-            "papers": [
-              {
-                "name": "MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
-                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_22-23_Sem1_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "23-24": {
-            "papers": [
-              {
-                "name": "MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
-                "path": "Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH2100/MH2100 - Calculus III - Finals/MH2100_CalculusIII_Finals_23-24_Sem1_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          }
-        },
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {},
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
       "code": "MH2220",
       "name": "Algebra I",
       "folderName": "MH2220",
@@ -4460,5 +4579,5 @@
       }
     }
   ],
-  "generatedAt": "2026-08-17T08:58:06.506Z"
+  "generatedAt": "2026-08-17T09:25:07.596Z"
 }
