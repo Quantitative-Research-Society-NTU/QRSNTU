@@ -1,0 +1,1190 @@
+% Course information source: :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+% MOVE HYPERREF HERE
+\usepackage{hyperref} 
+
+\usepackage{draftwatermark}
+
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+ breakable=false,
+ colback=green!5!white,        % light interior
+ colframe=green!40!black,      % border
+ colbacktitle=green!50!black,  % dark title band
+ coltitle=white,               % title text colour
+ fonttitle=\bfseries,
+ title filled,                 % puts title inside the band
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+ breakable=false,
+ colback=blue!3!white,
+ colframe=blue!40!black,
+ colbacktitle=blue!55!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{thm}
+
+% ---------- ENVIRONMENTS USING TCOLORBOXENVIRONMENT ----------
+\tcolorboxenvironment{identity}{
+  enhanced,
+  breakable=false,
+  colback=green!5!white,
+  colframe=green!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+  enhanced,
+  breakable=false,
+  colback=red!5!white,
+  colframe=red!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+% Optional argument [1][] lets you override the default title if needed:
+%   \begin{keyformula}[title={Key Formula: Demand Curve}] ... \end{keyformula}
+
+\newtcolorbox{keyformula}[1][]{
+    enhanced,
+    breakable=false,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Key Formula,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% *** CHANGED TO BROWN AS REQUESTED ***
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    breakable=false,
+    colback=brown!5!white,
+    colframe=brown!75!black,
+    title=Worked Example,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+    enhanced,
+    breakable=false,
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Common Mistake,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{policynote}[1][]{
+    enhanced,
+    breakable=false,
+    colback=yellow!10!white,
+    colframe=orange!75!black,
+    title=Policy Application,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examtip}[1][]{
+    enhanced,
+    breakable=false,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    title=Exam Focus,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% ---------- EXTENSION / ENRICHMENT BOX ----------
+% For concise “extra” viewpoints (e.g., kernel-of-linear-map proof, stronger generalisation, elegant trick).
+\newtcolorbox{extension}[1][]{
+    enhanced,
+    breakable=false,
+    colback=cyan!5!white,
+    colframe=cyan!75!black,
+    title=Extension,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+%==================================================
+% TITLE / HEADER / FOOTER / WATERMARK
+%==================================================
+
+\title{%
+    \vspace{-0.5cm}
+    {\Large\bfseries \CourseCode\ \CourseName{} -- \DocType}
+}
+
+\author{\AcademicYear \\[0.3em]
+\textit{\href{https://qrsntu.org}{\color{black}Quantitative Research Society @ NTU}}}
+\date{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+ This document is provided for educational purposes and does not constitute an
+ official question paper, answer key, or any formally authorised academic
+ material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+    pdfauthor={Quantitative Research Society, NTU},
+    pdfsubject={\CourseName},
+    pdfkeywords={microeconomics, QRS@NTU, revision notes}
+}
+
+
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, integrating core definitions, key results, worked examples, and exam-focused techniques.
+\end{abstract}
+
+\vspace{0.5cm}
+
+\section*{Course Overview \& Topic Map}
+
+%====================================================================
+
+\begin{center}
+\begin{tabular}{|l|l|p{8.3cm}|}
+\hline
+\textbf{Topic Area} & \textbf{Chapters} & \textbf{Key Concepts} \\
+\hline
+Integrals & Ch.\ 1 & Antiderivatives; area problem; definite integrals; Fundamental Theorem of Calculus; substitution rule; improper integrals; Mean Value Theorem for integrals \\
+\hline
+Applications of Integrals & Ch.\ 2 & Area between curves; volumes (disks/washers); cylindrical shells; arc length \\
+\hline
+Techniques of Integration & Ch.\ 3 & Integration by parts; trigonometric integrals; trigonometric substitution; partial fractions; numerical integration (midpoint, trapezoidal, Simpson's rule) \\
+\hline
+Sequences and Series & Ch.\ 4 & Limits of sequences; monotone sequences; series \\
+\hline
+Convergence Tests & Ch.\ 5 & Integral test; comparison tests; absolute vs.\ conditional convergence; ratio test; root test \\
+\hline
+Power Series & Ch.\ 6 & Power series; Taylor series; Maclaurin series; binomial series \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+\textit{This revision guide follows the official MH1101 chapter structure while emphasizing problem-solving techniques and exam-relevant intuition.}
+
+%====================================================================
+\newpage
+\tableofcontents
+
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+\subsection*{Structure of the Notes}
+
+These notes are designed to be used together with your lectures and tutorials. Each chapter is organised into:
+
+\begin{enumerate}
+    \item \textbf{Core Theory} — definitions, statements of key results, and conceptual interpretation.
+    \item \textbf{Mathematical Framework} — formulas, standard manipulations, and common patterns.
+    \item \textbf{Worked Examples} — representative questions with full solutions.
+    \item \textbf{Applications} — modelling or interpretation links (where relevant).
+    \item \textbf{Exam Focus} — high-yield checklists, typical traps and time-saving techniques.
+\end{enumerate}
+
+A practical way to revise:
+\begin{itemize}
+    \item First pass: read Core Theory + Key Formula boxes to map the chapter.
+    \item Second pass: attempt Worked Examples yourself \emph{before} checking solutions.
+    \item Final pass: review Common Mistake boxes and your own error log before timed practice.
+\end{itemize}
+
+\subsection*{Colour and Box System (Legend)}
+
+The document uses a colour-coded system. Each box has a \textbf{name} at the top so you can quickly recognise its purpose:
+
+\begin{center}
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Colour} & \textbf{Box Name} & \textbf{Use This For} \\
+\hline
+\colorbox{green!5}{Green} & \textbf{Definition / Theorem} & Formal statements of definitions and theorems used throughout the course. \\
+\hline
+\colorbox{blue!5}{Blue}   & \textbf{Key Formula}          & Core identities and methods you should be able to apply quickly. \\
+\hline
+\colorbox{brown!5}{Brown} & \textbf{Worked Example}       & Fully worked questions. Try on your own before reading the solution. \\
+\hline
+\colorbox{red!5}{Red}     & \textbf{Common Mistake}       & Typical errors, misleading shortcuts and conceptual traps to avoid. \\
+\hline
+\colorbox{yellow!10}{Yellow} & \textbf{Policy Application} & Interpretation notes (units, modelling intuition, and ``what the answer means''). \\
+\hline
+\colorbox{purple!5}{Purple} & \textbf{Exam Focus}          & High-yield checklists, time-saving techniques, and typical exam patterns. \\
+\hline
+\colorbox{cyan!5}{Cyan}   & \textbf{Extension}            & Optional enrichment: elegant viewpoints, stronger generalisations, or structural remarks. \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+When you print in black and white, you can still identify boxes by their \textbf{title text}:
+\begin{itemize}
+    \item Look for the name at the top: \textit{Definition}, \textit{Theorem}, \textit{Key Formula}, \textit{Worked Example}, \textit{Common Mistake}, \textit{Policy Application}, \textit{Exam Focus}, \textit{Extension}.
+    \item In digital version, use the colour + name; in printed version, rely mainly on the name.
+\end{itemize}
+
+\newpage
+
+%==================================================
+%\part{Main Notes}
+%==================================================
+
+\input{MH1101/Chapters/ch01_integrals}
+\input{MH1101/Chapters/ch02_applications_of_integrals}
+\newpage
+\input{MH1101/Chapters/ch03_techniques_of_integration}
+\newpage
+\input{MH1101/Chapters/ch04_sequences_and_series}
+\newpage
+\input{MH1101/Chapters/ch05_convergence_tests}
+\newpage
+\input{MH1101/Chapters/ch06_power_series}
+\newpage
+
+
+\appendix
+%==================================================
+\section{Special Techniques}
+
+\subsection{Symmetry and transformation tricks}
+\subsubsection{Finite-interval reflection and averaging}
+For any integrable \(f\) on \([a,b]\),
+\[
+\int_a^b f(x)\,dx=\int_a^b f(a+b-x)\,dx,
+\qquad
+\int_a^b f(x)\,dx=\frac12\int_a^b\!\bigl(f(x)+f(a+b-x)\bigr)\,dx.
+\]
+
+\paragraph{Intuition.}
+Pair each point \(x\) with its mirror image \(a+b-x\) about the midpoint of the interval.
+
+\paragraph{How it works.}
+The substitution \(u=a+b-x\) preserves the interval \([a,b]\). In many problems, the reflected integrand complements the original one, and averaging the two forms simplifies the algebra dramatically.
+
+\paragraph{Why it is useful.}
+Many difficult definite integrals are not meant to be attacked by antiderivatives. Reflection often converts the problem into a one-line identity.
+
+\paragraph{When to try this.}
+Use it when the interval is finite and the integrand contains both \(x\) and \(a+b-x\), or when expressions in \(x\) and \(1-x\) naturally appear together.
+
+\paragraph{Worked example.}
+Let
+\[
+I=\int_0^1 \frac{x^2}{x^2+(1-x)^2}\,dx.
+\]
+Reflecting \(x\mapsto 1-x\),
+\[
+I=\int_0^1 \frac{(1-x)^2}{x^2+(1-x)^2}\,dx.
+\]
+Adding the two equal forms gives
+\[
+2I=\int_0^1 1\,dx=1,
+\qquad\Rightarrow\qquad
+I=\frac12.
+\]
+
+\newpage
+\subsubsection{Reciprocal substitution on \((0,\infty)\)}
+For a suitable \(f\),
+\[
+\int_0^\infty f(x)\,dx=\int_0^\infty f(1/x)\,\frac{dx}{x^2}.
+\]
+
+\paragraph{Intuition.}
+On \((0,\infty)\), the natural symmetry is \(x\leftrightarrow 1/x\). The interval is unchanged by inversion.
+
+\paragraph{How it works.}
+Under \(x=1/u\), one gets \(dx=-u^{-2}\,du\). After reversing the limits, the transformed integral stays on \((0,\infty)\), but with a Jacobian factor \(x^{-2}\).
+
+\paragraph{Why it is useful.}
+It is one of the fastest ways to prove equalities between improper integrals, force cancellation of logarithms, or exploit palindromic rational structure.
+
+\paragraph{When to try this.}
+Use it on \((0,\infty)\) when the integrand involves \(x\) and \(1/x\), or when denominators look essentially unchanged under inversion.
+
+\paragraph{Worked example.}
+Let
+\[
+I=\int_0^\infty \frac{\ln x}{1+x^2}\,dx.
+\]
+Using \(x\mapsto 1/x\),
+\[
+I=\int_0^\infty \frac{\ln(1/x)}{1+x^{-2}}\cdot \frac{dx}{x^2}
+=\int_0^\infty \frac{-\ln x}{1+x^2}\,dx=-I.
+\]
+Hence
+\[
+I=0.
+\]
+
+\newpage
+\subsubsection{Homogeneity and scale extraction}
+Typical scale-normalization identities are
+\[
+\int_0^\infty \frac{x^{m-1}}{(a+x)^n}\,dx
+= a^{m-n}\int_0^\infty \frac{t^{m-1}}{(1+t)^n}\,dt,
+\qquad x=at,
+\]
+and
+\[
+\int_0^a x^m(a-x)^n\,dx
+= a^{m+n+1}\int_0^1 t^m(1-t)^n\,dt,
+\qquad x=at.
+\]
+
+\paragraph{Intuition.}
+If a parameter enters only by scale, strip it out first. The remaining integral is usually the genuinely mathematical part.
+
+\paragraph{How it works.}
+A scaling substitution isolates the parameter into an explicit power of \(a\), leaving a dimensionless integral.
+
+\paragraph{Why it is useful.}
+Many parameter-dependent integrals are simpler than they look: once normalized, they become Beta integrals or standard constants.
+
+\paragraph{When to try this.}
+Use it when the variable and parameter appear in homogeneous combinations such as \(a+x\), \(a-x\), \(a^2+x^2\), \(ax\), or in interval endpoints like \([0,a]\).
+
+\paragraph{Worked example.}
+For \(m,n>-1\),
+\[
+\int_0^a x^m(a-x)^n\,dx
+=a^{m+n+1}\int_0^1 t^m(1-t)^n\,dt.
+\]
+Thus the full \(a\)-dependence is read off immediately, and only the normalized integral remains to be evaluated.
+
+\newpage
+\subsection{Parameter methods and differentiation under the integral sign}
+\subsubsection{Differentiation under the integral sign}
+Given
+\[
+F(\lambda)=\int_a^b f(x,\lambda)\,dx,
+\]
+one seeks
+\[
+F'(\lambda)=\int_a^b \partial_\lambda f(x,\lambda)\,dx,
+\]
+whenever the interchange is justified.
+
+\paragraph{Intuition.}
+Instead of evaluating one hard integral directly, embed it into a family and differentiate with respect to a parameter.
+
+\paragraph{How it works.}
+Choose the parameter so that differentiating the integrand simplifies it. Then solve for \(F'(\lambda)\), integrate back in \(\lambda\), and recover the constant from a convenient limiting or special value.
+
+\paragraph{Why it is useful.}
+This transforms a difficult integral into an ODE problem. Often the derivative family is elementary even when the original family is not.
+
+\paragraph{When to try this.}
+Use it when the integrand contains \(e^{-ax}\), \(\sin(ax)\), \(\cos(ax)\), \(x^a\), \((1+x)^{-a}\), or any parameter whose derivative improves the structure.
+
+\paragraph{Worked example.}
+Define
+\[
+F(a)=\int_0^\infty \frac{e^{-ax}\sin x}{x}\,dx,
+\qquad a>0.
+\]
+Differentiate:
+\[
+F'(a)=-\int_0^\infty e^{-ax}\sin x\,dx=-\frac{1}{1+a^2}.
+\]
+Hence
+\[
+F(a)=-\arctan a+C.
+\]
+As \(a\to\infty\), one has \(F(a)\to 0\), so
+\[
+0=-\frac{\pi}{2}+C
+\quad\Rightarrow\quad
+C=\frac{\pi}{2}.
+\]
+Therefore
+\[
+F(a)=\frac{\pi}{2}-\arctan a=\arctan\!\frac1a.
+\]
+
+\newpage
+\subsubsection{Parameter generation of logarithmic integrals}
+The fundamental identity is
+\[
+\frac{\partial^n}{\partial a^n}x^a=x^a(\ln x)^n.
+\]
+A standard parameter family is
+\[
+\int_0^1 x^{a-1}\,dx=\frac1a
+\qquad (a>0).
+\]
+Differentiating \(n\) times gives
+\[
+\int_0^1 x^{a-1}(\ln x)^n\,dx
+=\frac{d^n}{da^n}\!\left(\frac1a\right)
+=\frac{(-1)^n n!}{a^{n+1}}.
+\]
+
+\paragraph{Intuition.}
+A power of \(\ln x\) is often best viewed as a derivative with respect to an exponent.
+
+\paragraph{How it works.}
+Build a simpler exponent-parameter integral first, evaluate that closed form, then differentiate the closed form instead of attacking the logarithmic integral directly.
+
+\paragraph{Why it is useful.}
+This gives an entire family of exact formulas in one stroke.
+
+\paragraph{When to try this.}
+Use it whenever \((\ln x)^n\) appears together with a power \(x^{a-1}\), especially over \((0,1)\) or inside Beta/Gamma integrals.
+
+\paragraph{Worked example.}
+Setting \(a=1\),
+\[
+\int_0^1 (\ln x)^n\,dx=(-1)^n n!.
+\]
+So in particular,
+\[
+\int_0^1 \ln x\,dx=-1,
+\qquad
+\int_0^1 (\ln x)^2\,dx=2,
+\qquad
+\int_0^1 (\ln x)^3\,dx=-6.
+\]
+
+\newpage
+\subsubsection{Frullani's identity}
+If \(f(0)\) and \(f(\infty)\) exist and the integral converges, then
+\[
+\int_0^\infty \frac{f(ax)-f(bx)}{x}\,dx
+=\bigl(f(0)-f(\infty)\bigr)\ln\frac{b}{a},
+\qquad a,b>0.
+\]
+
+\paragraph{Intuition.}
+The difference \(f(ax)-f(bx)\) removes the singularity at \(x=0\), while the scale dependence forces a logarithm.
+
+\paragraph{How it works.}
+This identity is essentially a scale-parameter argument: the family depends only on the ratio \(b/a\), and differentiation with respect to that ratio reduces the problem.
+
+\paragraph{Why it is useful.}
+It converts a whole class of improper integrals with denominator \(x\) into immediate logarithmic answers.
+
+\paragraph{When to try this.}
+Use it when the integrand has the form \(\bigl(f(ax)-f(bx)\bigr)/x\), particularly with exponentials or rationally decaying functions.
+
+\paragraph{Worked example.}
+Take \(f(t)=e^{-t}\). Then \(f(0)=1\) and \(f(\infty)=0\), so
+\[
+\int_0^\infty \frac{e^{-ax}-e^{-bx}}{x}\,dx
+=\ln\frac{b}{a},
+\qquad a,b>0.
+\]
+
+\newpage
+\subsection{Reduction formulas and recurrence design}
+\subsubsection{Reduction formulas via recurrence design}
+A high-value example is the Wallis family
+\[
+I_n:=\int_0^{\pi/2}\sin^n x\,dx.
+\]
+It satisfies
+\[
+I_n=\frac{n-1}{n}I_{n-2}
+\qquad (n\ge 2),
+\]
+with initial values
+\[
+I_0=\frac{\pi}{2},
+\qquad
+I_1=1.
+\]
+Hence
+\[
+I_{2m}=\frac{(2m-1)!!}{(2m)!!}\cdot \frac{\pi}{2},
+\qquad
+I_{2m+1}=\frac{(2m)!!}{(2m+1)!!}.
+\]
+
+\paragraph{Intuition.}
+Instead of evaluating one integral, build a machine that lowers the exponent and solves the whole family.
+
+\paragraph{How it works.}
+Write \(\sin^n x=\sin^{n-1}x\sin x\), integrate by parts, and use \(1-\cos^2x\) to bring the integral back to the same family with exponent lowered by \(2\).
+
+\paragraph{Why it is useful.}
+This is the prototype for contest-style reduction formulas: one derivation produces all cases.
+
+\paragraph{When to try this.}
+Use it when repeated structure survives after one integration by parts, especially for trig powers, logarithmic powers, or inverse-trig families.
+
+\paragraph{Worked example.}
+Using the recurrence,
+\[
+I_4=\frac{3}{4}I_2
+=\frac{3}{4}\cdot \frac12 I_0
+=\frac{3}{8}\cdot \frac{\pi}{2}
+=\frac{3\pi}{16}.
+\]
+
+\newpage
+\subsection{Beta / Gamma / Wallis / special integral forms}
+\subsubsection{Beta--Gamma bridge}
+The Beta and Gamma functions are
+\[
+\Gamma(s)=\int_0^\infty t^{s-1}e^{-t}\,dt
+\qquad (s>0),
+\]
+\[
+B(p,q)=\int_0^1 x^{p-1}(1-x)^{q-1}\,dx
+\qquad (p,q>0),
+\]
+with the relation
+\[
+B(p,q)=\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}.
+\]
+Two very useful transforms are
+\[
+\int_0^\infty \frac{x^{p-1}}{(1+x)^{p+q}}\,dx=B(p,q),
+\]
+and
+\[
+\int_0^{\pi/2}\sin^{m-1}x\cos^{n-1}x\,dx
+=\frac12\,B\!\left(\frac{m}{2},\frac{n}{2}\right).
+\]
+
+\paragraph{Intuition.}
+Many non-elementary definite integrals are not really new problems; they are disguised Beta integrals.
+
+\paragraph{How it works.}
+Normalize the integral to \((0,1)\), \((0,\infty)\), or \((0,\pi/2)\), then match exponents to the Beta pattern.
+
+\paragraph{Why it is useful.}
+This replaces ad hoc manipulations by a systematic closed-form method.
+
+\paragraph{When to try this.}
+Use it for integrands involving powers of \(x\), \(1-x\), \(1+x\), or products of powers of \(\sin x\) and \(\cos x\).
+
+\paragraph{Worked example.}
+Evaluate
+\[
+\int_0^\infty \frac{\sqrt{x}}{(1+x)^3}\,dx.
+\]
+This is
+\[
+\int_0^\infty \frac{x^{3/2-1}}{(1+x)^3}\,dx
+=B\!\left(\frac32,\frac32\right)
+=\frac{\Gamma(3/2)^2}{\Gamma(3)}.
+\]
+Since
+\[
+\Gamma\!\left(\frac32\right)=\frac12\sqrt{\pi},
+\qquad
+\Gamma(3)=2,
+\]
+we obtain
+\[
+\int_0^\infty \frac{\sqrt{x}}{(1+x)^3}\,dx=\frac{\pi}{8}.
+\]
+
+\newpage
+\subsubsection{Gamma reflection and the \(\pi/\sin(\pi p)\) integral}
+For \(0<p<1\),
+\[
+\Gamma(p)\Gamma(1-p)=\frac{\pi}{\sin(\pi p)}.
+\]
+Hence
+\[
+\int_0^\infty \frac{x^{p-1}}{1+x}\,dx
+=B(p,1-p)=\frac{\pi}{\sin(\pi p)},
+\qquad 0<p<1.
+\]
+
+\paragraph{Intuition.}
+A rational improper integral on \((0,\infty)\) is secretly a Gamma-product identity.
+
+\paragraph{How it works.}
+First rewrite the integral as a Beta integral, then apply the reflection formula.
+
+\paragraph{Why it is useful.}
+This gives exact values for a class of improper integrals that do not look elementary at first sight.
+
+\paragraph{When to try this.}
+Use it whenever the denominator is \(1+x\) and the numerator is a fractional power \(x^{p-1}\) with \(0<p<1\).
+
+\paragraph{Worked example.}
+Taking \(p=\tfrac12\),
+\[
+\int_0^\infty \frac{dx}{\sqrt{x}(1+x)}
+=\frac{\pi}{\sin(\pi/2)}=\pi.
+\]
+
+\newpage
+\subsubsection{Gaussian square trick}
+The Gaussian integral is
+\[
+\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi},
+\qquad
+\int_0^\infty e^{-ax^2}\,dx=\frac12\sqrt{\frac{\pi}{a}}
+\qquad (a>0).
+\]
+More generally,
+\[
+\int_0^\infty x^m e^{-ax^2}\,dx
+=\frac12\,a^{-(m+1)/2}\Gamma\!\left(\frac{m+1}{2}\right)
+\qquad (a>0,\ m>-1).
+\]
+
+\paragraph{Intuition.}
+The one-dimensional Gaussian is hard; its square is easy because it becomes an area integral in the plane.
+
+\paragraph{How it works.}
+Square the integral, interpret it over \(\mathbb{R}^2\), and pass to polar coordinates.
+
+\paragraph{Why it is useful.}
+This is the model example of a higher-dimensional argument producing one-variable closed forms.
+
+\paragraph{When to try this.}
+Use it for exponential quadratic forms, especially on \((-\infty,\infty)\) or \((0,\infty)\).
+
+\paragraph{Worked example.}
+Let
+\[
+I=\int_{-\infty}^{\infty} e^{-x^2}\,dx.
+\]
+Then
+\[
+I^2=\iint_{\mathbb{R}^2} e^{-(x^2+y^2)}\,dA
+=\int_0^{2\pi}\!\!\int_0^\infty e^{-r^2}r\,dr\,d\theta
+=2\pi\cdot \frac12=\pi.
+\]
+Hence
+\[
+I=\sqrt{\pi}.
+\]
+
+
+\newpage
+\subsection{High-value closed-form families}
+
+\subsubsection{Weighted logarithm families}
+For \(n\in\mathbb Z_{\ge 0}\),
+\[
+\int \frac{(\ln x)^n}{x}\,dx
+=\frac{(\ln x)^{n+1}}{n+1}+C.
+\]
+More generally, for \(m\neq 1\),
+\[
+\int x^{-m}(\ln x)^n\,dx
+=
+-\,x^{1-m}\sum_{k=0}^{n}
+\frac{n!}{(n-k)!(m-1)^{k+1}}(\ln x)^{\,n-k}+C.
+\]
+
+\paragraph{Intuition.}
+These integrals look like isolated special cases, but they are really one uniform exponential-polynomial family after the substitution \(x=e^u\).
+
+\paragraph{How it works.}
+If \(x=e^u\), then \(dx=e^u\,du\), and the integral becomes \(e^{(1-m)u}u^n\), which is handled by repeated integration by parts.
+
+\paragraph{Why it is useful.}
+It compresses many useful logarithmic antiderivatives into one formula.
+
+\paragraph{When to try this.}
+Use it when powers of \(\ln x\) are divided by powers of \(x\), especially when one or two rounds of integration by parts are clearly not enough.
+
+\paragraph{Worked example.}
+From the general formula with \(n=1\),
+\[
+\int \frac{\ln x}{x^2}\,dx
+=-\frac{\ln x+1}{x}+C,
+\]
+and for \(n=1,\ m=3\),
+\[
+\int \frac{\ln x}{x^3}\,dx
+=-\frac{2\ln x+1}{4x^2}+C.
+\]
+
+
+\newpage
+\subsection{Nonstandard geometry / volume / surface formulas}
+\subsubsection{Pappus centroid theorems and direct torus formulas}
+If a plane region of area \(A\) is revolved about an external axis in its plane and its centroid is distance \(d\) from that axis, then
+\[
+V=2\pi d\,A.
+\]
+If a plane curve of length \(L\) is revolved about an external axis in its plane and its centroid is distance \(d\) from that axis, then
+\[
+S=2\pi d\,L.
+\]
+For a torus obtained by revolving a circle of radius \(r\) whose centre is distance \(R>r\) from the axis,
+\[
+V=2\pi^2 Rr^2,
+\qquad
+S=4\pi^2 Rr.
+\]
+
+\paragraph{Intuition.}
+Instead of slicing the solid or surface point-by-point, move the centroid and multiply by the travel distance.
+
+\paragraph{How it works.}
+The centroid travels along a circle of circumference \(2\pi d\). Multiplying this by the original area or length gives the final volume or surface area.
+
+\paragraph{Why it is useful.}
+It often replaces a full integration setup by a one-line computation.
+
+\paragraph{When to try this.}
+Use it for solids or surfaces of revolution generated by simple regions or curves whose centroid is known immediately, especially disks, circles, semicircles, and annular regions.
+
+\paragraph{Worked example.}
+A disk of radius \(r\) has area \(A=\pi r^2\) and centroid at its centre. Revolving it about a line at distance \(R\) from the centre gives
+\[
+V=2\pi R\cdot \pi r^2=2\pi^2 Rr^2.
+\]
+Likewise, the generating circle has length \(L=2\pi r\), so
+\[
+S=2\pi R\cdot 2\pi r=4\pi^2 Rr.
+\]
+
+
+\newpage
+\subsection{Advanced pattern-matching cues}
+\subsubsection{Pattern-matching guide for special techniques}
+\paragraph{Core cues.}
+\begin{itemize}[leftmargin=*]
+\item If the interval is \([a,b]\) and both \(x\) and \(a+b-x\) appear naturally, try \textbf{reflection and averaging}.
+\item If the interval is \((0,\infty)\) and the algebra looks similar under \(x\leftrightarrow 1/x\), try \textbf{reciprocal substitution}.
+\item If a parameter appears only by scale, first \textbf{normalize} with \(x=at\).
+\item If differentiating in a parameter simplifies the integrand, \textbf{build an ODE for the integral family}.
+\item If powers of \(\ln x\) appear, ask whether they come from \textbf{parameter differentiation of \(x^a\)}.
+\item If the same family reappears with a lower exponent after one integration by parts, seek a \textbf{reduction formula}.
+\item If the integrand matches \(x^{p-1}(1-x)^{q-1}\), \(x^{p-1}(1+x)^{-n}\), or \(\sin^{m-1}x\cos^{n-1}x\), look for \textbf{Beta form immediately}.
+\item If the integrand contains \(e^{-x^2}\), remember that the decisive trick may be \textbf{two-dimensional}, not one-dimensional.
+\item If a solid of revolution comes from a simple generating figure with obvious centroid, try \textbf{Pappus before washers or shells}.
+\end{itemize}
+
+\paragraph{How to use this guide.}
+This appendix is most useful when read as a recognition map, not as a list of formulas to memorize independently. In hard problems, the decisive step is usually seeing the correct structure early.
+%==================================================
+\newpage
+\section{Formula \& Key Results Reference}
+%==================================================
+
+\subsection{Ch1: Definite integrals, FTC, substitution, improper integrals}
+\subsubsection{FTC / Leibniz / MVT (use: evaluate or differentiate integrals)}
+\begin{align*}
+&\textbf{FTC I (use: differentiate }\int_a^x):\quad
+f\in C[a,b],\ F(x):=\int_a^x f(t)\,dt\ \Rightarrow\ F'(x)=f(x).\\
+&\textbf{FTC II (use: evaluate definite integrals):}\quad
+f\in C[a,b],\ \exists\,F\ \text{s.t. }F'=f\ \Rightarrow\ \int_a^b f(x)\,dx=F(b)-F(a).\\
+&\textbf{Leibniz, variable limits (use: }\frac{d}{dx}\int_{g(x)}^{h(x)}):\quad
+f\in C,\ g,h\in C^1,\ \frac{d}{dx}\!\int_{g(x)}^{h(x)}\! f(t)\,dt=f(h(x))h'(x)-f(g(x))g'(x).\\
+&\textbf{Leibniz, integrand depends on }x\textbf{ (use: parameter inside integrand):}\quad
+F,\partial_xF\ \text{cont},\ g,h\in C^1,\\
+&\hspace{2.2em}\frac{d}{dx}\!\int_{g(x)}^{h(x)}\! F(x,t)\,dt
+=F(x,h(x))h'(x)-F(x,g(x))g'(x)+\!\int_{g(x)}^{h(x)}\!\partial_xF(x,t)\,dt.\\
+&\textbf{MVT for integrals (use: average value / existence):}\quad
+f\in C[a,b]\Rightarrow \exists c\in(a,b):\ \int_a^b f(x)\,dx=f(c)(b-a),\\
+&\hspace{2.2em}f_{\text{avg}}=\frac{1}{b-a}\int_a^b f(x)\,dx,\ \ \exists c:\ f(c)=f_{\text{avg}}.
+\end{align*}
+
+\subsubsection{$u$-substitution (use: ``inner'' + missing derivative)}
+\begin{align*}
+&u=g(x)\ (C^1),\ du=g'(x)\,dx:\quad \int f(g(x))g'(x)\,dx=\int f(u)\,du.\\
+&\textbf{Definite form (use: change bounds):}\quad
+g\in C^1[a,b],\ f\ \text{cont on range}(g),\ 
+\int_a^b f(g(x))g'(x)\,dx=\int_{g(a)}^{g(b)} f(u)\,du.
+\end{align*}
+
+\subsubsection{Improper integrals (use: $\infty$ bounds or vertical asymptote)}
+\begin{align*}
+&\textbf{Type I (infinite interval):}\quad \int_a^{\infty} f:=\lim_{t\to\infty}\int_a^t f,\qquad
+\int_{-\infty}^{b} f:=\lim_{t\to-\infty}\int_t^b f.\\
+&\textbf{Type II (blow-up at endpoint):}\quad
+\int_a^b f:=\lim_{t\to a^+}\int_t^b f\ \ (f\to\infty \text{ at }a^+),\ \text{similarly at }b^-;\\
+&\hspace{2.2em}\text{if singular at }c\in(a,b):\ \int_a^b f=\int_a^c f+\int_c^b f\ (\text{both limits}).\\
+&\textbf{$p$-tests (use: compare to powers):}\quad
+\int_1^{\infty} x^{-p}\,dx\ \text{conv}\Leftrightarrow p>1;\qquad
+\int_0^{1} x^{-p}\,dx\ \text{conv}\Leftrightarrow p<1.\\
+&\textbf{Comparison (use: positive integrands):}\quad
+0\le f\le g,\ \int g\ \text{conv}\Rightarrow\int f\ \text{conv};\quad
+0\le g\le f,\ \int g\ \text{div}\Rightarrow\int f\ \text{div}.\\
+&\textbf{Limit comparison (use: asymptotic match):}\quad
+f,g>0,\ \lim_{x\to\alpha}\frac{f}{g}=c\in(0,\infty)\Rightarrow \int f,\int g\ \text{same conv/div}
+\ (\alpha=\infty,0^+,a^+,\dots).
+\end{align*}
+
+\subsection{Ch2: Applications of integration (setup templates)}
+\subsubsection{Area (use: region in $xy$-plane)}
+\begin{align*}
+&\textbf{w.r.t. }x:\quad A=\int_{x=a}^{b}\big(y_{\text{top}}(x)-y_{\text{bot}}(x)\big)\,dx\ \ (\text{split at intersections}).\\
+&\textbf{w.r.t. }y:\quad A=\int_{y=c}^{d}\big(x_{\text{right}}(y)-x_{\text{left}}(y)\big)\,dy.
+\end{align*}
+
+\subsubsection{Volumes (use: solids; choose washers vs shells)}
+\begin{align*}
+&\textbf{Slicing:}\quad V=\int A(x)\,dx\ \ \text{or}\ \ V=\int A(y)\,dy.\\
+&\textbf{Washers/disks about }y=k\ (\perp\text{ axis}):\quad
+V=\pi\int_a^b\Big(R_{\text{out}}(x)^2-R_{\text{in}}(x)^2\Big)\,dx,\\
+&\hspace{2.2em}R_{\text{out}}=|y_{\text{top}}-k|,\ R_{\text{in}}=|y_{\text{bot}}-k|.\\
+&\textbf{Washers/disks about }x=k\ (\perp\text{ axis}):\quad
+V=\pi\int_c^d\Big(R_{\text{out}}(y)^2-R_{\text{in}}(y)^2\Big)\,dy,\\
+&\hspace{2.2em}R_{\text{out}}=|x_{\text{right}}-k|,\ R_{\text{in}}=|x_{\text{left}}-k|.\\
+&\textbf{Shells about }x=k\ (\parallel\text{ axis}):\quad
+V=2\pi\int_a^b r(x)h(x)\,dx,\ \ r=|x-k|,\ \ h=y_{\text{top}}-y_{\text{bot}}.\\
+&\textbf{Shells about }y=k\ (\parallel\text{ axis}):\quad
+V=2\pi\int_c^d r(y)h(y)\,dy,\ \ r=|y-k|,\ \ h=x_{\text{right}}-x_{\text{left}}.
+\end{align*}
+
+\subsubsection{Arc length / surface area (use: curve length / area of revolution)}
+\begin{align*}
+&\textbf{Arc length }y=f(x):\quad f'\ \text{cont on }[a,b],\ L=\int_a^b\sqrt{1+(f'(x))^2}\,dx.\\
+&\textbf{Arc length }x=g(y):\quad g'\ \text{cont on }[c,d],\ L=\int_c^d\sqrt{1+(g'(y))^2}\,dy.\\
+&\textbf{Surface area about }y=k,\ y=f(x):\quad
+S=2\pi\int_a^b |f(x)-k|\,\sqrt{1+(f'(x))^2}\,dx.\\
+&\textbf{Surface area about }x=k,\ x=g(y):\quad
+S=2\pi\int_c^d |g(y)-k|\,\sqrt{1+(g'(y))^2}\,dy.
+\end{align*}
+
+\subsubsection{Work / fluids (use: slice $\Rightarrow$ density $\times$ area $\times$ distance)}
+\begin{align*}
+&\textbf{Work (1D force):}\quad W=\int_a^b F(x)\,dx.\\
+&\textbf{Spring (Hooke):}\quad F=kx\ \Rightarrow\ W=\int_{x=a}^{b}kx\,dx.\\
+&\textbf{Pumping (vertical slices at height }y):\quad dW=\rho g\,A(y)\,D(y)\,dy,\quad W=\int dW.\\
+&\textbf{Hydrostatic force (vertical plate):}\quad p(y)=\rho g\,h(y),\ dF=p(y)\,w(y)\,dy,\ F=\int dF.
+\end{align*}
+
+\subsection{Ch3: Techniques \& numerical integration}
+\subsubsection{Integration by parts (use: product; reduce algebraic degree)}
+\begin{align*}
+&\textbf{Indef:}\quad \int u\,dv=uv-\int v\,du.\\
+&\textbf{Def:}\quad \int_a^b u\,dv=\big[uv\big]_a^b-\int_a^b v\,du.
+\end{align*}
+
+\subsubsection{Trig integrals / trig substitution (decision rules)}
+\begin{align*}
+&\int \sin^m x\cos^n x\,dx:\ \ n\ \text{odd}\Rightarrow u=\sin x;\ \ m\ \text{odd}\Rightarrow u=\cos x;\ \text{both even}\Rightarrow(\text{see formula sheet}).\\
+&\int \tan^m x\sec^n x\,dx:\ \ n\ \text{even}\Rightarrow u=\tan x;\ \ m\ \text{odd}\Rightarrow u=\sec x.\\
+&\textbf{Trig-sub mapping (use: radicals):}\quad
+\sqrt{a^2-x^2}\Rightarrow x=a\sin\theta;\ 
+\sqrt{a^2+x^2}\Rightarrow x=a\tan\theta;\ 
+\sqrt{x^2-a^2}\Rightarrow x=a\sec\theta.
+\end{align*}
+
+\subsubsection{Partial fractions (use: rational $P/Q$; do long division if $\deg P \ge \deg Q$)}
+\begin{align*}
+&\textbf{Distinct linear:}\quad \frac{P(x)}{\prod_i (a_i x+b_i)}=\sum_i \frac{A_i}{a_i x+b_i}.\\
+&\textbf{Repeated linear }(ax+b)^r:\quad \sum_{k=1}^r \frac{A_k}{(ax+b)^k}.\\
+&\textbf{Irreducible quadratic }(ax^2+bx+c)^r:\quad \sum_{k=1}^r \frac{A_kx+B_k}{(ax^2+bx+c)^k}.\\
+&\textbf{Fast split for quadratic:}\quad A x+B=\lambda(2ax+b)+\mu\ \Rightarrow\ \lambda\ln(ax^2+bx+c)+\text{(arctan term; see formula sheet)}.
+\end{align*}
+
+\subsubsection{Numerical rules + error (use: approximate $\int_a^b f$)}
+Let $\Delta x=\frac{b-a}{n}$, $x_i=a+i\Delta x$.
+\begin{align*}
+&L_n=\sum_{i=1}^n f(x_{i-1})\Delta x,\quad
+R_n=\sum_{i=1}^n f(x_i)\Delta x,\quad
+M_n=\sum_{i=1}^n f\!\left(\frac{x_{i-1}+x_i}{2}\right)\Delta x,\\
+&T_n=\frac{\Delta x}{2}\Big(f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\Big)=\frac{L_n+R_n}{2},\\
+&S_n=\frac{\Delta x}{3}\Big(f(x_0)+4\!\!\sum_{\substack{1\le i\le n-1\\ i\ \text{odd}}}\!\!f(x_i)+2\!\!\sum_{\substack{2\le i\le n-2\\ i\ \text{even}}}\!\!f(x_i)+f(x_n)\Big)\ (n\ \text{even}).
+\end{align*}
+Error bounds (need smoothness):
+\begin{align*}
+&f''\ \text{cont},\ |f''|\le K:\quad |E_T|\le \frac{K(b-a)^3}{12n^2},\qquad |E_M|\le \frac{K(b-a)^3}{24n^2}.\\
+&f^{(4)}\ \text{cont},\ |f^{(4)}|\le K\ (n\ \text{even}):\quad |E_S|\le \frac{K(b-a)^5}{180n^4}.
+\end{align*}
+Over/under-estimate cues:
+\[
+f\uparrow:\ L_n\le \int_a^b f\le R_n\quad(\text{reverse if }f\downarrow),\qquad
+f''>0:\ T_n\ge \int,\ M_n\le \int\quad(\text{reverse if }f''<0).
+\]
+
+\subsection{Ch4: Sequences \& series (definitions + core tests)}
+\subsubsection{Sequences (use: limit / monotone bounded)}
+\[
+a_n\to L\iff \forall\varepsilon>0\ \exists N:\ n\ge N\Rightarrow |a_n-L|<\varepsilon,\qquad
+a_n\ \text{monotone \& bounded}\Rightarrow a_n\ \text{converges}.
+\]
+
+\subsubsection{Series basics (use: partial sums + remainder)}
+\[
+\sum_{n=1}^{\infty}a_n \text{ converges} \iff S_n := \sum_{k=1}^n a_k \to S \in \mathbb{R}, \quad
+R_n := S - S_n = \sum_{k=n+1}^{\infty} a_k.
+\]
+Necessary condition: $\sum a_n$ convergent $\Rightarrow a_n\to 0$ (not sufficient).
+
+\subsubsection{Geometric / $p$-series (high frequency)}
+\[
+\sum_{n=0}^{\infty}ar^n=
+\frac{a}{1-r}\ (|r|<1)\ \text{else diverges},\qquad
+\sum_{n=1}^{\infty}\frac{1}{n^p}\ \text{conv}\Leftrightarrow p>1.
+\]
+
+\subsubsection{Convergence tests (applicability cues)}
+Assume $a_n\ge 0$ when required.
+\begin{align*}
+&\textbf{Comparison (use: }0\le a_n\le b_n):\ \sum b_n\ \text{conv}\Rightarrow\sum a_n\ \text{conv};\ \sum a_n\ \text{div}\Rightarrow\sum b_n\ \text{div}.\\
+&\textbf{Limit comparison (use: asymptotic match):}\ a_n,b_n>0,\ \lim \frac{a_n}{b_n}=c\in(0,\infty)\Rightarrow \sum a_n,\sum b_n\ \text{same}.\\
+&\textbf{Integral test (use: }a_n=f(n),\ f\downarrow,\ f>0):\ \sum_{n=1}^{\infty}a_n\ \text{conv}\Leftrightarrow \int_1^{\infty} f(x)\,dx\ \text{conv},\\
+&\hspace{2.2em}\int_{n+1}^{\infty} f\le R_n\le \int_n^{\infty} f\ \ (\text{remainder bound}).\\
+&\textbf{Alternating (Leibniz; use: }(-1)^n b_n):\ b_n\downarrow,\ b_n\to 0\Rightarrow \sum (-1)^n b_n\ \text{conv},\ |R_n|\le b_{n+1}.\\
+&\textbf{Absolute vs conditional (use: take abs):}\ \sum |a_n|\ \text{conv}\Rightarrow \sum a_n\ \text{conv (absolute)};\ \text{else may be conditional}.\\
+&\textbf{Ratio (use: factorial/exponential):}\ L=\limsup\left|\frac{a_{n+1}}{a_n}\right|;\ L<1\Rightarrow \sum a_n\ \text{abs conv},\ L>1\Rightarrow \text{div}.\\
+&\textbf{Root (use: }n\text{-th powers):}\ L=\limsup \sqrt[n]{|a_n|};\ L<1\Rightarrow \text{abs conv},\ L>1\Rightarrow \text{div}.
+\end{align*}
+
+\subsection{Ch5: Taylor / Maclaurin polynomials (approximation)}
+\subsubsection{Definitions (use: local approximation near }a\text{)}
+\[
+T_n(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k,\qquad
+\text{Maclaurin: }a=0.
+\]
+Taylor's theorem (Lagrange remainder; need $f^{(n+1)}$ cont near $a$):
+\[
+f(x)=T_n(x)+R_n(x),\qquad
+R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}\ \text{for some }\xi\text{ between }x,a.
+\]
+Error bound (use: $|f^{(n+1)}|\le M$ on interval between $a$ and $x$):
+\[
+|R_n(x)|\le \frac{M}{(n+1)!}|x-a|^{n+1}.
+\]
+Common Maclaurin expansions: (see formula sheet).
+
+\subsection{Ch6: Power series (radius/interval + termwise ops)}
+\subsubsection{Definitions \& radius/interval workflow (use: ratio test)}
+\[
+\sum_{n=0}^{\infty} c_n(x-a)^n\quad(\text{power series about }a),\qquad
+\text{converges for }|x-a|<R,\ \text{diverges for }|x-a|>R.
+\]
+Compute $R$ via ratio test (typical):
+\[
+L(x)=\limsup_{n\to\infty}\left|\frac{c_{n+1}(x-a)^{n+1}}{c_n(x-a)^n}\right|
+=\limsup_{n\to\infty}\left|\frac{c_{n+1}}{c_n}\right|\cdot |x-a|,\quad
+L(x)<1\Rightarrow \text{conv}.
+\]
+Endpoints $x=a\pm R$: test separately (often comparison / alternating / integral test).
+
+\subsubsection{Term-by-term differentiation/integration (use: inside radius)}
+For $|x-a|<R$,
+\[
+\frac{d}{dx}\sum_{n=0}^{\infty} c_n(x-a)^n=\sum_{n=1}^{\infty} n\,c_n(x-a)^{n-1},\qquad
+\int \sum_{n=0}^{\infty} c_n(x-a)^n\,dx=C+\sum_{n=0}^{\infty}\frac{c_n}{n+1}(x-a)^{n+1},
+\]
+with the \emph{same} radius of convergence $R$ (check endpoints separately after integrating/differentiating).
+
+\newpage
+%==================================================
+\section{Notation}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}p{0.18\textwidth}p{0.42\textwidth}p{0.34\textwidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Where / typical use} \\
+\midrule
+$\displaystyle \int f(x)\,dx$ & Indefinite integral / antiderivative $F'(x)=f(x)$ & Find families of primitives; IBP, $u$-sub, PF \\
+$\displaystyle \int_a^b f(x)\,dx$ & Definite integral (net area) & FTC II evaluation; area/volume/work templates \\
+$t$ (dummy var.) & Placeholder variable in integrals/series & FTC I: $F(x)=\int_a^x f(t)\,dt$ \\
+$u=g(x)$ & Substitution variable & $u$-sub: match $du=g'(x)\,dx$; change bounds in definite form \\
+$\displaystyle \int_a^{\infty} f$,\ $\int_{-\infty}^b f$ & Improper (Type I) as limits of proper integrals & Convergence via $p$-test, comparison, limit comparison \\
+$\displaystyle \int_a^b f,\ f\to\infty$ at endpoint & Improper (Type II) limit at singularity & Split at interior singularities; evaluate by limits \\
+$f_{\text{avg}}$ & Average value $\frac{1}{b-a}\int_a^b f$ & MVT for integrals; average-value problems \\
+$A$ & Area & Area between curves: $A=\int(\text{top}-\text{bot})\,dx$ or $\int(\text{right}-\text{left})\,dy$ \\
+$V$ & Volume & Washers/shells/slicing formulas \\
+$L$ & Arc length & $L=\int\sqrt{1+(f')^2}\,dx$ or $\int\sqrt{1+(g')^2}\,dy$ \\
+$S$ & Surface area of revolution & $S=\int 2\pi(\text{radius})\,ds$ \\
+$W$ & Work & $W=\int F(x)\,dx$; fluids: $dW=\rho g\,A(y)D(y)\,dy$ \\
+$\rho,\ g$ & Density / gravitational accel. & Hydrostatic force, pumping work \\
+$\sum_{n=1}^{\infty} a_n$ & Infinite series & Convergence tests; compare to geometric / $p$-series \\
+$S_n=\sum_{k=1}^{n} a_k$ & Partial sums & $\sum a_n$ converges iff $S_n\to S$ \\
+$S$ & Series sum (if convergent) & $S=\lim_{n\to\infty}S_n$ \\
+$R_n=S-S_n$ & Remainder (tail) & Error estimate; alternating: $|R_n|\le b_{n+1}$ \\
+$\to$,\ $\lim$ & Convergence / limit & $a_n\to L$, $S_n\to S$ \\
+$\sum |a_n|$ & Absolute series & Absolute vs conditional convergence \\
+$\sim$ & Asymptotic equivalence: $f\sim g\iff f/g\to 1$ & Limit comparison for integrals/series; simplify large-$n$ behavior \\
+$O(g(x))$ & Big-O: $|f|\le C|g|$ near point / $\infty$ & Error bounds, asymptotic estimates, test setup \\
+$o(g(x))$ & Little-o: $f/g\to 0$ & Sharper asymptotics; remainder comparisons \\
+$\displaystyle \sum_{n=0}^{\infty} c_n(x-a)^n$ & Power series about $a$ & Radius/interval of convergence; termwise ops \\
+$R$ & Radius of convergence & Usually from ratio/root test \\
+IOC & Interval of convergence & $(a-R,a+R)$ plus endpoint checks \\
+$T_n(x)$ & Taylor polynomial degree $n$ about $a$ & Approximation; series generation \\
+$R_n(x)$ & Taylor remainder & Lagrange form; error bounds \\
+$n!$ & Factorial ($n\cdot(n-1)\cdots 1$; $0!=1$) & Taylor coefficients; ratio test with factorial terms \\
+$\binom{n}{k}$ & Binomial coefficient $\frac{n!}{k!(n-k)!}$ & Binomial expansions; series manipulations \\
+$\approx$ & Numerical approximation & Taylor / numerical integration approximations \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\newpage
+%==================================================
+\section{Exam \& Assessment Information}
+%==================================================
+
+\subsection{Assessment Breakdown (Course-Specific Summary)}
+\begin{itemize}
+  \item Assignment 1: 5\% (released Week 4; due late Week 7).
+  \item Wooclap class participation: 5\% (full marks typically requires meeting a completion threshold across in-class activities).
+  \item Midterm test: 20\% (Week 8).
+  \item Assignment 2: 10\% (released Week 9; due mid-semester).
+  \item Final exam: 60\%.
+\end{itemize}
+
+\subsection{Midterm / Final Notes (Placeholders for Personalisation)}
+\begin{itemize}
+  \item Bring writing instruments, student card, and any permitted materials.
+  \item Timing strategy: allocate time per question; reserve a buffer for checks.
+  \item Show working clearly; make substitutions and limit steps explicit.
+\end{itemize}
+
+\subsection{Allowed Reference Sheet Reminder}
+\begin{itemize}
+  \item You are allowed \textbf{one double-sided A4 reference sheet} with handwritten or typed text.
+  \item Do \textbf{not} attach sticky notes/post-its to the sheet.
+\end{itemize}
+
+\subsection{Revision Checklist}
+\begin{itemize}
+  \item I can set up a definite integral correctly (bounds, variable, integrand).
+  \item I can choose between substitution vs.\ integration by parts vs.\ partial fractions.
+  \item I can classify an integral as improper and apply the correct limit definition.
+  \item I can distinguish sequence vs.\ series and use an appropriate convergence test.
+  \item I can compute an interval of convergence for a power series and test endpoints.
+\end{itemize}
+
+\end{document}

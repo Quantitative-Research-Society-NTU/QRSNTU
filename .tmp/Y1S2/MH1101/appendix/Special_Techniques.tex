@@ -1,0 +1,1043 @@
+\section{Special Techniques}
+%==================================================
+
+This section collects optional techniques, advanced shortcuts, and exam-safety
+workflows.  Core formulas are kept in the Formula \& Key Results Reference;
+this section explains when and how to use nonstandard or easily misapplied
+methods.
+
+\subsection{Limit and Algebraic Simplification Techniques}
+
+\subsubsection{Dominant-term comparison}
+\begin{extension}
+Dominant-term comparison is a fast way to simplify limits of rational,
+radical, exponential, or logarithmic expressions before applying a formal test.
+The idea is to divide by the largest relevant scale.
+\end{extension}
+
+\begin{keyformula}[title={Dominant-Term Templates}]
+\[
+\frac{a_mx^m+	ext{lower powers}}{b_nx^n+	ext{lower powers}}
+\sim \frac{a_m}{b_n}x^{m-n}\\quad(x\to\infty),
+\]
+\[
+\sqrt{x^2+ax+b}=x\sqrt{1+\frac{a}{x}+\frac{b}{x^2}}
+\sim x+\frac a2\quad(x\to\infty).
+\]
+\end{keyformula}
+
+\begin{examtip}
+At infinity, compare by growth class first:
+\[
+\log x \ll x^p \ll a^x \ll x! \ll x^x
+\quad(p>0,\ a>1).
+\]
+This usually identifies whether a ratio limit is \(0\), finite nonzero, or
+infinite before detailed algebra.
+\end{examtip}
+
+\begin{commonmistake}
+Dominant-term comparison gives the limit only after the expression has been
+put on a common scale.  Do not discard terms inside a difference such as
+\(\sqrt{x^2+x}-x\); cancellation may make the next-order term decisive.
+\end{commonmistake}
+
+\begin{examplebox}[title={Radical Cancellation}]
+\[
+\lim_{x\to\infty}\left(\sqrt{x^2+x}-x\right)
+=\lim_{x\to\infty}\frac{x}{\sqrt{x^2+x}+x}
+=\frac12.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Rationalisation patterns}
+\begin{extension}
+Rationalisation is useful whenever a limit has a radical difference or a
+hidden removable singularity.  It converts cancellation into a product or
+quotient that exposes the small factor.
+\end{extension}
+
+\begin{keyformula}[title={Useful Rationalisations}]
+\[
+\sqrt{A}-\sqrt{B}=\frac{A-B}{\sqrt A+\sqrt B},
+\qquad
+\sqrt[3]{A}-\sqrt[3]{B}=\frac{A-B}{A^{2/3}+A^{1/3}B^{1/3}+B^{2/3}}.
+\]
+\end{keyformula}
+
+\begin{examtip}
+For limits of the form \(0/0\) with radicals, rationalise before using
+L'H\^opital's rule.  The algebra is often shorter and less error-prone.
+\end{examtip}
+
+\begin{commonmistake}
+When rationalising a cube-root expression, the denominator is the sum
+\(A^{2/3}+A^{1/3}B^{1/3}+B^{2/3}\), not just a conjugate with two terms.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Logarithmic limit transformation}
+\begin{extension}
+For powers with a variable base and variable exponent, take logarithms first.
+This turns a hard expression into a product limit.
+\end{extension}
+
+\begin{keyformula}[title={Power-Limit Log Transformation}]
+If \(y(x)>0\) and \(y(x)=u(x)^{v(x)}\), then
+\[
+\ln y=v(x)\ln u(x),
+\qquad
+\lim y=\exp\!\left(\lim v(x)\ln u(x)\right)
+\]
+whenever the logarithmic limit exists.
+\end{keyformula}
+
+\begin{examtip}
+Use this for indeterminate forms \(1^\infty\), \(0^0\), and \(\infty^0\).
+Convert to an exponential only at the end.
+\end{examtip}
+
+\begin{examplebox}[title={Standard Exponential Limit}]
+\[
+y=\left(1+\frac{a}{x}\right)^x,
+\qquad
+\ln y=x\ln\left(1+\frac{a}{x}\right)\to a,
+\qquad
+ y\to e^a.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Squeeze theorem templates}
+\begin{extension}
+The squeeze theorem is especially useful when a bounded oscillatory factor is
+multiplied by a term that tends to zero.
+\end{extension}
+
+\begin{keyformula}[title={Common Squeeze Forms}]
+\[
+|\sin u|\le 1,
+\qquad
+|\cos u|\le 1,
+\qquad
+0\le 1-\cos u\le \frac{u^2}{2},
+\qquad
+|\sin u|\le |u|.
+\]
+\end{keyformula}
+
+\begin{examtip}
+If the difficult part is bounded and the simple factor tends to zero, squeeze
+rather than differentiate or expand.
+\end{examtip}
+
+\begin{examplebox}[title={Oscillatory Squeeze}]
+\[
+\left|x^2\sin\frac1x\right|\le x^2\to0
+\quad\Rightarrow\quad
+\lim_{x\to0}x^2\sin\frac1x=0.
+\]
+\end{examplebox}
+
+\newpage
+\subsection{Differentiation Techniques and Derivative-Based Workflows}
+
+\subsubsection{Logarithmic differentiation}
+\begin{extension}
+Logarithmic differentiation is an efficient method for products, quotients,
+powers with variable exponents, and functions of the form \(y=f(x)^{g(x)}\).
+\end{extension}
+
+\begin{keyformula}[title={Logarithmic Differentiation Template}]
+If \(y>0\), then
+\[
+\frac{y'}{y}=\frac{d}{dx}\ln y.
+\]
+For \(y=f(x)^{g(x)}\),
+\[
+\ln y=g(x)\ln f(x),
+\qquad
+ y'=f(x)^{g(x)}\left(g'(x)\ln f(x)+g(x)\frac{f'(x)}{f(x)}\right).
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+After differentiating \(\ln y\), multiply by \(y\).  Stopping at \(y'/y\) is
+not the derivative unless the question explicitly asks for logarithmic derivative.
+\end{commonmistake}
+
+\begin{examplebox}[title={Variable Power}]
+For \(y=x^x\),
+\[
+\ln y=x\ln x,
+\qquad
+\frac{y'}{y}=\ln x+1,
+\qquad
+ y'=x^x(\ln x+1).
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Implicit differentiation workflow}
+\begin{extension}
+Implicit differentiation is useful when solving explicitly for \(y\) is
+unpleasant or impossible.  Treat \(y\) as a function of \(x\) throughout.
+\end{extension}
+
+\begin{examtip}
+Differentiate every term with respect to \(x\).  Whenever differentiating an
+expression involving \(y\), multiply by \(y'\) through the chain rule.  Then
+collect all \(y'\)-terms and solve.
+\end{examtip}
+
+\begin{examplebox}[title={Implicit Derivative}]
+If \(x^2+xy+y^2=3\), then
+\[
+2x+(xy)' +2yy'=0
+\quad\Rightarrow\quad
+2x+y+xy'+2yy'=0,
+\]
+so
+\[
+y'=-\frac{2x+y}{x+2y}.
+\]
+\end{examplebox}
+
+\begin{commonmistake}
+The derivative of \(xy\) is \(x y'+y\), not just \(xy'\).  Product rule and
+chain rule both matter.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Inverse-function derivative shortcut}
+\begin{extension}
+When \(f\) is one-to-one and differentiable with \(f'(a)\ne0\), the derivative
+of the inverse can be computed without explicitly finding the inverse formula.
+\end{extension}
+
+\begin{keyformula}[title={Inverse Derivative Formula}]
+If \(f(a)=b\), then
+\[
+(f^{-1})'(b)=\frac{1}{f'(a)}.
+\]
+Equivalently,
+\[
+(f^{-1})'(x)=\frac{1}{f'(f^{-1}(x))}.
+\]
+\end{keyformula}
+
+\begin{examtip}
+For a numerical inverse-derivative question, first solve \(f(a)=b\), then
+compute \(1/f'(a)\).  Do not try to derive a full inverse unless required.
+\end{examtip}
+
+\newpage
+\subsubsection{Tangent and normal line workflow}
+\begin{extension}
+Tangent and normal line questions are mostly bookkeeping.  The decisive step is
+finding the slope at the correct point.
+\end{extension}
+
+\begin{keyformula}[title={Tangent and Normal Lines}]
+At \((x_0,y_0)\),
+\[
+y-y_0=f'(x_0)(x-x_0)
+\]
+for the tangent line.  If \(f'(x_0)\ne0\), the normal slope is
+\[
+m_{\rm normal}=-\frac{1}{f'(x_0)}.
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+For implicit curves, compute \(y'\) first and only then substitute the point.
+Substituting too early can destroy terms needed for differentiation.
+\end{commonmistake}
+
+\newpage
+\subsection{Applications of Differentiation}
+
+\subsubsection{Optimisation endpoint checklist}
+\begin{extension}
+Closed-interval optimisation requires both interior critical points and
+endpoints.  Many exam errors come from solving \(f'(x)=0\) correctly but
+forgetting the boundary.
+\end{extension}
+
+\begin{examtip}
+For optimisation on \([a,b]\):
+\begin{enumerate}[leftmargin=*]
+\item Build the objective as a single-variable function.
+\item Determine the allowed domain from constraints.
+\item Solve \(f'(x)=0\) and include points where \(f'\) does not exist.
+\item Evaluate \(f\) at all critical points and endpoints.
+\item Choose the maximum/minimum requested by the question.
+\end{enumerate}
+\end{examtip}
+
+\begin{commonmistake}
+The second derivative test classifies local behaviour.  It does not replace the
+closed-interval endpoint comparison for global maxima or minima.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Hidden constraint extraction}
+\begin{extension}
+In optimisation and related-rates questions, the hard part is often not
+calculus but extracting the constraint from geometry, units, or wording.
+\end{extension}
+
+\begin{examtip}
+Name the variables, draw the diagram if possible, write all constraints before
+substitution, and only then eliminate variables.  Keep the physical domain, such
+as \(x>0\), \(0<\theta<\pi/2\), or \(V\ge0\), visible.
+\end{examtip}
+
+\begin{examplebox}[title={Box With Fixed Volume}]
+For an open-top box with square base side \(x\), height \(h\), and fixed volume
+\(V\), the constraint is
+\[
+x^2h=V\quad\Rightarrow\quad h=\frac{V}{x^2}.
+\]
+The surface area is
+\[
+S=x^2+4xh=x^2+\frac{4V}{x},
+\]
+so the optimisation is now one-variable with domain \(x>0\).
+\end{examplebox}
+
+\newpage
+\subsubsection{Related-rates workflow}
+\begin{extension}
+Related-rates problems are implicit differentiation problems with time as the
+independent variable.
+\end{extension}
+
+\begin{examtip}
+Use the order: draw, define variables, write the geometric equation, differentiate
+with respect to \(t\), then substitute numerical values at the instant of interest.
+\end{examtip}
+
+\begin{commonmistake}
+Do not substitute time-specific numerical values before differentiating, unless
+they are constants for all time.  For example, a ladder length is constant, but
+its height and horizontal distance are not.
+\end{commonmistake}
+
+\begin{examplebox}[title={Ladder Equation}]
+If a ladder of length \(L\) has horizontal distance \(x(t)\) and height \(y(t)\),
+then
+\[
+x^2+y^2=L^2.
+\]
+Differentiating gives
+\[
+2x\frac{dx}{dt}+2y\frac{dy}{dt}=0,
+\qquad
+\frac{dy}{dt}=-\frac{x}{y}\frac{dx}{dt}.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Derivative sign-chart workflow}
+\begin{extension}
+A sign chart converts derivative information into monotonicity, extrema,
+concavity, and inflection behaviour without relying on a graphing calculator.
+\end{extension}
+
+\begin{examtip}
+For increasing/decreasing, test the sign of \(f'\) on intervals separated by
+critical points.  For concavity, test the sign of \(f''\) on intervals separated
+by candidates where \(f''=0\) or does not exist.
+\end{examtip}
+
+\begin{commonmistake}
+A point where \(f''=0\) is only an inflection candidate.  Concavity must actually
+change sign across the point.
+\end{commonmistake}
+
+\newpage
+\subsection{Integration Setup and Standard Technique Choice}
+
+\subsubsection{Endpoint-aware integral setup}
+\begin{extension}
+Before computing an integral, decide what the integral represents.  This is a
+method discipline rather than a new formula, and it prevents most application
+errors.
+\end{extension}
+
+\begin{examtip}
+Use this setup order:
+\begin{enumerate}[leftmargin=*]
+\item Choose the variable of integration.
+\item Mark endpoints and split at intersections, sign changes, or singularities.
+\item Write the slice: top minus bottom, right minus left, shell radius times
+height, cross-sectional area, force times distance, or pressure times width.
+\item Simplify and integrate only after the slice is correct.
+\end{enumerate}
+\end{examtip}
+
+\begin{commonmistake}
+For geometric area, use nonnegative height or width.  A signed integral may
+cancel positive and negative regions.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Substitution recognition patterns}
+\begin{extension}
+Substitution is best viewed as reversing the chain rule.  The key recognition
+cue is an inner expression whose derivative is also present up to a constant.
+\end{extension}
+
+\begin{examtip}
+Common substitution cues:
+\begin{itemize}[leftmargin=*]
+\item polynomial inside radical or power: try that inside expression;
+\item denominator derivative appears in numerator: try denominator;
+\item exponent or trig argument is nontrivial: try the argument;
+\item symmetric bounds and even/odd functions: consider symmetry before substitution.
+\end{itemize}
+\end{examtip}
+
+\begin{examplebox}[title={Inside-Derivative Match}]
+\[
+\int \frac{2x}{1+x^2}\,dx,
+\qquad u=1+x^2,
+\qquad du=2x\,dx,
+\]
+so
+\[
+\int \frac{2x}{1+x^2}\,dx=\int \frac{du}{u}=\ln|1+x^2|+C.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Integration by parts choice and tabular form}
+\begin{extension}
+Integration by parts is useful when one factor becomes simpler after repeated
+differentiation.  Tabular integration by parts is a compact version for
+polynomial times exponential, sine, or cosine.
+\end{extension}
+
+\begin{examtip}
+Try choosing \(u\) in the order: logarithmic/inverse-trig, algebraic,
+trigonometric/exponential.  If repeated differentiation of \(u\) reaches zero,
+tabular integration is often efficient.
+\end{examtip}
+
+\begin{examplebox}[title={Tabular Integration by Parts}]
+For \(\int x^2e^x\,dx\), differentiate \(x^2\) and repeatedly integrate \(e^x\):
+\[
+\begin{array}{c|c}
++\ x^2 & e^x\\
+-\ 2x & e^x\\
++\ 2 & e^x\\
+-\ 0 & e^x
+\end{array}
+\]
+Thus
+\[
+\int x^2e^x\,dx=x^2e^x-2xe^x+2e^x+C.
+\]
+\end{examplebox}
+
+\begin{commonmistake}
+Tabular signs alternate.  For definite integrals, do not forget to evaluate the
+resulting boundary term at both endpoints.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Splitting absolute-value integrals}
+\begin{extension}
+Absolute-value integrals are piecewise integrals.  The correct split points are
+where the inside expression changes sign.
+\end{extension}
+
+\begin{keyformula}[title={Absolute-Value Split}]
+If \(g(x)=0\) at \(c\in(a,b)\) and \(g\) changes sign there, then
+\[
+\int_a^b |g(x)|\,dx
+=\int_a^c \pm g(x)\,dx+\int_c^b \pm g(x)\,dx,
+\]
+where the sign on each interval is chosen to make the integrand nonnegative.
+\end{keyformula}
+
+\begin{examplebox}[title={Simple Split}]
+\[
+\int_0^2 |x-1|\,dx
+=\int_0^1(1-x)\,dx+\int_1^2(x-1)\,dx=1.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Trigonometric identity selection}
+\begin{extension}
+For trig integrals, the right identity depends on the parity of powers.  Do not
+expand everything automatically.
+\end{extension}
+
+\begin{examtip}
+For \(\sin^m x\cos^n x\), save one factor if either exponent is odd.  Use
+half-angle identities mainly when both exponents are even.  For \(\tan^m x\sec^n x\),
+save \(\sec^2x\) if \(n\) is even and save \(\sec x\tan x\) if \(m\) is odd.
+\end{examtip}
+
+\begin{commonmistake}
+Using half-angle identities too early can turn a one-line substitution into a
+long algebraic expansion.
+\end{commonmistake}
+
+\newpage
+\subsection{Improper Integrals and Convergence Shortcuts}
+
+\subsubsection{Comparison by local model}
+\begin{extension}
+For improper integrals, convergence is determined locally near the problematic
+point: infinity, zero, a finite asymptote, or an interior singularity.
+\end{extension}
+
+\begin{examtip}
+Near the problematic point, replace the integrand by its leading model.  Then
+compare with a \(p\)-integral:
+\[
+f(x)\sim Cx^{-p}\quad(x\to\infty),
+\qquad
+f(x)\sim C(x-a)^{-p}\quad(x\to a^+).
+\]
+\end{examtip}
+
+\begin{commonmistake}
+The threshold is different at infinity and near zero:
+\[
+\int_1^\infty x^{-p}\,dx\text{ converges iff }p>1,
+\qquad
+\int_0^1x^{-p}\,dx\text{ converges iff }p<1.
+\]
+\end{commonmistake}
+
+\newpage
+\subsubsection{Tail estimates for improper integrals}
+\begin{extension}
+When an improper integral is approximated by cutting off the tail, a tail bound
+is needed to justify the accuracy.
+\end{extension}
+
+\begin{examtip}
+If \(0\le f(x)\le g(x)\) for \(x\ge A\) and \(\int_A^\infty g\) is easy, then
+\[
+0\le \int_N^\infty f(x)\,dx\le \int_N^\infty g(x)\,dx.
+\]
+Choose \(N\) so that the upper bound is below the required tolerance.
+\end{examtip}
+
+\begin{examplebox}[title={Power Tail}]
+If \(0\le f(x)\le x^{-3}\) for \(x\ge N\), then
+\[
+0\le\int_N^\infty f(x)\,dx\le\int_N^\infty x^{-3}\,dx=\frac{1}{2N^2}.
+\]
+\end{examplebox}
+
+\newpage
+\subsection{Symmetry and Transformation Tricks for Definite Integrals}
+
+\subsubsection{Finite-interval reflection and averaging}
+\begin{extension}
+Reflection pairs each point \(x\) with its mirror image \(a+b-x\) on \([a,b]\).
+This is useful when direct antiderivatives are awkward but the reflected
+integrand complements the original one.
+\end{extension}
+
+\begin{keyformula}[title={Reflection and Averaging}]
+\[
+\int_a^b f(x)\,dx=\int_a^b f(a+b-x)\,dx,
+\qquad
+\int_a^b f(x)\,dx=\frac12\int_a^b\bigl(f(x)+f(a+b-x)\bigr)\,dx.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Complementary Integrand}]
+Let
+\[
+I=\int_0^1\frac{x^2}{x^2+(1-x)^2}\,dx.
+\]
+Reflecting \(x\mapsto1-x\),
+\[
+I=\int_0^1\frac{(1-x)^2}{x^2+(1-x)^2}\,dx.
+\]
+Adding gives \(2I=1\), hence \(I=1/2\).
+\end{examplebox}
+
+\newpage
+\subsubsection{Reciprocal substitution on \((0,\infty)\)}
+\begin{extension}
+On \((0,\infty)\), the natural symmetry is \(x\leftrightarrow1/x\).  This often
+reveals cancellation in logarithmic or palindromic rational integrals.
+\end{extension}
+
+\begin{keyformula}[title={Reciprocal Substitution}]
+For suitable \(f\),
+\[
+\int_0^\infty f(x)\,dx
+=\int_0^\infty f(1/x)\frac{dx}{x^2}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Odd Logarithm Under Inversion}]
+\[
+I=\int_0^\infty\frac{\ln x}{1+x^2}\,dx.
+\]
+Under \(x\mapsto1/x\),
+\[
+I=\int_0^\infty\frac{-\ln x}{1+x^2}\,dx=-I,
+\]
+so \(I=0\).
+\end{examplebox}
+
+\newpage
+\subsubsection{Homogeneity and scale extraction}
+\begin{extension}
+If a parameter enters only by scale, remove the scale first.  The remaining
+integral is usually dimensionless and may match a standard family.
+\end{extension}
+
+\begin{keyformula}[title={Scale-Normalisation Templates}]
+\[
+\int_0^\infty\frac{x^{m-1}}{(a+x)^n}\,dx
+=a^{m-n}\int_0^\infty\frac{t^{m-1}}{(1+t)^n}\,dt,
+\qquad x=at,
+\]
+\[
+\int_0^a x^m(a-x)^n\,dx
+=a^{m+n+1}\int_0^1 t^m(1-t)^n\,dt,
+\qquad x=at.
+\]
+\end{keyformula}
+
+\begin{examtip}
+Scale extraction is especially effective before Beta/Gamma recognition.
+\end{examtip}
+
+\newpage
+\subsection{Parameter Methods and Differentiation Under the Integral Sign}
+
+\subsubsection{Differentiation under the integral sign}
+\begin{extension}
+Instead of evaluating one hard integral directly, embed it into a parameter
+family, differentiate with respect to the parameter, solve the easier problem,
+and then integrate back.
+\end{extension}
+
+\begin{keyformula}[title={Parameter Differentiation Template}]
+If the interchange is justified, then
+\[
+F(\lambda)=\int_a^b f(x,\lambda)\,dx
+\quad\Rightarrow\quad
+F'(\lambda)=\int_a^b \frac{\partial f}{\partial\lambda}(x,\lambda)\,dx.
+\]
+\end{keyformula}
+
+\begin{examtip}
+Choose a parameter whose derivative simplifies the integrand.  Recover the
+constant of integration from a convenient value such as \(F(0)\), \(F(1)\), or
+a limiting value.
+\end{examtip}
+
+\begin{examplebox}[title={Exponential Damping Parameter}]
+Let
+\[
+F(a)=\int_0^\infty\frac{e^{-ax}\sin x}{x}\,dx,
+\qquad a>0.
+\]
+Then
+\[
+F'(a)=-\int_0^\infty e^{-ax}\sin x\,dx=-\frac{1}{1+a^2}.
+\]
+Thus \(F(a)=-\arctan a+C\).  Since \(F(a)\to0\) as \(a\to\infty\),
+\[
+F(a)=\frac\pi2-\arctan a=\arctan\frac1a.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Parameter generation of logarithmic integrals}
+\begin{extension}
+Powers of \(\ln x\) can be generated by differentiating powers \(x^a\) with
+respect to the exponent.
+\end{extension}
+
+\begin{keyformula}[title={Logarithmic Integral Generator}]
+\[
+\frac{\partial^n}{\partial a^n}x^a=x^a(\ln x)^n,
+\]
+so, for \(a>0\),
+\[
+\int_0^1 x^{a-1}(\ln x)^n\,dx
+=\frac{d^n}{da^n}\left(\frac1a\right)
+=\frac{(-1)^n n!}{a^{n+1}}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Special Values}]
+At \(a=1\),
+\[
+\int_0^1(\ln x)^n\,dx=(-1)^n n!,
+\]
+so
+\[
+\int_0^1\ln x\,dx=-1,
+\qquad
+\int_0^1(\ln x)^2\,dx=2.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Frullani's identity}
+\begin{extension}
+Frullani's identity is optional enrichment.  It is useful for improper integrals
+where a difference cancels the singularity at zero and only a scale ratio
+remains.
+\end{extension}
+
+\begin{keyformula}[title={Frullani Identity}]
+If the relevant limits exist and the integral converges, then for \(a,b>0\),
+\[
+\int_0^\infty\frac{f(ax)-f(bx)}{x}\,dx
+=\bigl(f(0)-f(\infty)\bigr)\ln\frac{b}{a}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Exponential Frullani Integral}]
+For \(f(t)=e^{-t}\),
+\[
+\int_0^\infty\frac{e^{-ax}-e^{-bx}}{x}\,dx=\ln\frac{b}{a}.
+\]
+\end{examplebox}
+
+\newpage
+\subsection{Reduction Formulas and Special Integral Families}
+
+\subsubsection{Reduction formulas via recurrence design}
+\begin{extension}
+When one integration-by-parts step returns the same integral family with a lower
+exponent, write a recurrence instead of treating each exponent separately.
+\end{extension}
+
+\begin{keyformula}[title={Wallis Sine-Power Recurrence}]
+\[
+I_n:=\int_0^{\pi/2}\sin^n x\,dx,
+\qquad
+I_n=\frac{n-1}{n}I_{n-2}\quad(n\ge2),
+\qquad
+I_0=\frac\pi2,
+\quad I_1=1.
+\]
+Hence
+\[
+I_{2m}=\frac{(2m-1)!!}{(2m)!!}\cdot\frac\pi2,
+\qquad
+I_{2m+1}=\frac{(2m)!!}{(2m+1)!!}.
+\]
+\end{keyformula}
+
+\begin{examtip}
+A reduction formula solution must include base cases; otherwise the recurrence
+has not actually evaluated the integral.
+\end{examtip}
+
+\begin{examplebox}[title={Using the Recurrence}]
+\[
+I_4=\frac34 I_2=\frac34\cdot\frac12 I_0=\frac{3\pi}{16}.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Beta--Gamma bridge}
+\begin{extension}
+Many difficult-looking definite integrals are disguised Beta or Gamma integrals.
+This is enrichment beyond routine MH1101 integration, but it is valuable for
+recognising closed forms.
+\end{extension}
+
+\begin{keyformula}[title={Beta and Gamma Functions}]
+\[
+\Gamma(s)=\int_0^\infty t^{s-1}e^{-t}\,dt\quad(s>0),
+\qquad
+B(p,q)=\int_0^1x^{p-1}(1-x)^{q-1}\,dx\quad(p,q>0),
+\]
+\[
+B(p,q)=\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}.
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Common Beta Forms}]
+\[
+\int_0^\infty\frac{x^{p-1}}{(1+x)^{p+q}}\,dx=B(p,q),
+\qquad
+\int_0^{\pi/2}\sin^{m-1}x\cos^{n-1}x\,dx
+=\frac12 B\!\left(\frac m2,\frac n2\right).
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Beta Integral Recognition}]
+\[
+\int_0^\infty\frac{\sqrt{x}}{(1+x)^3}\,dx
+=B\!\left(\frac32,\frac32\right)
+=\frac{\Gamma(3/2)^2}{\Gamma(3)}=\frac{\pi}{8}.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Gamma reflection and the \(\pi/\sin(\pi p)\) integral}
+\begin{extension}
+This is an optional closed-form shortcut for a common improper rational-power
+integral.
+\end{extension}
+
+\begin{keyformula}[title={Reflection Formula Consequence}]
+For \(0<p<1\),
+\[
+\Gamma(p)\Gamma(1-p)=\frac{\pi}{\sin(\pi p)},
+\qquad
+\int_0^\infty\frac{x^{p-1}}{1+x}\,dx=\frac{\pi}{\sin(\pi p)}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Special Case}]
+With \(p=1/2\),
+\[
+\int_0^\infty\frac{dx}{\sqrt{x}(1+x)}=\pi.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Gaussian square trick}
+\begin{extension}
+The Gaussian integral is a model example where a one-variable integral is best
+evaluated by squaring it and using a two-variable polar-coordinate argument.
+\end{extension}
+
+\begin{keyformula}[title={Gaussian Integrals}]
+\[
+\int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi,
+\qquad
+\int_0^\infty e^{-ax^2}\,dx=\frac12\sqrt{\frac\pi a}\quad(a>0),
+\]
+\[
+\int_0^\infty x^m e^{-ax^2}\,dx
+=\frac12 a^{-(m+1)/2}\Gamma\!\left(\frac{m+1}{2}\right)
+\quad(a>0,\ m>-1).
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Square Trick}]
+If \(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\), then
+\[
+I^2=\iint_{\mathbb R^2}e^{-(x^2+y^2)}\,dA
+=\int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta
+=\pi,
+\]
+so \(I=\sqrt\pi\).
+\end{examplebox}
+
+\newpage
+\subsubsection{Weighted logarithm antiderivative families}
+\begin{extension}
+Weighted logarithm integrals can be reduced to exponential-polynomial integrals
+by \(x=e^u\), or generated recursively by integration by parts.
+\end{extension}
+
+\begin{keyformula}[title={Weighted Logarithm Family}]
+For \(n\in\mathbb Z_{\ge0}\),
+\[
+\int\frac{(\ln x)^n}{x}\,dx=\frac{(\ln x)^{n+1}}{n+1}+C.
+\]
+For \(m\ne1\),
+\[
+\int x^{-m}(\ln x)^n\,dx
+=-x^{1-m}\sum_{k=0}^{n}
+\frac{n!}{(n-k)!(m-1)^{k+1}}(\ln x)^{n-k}+C.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={First Logarithmic Cases}]
+\[
+\int\frac{\ln x}{x^2}\,dx=-\frac{\ln x+1}{x}+C,
+\qquad
+\int\frac{\ln x}{x^3}\,dx=-\frac{2\ln x+1}{4x^2}+C.
+\]
+\end{examplebox}
+
+\newpage
+\subsection{Series and Taylor Techniques}
+
+\subsubsection{Choosing a convergence test}
+\begin{extension}
+Convergence testing is a recognition problem.  The fastest solution usually
+comes from matching the term structure to the correct test rather than trying
+several tests mechanically.
+\end{extension}
+
+\begin{examtip}
+Use this order:
+\begin{enumerate}[leftmargin=*]
+\item Check \(a_n\to0\).
+\item Check for geometric or \(p\)-series form.
+\item Use ratio test for factorials/exponentials.
+\item Use root test for \(n\)-th powers.
+\item Use comparison or limit comparison for rational/asymptotic terms.
+\item For alternating series, check both alternating convergence and absolute convergence.
+\end{enumerate}
+\end{examtip}
+
+\begin{commonmistake}
+Alternating convergence does not imply absolute convergence.  Always test
+\(\sum |a_n|\) separately when asked for absolute or conditional convergence.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Endpoint testing for power series}
+\begin{extension}
+The radius of convergence gives only the open interval.  Endpoint behaviour is
+a separate numerical-series problem.
+\end{extension}
+
+\begin{examtip}
+For \(\sum c_n(x-a)^n\):
+\begin{enumerate}[leftmargin=*]
+\item Use ratio/root test to find \(|x-a|<R\).
+\item Test \(x=a-R\) as an ordinary series.
+\item Test \(x=a+R\) as an ordinary series.
+\item Write the final interval using brackets only for convergent endpoints.
+\end{enumerate}
+\end{examtip}
+
+\begin{commonmistake}
+Termwise differentiation and integration preserve the radius but may change
+endpoint convergence.  Recheck endpoints after the operation.
+\end{commonmistake}
+
+\newpage
+\subsubsection{Deriving new series from known series}
+\begin{extension}
+Known Maclaurin series can generate many new series by substitution,
+differentiation, and integration inside the radius of convergence.
+\end{extension}
+
+\begin{examtip}
+Start from a standard series such as
+\[
+\frac1{1-x}=\sum_{n=0}^\infty x^n,
+\quad
+\ln(1+x)=\sum_{n=1}^\infty(-1)^{n+1}\frac{x^n}{n},
+\quad
+\arctan x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1}.
+\]
+Then replace \(x\), differentiate, or integrate termwise as needed.
+\end{examtip}
+
+\begin{examplebox}[title={Series by Integration}]
+Starting from
+\[
+\frac1{1+x^2}=\sum_{n=0}^\infty(-1)^n x^{2n}\quad(|x|<1),
+\]
+integrate termwise to get
+\[
+\arctan x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1}.
+\]
+\end{examplebox}
+
+\newpage
+\subsubsection{Taylor approximation with controlled error}
+\begin{extension}
+A Taylor polynomial is useful only when paired with a point, degree, and error
+control.  The approximation is local around the expansion point.
+\end{extension}
+
+\begin{examtip}
+To guarantee error below \(\varepsilon\), find \(M\) with
+\(|f^{(n+1)}|\le M\) on the interval between \(a\) and \(x\), then solve
+\[
+\frac{M}{(n+1)!}|x-a|^{n+1}\le\varepsilon.
+\]
+\end{examtip}
+
+\begin{examplebox}[title={Small Exponential Approximation}]
+Using \(e^x=1+x+x^2/2+\cdots\),
+\[
+T_2(0.1)=1+0.1+\frac{0.1^2}{2}=1.105.
+\]
+Since \(|e^\xi|\le e^{0.1}<2\) for \(0\le\xi\le0.1\),
+\[
+|R_2(0.1)|\le\frac{2(0.1)^3}{3!}<0.00034.
+\]
+\end{examplebox}
+
+\newpage
+\subsection{Nonstandard Geometry and General Exam Strategy}
+
+\subsubsection{Pappus centroid theorems}
+\begin{extension}
+Pappus' theorems are optional shortcuts for volumes and surface areas of
+revolution.  They are useful when the centroid of the generating region or
+curve is obvious.
+\end{extension}
+
+\begin{keyformula}[title={Pappus Theorems}]
+If a plane region of area \(A\) is revolved about an external axis and its
+centroid is distance \(d\) from the axis, then
+\[
+V=2\pi dA.
+\]
+If a plane curve of length \(L\) is revolved about an external axis and its
+centroid is distance \(d\) from the axis, then
+\[
+S=2\pi dL.
+\]
+For a torus generated by revolving a circle of radius \(r\) whose centre is
+at distance \(R>r\) from the axis,
+\[
+V=2\pi^2Rr^2,
+\qquad
+S=4\pi^2Rr.
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+The rotation axis must not intersect the generating region or curve in the
+standard Pappus setup.
+\end{commonmistake}
+
+\newpage
+\subsubsection{General exam method-selection checklist}
+\begin{extension}
+A difficult calculus question often becomes manageable after identifying the
+problem type and the most natural representation.
+\end{extension}
+
+\begin{examtip}
+Use the following decision checklist:
+\begin{itemize}[leftmargin=*]
+\item Before differentiating, check whether algebraic simplification or a known limit applies.
+\item Before integrating, check whether the question asks for setup, exact value, approximation, or convergence only.
+\item Before using a powerful theorem, check its hypotheses: continuity, differentiability, positivity, monotonicity, or convergence.
+\item In application problems, track signs, units, domains, and endpoints.
+\item In series problems, distinguish value, convergence, radius, interval, and error estimate.
+\end{itemize}
+\end{examtip}
+
+\begin{commonmistake}
+Do not use a method merely because it is powerful.  L'H\^opital, Taylor series,
+comparison tests, and parameter methods all require hypotheses and often have
+simpler alternatives.
+\end{commonmistake}
+
+\begin{examplebox}[title={Method Choice Examples}]
+\begin{itemize}[leftmargin=*]
+\item \(\sqrt{x^2+x}-x\): rationalise before differentiating.
+\item \(\int x e^{x}\,dx\): integration by parts.
+\item \(\sum n!/n^n\): ratio or root test.
+\item \(\sum c_n(x-a)^n\): radius first, endpoints second.
+\item Area between curves: split at intersections before integrating.
+\end{itemize}
+\end{examplebox}

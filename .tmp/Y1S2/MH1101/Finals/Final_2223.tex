@@ -1,0 +1,1162 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Final Examination Solutions}
+\newcommand{\ExamMeta}{AY 2022/2023, Semester II}
+\newcommand{\ExamMetaShort}{Final Examination AY22/23 S2}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\large \ExamMeta
+}
+\author{\textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\arcsec}{\operatorname{arcsec}}
+
+% Overview block
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item This document gives complete worked solutions to the MH1101 Calculus II AY 2022/2023 Semester II final examination.
+  \item The main topics tested are formal limits, Simpson's rule and its error estimate, integration techniques, monotone sequences, convergence tests, power series, and differentiated geometric series.
+  \item Standard formulas used below include the composite Simpson error bound, trigonometric substitution, the ratio test, limit comparison, alternating series test, and the geometric-series identity.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Question 1 (Limits and Simpson's rule; 18 Marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Use the formal definition of limit to prove that
+\[
+\lim_{n\to\infty}\frac{n^3+1}{3n^3+n^2}=\frac13.
+\]
+
+\item Let $S_n$ be the approximation of the integral
+\[
+\int_0^1 x\ee^x\dd x
+\]
+using Simpson's rule with $n$ equal subintervals.
+\begin{enumerate}[label=(\roman*)]
+\item Calculate $S_4$ up to $4$ decimal places.
+\item Find an integer $n$ such that the absolute value of the error using $S_n$ is at most $10^{-6}$. Justify your answer.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct epsilon proof and composite Simpson error bound}
+
+\begin{enumerate}[label=(\alph*)]
+\item We need to prove that for every $\varepsilon>0$, there exists $N\in\N$ such that whenever $n\geq N$,
+\[
+\abs{\frac{n^3+1}{3n^3+n^2}-\frac13}<\varepsilon.
+\]
+First compute
+\begin{align*}
+\abs{\frac{n^3+1}{3n^3+n^2}-\frac13}
+&=\abs{\frac{3(n^3+1)-(3n^3+n^2)}{3(3n^3+n^2)}} \\
+&=\abs{\frac{3-n^2}{9n^3+3n^2}} \\
+&\leq \frac{n^2+3}{9n^3+3n^2} \\
+&\leq \frac{n^2+3}{9n^3}.
+\end{align*}
+For $n\geq 1$, we have $3\leq 3n^2$, so
+\[
+\frac{n^2+3}{9n^3}\leq \frac{n^2+3n^2}{9n^3}=\frac{4}{9n}.
+\]
+Let $\varepsilon>0$ be given. Choose an integer $N$ such that
+\[
+N>\frac{4}{9\varepsilon}.
+\]
+Then for all $n\geq N$,
+\[
+\abs{\frac{n^3+1}{3n^3+n^2}-\frac13}
+\leq \frac{4}{9n}
+\leq \frac{4}{9N}
+<\varepsilon.
+\]
+Therefore, by the formal definition of the limit of a sequence,
+\[
+\boxed{\displaystyle \lim_{n\to\infty}\frac{n^3+1}{3n^3+n^2}=\frac13.}
+\]
+
+\item Let
+\[
+f(x)=x\ee^x.
+\]
+For $n=4$, the step size is
+\[
+h=\frac{1-0}{4}=\frac14,
+\]
+and the nodes are
+\[
+x_0=0,\qquad x_1=\frac14,\qquad x_2=\frac12,\qquad x_3=\frac34,\qquad x_4=1.
+\]
+The composite Simpson rule with $4$ subintervals gives
+\begin{align*}
+S_4
+&=\frac{h}{3}\left[f(x_0)+4f(x_1)+2f(x_2)+4f(x_3)+f(x_4)\right] \\
+&=\frac{1}{12}\left[0+4\left(\frac14\ee^{1/4}\right)+2\left(\frac12\ee^{1/2}\right)+4\left(\frac34\ee^{3/4}\right)+\ee\right] \\
+&=\frac{1}{12}\left[\ee^{1/4}+\ee^{1/2}+3\ee^{3/4}+\ee\right] \\
+&\approx 1.000169047140.
+\end{align*}
+Therefore
+\[
+\boxed{S_4\approx 1.0002\quad\text{to four decimal places}.}
+\]
+
+For the error bound, use the composite Simpson error estimate
+\[
+\abs{E_S}\leq \frac{K(b-a)^5}{180n^4},
+\qquad K\geq \max_{a\leq x\leq b}\abs{f^{(4)}(x)},
+\]
+where $n$ must be even. We compute the derivatives:
+\begin{align*}
+f(x)&=x\ee^x, \\
+f'(x)&=(x+1)\ee^x, \\
+f''(x)&=(x+2)\ee^x, \\
+f^{(3)}(x)&=(x+3)\ee^x, \\
+f^{(4)}(x)&=(x+4)\ee^x.
+\end{align*}
+On $[0,1]$, $(x+4)\ee^x$ is positive and increasing, since
+\[
+\frac{\dd}{\dd x}\left((x+4)\ee^x\right)=(x+5)\ee^x>0.
+\]
+Hence
+\[
+K=\max_{0\leq x\leq 1}\abs{f^{(4)}(x)}=5\ee.
+\]
+Thus
+\[
+\abs{E_S}\leq \frac{5\ee}{180n^4}.
+\]
+We need
+\begin{align*}
+\frac{5\ee}{180n^4}&\leq 10^{-6}, \\
+n^4&\geq \frac{5\ee}{180\cdot 10^{-6}}, \\
+n&\geq \left(\frac{5\ee}{180\cdot 10^{-6}}\right)^{1/4}\approx 16.5776.
+\end{align*}
+Since Simpson's rule requires $n$ to be even, the smallest convenient integer choice is
+\[
+\boxed{n=18.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Exact integral cross-check and same Simpson error control}
+
+The exact value of the integral is useful as a check on the numerical approximation. By integration by parts with
+\[
+u=x,\qquad \dd v=\ee^x\dd x,\qquad \dd u=\dd x,\qquad v=\ee^x,
+\]
+we obtain
+\begin{align*}
+\int_0^1 x\ee^x\dd x
+&=\left[x\ee^x\right]_0^1-\int_0^1 \ee^x\dd x \\
+&=\ee-(\ee-1) \\
+&=1.
+\end{align*}
+Thus $S_4\approx 1.000169047140$ is consistent with a small positive Simpson error. The fourth-derivative calculation in Method 1 gives
+\[
+\abs{E_S}\leq \frac{5\ee}{180n^4}.
+\]
+Solving this inequality and requiring $n$ to be even again yields
+\[
+\boxed{S_4\approx 1.0002,
+\qquad n=18\text{ is sufficient for }\abs{E_S}\leq 10^{-6}.}
+\]
+
+\subsubsection{Marking scheme (18 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(6 marks)} Formal limit proof.
+\begin{itemize}
+\item 2 marks: Correctly form the difference from $1/3$ and simplify it.
+\item 2 marks: Obtain a valid upper bound tending to $0$, such as $4/(9n)$.
+\item 2 marks: Choose $N$ in terms of $\varepsilon$ and conclude using the formal definition.
+\end{itemize}
+
+\item \textbf{(12 marks)} Simpson approximation and error control.
+\begin{itemize}
+\item 2 marks: Correct nodes and step size for $n=4$.
+\item 3 marks: Correct composite Simpson formula and substitution of values.
+\item 1 mark: Correct rounded value of $S_4$.
+\item 3 marks: Correct computation of $f^{(4)}(x)$ and valid bound $K=5\ee$.
+\item 2 marks: Correct Simpson error inequality and solving for $n$.
+\item 1 mark: Correctly choose an even integer, such as $n=18$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 2 (Indefinite integrals; 17 Marks)}
+
+\subsection{Problem}
+
+Evaluate the following indefinite integrals.
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\int \frac{\sec x}{1+\sin x}\dd x.
+\]
+Hint: You may consider the substitution $u=\sin x$.
+
+\item
+\[
+\int \frac{\sqrt{x^2+4x-5}}{x+2}\dd x.
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Substitution and trigonometric substitution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Use the substitution
+\[
+u=\sin x,
+\qquad \dd u=\cos x\dd x.
+\]
+Since $\sec x\dd x=\dfrac{1}{\cos x}\dd x=\dfrac{1}{\cos^2 x}\dd u$, and
+\[
+\cos^2 x=1-\sin^2x=1-u^2,
+\]
+we get
+\begin{align*}
+\int \frac{\sec x}{1+\sin x}\dd x
+&=\int \frac{1}{1+u}\cdot \frac{1}{1-u^2}\dd u \\
+&=\int \frac{1}{(1-u)(1+u)^2}\dd u.
+\end{align*}
+Use partial fractions:
+\[
+\frac{1}{(1-u)(1+u)^2}
+=\frac{A}{1-u}+\frac{B}{1+u}+\frac{C}{(1+u)^2}.
+\]
+Multiplying by $(1-u)(1+u)^2$ gives
+\[
+1=A(1+u)^2+B(1-u)(1+u)+C(1-u).
+\]
+Putting $u=1$ gives $A=1/4$, and putting $u=-1$ gives $C=1/2$. Comparing constant terms then gives
+\[
+A+B+C=1
+\quad\Longrightarrow\quad
+\frac14+B+\frac12=1
+\quad\Longrightarrow\quad
+B=\frac14.
+\]
+Therefore
+\begin{align*}
+\int \frac{\sec x}{1+\sin x}\dd x
+&=\int \left(\frac{1}{4(1-u)}+\frac{1}{4(1+u)}+\frac{1}{2(1+u)^2}\right)\dd u \\
+&=-\frac14\ln\abs{1-u}+\frac14\ln\abs{1+u}-\frac{1}{2(1+u)}+C \\
+&=\frac14\ln\abs{\frac{1+u}{1-u}}-\frac{1}{2(1+u)}+C.
+\end{align*}
+Substituting $u=\sin x$ back gives
+\[
+\boxed{\displaystyle
+\int \frac{\sec x}{1+\sin x}\dd x
+=\frac14\ln\abs{\frac{1+\sin x}{1-\sin x}}-\frac{1}{2(1+\sin x)}+C.}
+\]
+
+\item First complete the square:
+\[
+x^2+4x-5=(x+2)^2-9.
+\]
+Let
+\[
+u=x+2.
+\]
+Then $\dd u=\dd x$, and the integral becomes
+\[
+\int \frac{\sqrt{u^2-9}}{u}\dd u.
+\]
+For the interval $u\geq 3$, set
+\[
+u=3\sec\theta,
+\qquad \dd u=3\sec\theta\tan\theta\dd\theta.
+\]
+Then
+\[
+\sqrt{u^2-9}=\sqrt{9\sec^2\theta-9}=3\tan\theta,
+\]
+where the sign is chosen consistently on the substitution interval. Hence
+\begin{align*}
+\int \frac{\sqrt{u^2-9}}{u}\dd u
+&=\int \frac{3\tan\theta}{3\sec\theta}\cdot 3\sec\theta\tan\theta\dd\theta \\
+&=3\int \tan^2\theta\dd\theta \\
+&=3\int (\sec^2\theta-1)\dd\theta \\
+&=3(\tan\theta-\theta)+C.
+\end{align*}
+Since $u=3\sec\theta$, we have
+\[
+\tan\theta=\frac{\sqrt{u^2-9}}{3},
+\qquad
+\theta=\arcsec\left(\frac{u}{3}\right).
+\]
+Therefore, on $u\geq 3$,
+\[
+\int \frac{\sqrt{u^2-9}}{u}\dd u
+=\sqrt{u^2-9}-3\arcsec\left(\frac{u}{3}\right)+C.
+\]
+Writing the antiderivative in a form valid on either real interval of definition $u\geq 3$ or $u\leq -3$, we may use
+\[
+\int \frac{\sqrt{u^2-9}}{u}\dd u
+=\sqrt{u^2-9}-3\arcsec\left(\frac{\abs{u}}{3}\right)+C.
+\]
+Substituting $u=x+2$ gives
+\[
+\boxed{\displaystyle
+\int \frac{\sqrt{x^2+4x-5}}{x+2}\dd x
+=\sqrt{x^2+4x-5}-3\arcsec\left(\frac{\abs{x+2}}{3}\right)+C.}
+\]
+On the interval $x\geq 1$, this is equivalently
+\[
+\boxed{\displaystyle
+\sqrt{x^2+4x-5}-3\cos^{-1}\left(\frac{3}{x+2}\right)+C.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Standard antiderivative recognition for part (b)}
+
+For part (b), after setting $u=x+2$, the integral is
+\[
+\int \frac{\sqrt{u^2-9}}{u}\dd u.
+\]
+The standard form
+\[
+\int \frac{\sqrt{u^2-a^2}}{u}\dd u
+=\sqrt{u^2-a^2}-a\arcsec\left(\frac{\abs{u}}{a}\right)+C
+\]
+can be verified by differentiating the right-hand side on each interval $u>a$ or $u<-a$. Taking $a=3$ gives immediately
+\[
+\boxed{\displaystyle
+\int \frac{\sqrt{x^2+4x-5}}{x+2}\dd x
+=\sqrt{x^2+4x-5}-3\arcsec\left(\frac{\abs{x+2}}{3}\right)+C.}
+\]
+
+\subsubsection{Marking scheme (17 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(8 marks)} Integral involving $\sec x$ and $\sin x$.
+\begin{itemize}
+\item 2 marks: Correct substitution $u=\sin x$ and conversion of the differential.
+\item 2 marks: Correctly reduce to $\int \frac{1}{(1-u)(1+u)^2}\dd u$.
+\item 2 marks: Correct partial fraction decomposition.
+\item 2 marks: Correct integration and back-substitution.
+\end{itemize}
+
+\item \textbf{(9 marks)} Radical integral.
+\begin{itemize}
+\item 2 marks: Complete the square and set $u=x+2$.
+\item 2 marks: Choose a valid trigonometric substitution or standard radical form.
+\item 2 marks: Correctly simplify the integrand after substitution.
+\item 2 marks: Correctly integrate and back-substitute.
+\item 1 mark: Present the final antiderivative with a valid domain convention.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 3 (Monotone sequence and limit; 15 Marks)}
+
+\subsection{Problem}
+
+Let the sequence $\{a_n\}_{n=1}^{\infty}$ be defined by
+\[
+a_1=0.5,
+\qquad
+ a_{n+1}=\frac12(a_n^2+1),
+\qquad n\geq 1.
+\]
+\begin{enumerate}[label=(\roman*)]
+\item Find the values of both $a_2$ and $a_3$.
+\item Show that the sequence $\{a_n\}_{n=1}^{\infty}$ is increasing.
+\item Show that the sequence $\{a_n\}_{n=1}^{\infty}$ is bounded above.
+\item Find the limit of the sequence $\{a_n\}_{n=1}^{\infty}$, if it exists. Justify your answer.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct recurrence estimates}
+
+\begin{enumerate}[label=(\roman*)]
+\item Since $a_1=0.5=1/2$,
+\begin{align*}
+a_2
+&=\frac12\left(a_1^2+1\right) \\
+&=\frac12\left(\frac14+1\right) \\
+&=\frac58.
+\end{align*}
+Next,
+\begin{align*}
+a_3
+&=\frac12\left(a_2^2+1\right) \\
+&=\frac12\left(\frac{25}{64}+1\right) \\
+&=\frac12\cdot \frac{89}{64} \\
+&=\frac{89}{128}.
+\end{align*}
+Thus
+\[
+\boxed{a_2=\frac58,
+\qquad a_3=\frac{89}{128}.}
+\]
+
+\item We first show that $a_n\leq 1$ for all $n\geq 1$. Since $a_1=1/2\leq 1$, the base case holds. If $a_n\leq 1$, then
+\[
+a_{n+1}=\frac12(a_n^2+1)\leq \frac12(1^2+1)=1.
+\]
+Hence, by induction,
+\[
+a_n\leq 1\qquad\text{for all }n\geq 1.
+\]
+Now compute
+\begin{align*}
+a_{n+1}-a_n
+&=\frac12(a_n^2+1)-a_n \\
+&=\frac12(a_n^2-2a_n+1) \\
+&=\frac12(a_n-1)^2 \\
+&\geq 0.
+\end{align*}
+Therefore
+\[
+\boxed{\{a_n\}_{n=1}^{\infty}\text{ is increasing.}}
+\]
+In fact, since $a_1<1$ and the induction above gives $a_n\leq 1$, the terms never exceed $1$, so the increase is strict unless $a_n=1$.
+
+\item The induction in part (ii) already proves
+\[
+a_n\leq 1\qquad\text{for all }n\geq 1.
+\]
+Thus the sequence is bounded above by $1$:
+\[
+\boxed{\{a_n\}_{n=1}^{\infty}\text{ is bounded above by }1.}
+\]
+
+\item Since $\{a_n\}$ is increasing and bounded above, the Monotone Convergence Theorem implies that $\{a_n\}$ converges. Let
+\[
+\lim_{n\to\infty}a_n=L.
+\]
+Taking limits on both sides of
+\[
+a_{n+1}=\frac12(a_n^2+1)
+\]
+gives
+\begin{align*}
+L&=\frac12(L^2+1), \\
+2L&=L^2+1, \\
+L^2-2L+1&=0, \\
+(L-1)^2&=0.
+\end{align*}
+Therefore $L=1$, and hence
+\[
+\boxed{\displaystyle \lim_{n\to\infty}a_n=1.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Distance from the fixed point}
+
+The recurrence can be rewritten relative to the fixed point $1$:
+\begin{align*}
+1-a_{n+1}
+&=1-\frac12(a_n^2+1) \\
+&=\frac12(1-a_n^2) \\
+&=\frac12(1-a_n)(1+a_n).
+\end{align*}
+Since $a_1=1/2$, we have $0<a_1<1$. If $0<a_n<1$, then
+\[
+0<1-a_{n+1}=\frac12(1-a_n)(1+a_n)<1-a_n,
+\]
+because $0<(1+a_n)/2<1$. Hence $a_n<1$ for all $n$, and $1-a_n$ is decreasing. Equivalently, $a_n$ is increasing and bounded above by $1$. Let $d=\lim_{n\to\infty}(1-a_n)$. Then $a_n\to 1-d$, and passing to the limit in
+\[
+1-a_{n+1}=\frac12(1-a_n)(1+a_n)
+\]
+gives
+\[
+d=\frac12 d(2-d).
+\]
+Thus $2d=d(2-d)$, so $d^2=0$ and $d=0$. Therefore $a_n\to 1$.
+
+Therefore the conclusions are
+\[
+\boxed{a_2=\frac58,
+\qquad a_3=\frac{89}{128},
+\qquad \{a_n\}\text{ is increasing and bounded above by }1,
+\qquad \lim_{n\to\infty}a_n=1.}
+\]
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{(2 marks)} Correct calculation of $a_2$ and $a_3$.
+\begin{itemize}
+\item 1 mark: $a_2=5/8$.
+\item 1 mark: $a_3=89/128$.
+\end{itemize}
+
+\item \textbf{(4 marks)} Increasing property.
+\begin{itemize}
+\item 2 marks: Correct expression for $a_{n+1}-a_n$ or an equivalent monotonicity argument.
+\item 2 marks: Correct conclusion that $a_{n+1}\geq a_n$ for all $n$.
+\end{itemize}
+
+\item \textbf{(4 marks)} Boundedness above.
+\begin{itemize}
+\item 2 marks: Correct induction setup with base case $a_1\leq 1$.
+\item 2 marks: Correct induction step showing $a_n\leq 1\Rightarrow a_{n+1}\leq 1$.
+\end{itemize}
+
+\item \textbf{(5 marks)} Limit.
+\begin{itemize}
+\item 2 marks: Invoke monotone convergence using increasing and bounded above.
+\item 2 marks: Correctly solve the fixed-point equation $L=\frac12(L^2+1)$.
+\item 1 mark: Correct final limit $L=1$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 4 (Convergence tests; 16 Marks)}
+
+\subsection{Problem}
+
+Determine whether each of the following series converges or diverges. Justify your answers.
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\sum_{n=1}^{\infty}\frac{n^3 3^n}{4^n+n}.
+\]
+
+\item
+\[
+\sum_{n=2}^{\infty}\frac{n}{(\ln n)^2}.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}n\left(1-\cos\left(\frac1n\right)\right).
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Ratio test, term test, and limit comparison}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+a_n=\frac{n^3 3^n}{4^n+n}.
+\]
+Since $a_n>0$, we apply the ratio test:
+\begin{align*}
+\frac{a_{n+1}}{a_n}
+&=\frac{(n+1)^3 3^{n+1}}{4^{n+1}+n+1}\cdot \frac{4^n+n}{n^3 3^n} \\
+&=3\left(1+\frac1n\right)^3\frac{4^n+n}{4^{n+1}+n+1} \\
+&=3\left(1+\frac1n\right)^3\frac{1+n/4^n}{4+(n+1)/4^n}.
+\end{align*}
+Thus
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+=3\cdot 1\cdot \frac14
+=\frac34<1.
+\]
+By the ratio test,
+\[
+\boxed{\displaystyle \sum_{n=1}^{\infty}\frac{n^3 3^n}{4^n+n}\text{ converges.}}
+\]
+
+\item Let
+\[
+a_n=\frac{n}{(\ln n)^2}.
+\]
+A necessary condition for $\sum a_n$ to converge is $a_n\to 0$. However,
+\[
+\lim_{n\to\infty}\frac{n}{(\ln n)^2}=\infty,
+\]
+because logarithmic growth is slower than linear growth. For a direct verification, apply L'Hopital's rule twice to the corresponding continuous limit:
+\begin{align*}
+\lim_{x\to\infty}\frac{x}{(\ln x)^2}
+&=\lim_{x\to\infty}\frac{1}{2(\ln x)/x} \\
+&=\frac12\lim_{x\to\infty}\frac{x}{\ln x} \\
+&=\frac12\lim_{x\to\infty}\frac{1}{1/x} \\
+&=\infty.
+\end{align*}
+Therefore $a_n\not\to 0$. By the $n$th-term test for divergence,
+\[
+\boxed{\displaystyle \sum_{n=2}^{\infty}\frac{n}{(\ln n)^2}\text{ diverges.}}
+\]
+
+\item Let
+\[
+a_n=n\left(1-\cos\left(\frac1n\right)\right),
+\qquad
+b_n=\frac1n.
+\]
+Both $a_n$ and $b_n$ are positive for $n\geq 1$. Compute
+\begin{align*}
+\lim_{n\to\infty}\frac{a_n}{b_n}
+&=\lim_{n\to\infty}n^2\left(1-\cos\left(\frac1n\right)\right).
+\end{align*}
+Let $t=1/n$. Then $t\to 0^+$, and
+\begin{align*}
+\lim_{n\to\infty}n^2\left(1-\cos\left(\frac1n\right)\right)
+&=\lim_{t\to 0^+}\frac{1-\cos t}{t^2} \\
+&=\lim_{t\to 0^+}\frac{\sin t}{2t} \\
+&=\frac12.
+\end{align*}
+Since $0<1/2<\infty$ and $\sum_{n=1}^{\infty}1/n$ diverges, the limit comparison test gives
+\[
+\boxed{\displaystyle \sum_{n=1}^{\infty}n\left(1-\cos\left(\frac1n\right)\right)\text{ diverges.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Asymptotic recognition}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since
+\[
+4^n+n\sim 4^n,
+\]
+we have
+\[
+\frac{n^3 3^n}{4^n+n}\sim n^3\left(\frac34\right)^n.
+\]
+The series $\sum n^3(3/4)^n$ converges because an exponential decay with ratio $3/4$ dominates any fixed polynomial factor. Hence the given series converges.
+
+\item The term
+\[
+\frac{n}{(\ln n)^2}
+\]
+does not tend to $0$; it tends to $\infty$. Hence the series diverges by the $n$th-term test.
+
+\item The standard Maclaurin expansion
+\[
+\cos t=1-\frac{t^2}{2}+O(t^4)
+\qquad (t\to 0)
+\]
+gives
+\[
+1-\cos\left(\frac1n\right)
+=\frac{1}{2n^2}+O\left(\frac{1}{n^4}\right).
+\]
+Thus
+\[
+n\left(1-\cos\left(\frac1n\right)\right)
+=\frac{1}{2n}+O\left(\frac{1}{n^3}\right),
+\]
+so the series behaves like one half of the harmonic series. Therefore it diverges.
+\end{enumerate}
+
+\[
+\boxed{\text{Question 4(a) converges, while Question 4(b) and Question 4(c) diverge.}}
+\]
+
+\subsubsection{Marking scheme (16 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(5 marks)} Series with $n^3 3^n/(4^n+n)$.
+\begin{itemize}
+\item 2 marks: Correctly select and set up the ratio test or an equivalent comparison.
+\item 2 marks: Correct limit $3/4$ or equivalent comparison with a convergent exponential-polynomial series.
+\item 1 mark: Correct convergence conclusion.
+\end{itemize}
+
+\item \textbf{(5 marks)} Series with $n/(\ln n)^2$.
+\begin{itemize}
+\item 2 marks: Correctly recognise that the term must tend to $0$ for convergence.
+\item 2 marks: Correctly show $n/(\ln n)^2\not\to 0$.
+\item 1 mark: Correct divergence conclusion by the $n$th-term test.
+\end{itemize}
+
+\item \textbf{(6 marks)} Cosine series.
+\begin{itemize}
+\item 2 marks: Correct comparison with $1/n$ or use of $1-\cos t\sim t^2/2$.
+\item 2 marks: Correct limiting computation giving $1/2$.
+\item 1 mark: Correctly invoke divergence of the harmonic series.
+\item 1 mark: Correct divergence conclusion.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 5 (Power series; 16 Marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Find the interval of convergence of the following power series and, for every $x\in\R$, determine whether the series converges absolutely, converges conditionally or diverges at $x$. Justify your answer.
+\[
+\sum_{n=1}^{\infty}\frac{(3x-1)^n}{\sqrt{n^2+1}}.
+\]
+
+\item Find a power series centred at $a=2$ that represents the function
+\[
+f(x)=\frac{1}{1+3x},
+\]
+and state its interval of convergence.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Ratio test with endpoint checking}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+u_n=\frac{(3x-1)^n}{\sqrt{n^2+1}}.
+\]
+For $3x-1\neq 0$, apply the ratio test to the absolute series:
+\begin{align*}
+\lim_{n\to\infty}\abs{\frac{u_{n+1}}{u_n}}
+&=\lim_{n\to\infty}\abs{\frac{(3x-1)^{n+1}}{\sqrt{(n+1)^2+1}}\cdot \frac{\sqrt{n^2+1}}{(3x-1)^n}} \\
+&=\abs{3x-1}\lim_{n\to\infty}\sqrt{\frac{n^2+1}{(n+1)^2+1}} \\
+&=\abs{3x-1}.
+\end{align*}
+Thus the series converges absolutely when
+\[
+\abs{3x-1}<1.
+\]
+Solving this inequality gives
+\[
+-1<3x-1<1
+\quad\Longleftrightarrow\quad
+0<x<\frac23.
+\]
+If $\abs{3x-1}>1$, then
+\[
+\abs{u_n}=\frac{\abs{3x-1}^n}{\sqrt{n^2+1}}
+\]
+does not tend to $0$, so the series diverges by the $n$th-term test.
+
+It remains to check the endpoints.
+
+At $x=\frac23$, we have $3x-1=1$, so the series becomes
+\[
+\sum_{n=1}^{\infty}\frac{1}{\sqrt{n^2+1}}.
+\]
+For $n\geq 1$,
+\[
+\sqrt{n^2+1}\leq \sqrt{2n^2}=\sqrt2\,n,
+\]
+so
+\[
+\frac{1}{\sqrt{n^2+1}}\geq \frac{1}{\sqrt2\,n}.
+\]
+Since $\sum 1/n$ diverges, the comparison test implies that the endpoint series diverges at $x=2/3$.
+
+At $x=0$, we have $3x-1=-1$, so the series becomes
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n}{\sqrt{n^2+1}}.
+\]
+Let
+\[
+b_n=\frac{1}{\sqrt{n^2+1}}.
+\]
+Then $b_n>0$, $b_n\to 0$, and $b_n$ is decreasing because $n^2+1$ is increasing. Hence the alternating series test gives convergence at $x=0$.
+However, the absolute series at $x=0$ is
+\[
+\sum_{n=1}^{\infty}\frac{1}{\sqrt{n^2+1}},
+\]
+which diverges by the previous comparison. Therefore the convergence at $x=0$ is conditional.
+
+Combining all cases:
+\[
+\boxed{\text{Interval of convergence }=\left[0,\frac23\right).}
+\]
+The pointwise classification is
+\[
+\boxed{
+\begin{array}{c|c}
+\text{Range of }x & \text{Behaviour} \\
+\hline
+0<x<\frac23 & \text{converges absolutely} \\
+x=0 & \text{converges conditionally} \\
+x<0\text{ or }x\geq \frac23 & \text{diverges}
+\end{array}}
+\]
+
+\item We want a power series in powers of $x-2$. Write
+\begin{align*}
+\frac{1}{1+3x}
+&=\frac{1}{1+3\bigl((x-2)+2\bigr)} \\
+&=\frac{1}{7+3(x-2)} \\
+&=\frac17\cdot \frac{1}{1+\frac37(x-2)} \\
+&=\frac17\cdot \frac{1}{1-\left(-\frac37(x-2)\right)}.
+\end{align*}
+Using the geometric series
+\[
+\frac{1}{1-r}=\sum_{n=0}^{\infty}r^n,
+\qquad \abs{r}<1,
+\]
+with
+\[
+r=-\frac37(x-2),
+\]
+we obtain
+\begin{align*}
+\frac{1}{1+3x}
+&=\frac17\sum_{n=0}^{\infty}\left(-\frac37(x-2)\right)^n \\
+&=\sum_{n=0}^{\infty}(-1)^n\frac{3^n}{7^{n+1}}(x-2)^n.
+\end{align*}
+The convergence condition is
+\[
+\abs{-\frac37(x-2)}<1
+\quad\Longleftrightarrow\quad
+\abs{x-2}<\frac73.
+\]
+Thus
+\[
+-\frac73<x-2<\frac73
+\quad\Longleftrightarrow\quad
+-\frac13<x<\frac{13}{3}.
+\]
+Therefore
+\[
+\boxed{\displaystyle
+\frac{1}{1+3x}=\sum_{n=0}^{\infty}(-1)^n\frac{3^n}{7^{n+1}}(x-2)^n,
+\qquad -\frac13<x<\frac{13}{3}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Cauchy--Hadamard radius and nearest geometric form}
+
+\begin{enumerate}[label=(\alph*)]
+\item Rewrite
+\[
+3x-1=3\left(x-\frac13\right).
+\]
+Then
+\[
+\sum_{n=1}^{\infty}\frac{(3x-1)^n}{\sqrt{n^2+1}}
+=\sum_{n=1}^{\infty}\frac{3^n}{\sqrt{n^2+1}}\left(x-\frac13\right)^n.
+\]
+Thus the power-series coefficients about $a=1/3$ are
+\[
+c_n=\frac{3^n}{\sqrt{n^2+1}}.
+\]
+By the Cauchy--Hadamard formula,
+\[
+R=\frac{1}{\limsup\limits_{n\to\infty}\sqrt[n]{\abs{c_n}}}.
+\]
+Now
+\begin{align*}
+\sqrt[n]{\abs{c_n}}
+&=\sqrt[n]{\frac{3^n}{\sqrt{n^2+1}}} \\
+&=\frac{3}{(n^2+1)^{1/(2n)}}.
+\end{align*}
+Since $(n^2+1)^{1/(2n)}\to 1$, we get
+\[
+\limsup_{n\to\infty}\sqrt[n]{\abs{c_n}}=3.
+\]
+Hence
+\[
+R=\frac13.
+\]
+The open interval is therefore
+\[
+\left(\frac13-\frac13,\frac13+\frac13\right)=\left(0,\frac23\right).
+\]
+Checking the endpoints gives the same result as in Method 1:
+\[
+x=0: \sum_{n=1}^{\infty}\frac{(-1)^n}{\sqrt{n^2+1}}\text{ converges conditionally},
+\]
+while
+\[
+x=\frac23: \sum_{n=1}^{\infty}\frac{1}{\sqrt{n^2+1}}\text{ diverges}.
+\]
+Thus
+\[
+\boxed{\text{Interval of convergence }=\left[0,\frac23\right).}
+\]
+
+\item The centre is $a=2$, and the only singularity of $1/(1+3x)$ occurs at $x=-1/3$. Its distance from the centre is
+\[
+\abs{2-\left(-\frac13\right)}=\frac73.
+\]
+Thus the radius of convergence must be $7/3$. The explicit series is obtained from the geometric form
+\[
+\frac{1}{1+3x}=\frac17\cdot \frac{1}{1-\left(-\frac37(x-2)\right)},
+\]
+so
+\[
+\boxed{\displaystyle
+\frac{1}{1+3x}=\sum_{n=0}^{\infty}(-1)^n\frac{3^n}{7^{n+1}}(x-2)^n,
+\qquad -\frac13<x<\frac{13}{3}.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (16 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(10 marks)} Interval and classification.
+\begin{itemize}
+\item 3 marks: Correct ratio/root test setup and open interval $0<x<2/3$.
+\item 2 marks: Correct divergence for $\abs{3x-1}>1$ by term test.
+\item 2 marks: Correct endpoint analysis at $x=2/3$.
+\item 2 marks: Correct endpoint analysis at $x=0$, including alternating convergence and failure of absolute convergence.
+\item 1 mark: Correct final interval and full classification for all $x\in\R$.
+\end{itemize}
+
+\item \textbf{(6 marks)} Power series centred at $2$.
+\begin{itemize}
+\item 2 marks: Correctly rewrite $1/(1+3x)$ in terms of $x-2$.
+\item 2 marks: Correct geometric-series expansion.
+\item 2 marks: Correct interval of convergence $(-1/3,13/3)$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 6 (Differentiated geometric series and series transformation; 18 Marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item By differentiating a geometric series or otherwise, find a function represented by the power series
+\[
+\sum_{n=1}^{\infty}\frac{nx^{2n}}{4^n}.
+\]
+
+\item Let $\{a_n\}_{n=1}^{\infty}$ be a sequence of positive real numbers such that $a_{n+1}\leq a_n$ for all $n\geq 1$ and
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges. Is the series
+\[
+\sum_{n=1}^{\infty}n(a_n-a_{n+1})
+\]
+convergent? Justify your answer.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Differentiate the geometric series and telescope partial sums}
+
+\begin{enumerate}[label=(\alph*)]
+\item Start from the geometric series
+\[
+\frac{1}{1-r}=\sum_{n=0}^{\infty}r^n,
+\qquad \abs{r}<1.
+\]
+Differentiate both sides with respect to $r$:
+\[
+\frac{1}{(1-r)^2}=\sum_{n=1}^{\infty}n r^{n-1},
+\qquad \abs{r}<1.
+\]
+Multiplying by $r$ gives
+\[
+\sum_{n=1}^{\infty}n r^n=\frac{r}{(1-r)^2},
+\qquad \abs{r}<1.
+\]
+In the given series, take
+\[
+r=\frac{x^2}{4}.
+\]
+Then
+\begin{align*}
+\sum_{n=1}^{\infty}\frac{nx^{2n}}{4^n}
+&=\sum_{n=1}^{\infty}n\left(\frac{x^2}{4}\right)^n \\
+&=\frac{x^2/4}{(1-x^2/4)^2} \\
+&=\frac{x^2/4}{\left((4-x^2)/4\right)^2} \\
+&=\frac{4x^2}{(4-x^2)^2}.
+\end{align*}
+The condition $\abs{r}<1$ becomes
+\[
+\abs{\frac{x^2}{4}}<1
+\quad\Longleftrightarrow\quad
+\abs{x}<2.
+\]
+Therefore
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac{nx^{2n}}{4^n}
+=\frac{4x^2}{(4-x^2)^2},
+\qquad \abs{x}<2.}
+\]
+
+\item Define
+\[
+b_n=n(a_n-a_{n+1}).
+\]
+Since $a_{n+1}\leq a_n$, we have $b_n\geq 0$. Let
+\[
+s_k=\sum_{n=1}^k b_n=\sum_{n=1}^k n(a_n-a_{n+1}).
+\]
+Then
+\begin{align*}
+s_k
+&=1(a_1-a_2)+2(a_2-a_3)+\cdots+k(a_k-a_{k+1}) \\
+&=a_1+(2-1)a_2+(3-2)a_3+\cdots+(k-(k-1))a_k-ka_{k+1} \\
+&=a_1+a_2+\cdots+a_k-ka_{k+1} \\
+&=\sum_{n=1}^k a_n-ka_{k+1}.
+\end{align*}
+Let
+\[
+t_k=\sum_{n=1}^k a_n.
+\]
+Since $\sum a_n$ converges and $a_n>0$, the partial sums $t_k$ are increasing and bounded above by
+\[
+L=\sum_{n=1}^{\infty}a_n.
+\]
+Also $ka_{k+1}\geq 0$, so
+\[
+s_k=t_k-ka_{k+1}\leq t_k\leq L.
+\]
+Because $b_n\geq 0$, the sequence $\{s_k\}$ is increasing. Hence $\{s_k\}$ is increasing and bounded above, so it converges. Therefore
+\[
+\boxed{\displaystyle \sum_{n=1}^{\infty}n(a_n-a_{n+1})\text{ is convergent.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Standard power-series identity and Abel summation viewpoint}
+
+\begin{enumerate}[label=(\alph*)]
+\item The standard differentiated geometric identity is
+\[
+\sum_{n=1}^{\infty}nr^n=\frac{r}{(1-r)^2},
+\qquad \abs{r}<1.
+\]
+With $r=x^2/4$, this gives directly
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac{nx^{2n}}{4^n}
+=\frac{4x^2}{(4-x^2)^2},
+\qquad \abs{x}<2.}
+\]
+
+\item The identity
+\[
+\sum_{n=1}^k n(a_n-a_{n+1})
+=\sum_{n=1}^k a_n-ka_{k+1}
+\]
+is a discrete summation-by-parts formula. Since $a_n$ is positive and nonincreasing, $n(a_n-a_{n+1})\geq 0$. Also
+\[
+0\leq \sum_{n=1}^k n(a_n-a_{n+1})\leq \sum_{n=1}^k a_n\leq \sum_{n=1}^{\infty}a_n.
+\]
+Therefore the partial sums of $\sum n(a_n-a_{n+1})$ are monotone increasing and bounded above. Hence the series converges.
+\end{enumerate}
+
+\[
+\boxed{\text{The answer to Question 6(b) is yes: the series is convergent.}}
+\]
+
+\subsubsection{Marking scheme (18 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(8 marks)} Function represented by the power series.
+\begin{itemize}
+\item 2 marks: Correct geometric series or differentiated geometric identity.
+\item 2 marks: Correct differentiation and multiplication by $r$.
+\item 2 marks: Correct substitution $r=x^2/4$.
+\item 1 mark: Correct simplified function $4x^2/(4-x^2)^2$.
+\item 1 mark: Correct convergence condition $\abs{x}<2$.
+\end{itemize}
+
+\item \textbf{(10 marks)} Convergence of transformed series.
+\begin{itemize}
+\item 2 marks: Recognise that $n(a_n-a_{n+1})\geq 0$.
+\item 3 marks: Correctly derive the telescoping identity for partial sums.
+\item 2 marks: Use convergence of $\sum a_n$ to bound the transformed partial sums.
+\item 2 marks: Conclude monotone bounded convergence of the transformed partial sums.
+\item 1 mark: State the final answer clearly.
+\end{itemize}
+\end{enumerate}
+
+\end{document}

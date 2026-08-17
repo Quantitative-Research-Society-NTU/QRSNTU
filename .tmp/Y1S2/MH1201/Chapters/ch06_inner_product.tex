@@ -1,0 +1,569 @@
+% Chapter 6 (Weeks 11--12): Inner Product Spaces
+% Primary sources: Study Week 11 Lecture Slides :contentReference[oaicite:0]{index=0} ; Study Week 12 Lecture Slides :contentReference[oaicite:1]{index=1}
+% Tutorial cross-references: Tut10.tex (Tutorial 10, inner products / orthogonality / Gram--Schmidt / orthogonal complements).
+
+\section{Inner Product Spaces}
+
+\subsection{Inner products and norms}
+
+Let $\mathbb{F}\in\{\mathbb{R},\mathbb{C}\}$. An \emph{inner product space} is a pair $(V,\langle\cdot,\cdot\rangle)$ where
+$V$ is an $\mathbb{F}$-vector space and $\langle\cdot,\cdot\rangle:V\times V\to \mathbb{F}$ satisfies the axioms below.
+
+\begin{definition}{Inner product (real vs.\ complex conventions)}{def:inner-product}
+Let $V$ be a vector space over $\mathbb{F}$.
+A function $\langle\cdot,\cdot\rangle:V\times V\to\mathbb{F}$ is an \emph{inner product} if:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item \textbf{(Sesquilinearity)} For all $u,u_1,u_2,v,v_1,v_2\in V$ and $a,b\in\mathbb{F}$,
+\[
+\langle a u_1+b u_2,\, v\rangle=\overline{a}\,\langle u_1,v\rangle+\overline{b}\,\langle u_2,v\rangle,
+\qquad
+\langle u,\, a v_1+b v_2\rangle=a\,\langle u,v_1\rangle+b\,\langle u,v_2\rangle.
+\]
+(Over $\mathbb{R}$, $\overline{a}=a$, so the inner product is bilinear.)
+\item \textbf{(Conjugate symmetry)} $\langle u,v\rangle=\overline{\langle v,u\rangle}$ for all $u,v\in V$.
+(Over $\mathbb{R}$ this reduces to symmetry: $\langle u,v\rangle=\langle v,u\rangle$.)
+\item \textbf{(Positive definiteness)} $\langle u,u\rangle\ge 0$ for all $u\in V$, and $\langle u,u\rangle=0$ iff $u=0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}{Norm induced by an inner product; distance}{def:induced-norm-distance}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space.
+Define the induced norm $\|\cdot\|:V\to\mathbb{R}_{\ge 0}$ by
+\[
+\|u\|\coloneqq \sqrt{\langle u,u\rangle}.
+\]
+Define the induced distance by $d(u,v)\coloneqq \|u-v\|$.
+\end{definition}
+
+\begin{theorem}{Basic norm properties}{thm:norm-basic}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space with induced norm $\|\cdot\|$.
+Then for all $u,v\in V$ and $\lambda\in\mathbb{F}$:
+\[
+\|u\|\ge 0,\quad \|u\|=0\iff u=0,\qquad \|\lambda u\|=|\lambda|\,\|u\|,\qquad \|u+v\|\le \|u\|+\|v\|.
+\]
+\end{theorem}
+
+\begin{examplebox}[title={Examples (Lecture Week 11): standard/weighted/integral/Frobenius inner products}]
+\begin{itemize}[leftmargin=*]
+\item $\mathbb{R}^n$: $\langle x,y\rangle=\sum_{k=1}^n x_k y_k$.
+\item $\mathbb{C}^n$: $\langle w,z\rangle=\sum_{k=1}^n \overline{w_k}\,z_k$ (standard convention).
+\item (Weighted) $\mathbb{C}^n$: if $c_1,\dots,c_n>0$, then $\langle w,z\rangle=\sum_{k=1}^n c_k\,\overline{w_k}\,z_k$.
+\item $\mathcal{P}_m(\mathbb{R})$: $\langle P,Q\rangle=\int_{a}^{b} P(x)Q(x)\,dx$ (e.g.\ $[-1,1]$), which is positive definite on polynomials.
+\item $\mathbb{R}^{n\times n}$ (Frobenius): $\langle A,B\rangle_F=\mathrm{tr}(A^{\mathsf T}B)=\sum_{i,j} a_{ij}b_{ij}$.
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Question 4(a)): inner products from Hermitian positive definite matrices}]
+Let $H\in\mathbb{C}^{n\times n}$ be \emph{Hermitian} ($H^\dagger=H$) and \emph{positive definite}
+($u^\dagger H u>0$ for all $u\neq 0$). Define $\langle u,v\rangle\coloneqq u^\dagger H v$.
+Then $\langle\cdot,\cdot\rangle$ is an inner product on $\mathbb{C}^{n,1}$:
+\begin{itemize}[leftmargin=*]
+\item sesquilinearity comes from $(au_1+bu_2)^\dagger=\overline{a}\,u_1^\dagger+\overline{b}\,u_2^\dagger$ and matrix distributivity;
+\item conjugate symmetry is $\langle u,v\rangle=u^\dagger Hv=\overline{v^\dagger H^\dagger u}=\overline{\langle v,u\rangle}$;
+\item positive definiteness is exactly $u^\dagger H u>0$ for $u\neq 0$.
+\end{itemize}
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: complex linearity in the wrong slot}]
+In complex spaces, \emph{exactly one slot} is linear; the other is conjugate-linear.
+Before expanding $\langle au+bv,\,w\rangle$ or $\langle w,\,au+bv\rangle$, decide which slot is conjugated.
+\end{commonmistake}
+
+\subsection{Cauchy--Schwarz and the triangle inequality}
+
+\begin{theorem}{Cauchy--Schwarz inequality}{thm:cauchy-schwarz}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space. Then for all $u,v\in V$,
+\[
+|\langle u,v\rangle|\le \|u\|\,\|v\|.
+\]
+\end{theorem}
+
+\begin{theorem}{Equality condition in Cauchy--Schwarz}{thm:cs-equality}
+For $u,v\in V$, equality $|\langle u,v\rangle|=\|u\|\,\|v\|$ holds if and only if $u$ and $v$ are linearly dependent.
+\end{theorem}
+
+\begin{extension}[title={Extension (Lecture Week 11: Cauchy--Schwarz via quadratic discriminant)}]
+\textbf{Syllabus link:} MH1201 Weeks 11--12 --- Inner product spaces; Cauchy--Schwarz.
+
+\textbf{Theorem.} In any real/complex inner product space $(V,\langle\cdot,\cdot\rangle)$,
+\[
+\forall u,v\in V:\quad |\langle u,v\rangle|\le \|u\|\,\|v\|.
+\]
+
+\textbf{Proof.}
+If $v=0$, then $\langle u,v\rangle=0$ and the inequality holds. Assume $v\neq 0$.
+Choose $\alpha\in\mathbb{F}$ with $|\alpha|=1$ and $\alpha\,\langle u,v\rangle=|\langle u,v\rangle|$.
+(If $\langle u,v\rangle=0$ take $\alpha=1$; otherwise take $\alpha=\frac{|\langle u,v\rangle|}{\langle u,v\rangle}$.)
+
+For $t\in\mathbb{R}$, define
+\[
+f(t)\coloneqq \langle u+t\alpha v,\,u+t\alpha v\rangle.
+\]
+By positive definiteness, $f(t)\ge 0$ for all $t\in\mathbb{R}$. Expand using sesquilinearity and conjugate symmetry:
+\begin{align*}
+f(t)
+&=\langle u,u\rangle + \langle u,t\alpha v\rangle + \langle t\alpha v,u\rangle + \langle t\alpha v,t\alpha v\rangle\\
+&=\|u\|^2 + t\alpha\,\langle u,v\rangle + t\overline{\alpha}\,\langle v,u\rangle + t^2|\alpha|^2\,\langle v,v\rangle\\
+&=\|u\|^2 + t\alpha\,\langle u,v\rangle + t\overline{\alpha}\,\overline{\langle u,v\rangle} + t^2\|v\|^2.
+\end{align*}
+Since $\alpha\,\langle u,v\rangle=|\langle u,v\rangle|$, we also have
+$\overline{\alpha}\,\overline{\langle u,v\rangle}=|\langle u,v\rangle|$. Hence
+\[
+f(t)=\|v\|^2 t^2 + 2|\langle u,v\rangle|\,t + \|u\|^2.
+\]
+This is a real quadratic polynomial in $t$ that is nonnegative for all $t\in\mathbb{R}$, so its discriminant is $\le 0$:
+\[
+(2|\langle u,v\rangle|)^2 - 4\|v\|^2\|u\|^2 \le 0.
+\]
+Therefore $|\langle u,v\rangle|^2\le \|u\|^2\|v\|^2$, and taking square roots gives
+$|\langle u,v\rangle|\le \|u\|\,\|v\|$. \qed
+\end{extension}
+
+\begin{theorem}{Triangle inequality from Cauchy--Schwarz}{thm:triangle-ineq}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space. Then for all $u,v\in V$,
+\[
+\|u+v\|\le \|u\|+\|v\|.
+\]
+\end{theorem}
+
+\begin{proof}
+Compute
+\[
+\|u+v\|^2=\langle u+v,u+v\rangle=\|u\|^2+\langle u,v\rangle+\langle v,u\rangle+\|v\|^2
+\le \|u\|^2+2|\langle u,v\rangle|+\|v\|^2.
+\]
+By Cauchy--Schwarz, $|\langle u,v\rangle|\le \|u\|\,\|v\|$, hence
+\[
+\|u+v\|^2\le (\|u\|+\|v\|)^2.
+\]
+Taking square roots yields $\|u+v\|\le \|u\|+\|v\|$.
+\end{proof}
+
+\subsection{Orthogonality, orthonormal bases, and Fourier coefficients}
+
+\begin{definition}{Orthogonality; orthogonal and orthonormal sets}{def:orthogonality}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space.
+\begin{itemize}[leftmargin=*]
+\item $u\perp v$ means $\langle u,v\rangle=0$.
+\item A subset $S\subseteq V$ is \emph{orthogonal} if distinct vectors are pairwise orthogonal.
+\item A subset $S\subseteq V$ is \emph{orthonormal} if it is orthogonal and $\|u\|=1$ for all $u\in S$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Orthogonal nonzero sets are linearly independent}{thm:orthogonal-li}
+Let $S\subseteq V$ be an orthogonal set consisting of nonzero vectors. Then $S$ is linearly independent.
+\end{theorem}
+
+\begin{proof}
+Take distinct $u_1,\dots,u_n\in S$ and suppose $\lambda_1u_1+\cdots+\lambda_nu_n=0$.
+Fix $i$ and take inner product with $u_i$:
+\[
+0=\langle u_i,0\rangle=\Bigl\langle u_i,\sum_{j=1}^n \lambda_j u_j\Bigr\rangle=\sum_{j=1}^n \lambda_j \langle u_i,u_j\rangle
+=\lambda_i\langle u_i,u_i\rangle.
+\]
+Since $\langle u_i,u_i\rangle=\|u_i\|^2\neq 0$, we get $\lambda_i=0$.
+Thus all $\lambda_i=0$, so the set is linearly independent.
+\end{proof}
+
+\begin{definition}{Orthonormal basis}{def:onb}
+An \emph{orthonormal basis} (ONB) of $(V,\langle\cdot,\cdot\rangle)$ is a basis $\beta$ of $V$ that is orthonormal.
+\end{definition}
+
+\begin{theorem}{Fourier coefficient formula in an ONB}{thm:fourier-coeff}
+Let $\beta$ be an orthonormal basis of an inner product space $(V,\langle\cdot,\cdot\rangle)$.
+Then for every $v\in V$,
+\[
+v=\sum_{u\in\beta} \langle u,v\rangle\,u,
+\]
+where only finitely many terms are nonzero if $\beta$ is infinite (in this course, typically $\beta$ is finite).
+\end{theorem}
+
+\begin{proof}
+Write $v=\sum_{u\in\beta}\lambda_u u$ in the basis $\beta$. Fix $\tilde u\in\beta$ and take inner product with $\tilde u$:
+\[
+\langle \tilde u,v\rangle=\Bigl\langle \tilde u,\sum_{u\in\beta}\lambda_u u\Bigr\rangle=\sum_{u\in\beta}\lambda_u\langle \tilde u,u\rangle
+=\lambda_{\tilde u}\langle \tilde u,\tilde u\rangle=\lambda_{\tilde u},
+\]
+since $\beta$ is orthonormal. Hence $\lambda_u=\langle u,v\rangle$ for all $u\in\beta$.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 11): checking orthogonality in $\mathbb{R}^3$}]
+In $(\mathbb{R}^3,\cdot)$, let
+\[
+u_1=(1,1,0),\quad u_2=(1,-1,1),\quad u_3=(-1,1,2).
+\]
+Compute dot products:
+\[
+u_1\cdot u_2=1-1+0=0,\qquad
+u_1\cdot u_3=-1+1+0=0,\qquad
+u_2\cdot u_3=-1-1+2=0.
+\]
+Hence $\{u_1,u_2,u_3\}$ is an orthogonal subset of $\mathbb{R}^3$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 11): Fourier coefficients in $P_2(\mathbb{R})$}]
+On $P_2(\mathbb{R})$, define $\langle P,Q\rangle=\int_{-1}^{1}P(x)Q(x)\,dx$.
+Let
+\[
+\beta=\left(\frac{1}{\sqrt2},\ \sqrt{\frac32}\,X,\ \sqrt{\frac{5}{8}}\,(3X^2-1)\right),
+\]
+which is an orthonormal basis (as given in the lecture problem). For $f=1+4X^2$,
+the $\beta$-Fourier coefficients are $c_k=\langle \beta_k,f\rangle$:
+\[
+c_0=\frac{1}{\sqrt2}\int_{-1}^1 (1+4x^2)\,dx=\frac{14}{3\sqrt2},\qquad
+c_1=\sqrt{\frac32}\int_{-1}^1 x(1+4x^2)\,dx=0,
+\]
+\[
+c_2=\sqrt{\frac{5}{8}}\int_{-1}^1 (3x^2-1)(1+4x^2)\,dx
+=\sqrt{\frac{5}{8}}\int_{-1}^1 (12x^4-x^2-1)\,dx
+=\sqrt{\frac{5}{8}}\cdot \frac{32}{15}
+=\frac{16\sqrt5}{15\sqrt2}.
+\]
+Thus
+\[
+1+4X^2=c_0\beta_1+c_1\beta_2+c_2\beta_3.
+\]
+\end{examplebox}
+
+\subsection{Orthogonal projection onto a vector}
+
+\begin{definition}{Orthogonal projection onto a nonzero vector}{def:proj-onto-vector}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space and let $u\in V$ with $u\neq 0$.
+Define the orthogonal projection of $v\in V$ onto $u$ by
+\[
+\operatorname{proj}_u(v)\coloneqq \frac{\langle u,v\rangle}{\langle u,u\rangle}\,u.
+\]
+\end{definition}
+
+\begin{theorem}{Projection error is orthogonal}{thm:proj-error-orth}
+If $u\neq 0$, then $u\perp \bigl(v-\operatorname{proj}_u(v)\bigr)$.
+\end{theorem}
+
+\begin{proof}
+Compute
+\[
+\Bigl\langle u,\,v-\operatorname{proj}_u(v)\Bigr\rangle
+=\langle u,v\rangle-\Bigl\langle u,\frac{\langle u,v\rangle}{\langle u,u\rangle}u\Bigr\rangle
+=\langle u,v\rangle-\frac{\langle u,v\rangle}{\langle u,u\rangle}\langle u,u\rangle
+=0.
+\]
+\end{proof}
+
+\begin{commonmistake}[title={Common Mistake: using projection formula without checking $u\neq 0$}]
+$\operatorname{proj}_u(v)$ is only defined for $u\neq 0$ (division by $\langle u,u\rangle$).
+In Gram--Schmidt, the algorithm guarantees each new vector is nonzero; do not assume this unless you have justified it.
+\end{commonmistake}
+
+\subsection{Gram--Schmidt orthogonalization}
+
+\begin{theorem}{Gram--Schmidt orthogonalization process}{thm:gram-schmidt}
+Let $(V,\langle\cdot,\cdot\rangle)$ be a finite-dimensional inner product space with $\dim(V)=n\ge 1$,
+and let $\beta=(b_1,\dots,b_n)$ be an ordered basis of $V$.
+
+Define recursively:
+\[
+v_1\coloneqq b_1,\qquad
+v_k\coloneqq b_k-\sum_{j=1}^{k-1}\operatorname{proj}_{v_j}(b_k)
+=b_k-\sum_{j=1}^{k-1}\frac{\langle v_j,b_k\rangle}{\langle v_j,v_j\rangle}v_j,\quad (2\le k\le n).
+\]
+Then $(v_1,\dots,v_n)$ is an orthogonal ordered basis of $V$, and
+\[
+\left(\frac{v_1}{\|v_1\|},\dots,\frac{v_n}{\|v_n\|}\right)
+\]
+is an orthonormal ordered basis of $V$.
+Moreover, for each $k$,
+\[
+\operatorname{span}(v_1,\dots,v_k)=\operatorname{span}(b_1,\dots,b_k).
+\]
+\end{theorem}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Question 1): Gram--Schmidt on an orthogonal basis does nothing}]
+If $(b_1,\dots,b_n)$ is already orthogonal, then for $j<k$ we have $\langle b_j,b_k\rangle=0$,
+so every projection term $\operatorname{proj}_{b_j}(b_k)$ vanishes. Hence the Gram--Schmidt recursion gives $v_k=b_k$ for all $k$,
+so the output basis is exactly $(b_1,\dots,b_n)$ (up to the optional normalization step).
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: running Gram--Schmidt efficiently}]
+\begin{itemize}[leftmargin=*]
+\item Keep the \emph{unnormalized} orthogonal vectors $v_k$ until the end; normalize once.
+\item Exploit symmetry/parity in integral inner products: odd integrands integrate to $0$ on $[-a,a]$.
+\item In $\mathbb{R}^n$ with the dot product, compute projections using dot products; in matrix-defined inner products $\langle u,v\rangle=u^{\mathsf T}Gv$ or $u^\dagger Hv$, precompute $Gv$ or $Hv$ once.
+\end{itemize}
+\end{examtip}
+
+\begin{extension}[title={Extension (Tutorial 10, Question 2, Method 1)}]
+\textbf{Syllabus link:} MH1201 Weeks 11--12 --- Gram--Schmidt; orthonormal bases.
+
+\textbf{Lemma (Gram--Schmidt preserves a nested-span flag).}
+Let $\beta=(b_1,\dots,b_n)$ be a basis and let $\gamma=(g_1,\dots,g_n)$ be the orthonormal basis obtained by Gram--Schmidt.
+Then for each $k$,
+\[
+g_k\in \operatorname{span}(b_1,\dots,b_k),
+\qquad
+\operatorname{span}(g_1,\dots,g_k)=\operatorname{span}(b_1,\dots,b_k).
+\]
+
+\textbf{Proof.}
+Let $(v_1,\dots,v_n)$ be the unnormalized Gram--Schmidt vectors and $g_k=v_k/\|v_k\|$.
+We prove by induction on $k$ that $v_k\in \operatorname{span}(b_1,\dots,b_k)$ and
+$\operatorname{span}(v_1,\dots,v_k)=\operatorname{span}(b_1,\dots,b_k)$.
+
+For $k=1$, $v_1=b_1\in \operatorname{span}(b_1)$ and spans agree.
+
+Assume the claim holds for $k-1$. Then each $v_j$ for $j<k$ lies in $\operatorname{span}(b_1,\dots,b_{k-1})$,
+so each projection $\operatorname{proj}_{v_j}(b_k)$ is a scalar multiple of $v_j$ and thus lies in $\operatorname{span}(b_1,\dots,b_{k-1})$.
+Therefore
+\[
+v_k=b_k-\sum_{j=1}^{k-1}\operatorname{proj}_{v_j}(b_k)\in \operatorname{span}(b_1,\dots,b_k).
+\]
+Also, clearly $v_k\in \operatorname{span}(b_1,\dots,b_k)$ implies $\operatorname{span}(v_1,\dots,v_k)\subseteq \operatorname{span}(b_1,\dots,b_k)$.
+Conversely, $b_k=v_k+\sum_{j=1}^{k-1}\operatorname{proj}_{v_j}(b_k)\in \operatorname{span}(v_1,\dots,v_k)$, and by induction
+$b_1,\dots,b_{k-1}\in \operatorname{span}(v_1,\dots,v_{k-1})\subseteq \operatorname{span}(v_1,\dots,v_k)$.
+Hence $\operatorname{span}(b_1,\dots,b_k)\subseteq \operatorname{span}(v_1,\dots,v_k)$, so equality holds.
+
+Finally, $g_k$ is a nonzero scalar multiple of $v_k$, so it lies in the same span, and span equalities persist under nonzero rescaling. \qed
+
+\textbf{Consequence (upper-triangularity preserved).}
+If a linear operator $T$ satisfies $T(\operatorname{span}(b_1,\dots,b_k))\subseteq \operatorname{span}(b_1,\dots,b_k)$ for all $k$,
+then the same holds with $b_i$ replaced by $g_i$, so the matrix of $T$ in $\gamma$ is upper triangular.
+\end{extension}
+
+\subsection{Orthogonal complements}
+
+\begin{definition}{Orthogonal complement of a nonempty set}{def:orthogonal-complement}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space and let $A\subseteq V$ be nonempty.
+Define
+\[
+A^\perp \coloneqq \{v\in V:\ \forall u\in A,\ \langle u,v\rangle=0\}.
+\]
+\end{definition}
+
+\begin{theorem}{Orthogonal complements are subspaces}{thm:orth-complement-subspace}
+If $A\subseteq V$ is nonempty, then $A^\perp$ is a vector subspace of $V$.
+\end{theorem}
+
+\begin{proof}
+For all $u\in A$, $\langle u,0\rangle=0$, so $0\in A^\perp$.
+If $v,w\in A^\perp$ and $\lambda\in\mathbb{F}$, then for all $u\in A$,
+\[
+\langle u,v+w\rangle=\langle u,v\rangle+\langle u,w\rangle=0+0=0,\qquad
+\langle u,\lambda v\rangle=\lambda\langle u,v\rangle=\lambda\cdot 0=0.
+\]
+Hence $v+w,\lambda v\in A^\perp$, so $A^\perp$ is a subspace.
+\end{proof}
+
+\begin{theorem}{Basic properties of orthogonal complements}{thm:orth-basic-props}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space and let $A,B\subseteq V$ be nonempty.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item $\{0\}^\perp = V$ and $V^\perp=\{0\}$.
+\item $A\cap A^\perp \subseteq \{0\}$.
+\item If $A\subseteq B$ then $B^\perp\subseteq A^\perp$.
+\item $A^\perp=\operatorname{span}(A)^\perp$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}{Computing $W^\perp$ from a basis}{thm:orth-from-basis}
+Let $W\le V$ be a subspace and let $B$ be a basis of $W$. Then
+\[
+W^\perp=\{v\in V:\ \forall b\in B,\ \langle b,v\rangle=0\}.
+\]
+\end{theorem}
+
+\begin{proof}
+If $v\in W^\perp$, then $\langle b,v\rangle=0$ for all $b\in B\subseteq W$.
+Conversely, assume $\langle b,v\rangle=0$ for all $b\in B$. Any $w\in W$ can be written $w=\sum_{b\in B}\lambda_b b$, hence
+\[
+\langle w,v\rangle=\Bigl\langle \sum_{b\in B}\lambda_b b,\,v\Bigr\rangle
+=\sum_{b\in B}\overline{\lambda_b}\,\langle b,v\rangle=0,
+\]
+so $v\in W^\perp$.
+\end{proof}
+
+\begin{keyformula}[title={Key Procedure (Lecture Week 12): finding $A^\perp$ for a finite set $A$}]
+To compute $A^\perp$ for a nonempty finite set $A=\{a_1,\dots,a_m\}$:
+\begin{enumerate}[leftmargin=*]
+\item Replace $A$ by a basis $B$ of $\operatorname{span}(A)$ (take a maximal linearly independent subset).
+\item Solve the linear system in the unknown $v\in V$:
+\[
+\forall b\in B:\quad \langle b,v\rangle=0.
+\]
+The solution set is $A^\perp$.
+\end{enumerate}
+\end{keyformula}
+
+\begin{theorem}{Orthogonal direct sum decomposition (finite-dimensional)}{orth-direct-sum}
+Let $(V,\langle\cdot,\cdot\rangle)$ be a finite-dimensional inner product space and let $W\le V$.
+Then
+\[
+V = W \oplus W^\perp,
+\qquad\text{hence}\qquad
+\dim(V)=\dim(W)+\dim(W^\perp).
+\]
+\end{theorem}
+
+\begin{proof}
+Choose an orthonormal basis $(b_1,\dots,b_m)$ of $W$ (existence via Gram--Schmidt).
+For $v\in V$, define
+\[
+p\coloneqq \sum_{k=1}^m \langle b_k,v\rangle\,b_k\in W,
+\qquad
+q\coloneqq v-p.
+\]
+We show $q\in W^\perp$. Let $w\in W$ and write $w=\sum_{j=1}^m \lambda_j b_j$. Then
+\begin{align*}
+\langle w,q\rangle
+&=\Bigl\langle \sum_{j=1}^m \lambda_j b_j,\ v-\sum_{k=1}^m \langle b_k,v\rangle b_k\Bigr\rangle\\
+&=\sum_{j=1}^m \overline{\lambda_j}\,\langle b_j,v\rangle
+-\sum_{j=1}^m\sum_{k=1}^m \overline{\lambda_j}\,\langle b_k,v\rangle\,\langle b_j,b_k\rangle\\
+&=\sum_{j=1}^m \overline{\lambda_j}\,\langle b_j,v\rangle
+-\sum_{j=1}^m \overline{\lambda_j}\,\langle b_j,v\rangle\,\langle b_j,b_j\rangle
+=0,
+\end{align*}
+since $\langle b_j,b_k\rangle=0$ for $j\neq k$ and $\langle b_j,b_j\rangle=1$.
+Thus $q\in W^\perp$ and $v=p+q\in W+W^\perp$, so $V=W+W^\perp$.
+
+Finally, if $x\in W\cap W^\perp$, then $\langle x,x\rangle=0$, hence $x=0$. So the sum is direct: $V=W\oplus W^\perp$.
+\end{proof}
+
+\begin{theorem}{Double orthogonal complements}{thm:double-orth}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space and let $W\le V$.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Always: $W\subseteq W^{\perp\perp}$.
+\item If $\dim(V)<\infty$, then $W=W^{\perp\perp}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) Let $w\in W$. Take any $u\in W^\perp$. Then $\langle u,w\rangle=0$ by definition of $W^\perp$.
+By conjugate symmetry, $\langle w,u\rangle=\overline{\langle u,w\rangle}=0$, hence $w\in W^{\perp\perp}$.
+
+(b) Assume $\dim(V)<\infty$. Apply Theorem~\ref{thm:orth-direct-sum} to $W$ and to $W^\perp$:
+\[
+\dim(V)=\dim(W)+\dim(W^\perp),\qquad
+\dim(V)=\dim(W^\perp)+\dim(W^{\perp\perp}).
+\]
+Subtracting gives $\dim(W)=\dim(W^{\perp\perp})$.
+Together with $W\subseteq W^{\perp\perp}$, finite-dimensionality implies $W=W^{\perp\perp}$.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Question 5(c)): strict inclusion in infinite dimensions}]
+In $V=\ell^2$ with $\langle x,y\rangle=\sum_{k=1}^\infty x_k y_k$, let
+\[
+W=c_{00}\coloneqq \{x\in \ell^2:\ x\text{ has finite support}\}.
+\]
+If $z\in W^\perp$, then for every standard basis vector $e_k\in c_{00}$,
+\[
+0=\langle z,e_k\rangle=z_k,
+\]
+so $z=0$ and $W^\perp=\{0\}$. Hence $W^{\perp\perp}=V$, but $W\neq V$, so $W\subsetneq W^{\perp\perp}$.
+\end{examplebox}
+
+\subsection{Orthogonal projection onto a subspace}
+
+\begin{definition}{Orthogonal projection operator onto a subspace}{def:proj-onto-subspace}
+Let $(V,\langle\cdot,\cdot\rangle)$ be a finite-dimensional inner product space and let $W\le V$.
+For $v\in V$, write the unique decomposition $v=p+q$ with $p\in W$ and $q\in W^\perp$ (Theorem~\ref{thm:orth-direct-sum}).
+Define $P_W:V\to W$ by $P_W(v)\coloneqq p$.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: projection using an orthonormal basis of $W$}]
+If $(b_1,\dots,b_m)$ is an orthonormal basis of $W$, then for all $v\in V$,
+\[
+P_W(v)=\sum_{k=1}^m \langle b_k,v\rangle\,b_k,
+\qquad
+v-P_W(v)\in W^\perp.
+\]
+\end{keyformula}
+
+\begin{extension}[title={Extension (Beyond Syllabus: projection as the unique minimizer)}]
+\textbf{Syllabus link:} MH1201 Weeks 11--12 --- Orthogonal complements; orthogonal projection.
+
+\textbf{Theorem.}
+Let $(V,\langle\cdot,\cdot\rangle)$ be finite-dimensional, let $W\le V$, and let $P_W$ be the orthogonal projection.
+Then $P_W(v)$ is the unique point in $W$ minimizing $\|v-w\|$ over $w\in W$.
+
+\textbf{Proof.}
+Fix $v\in V$ and write $v=P_W(v)+r$ with $r\in W^\perp$.
+For any $w\in W$, we have $v-w=(P_W(v)-w)+r$ where $P_W(v)-w\in W$ and $r\in W^\perp$, hence $(P_W(v)-w)\perp r$.
+Therefore
+\[
+\|v-w\|^2=\|P_W(v)-w\|^2+\|r\|^2\ge \|r\|^2=\|v-P_W(v)\|^2,
+\]
+with equality iff $\|P_W(v)-w\|=0$, i.e.\ $w=P_W(v)$. Thus $P_W(v)$ is the unique minimizer. \qed
+\end{extension}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Question 6): $V^\perp$ for a hyperplane and orthogonal decomposition in $\mathbb{R}^4$}]
+Let $V=\{(w,x,y,z)\in\mathbb{R}^4:\ w-y+z=0\}$ in $(\mathbb{R}^4,\cdot)$.
+Write the constraint as $n\cdot (w,x,y,z)=0$ with $n=(1,0,-1,1)$.
+Hence
+\[
+V^\perp=\operatorname{span}\{n\}=\operatorname{span}\{(1,0,-1,1)\}.
+\]
+For $p=(1,2,3,4)$, the projection onto $V^\perp$ is
+\[
+b=\operatorname{proj}_{n}(p)=\frac{p\cdot n}{n\cdot n}\,n
+=\frac{2}{3}(1,0,-1,1)=\left(\frac23,0,-\frac23,\frac23\right),
+\]
+and $a=p-b=\left(\frac13,2,\frac{11}{3},\frac{10}{3}\right)\in V$ gives $p=a+b$.
+\end{examplebox}
+
+\subsection{Frobenius inner product and orthogonal complements in matrix spaces}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Question 7): diagonal matrices and $D^\perp$}]
+Let $D=\{A\in\mathbb{R}^{n\times n}:\ A\text{ is diagonal}\}$ in $(\mathbb{R}^{n\times n},\langle\cdot,\cdot\rangle_F)$.
+If $X=(x_{ij})\in D^\perp$, then for every diagonal $\Delta=\mathrm{diag}(d_1,\dots,d_n)$,
+\[
+0=\langle X,\Delta\rangle_F=\sum_{i=1}^n x_{ii}d_i,
+\]
+so $x_{ii}=0$ for all $i$. Thus $D^\perp$ is the subspace of zero-diagonal matrices, with basis $\{E_{ij}:i\neq j\}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 12): upper-triangular matrices and $U^\perp$}]
+Let $U=\{A\in\mathbb{R}^{n\times n}:\ A\text{ is upper triangular}\}$ in $(\mathbb{R}^{n\times n},\langle\cdot,\cdot\rangle_F)$.
+Then $X\in U^\perp$ iff $\langle X,A\rangle_F=\sum_{i,j}x_{ij}a_{ij}=0$ for all upper triangular $A$.
+Choosing $A=E_{ij}$ with $i\le j$ forces $x_{ij}=0$ for all $i\le j$.
+Hence $U^\perp$ is the subspace of strictly lower-triangular matrices, with basis $\{E_{ij}: i>j\}$.
+\end{examplebox}
+
+\subsection{Least squares viewpoint (if assessed in the module)}
+
+\begin{examplebox}[title={Lecture Week 12: linear least squares and normal equations}]
+Given data $(x_1,y_1),\dots,(x_n,y_n)\in\mathbb{R}^2$, approximate by a line $f(x)=mx+c$ by minimizing
+\[
+E(m,c)\coloneqq \sum_{k=1}^n |y_k-(mx_k+c)|^2.
+\]
+Let
+\[
+y\coloneqq \begin{bmatrix}y_1\\ \vdots\\ y_n\end{bmatrix},
+\qquad
+A\coloneqq \begin{bmatrix}
+x_1 & 1\\
+\vdots & \vdots\\
+x_n & 1
+\end{bmatrix},
+\qquad
+b\coloneqq \begin{bmatrix}m\\ c\end{bmatrix},
+\]
+so $E(m,c)=\|y-Ab\|^2$ in $(\mathbb{R}^{n,1},\cdot)$ and $W\coloneqq \operatorname{range}(A)=\{Ab:\ b\in\mathbb{R}^{2,1}\}$ is a subspace.
+Then the following are equivalent:
+\begin{enumerate}[leftmargin=*]
+\item $b$ minimizes $\|y-Ab\|^2$.
+\item $Ab$ is the orthogonal projection of $y$ onto $W$, i.e.\ $y-Ab\in W^\perp$.
+\item (\textbf{Normal equations}) $A^{\mathsf T}A\,b=A^{\mathsf T}y$.
+\end{enumerate}
+Indeed, $y-Ab\in W^\perp$ means $\langle Ab',\,y-Ab\rangle=0$ for all $b'$, equivalently $A^{\mathsf T}(y-Ab)=0$.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: orthogonal complement computations}]
+\begin{itemize}[leftmargin=*]
+\item Replace $A$ by a basis of $\operatorname{span}(A)$ before imposing orthogonality equations.
+\item For $W=\{x:\ Mx=0\}$ in $(\mathbb{R}^n,\cdot)$, a fast route is $W^\perp=\operatorname{span}\{\text{rows of }M\}$ (view constraints as dot products with normals).
+\item In Frobenius spaces, test against matrix units $E_{ij}$ to force individual entries to vanish.
+\end{itemize}
+\end{examtip}
+
+\begin{commonmistake}[title={Common Mistake: “orthogonal” vs.\ “orthonormal”}]
+Orthogonal means pairwise perpendicular; orthonormal additionally requires each vector has norm $1$.
+Fourier coefficient formula $v=\sum \langle u,v\rangle u$ requires an \emph{orthonormal} basis.
+For an orthogonal (not normalized) basis, coefficients involve divisions by $\langle u,u\rangle$.
+\end{commonmistake}

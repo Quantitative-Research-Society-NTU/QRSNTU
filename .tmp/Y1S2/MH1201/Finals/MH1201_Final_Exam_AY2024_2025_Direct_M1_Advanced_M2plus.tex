@@ -1,0 +1,1540 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\setlength{\headheight}{14.5pt}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Final Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2024/2025, Semester 2}
+\newcommand{\ExamMetaShort}{Final AY24-25}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\df}{\coloneqq}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Null}{\operatorname{null}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{trace}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\ipF}[2]{\left\langle #1,#2\right\rangle_F}
+\newcommand{\T}{\mathsf{T}}
+\allowdisplaybreaks
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Source paper: NTU AY2024/2025 Semester 2 MH1201 Linear Algebra II Final Examination.
+  \item Solution style: the simplest direct computational solution is kept as Method 1; structural and theorem-heavy solutions are added as Method 2 onward.
+  \item Each method is written as a standalone solution and is separated according to the original subparts, labelled (a), (b), etc.
+  \item Page breaks are inserted before every solution, before Method 2 onward, and before every marking scheme.
+  \item Main themes: nilpotent operators on polynomial spaces, diagonalisation by eigenbasis decomposition, matrix-induced inner products, Gram--Schmidt, Fourier coefficients, Frobenius isometries, and symmetric/skew-symmetric orthogonal decompositions.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Question 1 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $D$ denote the derivative linear transformation from $\cP_2(\R)$ to itself. Let $I$ denote the identity linear transformation from $\cP_2(\R)$ to itself.
+\begin{enumerate}[label=(\alph*)]
+  \item Compute the standard matrix representation of $D^2+D+I$.
+
+  \textit{Note:} Recall that the standard ordered basis for $\cP_2(\R)$ is $(1,X,X^2)$.
+  \item Using your response to Part (a), explain why $D^2+D+I$ is invertible on $\cP_2(\R)$.
+
+  \textit{Note:} Do not perform any hard computations for this part.
+  \item Using your response to Part (a), derive an explicit formula for $(D^2+D+I)^{-1}$.
+
+  \textit{Note:} Your formula must be expressed in terms of polynomials in its final form.
+  \item Therefore, determine all $P\in\cP_2(\R)$ such that
+  \[
+    P''+P'+P=-2+3X-5X^2.
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Standard-Matrix and Coefficient Computation}
+\begin{enumerate}[label=(\alph*)]
+  \item Let the standard ordered basis be
+  \[
+    \sigma=(1,X,X^2).
+  \]
+  We compute the action of $D$, $D^2$, and $I$ on the basis vectors.
+  Since
+  \[
+    D(1)=0,\qquad D(X)=1,\qquad D(X^2)=2X,
+  \]
+  the matrix of $D$ in the standard basis is
+  \[
+    [D]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      0&1&0\\
+      0&0&2\\
+      0&0&0
+    \end{bmatrix}.
+  \]
+  Also
+  \[
+    D^2(1)=0,
+    \qquad
+    D^2(X)=0,
+    \qquad
+    D^2(X^2)=2,
+  \]
+  so
+  \[
+    [D^2]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      0&0&2\\
+      0&0&0\\
+      0&0&0
+    \end{bmatrix}.
+  \]
+  Therefore
+  \[
+    [D^2+D+I]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&1&2\\
+      0&1&2\\
+      0&0&1
+    \end{bmatrix}.
+  \]
+  Hence
+  \[
+    \boxed{[D^2+D+I]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&1&2\\
+      0&1&2\\
+      0&0&1
+    \end{bmatrix}.}
+  \]
+
+  \item The matrix obtained in Part (a) is upper triangular with diagonal entries
+  \[
+    1,1,1.
+  \]
+  Hence
+  \[
+    \det [D^2+D+I]_{\sigma}^{\sigma}=1\cdot 1\cdot 1=1\ne 0.
+  \]
+  Therefore the matrix is invertible, and hence the linear map $D^2+D+I$ is invertible on $\cP_2(\R)$.
+  \[
+    \boxed{D^2+D+I\text{ is invertible}.}
+  \]
+
+  \item Let
+  \[
+    Q(X)=r+sX+tX^2\in\cP_2(\R).
+  \]
+  Suppose
+  \[
+    P(X)=a+bX+cX^2.
+  \]
+  Then
+  \[
+    P'(X)=b+2cX,
+    \qquad
+    P''(X)=2c.
+  \]
+  Thus
+  \[
+    (D^2+D+I)(P)
+    =P''+P'+P
+    =(a+b+2c)+(b+2c)X+cX^2.
+  \]
+  We want this to equal $Q(X)=r+sX+tX^2$. Hence
+  \[
+    c=t,
+    \qquad
+    b+2c=s,
+    \qquad
+    a+b+2c=r.
+  \]
+  Therefore
+  \[
+    c=t,
+    \qquad
+    b=s-2t,
+    \qquad
+    a=r-s.
+  \]
+  Hence
+  \[
+    (D^2+D+I)^{-1}(r+sX+tX^2)
+    =(r-s)+(s-2t)X+tX^2.
+  \]
+  Since
+  \[
+    Q'(X)=s+2tX,
+  \]
+  this can be written compactly as
+  \[
+    \boxed{(D^2+D+I)^{-1}(Q)=Q-Q'.}
+  \]
+
+  \item We need to solve
+  \[
+    (D^2+D+I)(P)=-2+3X-5X^2.
+  \]
+  By Part (c), the unique solution is
+  \[
+    P=(D^2+D+I)^{-1}(-2+3X-5X^2).
+  \]
+  Let
+  \[
+    Q(X)=-2+3X-5X^2.
+  \]
+  Then
+  \[
+    Q'(X)=3-10X.
+  \]
+  Therefore
+  \[
+    P(X)=Q(X)-Q'(X)
+    =(-2+3X-5X^2)-(3-10X)
+    =-5+13X-5X^2.
+  \]
+  Hence
+  \[
+    \boxed{P(X)=-5+13X-5X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Nilpotent Geometric-Series Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item In the standard basis $\sigma=(1,X,X^2)$, the derivative operator satisfies
+  \[
+    [D]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      0&1&0\\
+      0&0&2\\
+      0&0&0
+    \end{bmatrix}.
+  \]
+  Because $D^3=0$ on $\cP_2(\R)$, $D$ is nilpotent of index at most $3$. Directly,
+  \[
+    [D^2]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      0&0&2\\
+      0&0&0\\
+      0&0&0
+    \end{bmatrix}.
+  \]
+  Thus
+  \[
+    [D^2+D+I]_{\sigma}^{\sigma}
+    =
+    I+[D]_{\sigma}^{\sigma}+[D^2]_{\sigma}^{\sigma}
+    =
+    \boxed{
+    \begin{bmatrix}
+      1&1&2\\
+      0&1&2\\
+      0&0&1
+    \end{bmatrix}.}
+  \]
+
+  \item Let
+  \[
+    A=D^2+D+I=I+D+D^2.
+  \]
+  Since $D^3=0$, we have
+  \[
+    (I+D+D^2)(I-D)
+    =I-D+D-D^2+D^2-D^3
+    =I.
+  \]
+  Similarly,
+  \[
+    (I-D)(I+D+D^2)=I.
+  \]
+  Therefore
+  \[
+    A^{-1}=I-D.
+  \]
+  Hence $A=D^2+D+I$ is invertible.
+  \[
+    \boxed{D^2+D+I\text{ is invertible}.}
+  \]
+
+  \item From Part (b),
+  \[
+    (D^2+D+I)^{-1}=I-D.
+  \]
+  Therefore for every $Q\in\cP_2(\R)$,
+  \[
+    \boxed{(D^2+D+I)^{-1}(Q)=Q-Q'.}
+  \]
+
+  \item Let
+  \[
+    Q(X)=-2+3X-5X^2.
+  \]
+  Then the required polynomial is
+  \[
+    P=(I-D)Q=Q-Q'.
+  \]
+  Since
+  \[
+    Q'(X)=3-10X,
+  \]
+  we obtain
+  \[
+    P(X)=-2+3X-5X^2-(3-10X)
+    =-5+13X-5X^2.
+  \]
+  Hence
+  \[
+    \boxed{P(X)=-5+13X-5X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Upper-Triangular Recursion Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item For
+  \[
+    P(X)=a+bX+cX^2,
+  \]
+  we compute
+  \[
+    P'(X)=b+2cX,
+    \qquad
+    P''(X)=2c.
+  \]
+  Therefore
+  \[
+    P''+P'+P=(a+b+2c)+(b+2c)X+cX^2.
+  \]
+  Relative to $\sigma=(1,X,X^2)$, the coordinate vector $[P]_{\sigma}=(a,b,c)^\T$ is sent to
+  \[
+    \begin{bmatrix}
+      a+b+2c\\
+      b+2c\\
+      c
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      1&1&2\\
+      0&1&2\\
+      0&0&1
+    \end{bmatrix}
+    \begin{bmatrix}
+      a\\b\\c
+    \end{bmatrix}.
+  \]
+  Hence
+  \[
+    \boxed{[D^2+D+I]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&1&2\\
+      0&1&2\\
+      0&0&1
+    \end{bmatrix}.}
+  \]
+
+  \item The coordinate formula is triangular:
+  \[
+    (a,b,c)\mapsto (a+b+2c,b+2c,c).
+  \]
+  The last output coordinate is exactly $c$, the second output coordinate determines $b$ once $c$ is known, and the first output coordinate determines $a$ once $b,c$ are known. Thus the map can be inverted recursively. Hence $D^2+D+I$ is invertible.
+  \[
+    \boxed{D^2+D+I\text{ is invertible}.}
+  \]
+
+  \item Given
+  \[
+    Q(X)=r+sX+tX^2,
+  \]
+  solve
+  \[
+    (a+b+2c)+(b+2c)X+cX^2=r+sX+tX^2.
+  \]
+  Equating coefficients from highest degree to lowest degree gives
+  \[
+    c=t,
+    \qquad
+    b=s-2t,
+    \qquad
+    a=r-s.
+  \]
+  Therefore
+  \[
+    \boxed{(D^2+D+I)^{-1}(r+sX+tX^2)=(r-s)+(s-2t)X+tX^2.}
+  \]
+
+  \item For
+  \[
+    -2+3X-5X^2,
+  \]
+  we have $r=-2$, $s=3$, and $t=-5$. Hence
+  \[
+    c=-5,
+    \qquad
+    b=3-2(-5)=13,
+    \qquad
+    a=-2-3=-5.
+  \]
+  Therefore
+  \[
+    \boxed{P(X)=-5+13X-5X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Marking Scheme}
+\begin{itemize}[leftmargin=*]
+  \item Part (a), 5 marks: correct matrices for $D$ and $D^2$, and correct final matrix for $D^2+D+I$.
+  \item Part (b), 4 marks: identifies upper-triangular form or nonzero determinant, and concludes invertibility.
+  \item Part (c), 6 marks: derives the inverse formula either by coefficient comparison or by $D^3=0$; final formula must be polynomial-valued.
+  \item Part (d), 5 marks: applies the inverse to the given polynomial and obtains $-5+13X-5X^2$.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 2 \hfill (30 Marks)}
+
+\subsection{Problem}
+Define a linear transformation $T\in\cL(\cP_2(\R))$ as follows:
+\[
+  \forall P\in\cP_2(\R):\qquad
+  T(P)\df P(0)+P(1)(X+X^2).
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Compute the standard matrix representation of $T$.
+
+  \textit{Note:} Recall that the standard ordered basis for $\cP_2(\R)$ is $(1,X,X^2)$.
+  \item Using your response to Part (a), compute all the eigenvalues of $T$.
+  \item Using your response to Part (b), determine all the eigenspaces of $T$.
+  \item Using your response to Part (b) or Part (c), explain why $T$ is diagonalizable.
+  \item Therefore, compute $T^{10}(1+2X+4X^2)$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Matrix, Eigenvalue, and Eigenvector Computation}
+\begin{enumerate}[label=(\alph*)]
+  \item Let $\sigma=(1,X,X^2)$. We compute $T$ on the standard basis:
+  \[
+    T(1)=1+(X+X^2)=1+X+X^2,
+  \]
+  \[
+    T(X)=0+1(X+X^2)=X+X^2,
+  \]
+  \[
+    T(X^2)=0+1(X+X^2)=X+X^2.
+  \]
+  Hence
+  \[
+    \boxed{[T]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&0&0\\
+      1&1&1\\
+      1&1&1
+    \end{bmatrix}.}
+  \]
+
+  \item Let
+  \[
+    A=[T]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&0&0\\
+      1&1&1\\
+      1&1&1
+    \end{bmatrix}.
+  \]
+  Then
+  \[
+    A-\lambda I
+    =
+    \begin{bmatrix}
+      1-\lambda&0&0\\
+      1&1-\lambda&1\\
+      1&1&1-\lambda
+    \end{bmatrix}.
+  \]
+  Expanding along the first row gives
+  \[
+    \det(A-\lambda I)
+    =(1-\lambda)
+    \det\begin{bmatrix}
+      1-\lambda&1\\
+      1&1-\lambda
+    \end{bmatrix}.
+  \]
+  Hence
+  \[
+    \det(A-\lambda I)
+    =(1-\lambda)((1-\lambda)^2-1)
+    =(1-\lambda)\lambda(\lambda-2).
+  \]
+  Therefore the eigenvalues are
+  \[
+    \boxed{0,1,2.}
+  \]
+
+  \item We solve for each eigenvalue.
+
+  For $\lambda=0$, solve $A(a,b,c)^\T=0$:
+  \[
+    a=0,
+    \qquad
+    a+b+c=0.
+  \]
+  Therefore $a=0$ and $c=-b$, so
+  \[
+    E_0=\Span\{X-X^2\}.
+  \]
+
+  For $\lambda=1$, solve $(A-I)(a,b,c)^\T=0$. This gives
+  \[
+    a+c=0,
+    \qquad
+    a+b=0.
+  \]
+  Hence $b=-a$ and $c=-a$, so
+  \[
+    E_1=\Span\{1-X-X^2\}.
+  \]
+
+  For $\lambda=2$, solve $(A-2I)(a,b,c)^\T=0$. This gives
+  \[
+    a=0,
+    \qquad
+    b=c.
+  \]
+  Hence
+  \[
+    E_2=\Span\{X+X^2\}.
+  \]
+  Therefore
+  \[
+    \boxed{
+    E_0=\Span\{X-X^2\},\quad
+    E_1=\Span\{1-X-X^2\},\quad
+    E_2=\Span\{X+X^2\}.}
+  \]
+
+  \item Since $T$ has three distinct eigenvalues on the $3$-dimensional vector space $\cP_2(\R)$, it has three linearly independent eigenvectors. Therefore $T$ is diagonalizable.
+  \[
+    \boxed{T\text{ is diagonalizable}.}
+  \]
+
+  \item Decompose
+  \[
+    1+2X+4X^2
+    =\alpha(1-X-X^2)+\beta(X-X^2)+\gamma(X+X^2).
+  \]
+  Comparing coefficients gives
+  \[
+    \alpha=1,
+    \qquad
+    -\alpha+\beta+\gamma=2,
+    \qquad
+    -\alpha-\beta+\gamma=4.
+  \]
+  Thus
+  \[
+    \beta+\gamma=3,
+    \qquad
+    -\beta+\gamma=5,
+  \]
+  so
+  \[
+    \beta=-1,
+    \qquad
+    \gamma=4.
+  \]
+  Hence
+  \[
+    1+2X+4X^2=(1-X-X^2)-(X-X^2)+4(X+X^2).
+  \]
+  Applying $T^{10}$ gives
+  \[
+    T^{10}(1-X-X^2)=1^{10}(1-X-X^2)=1-X-X^2,
+  \]
+  \[
+    T^{10}(X-X^2)=0^{10}(X-X^2)=0,
+  \]
+  and
+  \[
+    T^{10}(X+X^2)=2^{10}(X+X^2)=1024(X+X^2).
+  \]
+  Therefore
+  \[
+    T^{10}(1+2X+4X^2)
+    =1-X-X^2+4\cdot 1024(X+X^2).
+  \]
+  Hence
+  \[
+    \boxed{T^{10}(1+2X+4X^2)=1+4095X+4095X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Range-Kernel Decomposition Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item Let
+  \[
+    v\df X+X^2.
+  \]
+  Then
+  \[
+    T(P)=P(0)+P(1)v.
+  \]
+  Applying this to $1,X,X^2$ gives
+  \[
+    T(1)=1+v,
+    \qquad
+    T(X)=v,
+    \qquad
+    T(X^2)=v.
+  \]
+  Therefore
+  \[
+    \boxed{[T]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&0&0\\
+      1&1&1\\
+      1&1&1
+    \end{bmatrix}.}
+  \]
+
+  \item The range of $T$ is contained in
+  \[
+    U\df\Span\{1,v\}.
+  \]
+  On $U$, with ordered basis $(1,v)$, we have
+  \[
+    T(1)=1+v,
+    \qquad
+    T(v)=T(X+X^2)=2v.
+  \]
+  Thus
+  \[
+    [T|_U]_{(1,v)}^{(1,v)}
+    =
+    \begin{bmatrix}
+      1&0\\
+      1&2
+    \end{bmatrix}.
+  \]
+  Hence $T|_U$ has eigenvalues $1$ and $2$. Also
+  \[
+    \Null(T)=\{P\in\cP_2(\R):P(0)=0,	ext{ and }P(1)=0\}.
+  \]
+  A nonzero polynomial in this nullspace is
+  \[
+    X-X^2,
+  \]
+  so $0$ is also an eigenvalue. Therefore the eigenvalues of $T$ are
+  \[
+    \boxed{0,1,2.}
+  \]
+
+  \item The $0$-eigenspace is the nullspace:
+  \[
+    E_0=\Null(T)=\Span\{X-X^2\}.
+  \]
+  For the eigenvalue $1$, solve inside $U=\Span\{1,v\}$:
+  \[
+    T(\alpha+\gamma v)=\alpha+(\alpha+2\gamma)v.
+  \]
+  If this equals $\alpha+\gamma v$, then
+  \[
+    \alpha+2\gamma=\gamma,
+  \]
+  so $\gamma=-\alpha$. Hence
+  \[
+    E_1=\Span\{1-v\}=\Span\{1-X-X^2\}.
+  \]
+  For the eigenvalue $2$, we need
+  \[
+    \alpha+(\alpha+2\gamma)v=2\alpha+2\gamma v.
+  \]
+  Hence $\alpha=0$, and so
+  \[
+    E_2=\Span\{v\}=\Span\{X+X^2\}.
+  \]
+  Therefore
+  \[
+    \boxed{
+    E_0=\Span\{X-X^2\},\quad
+    E_1=\Span\{1-X-X^2\},\quad
+    E_2=\Span\{X+X^2\}.}
+  \]
+
+  \item The three eigenspaces contain nonzero eigenvectors belonging to three distinct eigenvalues. Therefore those eigenvectors are linearly independent. Since $\dim\cP_2(\R)=3$, they form a basis. Hence $T$ is diagonalizable.
+  \[
+    \boxed{T\text{ is diagonalizable}.}
+  \]
+
+  \item Using the eigenbasis found in Part (c), write
+  \[
+    1+2X+4X^2
+    =(1-X-X^2)-(X-X^2)+4(X+X^2).
+  \]
+  Therefore
+  \[
+    T^{10}(1+2X+4X^2)
+    =1^{10}(1-X-X^2)-0^{10}(X-X^2)+4\cdot 2^{10}(X+X^2).
+  \]
+  Since $10>0$, the $0^{10}$ term is $0$. Hence
+  \[
+    \boxed{T^{10}(1+2X+4X^2)=1+4095X+4095X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Spectral Projector Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item As before, from
+  \[
+    T(1)=1+X+X^2,
+    \qquad
+    T(X)=X+X^2,
+    \qquad
+    T(X^2)=X+X^2,
+  \]
+  we obtain
+  \[
+    \boxed{[T]_{\sigma}^{\sigma}
+    =
+    \begin{bmatrix}
+      1&0&0\\
+      1&1&1\\
+      1&1&1
+    \end{bmatrix}.}
+  \]
+
+  \item The characteristic polynomial is
+  \[
+    \det([T]-\lambda I)=(1-\lambda)\lambda(\lambda-2).
+  \]
+  Hence the eigenvalues are
+  \[
+    \boxed{0,1,2.}
+  \]
+
+  \item Since the eigenvalues are distinct, the spectral projectors are
+  \[
+    \Pi_0=\frac{(T-I)(T-2I)}{(0-1)(0-2)}=\frac12(T-I)(T-2I),
+  \]
+  \[
+    \Pi_1=\frac{T(T-2I)}{(1-0)(1-2)}=-T(T-2I),
+  \]
+  \[
+    \Pi_2=\frac{T(T-I)}{(2-0)(2-1)}=\frac12T(T-I).
+  \]
+  The ranges of these projectors are the corresponding eigenspaces. Applying the direct computations from the projectors gives
+  \[
+    \Range(\Pi_0)=\Span\{X-X^2\},
+  \]
+  \[
+    \Range(\Pi_1)=\Span\{1-X-X^2\},
+  \]
+  \[
+    \Range(\Pi_2)=\Span\{X+X^2\}.
+  \]
+  Hence
+  \[
+    \boxed{
+    E_0=\Span\{X-X^2\},\quad
+    E_1=\Span\{1-X-X^2\},\quad
+    E_2=\Span\{X+X^2\}.}
+  \]
+
+  \item Because the characteristic polynomial splits into three distinct linear factors, the minimal polynomial also has no repeated root. Therefore $T$ is diagonalizable.
+  \[
+    \boxed{T\text{ is diagonalizable}.}
+  \]
+
+  \item Let
+  \[
+    P=1+2X+4X^2.
+  \]
+  The spectral decomposition is
+  \[
+    P=\Pi_0P+\Pi_1P+\Pi_2P.
+  \]
+  We compute
+  \[
+    \Pi_1P=1-X-X^2,
+    \qquad
+    \Pi_2P=4(X+X^2),
+    \qquad
+    \Pi_0P=-(X-X^2).
+  \]
+  Therefore
+  \[
+    T^{10}P=0^{10}\Pi_0P+1^{10}\Pi_1P+2^{10}\Pi_2P.
+  \]
+  Since $10>0$, this becomes
+  \[
+    T^{10}P=1-X-X^2+1024\cdot 4(X+X^2).
+  \]
+  Hence
+  \[
+    \boxed{T^{10}(1+2X+4X^2)=1+4095X+4095X^2.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Marking Scheme}
+\begin{itemize}[leftmargin=*]
+  \item Part (a), 5 marks: correctly evaluates $T$ on $1,X,X^2$ and forms the matrix.
+  \item Part (b), 6 marks: computes the characteristic polynomial and identifies eigenvalues $0,1,2$.
+  \item Part (c), 9 marks: solves each eigenspace accurately.
+  \item Part (d), 4 marks: explains diagonalizability using distinct eigenvalues or an eigenbasis.
+  \item Part (e), 6 marks: decomposes the polynomial into eigenvectors and applies $T^{10}$ correctly.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 3 \hfill (30 Marks)}
+
+\subsection{Problem}
+Define a function $\ip{\cdot}{\cdot}:\R^{3,1}\times\R^{3,1}\to\R$ as follows:
+\[
+  \forall x,y\in\R^{3,1}:\qquad
+  \ip{x}{y}\df x^{\T}
+  \begin{bmatrix}
+    1&0&1\\
+    0&2&0\\
+    1&0&2
+  \end{bmatrix}y.
+\]
+Let $\sigma$ denote the standard ordered basis for $\R^{3,1}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Verify that $\ip{\cdot}{\cdot}$ satisfies the axioms for an inner product on $\R^{3,1}$.
+  \item Apply Gram--Schmidt to $\sigma$ to obtain an orthonormal basis $\beta$ for $(\R^{3,1},\ip{\cdot}{\cdot})$.
+  \item Determine the $\beta$-Fourier coefficients of
+  \[
+    \begin{bmatrix}1\\2\\3\end{bmatrix}
+  \]
+  with respect to $(\R^{3,1},\ip{\cdot}{\cdot})$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+Let
+\[
+  H\df
+  \begin{bmatrix}
+    1&0&1\\
+    0&2&0\\
+    1&0&2
+  \end{bmatrix}.
+\]
+Thus
+\[
+  \ip{x}{y}=x^\T H y.
+\]
+
+\subsubsection{Method 1: Direct Axiom Check and Gram--Schmidt Computation}
+\begin{enumerate}[label=(\alph*)]
+  \item We verify the inner product axioms.
+
+  \textbf{Linearity in each variable.} For $a,b\in\R$ and $x_1,x_2,y\in\R^{3,1}$,
+  \[
+    \ip{ax_1+bx_2}{y}
+    =(ax_1+bx_2)^\T Hy
+    =a x_1^\T Hy+b x_2^\T Hy
+    =a\ip{x_1}{y}+b\ip{x_2}{y}.
+  \]
+  Similarly,
+  \[
+    \ip{x}{ay_1+by_2}=a\ip{x}{y_1}+b\ip{x}{y_2}.
+  \]
+
+  \textbf{Symmetry.} Since $H^\T=H$, we have
+  \[
+    \ip{x}{y}=x^\T Hy=(x^\T Hy)^\T=y^\T H^\T x=y^\T Hx=\ip{y}{x}.
+  \]
+
+  \textbf{Positive definiteness.} For $x=(x_1,x_2,x_3)^\T$,
+  \[
+    \ip{x}{x}=x^\T Hx=x_1^2+2x_1x_3+2x_2^2+2x_3^2.
+  \]
+  Completing the square gives
+  \[
+    \ip{x}{x}=(x_1+x_3)^2+2x_2^2+x_3^2.
+  \]
+  This is nonnegative. If it equals $0$, then
+  \[
+    x_1+x_3=0,
+    \qquad
+    x_2=0,
+    \qquad
+    x_3=0,
+  \]
+  which implies $x_1=x_2=x_3=0$. Hence
+  \[
+    \ip{x}{x}>0\quad\text{for all }x\ne 0.
+  \]
+  Therefore
+  \[
+    \boxed{\ip{\cdot}{\cdot}\text{ is an inner product on }\R^{3,1}.}
+  \]
+
+  \item Let
+  \[
+    e_1=\begin{bmatrix}1\\0\\0\end{bmatrix},
+    \qquad
+    e_2=\begin{bmatrix}0\\1\\0\end{bmatrix},
+    \qquad
+    e_3=\begin{bmatrix}0\\0\\1\end{bmatrix}.
+  \]
+  Since $\ip{e_i}{e_j}=H_{ij}$, we have
+  \[
+    \ip{e_1}{e_1}=1,
+    \qquad
+    \ip{e_1}{e_2}=0,
+    \qquad
+    \ip{e_1}{e_3}=1,
+  \]
+  \[
+    \ip{e_2}{e_2}=2,
+    \qquad
+    \ip{e_2}{e_3}=0,
+    \qquad
+    \ip{e_3}{e_3}=2.
+  \]
+  Gram--Schmidt gives
+  \[
+    u_1=e_1.
+  \]
+  Since $\ip{e_1}{e_2}=0$,
+  \[
+    u_2=e_2.
+  \]
+  For the third vector,
+  \[
+    u_3=e_3-\frac{\ip{u_1}{e_3}}{\ip{u_1}{u_1}}u_1
+        -\frac{\ip{u_2}{e_3}}{\ip{u_2}{u_2}}u_2
+        =e_3-e_1.
+  \]
+  Thus
+  \[
+    u_3=\begin{bmatrix}-1\\0\\1\end{bmatrix}.
+  \]
+  The norms are
+  \[
+    \|u_1\|=1,
+    \qquad
+    \|u_2\|=\sqrt{2},
+    \qquad
+    \|u_3\|=1.
+  \]
+  Hence an orthonormal basis is
+  \[
+    \boxed{
+    \beta=
+    \left(
+    \begin{bmatrix}1\\0\\0\end{bmatrix},
+    \frac{1}{\sqrt2}\begin{bmatrix}0\\1\\0\end{bmatrix},
+    \begin{bmatrix}-1\\0\\1\end{bmatrix}
+    \right).}
+  \]
+
+  \item Let
+  \[
+    v=\begin{bmatrix}1\\2\\3\end{bmatrix}.
+  \]
+  Since $\beta=(\beta_1,\beta_2,\beta_3)$ is orthonormal, the Fourier coefficients are
+  \[
+    c_i=\ip{\beta_i}{v}.
+  \]
+  First compute
+  \[
+    Hv=
+    \begin{bmatrix}
+      1&0&1\\
+      0&2&0\\
+      1&0&2
+    \end{bmatrix}
+    \begin{bmatrix}1\\2\\3\end{bmatrix}
+    =
+    \begin{bmatrix}4\\4\\7\end{bmatrix}.
+  \]
+  Therefore
+  \[
+    c_1=e_1^\T Hv=4,
+  \]
+  \[
+    c_2=\left(\frac{1}{\sqrt2}e_2\right)^\T Hv=\frac{4}{\sqrt2}=2\sqrt2,
+  \]
+  and
+  \[
+    c_3=(e_3-e_1)^\T Hv=7-4=3.
+  \]
+  Hence
+  \[
+    \boxed{(c_1,c_2,c_3)=(4,2\sqrt2,3).}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Sylvester Criterion and Gram-Matrix Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item The theorem used is: if $H$ is symmetric positive definite, then $\ip{x}{y}=x^\T Hy$ defines an inner product on $\R^n$.
+
+  The matrix $H$ is symmetric because
+  \[
+    H^\T=H.
+  \]
+  Its leading principal minors are
+  \[
+    \Delta_1=1>0,
+  \]
+  \[
+    \Delta_2=\det\begin{bmatrix}1&0\\0&2\end{bmatrix}=2>0,
+  \]
+  and
+  \[
+    \Delta_3=
+    \det\begin{bmatrix}
+      1&0&1\\
+      0&2&0\\
+      1&0&2
+    \end{bmatrix}
+    =2\det\begin{bmatrix}1&1\\1&2\end{bmatrix}
+    =2>0.
+  \]
+  By Sylvester's criterion, $H$ is positive definite. Therefore $x^\T Hy$ defines an inner product.
+  \[
+    \boxed{\ip{\cdot}{\cdot}\text{ is an inner product}.}
+  \]
+
+  \item The Gram matrix of the standard basis under this inner product is $H$ itself, because
+  \[
+    \ip{e_i}{e_j}=H_{ij}.
+  \]
+  Therefore
+  \[
+    \ip{e_1}{e_1}=1,
+    \qquad
+    \ip{e_1}{e_2}=0,
+    \qquad
+    \ip{e_1}{e_3}=1,
+  \]
+  \[
+    \ip{e_2}{e_2}=2,
+    \qquad
+    \ip{e_2}{e_3}=0,
+    \qquad
+    \ip{e_3}{e_3}=2.
+  \]
+  Hence Gram--Schmidt gives
+  \[
+    u_1=e_1,
+    \qquad
+    u_2=e_2,
+    \qquad
+    u_3=e_3-e_1.
+  \]
+  Normalising gives
+  \[
+    \boxed{
+    \beta=
+    \left(
+    e_1,
+    \frac{e_2}{\sqrt2},
+    e_3-e_1
+    \right).}
+  \]
+
+  \item For
+  \[
+    v=\begin{bmatrix}1\\2\\3\end{bmatrix},
+  \]
+  the Gram-matrix method gives
+  \[
+    Hv=\begin{bmatrix}4\\4\\7\end{bmatrix}.
+  \]
+  Hence
+  \[
+    \ip{e_1}{v}=4,
+    \qquad
+    \ip{e_2/\sqrt2}{v}=2\sqrt2,
+    \qquad
+    \ip{e_3-e_1}{v}=3.
+  \]
+  Therefore
+  \[
+    \boxed{(c_1,c_2,c_3)=(4,2\sqrt2,3).}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Cholesky Whitening Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item Observe that
+  \[
+    H=R^\T R,
+    \qquad
+    R=
+    \begin{bmatrix}
+      1&0&1\\
+      0&\sqrt2&0\\
+      0&0&1
+    \end{bmatrix}.
+  \]
+  Therefore
+  \[
+    \ip{x}{y}=x^\T H y=x^\T R^\T R y=(Rx)\cdot(Ry).
+  \]
+  Since $R$ is invertible, this is the ordinary Euclidean dot product after an invertible change of variables. Hence it satisfies bilinearity, symmetry, and positive definiteness.
+  \[
+    \boxed{\ip{\cdot}{\cdot}\text{ is an inner product}.}
+  \]
+
+  \item Under the whitening map $x\mapsto Rx$, the standard basis maps to
+  \[
+    Re_1=\begin{bmatrix}1\\0\\0\end{bmatrix},
+    \qquad
+    Re_2=\begin{bmatrix}0\\\sqrt2\\0\end{bmatrix},
+    \qquad
+    Re_3=\begin{bmatrix}1\\0\\1\end{bmatrix}.
+  \]
+  In Euclidean coordinates, applying Gram--Schmidt gives the orthonormal list
+  \[
+    q_1=\begin{bmatrix}1\\0\\0\end{bmatrix},
+    \qquad
+    q_2=\begin{bmatrix}0\\1\\0\end{bmatrix},
+    \qquad
+    q_3=\begin{bmatrix}0\\0\\1\end{bmatrix}.
+  \]
+  Pulling these back by $R^{-1}$ gives
+  \[
+    R^{-1}q_1=e_1,
+    \qquad
+    R^{-1}q_2=\frac{e_2}{\sqrt2},
+    \qquad
+    R^{-1}q_3=e_3-e_1.
+  \]
+  Hence
+  \[
+    \boxed{
+    \beta=
+    \left(
+    e_1,
+    \frac{e_2}{\sqrt2},
+    e_3-e_1
+    \right).}
+  \]
+
+  \item Since $R\beta_1=q_1$, $R\beta_2=q_2$, and $R\beta_3=q_3$, the $\beta$-Fourier coefficients of $v$ are the ordinary Euclidean coordinates of $Rv$ in the basis $(q_1,q_2,q_3)$. Compute
+  \[
+    Rv=R\begin{bmatrix}1\\2\\3\end{bmatrix}
+    =
+    \begin{bmatrix}4\\2\sqrt2\\3\end{bmatrix}.
+  \]
+  Thus
+  \[
+    \boxed{(c_1,c_2,c_3)=(4,2\sqrt2,3).}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Marking Scheme}
+\begin{itemize}[leftmargin=*]
+  \item Part (a), 10 marks: verifies bilinearity, symmetry, and positive definiteness; positive definiteness may be shown by completing the square or Sylvester's criterion.
+  \item Part (b), 12 marks: applies Gram--Schmidt correctly and normalises the basis vectors.
+  \item Part (c), 8 marks: computes Fourier coefficients using $c_i=\ip{\beta_i}{v}$ and gives $(4,2\sqrt2,3)$.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 4 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $n$ be a natural number. Recall that the Frobenius inner product $\ipF{\cdot}{\cdot}$ on $\R^{n,n}$ is defined as follows:
+\[
+  \forall A,B\in\R^{n,n}:\qquad
+  \ipF{A}{B}\df \tr(A^\T B).
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that if $M\in\R^{n,n}$ satisfies the property that $M^\T M=I_n$, then
+  \[
+    \forall A,B\in\R^{n,n}:\qquad
+    \ipF{MA}{MB}=\ipF{A}{B}.
+  \]
+  \item Define vector subspaces $V$ and $W$ of $\R^{n,n}$ as follows:
+  \[
+    V\df\{A\in\R^{n,n}:A^\T=A\},
+    \qquad
+    W\df\{B\in\R^{n,n}:B^\T=-B\}.
+  \]
+  Show that $W=V^\perp$ with respect to $(\R^{n,n},\ipF{\cdot}{\cdot})$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Trace Computation and Dimension Counting}
+\begin{enumerate}[label=(\alph*)]
+  \item Let $A,B\in\R^{n,n}$. Then
+  \[
+    \ipF{MA}{MB}
+    =\tr((MA)^\T(MB)).
+  \]
+  Since
+  \[
+    (MA)^\T=A^\T M^\T,
+  \]
+  we get
+  \[
+    \ipF{MA}{MB}
+    =\tr(A^\T M^\T M B).
+  \]
+  Because $M^\T M=I_n$,
+  \[
+    \ipF{MA}{MB}
+    =\tr(A^\T B)
+    =\ipF{A}{B}.
+  \]
+  Therefore
+  \[
+    \boxed{\ipF{MA}{MB}=\ipF{A}{B}.}
+  \]
+
+  \item First show that
+  \[
+    W\subseteq V^\perp.
+  \]
+  Let $S\in V$ and $K\in W$. Thus
+  \[
+    S^\T=S,
+    \qquad
+    K^\T=-K.
+  \]
+  Then
+  \[
+    \ipF{S}{K}=\tr(S^\T K)=\tr(SK).
+  \]
+  Since trace is invariant under transpose,
+  \[
+    \tr(SK)=\tr((SK)^\T)=\tr(K^\T S^\T)=\tr((-K)S)=-\tr(KS).
+  \]
+  Using $\tr(KS)=\tr(SK)$, we obtain
+  \[
+    \tr(SK)=-\tr(SK),
+  \]
+  and hence
+  \[
+    \tr(SK)=0.
+  \]
+  Therefore
+  \[
+    \ipF{S}{K}=0,
+  \]
+  so $K\in V^\perp$. Hence
+  \[
+    W\subseteq V^\perp.
+  \]
+
+  Next, compute dimensions. A symmetric matrix has $n$ free diagonal entries and $n(n-1)/2$ free off-diagonal pairs, so
+  \[
+    \dim V=\frac{n(n+1)}2.
+  \]
+  Since $\dim\R^{n,n}=n^2$,
+  \[
+    \dim V^\perp=n^2-\dim V
+    =n^2-\frac{n(n+1)}2
+    =\frac{n(n-1)}2.
+  \]
+  A skew-symmetric matrix has zero diagonal and $n(n-1)/2$ free off-diagonal pairs, so
+  \[
+    \dim W=\frac{n(n-1)}2.
+  \]
+  Thus
+  \[
+    W\subseteq V^\perp
+    \quad\text{and}\quad
+    \dim W=\dim V^\perp.
+  \]
+  Therefore
+  \[
+    \boxed{W=V^\perp.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Orthogonal Direct-Sum Decomposition Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item The Frobenius inner product can be interpreted columnwise. Let $a_j$ and $b_j$ be the $j$-th columns of $A$ and $B$. Then
+  \[
+    \ipF{A}{B}=\sum_{j=1}^n a_j\cdot b_j.
+  \]
+  Since $M^\T M=I_n$, the map $x\mapsto Mx$ preserves the Euclidean dot product:
+  \[
+    (Mx)\cdot(My)=x^\T M^\T My=x\cdot y.
+  \]
+  Therefore
+  \[
+    \ipF{MA}{MB}
+    =\sum_{j=1}^n (Ma_j)\cdot(Mb_j)
+    =\sum_{j=1}^n a_j\cdot b_j
+    =\ipF{A}{B}.
+  \]
+  Hence
+  \[
+    \boxed{\ipF{MA}{MB}=\ipF{A}{B}.}
+  \]
+
+  \item Every matrix $A\in\R^{n,n}$ decomposes uniquely as
+  \[
+    A=\frac{A+A^\T}{2}+\frac{A-A^\T}{2}.
+  \]
+  The first term is symmetric because
+  \[
+    \left(\frac{A+A^\T}{2}\right)^\T=\frac{A^\T+A}{2},
+  \]
+  and the second term is skew-symmetric because
+  \[
+    \left(\frac{A-A^\T}{2}\right)^\T=\frac{A^\T-A}{2}=-\frac{A-A^\T}{2}.
+  \]
+  Thus
+  \[
+    \R^{n,n}=V+W.
+  \]
+  Moreover, if $S\in V$ and $K\in W$, then as shown in Method 1,
+  \[
+    \ipF{S}{K}=0.
+  \]
+  Therefore
+  \[
+    \R^{n,n}=V\oplus^\perp W.
+  \]
+  In an orthogonal direct sum, the second summand is the orthogonal complement of the first. Hence
+  \[
+    \boxed{W=V^\perp.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Matrix-Unit Orthogonal Basis Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item Let $E_{ij}$ denote the standard matrix units. Under the Frobenius inner product,
+  \[
+    \ipF{E_{ij}}{E_{kl}}=\delta_{ik}\delta_{jl}.
+  \]
+  Thus the Frobenius product is the ordinary Euclidean dot product after identifying a matrix with its list of entries. Left multiplication by $M$ applies the same orthogonal transformation to each column, because $M^\T M=I_n$. Hence it preserves the Euclidean dot product on each column and therefore preserves the total Frobenius inner product:
+  \[
+    \boxed{\ipF{MA}{MB}=\ipF{A}{B}.}
+  \]
+
+  \item The symmetric subspace $V$ has the basis
+  \[
+    \{E_{ii}:1\le i\le n\}
+    \cup
+    \{E_{ij}+E_{ji}:1\le i<j\le n\}.
+  \]
+  The skew-symmetric subspace $W$ has the basis
+  \[
+    \{E_{ij}-E_{ji}:1\le i<j\le n\}.
+  \]
+  For $i<j$ and $k<\ell$,
+  \[
+    \ipF{E_{ij}+E_{ji}}{E_{k\ell}-E_{\ell k}}=0,
+  \]
+  because the nonzero entries cancel pairwise. Also
+  \[
+    \ipF{E_{ii}}{E_{k\ell}-E_{\ell k}}=0.
+  \]
+  Hence every basis vector of $V$ is orthogonal to every basis vector of $W$, so
+  \[
+    W\subseteq V^\perp.
+  \]
+  The number of basis elements of $W$ is $n(n-1)/2$, while
+  \[
+    \dim V^\perp=n^2-\frac{n(n+1)}2=\frac{n(n-1)}2.
+  \]
+  Hence
+  \[
+    \boxed{W=V^\perp.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 4: Self-Adjoint Involution Eigenspace Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item Define the left multiplication operator
+  \[
+    L_M:\R^{n,n}\to\R^{n,n},
+    \qquad
+    L_M(A)=MA.
+  \]
+  With respect to the Frobenius inner product, the adjoint of $L_M$ is $L_{M^\T}$, because
+  \[
+    \ipF{L_M(A)}{B}=\tr((MA)^\T B)=\tr(A^T M^T B)=\ipF{A}{L_{M^\T}(B)}.
+  \]
+  Hence
+  \[
+    L_M^*L_M=L_{M^\T}L_M=L_{M^\T M}=L_I=I.
+  \]
+  Therefore $L_M$ is an orthogonal operator on the Frobenius inner product space. Thus
+  \[
+    \boxed{\ipF{MA}{MB}=\ipF{A}{B}.}
+  \]
+
+  \item Define
+  \[
+    \tau:\R^{n,n}\to\R^{n,n},
+    \qquad
+    \tau(A)=A^\T.
+  \]
+  Then
+  \[
+    \tau^2=I,
+  \]
+  so $\tau$ is an involution. Also $\tau$ is self-adjoint with respect to the Frobenius inner product, since
+  \[
+    \ipF{\tau(A)}{B}=\tr(A B)
+  \]
+  and
+  \[
+    \ipF{A}{\tau(B)}=\tr(A^\T B^\T)=\tr((BA)^\T)=\tr(BA)=\tr(AB).
+  \]
+  Hence
+  \[
+    \ipF{\tau(A)}{B}=\ipF{A}{\tau(B)}.
+  \]
+  The subspace $V$ is the $+1$-eigenspace of $\tau$, and $W$ is the $-1$-eigenspace of $\tau$:
+  \[
+    V=E_1(\tau),
+    \qquad
+    W=E_{-1}(\tau).
+  \]
+  For a self-adjoint operator, eigenspaces belonging to distinct eigenvalues are orthogonal. Therefore
+  \[
+    V\perp W.
+  \]
+  Since $\tau^2=I$, every matrix decomposes as
+  \[
+    A=\frac{A+A^\T}{2}+\frac{A-A^\T}{2},
+  \]
+  where the two terms lie in $V$ and $W$ respectively. Hence
+  \[
+    \R^{n,n}=V\oplus W.
+  \]
+  Combining orthogonality and direct-sum decomposition gives
+  \[
+    \boxed{W=V^\perp.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Marking Scheme}
+\begin{itemize}[leftmargin=*]
+  \item Part (a), 8 marks: expands $\ipF{MA}{MB}$ correctly and uses $M^\T M=I_n$ to reduce to $\ipF{A}{B}$.
+  \item Part (b), 12 marks: shows skew-symmetric matrices are orthogonal to symmetric matrices and proves equality, either by dimension counting or by orthogonal direct-sum decomposition.
+\end{itemize}
+
+\end{document}

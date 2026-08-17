@@ -1,0 +1,596 @@
+% :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+
+%------------- CORE PREAMBLE (MH5200-compatible) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{HE2002 }
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Tutorial 3}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial --- QRS@NTU --- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial develops the core mechanics of the money market and the interaction between fiscal policy and a fixed interest rate. Key themes:
+\begin{itemize}[leftmargin=*]
+  \item Liquidity traps: money demand at the zero lower bound and limits of conventional monetary policy.
+  \item Money creation with banks: reserve requirements, money multiplier, and equilibrium interest rates.
+  \item Fiscal policy with a fixed interest rate: output determination, investment, and the accommodating real money supply.
+\end{itemize}
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section*{Question 1 (Chapter 4, Q11: Monetary policy in a liquidity trap)}
+\subsection*{Problem}
+Suppose that money demand is given by
+\[
+M^d = \$Y\,(0.25-i)
+\]
+as long as interest rates are positive. The questions below then refer to situations where the interest rate is zero.
+\begin{enumerate}[label=(\alph*)]
+  \item What is the demand for money when interest rates are zero and \(\$Y=80\)?
+  \item If \(\$Y=80\), what is the smallest value of the money supply at which the interest rate is zero?
+  \item Once the interest rate is zero, can the central bank continue to increase the money supply?
+  \item Go to the database at the Federal Reserve Bank of St. Louis known as FRED. Find the series \texttt{BOGMBASE} (the central bank money, also called the monetary base) and look at its behavior from 2010 to 2015. What happened to the monetary base? What happened to the federal funds rate in the same period?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Piecewise money demand at the zero lower bound (ZLB)}
+The demand function \(M^d=\$Y(0.25-i)\) is stated to hold \emph{as long as} \(i>0\). A liquidity trap refers to the regime where \(i=0\) and the money market can clear with money demand becoming perfectly elastic at \(i=0\).
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Money demand when \(i=0\) and \(\$Y=80\).}
+
+First evaluate the \emph{threshold} demand obtained by taking the limit \(i\downarrow 0\) in the positive-interest formula:
+\[
+M^d_{\text{thresh}}(\$Y)\;\coloneqq\;\$Y(0.25-0)=0.25\,\$Y.
+\]
+For \(\$Y=80\),
+\[
+M^d_{\text{thresh}} = 0.25\times 80 = 20.
+\]
+Thus the money demand at the point where the interest rate hits zero is
+\[
+\boxed{\,M^d=20\,}.
+\]
+In a liquidity trap (at \(i=0\)), agents are willing to hold \emph{at least} this amount; any additional money supplied can also be willingly held because the opportunity cost of holding money is zero.
+
+\item \textbf{Smallest money supply consistent with \(i=0\) when \(\$Y=80\).}
+
+The \emph{smallest} money supply \(M^s\) at which \(i\) can be zero is exactly the threshold demand at \(i=0\). If \(M^s\) were smaller than this threshold, the market would require a \emph{positive} interest rate to reduce money demand down to the smaller supply (by the given decreasing relationship in \(i\) for \(i>0\)).
+
+Hence,
+\[
+M^s_{\min} = M^d_{\text{thresh}} = 0.25\,\$Y = 20,
+\qquad
+\boxed{\,M^s_{\min}=20\,}.
+\]
+
+\item \textbf{Can the central bank keep increasing the money supply once \(i=0\)?}
+
+Yes. Once \(i=0\), the economy is in the liquidity-trap region: increasing \(M^s\) beyond the threshold does not push \(i\) below zero (by definition of the ZLB), and the additional money is absorbed by higher money holdings rather than by a further fall in the interest rate.
+
+Formally, for \(\$Y=80\), once \(M^s\ge 20\), the market can clear at \(i=0\) with
+\[
+M^d(i=0,\$Y=80)\ \text{adjusting to equal}\ M^s.
+\]
+Thus:
+\[
+\boxed{\,\text{The central bank can increase }M^s\text{ further, but }i\text{ remains at }0.\,}
+\]
+This is the sense in which \emph{conventional} monetary policy (operating through reductions in \(i\)) becomes ineffective at the ZLB.
+
+\item \textbf{FRED evidence (2010--2015): monetary base vs.\ federal funds rate.}
+
+From 2010 to 2015, the monetary base (\texttt{BOGMBASE}) rose sharply (reflecting large-scale asset purchases and expansion of central bank liabilities). Over essentially the same period, the federal funds rate stayed at (or extremely near) the zero lower bound for years, only beginning to move away from zero near the end of 2015.
+
+\begin{center}
+\fbox{\parbox{0.9\linewidth}{\centering
+2010--2015: the monetary base surged upward while the federal funds rate stayed near $0\%$ for most of the period.
+}}
+\end{center}
+\end{enumerate}
+
+\subsubsection*{Method 2: Inverse money-demand schedule and the ``kink'' at \(i=0\)}
+For \(i>0\), the given money-demand curve is
+\[
+M^d = \$Y(0.25-i).
+\]
+Assume \(\$Y>0\). Divide both sides by \(\$Y\) and solve for \(i\):
+\[
+\frac{M^d}{\$Y} = 0.25-i
+\quad\Longrightarrow\quad
+i = 0.25-\frac{M^d}{\$Y}.
+\]
+Thus, for \(i>0\), the interest rate implied by a given money supply \(M^s\) (market clearing \(M^s=M^d\)) is
+\[
+i = 0.25-\frac{M^s}{\$Y}.
+\]
+However, the ZLB imposes \(i\ge 0\). Therefore the equilibrium interest rate as a function of \(M^s\) is the truncated schedule
+\[
+i^*(M^s)=\max\!\left\{\,0,\;0.25-\frac{M^s}{\$Y}\right\}.
+\]
+
+Now set \(\$Y=80\).
+
+\begin{enumerate}[label=(\alph*)]
+\item At \(i=0\), the corresponding \emph{threshold} money demand is obtained by setting \(i=0\) in the positive-rate formula:
+\[
+0 = 0.25-\frac{M}{80}
+\quad\Longrightarrow\quad
+\frac{M}{80}=0.25
+\quad\Longrightarrow\quad
+M=20,
+\]
+so
+\[
+\boxed{\,M^d(i=0,\$Y=80)=20\,}.
+\]
+
+\item The smallest money supply that yields \(i^*=0\) is when the argument of the max hits zero:
+\[
+0.25-\frac{M^s}{80}=0
+\quad\Longrightarrow\quad
+M^s=20,
+\qquad
+\boxed{\,M^s_{\min}=20\,}.
+\]
+
+\item If \(M^s>20\), then \(0.25-\frac{M^s}{80}<0\), and truncation implies \(i^*(M^s)=0\). Hence the central bank can raise \(M^s\) further but cannot reduce \(i\) below zero:
+\[
+M^s>20 \quad\Longrightarrow\quad i^*=0,
+\qquad
+\boxed{\,i^*=0\ \text{for all }M^s\ge 20.\,}
+\]
+
+\item The empirical interpretation matches this kinked schedule: large increases in the monetary base can coexist with interest rates pinned near zero for extended periods.
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section*{Question 2 (Chapter 4, Q8: Money and the banking system)}
+\subsection*{Problem}
+Consider a monetary system that included simple banks (Case 2: Central Bank and (Commercial) Banks). Assume the following:
+\begin{enumerate}[label=\roman*.]
+  \item The public holds no currency.
+  \item The ratio of reserves to deposits is \(0.1\).
+  \item The demand for money is given by
+  \[
+  M^d = \$Y\,(0.8-4i).
+  \]
+\end{enumerate}
+Initially, the supply of central bank money \(H\) is \(\$100\) billion, and nominal income is \(\$5\) trillion.
+\begin{enumerate}[label=(\alph*)]
+  \item What is the demand for central bank money \(H^d\)?
+  \item Find the equilibrium interest rate by setting the demand for central bank money equal to the supply of central bank money.
+  \item What is the overall supply of money? Is it equal to the overall demand for money at the interest rate you found in part (b)?
+  \item What is the effect on the interest rate if central bank money is increased to \(\$300\) billion?
+  \item If the overall money supply increases to \(\$3{,}000\) billion, what will be the effect on \(i\)?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Reserve requirement, money multiplier, and mapping from \(M\) to \(H\)}
+\paragraph{Step 0: Translate the given assumptions into identities.}
+Let \(D\) denote deposits, \(R\) reserves, and \(C\) currency held by the public.
+
+Assumption (i): public holds no currency \(\Rightarrow C=0\).
+
+Central bank money (high-powered money) is
+\[
+H \equiv C+R = R \qquad (\text{since }C=0).
+\]
+The reserve--deposit ratio is given as
+\[
+\frac{R}{D}=0.1 \quad\Longrightarrow\quad R=0.1D \quad\Longrightarrow\quad D=\frac{R}{0.1}=10R.
+\]
+Overall money supply \(M\) (currency plus deposits) is
+\[
+M \equiv C + D = D \qquad (\text{since }C=0).
+\]
+Combine \(D=10R\) with \(R=H\):
+\[
+M = D = 10R = 10H.
+\]
+Thus the money multiplier is \(m=10\), and equivalently
+\[
+H = \frac{M}{10}=0.1M.
+\]
+
+Nominal income is \(\$Y=\$5\) trillion \(= \$5{,}000\) billion. Hence
+\[
+M^d = 5000(0.8-4i)\quad\text{(in billions).}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Demand for central bank money \(H^d\).}
+
+Since \(H=0.1M\), the demand for central bank money is \(H^d=0.1M^d\). Therefore
+\begin{align*}
+H^d &= 0.1\,M^d
+=0.1\cdot 5000(0.8-4i) \\
+&= 500(0.8-4i)
+= 400 - 2000i.
+\end{align*}
+Thus
+\[
+\boxed{\,H^d = 400 - 2000i\ \ \text{(billions)}\,}.
+\]
+
+\item \textbf{Equilibrium interest rate with \(H^s=100\).}
+
+Market clearing for central bank money requires \(H^d=H^s\):
+\[
+400-2000i = 100.
+\]
+Solve step by step:
+\[
+-2000i = 100-400 = -300
+\quad\Longrightarrow\quad
+2000i = 300
+\quad\Longrightarrow\quad
+i = \frac{300}{2000} = 0.15.
+\]
+Hence
+\[
+\boxed{\,i^* = 15\%\, }.
+\]
+
+\item \textbf{Overall money supply and consistency with overall money demand.}
+
+Given \(H^s=100\), the overall money supply is
+\[
+M^s = 10H^s = 10\cdot 100 = 1000 \quad\text{(billions)}.
+\]
+At the equilibrium interest rate \(i^*=0.15\), compute money demand:
+\begin{align*}
+M^d(i^*) &= 5000(0.8-4\cdot 0.15) \\
+&= 5000(0.8-0.6) \\
+&= 5000(0.2) = 1000 \quad\text{(billions)}.
+\end{align*}
+Thus \(M^s=M^d=1000\) (billions), so the overall money market also clears:
+\[
+\boxed{\,M^s = 1000\ \text{billion and }M^s=M^d\text{ at }i^*=15\%\, }.
+\]
+
+\item \textbf{Increase central bank money to \(H^s=300\): effect on \(i\).}
+
+Set \(H^d=H^s=300\):
+\[
+400-2000i=300
+\quad\Longrightarrow\quad
+-2000i = -100
+\quad\Longrightarrow\quad
+i=\frac{100}{2000}=0.05.
+\]
+So
+\[
+\boxed{\,i^* = 5\%\ \text{when }H^s=300\, }.
+\]
+
+\item \textbf{If overall money supply becomes \(M^s=3000\) billion, effect on \(i\).}
+
+Overall money demand equals overall money supply in equilibrium:
+\[
+M^s = M^d \quad\Longrightarrow\quad 3000 = 5000(0.8-4i).
+\]
+Divide by \(5000\):
+\[
+0.6 = 0.8 - 4i
+\quad\Longrightarrow\quad
+-0.2 = -4i
+\quad\Longrightarrow\quad
+i = 0.05.
+\]
+Hence
+\[
+\boxed{\,i=5\%\ \text{when }M^s=3000\, }.
+\]
+(Consistently, \(M^s=3000\) implies \(H^s=M^s/10=300\), matching part (d).)
+\end{enumerate}
+
+\subsubsection*{Method 2: Solve directly in the overall money market, then infer \(H\)}
+Under the assumptions \(C=0\) and \(R/D=0.1\), we have already shown:
+\[
+M = D,\qquad R=0.1D,\qquad H=R,
+\quad\Rightarrow\quad
+M = 10H.
+\]
+Hence \(M^s\) and \(H^s\) carry identical information: \(M^s=10H^s\).
+
+\paragraph{Part (b) via overall money market.}
+Given \(H^s=100\), the implied overall money supply is
+\[
+M^s = 10H^s = 1000.
+\]
+Equilibrium requires \(M^s=M^d\):
+\[
+1000 = 5000(0.8-4i).
+\]
+Divide by \(5000\):
+\[
+0.2 = 0.8 - 4i
+\quad\Longrightarrow\quad
+-0.6 = -4i
+\quad\Longrightarrow\quad
+i=0.15,
+\]
+so
+\[
+\boxed{\,i^*=15\%\, }.
+\]
+
+\paragraph{Part (a) as an implication.}
+Once \(M^d\) is known, \(H^d=M^d/10\) follows:
+\[
+H^d = \frac{1}{10}M^d = 0.1\cdot 5000(0.8-4i)=400-2000i,
+\]
+so
+\[
+\boxed{\,H^d = 400-2000i\,}.
+\]
+
+\paragraph{Parts (d) and (e) by the same logic.}
+If \(H^s=300\), then \(M^s=3000\), and equilibrium
+\[
+3000=5000(0.8-4i)
+\]
+implies \(i=0.05\). Conversely, if \(M^s=3000\), the same equation gives \(i=0.05\).
+Thus
+\[
+\boxed{\,H^s=300 \ \text{or}\ M^s=3000\ \Longrightarrow\ i=5\%\, }.
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section*{Question 3 (Chapter 5, Q3: The response of the economy to fiscal policy)}
+\subsection*{Problem}
+Consider the following model:
+\[
+C = c_0 + c_1(Y-T),\qquad
+I = b_0 + b_1Y - b_2 i,\qquad
+Z = C + I + G,\qquad
+i=\bar{i}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Solve for equilibrium output, taking the interest rate \(i=\bar{i}\) as given. Assume \(c_1+b_1<1\).
+  \item Solve for the equilibrium level of investment.
+  \item Let’s go behind the scenes in the money market. The nominal income, denoted by \(\$Y\), equals price level times real income, that is \(P\times Y\). In this question, assume the money market equilibrium condition is
+  \[
+  \frac{M}{P} = d_1Y - d_2 i.
+  \]
+  Solve for the equilibrium level of the real money supply \(\frac{M^s}{P}\) when \(i=\bar{i}\). How does \(\frac{M^s}{P}\) vary with government spending if the interest rate \(i\) is fixed at \(\bar{i}\)?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct substitution in the goods market, then back out \(I\) and \(\frac{M^s}{P}\)}
+Throughout, the interest rate is fixed exogenously at \(i=\bar{i}\).
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Equilibrium output \(Y^*\).}
+
+Goods-market equilibrium is \(Y=Z=C+I+G\). Substitute the behavioral equations and \(i=\bar{i}\):
+\begin{align*}
+Y &= \bigl(c_0+c_1(Y-T)\bigr) + \bigl(b_0+b_1Y-b_2\bar{i}\bigr) + G \\
+  &= c_0 + c_1Y - c_1T + b_0 + b_1Y - b_2\bar{i} + G.
+\end{align*}
+Collect terms in \(Y\) on the left:
+\begin{align*}
+Y - c_1Y - b_1Y &= c_0 + b_0 + G - c_1T - b_2\bar{i},\\
+(1-c_1-b_1)Y &= c_0 + b_0 + G - c_1T - b_2\bar{i}.
+\end{align*}
+Under the stated assumption \(c_1+b_1<1\), the coefficient \(1-c_1-b_1>0\), so we may divide:
+\[
+\boxed{\,
+Y^*=\dfrac{c_0 + b_0 + G - c_1T - b_2\bar{i}}{1-c_1-b_1}
+\, }.
+\]
+
+\item \textbf{Equilibrium investment \(I^*\).}
+
+By definition,
+\[
+I^* = b_0 + b_1Y^* - b_2\bar{i}.
+\]
+Substitute the expression for \(Y^*\):
+\[
+\boxed{\,
+I^* = b_0 + b_1\left(\dfrac{c_0 + b_0 + G - c_1T - b_2\bar{i}}{1-c_1-b_1}\right) - b_2\bar{i}
+\, }.
+\]
+This is already a complete closed form. If desired, one may put over the common denominator \(1-c_1-b_1\) (without changing meaning):
+\begin{align*}
+I^*
+&= \frac{(1-c_1-b_1)b_0}{1-c_1-b_1}
+ + \frac{b_1(c_0+b_0+G-c_1T-b_2\bar{i})}{1-c_1-b_1}
+ - \frac{(1-c_1-b_1)b_2\bar{i}}{1-c_1-b_1} \\
+&= \frac{b_0(1-c_1-b_1) + b_1(c_0+b_0+G-c_1T-b_2\bar{i}) - b_2\bar{i}(1-c_1-b_1)}{1-c_1-b_1},
+\end{align*}
+so equivalently
+\[
+\boxed{\,
+I^*=\dfrac{b_0(1-c_1-b_1) + b_1(c_0+b_0+G-c_1T-b_2\bar{i}) - b_2\bar{i}(1-c_1-b_1)}{1-c_1-b_1}
+\, }.
+\]
+
+\item \textbf{Equilibrium real money supply \(\frac{M^s}{P}\) when \(i=\bar{i}\), and its dependence on \(G\).}
+
+Money market equilibrium requires
+\[
+\frac{M^s}{P} = d_1Y - d_2 i.
+\]
+With \(i=\bar{i}\), this becomes
+\[
+\frac{M^s}{P} = d_1Y - d_2\bar{i}.
+\]
+In equilibrium, \(Y=Y^*\), hence
+\[
+\boxed{\,
+\frac{M^s}{P} = d_1Y^* - d_2\bar{i}
+\, }.
+\]
+Substitute \(Y^*\) from part (a) to make the dependence on \(G\) explicit:
+\[
+\frac{M^s}{P}
+= d_1\left(\dfrac{c_0 + b_0 + G - c_1T - b_2\bar{i}}{1-c_1-b_1}\right) - d_2\bar{i}.
+\]
+Therefore \(\frac{M^s}{P}\) is linear in \(G\). Differentiate with respect to \(G\) (all other parameters fixed):
+\[
+\frac{\partial}{\partial G}\left(\frac{M^s}{P}\right)
+= d_1\cdot \frac{\partial Y^*}{\partial G}
+= d_1\cdot \frac{1}{1-c_1-b_1}.
+\]
+Thus
+\[
+\boxed{\,
+\frac{\partial}{\partial G}\left(\frac{M^s}{P}\right)=\frac{d_1}{1-c_1-b_1}>0
+\quad\text{(since }c_1+b_1<1\text{).}
+\,}
+\]
+Interpretation: when the interest rate is fixed at \(\bar{i}\), higher government spending raises equilibrium output, which raises money demand; to keep \(i\) fixed, the central bank must accommodate by increasing the real money supply.
+\end{enumerate}
+
+\subsubsection*{Method 2: Multiplier representation and comparative statics (fixed interest rate)}
+This method separates the \emph{autonomous} component of demand from the induced component.
+
+\paragraph{Step 1: Write planned expenditure as a linear function of \(Y\).}
+With \(i=\bar{i}\),
+\[
+C(Y) = c_0 + c_1(Y-T) = (c_0-c_1T) + c_1Y,
+\]
+\[
+I(Y) = b_0 + b_1Y - b_2\bar{i} = (b_0-b_2\bar{i}) + b_1Y.
+\]
+Hence planned expenditure is
+\begin{align*}
+Z(Y) &= C(Y)+I(Y)+G \\
+&= \underbrace{(c_0-c_1T)+(b_0-b_2\bar{i})+G}_{\alpha}
++ \underbrace{(c_1+b_1)}_{\beta}Y.
+\end{align*}
+So \(Z(Y)=\alpha+\beta Y\) with \(\beta=c_1+b_1\).
+
+\paragraph{Step 2: Solve the fixed-point equation \(Y=Z(Y)\).}
+Equilibrium requires
+\[
+Y = \alpha + \beta Y
+\quad\Longrightarrow\quad
+(1-\beta)Y = \alpha.
+\]
+Since \(c_1+b_1<1\), we have \(1-\beta=1-c_1-b_1>0\), thus
+\[
+Y^*=\frac{\alpha}{1-\beta}
+=\frac{(c_0-c_1T)+(b_0-b_2\bar{i})+G}{1-(c_1+b_1)}
+=\frac{c_0+b_0+G-c_1T-b_2\bar{i}}{1-c_1-b_1}.
+\]
+Therefore
+\[
+\boxed{\,
+Y^*=\dfrac{c_0 + b_0 + G - c_1T - b_2\bar{i}}{1-c_1-b_1}
+\, }.
+\]
+
+\paragraph{Step 3: Solve for investment and for the real money supply.}
+Investment is
+\[
+I^* = (b_0-b_2\bar{i}) + b_1Y^*,
+\]
+hence
+\[
+\boxed{\,
+I^* = b_0 + b_1Y^* - b_2\bar{i}
+\, }.
+\]
+
+For the money market, the equilibrium condition is
+\[
+\frac{M^s}{P} = d_1Y - d_2 i.
+\]
+With \(i=\bar{i}\) fixed and \(Y=Y^*\),
+\[
+\boxed{\,\frac{M^s}{P} = d_1Y^* - d_2\bar{i}\, }.
+\]
+
+\paragraph{Step 4: How \(\frac{M^s}{P}\) varies with \(G\) under fixed \(\bar{i}\).}
+The government-spending multiplier under fixed interest rate is read directly from \(Y^*=\alpha/(1-\beta)\) where \(\alpha\) contains \(+G\):
+\[
+\frac{\partial Y^*}{\partial G}=\frac{1}{1-\beta}=\frac{1}{1-c_1-b_1}.
+\]
+Therefore
+\[
+\frac{\partial}{\partial G}\left(\frac{M^s}{P}\right)
+= d_1\frac{\partial Y^*}{\partial G}
+= \frac{d_1}{1-c_1-b_1},
+\]
+so
+\[
+\boxed{\,\frac{M^s}{P}\ \text{increases with }G\text{ at rate }\frac{d_1}{1-c_1-b_1}.\,}
+\]
+
+\end{document}

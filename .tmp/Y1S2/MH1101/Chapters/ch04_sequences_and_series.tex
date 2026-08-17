@@ -1,0 +1,1238 @@
+\section{Sequences and Series}
+
+\subsection{Limits of Sequences}
+
+\textbf{Overview.}
+This chapter shifts focus from continuous calculus (integrals, derivatives) to \emph{discrete} mathematics: sequences and series.
+A sequence assigns a real number to each positive integer; a series asks whether the ``infinite sum'' of those numbers makes sense.
+Why care?  Many quantities in science and engineering (power series, Fourier coefficients, numerical approximations) are defined as limits of sequences or sums of series.
+Before we can manipulate them, we need a rigorous definition of what ``converges'' means.
+
+\begin{definition}{Sequence and notation}{def:seq-notation}
+
+A (real) \emph{sequence} is a function $a:\mathbb{N}\to\mathbb{R}$, written as $\{a_n\}_{n=1}^{\infty}$ (or simply $\{a_n\}$), where $a_n$ is the $n$-th term.
+
+The starting index does not have to be $1$ (e.g.\ $\{a_n\}_{n=0}^{\infty}$ is also common).
+
+\end{definition}
+
+\noindent
+\textbf{Why ``a function from $\mathbb{N}$ to $\mathbb{R}$''?}
+At first glance, a sequence looks like a list: $a_1,a_2,a_3,\dots$
+But mathematically, a list \emph{is} a function: you input the position $n$ and output the value $a_n$.
+Thinking of a sequence as a function is not pedantic; it lets us immediately apply function-theoretic tools (e.g.\ L'H\^opital's Rule via Theorem~\ref{thm:seq-by-function}) to compute sequence limits.
+
+\paragraph{Geometric intuition.}
+
+Think of a sequence as a list of points on the number line (or as plotted points $(n,a_n)$).
+
+Saying ``$a_n\to L$'' means that, as $n$ grows, the points $a_n$ are eventually trapped inside \emph{any} narrow band around $L$.
+
+% Figure description (fallback): Plot the terms a_n = n/(n+1) as points (n,a_n) approaching the horizontal line y=1.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.78\linewidth,
+    height=5cm,
+    xmin=0, xmax=11,
+    ymin=0.4, ymax=1.1,
+    axis lines=left,
+    xlabel={$n$},
+    ylabel={$a_n$},
+    ytick={0.5,0.6,0.7,0.8,0.9,1.0},
+    xtick={0,2,4,6,8,10},
+    ticklabel style={font=\small},
+    label style={font=\small},
+] % <--- This bracket was missing!
+
+% The sequence points (n, a_n)
+\addplot[
+    only marks, 
+    mark=*, 
+    blue, 
+    samples at={1,2,...,10}
+] {x/(x+1)};
+
+% The horizontal asymptote at y=1
+\addplot[
+    dashed, 
+    red, 
+    domain=0:11
+] {1} node[right, pos=1] {$y=1$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}{Limit of a sequence (formal $\varepsilon$--$N$ definition)}{def:seq-limit}
+
+We say $\displaystyle \lim_{n\to\infty} a_n = L$ (or $a_n\to L$) if for every $\varepsilon>0$ there exists an integer $N$ such that
+
+\[
+n>N \ \Longrightarrow\ |a_n-L|<\varepsilon.
+\]
+
+If such an $L$ exists, $\{a_n\}$ is \emph{convergent}; otherwise it is \emph{divergent}.
+
+\end{definition}
+
+\paragraph{Why this definition looks the way it does.}
+
+The quantity $|a_n-L|$ is the distance from $a_n$ to $L$. The phrase ``for every $\varepsilon>0$'' means:
+
+no matter how strict the tolerance is, the tail of the sequence eventually stays within that tolerance.
+
+The index $N$ may depend on $\varepsilon$ (tighter tolerance $\Rightarrow$ larger $N$).
+
+\paragraph{Unpacking the definition further (exam-ready).}
+The definition has three quantifiers, and their \emph{order} matters:
+\begin{enumerate}[leftmargin=3em]
+\item \textbf{``For every $\varepsilon>0$'':} the challenger picks any positive tolerance (no matter how small).
+\item \textbf{``There exists $N$'':} you must respond with a cutoff index $N$ (which may depend on $\varepsilon$).
+\item \textbf{``For all $n>N$'':} every term past the cutoff must satisfy $|a_n-L|<\varepsilon$.
+\end{enumerate}
+Think of it as a game: if you can always win (i.e.\ always find an $N$), the sequence converges to $L$.
+
+\begin{examtip}[title={Exam Focus: The $\varepsilon$--$N$ proof template}]
+
+For an $\varepsilon$--$N$ proof, always follow this structure:
+
+\begin{enumerate}[leftmargin=3em]
+\item State ``Let $\varepsilon>0$.''
+\item Compute $|a_n-L|$ and simplify it.
+\item Find an upper bound for $|a_n-L|$ that is a simple decreasing function of $n$ (e.g.\ $\frac{C}{n}$ or $\frac{C}{n^2}$).
+\item Choose $N$ so that the upper bound $<\varepsilon$ whenever $n\ge N$ (e.g.\ $N=\lceil C/\varepsilon\rceil$).
+\item Conclude: ``For all $n\ge N$, $|a_n-L|\le \text{bound}\le \varepsilon$.''
+\end{enumerate}
+
+The ``backward work'' (finding the bound and choosing $N$) is \emph{scratch work} that does not appear in the formal proof; the formal proof runs \emph{forward} from the chosen $N$.
+
+\end{examtip}
+
+
+\begin{theorem}{Uniqueness and boundedness}{uniq-bounded}
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item A convergent sequence has a unique limit.
+
+\item Every convergent sequence is bounded.
+
+\end{enumerate}
+
+\end{theorem}
+
+\noindent
+\textbf{Why uniqueness?}
+If $a_n\to L$ and $a_n\to L'$, then by the triangle inequality $|L-L'|\le |a_n-L|+|a_n-L'|<2\varepsilon$ for $n$ large enough.
+Since $\varepsilon$ was arbitrary, $|L-L'|=0$, so $L=L'$.
+
+\noindent
+\textbf{Why boundedness?}
+If $a_n\to L$, take $\varepsilon=1$: there exists $N$ such that $|a_n-L|<1$ for all $n>N$, i.e.\ $a_n\in(L-1,L+1)$.
+The finitely many terms $a_1,\dots,a_N$ are just finitely many real numbers, so they are bounded.
+Hence the \emph{entire} sequence is bounded.
+
+\begin{commonmistake}[title={Common Mistake: Converse of boundedness}]
+
+Theorem~\ref{thm:uniq-bounded}(ii) says convergent $\Rightarrow$ bounded, but the converse is \textbf{false}.
+
+Example: $a_n=(-1)^n$ is bounded ($|a_n|\le 1$) but divergent (oscillates between $1$ and $-1$).
+
+You need \emph{monotonicity + boundedness} (Theorem~\ref{thm:monotone}) to guarantee convergence.
+
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 1(a)): $\varepsilon$--$N$ proof for $a_n=\frac{1}{3n}$}]
+
+Show that $\displaystyle \lim_{n\to\infty}\frac{1}{3n}=0$.
+
+\emph{Solution.}
+
+Let $\varepsilon>0$. We want $|a_n-0|<\varepsilon$, i.e.
+
+\[
+\left|\frac{1}{3n}\right|<\varepsilon
+\quad\Longleftrightarrow\quad
+n>\frac{1}{3\varepsilon}.
+\]
+
+Choose $N=\left\lceil \frac{1}{3\varepsilon}\right\rceil$. Then for all $n\ge N$,
+
+\[
+|a_n-0|=\frac{1}{3n}\le \frac{1}{3N}<\varepsilon.
+\]
+
+Hence $\displaystyle \boxed{\lim_{n\to\infty}\frac{1}{3n}=0}$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 1(c)): $\varepsilon$--$N$ proof for a rational sequence}]
+
+Show that $\displaystyle \lim_{n\to\infty}\frac{2n^2-3n}{3n^2+1}=\frac{2}{3}$.
+
+\emph{Solution.}
+
+Let $\varepsilon>0$. Compute the difference:
+
+\[
+\left|\frac{2n^2-3n}{3n^2+1}-\frac{2}{3}\right|
+=\left|\frac{3(2n^2-3n)-2(3n^2+1)}{3(3n^2+1)}\right|
+=\frac{9n+2}{9n^2+3}.
+\]
+
+\textbf{Bounding step.} For $n\ge 1$:
+
+\[
+\frac{9n+2}{9n^2+3}\le \frac{9n+2}{9n^2}
+=\frac{1}{n}+\frac{2}{9n^2}
+\le \frac{1}{n}+\frac{2}{9n}
+=\frac{11}{9n}.
+\]
+
+Choose $N=\left\lceil \frac{11}{9\varepsilon}\right\rceil$. Then for all $n\ge N$:
+
+\[
+\left|\frac{2n^2-3n}{3n^2+1}-\frac{2}{3}\right|\le \frac{11}{9n}\le \frac{11}{9N}<\varepsilon.
+\]
+
+Hence $\displaystyle \boxed{\lim_{n\to\infty}\frac{2n^2-3n}{3n^2+1}=\frac{2}{3}}$.
+
+\textbf{Exam note:} The key step is replacing the exact expression $\frac{9n+2}{9n^2+3}$ with a simpler upper bound $\frac{C}{n}$. Any valid bound works; you do \emph{not} need to find the tightest one.
+
+\end{examplebox}
+
+\begin{definition}{Subsequence}{def:subsequence}
+
+Given $\{a_n\}_{n=1}^{\infty}$, a \emph{subsequence} is a sequence of the form
+
+\[
+a_{n_1},a_{n_2},a_{n_3},\dots
+\quad\text{where}\quad
+1\le n_1<n_2<n_3<\cdots.
+\]
+
+\end{definition}
+
+\noindent
+\textbf{Why subsequences matter.}
+The subsequence test (below) is the workhorse for \emph{proving divergence}: if you can exhibit two subsequences with different limits, the original sequence cannot converge.
+This is typically much easier than a direct $\varepsilon$--$N$ argument for divergence.
+
+\begin{theorem}{Subsequence test}{thm:subseq}
+
+If $\{a_n\}$ converges to $L$, then \emph{every} subsequence of $\{a_n\}$ also converges to $L$.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this is true (proof sketch).}
+If $n>N$ implies $|a_n-L|<\varepsilon$, and $\{n_k\}$ is a strictly increasing sequence of indices, then $n_k\ge k$ for all $k$.
+So for $k>N$, we have $n_k\ge k>N$, giving $|a_{n_k}-L|<\varepsilon$.
+
+\noindent
+\textbf{Contrapositive (the useful direction for exams):}
+
+\begin{itemize}[leftmargin=*]
+\item If two subsequences converge to \emph{different} limits $\Rightarrow$ $\{a_n\}$ diverges.
+\item If any one subsequence diverges $\Rightarrow$ $\{a_n\}$ diverges.
+\end{itemize}
+
+\begin{examplebox}[title={Worked Example: $\{(-1)^n\}$ diverges (Lecture Example 4.4)}]
+
+The even subsequence $a_{2k}=(-1)^{2k}=1\to 1$.
+
+The odd subsequence $a_{2k-1}=(-1)^{2k-1}=-1\to -1$.
+
+Since $1\ne -1$, by the subsequence test, $\{(-1)^n\}$ diverges.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 2(vii)): subsequence test for $\frac{(-1)^n n^3}{n^3+2n^2+1}$}]
+
+Write $a_n=(-1)^n\cdot \dfrac{1}{1+\frac{2}{n}+\frac{1}{n^3}}$.
+
+\begin{itemize}[leftmargin=*]
+\item Even subsequence: $a_{2k}=+\dfrac{1}{1+\frac{2}{2k}+\frac{1}{(2k)^3}}\to 1$.
+\item Odd subsequence: $a_{2k-1}=-\dfrac{1}{1+\frac{2}{2k-1}+\frac{1}{(2k-1)^3}}\to -1$.
+\end{itemize}
+
+Since $1\ne -1$, the sequence diverges by the subsequence test.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Q3): If odd and even subsequences both converge to $L$, then $a_n\to L$}]
+
+\textbf{Claim.} If $a_{2k-1}\to L$ and $a_{2k}\to L$, then $a_n\to L$.
+
+\emph{Proof.}
+Let $\varepsilon>0$. Since $a_{2k}\to L$, there exists $N_e$ such that $|a_{2k}-L|<\varepsilon$ for all $k\ge N_e$. Similarly, there exists $N_o$ such that $|a_{2k-1}-L|<\varepsilon$ for all $k\ge N_o$.
+
+Let $N=\max\{2N_e,\,2N_o-1\}$. For any $n\ge N$:
+\begin{itemize}[leftmargin=*]
+\item If $n=2k$ (even): $n\ge 2N_e$ implies $k\ge N_e$, so $|a_n-L|<\varepsilon$.
+\item If $n=2k-1$ (odd): $n\ge 2N_o-1$ implies $k\ge N_o$, so $|a_n-L|<\varepsilon$.
+\end{itemize}
+Hence $a_n\to L$.\ $\square$
+
+\textbf{Exam use:} This fact is useful for sequences defined piecewise (e.g.\ even and odd terms given by different formulas). If both halves converge to the same $L$, the full sequence converges.
+
+\end{examplebox}
+
+\begin{definition}{Divergence to $\pm\infty$}{def:div-infty}
+
+We say $a_n\to\infty$ if for every $M>0$ there exists $N$ such that $n>N\Rightarrow a_n>M$.
+
+Similarly define $a_n\to -\infty$.
+
+\end{definition}
+
+\noindent
+\textbf{Why a separate definition?}
+The $\varepsilon$--$N$ definition of $a_n\to L$ requires $L$ to be a \emph{real number}. Saying $a_n\to\infty$ is \emph{not} the same as saying ``$a_n$ converges to $\infty$''---it is a specific type of divergence where the terms grow without bound.
+
+\begin{keyformula}[title={Quick implications for positive sequences}]
+
+Assume $a_n>0$ for all sufficiently large $n$.
+
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+
+\item If $a_n\to 0$, then $\displaystyle \frac{1}{a_n}\to \infty$.
+
+\item If $a_n\to \infty$, then $\displaystyle \frac{1}{a_n}\to 0$.
+
+\item If $b_n\ge a_n$ eventually and $a_n\to\infty$, then $b_n\to\infty$.
+
+\end{enumerate}
+
+\end{keyformula}
+
+\noindent
+\textbf{Why these hold (intuition).}
+(i) If $a_n$ is very small and positive, $1/a_n$ is very large.
+(ii) If $a_n$ is very large, $1/a_n$ is very small.
+(iii) If $a_n$ already exceeds every bound, and $b_n\ge a_n$, then $b_n$ does too.
+
+\begin{commonmistake}
+
+Divergence does \emph{not} behave well under algebra.
+
+For instance, $a_n=(-1)^n$ is divergent, but $|a_n|=1$ is convergent.
+
+Always justify convergence before applying limit laws.
+
+\end{commonmistake}
+
+\begin{examtip}
+
+To prove divergence quickly, the subsequence test is often the fastest:
+
+\begin{itemize}
+
+\item Try even/odd subsequences when $(-1)^n$, $\cos(n\pi)$, or oscillations appear.
+
+\item If the expression behaves differently along two simple subsequences (e.g.\ $n=2k$ and $n=2k+1$), you can often conclude divergence immediately.
+
+\end{itemize}
+
+\end{examtip}
+
+%--------------------------------------------------
+
+\subsection{Finding Limits of Sequences}
+
+\textbf{Motivation.}
+The $\varepsilon$--$N$ definition tells us what convergence \emph{means}, but using it directly for every limit would be tedious. This section builds a toolkit of shortcuts: limit laws, the squeeze theorem, the function--sequence bridge (Theorem~\ref{thm:seq-by-function}), and the continuity transfer (Theorem~\ref{thm:cont-seq}). Together, these let you compute most sequence limits algebraically.
+
+\begin{keyformula}[title={Limit laws for sequences (require convergence)}]
+
+Suppose $\{a_n\}$ and $\{b_n\}$ are convergent and $c\in\mathbb{R}$ is a constant. Then:
+
+\begin{enumerate}[label=(\alph*), leftmargin=3em]
+
+\item $\lim (a_n\pm b_n)=\lim a_n \pm \lim b_n$.
+
+\item $\lim (c a_n)=c\lim a_n$.
+
+\item $\lim (a_n b_n)=(\lim a_n)(\lim b_n)$.
+
+\item $\lim \dfrac{a_n}{b_n}=\dfrac{\lim a_n}{\lim b_n}$, provided $\lim b_n\ne 0$.
+
+\end{enumerate}
+
+\end{keyformula}
+
+\noindent
+\textbf{Why the convergence hypothesis is non-negotiable.}
+Without it, absurd conclusions follow. For example, $a_n=n$ and $b_n=-n$ are both divergent, but $a_n+b_n=0\to 0$. Writing ``$\lim(a_n+b_n)=\lim a_n+\lim b_n=\infty+(-\infty)$'' is meaningless.
+
+\paragraph{Method selection (high yield).}
+
+When asked for $\lim_{n\to\infty} a_n$, try in this order:
+
+\begin{enumerate}[leftmargin=3em]
+
+\item \textbf{Algebraic simplification}: factor/divide by the dominant power of $n$; rationalize radicals.
+
+\item \textbf{Squeeze}: use boundedness ($|\sin|,|\cos|\le 1$), or compare with simpler sequences.
+
+\item \textbf{Recognise a function}: if $a_n=f(n)$ and $\lim_{x\to\infty} f(x)$ is known, transfer the result.
+
+\item \textbf{Continuity}: if $a_n\to L$, then $f(a_n)\to f(L)$ for continuous $f$.
+
+\end{enumerate}
+
+\begin{examtip}[title={Exam Focus: When to use which method}]
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Rational expressions in $n$:} Divide top and bottom by $n^{\text{highest power}}$. This always works and is the fastest approach.
+\item \textbf{Bounded oscillating factor $\times$ vanishing term:} Squeeze (e.g.\ $\frac{\sin n}{n}$, $\frac{\cos^2 n}{2n}$).
+\item \textbf{Expression involving $\ln$, $e$, $n!$:} Recognise as $f(n)$ and use L'H\^opital's Rule on the continuous version $f(x)$.
+\item \textbf{Composition with continuous function:} Use Theorem~\ref{thm:cont-seq} (e.g.\ $\sin(\pi/n)$, $e^{3n/(n+1)}$).
+\end{itemize}
+\end{examtip}
+
+\begin{theorem}{Sequence defined by a function}{thm:seq-by-function}
+
+Let $f:(A,\infty)\to\mathbb{R}$ be a function such that $\lim_{x\to\infty} f(x)=L$, and define $a_n=f(n)$ for integers $n$ large enough.
+
+Then $\lim_{n\to\infty} a_n = L$.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this works.}
+The real limit $\lim_{x\to\infty} f(x)=L$ means: for every $\varepsilon>0$, there exists $M$ such that $x>M\Rightarrow |f(x)-L|<\varepsilon$.
+Integers are a subset of the reals, so choosing $N=\lceil M\rceil$ gives $|f(n)-L|<\varepsilon$ for all $n\ge N$.
+
+\textbf{Practical payoff:} This lets you apply L'H\^opital's Rule (which requires differentiability, a function concept) to compute sequence limits.
+
+\begin{theorem}{Squeeze theorem for sequences}{thm:squeeze-seq}
+
+If $a_n\le b_n\le c_n$ for all $n\ge N_0$ and $\lim a_n=\lim c_n=L$, then $\lim b_n=L$.
+
+\end{theorem}
+
+\noindent
+\textbf{Why the squeeze works.}
+Given $\varepsilon>0$, for $n$ large enough, $L-\varepsilon<a_n\le b_n\le c_n<L+\varepsilon$, so $|b_n-L|<\varepsilon$.
+The inequalities $a_n\le b_n\le c_n$ ``squeeze'' $b_n$ into the $\varepsilon$-band around $L$.
+
+\begin{theorem}{Continuity and limits of sequences}{thm:cont-seq}
+
+If $a_n\to L$ and $f$ is continuous at $L$, then $f(a_n)\to f(L)$.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this is true.}
+Continuity at $L$ means: for every $\varepsilon>0$, there exists $\delta>0$ such that $|x-L|<\delta\Rightarrow |f(x)-f(L)|<\varepsilon$.
+Since $a_n\to L$, eventually $|a_n-L|<\delta$, so $|f(a_n)-f(L)|<\varepsilon$.
+
+\begin{examplebox}[title={Worked Example: geometric sequence $r^n$}]
+
+Determine $\displaystyle \lim_{n\to\infty} r^n$.
+
+\emph{Solution.}
+
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+
+\item If $|r|<1$, then $|r|^n\to 0$, so $r^n\to 0$.
+
+\item If $r=1$, then $r^n=1$ for all $n$.
+
+\item If $r>1$, then $r^n\to\infty$ (unbounded growth).
+
+\item If $r\le -1$, the terms do not approach a single real number (they oscillate in sign and/or grow in magnitude), hence divergence.
+
+\end{enumerate}
+
+\end{examplebox}
+
+\noindent
+\textbf{Why the case $|r|<1$ works.}
+If $0<r<1$, write $r=\frac{1}{1+p}$ with $p>0$. By Bernoulli's inequality, $(1+p)^n\ge 1+np$, so $0<r^n=\frac{1}{(1+p)^n}\le \frac{1}{1+np}\to 0$.
+For $-1<r<0$, we have $|r^n|=|r|^n\to 0$, and $|a_n|\to 0\Rightarrow a_n\to 0$ by the squeeze theorem.
+
+\begin{examplebox}[title={Worked Example: a bounded trigonometric factor (Squeeze)}]
+
+Evaluate $\displaystyle \lim_{n\to\infty}\frac{\cos^2 n}{2n}$.
+
+\emph{Solution.}
+
+Since $0\le \cos^2 n\le 1$,
+
+\[
+0\le \frac{\cos^2 n}{2n}\le \frac{1}{2n}.
+\]
+
+As $n\to\infty$, $\frac{1}{2n}\to 0$. Hence by Theorem~\ref{thm:squeeze-seq},
+
+\[
+\boxed{\lim_{n\to\infty}\frac{\cos^2 n}{2n}=0}.
+\]
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: continuity trick}]
+
+Evaluate $\displaystyle \lim_{n\to\infty}\sin\!\left(\frac{\pi}{n}\right)$.
+
+\emph{Solution.}
+
+We know $\frac{\pi}{n}\to 0$. Since $\sin x$ is continuous at $0$, Theorem~\ref{thm:cont-seq} gives
+
+\[
+\boxed{\lim_{n\to\infty}\sin\!\left(\frac{\pi}{n}\right)=\sin 0=0.}
+\]
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Q2(viii)): continuity with $\tan$}]
+
+Evaluate $\displaystyle \lim_{n\to\infty}\tan\!\left(\frac{2n\pi}{1+8n}\right)$.
+
+\emph{Solution.}
+First find the ``inner'' limit:
+\[
+\frac{2n\pi}{1+8n}=\frac{2\pi}{8+\frac{1}{n}}\to \frac{2\pi}{8}=\frac{\pi}{4}.
+\]
+Since $\tan$ is continuous at $\pi/4$ (which is not an odd multiple of $\pi/2$), Theorem~\ref{thm:cont-seq} gives
+\[
+\lim_{n\to\infty}\tan\!\left(\frac{2n\pi}{1+8n}\right)=\tan\!\left(\frac{\pi}{4}\right)=\boxed{1}.
+\]
+
+\textbf{Sanity check:} Always verify the inner limit lands at a point where the outer function is continuous. If it landed at $\pi/2$, $\tan$ would be undefined and the argument would fail.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: comparing growth rates}]
+
+Show that $\displaystyle \lim_{n\to\infty}\frac{n!}{n^n}=0$.
+
+\emph{Solution.}
+
+\[
+\frac{n!}{n^n}=\frac{1\cdot 2\cdot 3\cdots n}{n\cdot n\cdot n\cdots n}
+=\prod_{k=1}^{n}\frac{k}{n}.
+\]
+For $2\le k\le n$, $\frac{k}{n}\le 1$, so
+\[
+0\le \frac{n!}{n^n}=\frac{1}{n}\cdot\prod_{k=2}^{n}\frac{k}{n}\le \frac{1}{n}.
+\]
+
+Since $\frac{1}{n}\to 0$, the squeeze theorem yields $\displaystyle \boxed{\lim_{n\to\infty}\frac{n!}{n^n}=0}$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: if $|a_n|\to 0$ then $a_n\to 0$}]
+
+Assume $\lim_{n\to\infty}|a_n|=0$. Show $\lim_{n\to\infty}a_n=0$.
+
+\emph{Solution.}
+
+For every $n$, $-|a_n|\le a_n\le |a_n|$.
+
+Taking limits, the squeeze theorem gives $a_n\to 0$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 4.14): L'H\^opital via the function bridge}]
+
+Calculate $\displaystyle \lim_{n\to\infty}\frac{n+\ln n}{n^2}$.
+
+\emph{Solution.}
+Define $f(x)=\frac{x+\ln x}{x^2}$. This is an $\frac{\infty}{\infty}$ form as $x\to\infty$. By L'H\^opital's Rule:
+\[
+\lim_{x\to\infty}\frac{x+\ln x}{x^2}
+=\lim_{x\to\infty}\frac{1+\frac{1}{x}}{2x}
+=\lim_{x\to\infty}\frac{1}{2x}+\frac{1}{2x^2}=0.
+\]
+By Theorem~\ref{thm:seq-by-function}, $\boxed{\lim_{n\to\infty}\frac{n+\ln n}{n^2}=0}$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 4.15): composing function bridge with continuity}]
+
+Calculate $\displaystyle \lim_{n\to\infty}e^{3n/(n+1)}$.
+
+\emph{Solution.}
+Let $a_n=\frac{3n}{n+1}=\frac{3}{1+1/n}\to 3$.
+
+Since $f(x)=e^x$ is continuous at $3$, Theorem~\ref{thm:cont-seq} gives
+\[
+\lim_{n\to\infty}e^{3n/(n+1)}=e^{\lim a_n}=\boxed{e^3}.
+\]
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Q5): $\sqrt[n]{a}\to 1$ for $a>0$}]
+
+\textbf{Claim:} $\displaystyle \lim_{n\to\infty}a^{1/n}=1$ for all $a>0$.
+
+\emph{Proof (continuity method).}
+Write $a^{1/n}=e^{\frac{\ln a}{n}}$. Since $\frac{\ln a}{n}\to 0$ and $e^x$ is continuous at $0$:
+\[
+\lim_{n\to\infty}a^{1/n}=e^0=1.
+\]
+
+\emph{Proof (squeeze for $a>1$).}
+Let $b=a-1>0$. By Bernoulli's inequality, $(1+b/n)^n\ge 1+b=a$, so $a^{1/n}\le 1+b/n$.
+Also $a^{1/n}\ge 1$ since $a>1$. Hence $1\le a^{1/n}\le 1+\frac{b}{n}\to 1$ by squeeze.
+
+For $0<a<1$, apply the $a>1$ case to $1/a$ and take reciprocals.
+
+\end{examplebox}
+
+\begin{extension}[title={Extension (Beyond Syllabus: Stolz--Ces\`aro theorem for limits)}]
+
+\textbf{Syllabus link:} Chapter 4 --- \S4.2 Finding Limits of Sequences.
+
+\medskip
+
+\textbf{Theorem (Stolz--Ces\`aro).}
+
+Let $\{b_n\}$ be a strictly increasing sequence with $b_n\to\infty$.
+
+Let $\{a_n\}$ be any sequence.
+
+If the limit
+
+\[
+\lim_{n\to\infty}\frac{a_{n+1}-a_n}{b_{n+1}-b_n}=L
+\]
+
+exists (finite), then $\displaystyle \lim_{n\to\infty}\frac{a_n}{b_n}=L$.
+
+\medskip
+
+\textbf{Application.} Compute $\displaystyle \lim_{n\to\infty}\frac{\ln n}{n}$.
+
+Take $a_n=\ln n$ and $b_n=n$. Then $b_n$ is strictly increasing and $b_n\to\infty$.
+
+Moreover,
+
+\[
+\frac{a_{n+1}-a_n}{b_{n+1}-b_n}
+=\frac{\ln(n+1)-\ln n}{(n+1)-n}
+=\ln\!\left(1+\frac{1}{n}\right).
+\]
+Since $\ln(1+x)\to 0$ as $x\to 0$, we have $\ln\!\left(1+\frac{1}{n}\right)\to 0$.
+By Stolz--Ces\`aro,
+\[
+\boxed{\lim_{n\to\infty}\frac{\ln n}{n}=0.}
+\]
+
+\end{extension}
+
+\begin{commonmistake}
+
+The limit laws require the individual limits to exist.
+
+If $\{a_n\}$ or $\{b_n\}$ is divergent, statements like ``$\lim(a_n+b_n)=\lim a_n+\lim b_n$'' are not valid.
+
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Q4): True/false on divergent sequences}]
+
+\textbf{(a)} ``If $\{a_n\}$ and $\{b_n\}$ are divergent, then $\{a_n+b_n\}$ is divergent.'' \textbf{FALSE.}
+
+\emph{Counterexample:} $a_n=(-1)^n$, $b_n=-(-1)^n$. Both diverge, but $a_n+b_n=0\to 0$.
+
+\textbf{(b)} ``If $\{a_n\}$ is divergent, then $\{|a_n|\}$ is divergent.'' \textbf{FALSE.}
+
+\emph{Counterexample:} $a_n=(-1)^n$ diverges, but $|a_n|=1\to 1$.
+
+\textbf{(c)} ``If $a_n\to L$ and $b_n\to 0$, then $a_nb_n\to 0$.'' \textbf{TRUE.}
+
+\emph{Proof:} Since $a_n\to L$, $\{a_n\}$ is bounded: $|a_n|\le M$. Given $\varepsilon>0$, choose $N$ so that $|b_n|<\varepsilon/M$ for $n\ge N$. Then $|a_nb_n|\le M|b_n|<\varepsilon$.
+
+\end{examplebox}
+
+\begin{examtip}
+
+For rational expressions in $n$:
+
+\begin{itemize}
+
+\item Divide numerator and denominator by the highest power of $n$ present.
+
+\item For $\sqrt{\text{polynomial in }n}$, factor out the dominant power inside the root: $\sqrt{n^2(1+\cdots)}=n\sqrt{1+\cdots}$.
+
+\item If you rationalize, rationalize \emph{once} and simplify before taking limits.
+
+\end{itemize}
+
+\end{examtip}
+
+%--------------------------------------------------
+
+\subsection{Monotonic Sequences}
+
+\textbf{Motivation.}
+Many important sequences (especially recursively defined ones) are hard to evaluate by direct algebraic manipulation.
+The Monotone Sequence Theorem gives an \emph{existence} guarantee: if a sequence is monotonic and bounded, it converges---even if you cannot compute the limit directly.
+You then find the limit by solving the fixed-point equation $L=f(L)$.
+This three-step workflow (bound $\to$ monotone $\to$ fixed point) is one of the most frequently examined techniques in MH1101.
+
+\begin{definition}{Monotonicity}{def:monotone}
+
+A sequence $\{a_n\}$ is \emph{increasing} if $a_n\le a_{n+1}$ for all $n$ (and \emph{strictly increasing} if $a_n<a_{n+1}$).
+
+A sequence $\{a_n\}$ is \emph{decreasing} if $a_n\ge a_{n+1}$ for all $n$ (and \emph{strictly decreasing} if $a_n>a_{n+1}$).
+
+A sequence is \emph{monotonic} if it is increasing or decreasing.
+
+\end{definition}
+
+\noindent
+\textbf{Ways to check monotonicity.}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Difference test:} Compute $a_{n+1}-a_n$ and determine its sign.
+\item \textbf{Ratio test (for positive sequences):} Compute $a_{n+1}/a_n$ and check whether it is $\ge 1$ or $\le 1$.
+\item \textbf{Function derivative:} If $a_n=f(n)$, compute $f'(x)$ and check its sign.
+\item \textbf{For recursive sequences $a_{n+1}=f(a_n)$:} Show $f(x)\ge x$ (or $\le x$) on the relevant interval.
+\end{itemize}
+
+\begin{definition}{Boundedness}{def:bounded}
+
+A sequence $\{a_n\}$ is \emph{bounded above} if there exists $M$ such that $a_n\le M$ for all $n$.
+
+It is \emph{bounded below} if there exists $m$ such that $m\le a_n$ for all $n$.
+
+It is \emph{bounded} if it is both bounded above and bounded below.
+
+\end{definition}
+
+\begin{theorem}{Monotone sequence theorem}{thm:monotone}
+
+Every bounded, monotonic sequence is convergent.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this theorem is true (intuition).}
+An increasing sequence that is bounded above has a least upper bound (supremum) $L$ by the completeness of $\mathbb{R}$. Since $L$ is the \emph{least} upper bound, for any $\varepsilon>0$, there must be some $a_N>L-\varepsilon$ (otherwise $L-\varepsilon$ would be a smaller upper bound). Since the sequence is increasing, all subsequent terms satisfy $a_n\ge a_N>L-\varepsilon$, and also $a_n\le L<L+\varepsilon$. Hence $|a_n-L|<\varepsilon$ for all $n\ge N$.
+
+\paragraph{Standard recursion workflow.}
+
+For a recursively defined sequence $a_{n+1}=f(a_n)$:
+
+\begin{enumerate}[leftmargin=3em]
+
+\item \textbf{Invariant interval (boundedness):} find an interval $I=[m,M]$ such that $a_1\in I$ and $f(I)\subseteq I$.
+
+\item \textbf{Monotonicity:} show $a_{n+1}\ge a_n$ (or $\le$) using algebra and the bounds from Step 1.
+
+\item \textbf{Limit identification:} conclude convergence by Theorem~\ref{thm:monotone}; let $a_n\to L$ and solve $L=f(L)$.
+
+\item \textbf{Reject extraneous roots:} keep only solutions consistent with the bounds (e.g.\ $L\in I$).
+
+\end{enumerate}
+
+\begin{examtip}[title={Exam Focus: Why you \emph{must} prove convergence before solving $L=f(L)$}]
+
+The equation $L=f(L)$ may have multiple solutions, and without knowing the sequence converges, you cannot even write $\lim a_{n+1}=f(\lim a_n)$.
+Example: define $a_1=0$, $a_{n+1}=a_n^2+a_n$. The equation $L=L^2+L$ gives $L=0$, but the sequence is $0,0,0,\dots$ \emph{and} $L=0$ is the only fixed point---so it works. But if you had $a_1=2$, the sequence diverges to $\infty$, and ``solving $L=f(L)$'' gives the wrong answer.
+
+Always establish convergence \emph{first}, then solve the fixed-point equation.
+
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 1): nested radicals}]
+
+Find the limit of
+
+\[
+\sqrt{2},\ \sqrt{2\sqrt{2}},\ \sqrt{2\sqrt{2\sqrt{2}}},\ \ldots
+\]
+
+Define $a_1=\sqrt{2}$ and $a_{n+1}=\sqrt{2a_n}$.
+
+\emph{Bounded:} show by induction that $0<a_n<2$ for all $n$.
+
+Base: $a_1=\sqrt{2}<2$.\ $\checkmark$
+
+Inductive step: if $a_n<2$, then $a_{n+1}=\sqrt{2a_n}<\sqrt{2\cdot 2}=2$.\ $\checkmark$
+
+Also $a_n>0$ trivially (positive under square root).
+
+\emph{Increasing:} $a_{n+1}\ge a_n \iff \sqrt{2a_n}\ge a_n \iff 2a_n\ge a_n^2 \iff a_n(2-a_n)\ge 0$.
+
+Since $0<a_n<2$, both factors are positive. So increasing.\ $\checkmark$
+
+\emph{Limit:} by Theorem~\ref{thm:monotone}, $a_n\to L$ exists. Then $L=\sqrt{2L}$, so $L^2=2L$, giving $L(L-2)=0$.
+
+Since $L>0$, we conclude $\boxed{L=2}$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 2): $a_1=1$, $a_{n+1}=3-\frac{1}{a_n}$}]
+
+Show the sequence is increasing and $0<a_n<3$, then find the limit.
+
+\emph{Invariant interval:} We show $a_n\in[1,3)$ by induction.
+
+Base: $a_1=1\in[1,3)$.\ $\checkmark$
+
+Inductive step: if $1\le a_n<3$, then $\frac{1}{a_n}\le 1$, so $a_{n+1}=3-\frac{1}{a_n}\ge 2\ge 1$.
+
+Also $\frac{1}{a_n}>0$, so $a_{n+1}<3$.\ $\checkmark$
+
+\emph{Increasing:} $a_{n+1}-a_n=3-\frac{1}{a_n}-a_n=\frac{-a_n^2+3a_n-1}{a_n}$.
+
+The numerator $-a_n^2+3a_n-1\ge 0$ when $a_n\in[\alpha,\beta]$ where $\alpha=\frac{3-\sqrt{5}}{2}\approx 0.382$ and $\beta=\frac{3+\sqrt{5}}{2}\approx 2.618$.
+
+Since $a_n\in[1,3)\subset[\alpha,\beta]$ (check: $1>\alpha$ and $3>\beta$ but $a_n<3$ and is increasing with $a_n\le\beta$), the numerator is $\ge 0$ and $a_n>0$, so $a_{n+1}\ge a_n$.\ $\checkmark$
+
+\emph{Limit:} $L=3-\frac{1}{L}\Rightarrow L^2-3L+1=0\Rightarrow L=\frac{3\pm\sqrt{5}}{2}$.
+
+Since $a_n$ is increasing from $a_1=1$ and bounded above by $\beta=\frac{3+\sqrt{5}}{2}$:
+
+$\boxed{L=\frac{3+\sqrt{5}}{2}}$.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 3): $a_1=2$, $a_{n+1}=\frac{1}{3-a_n}$}]
+
+\emph{Invariant interval:} Show $a_n\in(\alpha,\beta]$ where $\alpha=\frac{3-\sqrt{5}}{2}$ and $\beta=\frac{3+\sqrt{5}}{2}$. (Both are fixed points of $f(x)=\frac{1}{3-x}$.)
+
+Since $a_1=2\in(\alpha,\beta)$ and $f$ is increasing on $(-\infty,3)$ with $f(\alpha)=\alpha$, $f(\beta)=\beta$, the interval $[\alpha,\beta]$ is invariant.
+
+\emph{Decreasing:} $a_{n+1}\le a_n\iff \frac{1}{3-a_n}\le a_n\iff a_n^2-3a_n+1\le 0$, which holds for $a_n\in[\alpha,\beta]$.\ $\checkmark$
+
+Since $\{a_n\}$ is decreasing and bounded below, it converges. Solving $L=\frac{1}{3-L}$ gives $L\in\{\alpha,\beta\}$. Since the sequence decreases from $a_1=2$ and $a_2=1<2$, we have $L\le 1<\beta$, so:
+
+$\boxed{L=\frac{3-\sqrt{5}}{2}}$.
+
+\end{examplebox}
+
+\begin{commonmistake}
+
+For recursive sequences, solving $L=f(L)$ is \emph{not} enough.
+
+You must first justify that $\{a_n\}$ converges (typically by boundedness + monotonicity).
+
+\end{commonmistake}
+
+\begin{examtip}
+
+When proving monotonicity, avoid expanding blindly.
+
+A reliable pattern is:
+
+\[
+a_{n+1}\ge a_n \ \Longleftrightarrow\ f(a_n)\ge a_n,
+\]
+
+then factor and use bounds on $a_n$ to determine signs (e.g.\ $a_n(2-a_n)\ge 0$).
+
+\begin{itemize}
+\item For the invariant-interval step, try $M=$ the larger fixed point of $f$ (solve $L=f(L)$).
+\item For monotonicity, the sign of $f(x)-x$ on the invariant interval is the key.
+\item Common pitfall: assuming monotonicity from the first few terms without proof by induction.
+\end{itemize}
+
+\end{examtip}
+
+\begin{extension}[title={Extension (Tutorial 8, Question 4: $(1+\frac{1}{n})^n$ is increasing)}]
+
+\textbf{Syllabus link:} Chapter 4 --- \S4.3 Monotonic Sequences.
+
+\medskip
+
+\textbf{Proposition.} The sequence $e_n=\left(1+\frac{1}{n}\right)^n$ is increasing and bounded above (by $3$), hence convergent. Its limit is $e$.
+
+\textbf{Proof of monotonicity (calculus approach).}
+Define $\phi(x)=x\ln(1+1/x)$ for $x>0$, so that $e_n=e^{\phi(n)}$. Differentiate:
+\[
+\phi'(x)=\ln\!\left(1+\frac{1}{x}\right)-\frac{1}{x+1}.
+\]
+Using the inequality $\ln(1+u)\ge \frac{u}{1+u}$ for $u>0$ (with $u=1/x$):
+\[
+\ln\!\left(1+\frac{1}{x}\right)\ge \frac{1/x}{1+1/x}=\frac{1}{x+1}.
+\]
+Hence $\phi'(x)\ge 0$, so $\phi$ is increasing, and $e_n=e^{\phi(n)}$ is increasing.
+
+\textbf{Bounded:} By the binomial theorem,
+\[
+e_n = \sum_{k=0}^{n}\binom{n}{k}\frac{1}{n^k}
+\le 1 + \sum_{k=1}^{n}\frac{1}{k!}
+\le 1 + \sum_{k=1}^{n}\frac{1}{2^{k-1}}
+< 1 + 2 = 3.
+\]
+
+By the Monotone Sequence Theorem, $e_n$ converges. The limit is denoted $e\approx 2.71828$.
+
+\end{extension}
+
+%--------------------------------------------------
+
+\subsection{Series}
+
+\paragraph{From a sequence to an ``infinite sum''.}
+
+An infinite series is written $\sum_{n=1}^{\infty} a_n$.
+
+Since we can only add finitely many numbers at a time, the rigorous meaning is via partial sums.
+
+\noindent
+\textbf{Why partial sums?}
+We know how to add $2$ numbers, $3$ numbers, $\ldots$, $k$ numbers. But ``adding infinitely many numbers'' is not defined by the arithmetic axioms. The only way to give $\sum_{n=1}^{\infty}a_n$ a meaning is to define it as a \emph{limit}: form the finite sums $s_k=a_1+\cdots+a_k$ and ask whether $\{s_k\}$ converges. If it does, the limit \emph{is} the ``infinite sum.'' If it doesn't, the series has no sum.
+
+This is analogous to how we defined the definite integral as a limit of Riemann sums: infinitely many infinitesimal areas added up via a limiting process.
+
+\begin{definition}{Series and partial sums}{def:series}
+
+Given a sequence $\{a_n\}_{n=1}^{\infty}$, define the $k$-th partial sum
+
+\[
+s_k=\sum_{n=1}^{k} a_n.
+\]
+
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+
+\item If $\{s_k\}$ converges to a real number $S$, then the series $\sum_{n=1}^{\infty} a_n$ is \emph{convergent} and we write
+
+$\displaystyle \sum_{n=1}^{\infty} a_n=S$.
+
+\item If $\{s_k\}$ diverges, then the series is \emph{divergent}.
+
+\end{enumerate}
+
+\end{definition}
+
+\noindent
+\textbf{Key conceptual point.}
+The symbol $\sum_{n=1}^{\infty}a_n$ does \textbf{double duty}: it denotes both the formal expression (the ``series'') and, when convergent, its numerical value $S=\lim_{k\to\infty}s_k$.
+Always be clear about which meaning you intend.
+
+\begin{examplebox}[title={Worked Example: a divergent series with oscillating partial sums}]
+
+Consider $\displaystyle \sum_{n=1}^{\infty}(-1)^{n-1}=1-1+1-1+\cdots$.
+
+The partial sums are $s_1=1$, $s_2=0$, $s_3=1$, $s_4=0$, \dots, which do not converge.
+
+Hence the series diverges.
+
+\end{examplebox}
+
+\noindent
+\textbf{Why the ``$0=1$'' paradox fails (Lecture Example 4.19).}
+The ``proof'' that $0=1$ via $0=(1-1)+(1-1)+\cdots = 1+(-1+1)+(-1+1)+\cdots=1$ fails because it \emph{regroups} terms of a divergent series. Regrouping (associativity) is valid for finite sums but not for infinite series unless convergence is established first.
+
+\begin{commonmistake}
+
+Infinite series are \emph{not} finite sums.
+
+Operations such as regrouping terms, cancelling ``$\infty-\infty$'', or treating ``$\cdots$'' algebraically are not justified unless you can translate them into statements about the partial sums $s_k$.
+
+\end{commonmistake}
+
+\begin{theorem}{Geometric series}{thm:geom}
+
+Let $a\ne 0$ and $r\in\mathbb{R}$. The geometric series
+
+\[
+\sum_{n=1}^{\infty} a r^{\,n-1}=a+ar+ar^2+\cdots
+\]
+
+converges iff $|r|<1$, and in that case
+
+\[
+\sum_{n=1}^{\infty} a r^{\,n-1}=\frac{a}{1-r}.
+\]
+
+If $|r|\ge 1$, the series diverges.
+
+\end{theorem}
+
+\noindent
+\textbf{Why the formula is $\frac{a}{1-r}$.}
+The partial sum formula $s_k=\frac{a(1-r^k)}{1-r}$ is derived by the ``multiply-and-subtract'' trick (see Key Formula below). When $|r|<1$, the term $r^k\to 0$ as $k\to\infty$, so $s_k\to \frac{a(1-0)}{1-r}=\frac{a}{1-r}$.
+
+When $|r|\ge 1$, either $r^k$ diverges ($|r|>1$) or $s_k=ka\to\pm\infty$ ($r=1$), or $r^k$ oscillates without converging ($r=-1$).
+
+\begin{keyformula}[title={Geometric partial sum (exam setup)}]
+
+For $r\ne 1$, the $k$-th partial sum is
+
+\[
+s_k=a+ar+\cdots+ar^{k-1}
+=\frac{a(1-r^k)}{1-r}.
+\]
+When $|r|<1$, use $r^k\to 0$ to obtain the infinite sum $\frac{a}{1-r}$.
+
+\end{keyformula}
+
+\noindent
+\textbf{Derivation of the partial-sum formula.}
+Write:
+\begin{align*}
+s_k &= a + ar + ar^2 + \cdots + ar^{k-1},\\
+r\cdot s_k &= ar + ar^2 + ar^3 + \cdots + ar^{k}.
+\end{align*}
+Subtract: $s_k - rs_k = a - ar^k$, so $s_k(1-r)=a(1-r^k)$, giving $s_k=\frac{a(1-r^k)}{1-r}$.
+
+\begin{examtip}[title={Exam Focus: Identifying geometric series}]
+
+The first step is always to rewrite the general term in the form $a\cdot r^{n-1}$ (or equivalently $\text{const}\cdot r^n$).
+
+\begin{itemize}[leftmargin=*]
+\item Identify $a$ (first term) and $r$ (common ratio).
+\item Check $|r|<1$ for convergence.
+\item If the sum starts at $n=0$ instead of $n=1$: $\sum_{n=0}^{\infty}r^n=\frac{1}{1-r}$.
+\item If the sum starts at $n=k$ instead of $n=1$: factor out $r^{k-1}$ or compute as $S_{\text{total}}-s_{k-1}$.
+\end{itemize}
+
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: sum of a geometric series}]
+
+Evaluate $\displaystyle \sum_{n=1}^{\infty}\frac{(-3)^{n-1}}{4^{n}}$.
+
+\emph{Solution.}
+
+Rewrite
+
+\[
+\frac{(-3)^{n-1}}{4^{n}}=\frac{1}{4}\left(-\frac{3}{4}\right)^{n-1}.
+\]
+
+This is geometric with $a=\frac14$ and $r=-\frac34$ (so $|r|=\frac34<1$).
+
+Therefore,
+
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(-3)^{n-1}}{4^{n}}=\frac{\frac14}{1-(-\frac34)}=\frac{1/4}{7/4}=\frac{1}{7}.}
+\]
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 4.21): identifying divergent geometric}]
+
+Is $\displaystyle \sum_{n=1}^{\infty}2^{2n}3^{1-n}$ convergent?
+
+\emph{Solution.}
+Rewrite: $2^{2n}3^{1-n}=(2^2)^n\cdot 3\cdot 3^{-n}=3\cdot \left(\frac{4}{3}\right)^n=4\cdot\left(\frac{4}{3}\right)^{n-1}$.
+
+This is geometric with $r=\frac{4}{3}>1$, so the series \textbf{diverges}.
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: telescoping via partial fractions}]
+
+Evaluate $\displaystyle \sum_{n=1}^{\infty}\frac{1}{n(n+1)}$.
+
+\emph{Solution.}
+
+\[
+\frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}.
+\]
+
+Then
+
+\[
+s_k=\sum_{n=1}^{k}\left(\frac{1}{n}-\frac{1}{n+1}\right)=1-\frac{1}{k+1}\xrightarrow[k\to\infty]{}1,
+\]
+so $\displaystyle \boxed{\sum_{n=1}^{\infty}\frac{1}{n(n+1)}=1}$.
+
+\end{examplebox}
+
+\noindent
+\textbf{Why telescoping works.}
+When partial fractions produce a difference $f(n)-f(n+1)$, consecutive terms in $s_k$ cancel:
+\[
+s_k = \bigl(f(1)-f(2)\bigr)+\bigl(f(2)-f(3)\bigr)+\cdots+\bigl(f(k)-f(k+1)\bigr)=f(1)-f(k+1).
+\]
+Only the first and last terms survive---like a collapsing telescope.
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Q5(iv)): telescoping plus geometric}]
+
+Evaluate $\displaystyle \sum_{n=2}^{\infty}\left(\frac{1}{e^n}+\frac{2}{n^2-1}\right)$.
+
+\emph{Solution.}
+Split into two convergent series:
+
+\textbf{Geometric part:}
+$\displaystyle\sum_{n=2}^{\infty}\frac{1}{e^n}=\frac{1/e^2}{1-1/e}=\frac{1}{e(e-1)}.$
+
+\textbf{Telescoping part:}
+$\frac{2}{n^2-1}=\frac{2}{(n-1)(n+1)}=\frac{1}{n-1}-\frac{1}{n+1}.$
+
+\[
+\sum_{n=2}^{N}\left(\frac{1}{n-1}-\frac{1}{n+1}\right)
+=\left(1+\frac{1}{2}\right)-\left(\frac{1}{N}+\frac{1}{N+1}\right)\to \frac{3}{2}.
+\]
+
+\textbf{Total:}
+$\displaystyle\boxed{\sum_{n=2}^{\infty}\left(\frac{1}{e^n}+\frac{2}{n^2-1}\right)=\frac{1}{e(e-1)}+\frac{3}{2}.}$
+
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: harmonic series diverges (grouping idea)}]
+
+Show that $\displaystyle \sum_{n=1}^{\infty}\frac{1}{n}$ diverges.
+
+\emph{Solution.}
+
+Let $s_k=\sum_{n=1}^{k}\frac{1}{n}$. For $k=2^m$,
+
+\[
+s_{2^m}
+=1+\frac12+\left(\frac13+\frac14\right)+\left(\frac15+\cdots+\frac18\right)+\cdots+\left(\frac{1}{2^{m-1}+1}+\cdots+\frac{1}{2^m}\right).
+\]
+
+Each block has $2^{j-1}$ terms, each at least $1/2^j$, so each block sum is at least $1/2$.
+
+Thus $s_{2^m}\ge 1+\frac{m}{2}\to\infty$, hence the harmonic series diverges.
+
+\end{examplebox}
+
+\noindent
+\textbf{Why the harmonic series is important.}
+It is the canonical example showing that $a_n\to 0$ does \emph{not} imply convergence: $\frac{1}{n}\to 0$, yet $\sum \frac{1}{n}=\infty$.
+This is why the $n$th-term test (below) can only prove \emph{divergence}, never convergence.
+
+\begin{theorem}{Necessary condition for series convergence}{thm:term-to-zero}
+
+If $\sum_{n=1}^{\infty} a_n$ converges, then $\lim_{n\to\infty} a_n=0$.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this is true.}
+If $\sum a_n=S$, then $s_k\to S$ and $s_{k-1}\to S$. Since $a_k=s_k-s_{k-1}$, we get $a_k\to S-S=0$.
+
+\begin{theorem}{The $n$th-term test for divergence}{thm:nth-term}
+
+If $\lim_{n\to\infty} a_n$ does not exist or $\lim_{n\to\infty} a_n\ne 0$, then $\sum_{n=1}^{\infty} a_n$ diverges.
+
+\end{theorem}
+
+\noindent
+\textbf{Why this is just the contrapositive of Theorem~\ref{thm:term-to-zero}.}
+Theorem~\ref{thm:term-to-zero} says: convergent $\Rightarrow$ $a_n\to 0$.
+Contrapositive: $a_n\not\to 0$ $\Rightarrow$ divergent.
+That's exactly the $n$th-term test.
+
+\begin{commonmistake}[title={Common Mistake: $a_n\to 0$ does NOT imply convergence}]
+
+If $\lim a_n=0$, the $n$th-term test is \textbf{inconclusive}---it tells you nothing.
+
+The harmonic series ($a_n=1/n\to 0$, but diverges) proves this.
+
+You need a stronger test (comparison, ratio, root, integral, etc.)\ to establish convergence when $a_n\to 0$.
+
+\end{commonmistake}
+
+\begin{examtip}
+
+A fast first check for any series $\sum a_n$:
+
+\begin{itemize}
+
+\item Compute $\lim_{n\to\infty} a_n$. If the limit is not $0$ (or does not exist), the series \emph{immediately} diverges by Theorem~\ref{thm:nth-term}.
+
+\item If $\lim a_n=0$, you cannot conclude convergence; you will need additional ideas (covered later in the course).
+
+\end{itemize}
+
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Q5 collection): quick divergence checks}]
+
+\textbf{(v)} $\displaystyle\sum_{n=1}^{\infty}\frac{n^3+n^2}{n^3-2n+5}$.
+
+$a_n=\frac{n^3+n^2}{n^3-2n+5}\to \frac{1+0}{1-0+0}=1\ne 0$. \textbf{Diverges} by the $n$th-term test.
+
+\textbf{(iii)} $\displaystyle\sum_{n=1}^{\infty}\frac{e^n}{n^2}$.
+
+$a_n=\frac{e^n}{n^2}\to \infty$ (exponential dominates polynomial). \textbf{Diverges} by the $n$th-term test.
+
+\textbf{(vi)} $\displaystyle\sum_{n=1}^{\infty}\left(\frac{3}{5}n+\frac{2}{n}\right)^2$.
+
+$a_n\sim \frac{9}{25}n^2\to\infty$. \textbf{Diverges} by the $n$th-term test.
+
+\end{examplebox}
+
+\begin{theorem}{Linearity of convergent series}{thm:series-linearity}
+
+If $\sum a_n$ and $\sum b_n$ are convergent and $c\in\mathbb{R}$, then:
+
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+
+\item $\sum (c a_n)$ converges and $\sum (c a_n)=c\sum a_n$.
+
+\item $\sum (a_n+b_n)$ converges and $\sum (a_n+b_n)=\sum a_n+\sum b_n$.
+
+\item $\sum (a_n-b_n)$ converges and $\sum (a_n-b_n)=\sum a_n-\sum b_n$.
+
+\end{enumerate}
+
+\end{theorem}
+
+\noindent
+\textbf{Why linearity holds.}
+These follow directly from the limit laws for sequences applied to partial sums:
+$\sum_{n=1}^{k}(a_n+b_n)=\sum_{n=1}^{k}a_n+\sum_{n=1}^{k}b_n$, and the limit of a sum is the sum of the limits (provided both converge).
+
+\begin{commonmistake}
+
+The linearity rules require that the involved series are already known to be convergent.
+
+It is \emph{not} valid to use these identities to ``prove'' convergence without a separate convergence argument.
+
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 4.26): combining series}]
+
+Evaluate $\displaystyle \sum_{n=1}^{\infty}\left(\frac{3}{n(n+1)}+\frac{1}{2^n}\right)$.
+
+\emph{Solution.}
+
+Both component series converge:
+
+$\displaystyle\sum_{n=1}^{\infty}\frac{1}{n(n+1)}=1$ (telescoping) and $\displaystyle\sum_{n=1}^{\infty}\frac{1}{2^n}=\frac{1/2}{1-1/2}=1$ (geometric with $r=1/2$).
+
+By linearity:
+
+\[
+\sum_{n=1}^{\infty}\left(\frac{3}{n(n+1)}+\frac{1}{2^n}\right)
+= 3\cdot 1 + 1 = \boxed{4}.
+\]
+
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Finite number of terms does not affect convergence}]
+
+Adding or removing finitely many terms from a series does not change whether it converges or diverges (though it may change the sum).
+
+For example, if $\sum_{n=4}^{\infty}\frac{n}{n^3+1}$ converges, then $\sum_{n=1}^{\infty}\frac{n}{n^3+1}$ also converges (it just adds three extra finite terms).
+
+This is because the partial sums of the two series differ by a fixed constant (the sum of the finitely many added/removed terms), and shifting a sequence by a constant does not affect convergence.
+
+\end{examtip}
+
+\begin{extension}[title={Extension (Beyond Syllabus: $p$-series preview and the integral test connection)}]
+
+\textbf{Syllabus link:} Chapter 4 --- \S4.4 Series.
+
+\medskip
+
+The harmonic series $\sum \frac{1}{n}$ diverges, but what about $\sum \frac{1}{n^2}$ or $\sum \frac{1}{n^p}$ in general?
+
+\textbf{Theorem ($p$-series test).}
+The series $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^p}$ converges if and only if $p>1$.
+
+\textbf{Intuition.}
+For $p>1$, the terms $1/n^p$ shrink fast enough that the partial sums stay bounded.
+For $p\le 1$, the terms shrink too slowly (at most as fast as $1/n$), and the grouping argument from the harmonic series can be adapted.
+
+This result is typically proved using the integral test (which may appear later in MH1101 or MH2100). The key idea: $\sum \frac{1}{n^p}$ converges iff $\int_1^{\infty}\frac{1}{x^p}\,dx$ converges, and this integral equals $\frac{1}{p-1}$ when $p>1$ and diverges when $p\le 1$.
+
+\end{extension}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% add explanantion to the ftc part especially, avoid giving the definitons directly without any explanaitoin on why are they like that

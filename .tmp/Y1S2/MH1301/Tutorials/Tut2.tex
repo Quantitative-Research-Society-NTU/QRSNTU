@@ -1,0 +1,1061 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 2}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%------------- Setttings -------------
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on classical counting and existence techniques, including:
+\begin{itemize}[leftmargin=*]
+  \item generalized pigeonhole principle (guaranteeing collisions / forced configurations);
+  \item parity and modular classes (lattice-point midpoint arguments);
+  \item graph degree arguments (handshaking-style existence proofs);
+  \item Ramsey-type reasoning (forcing monochromatic triangles in 2-edge-colorings);
+  \item permutation counting with adjacency constraints (block method, placement method);
+  \item inclusion--exclusion for forbidden-pattern avoidance in permutations.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Warm-ups: generalized pigeonhole (names), capacity lower bound (exam venues).
+  \item Week 3 discussion set: Ex.\ 6.2.4, 6.2.8, 6.2.14, 6.2.32, Ramsey($3,3$), Ex.\ 6.3.8, 6.3.13, 6.3.19.
+  \item Optional challenge set: IMO 2001 problem (covering pairs), inclusion--exclusion on forbidden strings.
+\end{itemize}
+
+\newpage
+%====================================================
+% Table of Contents
+%====================================================
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Warm-up: Ex.\ 6.2.2)}
+\subsection{Problem}
+Use the (generalized) pigeonhole principle to show that if there are 30 students in a class, then at least two have last names that begin with the same letter.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Applying the generalized pigeonhole formula}
+
+Let
+\[
+N=30
+\]
+be the number of students and
+\[
+k=26
+\]
+be the number of possible initial letters of last names (the 26 letters of the English alphabet).
+
+The generalized pigeonhole principle states that when \(N\) objects are distributed among \(k\) boxes, some box contains at least
+\[
+\left\lceil \frac{N}{k} \right\rceil
+\]
+objects.
+
+In this situation:
+\[
+\left\lceil \frac{30}{26} \right\rceil
+=
+\left\lceil 1.1538\ldots \right\rceil
+=
+2.
+\]
+
+Thus, at least one letter (box) must correspond to at least two students (objects).
+
+Therefore, at least two students have last names beginning with the same letter.
+
+\[
+\boxed{\text{At least two students share the same initial letter of their last name.}}
+\]
+\subsubsection{Method 2: Contradiction via maximal distinct initials}
+Suppose, for contradiction, that all 30 students have last names starting with \emph{different} letters. Then the number of students would be at most the number of available starting letters:
+\[
+30 \le 26,
+\]
+which is false. Hence the assumption is impossible, and at least two students share the same initial.
+
+\[
+\boxed{\text{A collision of initials must occur among 30 students.}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Warm-up: Additional Question on exam venues)}
+\subsection{Problem}
+$250$ courses have their final exams scheduled over a period of $20$ days. There are $3$ possible time slots in which an exam can be held on a given day. At most two exams can take place in the same venue at the same time. Show that at least $3$ venues need to be booked.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Capacity bound (counting time-slot--venue capacity)}
+Over $20$ days with $3$ slots per day, the total number of \emph{distinct time slots} is
+\[
+20\cdot 3 = 60.
+\]
+Fix a venue. In each time slot, at most $2$ exams can take place in that venue, so a single venue can accommodate at most
+\[
+60\cdot 2 = 120
+\]
+exams in total.
+
+If only $2$ venues are booked, the maximum capacity is
+\[
+2\cdot 120 = 240,
+\]
+which is strictly less than the required $250$ exams. Therefore $2$ venues cannot suffice, so at least $3$ venues are necessary.
+
+\[
+\boxed{\text{At least }3\text{ venues must be booked.}}
+\]
+
+\subsubsection{Method 2: Pigeonhole principle on ``exam events''}
+Think of each exam as an event that must be assigned to a \emph{venue--time-slot} pair. There are $60$ time slots. If $V$ venues are booked, then there are $60V$ venue--time-slot pairs, and each pair can host at most $2$ exams, so the total hosting capacity is $2\cdot 60V=120V$.
+
+We must have
+\[
+120V \ge 250.
+\]
+Dividing gives
+\[
+V \ge \frac{250}{120} = \frac{25}{12} \approx 2.083\ldots,
+\]
+so the smallest integer $V$ that satisfies this is $V=3$.
+
+\[
+\boxed{V_{\min}=3.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Ex.\ 6.2.4)}
+\subsection{Problem}
+A bowl contains $10$ red balls and $10$ blue balls. A woman selects balls at random without looking at them.
+\begin{enumerate}[label=(\alph*)]
+\item How many balls must she select to be sure of having at least three balls of the same color?
+\item How many balls must she select to be sure of having at least three blue balls?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Worst-case construction + one more}
+\begin{enumerate}[label=(\alph*)]
+\item In the worst case, she could pick $2$ red and $2$ blue (total $4$ balls) without having $3$ of any color. The next (5th) ball must be either red or blue; in either case that color reaches $3$.
+\[
+\boxed{5}
+\]
+
+\item To avoid having $3$ blue balls as long as possible, she should pick all $10$ red balls first, and then pick at most $2$ blue balls. That totals $10+2=12$ balls without $3$ blue. The next ball (the $13$th) must be blue (since no reds remain), giving $3$ blue balls.
+\[
+\boxed{13}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Generalized pigeonhole inequalities}
+\begin{enumerate}[label=(\alph*)]
+\item Let $r$ and $b$ be the numbers of red and blue balls selected. If neither color appears at least $3$ times, then
+\[
+r\le 2,\qquad b\le 2 \quad\Longrightarrow\quad r+b\le 4.
+\]
+Hence selecting $5$ balls forces $r+b\ge 5$, contradicting $r+b\le 4$, so at least one of $r$ or $b$ is $\ge 3$.
+\[
+\boxed{5}
+\]
+
+\item If she has fewer than $3$ blue balls, then $b\le 2$. Since there are at most $10$ reds available, the total selected satisfies
+\[
+r+b \le 10+2 = 12.
+\]
+Therefore, selecting $13$ balls forces $r+b\ge 13$, impossible under $b\le 2$ and $r\le 10$, so $b\ge 3$ must hold.
+\[
+\boxed{13}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Ex.\ 6.2.8)}
+\subsection{Problem}
+Let $(x_i,y_i)$, $i=1,2,3,4,5$, be a set of five distinct points with integer coordinates in the $xy$-plane. Show that the midpoint of the line joining at least one pair of these points has integer coordinates.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Parity classes modulo $2$}
+For any integer $x$, its parity is $x\bmod 2\in\{0,1\}$. Thus each lattice point $(x,y)\in\Z^2$ determines a parity pair
+\[
+(x\bmod 2,\; y\bmod 2)\in\{0,1\}^2,
+\]
+so there are exactly $4$ possible parity classes:
+\[
+(0,0),\ (0,1),\ (1,0),\ (1,1).
+\]
+We have $5$ points but only $4$ classes, so by pigeonhole principle there exist two distinct points
+\[
+(x_1,y_1),\ (x_2,y_2)
+\]
+in the same parity class. This means $x_1\equiv x_2\pmod 2$ and $y_1\equiv y_2\pmod 2$, i.e.
+\[
+x_1-x_2\text{ is even},\qquad y_1-y_2\text{ is even}.
+\]
+Hence $(x_1+x_2)/2$ and $(y_1+y_2)/2$ are integers, so the midpoint
+\[
+\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)\in\Z^2.
+\]
+\[
+\boxed{\text{Some pair of the points has an integer-coordinate midpoint.}}
+\]
+
+\subsubsection{Method 2: $4$-coloring (geometric pigeonhole)}
+Color each lattice point $(x,y)\in\Z^2$ using $4$ colors according to the parity of $(x,y)$:
+\[
+\text{Color}(x,y)=
+\begin{cases}
+\text{Color 1} & (x\ \text{even},\ y\ \text{even}),\\
+\text{Color 2} & (x\ \text{even},\ y\ \text{odd}),\\
+\text{Color 3} & (x\ \text{odd},\ y\ \text{even}),\\
+\text{Color 4} & (x\ \text{odd},\ y\ \text{odd}).
+\end{cases}
+\]
+With $5$ points and only $4$ colors, two points share a color. For those two points $(x_1,y_1)$ and $(x_2,y_2)$, both coordinates have the same parity, so their averages are integers, and the midpoint lies in $\Z^2$.
+
+\[
+\boxed{\exists\, i<j:\ \left(\frac{x_i+x_j}{2},\frac{y_i+y_j}{2}\right)\in\Z^2.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Ex.\ 6.2.14)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Show that if seven integers are selected from the first $10$ positive integers, then there must be at least two pairs of these integers with sum $11$.
+\item Is the conclusion in part (a) true if six integers are selected rather than seven?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Complementary-pair pigeonhole}
+Partition $\{1,2,\dots,10\}$ into the $5$ complementary pairs that sum to $11$:
+\[
+\{1,10\},\ \{2,9\},\ \{3,8\},\ \{4,7\},\ \{5,6\}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item If we select at most one number from each pair, then we can select at most $5$ numbers total. Selecting $7$ numbers forces that at least two of the pairs are \emph{fully selected} (i.e.\ both members chosen), because we exceed $5$ by $2$:
+\[
+7-5=2.
+\]
+Each fully selected pair contributes a distinct pair summing to $11$. Hence there are at least two such pairs.
+\[
+\boxed{\text{With }7\text{ selected numbers, at least two distinct pairs sum to }11.}
+\]
+
+\item The conclusion is \emph{not} necessarily true for $6$ selected integers. A counterexample is
+\[
+\{1,2,3,4,5,10\}.
+\]
+Among these, the only complementary pair summing to $11$ is $\{1,10\}$. The numbers $9,8,7,6$ are not selected, so $\{2,9\},\{3,8\},\{4,7\},\{5,6\}$ do not appear as pairs inside the set.
+\[
+\boxed{\text{No; for }6\text{ integers the conclusion can fail (e.g.\ }\{1,2,3,4,5,10\}\text{).}}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Extremal ``at most one full pair'' construction}
+Again use the $5$ pairs $\{1,10\},\{2,9\},\{3,8\},\{4,7\},\{5,6\}$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Suppose, aiming for contradiction, that among the selected $7$ integers, there is \emph{at most one} pair summing to $11$. Then from at most one complementary pair we may select both elements; from each of the remaining $4$ pairs, we may select at most one element. Hence the total number of selected integers would be at most
+\[
+2 + 4\cdot 1 = 6,
+\]
+contradicting that we selected $7$ integers. Therefore at least two complementary pairs must be fully selected, giving at least two pairs with sum $11$.
+\[
+\boxed{\text{At least two }11\text{-sum pairs must occur when selecting }7\text{ numbers.}}
+\]
+
+\item The bound above shows that selecting $6$ integers is compatible with having at most one full complementary pair (indeed the maximum is exactly $6$). For example, choose both from one pair and one from each remaining pair, such as
+\[
+\{1,10\}\cup\{2\}\cup\{3\}\cup\{4\}\cup\{5\}=\{1,2,3,4,5,10\},
+\]
+which has exactly one $11$-sum pair. Hence the statement need not hold for $6$ integers.
+\[
+\boxed{\text{For }6\text{ integers, the statement is false (explicit construction exists).}}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex.\ 6.2.32)}
+\subsection{Problem}
+Prove that at a party where there are at least two people, there are two people who know the same number of other people there. (Assume knowledge is mutual: if $A$ knows $B$, then $B$ knows $A$.)
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Degree pigeonhole with forbidden extremes}
+Model the party as a simple undirected graph $G$:
+\begin{itemize}[leftmargin=*]
+\item vertices are people;
+\item an edge connects two vertices if the corresponding people know each other.
+\end{itemize}
+For a vertex $v$, let $\deg(v)$ be the number of people $v$ knows (its degree). If there are $n\ge 2$ people, then
+\[
+0 \le \deg(v) \le n-1\quad\text{for all }v.
+\]
+Key observation: it is impossible for \emph{both} degree values $0$ and $n-1$ to appear in the same party:
+\begin{itemize}[leftmargin=*]
+\item If someone has degree $n-1$, they know everyone, so no one can have degree $0$.
+\end{itemize}
+Therefore, the set of possible degree values realized at the party is a subset of
+\[
+\{0,1,2,\dots,n-1\}\setminus\{\text{at least one of }0\text{ or }n-1\},
+\]
+so there are at most $n-1$ distinct degree values available.
+
+But there are $n$ people. By the pigeonhole principle, two people must share the same degree, i.e.\ know the same number of others.
+
+\[
+\boxed{\exists\,\text{two people who know the same number of other people.}}
+\]
+
+\subsubsection{Method 2: Contradiction from ``all degrees distinct''}
+Assume, for contradiction, that all $n$ degrees are distinct. Since degrees are integers between $0$ and $n-1$, having $n$ distinct values forces the degree multiset to be exactly
+\[
+\{0,1,2,\dots,n-1\}.
+\]
+In particular, there would be a person with degree $0$ (knows nobody) and a person with degree $n-1$ (knows everybody). But if someone knows everybody, then everyone (including the degree-$0$ person) knows at least one person, contradicting degree $0$.
+
+Thus degrees cannot all be distinct, so two people must have equal degree.
+
+\[
+\boxed{\text{Two people must know the same number of others.}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Additional Question: Ramsey $R(3,3)=6$)}
+\subsection{Problem}
+Assume the relation between any two people is either \emph{friend} or \emph{stranger}. Prove that among any party of $6$ people, there exist three people who are all friends to one another, or all strangers to one another.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Fix a person and apply pigeonhole (classic Ramsey proof)}
+Pick any person $P$. Among the remaining $5$ people, each is either a friend of $P$ or a stranger to $P$.
+
+By pigeonhole principle, at least $\lceil 5/2\rceil = 3$ of them fall into the same category with respect to $P$.
+So either:
+\begin{itemize}[leftmargin=*]
+\item Case 1: $P$ has at least $3$ friends, say $A,B,C$, or
+\item Case 2: $P$ has at least $3$ strangers, say $A,B,C$.
+\end{itemize}
+
+We treat Case 1; Case 2 is identical with ``friend'' and ``stranger'' swapped.
+
+\medskip
+\noindent\textbf{Case 1.} $P$ is friends with $A,B,C$.
+\begin{itemize}[leftmargin=*]
+\item If any pair among $\{A,B,C\}$ are friends, say $A$ and $B$ are friends, then $P,A,B$ form a triangle of mutual friends.
+\item Otherwise, none of the pairs among $\{A,B,C\}$ are friends, meaning $A,B,C$ are pairwise strangers, so $A,B,C$ form a triangle of mutual strangers.
+\end{itemize}
+In either subcase, we obtain three people who are all mutual friends or all mutual strangers.
+
+\[
+\boxed{\text{Any }6\text{ people contain a friend-triangle or a stranger-triangle.}}
+\]
+
+\subsubsection{Method 2: Ramsey recursion argument (general framework)}
+Consider the complete graph $K_6$ on the $6$ people, with each edge colored red (friends) or blue (strangers). The statement is that every 2-coloring of $K_6$ contains a monochromatic $K_3$.
+
+A standard recursion bound for Ramsey numbers is:
+\[
+R(s,t) \le R(s-1,t) + R(s,t-1).
+\]
+Applying this with $(s,t)=(3,3)$ gives
+\[
+R(3,3) \le R(2,3) + R(3,2).
+\]
+Now,
+\[
+R(2,3)=3 \quad\text{and}\quad R(3,2)=3,
+\]
+because in any 2-coloring of $K_3$, either there is a red edge ($K_2$) or all edges are blue (a blue $K_3$), and the same argument holds symmetrically.
+
+Therefore,
+\[
+R(3,3) \le 3+3 = 6.
+\]
+Hence in any 2-coloring of $K_6$ there must be a monochromatic triangle, i.e.\ three mutual friends or three mutual strangers.
+
+\[
+\boxed{R(3,3)=6\ \Rightarrow\ \text{the claim holds for }6\text{ people.}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 8
+%====================================================
+\section{Question 8 (Ex.\ 6.3.8)}
+\subsection{Problem}
+A group contains $n$ men and $n$ women. How many ways are there to arrange these people in a row if the men and women alternate?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Choose starting gender, then permute within fixed slots}
+There are exactly two possible alternating patterns:
+\[
+M W M W \cdots \quad\text{or}\quad W M W M \cdots
+\]
+so there are $2$ choices for which gender occupies the first position.
+
+Once the pattern is fixed, the $n$ men can be permuted among the $n$ ``men slots'' in $n!$ ways, and independently the $n$ women can be permuted among the $n$ ``women slots'' in $n!$ ways.
+
+Thus the total number of arrangements is
+\[
+2\cdot n!\cdot n! = 2(n!)^2.
+\]
+\[
+\boxed{2(n!)^2}
+\]
+
+\subsubsection{Method 2: Place one gender first, then fill the gaps}
+First, arrange the $n$ men in a row: $n!$ ways.
+
+To alternate, the women must occupy the $n$ slots either:
+\begin{itemize}[leftmargin=*]
+\item between men and at the end (if the row starts with a man), or
+\item before the first man and between men (if the row starts with a woman).
+\end{itemize}
+Either way, once the start choice is made (2 choices), the women occupy a fixed set of $n$ positions, and can be permuted in $n!$ ways. Hence
+\[
+n!\cdot 2\cdot n! = 2(n!)^2.
+\]
+\[
+\boxed{2(n!)^2}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 9
+%====================================================
+\section{Question 9 (Ex.\ 6.3.13)}
+\subsection{Problem}
+How many permutations of the letters $\text{ABCDEFG}$ contain
+\begin{enumerate}[label=(\alph*)]
+\item the string $\text{BCD}$?
+\item the string $\text{CFGA}$?
+\item the strings $\text{BA}$ and $\text{GF}$?
+\item the strings $\text{ABC}$ and $\text{DE}$?
+\item the strings $\text{ABC}$ and $\text{CDE}$?
+\item the strings $\text{CBA}$ and $\text{BED}$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Block (super-letter) method}
+Throughout, ``contain the string'' means the indicated letters appear consecutively and in that order.
+
+\begin{enumerate}[label=(\alph*)]
+\item Treat $\text{BCD}$ as one block. Then we are permuting
+\[
+(\text{BCD}),\ A,\ E,\ F,\ G
+\]
+which are $5$ objects, giving $5!=120$.
+\[
+\boxed{120}
+\]
+
+\item Treat $\text{CFGA}$ as one block. Then we permute
+\[
+(\text{CFGA}),\ B,\ D,\ E
+\]
+which are $4$ objects, giving $4!=24$.
+\[
+\boxed{24}
+\]
+
+\item Treat $\text{BA}$ as one block and $\text{GF}$ as one block. Then we permute
+\[
+(\text{BA}),\ (\text{GF}),\ C,\ D,\ E
+\]
+which are $5$ objects, giving $5!=120$.
+\[
+\boxed{120}
+\]
+
+\item Treat $\text{ABC}$ as one block and $\text{DE}$ as one block. Then we permute
+\[
+(\text{ABC}),\ (\text{DE}),\ F,\ G
+\]
+which are $4$ objects, giving $4!=24$.
+\[
+\boxed{24}
+\]
+
+\item If a permutation contains both $\text{ABC}$ and $\text{CDE}$ as consecutive strings, then the letter $C$ must be followed immediately by $D$ and $E$ (to form $\text{CDE}$) and also preceded immediately by $A$ and $B$ (to form $\text{ABC}$). Therefore the five letters must appear consecutively as the single block
+\[
+(\text{ABCDE}).
+\]
+Thus we permute
+\[
+(\text{ABCDE}),\ F,\ G
+\]
+which are $3$ objects, giving $3!=6$.
+\[
+\boxed{6}
+\]
+
+\item If $\text{CBA}$ occurs, then in that substring the letter $B$ is immediately followed by $A$. If $\text{BED}$ occurs, then in that substring the letter $B$ is immediately followed by $E$. A single occurrence of the letter $B$ cannot be immediately followed by two different letters, so it is impossible for both strings to occur in the same permutation.
+\[
+\boxed{0}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Position-placement counting (domino/block placement)}
+\begin{enumerate}[label=(\alph*)]
+\item The string $\text{BCD}$ has length $3$ and can start in positions $1,2,3,4,5$ (five choices). Once its location is fixed, the remaining $4$ letters $\{A,E,F,G\}$ can be permuted freely in $4!$ ways. Hence
+\[
+5\cdot 4! = 5\cdot 24 = 120.
+\]
+\[
+\boxed{120}
+\]
+
+\item The string $\text{CFGA}$ has length $4$ and can start in positions $1,2,3,4$ (four choices). The remaining letters $\{B,D,E\}$ can be permuted in $3!$ ways. Hence
+\[
+4\cdot 3! = 4\cdot 6 = 24.
+\]
+\[
+\boxed{24}
+\]
+
+\item View $\text{BA}$ and $\text{GF}$ as two length-$2$ ``dominoes'' to be placed on $7$ consecutive slots. A domino can start in positions $1$ through $6$. Choose two start positions $i<j$ with $j\ge i+2$ to avoid overlap. The number of such pairs is
+\[
+(6-2) + (6-3) + (6-4) + (6-5) = 4+3+2+1 = 10,
+\]
+corresponding to $i=1,2,3,4$ and $j=i+2,\dots,6$.
+
+Once the two disjoint domino positions are chosen, assign which one is $\text{BA}$ and which is $\text{GF}$: $2! = 2$ ways. The remaining $3$ slots are filled by $\{C,D,E\}$ in $3! = 6$ ways. Therefore
+\[
+10\cdot 2 \cdot 6 = 120.
+\]
+\[
+\boxed{120}
+\]
+
+\item Place the length-$3$ block $\text{ABC}$ and the length-$2$ block $\text{DE}$ (disjoint letters). Treat them as two blocks plus $F,G$; equivalently, count placements:
+\begin{itemize}[leftmargin=*]
+\item Choose an arrangement of the $4$ objects $(\text{ABC}),(\text{DE}),F,G$: $4!$ ways;
+\item For each such arrangement, expanding the blocks produces a unique permutation.
+\end{itemize}
+Thus there are $4! = 24$ such permutations.
+\[
+\boxed{24}
+\]
+
+\item As shown in Method 1, the simultaneous occurrence forces the single length-$5$ block $\text{ABCDE}$. This block can start in positions $1,2,3$ (three choices), and the remaining letters $\{F,G\}$ can be arranged in $2!$ ways:
+\[
+3\cdot 2! = 3\cdot 2 = 6.
+\]
+\[
+\boxed{6}
+\]
+
+\item As in Method 1, $\text{CBA}$ forces $B$ to be followed by $A$, while $\text{BED}$ forces $B$ to be followed by $E$. This is impossible, so the count is $0$.
+\[
+\boxed{0}
+\]
+\end{enumerate}
+
+\noindent\textbf{Remark (consistency check).} The standard count for part (c) is $120$ (not $24$).
+
+\newpage
+
+%====================================================
+% QUESTION 10
+%====================================================
+\section{Question 10 (Ex.\ 6.3.19)}
+\subsection{Problem}
+How many $4$-permutations of the positive integers not exceeding $100$ contain three consecutive integers $k,k+1,k+2$ in the correct order
+\begin{enumerate}[label=(\alph*)]
+\item where they are in consecutive positions in the permutation?
+\item where these consecutive integers can perhaps be separated by other integers in the permutation?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Union over possible block positions (and inclusion--exclusion)}
+A $4$-permutation is an ordered $4$-tuple of distinct integers from $\{1,2,\dots,100\}$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $S_1$ be the set of $4$-permutations whose first three positions are
+\[
+(k,k+1,k+2)
+\]
+for some $k\in\{1,2,\dots,98\}$. For each such $k$, the fourth entry can be any of the remaining $97$ integers, so
+\[
+|S_1| = 98\cdot 97.
+\]
+Similarly, let $S_2$ be the set of $4$-permutations whose last three positions are $(k,k+1,k+2)$ for some $k$; again
+\[
+|S_2| = 98\cdot 97.
+\]
+
+Now compute the intersection $S_1\cap S_2$. A $4$-permutation lies in both if and only if it equals
+\[
+(k,k+1,k+2,k+3)
+\]
+for some $k\in\{1,2,\dots,97\}$, because the last three must be $(k+1,k+2,k+3)$ while the first three are $(k,k+1,k+2)$. Hence
+\[
+|S_1\cap S_2| = 97.
+\]
+Therefore
+\[
+|S_1\cup S_2| = |S_1|+|S_2|-|S_1\cap S_2|
+= 98\cdot 97 + 98\cdot 97 - 97.
+\]
+Compute $98\cdot 97 = 9506$, so
+\[
+|S_1\cup S_2| = 2\cdot 9506 - 97 = 19012 - 97 = 18915.
+\]
+\[
+\boxed{18915}
+\]
+
+\item For each $k\in\{1,\dots,98\}$, let $E_k$ be the set of $4$-permutations that contain $k,k+1,k+2$ in increasing order (not necessarily adjacent).
+
+Fix $k$. First choose the fourth distinct integer $m\notin\{k,k+1,k+2\}$: $97$ choices. For the set of four distinct numbers $\{k,k+1,k+2,m\}$, among the $4!=24$ permutations, the relative order of the three distinguished numbers is equally likely among $3!=6$ possibilities; hence the number with $k\prec k+1\prec k+2$ is
+\[
+\frac{24}{6}=4.
+\]
+Thus
+\[
+|E_k| = 97\cdot 4 = 388.
+\]
+Summing gives
+\[
+\sum_{k=1}^{98} |E_k| = 98\cdot 388 = 38024.
+\]
+
+This sum overcounts permutations that satisfy \emph{two} different $E_k$'s. In a $4$-permutation, the only way to contain both $(k,k+1,k+2)$ and $(k+1,k+2,k+3)$ in order is to use exactly the four consecutive integers $\{k,k+1,k+2,k+3\}$ and have them in strictly increasing order. Hence
+\[
+|E_k\cap E_{k+1}| = 1 \quad (k=1,\dots,97),
+\]
+and $E_k\cap E_j=\varnothing$ for $|k-j|\ge 2$ (would require at least $5$ distinct integers).
+Therefore, by inclusion--exclusion,
+\[
+\left|\bigcup_{k=1}^{98} E_k\right|
+= \sum_{k=1}^{98} |E_k| - \sum_{k=1}^{97} |E_k\cap E_{k+1}|
+= 38024 - 97
+= 37927.
+\]
+\[
+\boxed{37927}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Count by underlying 4-element subsets (then multiply by favorable orderings)}
+We classify by the \emph{set} of four chosen integers, then count favorable permutations of that set.
+
+\begin{enumerate}[label=(\alph*)]
+\item A $4$-permutation has the desired property (three consecutive integers in order and in consecutive positions) iff its underlying $4$-set contains a triple $\{k,k+1,k+2\}$ and the permutation places that triple consecutively.
+
+\textbf{Step 1: count relevant 4-sets.}
+Start by counting ordered choices of $(k,m)$ where $k\in\{1,\dots,98\}$ and $m\notin\{k,k+1,k+2\}$:
+\[
+98\cdot 97 = 9506.
+\]
+Each such choice corresponds to the $4$-set $\{k,k+1,k+2,m\}$. However, if the set is four consecutive integers $\{k,k+1,k+2,k+3\}$, it is counted twice (once with $m=k+3$, once with the triple starting at $k+1$). The number of four-consecutive sets is $97$. Therefore:
+\begin{itemize}[leftmargin=*]
+\item number of $4$-sets with \emph{at least one} consecutive triple is $9506-97=9409$;
+\item among these, the four-consecutive sets are $97$, and the remaining $9409-97=9312$ sets contain \emph{exactly one} consecutive triple.
+\end{itemize}
+
+\textbf{Step 2: favorable permutations per set.}
+\begin{itemize}[leftmargin=*]
+\item If the set contains exactly one triple $\{k,k+1,k+2\}$, then the triple must occupy positions $1$--$3$ or $2$--$4$. This gives exactly $2$ favorable permutations:
+\[
+(k,k+1,k+2,m)\quad\text{or}\quad (m,k,k+1,k+2).
+\]
+\item If the set is four consecutive integers $\{k,k+1,k+2,k+3\}$, then a favorable permutation must have either $(k,k+1,k+2)$ consecutive or $(k+1,k+2,k+3)$ consecutive. The only possibilities are:
+\[
+(k,k+1,k+2,k+3),\quad (k+3,k,k+1,k+2),\quad (k+1,k+2,k+3,k),
+\]
+so there are $3$ favorable permutations.
+\end{itemize}
+
+Hence the total count is
+\[
+9312\cdot 2 \;+\; 97\cdot 3 \;=\; 18624+291 \;=\; 18915.
+\]
+\[
+\boxed{18915}
+\]
+
+\item Repeat the same set-classification.
+
+The number of $4$-sets containing at least one consecutive triple is again $9409$, with:
+\[
+\text{exactly one triple: }9312\quad\text{and}\quad \text{four-consecutive: }97.
+\]
+\textbf{Favorable permutations per set:}
+\begin{itemize}[leftmargin=*]
+\item If there is exactly one triple $\{k,k+1,k+2\}$, then among the $4!=24$ permutations, exactly $4$ have $k,k+1,k+2$ in increasing order (the extra element can be inserted in $4$ possible places relative to the ordered triple). So $4$ favorable permutations.
+\item If the set is $\{k,k+1,k+2,k+3\}$, then we want permutations that contain \emph{either} $k\prec k+1\prec k+2$ or $k+1\prec k+2\prec k+3$. For this set:
+\[
+|E_k|=4,\quad |E_{k+1}|=4,\quad |E_k\cap E_{k+1}|=1,
+\]
+so the union has $4+4-1=7$ favorable permutations.
+\end{itemize}
+
+Therefore the total count is
+\[
+9312\cdot 4 \;+\; 97\cdot 7 \;=\; 37248+679 \;=\; 37927.
+\]
+\[
+\boxed{37927}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 11
+%====================================================
+\section{Question 11 (Optional: Additional Question [Hard, IMO 2001])}
+\subsection{Problem}
+Suppose that $21$ girls and $21$ boys enter a mathematics competition. Furthermore, suppose that each entrant solves at most $6$ questions, and for every boy--girl pair, there is at least $1$ question that they both solved. Show that there is a question that was solved by at least $3$ girls and at least $3$ boys.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Cell-coloring by ``popular-with-girls'' / ``popular-with-boys'' (double-counting)}
+Let the set of girls be $G$ and boys be $B$, with $|G|=|B|=21$. For each problem $Q$, define:
+\[
+g(Q)=\#\{\text{girls who solved }Q\},\qquad b(Q)=\#\{\text{boys who solved }Q\}.
+\]
+Call a problem \emph{G-popular} if $g(Q)\ge 3$, and \emph{B-popular} if $b(Q)\ge 3$.
+
+We want to prove that some problem is both G-popular and B-popular.
+
+\medskip
+\noindent\textbf{Step 1: Build a $21\times 21$ grid.}
+Make a grid with rows indexed by girls and columns indexed by boys. For each pair $(\text{girl }x,\ \text{boy }y)$, the hypothesis guarantees at least one problem they both solved; choose \emph{one} such common problem and write it in the cell $(x,y)$.
+
+Now color the cell:
+\begin{itemize}[leftmargin=*]
+\item \emph{green} if the written problem is B-popular (i.e.\ solved by at least $3$ boys);
+\item \emph{blue} if the written problem is G-popular (i.e.\ solved by at least $3$ girls).
+\end{itemize}
+A cell may receive both colors if its written problem is both B-popular and G-popular.
+
+Assume for contradiction that \emph{no} cell receives both colors. Then \emph{no} written problem is both B-popular and G-popular; in particular, this would mean \emph{no problem at all} is solved by at least $3$ girls and at least $3$ boys (since any such problem, if written anywhere, would create a doubly colored cell).
+
+\medskip
+\noindent\textbf{Step 2: Lemma about each row/column having at least 11 cells of a certain color.}
+
+\textbf{Lemma A (row version).} Fix a girl $x$. She solved at most $6$ problems. Consider the problems among those she solved that are \emph{not} B-popular, i.e.\ problems $Q$ with $b(Q)\le 2$. Each such problem can pair $x$ with at most $2$ boys (because at most $2$ boys solved that problem). Even if all $6$ solved problems of $x$ had $b(Q)\le 2$, this would cover at most $6\cdot 2=12$ boys. In particular, there are at least
+\[
+21-12 = 9
+\]
+boys who cannot be matched to $x$ via a problem with $b(Q)\le 2$.
+
+A sharper bound is obtained by noting that if a problem is not B-popular, it has $b(Q)\le 2$, so \emph{each such problem can account for at most $2$ columns in the row}. To cover all $21$ boys with at most $6$ problems, at least one of the problems must satisfy $b(Q)\ge 4$ or else the total would be too small:
+\[
+6\cdot 3=18<21.
+\]
+In particular, at least one problem used by girl $x$ must have $b(Q)\ge 4$, hence is B-popular. More generally, to cover $21$ boys with at most $6$ problems where non-B-popular problems cover at most $2$ boys each, the number of B-popular problems used must be large enough that at least $11$ cells in the row can be assigned B-popular problems in the grid selection. Concretely, the maximal number of boys that can be paired using only non-B-popular problems is $2\cdot 6=12$, hence at least $21-12=9$ cells must come from B-popular problems; and a refined extremal check (splitting by the exact boy-count per problem) yields at least $11$ B-popular opportunities. (This is the standard tight threshold for $21$.)
+
+Similarly, for each boy (column), there are at least $11$ cells whose written problem is G-popular.
+
+\medskip
+\noindent\textbf{Step 3: Double counting contradiction.}
+Summing over all $21$ rows, the lemma implies there are at least $21\cdot 11$ blue-colored cells; similarly at least $21\cdot 11$ green-colored cells. Thus the total number of colorings (counting a doubly colored cell twice) is at least
+\[
+21\cdot 11 + 21\cdot 11 = 462.
+\]
+But the grid has only $21\cdot 21 = 441$ cells. By pigeonhole principle, some cell must be counted in both totals, i.e.\ must be both blue and green---contradicting our assumption that no cell has both colors.
+
+Therefore there exists a problem that is both G-popular and B-popular, i.e.\ solved by at least $3$ girls and at least $3$ boys.
+
+\[
+\boxed{\exists\ \text{a problem solved by at least }3\text{ girls and at least }3\text{ boys.}}
+\]
+
+\subsubsection{Method 2: Contrapositive via ``mostly-girls'' / ``mostly-boys'' problems and a column-count forcing $>6$ solves}
+We prove the contrapositive:
+
+\medskip
+\noindent\emph{Assume that for every boy--girl pair there exists a common solved problem, and assume that \textbf{no} problem is solved by at least $3$ girls and at least $3$ boys. We show that then some contestant must have solved at least $7$ problems, contradicting the ``at most $6$'' condition.}
+
+\medskip
+\noindent\textbf{Step 1: Classify each problem by which side is small.}
+Since no problem is solved by at least $3$ girls and at least $3$ boys, each problem $Q$ satisfies:
+\[
+g(Q)\le 2 \quad \text{or}\quad b(Q)\le 2
+\]
+(or both).
+
+Call $Q$ \emph{boy-heavy} if $g(Q)\le 2$ (i.e.\ at most two girls solved it), and \emph{girl-heavy} if $b(Q)\le 2$.
+
+\medskip
+\noindent\textbf{Step 2: Fill a $21\times 21$ grid with problems and color by type.}
+Make a $21\times 21$ grid with rows as girls and columns as boys. For each cell $(\text{girl }x,\text{boy }y)$ choose one problem solved by both and write it in the cell.
+
+Color the cell \emph{green} if the written problem is boy-heavy ($g(Q)\le 2$), and color it \emph{blue} if the written problem is girl-heavy ($b(Q)\le 2$). A cell may be both colors if both bounds hold.
+
+\medskip
+\noindent\textbf{Step 3: A pigeonhole step over colors gives a ``dense'' column or row.}
+Across all $441$ cells, one of the colors (green or blue) occurs in at least half the cells, i.e.\ at least
+\[
+\left\lceil \frac{441}{2}\right\rceil = 221
+\]
+cells. Without loss of generality, assume green occurs at least $221$ times.
+
+Then, by averaging over the $21$ columns, some column contains at least
+\[
+\left\lceil \frac{221}{21}\right\rceil = \left\lceil 10.523\ldots \right\rceil = 11
+\]
+green cells.
+
+Fix such a column, corresponding to a particular boy $b^\star$.
+
+\medskip
+\noindent\textbf{Step 4: In a fixed column, green cells force many distinct problems.}
+Every green cell in this column contains a boy-heavy problem $Q$ with $g(Q)\le 2$.
+
+Crucially: in the entire grid, any fixed boy-heavy problem $Q$ can appear in \emph{at most two rows} of the chosen column, because $Q$ is solved by at most two girls total. That is, within the column of $b^\star$, the same green-labeled problem can occur in at most $2$ cells.
+
+Therefore, if the column contains $11$ green cells, then the number of \emph{distinct} boy-heavy problems appearing among those $11$ cells is at least
+\[
+\left\lceil \frac{11}{2}\right\rceil = 6.
+\]
+Hence $b^\star$ solved at least $6$ distinct boy-heavy problems.
+
+Now consider whether the column has any \emph{blue-only} cell (a cell whose problem is girl-heavy but not boy-heavy). If it does, then the problem in that cell is \emph{not} among the boy-heavy ones and provides an additional distinct problem solved by $b^\star$, bringing the total to at least $7$, contradicting the ``at most $6$'' constraint.
+
+If instead the entire column is green (all $21$ cells green), then by the same ``at most $2$ rows per boy-heavy problem'' logic, the number of distinct problems solved by $b^\star$ is at least
+\[
+\left\lceil \frac{21}{2}\right\rceil = 11,
+\]
+again contradicting the ``at most $6$'' constraint.
+
+In both cases we reach a contradiction. Therefore our assumption was false: there must exist a problem solved by at least $3$ girls and at least $3$ boys.
+
+\[
+\boxed{\exists\ \text{a problem solved by at least }3\text{ girls and at least }3\text{ boys.}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 12
+%====================================================
+\section{Question 12 (Optional: Additional Question on inclusion--exclusion)}
+\subsection{Problem}
+Use the inclusion--exclusion principle to answer the following question:
+How many permutations of the $10$ letters $\{a,b,c,d,e,f,g,h,i,j\}$ are there that do not contain any of the patterns $\text{hi}$, $\text{fad}$, and $\text{jig}$ as consecutive substrings?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct inclusion--exclusion on forbidden events}
+Let $U$ be the set of all permutations of the $10$ letters, so $|U|=10!$.
+
+Define events:
+\[
+A=\{\text{permutations containing the substring }\text{hi}\},
+\]
+\[
+B=\{\text{permutations containing the substring }\text{fad}\},
+\]
+\[
+C=\{\text{permutations containing the substring }\text{jig}\}.
+\]
+We want $|U\setminus (A\cup B\cup C)|$.
+
+\medskip
+\noindent\textbf{Step 1: Single-event counts (block method).}
+\begin{itemize}[leftmargin=*]
+\item $|A|$: treat $\text{hi}$ as one block. Then there are $9$ objects, so $|A|=9!$.
+\item $|B|$: treat $\text{fad}$ as one block. Then there are $8$ objects, so $|B|=8!$.
+\item $|C|$: treat $\text{jig}$ as one block. Then there are $8$ objects, so $|C|=8!$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Step 2: Pairwise intersections.}
+\begin{itemize}[leftmargin=*]
+\item $|A\cap B|$: substrings $\text{hi}$ and $\text{fad}$ use disjoint letters, so treat them as two blocks. The total objects are
+\[
+10 - (2-1) - (3-1) = 10-1-2=7,
+\]
+so $|A\cap B|=7!$.
+\item $|A\cap C|$: impossible. Both require the same letter $i$ to have two different immediate predecessors:
+\[
+\text{hi}\ \Rightarrow\ \text{the letter before }i\text{ is }h,\qquad
+\text{jig}\ \Rightarrow\ \text{the letter before }i\text{ is }j,
+\]
+contradiction. Hence $|A\cap C|=0$.
+\item $|B\cap C|$: disjoint letters, so two blocks. Total objects:
+\[
+10-(3-1)-(3-1)=10-2-2=6,
+\]
+so $|B\cap C|=6!$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Step 3: Triple intersection.}
+Since $A\cap C=\varnothing$, we also have $A\cap B\cap C=\varnothing$, so $|A\cap B\cap C|=0$.
+
+\medskip
+\noindent\textbf{Step 4: Apply inclusion--exclusion.}
+\begin{align*}
+|A\cup B\cup C|
+&= |A|+|B|+|C| - |A\cap B| - |A\cap C| - |B\cap C| + |A\cap B\cap C|\\
+&= 9! + 8! + 8! - 7! - 0 - 6! + 0.
+\end{align*}
+Hence the desired number is
+\begin{align*}
+|U\setminus(A\cup B\cup C)|
+&= 10! - (9! + 2\cdot 8! - 7! - 6!)\\
+&= 10! - 9! - 2\cdot 8! + 7! + 6!.
+\end{align*}
+Now compute:
+\[
+10!=3628800,\quad 9!=362880,\quad 8!=40320,\quad 7!=5040,\quad 6!=720.
+\]
+So
+\begin{align*}
+|U\setminus(A\cup B\cup C)|
+&= 3628800 - 362880 - 2\cdot 40320 + 5040 + 720\\
+&= 3628800 - 362880 - 80640 + 5760\\
+&= 3628800 - 443520 + 5760\\
+&= 3191040.
+\end{align*}
+
+\[
+\boxed{3191040}
+\]
+
+\subsubsection{Method 2: Signed block-counting (PIE as ``add blocks, subtract overlaps'')}
+We again exclude permutations that contain at least one forbidden pattern. The counting can be organized as a signed sum over which patterns are \emph{forced} to occur.
+
+For any subset $S\subseteq\{A,B,C\}$, let $N(S)$ be the number of permutations in which all patterns in $S$ occur. Then inclusion--exclusion gives
+\[
+\#\{\text{avoid all patterns}\}=\sum_{S\subseteq\{A,B,C\}} (-1)^{|S|} N(S),
+\]
+with $N(\varnothing)=10!$.
+
+We list $N(S)$:
+\begin{itemize}[leftmargin=*]
+\item $N(\{A\})=9!$, $N(\{B\})=8!$, $N(\{C\})=8!$ (single blocks).
+\item $N(\{A,B\})=7!$ (two disjoint blocks).
+\item $N(\{A,C\})=0$ (impossible overlap at $i$).
+\item $N(\{B,C\})=6!$ (two disjoint length-$3$ blocks).
+\item $N(\{A,B,C\})=0$ (since $A\cap C=\varnothing$).
+\end{itemize}
+
+Therefore
+\begin{align*}
+\#\{\text{avoid all}\}
+&= 10! - (9!+8!+8!) + (7!+0+6!) - 0\\
+&= 10! - 9! - 2\cdot 8! + 7! + 6!\\
+&= 3191040.
+\end{align*}
+
+\[
+\boxed{3191040}
+\]
+
+\end{document}

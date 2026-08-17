@@ -1,0 +1,824 @@
+% chapters/ch08_simple_welfare_analysis.tex
+
+\section{Simple Welfare Analysis}
+
+This chapter moves from individual welfare to aggregate welfare. Chapter 7 introduced monetary measures of consumer and producer welfare. Here, those measures are summed across agents to study welfare at the market level. The main applications are welfare analysis in demand--supply diagrams, tax regimes, deadweight loss, tax incidence, and comparative statics.
+
+\subsection{Aggregating Welfare Across Consumers and Producers}
+
+Consider a single-good market. Let individual Marshallian demands be
+\[
+q_i^D(p),
+\]
+and individual supplies be
+\[
+q_j^S(p).
+\]
+The market curves are obtained by horizontal summation.
+
+\begin{definition}{Aggregate demand and aggregate supply}{ch8-agg-curves}
+The \emph{aggregate demand} and \emph{aggregate supply} functions are
+\[
+Q^D(p)=\sum_i q_i^D(p),
+\qquad
+Q^S(p)=\sum_j q_j^S(p).
+\]
+Their inverse forms are denoted by
+\[
+P_D(Q), \qquad P_S(Q),
+\]
+whenever these are well-defined.
+\end{definition}
+
+Aggregate welfare is measured by adding up individual surpluses.
+
+\begin{definition}{Aggregate consumer surplus, producer surplus, and social welfare}{ch8-sw-def}
+If market quantity is $Q$ and consumers pay price $p$, aggregate consumer surplus is
+\[
+CS(Q)=\int_0^Q P_D(q)\,dq - pQ.
+\]
+If producers receive price $p$, aggregate producer surplus is
+\[
+PS(Q)=pQ-\int_0^Q P_S(q)\,dq.
+\]
+Hence \emph{social welfare} in the single-good market is
+\[
+SW(Q)=CS(Q)+PS(Q)
+=
+\int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+\end{definition}
+
+The last expression is the key one: social welfare is the area between inverse demand and inverse supply up to the traded quantity.
+
+\begin{theorem}{Competitive equilibrium maximizes $CS+PS$}{ch8-sw-max}
+Suppose inverse demand is downward sloping and inverse supply is upward sloping. Then social welfare
+\[
+SW(Q)=\int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq
+\]
+is maximized at the competitive quantity $Q^*$ satisfying
+\[
+P_D(Q^*)=P_S(Q^*).
+\]
+\end{theorem}
+
+\begin{proof}
+Differentiate:
+\[
+\frac{dSW(Q)}{dQ}=P_D(Q)-P_S(Q).
+\]
+Thus welfare rises whenever
+\[
+P_D(Q)>P_S(Q),
+\]
+falls whenever
+\[
+P_D(Q)<P_S(Q),
+\]
+and is maximized when
+\[
+P_D(Q)=P_S(Q).
+\]
+Under the usual slopes, this point is unique and coincides with the competitive equilibrium quantity.
+\end{proof}
+
+\begin{examtip}
+The fastest welfare argument in a competitive single-good market is:
+\[
+SW(Q)=\int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+Hence any deviation from the competitive quantity loses the positive gains from trade on units for which demand exceeds supply, or forces inefficient units for which supply exceeds demand.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: aggregate demand and aggregate consumer surplus}]
+Suppose there are 30 identical buyers, each with inverse demand
+\[
+p=100-2q.
+\]
+Equivalently, each individual's demand is
+\[
+q_i(p)=\frac{100-p}{2}
+\qquad \text{for } p\le 100,
+\]
+and $q_i(p)=0$ for $p>100$.
+
+Therefore aggregate demand is
+\[
+Q^D(p)=30\cdot \frac{100-p}{2}=1500-15p
+\qquad \text{for } p\le 100.
+\]
+In inverse form,
+\[
+p=100-\frac{Q}{15}.
+\]
+
+Now suppose the market price is
+\[
+p=10.
+\]
+Then aggregate quantity demanded is
+\[
+Q=1500-15(10)=1350.
+\]
+Aggregate consumer surplus is
+\[
+CS=\frac12 \times (100-10)\times 1350
+=
+\frac12 \times 90 \times 1350
+=
+60750.
+\]
+
+So the correct answers are
+\[
+\boxed{Q^D(p)=1500-15p}
+\quad \text{and} \quad
+\boxed{CS=60750.}
+\]
+\end{examplebox}
+
+\subsection{Deadweight Welfare Loss}
+
+Because the competitive equilibrium maximizes $CS+PS$, any policy that changes the traded quantity away from $Q^*$ creates a welfare loss.
+
+\begin{definition}{Deadweight welfare loss}{ch8-dwl-def}
+If a policy reduces market quantity from the efficient level $Q^*$ to some lower quantity $Q'$, the \emph{deadweight welfare loss} is
+\[
+DWL
+=
+\int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+\end{definition}
+
+This is the value of mutually beneficial trades that no longer occur.
+
+\begin{keyformula}[title={Key Formula: Deadweight Loss under a Per-Unit Tax}]
+If a per-unit tax $t$ creates a constant wedge between buyer and seller prices and the market quantity falls from $Q^*$ to $Q'$, then graphically
+\[
+DWL=\frac12\, t \,(Q^*-Q')
+\]
+whenever the relevant region is triangular, in particular under linear demand and supply.
+\end{keyformula}
+
+\begin{theorem}{No quantity distortion implies no deadweight loss}{ch8-no-dwl}
+If a tax does not change the equilibrium quantity, then it does not create deadweight loss.
+\end{theorem}
+
+\begin{proof}
+By definition,
+\[
+DWL=\int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+If $Q'=Q^*$, the interval of integration is empty, so
+\[
+DWL=0.
+\]
+\end{proof}
+
+\begin{examtip}
+A standard implication is: if either demand or supply is perfectly inelastic, then a tax can be pure transfer with no deadweight loss because the traded quantity does not change.
+\end{examtip}
+
+\subsection{Quantity Taxes}
+
+A quantity tax, or per-unit tax, imposes a fixed dollar tax $t$ on each unit traded.
+
+\begin{definition}{Quantity taxes, excise taxes, and sales taxes}{ch8-quantity-tax}
+A \emph{quantity tax} is a fixed amount $t>0$ per unit traded.
+\begin{itemize}
+    \item If sellers pay it, it is an \emph{excise tax}.
+    \item If buyers pay it, it is a \emph{sales tax}.
+\end{itemize}
+Let
+\[
+p_b = \text{price paid by buyers},
+\qquad
+p_s = \text{price received by sellers}.
+\]
+Then in either case,
+\[
+p_b=p_s+t.
+\]
+\end{definition}
+
+The statutory side of the tax does not matter for the equilibrium outcome when the tax is a fixed amount per unit. What matters is the wedge condition
+\[
+p_b-p_s=t.
+\]
+
+\begin{theorem}{Quantity excise and quantity sales taxes are equivalent}{ch8-quantity-equivalence}
+A per-unit excise tax of size $t$ and a per-unit sales tax of size $t$ generate the same equilibrium allocation and the same buyer and seller prices.
+\end{theorem}
+
+\begin{proof}
+In both cases equilibrium requires
+\[
+Q^D(p_b)=Q^S(p_s)
+\]
+together with
+\[
+p_b=p_s+t.
+\]
+These two equations are identical across the two statutory tax regimes, so the equilibrium values of $p_b$, $p_s$, and $Q$ are the same.
+\end{proof}
+
+\subsubsection{Graphical effect of a quantity excise tax}
+
+Let the original supply curve be
+\[
+Q=S(p).
+\]
+If the tax is levied on sellers, then when buyers pay price $p$, sellers receive only $p-t$. Therefore supply becomes
+\[
+Q=S(p-t).
+\]
+In inverse form, if the original inverse supply is
+\[
+p=P_S(Q),
+\]
+the post-tax inverse supply is
+\[
+p=P_S(Q)+t.
+\]
+So a quantity excise tax shifts inverse supply vertically upward by $t$.
+
+\subsubsection{Graphical effect of a quantity sales tax}
+
+Let the original demand curve be
+\[
+Q=D(p).
+\]
+If the tax is levied on buyers, then when sellers receive price $p$, buyers pay $p+t$. Therefore demand becomes
+\[
+Q=D(p+t).
+\]
+In inverse form, if the original inverse demand is
+\[
+p=P_D(Q),
+\]
+the post-tax inverse demand is
+\[
+p=P_D(Q)-t.
+\]
+So a quantity sales tax shifts inverse demand vertically downward by $t$.
+
+\begin{keyformula}[title={Key Formula: Welfare Accounting under a Quantity Tax}]
+With equilibrium quantity $Q'$, buyer price $p_b$, seller price $p_s$, and original demand and supply curves:
+\[
+CS^{tax}=\int_0^{Q'} \bigl(P_D(q)-p_b\bigr)\,dq,
+\]
+\[
+PS^{tax}=\int_0^{Q'} \bigl(p_s-P_S(q)\bigr)\,dq,
+\]
+\[
+TR=tQ',
+\]
+\[
+DWL=\int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+\end{keyformula}
+
+\subsection{Ad-Valorem Taxes}
+
+An ad-valorem tax is proportional to value rather than fixed per unit.
+
+\begin{definition}{Ad-valorem tax}{ch8-ad-valorem}
+An \emph{ad-valorem tax} of rate $\tau$ satisfies $0<\tau<1$ and is proportional to price.
+\begin{itemize}
+    \item Under an ad-valorem excise tax on sellers,
+    \[
+    p_s=(1-\tau)p_b.
+    \]
+    \item Under an ad-valorem sales tax on buyers,
+    \[
+    p_b=(1+\tau)p_s.
+    \]
+\end{itemize}
+\end{definition}
+
+Unlike fixed quantity taxes, equal percentage excise and sales taxes are not exactly the same tax wedge, though they are approximately similar for small $\tau$.
+
+\subsubsection{Ad-valorem excise tax}
+
+If original supply is
+\[
+Q=S(p_s),
+\]
+and buyers pay price $p_b$, sellers receive
+\[
+p_s=(1-\tau)p_b.
+\]
+Hence the taxed supply curve is
+\[
+Q=S((1-\tau)p_b).
+\]
+In inverse form,
+\[
+p_b=\frac{P_S(Q)}{1-\tau}.
+\]
+So the inverse supply curve pivots upward.
+
+\subsubsection{Ad-valorem sales tax}
+
+If original demand is
+\[
+Q=D(p_b),
+\]
+and sellers receive price $p_s$, buyers pay
+\[
+p_b=(1+\tau)p_s.
+\]
+Thus demand becomes
+\[
+Q=D((1+\tau)p_s),
+\]
+or in inverse form,
+\[
+p_s=\frac{P_D(Q)}{1+\tau}.
+\]
+So the inverse demand curve pivots downward.
+
+\begin{commonmistake}
+For ad-valorem taxes, the pivoted curve is useful for locating the new equilibrium, but it is \emph{not} the correct object for measuring producer surplus or deadweight loss. Once equilibrium is found, welfare must be measured using the original supply and demand curves together with the actual buyer and seller prices.
+\end{commonmistake}
+
+\begin{keyformula}[title={Key Formula: Welfare Accounting under an Ad-Valorem Tax}]
+If the post-tax equilibrium is $(Q',p_b,p_s)$, then:
+\[
+CS^{tax}=\int_0^{Q'} \bigl(P_D(q)-p_b\bigr)\,dq,
+\]
+\[
+PS^{tax}=\int_0^{Q'} \bigl(p_s-P_S(q)\bigr)\,dq,
+\]
+\[
+TR=(p_b-p_s)Q',
+\]
+\[
+DWL=\int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+\end{keyformula}
+
+\subsection{Tax Incidence}
+
+A tax lowers welfare for both consumers and producers. The division of the burden is called tax incidence.
+
+\begin{definition}{Tax incidence}{ch8-incidence}
+For a unit tax with pre-tax equilibrium price $p^*$ and post-tax prices $(p_b,p_s)$ at traded quantity $Q'$, the tax burden borne by:
+\begin{itemize}
+    \item consumers is measured by
+    \[
+    (p_b-p^*)Q';
+    \]
+    \item producers is measured by
+    \[
+    (p^*-p_s)Q'.
+    \]
+\end{itemize}
+Their sum is the total tax transfer on traded units:
+\[
+\bigl((p_b-p^*)+(p^*-p_s)\bigr)Q'
+=
+(p_b-p_s)Q'
+=
+tQ'
+\]
+under a quantity tax.
+\end{definition}
+
+\begin{theorem}{More elastic side bears less tax incidence}{ch8-elasticity-incidence}
+All else equal:
+\begin{itemize}
+    \item more elastic demand implies lower consumer tax incidence;
+    \item more elastic supply implies lower producer tax incidence.
+\end{itemize}
+In the limiting cases:
+\begin{itemize}
+    \item perfectly inelastic demand means consumers bear all of the tax;
+    \item perfectly inelastic supply means producers bear all of the tax.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+The less elastic side has fewer quantity adjustments available, so its price changes more under a tax wedge. Geometrically, that side experiences the larger movement between pre-tax and post-tax price. The formal linear-demand proof appears in the next subsection.
+\end{proof}
+
+\subsection{Comparative Statics with Linear Demand and Supply}
+
+The lecture gives a simple algebraic comparative-statics framework.
+
+\begin{definition}{Linear market environment}{ch8-linear-env}
+Suppose market demand and supply are
+\[
+Q^D(p_b)=a-bp_b,
+\qquad
+Q^S(p_s)=c+dp_s,
+\]
+with
+\[
+b>0, \qquad d>0.
+\]
+Here $b$ and $d$ capture the price responsiveness of demand and supply in this linear specification.
+\end{definition}
+
+\subsubsection{No tax}
+
+Equilibrium satisfies
+\[
+a-bp^*=c+dp^*.
+\]
+Hence
+\[
+p^*=\frac{a-c}{b+d},
+\qquad
+Q^*=\frac{ad+bc}{b+d}.
+\]
+
+\subsubsection{Quantity tax}
+
+Let a per-unit tax $t$ create the wedge
+\[
+p_b=p_s+t.
+\]
+Then equilibrium satisfies
+\[
+a-bp_b=c+dp_s,
+\qquad
+p_b=p_s+t.
+\]
+
+\begin{theorem}{Linear equilibrium under a quantity tax}{ch8-linear-tax}
+Under
+\[
+Q^D(p_b)=a-bp_b,
+\qquad
+Q^S(p_s)=c+dp_s,
+\qquad
+p_b=p_s+t,
+\]
+the post-tax equilibrium is
+\[
+p_b=\frac{a-c+dt}{b+d},
+\qquad
+p_s=\frac{a-c-bt}{b+d},
+\qquad
+Q'=\frac{ad+bc-bdt}{b+d}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substitute
+\[
+p_b=p_s+t
+\]
+into demand:
+\[
+Q^D=a-b(p_s+t)=a-bp_s-bt.
+\]
+Equilibrium requires
+\[
+a-bp_s-bt=c+dp_s.
+\]
+So
+\[
+a-c-bt=(b+d)p_s,
+\]
+hence
+\[
+p_s=\frac{a-c-bt}{b+d}.
+\]
+Then
+\[
+p_b=p_s+t
+=
+\frac{a-c-bt}{b+d}+t
+=
+\frac{a-c+dt}{b+d}.
+\]
+Finally,
+\[
+Q'=c+dp_s
+=
+c+d\left(\frac{a-c-bt}{b+d}\right)
+=
+\frac{ad+bc-bdt}{b+d}.
+\]
+\end{proof}
+
+\begin{theorem}{Tax incidence shares in the linear model}{ch8-linear-incidence}
+Under the same linear quantity-tax model,
+\[
+\frac{p_b-p^*}{t}=\frac{d}{b+d},
+\qquad
+\frac{p^*-p_s}{t}=\frac{b}{b+d}.
+\]
+So:
+\begin{itemize}
+    \item consumers bear share
+    \[
+    \frac{d}{b+d};
+    \]
+    \item producers bear share
+    \[
+    \frac{b}{b+d}.
+    \]
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+From the formulas above,
+\[
+p_b-p^*
+=
+\frac{a-c+dt}{b+d}-\frac{a-c}{b+d}
+=
+\frac{dt}{b+d},
+\]
+so
+\[
+\frac{p_b-p^*}{t}=\frac{d}{b+d}.
+\]
+Similarly,
+\[
+p^*-p_s
+=
+\frac{a-c}{b+d}-\frac{a-c-bt}{b+d}
+=
+\frac{bt}{b+d},
+\]
+so
+\[
+\frac{p^*-p_s}{t}=\frac{b}{b+d}.
+\]
+\end{proof}
+
+\begin{theorem}{Deadweight loss in the linear quantity-tax model}{ch8-linear-dwl}
+In the same linear model,
+\[
+Q^*-Q'
+=
+\frac{bdt}{b+d}.
+\]
+Hence
+\[
+DWL
+=
+\frac12 t(Q^*-Q')
+=
+\frac{bd\,t^2}{2(b+d)}.
+\]
+\end{theorem}
+
+\begin{proof}
+Subtract the quantity formulas:
+\[
+Q^*-Q'
+=
+\frac{ad+bc}{b+d} - \frac{ad+bc-bdt}{b+d}
+=
+\frac{bdt}{b+d}.
+\]
+Under linear demand and supply, the deadweight-loss region is a triangle with base
+\[
+Q^*-Q'
+\]
+and height
+\[
+t.
+\]
+Therefore
+\[
+DWL=\frac12 t(Q^*-Q')=\frac{bd\,t^2}{2(b+d)}.
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: comparative statics of tax incidence}]
+Suppose
+\[
+Q^D(p_b)=a-bp_b,
+\qquad
+Q^S(p_s)=c+dp_s,
+\]
+and there is a unit tax $t$.
+
+The consumer share of incidence is
+\[
+\frac{d}{b+d}.
+\]
+Compare the benchmark case
+\[
+(b,d)=(5,5),
+\]
+for which the consumer share is
+\[
+\frac{5}{10}=\frac12.
+\]
+
+Now consider the following cases:
+\[
+(b,d)=(3,3), \quad (3,2), \quad (7,3), \quad (3,7).
+\]
+
+Compute the consumer share in each case:
+\[
+(3,3):\ \frac{3}{6}=\frac12,
+\]
+\[
+(3,2):\ \frac{2}{5}=0.4,
+\]
+\[
+(7,3):\ \frac{3}{10}=0.3,
+\]
+\[
+(3,7):\ \frac{7}{10}=0.7.
+\]
+
+Therefore the only case in which consumers bear a strictly higher tax incidence than in the benchmark is
+\[
+\boxed{(b,d)=(3,7).}
+\]
+\end{examplebox}
+
+\subsubsection{Behavioral bias and tax collected}
+
+The lecture also studies a simple behavioral-taxation example.
+
+\begin{definition}{Perceived tax parameter}{ch8-k-bias}
+Suppose consumers behave as if the buyer price were
+\[
+p_b=p_s+kt,
+\]
+where $k>0$.
+\begin{itemize}
+    \item If $0<k<1$, consumers underweight the tax.
+    \item If $k>1$, consumers overweight the tax.
+\end{itemize}
+\end{definition}
+
+With linear demand and supply,
+\[
+Q^D=a-bp_b,
+\qquad
+Q^S=c+dp_s,
+\]
+equilibrium becomes
+\[
+a-b(p_s+kt)=c+dp_s.
+\]
+
+\begin{theorem}{Equilibrium and tax revenue with perceived-tax bias}{ch8-bias}
+Under the perceived-price rule
+\[
+p_b=p_s+kt,
+\]
+the equilibrium is
+\[
+p_s=\frac{a-c-bkt}{b+d},
+\qquad
+p_b=\frac{a-c+dkt}{b+d},
+\qquad
+Q=\frac{bc+ad-bdkt}{b+d}.
+\]
+Tax revenue is
+\[
+T=tQ
+=
+\frac{bc+ad-bdkt}{b+d}\,t.
+\]
+Therefore
+\[
+\frac{\partial T}{\partial k}<0.
+\]
+\end{theorem}
+
+\begin{proof}
+The equilibrium formulas are obtained exactly as in the ordinary quantity-tax case, with $t$ replaced by $kt$ in the demand wedge.
+
+Since
+\[
+T(k)=\frac{bc+ad-bdkt}{b+d}\,t,
+\]
+differentiate with respect to $k$:
+\[
+\frac{\partial T}{\partial k}
+=
+-\frac{bdt^2}{b+d}<0.
+\]
+Thus greater perceived tax salience lowers quantity traded and therefore reduces tax revenue.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: effect of underweighting and overweighting taxes}]
+Using the previous formula,
+\[
+T(k)=\frac{bc+ad-bdkt}{b+d}\,t.
+\]
+Compare tax revenue under perceived-bias parameter $k$ with the benchmark $k=1$:
+\[
+\Delta T
+=
+T(k)-T(1)
+=
+\frac{bc+ad-bdkt}{b+d}t - \frac{bc+ad-bdt}{b+d}t.
+\]
+So
+\[
+\Delta T
+=
+\frac{bd(1-k)t^2}{b+d}.
+\]
+
+Hence:
+\begin{itemize}
+    \item if $k<1$ (underweighting), then
+    \[
+    \Delta T>0,
+    \]
+    so more tax is collected than in the unbiased case;
+    \item if $k>1$ (overweighting), then
+    \[
+    \Delta T<0,
+    \]
+    so less tax is collected.
+\end{itemize}
+
+Therefore the lecture's conclusion is
+\[
+\boxed{\text{Underweighting taxes raises tax revenue; overweighting taxes lowers it.}}
+\]
+\end{examplebox}
+
+\subsection{Common Mistakes and Exam Traps}
+
+\begin{commonmistake}
+Do not confuse \emph{statutory incidence} with \emph{economic incidence}. The side legally paying the tax need not be the side that bears most of the burden.
+\end{commonmistake}
+
+\begin{commonmistake}
+For quantity taxes, excise and sales taxes of the same dollar amount are equivalent. For ad-valorem taxes, equal percentage excise and sales taxes are not exactly identical.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not use the pivoted supply curve under an ad-valorem tax to calculate producer surplus. It is a device for locating the new equilibrium, not the true marginal cost curve.
+\end{commonmistake}
+
+\begin{commonmistake}
+When computing deadweight loss, do not forget tax revenue. The welfare decomposition is:
+\[
+\text{loss in CS}+\text{loss in PS}
+=
+TR + DWL.
+\]
+Only the part not transferred as revenue is deadweight loss.
+\end{commonmistake}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 8 Summary}]
+\begin{align*}
+Q^D(p) &= \sum_i q_i^D(p), \\
+Q^S(p) &= \sum_j q_j^S(p), \\
+SW(Q) &= \int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq, \\
+p_b &= p_s+t \qquad \text{(quantity tax)}, \\
+p_s &= (1-\tau)p_b \qquad \text{(ad-valorem excise tax)}, \\
+p_b &= (1+\tau)p_s \qquad \text{(ad-valorem sales tax)}, \\
+CS^{tax} &= \int_0^{Q'} \bigl(P_D(q)-p_b\bigr)\,dq, \\
+PS^{tax} &= \int_0^{Q'} \bigl(p_s-P_S(q)\bigr)\,dq, \\
+TR &= (p_b-p_s)Q', \\
+DWL &= \int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\end{align*}
+Under
+\[
+Q^D=a-bp_b, \qquad Q^S=c+dp_s,
+\]
+a quantity tax gives
+\[
+p_b=\frac{a-c+dt}{b+d},
+\qquad
+p_s=\frac{a-c-bt}{b+d},
+\qquad
+Q'=\frac{ad+bc-bdt}{b+d},
+\]
+consumer incidence share
+\[
+\frac{d}{b+d},
+\]
+producer incidence share
+\[
+\frac{b}{b+d},
+\]
+and
+\[
+DWL=\frac{bdt^2}{2(b+d)}.
+\]
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield takeaways from this chapter are:
+\begin{itemize}
+    \item aggregate welfare in a single-good market is $CS+PS$;
+    \item competitive equilibrium maximizes this welfare under the standard assumptions;
+    \item taxes create a wedge, reduce traded quantity, and generate deadweight loss;
+    \item the more inelastic side of the market bears more of the tax burden;
+    \item quantity excise and sales taxes are equivalent, but ad-valorem taxes require more care;
+    \item in tax questions, keep buyer price, seller price, tax revenue, and welfare triangles clearly separated.
+\end{itemize}
+\end{examtip}

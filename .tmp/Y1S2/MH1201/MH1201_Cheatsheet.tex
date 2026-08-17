@@ -1,0 +1,359 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.35in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{atbegshi}
+\usepackage[hidelinks]{hyperref}
+
+% =========================
+% 2-page hard cap
+% =========================
+\AtBeginShipout{%
+  \ifnum\value{page}>2
+    \AtBeginShipoutDiscard
+  \fi
+}
+
+% =========================
+% Watermark (optional)
+% =========================
+\SetWatermarkText{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header (remove header rule line)
+% =========================
+\setlength{\headheight}{1pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize \textbf{MH1201 Linear Algebra II - Cheat Sheet (Exam)}}
+\fancyhead[R]{\normalsize\textbf{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.15em}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.95}
+
+% =========================
+% Headings readability
+% =========================
+\titleformat{\section}
+  {\bfseries\normalsize}
+  {}
+  {0pt}
+  {\underline}
+\titleformat{\subsection}
+  {\bfseries\small}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
+
+% =========================
+% Quick macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\nullity}{\operatorname{nullity}}
+\newcommand{\Ker}{\operatorname{ker}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spann}{\operatorname{span}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\proj}{\operatorname{proj}}
+
+\begin{document}
+
+% =========================
+% PAGE 1
+% =========================
+\begin{multicols}{3}
+\footnotesize
+\raggedcolumns
+
+\section*{Vector Spaces (Ch1)}
+
+\subsection*{Definition}
+A vector space $V$ over field $\F$ has operations $+:V\times V\to V$ and $\cdot:\F\times V\to V$ satisfying:\\
+\textbf{Addition:} (A1) $u+v=v+u$; (A2) $(u+v)+w=u+(v+w)$; (A3) $\exists\bm{0}\in V$: $v+\bm{0}=v$; (A4) $\forall v\,\exists(-v)$: $v+(-v)=\bm{0}$.\\
+\textbf{Scalar mult:} (M1) $1\cdot v=v$; (M2) $(ab)v=a(bv)$.\\
+\textbf{Distributive:} (D1) $a(u+v)=au+av$; (D2) $(a+b)v=av+bv$.
+
+\subsection*{Examples}
+$\R^n$, $\C^n$, $\F^{m\times n}$ (matrices), $\F[x]$ (polynomials), $\F^\infty$ (sequences), $C(\R)$ (continuous functions), $\R^\R$ (all functions).
+
+\subsection*{Subspaces}
+$W\subseteq V$ is a subspace if:\\
+(S1) $\bm{0}\in W$;\\
+(S2) $u,v\in W\Rightarrow u+v\in W$;\\
+(S3) $v\in W,\,\lambda\in\F\Rightarrow\lambda v\in W$.\\
+\textbf{Kernel trick:} If $L:V\to W$ linear, then $\Ker(L)=\{v\in V:L(v)=\bm{0}\}$ is subspace of $V$.\\
+\textbf{Union:} $W_1\cup W_2$ is subspace $\Leftrightarrow$ $W_1\subseteq W_2$ or $W_2\subseteq W_1$.\\
+\textbf{Intersection:} $\bigcap_i W_i$ always subspace.\\
+\textbf{Sum:} $W_1+W_2=\{w_1+w_2:w_1\in W_1,w_2\in W_2\}$ is subspace.
+
+\subsection*{Direct sum}
+$V=W_1\oplus W_2$ if $V=W_1+W_2$ and $W_1\cap W_2=\{\bm{0}\}$.\\
+Equiv: every $v\in V$ unique decomposition $v=w_1+w_2$.
+
+\section*{Finite-Dimensional Spaces (Ch2)}
+
+\subsection*{Linear combinations}
+$v=\sum_{i=1}^n a_iv_i$ is lin.\ comb.\ of $v_1,\ldots,v_n$.\\
+$\spann\{v_1,\ldots,v_n\}=\{\text{all lin.\ comb.\ of }v_i\}$ is subspace.
+
+\subsection*{Linear independence}
+$v_1,\ldots,v_n$ lin.\ indep.\ if $\sum a_iv_i=\bm{0}\Rightarrow$ all $a_i=0$.\\
+Equiv: no $v_i$ is lin.\ comb.\ of others.\\
+$v_1,\ldots,v_n$ lin.\ dep.\ if $\exists$ nontrivial $\sum a_iv_i=\bm{0}$.
+
+\subsection*{Basis \& dimension}
+Basis of $V$: linearly independent spanning set.\\
+Every basis of $V$ has same size = $\dim V$.\\
+If $\dim V=n$, then:\\
+\quad Any $n$ lin.\ indep.\ vectors form basis.\\
+\quad Any $n$ vectors spanning $V$ form basis.\\
+\quad Any lin.\ indep.\ set can be extended to basis.\\
+\quad Any spanning set contains a basis.
+
+\subsection*{Dimension formulas}
+If $W_1,W_2$ subspaces of $V$:\\
+$\dim(W_1+W_2)=\dim W_1+\dim W_2-\dim(W_1\cap W_2)$.\\
+Direct sum: $\dim(W_1\oplus W_2)=\dim W_1+\dim W_2$.
+
+\subsection*{Coordinates}
+If $\beta=\{v_1,\ldots,v_n\}$ basis, $v=\sum a_iv_i$, then\\
+$[v]_\beta=(a_1,\ldots,a_n)^T$ is coordinate vector w.r.t.\ $\beta$.
+
+\section*{Linear Transformations (Ch3)}
+
+\subsection*{Definition}
+$T:V\to W$ is linear if:\\
+(L1) $T(u+v)=T(u)+T(v)$;\\
+(L2) $T(\lambda v)=\lambda T(v)$.\\
+Equiv: $T(au+bv)=aT(u)+bT(v)$.\\
+Always: $T(\bm{0})=\bm{0}$; $T(-v)=-T(v)$.
+
+\subsection*{Kernel \& range}
+$\Ker(T)=\{v\in V:T(v)=\bm{0}\}$ (null space).\\
+$\Range(T)=\{T(v):v\in V\}=\im(T)$ (image).\\
+Both are subspaces.\\
+$\nullity(T)=\dim\Ker(T)$; $\rank(T)=\dim\Range(T)$.
+
+\subsection*{Rank-Nullity Theorem}
+If $T:V\to W$ linear, $\dim V<\infty$, then\\
+$\dim V=\nullity(T)+\rank(T)$.
+
+\subsection*{Injectivity \& surjectivity}
+$T$ injective (1-1) $\Leftrightarrow$ $\Ker(T)=\{\bm{0}\}$.\\
+$T$ surjective (onto) $\Leftrightarrow$ $\Range(T)=W$.\\
+If $\dim V=\dim W<\infty$, then\\
+\quad $T$ injective $\Leftrightarrow$ $T$ surjective $\Leftrightarrow$ $T$ bijective.
+
+\subsection*{Isomorphism}
+$T:V\to W$ isomorphism if $T$ linear bijection.\\
+$V\cong W$ if $\exists$ isomorphism $V\to W$.\\
+$V\cong W$ $\Leftrightarrow$ $\dim V=\dim W$ (finite-dim).\\
+$V$ finite-dim, $\dim V=n$ $\Rightarrow$ $V\cong\F^n$.
+
+\subsection*{Composition}
+$(S\circ T)(v)=S(T(v))$.\\
+If $S,T$ linear, then $S\circ T$ linear.\\
+$\Ker(T)\subseteq\Ker(S\circ T)$; $\Range(S\circ T)\subseteq\Range(S)$.
+
+\subsection*{Invertibility}
+$T:V\to V$ invertible if $\exists T^{-1}:V\to V$ s.t.\ $T\circ T^{-1}=T^{-1}\circ T=I$.\\
+$T$ invertible $\Leftrightarrow$ $T$ bijective $\Leftrightarrow$ $\Ker(T)=\{\bm{0}\}$ (finite-dim).
+
+\section*{Matrix Representations (Ch4)}
+
+\subsection*{Matrix of linear map}
+$T:V\to W$ linear, $\beta=\{v_1,\ldots,v_n\}$ basis of $V$, $\gamma=\{w_1,\ldots,w_m\}$ basis of $W$.\\
+$[T]_\beta^\gamma$ is $m\times n$ matrix with $j$-th column $=[T(v_j)]_\gamma$.\\
+$[T(v)]_\gamma=[T]_\beta^\gamma[v]_\beta$.
+
+\subsection*{Matrix operations}
+$(S+T)$ linear: $[S+T]=[S]+[T]$.\\
+$(cT)$ linear: $[cT]=c[T]$.\\
+Composition: $[S\circ T]=[S][T]$.
+
+\subsection*{Change of basis}
+$\beta,\beta'$ bases of $V$. Change-of-basis matrix:\\
+$P_{\beta\to\beta'}=\big[[v_1]_{\beta'}\cdots[v_n]_{\beta'}\big]$ where $\beta=\{v_1,\ldots,v_n\}$.\\
+Then $[v]_{\beta'}=P_{\beta\to\beta'}[v]_\beta$ and $P_{\beta'\to\beta}=P_{\beta\to\beta'}^{-1}$.\\
+If $T:V\to V$, bases $\beta,\beta'$ of $V$, then\\
+$[T]_{\beta'}=P_{\beta\to\beta'}[T]_\beta P_{\beta'\to\beta}=P^{-1}[T]_\beta P$ where $P=P_{\beta\to\beta'}$.
+
+\subsection*{Similar matrices}
+$A,B$ similar ($A\sim B$) if $\exists$ invertible $P$: $B=P^{-1}AP$.\\
+Similar matrices represent same linear map w.r.t.\ different bases.\\
+$A\sim B\Rightarrow$ $\det A=\det B$, $\tr A=\tr B$, $\rank A=\rank B$.
+
+\section*{Eigenvalues \& Eigenvectors (Ch5)}
+
+\subsection*{Definition}
+$T:V\to V$ linear. $\lambda\in\F$ is eigenvalue if $\exists v\neq\bm{0}$: $T(v)=\lambda v$.\\
+Such $v$ is eigenvector for $\lambda$.\\
+Eigenspace: $E_\lambda=\{v\in V:T(v)=\lambda v\}=\Ker(T-\lambda I)$.
+
+\subsection*{Characteristic polynomial}
+$p_A(t)=\det(tI-A)$ is char.\ poly.\ of $A$.\\
+$\lambda$ eigenvalue $\Leftrightarrow$ $p_A(\lambda)=0$.\\
+Algebraic multiplicity $m_\lambda$: multiplicity of $\lambda$ as root of $p_A$.\\
+Geometric multiplicity $g_\lambda=\dim E_\lambda$.\\
+Always: $1\le g_\lambda\le m_\lambda$.
+
+\subsection*{Eigenvalue properties}
+$\det A=\prod\lambda_i$ (product of eigenvalues).\\
+$\tr A=\sum\lambda_i$ (sum of eigenvalues).\\
+Eigenvectors for distinct eigenvalues are lin.\ indep.
+
+\subsection*{Diagonalization}
+$A$ diagonalizable if $A\sim D$ (diagonal).\\
+Equiv: $\exists$ invertible $P$: $P^{-1}AP=D=\diag(\lambda_1,\ldots,\lambda_n)$.\\
+Columns of $P$ are eigenvectors; diagonal entries of $D$ are eigenvalues.\\
+$A$ diagonalizable $\Leftrightarrow$ $V$ has basis of eigenvectors $\Leftrightarrow$ $\sum g_{\lambda_i}=n$.\\
+Sufficient: all eigenvalues distinct.\\
+If $A$ diagonalizable, then $A^k=PD^kP^{-1}$ where $D^k=\diag(\lambda_1^k,\ldots,\lambda_n^k)$.
+
+\subsection*{Minimal polynomial}
+$m_A(t)$ is minimal poly.\ of $A$: monic poly.\ of least degree s.t.\ $m_A(A)=0$.\\
+$m_A(t)$ divides $p_A(t)$.\\
+$A$ diagonalizable $\Leftrightarrow$ $m_A(t)$ splits with no repeated roots.
+
+\subsection*{Jordan Canonical Form}
+Every matrix similar to Jordan form $J=\diag(J_1,\ldots,J_k)$ where\\
+$J_i=\begin{pmatrix}\lambda_i&1&0&\cdots&0\\0&\lambda_i&1&\cdots&0\\\vdots&\vdots&\ddots&\ddots&\vdots\\0&0&0&\lambda_i&1\\0&0&0&0&\lambda_i\end{pmatrix}$ (Jordan block).\\
+JCF unique up to block order.\\
+$A$ diagonalizable $\Leftrightarrow$ all Jordan blocks are $1\times1$.
+
+\columnbreak
+
+\section*{Inner Product Spaces (Ch6)}
+
+\subsection*{Inner product}
+$\langle\cdot,\cdot\rangle:V\times V\to\F$ is inner product if:\\
+(IP1) $\langle v,v\rangle\ge0$; $\langle v,v\rangle=0\Leftrightarrow v=\bm{0}$ (pos.\ def.).\\
+(IP2) $\langle u,v\rangle=\overline{\langle v,u\rangle}$ (conjugate symmetry).\\
+(IP3) $\langle au+bv,w\rangle=a\langle u,w\rangle+b\langle v,w\rangle$ (linearity in 1st arg).\\
+Standard: $\langle x,y\rangle=\sum x_i\overline{y_i}$ on $\F^n$.
+
+\subsection*{Norm}
+$\|v\|=\sqrt{\langle v,v\rangle}$.\\
+$\|v\|\ge0$; $\|v\|=0\Leftrightarrow v=\bm{0}$.\\
+$\|cv\|=|c|\|v\|$.\\
+Triangle inequality: $\|u+v\|\le\|u\|+\|v\|$.\\
+Distance: $d(u,v)=\|u-v\|$.
+
+\subsection*{Cauchy-Schwarz Inequality}
+$|\langle u,v\rangle|\le\|u\|\|v\|$.\\
+Equality $\Leftrightarrow$ $u,v$ linearly dependent.
+
+\subsection*{Orthogonality}
+$u\perp v$ if $\langle u,v\rangle=0$.\\
+$u\perp W$ if $u\perp w$ for all $w\in W$.\\
+Orthogonal complement: $W^\perp=\{v\in V:v\perp W\}$.\\
+$(W^\perp)^\perp=W$ (finite-dim); $\dim W+\dim W^\perp=\dim V$.\\
+$V=W\oplus W^\perp$ (finite-dim).
+
+\subsection*{Orthogonal sets}
+$\{v_1,\ldots,v_n\}$ orthogonal if $\langle v_i,v_j\rangle=0$ for $i\neq j$.\\
+Orthonormal if orthogonal and $\|v_i\|=1$ for all $i$.\\
+Orthogonal sets are linearly independent.\\
+Orthonormal basis: basis that is orthonormal.
+
+\subsection*{Orthogonal projection}
+$v\in V$, $W$ subspace with orthonormal basis $\{u_1,\ldots,u_k\}$.\\
+$\proj_W(v)=\sum_{i=1}^k\langle v,u_i\rangle u_i$.\\
+$v=\proj_W(v)+\proj_{W^\perp}(v)$ (orthogonal decomposition).\\
+$\proj_W(v)$ is closest vector in $W$ to $v$: $\|v-\proj_W(v)\|=\min_{w\in W}\|v-w\|$.
+
+\subsection*{Gram-Schmidt Orthogonalization}
+Input: lin.\ indep.\ $\{v_1,\ldots,v_n\}$. Output: orthogonal $\{u_1,\ldots,u_n\}$ with $\spann\{u_1,\ldots,u_k\}=\spann\{v_1,\ldots,v_k\}$.\\
+$u_1=v_1$;\\
+$u_2=v_2-\frac{\langle v_2,u_1\rangle}{\langle u_1,u_1\rangle}u_1$;\\
+$u_k=v_k-\sum_{i=1}^{k-1}\frac{\langle v_k,u_i\rangle}{\langle u_i,u_i\rangle}u_i$.\\
+Normalize: $e_i=\frac{u_i}{\|u_i\|}$ to get orthonormal basis.
+
+\subsection*{Orthogonal matrices}
+$Q$ orthogonal if $Q^TQ=I$ (equiv: columns orthonormal).\\
+$Q$ orthogonal $\Rightarrow$ $\|Qx\|=\|x\|$ (preserves norm).\\
+$Q$ orthogonal $\Rightarrow$ $\det Q=\pm1$.
+
+\section*{Quick Reference}
+
+\subsection*{Common spaces}
+$\R^n$: $\dim=n$; standard basis $\{e_1,\ldots,e_n\}$.\\
+$P_n(\R)$ (poly.\ deg $\le n$): $\dim=n+1$; basis $\{1,x,\ldots,x^n\}$.\\
+$\F^{m\times n}$: $\dim=mn$; basis $\{E_{ij}\}$ ($E_{ij}$ has 1 at $(i,j)$, 0 elsewhere).
+
+\subsection*{Matrix rank formulas}
+$\rank(A)=\rank(A^T)$.\\
+$\rank(AB)\le\min\{\rank(A),\rank(B)\}$.\\
+$\nullity(A)=n-\rank(A)$ ($A$ is $m\times n$).
+
+\subsection*{Invertibility (square $n\times n$ matrix $A$)}
+TFAE: (1) $A$ invertible; (2) $\det A\neq0$; (3) $\rank A=n$; (4) $\nullity A=0$; (5) cols of $A$ lin.\ indep.; (6) cols of $A$ span $\F^n$; (7) rows of $A$ lin.\ indep.; (8) $Ax=\bm{0}\Rightarrow x=\bm{0}$; (9) $Ax=b$ has unique solution for all $b$.
+
+\subsection*{Determinant properties}
+$\det(AB)=\det(A)\det(B)$.\\
+$\det(A^T)=\det(A)$.\\
+$\det(A^{-1})=1/\det(A)$.\\
+$\det(cA)=c^n\det(A)$ ($A$ is $n\times n$).
+
+\subsection*{Trace properties}
+$\tr(A+B)=\tr(A)+\tr(B)$.\\
+$\tr(cA)=c\tr(A)$.\\
+$\tr(AB)=\tr(BA)$ (cyclic property).\\
+$\tr(A)=\sum\lambda_i$ (eigenvalues).
+
+\subsection*{Block matrices}
+$\det\begin{pmatrix}A&B\\0&D\end{pmatrix}=\det(A)\det(D)$ (block triangular).
+
+\subsection*{Quick checks}
+Not subspace: zero vector missing OR not closed under $+$ OR not closed under $\cdot$.\\
+Lin.\ dep.: one vector is lin.\ comb.\ of others OR more vectors than dimension.\\
+Not diagonalizable: $g_\lambda<m_\lambda$ for some $\lambda$ OR repeated eigenvalue with deficient eigenspace.
+
+\subsection*{Exam tips}
+\textbf{Subspace:} Check (S1), (S2), (S3) OR express as kernel OR parametrize and take span.\\
+\textbf{Basis:} Show lin.\ indep.\ AND spanning OR show correct size and lin.\ indep.\ OR correct size and spanning.\\
+\textbf{Lin.\ indep.:} Set $\sum a_iv_i=\bm{0}$, solve, conclude $a_i=0$.\\
+\textbf{Dimension:} Count basis size OR use dimension formula.\\
+\textbf{Kernel:} Solve $T(v)=\bm{0}$ OR $Av=\bm{0}$; express as span.\\
+\textbf{Range:} Find $T(v_i)$ for basis vectors $v_i$; take span.\\
+\textbf{Eigenvalues:} Solve $\det(tI-A)=0$.\\
+\textbf{Eigenvectors:} Solve $(A-\lambda I)v=\bm{0}$ for each $\lambda$.\\
+\textbf{Diagonalization:} Check if $\sum g_{\lambda_i}=n$; form $P$ from eigenvectors.\\
+\textbf{Gram-Schmidt:} Apply formula sequentially; normalize at end if needed.\\
+\textbf{Orthogonal proj.:} Use $\proj_W(v)=\sum\langle v,u_i\rangle u_i$ with orthonormal $\{u_i\}$.
+
+\end{multicols}
+
+\end{document}

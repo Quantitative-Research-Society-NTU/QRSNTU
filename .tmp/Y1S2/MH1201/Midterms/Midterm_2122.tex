@@ -1,0 +1,845 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Midterm Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2021/2022, Semester 2}
+\newcommand{\ExamMetaShort}{Midterm AY21-22}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Vector spaces and subspaces in matrix spaces: subspace test, closure properties, counterexamples.
+  \item Linear transformations on polynomial spaces: evaluation maps, matrix representations with respect to bases, rank--nullity, kernel and range.
+  \item Solution structure: each question is solved using multiple independent methods (standard/explanatory first, then a compact alternative; a third method is included when natural).
+  \item Notation: $\operatorname{null}(T)$ and $\operatorname{range}(T)$ denote the kernel and image of $T$, respectively.
+\end{overview}
+
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+% QUESTION 1
+% ============================================================
+\section{Question 1 \hfill (10 Marks)}
+
+\subsection{Problem}
+For a matrix
+\[
+A=
+\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+a_{21} & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+\in \mathcal{M}_{n\times n}(\mathbb{R}),
+\]
+and $i\in\{1,2,\ldots,n\}$, let
+\[
+r_i(A)=a_{i1}+a_{i2}+\cdots+a_{in}.
+\]
+In other words, $r_i(A)$ is the sum of entries in the ith row of $A$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Consider the set $\mathcal{U}=\{A\in \mathcal{M}_{n\times n}(\mathbb{R}): r_i(A)=1\text{ for all } i=1,2,\ldots,n\}$. Is $\mathcal{U}$ a subspace of $\mathcal{M}_{n\times n}(\mathbb{R})$?
+\item Consider the set $\mathcal{V}=\{A\in \mathcal{M}_{n\times n}(\mathbb{R}): r_i(A)\ge 0\text{ for all } i=1,2,\ldots,n\}$. Is $\mathcal{V}$ a subspace of $\mathcal{M}_{n\times n}(\mathbb{R})$?
+\item Consider the set $\mathcal{W}=\{A\in \mathcal{M}_{n\times n}(\mathbb{R}): r_i(A)=0\text{ for some } i=1,2,\ldots,n\}$. Is $\mathcal{W}$ a subspace of $\mathcal{M}_{n\times n}(\mathbb{R})$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Subspace test by axioms}
+Recall: a nonempty subset $S$ of a vector space is a subspace iff it contains $\mathbf{0}$ and is closed under addition and scalar multiplication.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(Failure: $0\notin \mathcal{U}$).}
+The zero matrix $0$ satisfies $r_i(0)=0$ for all $i$, so $0\notin\mathcal{U}$ (since $\mathcal{U}$ requires $r_i(A)=1$ for all $i$). Hence $\mathcal{U}$ is not a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace of }\mathcal{M}_{n\times n}(\mathbb{R}).\,}
+\]
+
+\item \textbf{(Failure: not closed under scalar multiplication).}
+Take $A\in\mathcal{V}$ with at least one row sum $r_i(A)>0$, e.g.\ let $A$ be the matrix whose first row is $(1,0,\ldots,0)$ and all other entries are $0$. Then $A\in\mathcal{V}$, but $(-1)A$ has $r_1((-1)A)=-1<0$, so $(-1)A\notin\mathcal{V}$. Thus $\mathcal{V}$ is not a subspace.
+\[
+\boxed{\,\mathcal{V}\text{ is not a subspace of }\mathcal{M}_{n\times n}(\mathbb{R}).\,}
+\]
+
+\item If $n=1$, then $\mathcal{W}=\{[0]\}$, which \emph{is} a subspace of $\mathcal{M}_{1\times 1}(\mathbb{R})\cong \mathbb{R}$.
+
+Assume now that $n\ge 2$. \textbf{(Failure: not closed under addition).}
+Define diagonal matrices
+\[
+A=\operatorname{diag}(0,1,1,\ldots,1),\qquad B=\operatorname{diag}(1,0,1,\ldots,1).
+\]
+Then $r_1(A)=0$, so $A\in\mathcal{W}$; and $r_2(B)=0$, so $B\in\mathcal{W}$. However,
+\[
+A+B=\operatorname{diag}(1,1,2,\ldots,2),
+\]
+so every row sum of $A+B$ is positive (hence nonzero), meaning $A+B\notin\mathcal{W}$. Therefore $\mathcal{W}$ is not a subspace for $n\ge 2$.
+\[
+\boxed{\,\mathcal{W}\text{ is a subspace iff }n=1;\ \text{for }n\ge 2,\ \mathcal{W}\text{ is not a subspace.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Linear-map viewpoint}
+Define the linear map
+\[
+R:\mathcal{M}_{n\times n}(\mathbb{R})\to \mathbb{R}^n,\qquad R(A)=(r_1(A),\ldots,r_n(A)).
+\]
+Each $r_i$ is linear in $A$, hence $R$ is linear. Also recall: if $S\le \mathbb{R}^n$ is a subspace, then $R^{-1}(S)\le \mathcal{M}_{n\times n}(\mathbb{R})$.
+
+\begin{enumerate}[label=(\alph*)]
+\item $\mathcal{U}=R^{-1}(\mathbf{1})$ where $\mathbf{1}=(1,\ldots,1)\neq \mathbf{0}$. Since $\{\mathbf{1}\}$ is not a subspace of $\mathbb{R}^n$ (it does not contain $\mathbf{0}$), it follows that $\mathcal{U}$ cannot be a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace.}\,}
+\]
+
+\item $\mathcal{V}=R^{-1}(\mathbb{R}_{\ge 0}^n)$. The set $\mathbb{R}_{\ge 0}^n$ is not a subspace of $\mathbb{R}^n$ (not closed under multiplication by $-1$), hence $\mathcal{V}$ is not a subspace.
+\[
+\boxed{\,\mathcal{V}\text{ is not a subspace.}\,}
+\]
+
+\item Let $H_i=\{y\in\mathbb{R}^n:y_i=0\}$, a subspace of $\mathbb{R}^n$. Then
+\[
+\mathcal{W}=R^{-1}\Big(\bigcup_{i=1}^n H_i\Big)=\bigcup_{i=1}^n R^{-1}(H_i),
+\]
+a union of subspaces. For $n\ge 2$, $\bigcup_{i=1}^n H_i$ is not a subspace of $\mathbb{R}^n$ (e.g.\ $e_1\in H_2$ and $e_2\in H_1$ but $e_1+e_2\notin \bigcup_i H_i$), hence $\mathcal{W}$ is not a subspace for $n\ge 2$. For $n=1$, $\bigcup_i H_i=\{0\}$, so $\mathcal{W}$ is a subspace.
+\[
+\boxed{\,\mathcal{W}\text{ is a subspace iff }n=1;\ \text{otherwise not.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 3: Affine + Union theorem shortcuts}
+We use two standard results:
+
+\medskip
+\noindent\textbf{(T1) Affine vs linear subspace.}
+If $L:V\to W$ is linear and $w\in W$, then $L^{-1}(w)$ is either empty or an \emph{affine} subspace of $V$; it is a \emph{linear} subspace iff $w=0$ (equivalently iff $0\in L^{-1}(w)$).
+
+\medskip
+\noindent\textbf{(T2) Union of subspaces.}
+If $U,V$ are subspaces of a vector space, then $U\cup V$ is a subspace iff $U\subseteq V$ or $V\subseteq U$.
+
+\medskip
+With $R$ as in Method 2, apply these:
+
+\begin{enumerate}[label=(\alph*)]
+\item $\mathcal{U}=R^{-1}(\mathbf{1})$ with $\mathbf{1}\neq 0$. By (T1), $\mathcal{U}$ is an affine translate of $\ker(R)$, not a linear subspace. Equivalently, $0\notin\mathcal{U}$.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace.}\,}
+\]
+
+\item $\mathcal{V}=R^{-1}(\mathbb{R}_{\ge 0}^n)$ where $\mathbb{R}_{\ge 0}^n$ is a cone but not a subspace (since $y\in \mathbb{R}_{\ge 0}^n\Rightarrow -y\notin \mathbb{R}_{\ge 0}^n$ unless $y=0$). Hence $\mathcal{V}$ cannot be a subspace.
+\[
+\boxed{\,\mathcal{V}\text{ is not a subspace.}\,}
+\]
+
+\item For each $i$, set $U_i:=R^{-1}(H_i)$ where $H_i=\{y\in\mathbb{R}^n:y_i=0\}$. Since $H_i$ is a subspace and $R$ is linear, each $U_i$ is a subspace. Moreover,
+\[
+\mathcal{W}=\bigcup_{i=1}^n U_i.
+\]
+If $n=1$, then $\mathcal{W}=U_1=\ker(R)$ is a subspace.
+
+Assume $n\ge 2$. Consider $U_1$ and $U_2$. Neither contains the other: indeed, choose $A$ with $r_1(A)=0$ and $r_2(A)=1$ (so $A\in U_1\setminus U_2$), and choose $B$ with $r_2(B)=0$ and $r_1(B)=1$ (so $B\in U_2\setminus U_1$). Hence $U_1\cup U_2$ is not a subspace by (T2), and therefore $\mathcal{W}$ (which contains $U_1\cup U_2$) is not a subspace for $n\ge 2$.
+\[
+\boxed{\,\mathcal{W}\text{ is a subspace iff }n=1;\ \text{for }n\ge 2,\ \mathcal{W}\text{ is not a subspace.}\,}
+\]
+\end{enumerate}
+
+\subsection{Mark Scheme (10 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) States subspace requirement $0\in\mathcal{U}$ (or equivalent subspace test).
+    \item (1) Computes/notes $r_i(0)=0$ for all $i$.
+    \item (1) Concludes $0\notin\mathcal{U}\Rightarrow$ not a subspace.
+  \end{itemize}
+
+  \item \textbf{(b) (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Identifies closure under scalar multiplication as required.
+    \item (1) Provides valid $A\in\mathcal{V}$ with some $r_i(A)>0$ (any correct example).
+    \item (1) Shows $(-1)A\notin\mathcal{V}$ and concludes not a subspace.
+  \end{itemize}
+
+  \item \textbf{(c) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Correctly handles $n=1$: $\mathcal{W}=\{[0]\}$ hence subspace.
+    \item (1) For $n\ge 2$, identifies a necessary subspace property to test (closure under addition, or union-of-subspaces criterion).
+    \item (1) Produces $A,B\in\mathcal{W}$ with zero row-sum in different rows (any correct construction).
+    \item (1) Shows $A+B\notin\mathcal{W}$ (or applies theorem: union of incomparable subspaces is not a subspace), concluding not a subspace for $n\ge 2$.
+  \end{itemize}
+\end{itemize}
+% ============================================================
+% QUESTION 2
+% ============================================================
+\newpage
+\section{Question 2 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $T:P_4(\mathbb{R})\to \mathbb{R}^3$ be the map defined by
+\[
+T(f)=(f(0),f(1),f(2)).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that $T$ is a linear map.
+\item Consider the following basis $\mathcal{B}=\{1,x,x^2,x^3,x^2(x-1)(x-2)\}$ for $P_4(\mathbb{R})$ (you need not show that $\mathcal{B}$ is a basis). Let $\mathcal{A}=\{e_1,e_2,e_3\}$ be the standard basis for $\mathbb{R}^3$. Write down the matrix representation of $T$ with respect to $\mathcal{B}$ and $\mathcal{A}$.
+\item Determine the dimensions of $\operatorname{null}(T)$ and $\operatorname{range}(T)$. In your solution, you must provide a basis for either $\operatorname{null}(T)$ or $\operatorname{range}(T)$. You need not provide bases for both $\operatorname{null}(T)$ and $\operatorname{range}(T)$.
+\item Determine whether the following properties of $T$ is true. You are to explain your answer.
+  \begin{enumerate}[label=(\roman*)]
+  \item Is $T$ injective?
+  \item Is $T$ surjective?
+  \item Is $T$ invertible?
+  \end{enumerate}
+\end{enumerate}
+
+\vspace{3cm}
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct evaluation + factor theorem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $f,g\in P_4(\mathbb{R})$ and let $\lambda\in\mathbb{R}$. Then
+\[
+T(f+\lambda g)
+=
+\big((f+\lambda g)(0),(f+\lambda g)(1),(f+\lambda g)(2)\big).
+\]
+By linearity of polynomial evaluation,
+\[
+(f+\lambda g)(a)=f(a)+\lambda g(a)\qquad (a=0,1,2).
+\]
+Hence
+\[
+T(f+\lambda g)
+=
+\big(f(0)+\lambda g(0),\,f(1)+\lambda g(1),\,f(2)+\lambda g(2)\big)
+=
+T(f)+\lambda T(g).
+\]
+Therefore $T$ is linear.
+\[
+\boxed{\,T\text{ is a linear map.}\,}
+\]
+
+\bigskip
+\item To obtain the matrix of $T$ with respect to domain basis $\mathcal{B}$ and codomain basis $\mathcal{A}$, we compute $T$ on each element of $\mathcal{B}$ and use the resulting coordinate vectors in $\mathcal{A}$ as the columns.
+
+Since $\mathcal{A}=\{e_1,e_2,e_3\}$ is the standard basis of $\mathbb{R}^3$, the coordinate vector of a vector in $\mathbb{R}^3$ is just the vector itself.
+
+Now:
+\[
+T(1)=(1,1,1),
+\]
+\[
+T(x)=(0,1,2),
+\]
+\[
+T(x^2)=(0,1,4),
+\]
+\[
+T(x^3)=(0,1,8),
+\]
+and
+\[
+T\big(x^2(x-1)(x-2)\big)=(0,0,0),
+\]
+because $x^2(x-1)(x-2)$ vanishes at $x=0,1,2$.
+
+Therefore
+
+\[
+\boxed{
+[T]_{\mathcal{A}}^{\mathcal{B}}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}}
+\]
+
+\item First determine the null space.
+
+By definition,
+\[
+\operatorname{null}(T)
+=
+\{f\in P_4(\mathbb{R}) : f(0)=f(1)=f(2)=0\}.
+\]
+Thus every $f\in\operatorname{null}(T)$ has roots $0,1,2$. By the factor theorem,
+\[
+x,\quad x-1,\quad x-2
+\]
+all divide $f(x)$, so
+\[
+f(x)=x(x-1)(x-2)q(x)
+\]
+for some polynomial $q(x)$.
+
+Since $\deg f\le 4$, we must have $\deg q\le 1$. Hence
+\[
+q(x)=ax+b
+\qquad (a,b\in\mathbb{R}),
+\]
+so
+\[
+f(x)=x(x-1)(x-2)(ax+b).
+\]
+Therefore
+\[
+\operatorname{null}(T)
+=
+\operatorname{span}\{x(x-1)(x-2),\,x^2(x-1)(x-2)\}.
+\]
+So a basis for $\operatorname{null}(T)$ is
+\[
+\{x(x-1)(x-2),\,x^2(x-1)(x-2)\},
+\]
+and hence
+\[
+\dim\operatorname{null}(T)=2.
+\]
+
+Now use rank--nullity:
+\[
+\dim P_4(\mathbb{R})=\dim\operatorname{null}(T)+\dim\operatorname{range}(T).
+\]
+Since $\dim P_4(\mathbb{R})=5$, we get
+\[
+5=2+\dim\operatorname{range}(T),
+\]
+so
+\[
+\dim\operatorname{range}(T)=3.
+\]
+
+Thus
+\[
+\boxed{\dim\operatorname{null}(T)=2,\qquad \dim\operatorname{range}(T)=3.}
+\]
+
+\item
+\begin{enumerate}[label=(\roman*)]
+\item $T$ is injective iff $\operatorname{null}(T)=\{0\}$. But
+\[
+\dim\operatorname{null}(T)=2>0,
+\]
+so $\operatorname{null}(T)\neq\{0\}$. Therefore $T$ is not injective.
+\[
+\boxed{\,T\text{ is not injective.}\,}
+\]
+
+\item Since $\operatorname{range}(T)$ is a subspace of $\mathbb{R}^3$ and
+\[
+\dim\operatorname{range}(T)=3=\dim\mathbb{R}^3,
+\]
+it follows that
+\[
+\operatorname{range}(T)=\mathbb{R}^3.
+\]
+Therefore $T$ is surjective.
+\[
+\boxed{\,T\text{ is surjective.}\,}
+\]
+
+\item A linear map is invertible iff it is bijective, i.e.\ both injective and surjective. Since $T$ is surjective but not injective, it is not invertible.
+\[
+\boxed{\,T\text{ is not invertible.}\,}
+\]
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Matrix method + rank--nullity}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $f,g\in P_4(\mathbb{R})$ and let $\lambda\in\mathbb{R}$. Then
+\[
+T(f+\lambda g)
+=
+\big((f+\lambda g)(0),(f+\lambda g)(1),(f+\lambda g)(2)\big).
+\]
+Since polynomial evaluation is linear at each point,
+\[
+(f+\lambda g)(0)=f(0)+\lambda g(0),\qquad
+(f+\lambda g)(1)=f(1)+\lambda g(1),\qquad
+(f+\lambda g)(2)=f(2)+\lambda g(2).
+\]
+Therefore
+\[
+T(f+\lambda g)
+=
+\big(f(0)+\lambda g(0),\,f(1)+\lambda g(1),\,f(2)+\lambda g(2)\big)
+=
+T(f)+\lambda T(g).
+\]
+Hence $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item Let
+\[
+\mathcal{B}=\{1,x,x^2,x^3,x^2(x-1)(x-2)\},
+\qquad
+\mathcal{A}=\{e_1,e_2,e_3\}.
+\]
+To find the matrix of $T$ with respect to $\mathcal{B}$ and $\mathcal{A}$, we compute the image of each basis vector in $\mathcal{B}$ and place its coordinate vector relative to $\mathcal{A}$ as a column.
+
+Now,
+\[
+T(1)=(1,1,1),
+\]
+\[
+T(x)=(0,1,2),
+\]
+\[
+T(x^2)=(0,1,4),
+\]
+\[
+T(x^3)=(0,1,8),
+\]
+and
+\[
+T\bigl(x^2(x-1)(x-2)\bigr)=(0,0,0),
+\]
+because
+\[
+x^2(x-1)(x-2)
+\]
+vanishes at $x=0,1,2$.
+
+
+Therefore
+\[
+\boxed{
+[T]_{\mathcal{A}}^{\mathcal{B}}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}}
+\]
+
+\newpage
+\item Using the matrix found in part (b),
+\[
+[T]_{\mathcal{A}}^{\mathcal{B}}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}.
+\]
+Row-reducing:
+\[
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}
+\;\longrightarrow\;
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+0 & 1 & 1 & 1 & 0\\
+0 & 2 & 4 & 8 & 0
+\end{bmatrix}
+\;\longrightarrow\;
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+0 & 1 & 1 & 1 & 0\\
+0 & 0 & 2 & 6 & 0
+\end{bmatrix}.
+\]
+There are $3$ pivot rows, so
+\[
+\operatorname{rank}(T)=3.
+\]
+Hence
+\[
+\dim\operatorname{range}(T)=3.
+\]
+
+Since
+\[
+\dim P_4(\mathbb{R})=5,
+\]
+rank--nullity gives
+\[
+\dim\operatorname{null}(T)=5-3=2.
+\]
+
+To provide a basis for $\operatorname{range}(T)$, take the pivot columns of the original matrix. These are the first three columns, so a basis for $\operatorname{range}(T)$ is
+\[
+\{(1,1,1),(0,1,2),(0,1,4)\}.
+\]
+Thus
+\[
+\operatorname{range}(T)=\operatorname{span}\{(1,1,1),(0,1,2),(0,1,4)\},
+\]
+and
+\[
+\boxed{\dim(\operatorname{null}(T))=2,\qquad \dim(\operatorname{range}(T))=3.}
+\]
+
+\item
+\begin{enumerate}[label=(\roman*)]
+\item A linear map is injective iff its null space is trivial. Since
+\[
+\dim\operatorname{null}(T)=2>0,
+\]
+we have
+\[
+\operatorname{null}(T)\neq \{0\}.
+\]
+Therefore $T$ is not injective.
+\[
+\boxed{\,T\text{ is not injective.}\,}
+\]
+
+\item A subspace of $\mathbb{R}^3$ of dimension $3$ must be all of $\mathbb{R}^3$. Since
+\[
+\dim\operatorname{range}(T)=3,
+\]
+it follows that
+\[
+\operatorname{range}(T)=\mathbb{R}^3.
+\]
+Therefore $T$ is surjective.
+\[
+\boxed{\,T\text{ is surjective.}\,}
+\]
+
+\item A linear map is invertible iff it is both injective and surjective. Since $T$ is surjective but not injective, $T$ is not invertible.
+\[
+\boxed{\,T\text{ is not invertible.}\,}
+\]
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Interpolation for the range + factor theorem for the kernel}
+This method determines the range by interpolation and the null space by roots.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $f,g\in P_4(\mathbb{R})$ and let $\lambda\in\mathbb{R}$. Then
+\[
+T(f+\lambda g)
+=
+\big((f+\lambda g)(0),(f+\lambda g)(1),(f+\lambda g)(2)\big).
+\]
+Using linearity of evaluation at each point,
+\[
+(f+\lambda g)(0)=f(0)+\lambda g(0),\qquad
+(f+\lambda g)(1)=f(1)+\lambda g(1),\qquad
+(f+\lambda g)(2)=f(2)+\lambda g(2).
+\]
+Hence
+\[
+T(f+\lambda g)
+=
+\big(f(0)+\lambda g(0),\,f(1)+\lambda g(1),\,f(2)+\lambda g(2)\big)
+=
+T(f)+\lambda T(g).
+\]
+Therefore $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item Let
+\[
+\mathcal{B}=\{1,x,x^2,x^3,x^2(x-1)(x-2)\},
+\qquad
+\mathcal{A}=\{e_1,e_2,e_3\}.
+\]
+We compute $T$ on each vector in $\mathcal{B}$:
+\[
+T(1)=(1,1,1),
+\]
+\[
+T(x)=(0,1,2),
+\]
+\[
+T(x^2)=(0,1,4),
+\]
+\[
+T(x^3)=(0,1,8),
+\]
+\[
+T\bigl(x^2(x-1)(x-2)\bigr)=(0,0,0).
+\]
+Thus the matrix representation of $T$ with respect to $\mathcal{B}$ and $\mathcal{A}$ is
+\[
+[T]_{\mathcal{A}}^{\mathcal{B}}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{
+[T]_{\mathcal{A}}^{\mathcal{B}}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0\\
+1 & 2 & 4 & 8 & 0
+\end{bmatrix}}
+\]
+
+\item Let $(y_0,y_1,y_2)\in\mathbb{R}^3$ be arbitrary. Define the Lagrange basis polynomials for the nodes $0,1,2$ by
+\[
+\ell_0(x)=\frac{(x-1)(x-2)}{(0-1)(0-2)}=\frac{(x-1)(x-2)}{2},
+\]
+\[
+\ell_1(x)=\frac{x(x-2)}{(1-0)(1-2)}=-x(x-2),
+\]
+\[
+\ell_2(x)=\frac{x(x-1)}{(2-0)(2-1)}=\frac{x(x-1)}{2}.
+\]
+These satisfy
+\[
+\ell_0(0)=1,\ \ell_0(1)=0,\ \ell_0(2)=0,
+\]
+\[
+\ell_1(0)=0,\ \ell_1(1)=1,\ \ell_1(2)=0,
+\]
+\[
+\ell_2(0)=0,\ \ell_2(1)=0,\ \ell_2(2)=1.
+\]
+Now define
+\[
+p(x)=y_0\ell_0(x)+y_1\ell_1(x)+y_2\ell_2(x).
+\]
+Then
+\[
+p(0)=y_0,\qquad p(1)=y_1,\qquad p(2)=y_2.
+\]
+Also $\deg p\le 2$, so $p\in P_4(\mathbb{R})$. Therefore
+\[
+T(p)=(y_0,y_1,y_2).
+\]
+Since $(y_0,y_1,y_2)$ was arbitrary, it follows that
+\[
+\operatorname{range}(T)=\mathbb{R}^3.
+\]
+Hence
+\[
+\dim\operatorname{range}(T)=3.
+\]
+A basis for $\operatorname{range}(T)$ is therefore
+\[
+\{e_1,e_2,e_3\}.
+\]
+
+Now determine the null space. By definition,
+\[
+\operatorname{null}(T)=\{f\in P_4(\mathbb{R}) : f(0)=f(1)=f(2)=0\}.
+\]
+So every $f\in\operatorname{null}(T)$ has roots $0,1,2$. By the factor theorem,
+\[
+f(x)=x(x-1)(x-2)q(x)
+\]
+for some polynomial $q(x)$. Since $\deg f\le 4$, we must have $\deg q\le 1$, so
+\[
+q(x)=ax+b
+\qquad (a,b\in\mathbb{R}).
+\]
+Hence
+\[
+f(x)=a\,x^2(x-1)(x-2)+b\,x(x-1)(x-2),
+\]
+which shows that
+\[
+\operatorname{null}(T)
+=
+\operatorname{span}\{x(x-1)(x-2),\,x^2(x-1)(x-2)\}.
+\]
+Therefore
+\[
+\dim\operatorname{null}(T)=2.
+\]
+
+Thus
+\[
+\boxed{\dim\operatorname{null}(T)=2,\qquad \dim\operatorname{range}(T)=3.}
+\]
+
+\item
+\begin{enumerate}[label=(\roman*)]
+\item A linear map is injective iff its null space is $\{0\}$. Since
+\[
+\dim\operatorname{null}(T)=2>0,
+\]
+the null space is nontrivial. Therefore $T$ is not injective.
+\[
+\boxed{\,T\text{ is not injective.}\,}
+\]
+
+\item Since
+\[
+\operatorname{range}(T)=\mathbb{R}^3,
+\]
+the map $T$ is surjective.
+\[
+\boxed{\,T\text{ is surjective.}\,}
+\]
+
+\item A linear map is invertible iff it is bijective. Since $T$ is surjective but not injective, it is not invertible.
+\[
+\boxed{\,T\text{ is not invertible.}\,}
+\]
+\end{enumerate}
+\end{enumerate}
+
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Linearity (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) States the correct linearity condition.
+    \item (2) Correctly computes $T(f+\lambda g)$ componentwise.
+    \item (1) Concludes that $T(f+\lambda g)=T(f)+\lambda T(g)$, hence $T$ is linear.
+  \end{itemize}
+
+  \item \textbf{(b) Matrix representation (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Recognises that columns are the images of the basis vectors in $\mathcal{B}$.
+    \item (1) Correctly computes $T(1)=(1,1,1)$.
+    \item (1) Correctly computes $T(x)=(0,1,2)$ and $T(x^2)=(0,1,4)$.
+    \item (1) Correctly computes $T(x^3)=(0,1,8)$.
+    \item (1) Correctly computes $T(x^2(x-1)(x-2))=(0,0,0)$ and writes the full matrix.
+  \end{itemize}
+
+  \item \textbf{(c) $\operatorname{null}(T)$ and $\operatorname{range}(T)$ (6 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly characterises $\operatorname{null}(T)$ as polynomials vanishing at $0,1,2$, and uses factor theorem or an equivalent argument.
+    \item (1) Gives a correct basis for $\operatorname{null}(T)$ \emph{or} a correct basis for $\operatorname{range}(T)$.
+    \item (1) Correctly obtains $\dim\operatorname{null}(T)=2$.
+    \item (2) Correctly obtains $\dim\operatorname{range}(T)=3$ by rank--nullity, rank, or surjectivity.
+  \end{itemize}
+
+  \item \textbf{(d) Injective / surjective / invertible (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Correctly states that $T$ is not injective.
+    \item (1) Correctly justifies non-injectivity using $\operatorname{null}(T)\neq\{0\}$ or $\dim\operatorname{null}(T)=2$.
+    \item (1) Correctly states that $T$ is surjective.
+    \item (1) Correctly justifies surjectivity using $\dim\operatorname{range}(T)=3$ or $\operatorname{range}(T)=\mathbb{R}^3$.
+    \item (1) Correctly concludes that $T$ is not invertible, with justification.
+  \end{itemize}
+\end{itemize}
+
+\end{document}

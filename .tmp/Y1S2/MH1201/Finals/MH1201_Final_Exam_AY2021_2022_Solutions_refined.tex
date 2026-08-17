@@ -1,0 +1,834 @@
+
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Final Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2021/2022, Semester 2}
+\newcommand{\ExamMetaShort}{Final AY21-22}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Ppoly}{\mathcal{P}}
+\newcommand{\Null}{\operatorname{null}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\allowdisplaybreaks
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+
+\begin{overview}
+  \item Topics: matrix-space linear maps, diagonalisation with repeated eigenvalues, polynomial inner products, all-ones matrices, and existence of linear maps under dimension constraints.
+  \item The pack follows the reference solution style: each question has a problem statement, solution methods, and a detailed marking scheme.
+  \item Alternative methods are included only where they add a useful different viewpoint.
+\end{overview}
+
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Question 1 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let
+\[
+T:\M_{3\times3}(\R)\to\M_{3\times3}(\R),
+\qquad
+T(M)=M-M^T.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that $T$ is a linear operator.
+  \item Consider the following nine matrices in $\M_{3\times3}(\R)$:
+  \[
+  A=\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix},
+  \quad
+  B=\begin{bmatrix}0&0&0\\0&1&0\\0&0&0\end{bmatrix},
+  \quad
+  C=\begin{bmatrix}0&0&0\\0&0&0\\0&0&1\end{bmatrix},
+  \]
+  \[
+  D=\begin{bmatrix}0&1&0\\1&0&0\\0&0&0\end{bmatrix},
+  \quad
+  E=\begin{bmatrix}0&0&1\\0&0&0\\1&0&0\end{bmatrix},
+  \quad
+  F=\begin{bmatrix}0&0&0\\0&0&1\\0&1&0\end{bmatrix},
+  \]
+  \[
+  G=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix},
+  \quad
+  H=\begin{bmatrix}0&0&1\\0&0&0\\-1&0&0\end{bmatrix},
+  \quad
+  N=\begin{bmatrix}0&0&0\\0&0&1\\0&-1&0\end{bmatrix}.
+  \]
+  Let $\B=\{A,B,C,D,E,F,G,H,N\}$. Show that $\B$ is a basis for $\M_{3\times3}(\R)$.
+  \item Determine the matrix $[T]_{\B}^{\B}$.
+  \item Determine a basis for $\Null(T)$.
+  \item Determine a basis for $\Range(T)$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Symmetric/skew-symmetric decomposition}
+For $M,N\in\M_{3\times3}(\R)$ and $c\in\R$,
+\[
+T(M+N)=(M+N)-(M+N)^T=(M-M^T)+(N-N^T)=T(M)+T(N),
+\]
+and
+\[
+T(cM)=cM-(cM)^T=c(M-M^T)=cT(M).
+\]
+Thus $T$ is linear.
+
+The matrices $A,B,C$ are the diagonal basis matrices. The matrices $D,E,F$ are symmetric off-diagonal matrices, and $G,H,N$ are skew-symmetric off-diagonal matrices. Since there are nine matrices and
+\[
+\dim\M_{3\times3}(\R)=9,
+\]
+it suffices to prove linear independence.
+
+Suppose
+\[
+\alpha_1A+\alpha_2B+\alpha_3C+\beta_1D+\beta_2E+\beta_3F+\gamma_1G+\gamma_2H+\gamma_3N=0.
+\]
+Comparing diagonal entries gives
+\[
+\alpha_1=\alpha_2=\alpha_3=0.
+\]
+Comparing the $(1,2)$ and $(2,1)$ entries gives
+\[
+\beta_1+
+\gamma_1=0,
+\qquad
+\beta_1-\gamma_1=0,
+\]
+so $\beta_1=\gamma_1=0$. Similarly, comparing the $(1,3),(3,1)$ entries gives $\beta_2=\gamma_2=0$, and comparing the $(2,3),(3,2)$ entries gives $\beta_3=\gamma_3=0$. Hence all coefficients are zero, and
+\[
+\boxed{\B\text{ is a basis for }\M_{3\times3}(\R).}
+\]
+
+Now $A,B,C,D,E,F$ are symmetric, so $T$ sends each of them to $0$. Also $G,H,N$ are skew-symmetric, so $G^T=-G$, $H^T=-H$, and $N^T=-N$. Hence
+\[
+T(G)=2G,
+\qquad
+T(H)=2H,
+\qquad
+T(N)=2N.
+\]
+Therefore, in the ordered basis $(A,B,C,D,E,F,G,H,N)$,
+\[
+\boxed{
+[T]_{\B}^{\B}=\begin{bmatrix}
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&2&0&0\\
+0&0&0&0&0&0&0&2&0\\
+0&0&0&0&0&0&0&0&2
+\end{bmatrix}.}
+\]
+
+Since $T(M)=0$ iff $M=M^T$,
+\[
+\Null(T)=\{\text{symmetric }3\times3\text{ matrices}\}.
+\]
+Thus
+\[
+\boxed{\Null(T)=\Span\{A,B,C,D,E,F\}.}
+\]
+Also $T(M)=M-M^T$ is always skew-symmetric, and every skew-symmetric $K$ satisfies
+\[
+T\left(\frac12K\right)=K.
+\]
+Therefore
+\[
+\boxed{\Range(T)=\Span\{G,H,N\}.}
+\]
+
+\subsubsection{Method 2: Coordinate action on matrix entries}
+Writing $M=(m_{ij})$, the $(i,j)$ entry of $T(M)$ is $m_{ij}-m_{ji}$. Thus all diagonal entries of $T(M)$ are zero, and the off-diagonal entries occur in opposite pairs. This immediately shows that the range is the skew-symmetric subspace. The equation $T(M)=0$ is exactly $m_{ij}=m_{ji}$ for all $i,j$, which is the symmetric subspace. The given basis $\B$ is arranged precisely into diagonal, symmetric off-diagonal, and skew-symmetric off-diagonal directions, which gives the same matrix representation.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Linearity (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correct additivity proof.
+    \item (1) Correct homogeneity proof.
+  \end{itemize}
+  \item \textbf{(b) Basis verification (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Notes that there are nine matrices and $\dim\M_{3\times3}(\R)=9$.
+    \item (3) Proves linear independence by comparing entries or by decomposing the matrices into standard structural directions.
+    \item (1) Concludes that $\B$ is a basis.
+  \end{itemize}
+  \item \textbf{(c) Matrix representation (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly identifies that symmetric basis vectors map to $0$.
+    \item (2) Correctly identifies that skew-symmetric basis vectors map to twice themselves.
+    \item (1) Writes the correct $9\times9$ matrix in the stated order.
+  \end{itemize}
+  \item \textbf{(d) Nullspace (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Identifies $\Null(T)$ as the symmetric subspace.
+    \item (1) Gives a valid basis.
+  \end{itemize}
+  \item \textbf{(e) Range (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Identifies $\Range(T)$ as the skew-symmetric subspace.
+    \item (1) Justifies that every skew-symmetric matrix is attained.
+    \item (1) Gives a valid basis.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 2 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $a\in\R$. Consider
+\[
+A=\begin{bmatrix}
+1&1&0\\
+0&a&1\\
+0&0&2
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Write down the characteristic polynomial for $A$ and determine its eigenvalues.
+  \item Find all values of $a$ for which $A$ is not diagonalizable.
+  \item For all $a$ for which $A$ is diagonalizable, find a diagonal matrix $D$ and an invertible matrix $P$ such that $A=PDP^{-1}$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Triangular matrix and eigenspaces}
+Since $A$ is upper triangular,
+\[
+\det(A-\lambda I)=(1-\lambda)(a-\lambda)(2-\lambda).
+\]
+Thus the eigenvalues are
+\[
+\boxed{1,
+\quad a,
+\quad 2.}
+\]
+
+If $a\neq1,2$, then the three eigenvalues are distinct, so $A$ is diagonalizable.
+
+If $a=1$, then $\lambda=1$ has algebraic multiplicity $2$. We compute
+\[
+A-I=\begin{bmatrix}0&1&0\\0&0&1\\0&0&1\end{bmatrix}.
+\]
+This matrix has rank $2$, so
+\[
+\dim E_1=3-2=1.
+\]
+Since the eigenspace dimension is less than the algebraic multiplicity, $A$ is not diagonalizable.
+
+If $a=2$, then $\lambda=2$ has algebraic multiplicity $2$. We compute
+\[
+A-2I=\begin{bmatrix}-1&1&0\\0&0&1\\0&0&0\end{bmatrix}.
+\]
+Again the rank is $2$, so
+\[
+\dim E_2=1,
+\]
+and $A$ is not diagonalizable.
+
+Therefore
+\[
+\boxed{A\text{ is not diagonalizable exactly when }a=1\text{ or }a=2.}
+\]
+
+Now assume $a\neq1,2$. For $\lambda=1$,
+\[
+v_1=\begin{bmatrix}1\\0\\0\end{bmatrix}.
+\]
+For $\lambda=a$,
+\[
+(A-aI)x=0
+\quad\Longrightarrow\quad x_2=(a-1)x_1,
+\quad x_3=0,
+\]
+so take
+\[
+v_2=\begin{bmatrix}1\\a-1\\0\end{bmatrix}.
+\]
+For $\lambda=2$,
+\[
+(A-2I)x=0
+\quad\Longrightarrow\quad x_2=x_1,
+\quad x_3=(2-a)x_2,
+\]
+so take
+\[
+v_3=\begin{bmatrix}1\\1\\2-a\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{
+P=\begin{bmatrix}1&1&1\\0&a-1&1\\0&0&2-a\end{bmatrix},
+\qquad
+D=\diag(1,a,2),
+\qquad A=PDP^{-1}.}
+\]
+Since $a\neq1,2$, the triangular matrix $P$ has nonzero diagonal entries and is invertible.
+
+\subsubsection{Method 2: Jordan-chain obstruction}
+The only possible failures of diagonalizability occur when eigenvalues repeat, i.e. $a=1$ or $a=2$. In each case, the superdiagonal $1$ linking the repeated eigenvalue to an adjacent coordinate creates only one eigenvector for the repeated eigenvalue. Therefore both repeated cases are defective, while all non-repeated cases are diagonalizable. This gives the same conclusion as the direct eigenspace computation.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Characteristic polynomial and eigenvalues (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Uses triangular form to write the characteristic polynomial.
+    \item (2) States the eigenvalues correctly.
+  \end{itemize}
+  \item \textbf{(b) Non-diagonalizable values (8 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Notes that only $a=1$ or $a=2$ can cause repeated eigenvalues.
+    \item (2) Shows $a=1$ is defective.
+    \item (2) Shows $a=2$ is defective.
+    \item (2) Concludes exactly $a=1,2$ are not diagonalizable.
+  \end{itemize}
+  \item \textbf{(c) Diagonalisation for $a\neq1,2$ (8 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Finds correct eigenvectors for the three eigenvalues.
+    \item (2) Forms the correct $P$ and $D$.
+    \item (1) Justifies that $P$ is invertible.
+    \item (2) States $A=PDP^{-1}$ clearly.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 3 \hfill (20 Marks)}
+
+\subsection{Problem}
+Consider the vector space $\Ppoly_3(\R)$ and the polynomials
+\[
+q_0(x)=\frac{(x-1)(x-2)(x-3)}{-6},
+\qquad
+q_1(x)=\frac{x(x-2)(x-3)}{2},
+\qquad
+q_2(x)=\frac{x(x-1)(x-3)}{-2}.
+\]
+Throughout this question, use
+\[
+\ip{f(x)}{g(x)}=f(0)g(0)+f(1)g(1)+f(2)g(2)+f(3)g(3).
+\]
+You may use the fact that if two polynomials in $\Ppoly_3(\R)$ evaluate to the same values at four distinct points, then they are the same polynomial.
+\begin{enumerate}[label=(\alph*)]
+  \item Verify that the product function is a real inner product on $\Ppoly_3(\R)$.
+  \item Show that $\{q_0(x),q_1(x),q_2(x)\}$ is orthonormal with respect to the inner product.
+  \item Let $f(x)=x^3$. By evaluating at $x=3$, explain why $f(x)$ does not belong to $\Span\{q_0,q_1,q_2\}$. Then explain why $\{q_0,q_1,q_2,f\}$ is a basis for $\Ppoly_3(\R)$.
+  \item Apply Gram--Schmidt to $\{q_0,q_1,q_2,f\}$ to find $q_3$ such that $\B=\{q_0,q_1,q_2,q_3\}$ is an orthonormal basis for $\Ppoly_3(\R)$. Verify that
+  \[
+  q_3(x)=\frac{x(x-1)(x-2)}6.
+  \]
+  \item For a positive integer $N$, define
+  \[
+  S(N)=0^2+1^2+\cdots+N^2.
+  \]
+  Given that $S(N)$ is a polynomial in $N$ of degree exactly three, write $S(N)$ as a linear combination of polynomials in $\B$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Evaluation-vector interpretation}
+The inner product is the usual dot product of evaluation vectors
+\[
+f\longmapsto (f(0),f(1),f(2),f(3)).
+\]
+Linearity in the first slot follows from pointwise addition and scalar multiplication. Symmetry follows from commutativity of real multiplication. Also,
+\[
+\ip{f}{f}=f(0)^2+f(1)^2+f(2)^2+f(3)^2\ge0.
+\]
+If $\ip{f}{f}=0$, then $f(0)=f(1)=f(2)=f(3)=0$. Since $f\in\Ppoly_3(\R)$ has four distinct roots, it must be the zero polynomial. Hence this is a real inner product.
+
+The polynomials are Lagrange polynomials at the points $0,1,2,3$:
+\[
+(q_0(0),q_0(1),q_0(2),q_0(3))=(1,0,0,0),
+\]
+\[
+(q_1(0),q_1(1),q_1(2),q_1(3))=(0,1,0,0),
+\]
+\[
+(q_2(0),q_2(1),q_2(2),q_2(3))=(0,0,1,0).
+\]
+Therefore their inner products are exactly dot products of the first three standard basis vectors in $\R^4$, so
+\[
+\boxed{\ip{q_i}{q_j}=\delta_{ij}\quad(0\le i,j\le2).}
+\]
+Thus $\{q_0,q_1,q_2\}$ is orthonormal.
+
+Let $f(x)=x^3$. Since
+\[
+f(3)=27,
+\qquad
+q_0(3)=q_1(3)=q_2(3)=0,
+\]
+every polynomial in $\Span\{q_0,q_1,q_2\}$ evaluates to $0$ at $x=3$, while $f(3)=27$. Hence $f\notin\Span\{q_0,q_1,q_2\}$. Therefore $\{q_0,q_1,q_2,f\}$ is linearly independent. Since $\dim\Ppoly_3(\R)=4$, it is a basis.
+
+Because $q_0,q_1,q_2$ are already orthonormal, Gram--Schmidt gives
+\[
+g=f-\ip{f}{q_0}q_0-\ip{f}{q_1}q_1-\ip{f}{q_2}q_2.
+\]
+Now
+\[
+\ip{f}{q_0}=f(0)=0,
+\qquad
+\ip{f}{q_1}=f(1)=1,
+\qquad
+\ip{f}{q_2}=f(2)=8.
+\]
+Thus
+\[
+g=f-q_1-8q_2.
+\]
+Its evaluation vector is
+\[
+(g(0),g(1),g(2),g(3))=(0,0,0,27).
+\]
+The polynomial
+\[
+q_3(x)=\frac{x(x-1)(x-2)}6
+\]
+has evaluation vector $(0,0,0,1)$. Hence $g=27q_3$, so after normalisation the next orthonormal vector is
+\[
+\boxed{q_3(x)=\frac{x(x-1)(x-2)}6.}
+\]
+Therefore
+\[
+\boxed{\B=\{q_0,q_1,q_2,q_3\}}
+\]
+is an orthonormal basis.
+
+Finally, since $\B$ is the Lagrange basis at $0,1,2,3$, for any cubic polynomial $p$,
+\[
+p(N)=p(0)q_0(N)+p(1)q_1(N)+p(2)q_2(N)+p(3)q_3(N).
+\]
+For $S(N)=0^2+1^2+\cdots+N^2$,
+\[
+S(0)=0,
+\qquad
+S(1)=1,
+\qquad
+S(2)=5,
+\qquad
+S(3)=14.
+\]
+Therefore
+\[
+\boxed{S(N)=q_1(N)+5q_2(N)+14q_3(N).}
+\]
+
+\subsubsection{Method 2: Standard basis in disguise}
+The map $f\mapsto (f(0),f(1),f(2),f(3))$ is an isomorphism from $\Ppoly_3(\R)$ to $\R^4$. Under this map,
+\[
+q_0\mapsto e_1,
+\quad
+q_1\mapsto e_2,
+\quad
+q_2\mapsto e_3,
+\quad
+q_3\mapsto e_4.
+\]
+Thus almost all computations reduce to ordinary dot products and coordinates in $\R^4$. In particular, the expansion of $S$ is simply its evaluation vector
+\[
+(S(0),S(1),S(2),S(3))=(0,1,5,14),
+\]
+so the coefficient of $q_i$ is $S(i)$.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Inner product verification (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Verifies linearity in the first slot.
+    \item (1) Verifies symmetry.
+    \item (1) Verifies non-negativity.
+    \item (1) Proves positive definiteness using the four distinct roots argument.
+  \end{itemize}
+  \item \textbf{(b) Orthonormality (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly evaluates $q_0,q_1,q_2$ at $0,1,2,3$.
+    \item (2) Concludes $\ip{q_i}{q_j}=\delta_{ij}$.
+  \end{itemize}
+  \item \textbf{(c) Basis argument (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Uses evaluation at $x=3$ to show $f$ is not in the span.
+    \item (1) Concludes linear independence.
+    \item (1) Uses $\dim\Ppoly_3(\R)=4$ to conclude basis.
+  \end{itemize}
+  \item \textbf{(d) Gram--Schmidt and $q_3$ (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly subtracts projections onto $q_0,q_1,q_2$.
+    \item (2) Identifies or verifies $q_3(x)=x(x-1)(x-2)/6$.
+    \item (1) States that $\B$ is orthonormal.
+  \end{itemize}
+  \item \textbf{(e) Expansion of $S(N)$ (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Computes $S(0),S(1),S(2),S(3)$ correctly.
+    \item (2) Writes $S(N)=q_1(N)+5q_2(N)+14q_3(N)$.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 4 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $J$ be the $n\times n$ matrix that comprises all ones:
+\[
+J=\begin{bmatrix}1&1&\cdots&1\\1&1&\cdots&1\\\vdots&\vdots&\ddots&\vdots\\1&1&\cdots&1\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Let $\mathbf j=(1,1,\ldots,1)^T$. Explain why $\mathbf j$ is an eigenvector of $J$ and determine the corresponding eigenvalue.
+  \item Let $T:\R^n\to\R^n$ be defined by $T(x)=Jx$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Explain why $T$ is a linear operator.
+    \item Determine a basis for $\Null(T)$.
+  \end{enumerate}
+  \item Diagonalize $J$.
+  \item Let $A$ be the $n\times n$ matrix with $A_{ij}=0$ if $i=j$ and $A_{ij}=1$ otherwise. Diagonalize $A$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Sum-of-coordinates argument}
+Each entry of $J\mathbf j$ is the sum of the $n$ entries of $\mathbf j$, so
+\[
+J\mathbf j=n\mathbf j.
+\]
+Hence
+\[
+\boxed{\mathbf j\text{ is an eigenvector of }J\text{ with eigenvalue }n.}
+\]
+
+The map $T(x)=Jx$ is linear because matrix multiplication is linear:
+\[
+T(x+y)=Jx+Jy,
+\qquad
+T(cx)=cJx.
+\]
+For $x=(x_1,\ldots,x_n)^T$,
+\[
+Jx=(x_1+\cdots+x_n)\mathbf j.
+\]
+Thus
+\[
+\Null(T)=\{x\in\R^n:x_1+\cdots+x_n=0\}.
+\]
+A convenient basis is
+\[
+\boxed{\{e_1-e_n,
+ e_2-e_n,
+ \ldots,
+ e_{n-1}-e_n\}.}
+\]
+
+The vector $\mathbf j$ is an eigenvector with eigenvalue $n$, and every vector in $\Null(T)$ is an eigenvector with eigenvalue $0$. Therefore let
+\[
+P=\begin{bmatrix}\mathbf j& e_1-e_n& e_2-e_n&\cdots& e_{n-1}-e_n\end{bmatrix}.
+\]
+The columns form a basis of $\R^n$, so $P$ is invertible. With
+\[
+D_J=\diag(n,0,0,\ldots,0),
+\]
+we have
+\[
+\boxed{J=PD_JP^{-1}.}
+\]
+
+The off-diagonal-ones matrix satisfies
+\[
+A=J-I_n.
+\]
+Thus $A$ has the same eigenvectors as $J$, with all eigenvalues shifted down by $1$. Hence
+\[
+A\mathbf j=(n-1)\mathbf j,
+\qquad
+Ax=-x\quad\text{for all }x\in\Null(T).
+\]
+Using the same $P$,
+\[
+D_A=\diag(n-1,-1,-1,\ldots,-1),
+\]
+and
+\[
+\boxed{A=PD_AP^{-1}.}
+\]
+
+\subsubsection{Method 2: Rank-one matrix viewpoint}
+Let $\mathbf j=(1,\ldots,1)^T$. Then
+\[
+J=\mathbf j\mathbf j^T.
+\]
+Thus
+\[
+Jx=\mathbf j(\mathbf j^Tx),
+\]
+so the range is $\Span\{\mathbf j\}$ and the nullspace is the hyperplane $\mathbf j^Tx=0$. This immediately gives eigenvalue $n$ on $\Span\{\mathbf j\}$ and eigenvalue $0$ on the orthogonal complement. The diagonalisation of $A=J-I_n$ follows by shifting these eigenvalues.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Eigenvector of $J$ (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Computes $J\mathbf j=n\mathbf j$.
+    \item (1) States the eigenvalue $n$.
+  \end{itemize}
+  \item \textbf{(b) Linear map and nullspace (6 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Proves $T$ is linear.
+    \item (2) Identifies $\Null(T)=\{x:\sum_i x_i=0\}$.
+    \item (2) Gives a valid basis for $\Null(T)$.
+  \end{itemize}
+  \item \textbf{(c) Diagonalising $J$ (6 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Uses $\mathbf j$ and a nullspace basis as eigenvectors.
+    \item (2) Forms a valid invertible $P$.
+    \item (2) Gives $D_J=\diag(n,0,\ldots,0)$ and states $J=PD_JP^{-1}$.
+  \end{itemize}
+  \item \textbf{(d) Diagonalising $A$ (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Recognises $A=J-I_n$.
+    \item (2) Finds eigenvalues $n-1$ and $-1$ with the same eigenvectors.
+    \item (1) States the diagonalisation $A=PD_AP^{-1}$.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 5 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $\V$ and $\W$ be finite-dimensional vector spaces.
+\begin{enumerate}[label=(\alph*)]
+  \item Show that there exists a surjective linear map from $\V$ to $\W$ if and only if
+  \[
+  \dim(\V)\ge\dim(\W).
+  \]
+  \item Let $\U$ be a subspace of $\V$. Show that there exists a linear map $T$ from $\V$ to $\W$ with $\Null(T)=\U$ if and only if
+  \[
+  \dim(\U)\ge\dim(\V)-\dim(\W).
+  \]
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Basis construction and rank--nullity}
+\textbf{(a)} Suppose first that $T:\V\to\W$ is surjective. Then
+\[
+\Range(T)=\W,
+\]
+so
+\[
+\dim\W=\rank(T)\le\dim\V.
+\]
+Hence $\dim\V\ge\dim\W$.
+
+Conversely, suppose $\dim\V=n$ and $\dim\W=m$ with $n\ge m$. Choose a basis $v_1,\ldots,v_n$ for $\V$ and a basis $w_1,\ldots,w_m$ for $\W$. Define
+\[
+T(v_i)=w_i\quad(1\le i\le m),
+\qquad
+T(v_i)=0\quad(m<i\le n),
+\]
+and extend linearly. The range contains $w_1,\ldots,w_m$, so $T$ is surjective. Therefore
+\[
+\boxed{\exists\text{ surjective }T:\V\to\W\iff \dim\V\ge\dim\W.}
+\]
+
+\textbf{(b)} Suppose $T:\V\to\W$ is linear with $\Null(T)=\U$. By rank--nullity,
+\[
+\dim\V=\dim\Null(T)+\rank(T)=\dim\U+
+\rank(T).
+\]
+Since $\rank(T)\le\dim\W$,
+\[
+\dim\V\le\dim\U+
+\dim\W,
+\]
+so
+\[
+\dim\U\ge\dim\V-\dim\W.
+\]
+
+Conversely, suppose
+\[
+\dim\U\ge\dim\V-\dim\W.
+\]
+Let
+\[
+k=\dim\U,
+\qquad
+n=\dim\V,
+\qquad
+m=\dim\W.
+\]
+Then $n-k\le m$. Choose a basis $u_1,
+\ldots,u_k$ for $\U$ and extend it to a basis of $\V$:
+\[
+u_1,\ldots,u_k,v_1,\ldots,v_{n-k}.
+\]
+Since $n-k\le m$, choose linearly independent vectors $w_1,
+\ldots,w_{n-k}$ in $\W$. Define $T:\V\to\W$ on this basis by
+\[
+T(u_i)=0\quad(1\le i\le k),
+\qquad
+T(v_j)=w_j\quad(1\le j\le n-k),
+\]
+and extend linearly. Then $\U\subseteq\Null(T)$. Conversely, if
+\[
+x=\sum_{i=1}^k\alpha_i u_i+
+\sum_{j=1}^{n-k}\beta_jv_j
+\]
+and $T(x)=0$, then
+\[
+0=T(x)=\sum_{j=1}^{n-k}\beta_jw_j.
+\]
+Since the $w_j$ are linearly independent, all $\beta_j=0$, so $x\in\U$. Hence
+\[
+\Null(T)=\U.
+\]
+Therefore
+\[
+\boxed{\exists T:\V\to\W\text{ with }\Null(T)=\U
+\iff
+\dim\U\ge\dim\V-\dim\W.}
+\]
+
+\subsubsection{Method 2: Quotient-space viewpoint}
+For part (b), a linear map $T:\V\to\W$ with $\Null(T)=\U$ is equivalent to an injective linear map
+\[
+\overline T:\V/\U\to\W.
+\]
+Such an injective map exists exactly when
+\[
+\dim(\V/\U)\le\dim\W.
+\]
+Since
+\[
+\dim(\V/\U)=\dim\V-\dim\U,
+\]
+this condition is exactly
+\[
+\dim\U\ge\dim\V-\dim\W.
+\]
+This is a compact alternative to the explicit basis construction.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Surjective map criterion (8 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Proves necessity using $\rank(T)=\dim\W\le\dim\V$.
+    \item (3) Constructs a linear map from a basis of $\V$ onto a basis of $\W$ when $\dim\V\ge\dim\W$.
+    \item (1) Justifies that the constructed map is linear.
+    \item (1) Concludes surjectivity.
+  \end{itemize}
+  \item \textbf{(b) Prescribed nullspace criterion (12 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Proves necessity using rank--nullity and $\rank(T)\le\dim\W$.
+    \item (2) Sets $k=\dim\U$, $n=\dim\V$, $m=\dim\W$ and obtains $n-k\le m$.
+    \item (2) Extends a basis of $\U$ to a basis of $\V$.
+    \item (2) Chooses enough linearly independent vectors in $\W$ and defines $T$ on the basis.
+    \item (2) Proves that the nullspace of the constructed map is exactly $\U$.
+    \item (1) States the final iff conclusion.
+  \end{itemize}
+\end{itemize}
+
+\end{document}

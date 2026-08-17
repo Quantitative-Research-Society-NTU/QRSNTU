@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Midterm Practice 1 (Questions)}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode - \DocType}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+%------------------------------------------------------
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+\section*{Instructions}
+
+\begin{itemize}
+\item This exam consists of 6 short questions (8 marks each) and 3 long questions (20 marks each).
+\item Total marks: 108.
+\item Show all working clearly. Answers without justification may receive zero marks.
+\item The notation $(x_1, x_2)$ denotes a bundle of goods 1 and 2.
+\item The notation $(p_1, p_2)$ denotes prices of goods 1 and 2.
+\end{itemize}
+
+\bigskip
+
+\newpage
+%----------------------------
+\part{Short Questions}
+%----------------------------
+
+\section*{Question 1 (8 marks)}
+
+Alice maximizes a strictly increasing utility function. You observe the following purchasing behavior:
+\begin{itemize}
+\item At prices $p^1 = (2, 1)$, Alice buys $x^1 = (3, 6)$
+\item At prices $p^2 = (1, 2)$, Alice buys $x^2 = (5, 4)$
+\item At prices $p^3 = (3, 2)$, Alice buys $x^3 = (2, 5)$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Calculate how much money Alice spent in each period.
+\item (3 marks) Determine all direct revealed preference relations. That is, for each pair of bundles, determine if one is directly revealed preferred to the other.
+\item (3 marks) Does Alice's behavior satisfy WARP? If not, identify the violation. Does her behavior satisfy GARP? Justify your answer.
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 2 (8 marks)}
+
+Consider a consumer with utility function $U(x_1, x_2) = \min\{3x_1, x_2\}$ who faces prices $(p_1, p_2) = (2, 3)$ and has income $m = 30$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Find the consumer's optimal consumption bundle. Show your working including the condition for optimality.
+\item (2 marks) The price of good 1 increases to $p_1' = 3$. Find the new optimal consumption bundle.
+\item (3 marks) Calculate the income and substitution effects for good 1 using the Slutsky method. Are both goods normal or inferior?
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 3 (8 marks)}
+
+Consider a worker who maximizes utility from consumption $(c)$ and leisure $(\ell)$ given by $U(c, \ell) = c^{1/2} \ell^{1/2}$. The worker has 16 hours available per day. The wage rate is $w$ dollars per hour and she has no non-labor income.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write down the budget constraint and find the optimal labor supply function $L^*(w)$ where $L$ is hours worked.
+\item (2 marks) At wage $w = \$10$, how many hours does the worker supply? What is her consumption?
+\item (3 marks) The wage increases to $w' = \$20$. Calculate the income and substitution effects on labor supply. Does labor supply increase or decrease? Explain why.
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 4 (8 marks)}
+
+Consider an economy with three time periods $(t = 0, 1, 2)$ and interest rate $r = 0.20$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) What is the present value of receiving \$100 in period 1 and \$144 in period 2?
+\item (3 marks) Asset $A$ pays $(10, 20, 30)$ in periods 0, 1, and 2. Asset $B$ pays $(5, 40, 20)$. Which asset has higher present value? Show your calculation.
+\item (3 marks) You can buy asset $C$ for \$80 today. It pays \$0 in period 1 and \$120 in period 2. Should you buy asset $C$ or save your money at the interest rate $r = 0.20$? Calculate the net present value of buying asset $C$.
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 5 (8 marks)}
+
+There are three equally likely states of nature. Consider three contingent consumption bundles:
+\begin{itemize}
+\item $x = (9, 6, 3)$
+\item $y = (6, 6, 6)$
+\item $z = (5, 7, 6)$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Calculate the expected value of each bundle.
+\item (3 marks) Does bundle $x$ first-order stochastically dominate bundle $z$? Does bundle $z$ first-order stochastically dominate bundle $x$? Justify your answers.
+\item (3 marks) A risk-averse consumer with utility $u(c) = \sqrt{c}$ must choose between bundles $y$ and $z$. Which bundle will she choose? Show your calculation.
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 6 (8 marks)}
+
+Consider two states (Good and Bad) with probabilities $\pi_G = 0.3$ and $\pi_B = 0.7$. Two assets are available:
+\begin{itemize}
+\item Asset 1: pays \$2 in the Good state and \$1 in the Bad state, costs \$1.30
+\item Asset 2: pays \$1 in the Good state and \$2 in the Bad state, costs \$1.60
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Find the state price vector $(q_G, q_B)$ implied by these asset prices.
+\item (2 marks) What is the price of contingent consumption bundle $(5, 4)$?
+\item (3 marks) A new asset 3 is introduced that pays \$3 in both states. Using the state prices, what should asset 3 cost to prevent arbitrage? If it actually costs \$2.50, describe an arbitrage strategy.
+\end{enumerate}
+
+
+\newpage
+%----------------------------
+\part{Long Questions}
+%----------------------------
+
+\section*{Question 7 (20 marks)}
+
+Consider a consumer with utility function:
+\[
+U(x_1, x_2) = 2\ln(x_1) + 3\ln(x_2)
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item (4 marks) Show that the marginal utilities are $MU_1 = \frac{2}{x_1}$ and $MU_2 = \frac{3}{x_2}$. Find the marginal rate of substitution $MRS_{1,2}$ and write down the condition for utility maximization when facing prices $(p_1, p_2)$.
+
+\item (6 marks) Derive the consumer's demand functions $x_1(p_1, p_2, m)$ and $x_2(p_1, p_2, m)$ where $m$ is income.
+
+\item (4 marks) The consumer has endowment $\omega = (10, 5)$ and faces prices $(p_1, p_2) = (3, 2)$. Calculate:
+\begin{itemize}
+\item The value of the endowment (income $m$)
+\item The optimal consumption bundle
+\item Whether the consumer is a net buyer or seller of each good
+\end{itemize}
+
+\item (3 marks) Verify that Walras' Law holds: $p \cdot x(p, p \cdot \omega) = p \cdot \omega$.
+
+\item (3 marks) At the prices in part (c), suppose the price of good 1 increases to $p_1' = 4$. Calculate the substitution effect $\Delta x_1^s$ for good 1. Is good 1 a normal good?
+\end{enumerate}
+
+\medskip
+
+\newpage
+\section*{Question 8 (20 marks)}
+
+Consider an intertemporal consumption problem with two periods (period 0 and period 1). A consumer has utility function:
+\[
+U(x_0, x_1) = x_0^{0.4} x_1^{0.6}
+\]
+
+The consumer can borrow and save at interest rate $r = 0.25$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write down the intertemporal budget constraint in present value form. Explain what each term represents.
+
+\item (5 marks) Derive the consumer's optimal consumption demands $x_0^*(r, m)$ and $x_1^*(r, m)$ where $m$ is the present value of lifetime income. Show that $x_1^*(r, m) = 1.5(1+r) x_0^*(r, m)$.
+
+\item (4 marks) The consumer has income stream $(y_0, y_1) = (20, 50)$. At $r = 0.25$:
+\begin{itemize}
+\item Calculate the present value of income $m$
+\item Find the optimal consumption in each period
+\item Determine whether the consumer is a net saver or borrower in period 0, and by how much
+\end{itemize}
+
+\item (4 marks) Verify that the budget constraint is satisfied at the optimal consumption bundle from part (c).
+
+\item (4 marks) Now suppose the interest rate changes to $r' = 0.50$. Using Slutsky decomposition, calculate:
+\begin{itemize}
+\item The Slutsky compensation $m^s$
+\item The substitution effect $\Delta x_0^s$
+\item The income effect $\Delta x_0^n$
+\item Is period-0 consumption a normal good?
+\end{itemize}
+\end{enumerate}
+
+\bigskip
+
+\newpage
+\section*{Question 9 (20 marks)}
+
+Consider an economy with two states of nature (state 1 and state 2) with probabilities $\pi_1 = \frac{1}{3}$ and $\pi_2 = \frac{2}{3}$. There are two assets:
+\begin{itemize}
+\item Risk-free asset: pays \$1 in both states and costs $p_f$
+\item Risky asset: pays \$6 in state 1 and \$0 in state 2, and costs $p_r = \$1.50$
+\end{itemize}
+
+A consumer has expected utility preferences with $U(x_1, x_2) = \frac{1}{3}u(x_1) + \frac{2}{3}u(x_2)$ where $u(x) = \ln(x)$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (4 marks) The consumer is endowed with $(0, 9)$ across the two states. If she can trade the risky asset and contingent consumption can be purchased at state prices $(q_1, q_2) = (0.25, 0.50)$:
+\begin{itemize}
+\item What is the value of her endowment?
+\item What is the implied price $p_r^*$ of the risky asset using state prices?
+\item Is the actual price $p_r = \$1.50$ consistent with no arbitrage?
+\end{itemize}
+
+\item (6 marks) Using the state prices from part (a), find the consumer's optimal contingent consumption bundle $(x_1^*, x_2^*)$. [Hint: At optimum, $\frac{\pi_1 u'(x_1)}{\pi_2 u'(x_2)} = \frac{q_1}{q_2}$]
+
+\item (4 marks) The consumer wants to achieve the optimal bundle from part (b) using only the two assets (risk-free and risky). Set up and solve the system of equations to find the portfolio $(\theta_f, \theta_r)$ where $\theta_f$ is units of risk-free asset and $\theta_r$ is units of risky asset.
+
+\item (3 marks) Verify that the cost of the portfolio from part (c) equals the cost of the contingent consumption bundle from part (b) using state prices.
+
+\item (3 marks) Suppose a new asset becomes available that pays \$3 in state 1 and \$2 in state 2. What should this asset cost to prevent arbitrage opportunities? If it costs \$1.80, is there an arbitrage opportunity? Describe the strategy if yes.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,765 @@
+% Sources: [file:3][file:2]
+
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 2 (Week 3) -- Problems \& Solutions}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- COMMON MACROS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Pthree}{\mathcal{P}_3(\R)}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial Problem Set}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This sheet develops standard tools for spans, linear independence, and structured subspaces:
+\begin{itemize}[leftmargin=*]
+  \item Direct sums and uniqueness of decomposition.
+  \item Why \(\Span(S)\) is always a subspace (two fundamental viewpoints).
+  \item Basic properties of \(\Span(\cdot)\) (monotonicity, idempotence, and unions).
+  \item Quick criteria for linear independence (especially for small sets).
+  \item Polynomial subspaces defined by differential constraints.
+  \item The subspace of symmetric matrices: basis construction and dimension counting.
+\end{itemize}
+
+\bigskip
+\newpage
+\tableofcontents
+%====================================================
+% QUESTION 1
+%====================================================
+\newpage
+\section{Question 1 (Direct sum criterion for \(n\) subspaces)}
+\subsection{Problem}
+Let (i) \(n\in\mathbb{N}\), (ii) \(V\) be a vector space, and (iii) \(V_1,\ldots,V_n\) be vector subspaces of \(V\).
+Show that the following two statements are equivalent (i.e.\ imply one another):
+\begin{enumerate}[label=(\alph*)]
+\item \(V_1+\cdots+V_n = V_1\oplus\cdots\oplus V_n.\)
+\item If \(v_1\in V_1,\ldots,v_n\in V_n\) satisfy \(0=v_1+\cdots+v_n\), then \(v_1=\cdots=v_n=0\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Uniqueness of representation}
+Recall that \(V_1\oplus\cdots\oplus V_n\) is (by definition) the sum \(V_1+\cdots+V_n\) together with the additional requirement that every element of the sum has a \emph{unique} representation as \(v_1+\cdots+v_n\) with \(v_i\in V_i\).
+
+\textbf{(a) \(\Rightarrow\) (b).}
+Assume \(V_1+\cdots+V_n = V_1\oplus\cdots\oplus V_n\).
+Let \(v_i\in V_i\) satisfy
+\[
+0=v_1+\cdots+v_n.
+\]
+Also note that \(0=0+\cdots+0\) with each \(0\in V_i\).
+Thus we have two decompositions of the same vector \(0\) as a sum of vectors from \(V_1,\ldots,V_n\):
+\[
+0 = v_1+\cdots+v_n
+\quad\text{and}\quad
+0 = 0+\cdots+0.
+\]
+By uniqueness of decomposition in the direct sum, we must have \(v_i=0\) for every \(i\).
+Hence (b) holds.
+
+\textbf{(b) \(\Rightarrow\) (a).}
+Assume (b).
+First, \(V_1+\cdots+V_n\) is already defined as the set of all sums \(v_1+\cdots+v_n\) with \(v_i\in V_i\).
+So to show
+\[
+V_1+\cdots+V_n = V_1\oplus\cdots\oplus V_n,
+\]
+it suffices to show that every vector in \(V_1+\cdots+V_n\) has a \emph{unique} such decomposition.
+
+Let \(x\in V_1+\cdots+V_n\).
+Suppose \(x\) has two decompositions:
+\[
+x=v_1+\cdots+v_n
+\quad\text{and}\quad
+x=w_1+\cdots+w_n,
+\]
+with \(v_i,w_i\in V_i\).
+Subtract the two equations:
+\[
+0=(v_1-w_1)+\cdots+(v_n-w_n).
+\]
+Since each \(V_i\) is a subspace, \(v_i-w_i\in V_i\).
+Applying (b) to the relation above yields
+\[
+v_1-w_1=\cdots=v_n-w_n=0
+\quad\Longrightarrow\quad
+v_i=w_i\ \text{for all }i.
+\]
+Thus the decomposition of \(x\) is unique, which is exactly the direct-sum property.
+Therefore (a) holds.
+
+Hence the statements are equivalent, and the final conclusion is
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+\subsubsection{Method 2: Linear map with trivial kernel}
+Define the linear map
+\[
+T: V_1\times\cdots\times V_n \longrightarrow V,
+\qquad
+T(v_1,\ldots,v_n)\coloneqq v_1+\cdots+v_n.
+\]
+Linearity follows from pointwise addition and scalar multiplication in the product space:
+\begin{align*}
+T\bigl((v_1,\ldots,v_n)+(w_1,\ldots,w_n)\bigr)
+&=T(v_1+w_1,\ldots,v_n+w_n)\\
+&=(v_1+w_1)+\cdots+(v_n+w_n)\\
+&=(v_1+\cdots+v_n)+(w_1+\cdots+w_n)\\
+&=T(v_1,\ldots,v_n)+T(w_1,\ldots,w_n),
+\end{align*}
+and similarly \(T(\lambda v_1,\ldots,\lambda v_n)=\lambda T(v_1,\ldots,v_n)\).
+
+Observe:
+\[
+\operatorname{Im}(T)=V_1+\cdots+V_n.
+\]
+Also,
+\[
+\ker(T)=\{(v_1,\ldots,v_n)\in V_1\times\cdots\times V_n \mid v_1+\cdots+v_n=0\}.
+\]
+Thus statement (b) is precisely:
+\[
+\ker(T)=\{(0,\ldots,0)\}.
+\]
+Now, \(V_1+\cdots+V_n\) is a direct sum (i.e.\ equals \(V_1\oplus\cdots\oplus V_n\)) exactly when each \(x\in V_1+\cdots+V_n\) has a \emph{unique} preimage under \(T\), i.e.\ when \(T\) is injective.
+But a linear map is injective if and only if its kernel is trivial.
+Therefore (a) holds if and only if (b) holds.
+
+So again,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Span is a subspace)}
+\subsection{Problem}
+Let (i) \(V\) be a vector space, and (ii) \(S\) be a set of \(V\)-vectors (not necessarily finite).
+Show that \(\Span(S)\) is a vector subspace of \(V\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Closure using finite linear combinations}
+By definition,
+\[
+\Span(S)=\left\{\sum_{k=1}^m \alpha_k s_k \ \middle|\ m\in\mathbb{N},\ \alpha_k\in\R,\ s_k\in S\right\}.
+\]
+(Here each sum is a \emph{finite} linear combination.)
+
+\textbf{Zero vector.}
+Take \(m=1\), \(s_1\in S\) arbitrary (if \(S=\varnothing\), then \(\Span(S)=\{0\}\) by convention; the argument below still leads to the same conclusion), and \(\alpha_1=0\).
+Then \(0\cdot s_1=0\in \Span(S)\).
+
+\textbf{Closure under addition.}
+Let \(x,y\in \Span(S)\).
+Then there exist \(m,\ell\in\mathbb{N}\), scalars \(\alpha_1,\ldots,\alpha_m,\beta_1,\ldots,\beta_\ell\in\R\), and vectors \(s_1,\ldots,s_m,t_1,\ldots,t_\ell\in S\) such that
+\[
+x=\sum_{i=1}^m \alpha_i s_i,
+\qquad
+y=\sum_{j=1}^\ell \beta_j t_j.
+\]
+Then
+\[
+x+y=\sum_{i=1}^m \alpha_i s_i+\sum_{j=1}^\ell \beta_j t_j
+\]
+is again a finite linear combination of vectors from \(S\), hence \(x+y\in \Span(S)\).
+
+\textbf{Closure under scalar multiplication.}
+Let \(\lambda\in\R\) and \(x\in \Span(S)\) with \(x=\sum_{i=1}^m \alpha_i s_i\).
+Then
+\[
+\lambda x=\sum_{i=1}^m (\lambda\alpha_i)s_i
+\]
+is again a finite linear combination of vectors from \(S\), hence \(\lambda x\in \Span(S)\).
+
+Therefore \(\Span(S)\) is a subspace, and the final answer is
+\[
+\boxed{\,\Span(S)\ \text{is a vector subspace of }V.\,}
+\]
+
+\subsubsection{Method 2: Span as an intersection of subspaces}
+Let \(\mathcal{F}\) be the collection of all subspaces of \(V\) that contain \(S\):
+\[
+\mathcal{F}\coloneqq \{\,W\le V \mid S\subseteq W\,\}.
+\]
+Define
+\[
+U\coloneqq \bigcap_{W\in\mathcal{F}} W.
+\]
+\textbf{Claim 1: \(U\) is a subspace of \(V\).}
+Take \(x,y\in U\). Then for every \(W\in\mathcal{F}\), we have \(x\in W\) and \(y\in W\).
+Because each \(W\) is a subspace, \(x+y\in W\) and \(\lambda x\in W\) for every scalar \(\lambda\).
+Thus \(x+y\in U\) and \(\lambda x\in U\), and \(0\in U\) as well.
+So \(U\) is a subspace.
+
+\textbf{Claim 2: \(U=\Span(S)\).}
+First, \(\Span(S)\) is a subspace that contains \(S\), hence \(\Span(S)\in\mathcal{F}\).
+Therefore, by definition of intersection,
+\[
+U=\bigcap_{W\in\mathcal{F}}W \subseteq \Span(S).
+\]
+Conversely, let \(x\in \Span(S)\). Then \(x\) is a finite linear combination of elements of \(S\).
+If \(W\in\mathcal{F}\), then \(S\subseteq W\), so \(W\) contains each element of \(S\) and hence contains all finite linear combinations of elements of \(S\), i.e.\ it contains \(\Span(S)\).
+Thus \(x\in W\) for every \(W\in\mathcal{F}\), so \(x\in U\).
+Hence \(\Span(S)\subseteq U\).
+
+So \(U=\Span(S)\), and since \(U\) is a subspace, \(\Span(S)\) is a subspace.
+Therefore,
+\[
+\boxed{\,\Span(S)\ \text{is a vector subspace of }V.\,}
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Basic span identities)}
+\subsection{Problem}
+Let (i) \(V\) be a vector space, and (ii) \(A\) and \(B\) be sets of \(V\)-vectors (not necessarily finite).
+Establish the following four statements:
+\begin{enumerate}[label=(\alph*)]
+\item \(A\subseteq \Span(A)\).
+\item If \(A\subseteq B\), then \(\Span(A)\subseteq \Span(B)\).
+\item \(\Span(A\cup B)=\Span(A)+\Span(B)\).
+\item \(\Span(\Span(A))=\Span(A)\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Directly from finite linear combinations}
+
+\begin{enumerate}[label=(\alph*)]
+\item Take any \(a\in A\).
+Then \(a=1\cdot a\), which is a finite linear combination of elements of \(A\).
+Hence \(a\in\Span(A)\), so \(A\subseteq \Span(A)\).
+
+\item Assume \(A\subseteq B\).
+Take \(x\in\Span(A)\). Then for some \(m\in\mathbb{N}\),
+\[
+x=\sum_{k=1}^m \alpha_k a_k
+\quad\text{with}\quad
+\alpha_k\in\R,\ a_k\in A.
+\]
+Since \(A\subseteq B\), each \(a_k\in B\), so the same expression shows \(x\in\Span(B)\).
+Thus \(\Span(A)\subseteq \Span(B)\).
+
+\item We prove both inclusions.
+
+\emph{(\(\subseteq\))} Take \(x\in \Span(A\cup B)\).
+Then
+\[
+x=\sum_{k=1}^m \alpha_k s_k
+\quad\text{for some }s_k\in A\cup B.
+\]
+Split the index set \(\{1,\ldots,m\}\) into those \(k\) with \(s_k\in A\) and those with \(s_k\in B\).
+Write
+\[
+x=\sum_{s_k\in A}\alpha_k s_k\;+\;\sum_{s_k\in B}\alpha_k s_k.
+\]
+Define
+\[
+x_A\coloneqq \sum_{s_k\in A}\alpha_k s_k\in \Span(A),
+\qquad
+x_B\coloneqq \sum_{s_k\in B}\alpha_k s_k\in \Span(B),
+\]
+(with the convention that an empty sum equals \(0\)).
+Then \(x=x_A+x_B\in \Span(A)+\Span(B)\).
+Hence \(\Span(A\cup B)\subseteq \Span(A)+\Span(B)\).
+
+\emph{(\(\supseteq\))} Take \(x\in \Span(A)+\Span(B)\).
+Then \(x=u+v\) for some \(u\in\Span(A)\) and \(v\in\Span(B)\).
+Write
+\[
+u=\sum_{i=1}^m \alpha_i a_i,\quad a_i\in A,
+\qquad
+v=\sum_{j=1}^\ell \beta_j b_j,\quad b_j\in B.
+\]
+Then
+\[
+x=u+v=\sum_{i=1}^m \alpha_i a_i+\sum_{j=1}^\ell \beta_j b_j,
+\]
+which is a finite linear combination of vectors from \(A\cup B\).
+Thus \(x\in \Span(A\cup B)\), so \(\Span(A)+\Span(B)\subseteq \Span(A\cup B)\).
+
+Therefore \(\Span(A\cup B)=\Span(A)+\Span(B)\).
+
+\item Since \(\Span(A)\) is a subspace, the span of \(\Span(A)\) should give nothing new.
+Formally, apply (a) and (b) twice.
+
+First, by (a) with \(A\) replaced by \(\Span(A)\),
+\[
+\Span(A)\subseteq \Span(\Span(A)).
+\]
+Second, because \(A\subseteq \Span(A)\) by (a), apply (b) to get
+\[
+\Span(A)\subseteq \Span(\Span(A))\quad\text{(already obtained),}
+\]
+and also, applying (b) with the inclusion \(\Span(A)\subseteq \Span(A)\) is trivial.
+
+To get the reverse inclusion, use the fact that \(\Span(A)\) is a subspace containing \(A\).
+Any element of \(\Span(\Span(A))\) is a finite linear combination of elements of \(\Span(A)\), and since \(\Span(A)\) is closed under linear combinations, that combination lies in \(\Span(A)\).
+Thus \(\Span(\Span(A))\subseteq \Span(A)\).
+
+Combining both inclusions gives \(\Span(\Span(A))=\Span(A)\).
+\end{enumerate}
+
+Therefore the final results are
+\[
+\boxed{
+\begin{aligned}
+&\text{(a) }A\subseteq \Span(A),\qquad
+\text{(b) }A\subseteq B\Rightarrow \Span(A)\subseteq \Span(B),\\
+&\text{(c) }\Span(A\cup B)=\Span(A)+\Span(B),\qquad
+\text{(d) }\Span(\Span(A))=\Span(A).
+\end{aligned}}
+\]
+
+\subsubsection{Method 2: Use the ``intersection of all containing subspaces'' characterisation}
+Recall the characterisation:
+\[
+\Span(S)=\bigcap\{\,W\le V \mid S\subseteq W\,\}.
+\]
+Let \(\mathcal{W}_A\coloneqq \{W\le V\mid A\subseteq W\}\) and similarly \(\mathcal{W}_B\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Every subspace \(W\) with \(A\subseteq W\) contains \(A\).
+Hence \(A\) is contained in the intersection of all such \(W\), i.e.\ \(A\subseteq \Span(A)\).
+
+\item If \(A\subseteq B\), then any subspace that contains \(B\) also contains \(A\).
+So \(\mathcal{W}_B\subseteq \mathcal{W}_A\).
+Taking intersections reverses inclusions of index families:
+\[
+\Span(A)=\bigcap_{W\in\mathcal{W}_A}W \subseteq \bigcap_{W\in\mathcal{W}_B}W=\Span(B).
+\]
+
+\item Let \(U\coloneqq \Span(A)+\Span(B)\).
+Since \(\Span(A)\) and \(\Span(B)\) are subspaces, \(U\) is a subspace of \(V\).
+Also \(A\subseteq \Span(A)\subseteq U\) and \(B\subseteq \Span(B)\subseteq U\), so \(A\cup B\subseteq U\).
+Therefore, by minimality of span,
+\[
+\Span(A\cup B)\subseteq U=\Span(A)+\Span(B).
+\]
+
+Conversely, \(\Span(A\cup B)\) is a subspace containing \(A\cup B\), hence it contains \(A\) and contains \(B\).
+Thus \(\Span(A)\subseteq \Span(A\cup B)\) and \(\Span(B)\subseteq \Span(A\cup B)\) by monotonicity (part (b)).
+Adding these inclusions gives
+\[
+\Span(A)+\Span(B)\subseteq \Span(A\cup B).
+\]
+So equality holds.
+
+\item Since \(\Span(A)\) is already a subspace containing \(A\), it is one of the subspaces being intersected to form \(\Span(A)\).
+In particular, \(\Span(A)\subseteq \Span(\Span(A))\) from (a).
+
+On the other hand, \(\Span(\Span(A))\) is the smallest subspace containing \(\Span(A)\), but \(\Span(A)\) itself is a subspace containing \(\Span(A)\).
+Therefore the smallest such subspace must be \(\Span(A)\) itself, i.e.\ \(\Span(\Span(A))\subseteq \Span(A)\).
+
+Thus \(\Span(\Span(A))=\Span(A)\).
+\end{enumerate}
+
+So the same boxed conclusions follow:
+\[
+\boxed{
+\begin{aligned}
+&\text{(a) }A\subseteq \Span(A),\qquad
+\text{(b) }A\subseteq B\Rightarrow \Span(A)\subseteq \Span(B),\\
+&\text{(c) }\Span(A\cup B)=\Span(A)+\Span(B),\qquad
+\text{(d) }\Span(\Span(A))=\Span(A).
+\end{aligned}}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (\(0\) in a set prevents linear independence)}
+\subsection{Problem}
+Let (i) \(V\) be a vector space, and (ii) \(S\) be a set of \(V\)-vectors (not necessarily finite).
+Show that if \(0\in S\), then \(S\) cannot be linearly independent.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Directly from the definition}
+Assume \(0\in S\).
+Consider the finite subset \(\{0\}\subseteq S\).
+Take the (nontrivial) scalar choice \(\alpha=1\).
+Then
+\[
+\alpha\cdot 0 = 1\cdot 0 = 0.
+\]
+This is a linear combination of elements of \(S\) that equals \(0\) but uses a coefficient \(\alpha\neq 0\).
+Therefore \(S\) is linearly dependent.
+
+Hence,
+\[
+\boxed{\,0\in S\ \Longrightarrow\ S\ \text{is linearly dependent (not linearly independent).}\,}
+\]
+
+\subsubsection{Method 2: ``Unique representation'' viewpoint}
+If \(S\) were linearly independent and contained \(0\), then the vector \(0\in V\) would have at least two distinct representations as a linear combination of vectors in \(S\):
+\[
+0 = 0 \quad\text{(the empty/zero combination)}
+\qquad\text{and}\qquad
+0 = 1\cdot 0.
+\]
+The second representation uses a nonzero coefficient and a vector from \(S\), so it is genuinely different from the trivial representation.
+But linear independence exactly forbids a nontrivial linear combination equalling \(0\).
+Thus \(S\) cannot be linearly independent.
+
+So again,
+\[
+\boxed{\,0\in S\ \Longrightarrow\ S\ \text{is not linearly independent.}\,}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Two-vector linear independence)}
+\subsection{Problem}
+Let (i) \(V\) be a vector space, and (ii) \(u\) and \(v\) be distinct \(V\)-vectors.
+Show that the following two statements are equivalent:
+\begin{enumerate}[label=(\alph*)]
+\item \(\{u,v\}\) is linearly independent.
+\item \(u\) is not a scalar multiple of \(v\), and \(v\) is not a scalar multiple of \(u\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Solve the linear dependence equation}
+\textbf{(\(\Rightarrow\)).}
+Assume \(\{u,v\}\) is linearly independent.
+Suppose, for contradiction, that \(u\) is a scalar multiple of \(v\), i.e.\ \(u=\lambda v\) for some \(\lambda\in\R\).
+Then
+\[
+u-\lambda v=0
+\]
+is a linear combination of \(u\) and \(v\) with coefficients \(1\) and \(-\lambda\), not both zero (since the coefficient of \(u\) is \(1\)).
+This contradicts linear independence.
+So \(u\) is not a scalar multiple of \(v\).
+The same argument (swapping \(u\) and \(v\)) shows \(v\) is not a scalar multiple of \(u\).
+
+\textbf{(\(\Leftarrow\)).}
+Assume \(u\) is not a scalar multiple of \(v\) and \(v\) is not a scalar multiple of \(u\).
+To prove \(\{u,v\}\) is linearly independent, let \(\alpha,\beta\in\R\) satisfy
+\[
+\alpha u+\beta v=0.
+\]
+If \(\alpha=0\), then \(\beta v=0\), so \(\beta=0\) (because \(v\neq 0\); indeed if \(v=0\), then \(u\neq v\) would force \(u\neq 0\), and \(\{u,0\}\) is certainly dependent; the condition ``not a scalar multiple'' would also fail since \(0=0\cdot u\)).
+So in the meaningful case, \(\alpha\neq 0\).
+Then we can rearrange:
+\[
+u = -\frac{\beta}{\alpha} v,
+\]
+which says \(u\) is a scalar multiple of \(v\), contradicting the assumption.
+Therefore \(\alpha\neq 0\) is impossible, so \(\alpha=0\), and then \(\beta=0\).
+Thus the only solution is \(\alpha=\beta=0\), proving linear independence.
+
+Hence,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+\subsubsection{Method 2: Span/dimension viewpoint for two vectors}
+\textbf{(\(\Rightarrow\)).}
+If \(\{u,v\}\) is linearly independent, then \(v\notin \Span\{u\}\) and \(u\notin \Span\{v\}\).
+But \(\Span\{u\}=\{\lambda u:\lambda\in\R\}\) is exactly the set of scalar multiples of \(u\), and similarly for \(v\).
+So neither vector is a scalar multiple of the other.
+
+\textbf{(\(\Leftarrow\)).}
+Assume neither is a scalar multiple of the other.
+Then \(v\notin \Span\{u\}\).
+If \(\{u,v\}\) were dependent, then one of them would lie in the span of the other (for two vectors, dependence means one is a scalar multiple of the other), which contradicts the assumption.
+Therefore \(\{u,v\}\) must be independent.
+
+Thus again,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Polynomial subspace defined by \(P'''=P''\))}
+\subsection{Problem}
+Define a vector subspace \(V\) of \(\Pthree\) as follows:
+\[
+V \coloneqq \left\{P\in \Pthree \ \middle|\ P'''=P'' \right\}.
+\]
+Find a basis for \(V\) and hence determine \(\dim(V)\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Coefficient comparison in the monomial basis}
+Let
+\[
+P(t)=at^3+bt^2+ct+d\in \Pthree.
+\]
+Compute derivatives:
+\[
+P'(t)=3at^2+2bt+c,\qquad
+P''(t)=6at+2b,\qquad
+P'''(t)=6a.
+\]
+The condition \(P'''=P''\) means equality as polynomials:
+\[
+6a \equiv 6at+2b\quad\text{for all }t\in\R.
+\]
+Comparing coefficients of \(t\) gives
+\[
+6a=0\quad\Longrightarrow\quad a=0.
+\]
+Then the constant term condition becomes
+\[
+6a=2b \quad\Longrightarrow\quad 0=2b \quad\Longrightarrow\quad b=0.
+\]
+So the only polynomials satisfying \(P'''=P''\) are
+\[
+P(t)=ct+d,
+\]
+i.e.\ all polynomials of degree at most \(1\).
+Therefore
+\[
+V=\Span\{1,t\}.
+\]
+A basis is \(\{1,t\}\), and the dimension is \(2\):
+\[
+\boxed{\,\text{A basis of }V\text{ is }\{1,t\},\ \ \dim(V)=2.\,}
+\]
+
+\subsubsection{Method 2: Reduce to a differential equation for \(P''\)}
+Let \(Q(t)\coloneqq P''(t)\).
+Then \(Q\) is a polynomial of degree at most \(1\) (since \(P\in\Pthree\)), and the condition \(P'''=P''\) becomes
+\[
+Q'(t)=Q(t)\quad\text{for all }t\in\R.
+\]
+Write the most general degree-\(\le 1\) polynomial as
+\[
+Q(t)=\alpha t+\beta.
+\]
+Then \(Q'(t)=\alpha\).
+So \(Q'=Q\) becomes
+\[
+\alpha = \alpha t+\beta\quad\text{for all }t\in\R.
+\]
+Comparing coefficients yields \(\alpha=0\) and \(\beta=\alpha=0\), so \(Q(t)\equiv 0\).
+Thus
+\[
+P''(t)=0\quad\text{for all }t.
+\]
+Integrate twice:
+\[
+P'(t)=C_1,\qquad P(t)=C_1 t + C_0,
+\]
+for constants \(C_0,C_1\in\R\).
+Hence \(P\) is linear, so \(V=\Span\{1,t\}\) and
+\[
+\boxed{\,\text{A basis of }V\text{ is }\{1,t\},\ \ \dim(V)=2.\,}
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Symmetric matrices in \(\R^{n,n}\))}
+\subsection{Problem}
+Let \(n\in\mathbb{N}\), and let \(V\) denote the set of symmetric \(n\times n\) matrices with real entries, i.e.,
+\[
+V=\{M\in \R^{n,n}\mid M=M^\top\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that \(V\) is a vector subspace of \(\R^{n,n}\).
+\item Find a basis for \(V\) and hence determine \(\dim(V)\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Entrywise verification and explicit basis construction}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Zero matrix.} The zero matrix satisfies \(\mathbf{0}^\top=\mathbf{0}\), so \(\mathbf{0}\in V\).
+
+\textbf{Closure under addition.} If \(A,B\in V\), then \(A^\top=A\) and \(B^\top=B\), hence
+\[
+(A+B)^\top = A^\top + B^\top = A+B,
+\]
+so \(A+B\in V\).
+
+\textbf{Closure under scalar multiplication.} If \(A\in V\) and \(\lambda\in\R\), then
+\[
+(\lambda A)^\top = \lambda A^\top = \lambda A,
+\]
+so \(\lambda A\in V\).
+
+Therefore \(V\) is a vector subspace of \(\R^{n,n}\).
+
+\item For \(1\le i\le n\), let \(E_{ii}\) denote the matrix with a \(1\) in entry \((i,i)\) and zeros elsewhere.
+For \(1\le i<j\le n\), define
+\[
+F_{ij}\coloneqq E_{ij}+E_{ji},
+\]
+where \(E_{ij}\) has a \(1\) in entry \((i,j)\) and zeros elsewhere.
+Each \(E_{ii}\) is symmetric, and each \(F_{ij}\) is symmetric.
+
+\textbf{Spanning.} Let \(A=(a_{ij})\in V\).
+Since \(A\) is symmetric, \(a_{ij}=a_{ji}\).
+Then
+\[
+A=\sum_{i=1}^n a_{ii}E_{ii}+\sum_{1\le i<j\le n} a_{ij}F_{ij}.
+\]
+So the set
+\[
+\mathcal{B}\coloneqq \{E_{11},\ldots,E_{nn}\}\ \cup\ \{F_{ij}:1\le i<j\le n\}
+\]
+spans \(V\).
+
+\textbf{Linear independence.}
+Suppose
+\[
+\sum_{i=1}^n \alpha_{ii}E_{ii}+\sum_{1\le i<j\le n}\beta_{ij}F_{ij}=0.
+\]
+Look at diagonal entry \((k,k)\). Only \(E_{kk}\) contributes there, so \(\alpha_{kk}=0\) for each \(k\).
+Now look at an off-diagonal entry \((i,j)\) with \(i<j\). Only \(F_{ij}\) contributes there (with coefficient \(1\)), so \(\beta_{ij}=0\) for each \(i<j\).
+Thus all coefficients are zero, so \(\mathcal{B}\) is linearly independent.
+
+Therefore \(\mathcal{B}\) is a basis.
+Its size is
+\[
+n \;+\; \binom{n}{2} \;=\; n+\frac{n(n-1)}{2} \;=\; \frac{n(n+1)}{2}.
+\]
+Hence
+\[
+\boxed{\,\dim(V)=\frac{n(n+1)}{2}\ \text{ and a basis is }\{E_{ii}\}_{i=1}^n\cup\{E_{ij}+E_{ji}\}_{1\le i<j\le n}.\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Linear-map kernel and decomposition with skew-symmetric matrices}
+\begin{enumerate}[label=(\alph*)]
+\item Define a linear map \(T:\R^{n,n}\to \R^{n,n}\) by
+\[
+T(M)\coloneqq M-M^\top.
+\]
+Linearity holds since transpose is linear:
+\[
+T(A+B)=(A+B)-(A+B)^\top=(A-A^\top)+(B-B^\top)=T(A)+T(B),
+\]
+and \(T(\lambda A)=\lambda T(A)\).
+
+Now observe:
+\[
+\ker(T)=\{M\in\R^{n,n}\mid M-M^\top=0\}=\{M\in\R^{n,n}\mid M=M^\top\}=V.
+\]
+A kernel of a linear map is a subspace, hence \(V\) is a subspace.
+
+\item Let \(W\) be the subspace of skew-symmetric matrices:
+\[
+W\coloneqq \{M\in\R^{n,n}\mid M^\top=-M\}.
+\]
+Every matrix \(M\in\R^{n,n}\) decomposes as
+\[
+M=\underbrace{\frac{M+M^\top}{2}}_{\text{symmetric}}+\underbrace{\frac{M-M^\top}{2}}_{\text{skew-symmetric}},
+\]
+and these two parts lie in \(V\) and \(W\), respectively.
+
+Moreover, \(V\cap W=\{0\}\), because if \(M\in V\cap W\), then \(M=M^\top\) and \(M=-M^\top\), so \(M=-M\), hence \(2M=0\), so \(M=0\).
+Therefore,
+\[
+\R^{n,n}=V\oplus W.
+\]
+Taking dimensions,
+\[
+n^2=\dim(\R^{n,n})=\dim(V)+\dim(W).
+\]
+Now compute \(\dim(W)\): a skew-symmetric matrix has zeros on the diagonal and satisfies \(m_{ji}=-m_{ij}\), so the free parameters are exactly the entries above the diagonal, i.e.\ \(\binom{n}{2}=\frac{n(n-1)}{2}\) degrees of freedom.
+Thus
+\[
+\dim(W)=\frac{n(n-1)}{2},
+\]
+and therefore
+\[
+\dim(V)=n^2-\frac{n(n-1)}{2}=\frac{n(n+1)}{2}.
+\]
+This agrees with the explicit basis count in Method 1.
+Hence,
+\[
+\boxed{\,\dim(V)=\frac{n(n+1)}{2}.\,}
+\]
+(An explicit basis is exactly the one constructed in Method 1.)
+\end{enumerate}
+
+\end{document}

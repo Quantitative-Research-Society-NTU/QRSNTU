@@ -1,0 +1,1020 @@
+% Source files: Tutorial-9.pdf [file:1] ; MH5200_ProblemSheet2.txt [file:2]
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 9 (Week 10) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\newcommand{\ds}{\displaystyle}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on convergence and divergence of infinite series using core techniques from Topic 5.1--5.2 (Integral Test, comparison tests, ratio/root tests, and limit comparison).
+
+\noindent
+\textbf{Question themes.}
+\begin{itemize}[leftmargin=*]
+  \item Integral Test with monotonicity checks via derivatives.
+  \item Classifying many series using comparisons, asymptotics, ratio/root tests, and basic inequalities.
+  \item Parameter-dependent convergence for a \(p\)-series family.
+  \item A key theorem: if \(\lim_{n\to\infty} a_n/b_n = c>0\) and \(\sum b_n\) diverges, then \(\sum a_n\) diverges.
+  \item Using limit comparison and calculus limits (including l'H\^opital) to show \(\sum \ln(1+b_n)\) and \(\sum \sin(b_n)\) converge when \(\sum b_n\) converges.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+\newpage
+\section*{Question 1 (Integral Test)}
+\subsection*{Problem}
+Use the Integral Test to determine whether each series is convergent or divergent. You must explain why the corresponding function is decreasing on the domain under consideration.
+\begin{enumerate}[label=(\alph*)]
+  \item \(\ds \sum_{n=1}^{\infty}\frac{1}{3^n+14}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{n^3}{n^4+4}\).
+  \item \(\ds \sum_{n=1}^{\infty} n e^{-n^2}\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Integral Test (with explicit monotonicity)}
+Recall: if \(f:[N,\infty)\to(0,\infty)\) is continuous, positive, and decreasing, and \(a_n=f(n)\), then
+\[
+\sum_{n=N}^{\infty} a_n \text{ converges } \Longleftrightarrow \int_N^\infty f(x)\,dx \text{ converges.}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Let \(f(x)=\dfrac{1}{3^x+14}\) for \(x\ge 1\). Then \(f\) is continuous and positive.
+Differentiate:
+\[
+f'(x)= -\frac{(\ln 3)\,3^x}{(3^x+14)^2}<0\qquad (x\ge 1),
+\]
+so \(f\) is decreasing on \([1,\infty)\).
+
+Compute the improper integral. Substitute \(u=3^x\) so \(du=(\ln 3)\,3^x\,dx=(\ln 3)\,u\,dx\), i.e. \(dx=\dfrac{du}{(\ln 3)\,u}\):
+\begin{align*}
+\int_1^\infty \frac{1}{3^x+14}\,dx
+&=\int_{u=3}^{\infty}\frac{1}{u+14}\cdot \frac{1}{(\ln 3)\,u}\,du\\
+&=\frac{1}{\ln 3}\int_{3}^{\infty}\frac{1}{u(u+14)}\,du\\
+&=\frac{1}{\ln 3}\int_3^\infty \frac{1}{14}\left(\frac{1}{u}-\frac{1}{u+14}\right)\,du\\
+&=\frac{1}{14\ln 3}\left[\ln u-\ln(u+14)\right]_{3}^{\infty}\\
+&=\frac{1}{14\ln 3}\left(\lim_{u\to\infty}\ln\frac{u}{u+14}-\ln\frac{3}{17}\right)\\
+&=\frac{1}{14\ln 3}\left(0-\ln\frac{3}{17}\right)<\infty.
+\end{align*}
+Hence the integral converges, and by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{1}{3^n+14}\ \text{converges}.}
+\]
+
+\item Let \(f(x)=\dfrac{x^3}{x^4+4}\) for \(x\ge 1\). This is continuous and positive.
+Differentiate:
+\begin{align*}
+f'(x)
+&=\frac{(3x^2)(x^4+4)-x^3(4x^3)}{(x^4+4)^2}\\
+&=\frac{3x^6+12x^2-4x^6}{(x^4+4)^2}
+=\frac{x^2(12-x^4)}{(x^4+4)^2}.
+\end{align*}
+Thus \(f'(x)<0\) whenever \(x^4>12\), i.e. \(x>\sqrt[4]{12}\). In particular, \(f\) is decreasing on \([2,\infty)\). (This is sufficient for the Integral Test; the initial finite number of terms \(n=1\) do not affect convergence.)
+
+Now compute the integral for \(x\ge 2\):
+\[
+\int_2^\infty \frac{x^3}{x^4+4}\,dx.
+\]
+Use substitution \(u=x^4+4\), \(du=4x^3\,dx\), hence
+\begin{align*}
+\int_2^\infty \frac{x^3}{x^4+4}\,dx
+&=\frac14 \int_{u=2^4+4}^{\infty}\frac{1}{u}\,du
+=\frac14\left[\ln u\right]_{20}^{\infty}
+=\infty.
+\end{align*}
+So the improper integral diverges, and by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n^3}{n^4+4}\ \text{diverges}.}
+\]
+
+\item Let \(f(x)=x e^{-x^2}\) for \(x\ge 1\). This is continuous and positive.
+Differentiate:
+\[
+f'(x)= e^{-x^2}+x(-2x)e^{-x^2}=(1-2x^2)e^{-x^2}<0\qquad (x\ge 1),
+\]
+so \(f\) is decreasing on \([1,\infty)\).
+
+Compute the integral:
+\[
+\int_1^\infty x e^{-x^2}\,dx.
+\]
+Let \(u=x^2\), \(du=2x\,dx\), so
+\begin{align*}
+\int_1^\infty x e^{-x^2}\,dx
+&=\frac12\int_{u=1}^{\infty} e^{-u}\,du
+=\frac12\left[-e^{-u}\right]_{1}^{\infty}
+=\frac12 e^{-1}<\infty.
+\end{align*}
+Hence, by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}n e^{-n^2}\ \text{converges}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Faster Integral Test by pattern recognition}
+We still use the Integral Test, but evaluate the integrals by recognising derivative patterns instead of doing long substitutions.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+f(x)=\frac{1}{3^x+14}, \qquad x\ge 1.
+\]
+Since \(3^x\) is increasing, \(3^x+14\) is increasing, hence \(f(x)\) is decreasing.
+
+For the integral, observe that
+\[
+\frac{1}{3^x+14}
+=
+\frac{1}{14}
+\left(1-\frac{3^x}{3^x+14}\right).
+\]
+Therefore,
+\[
+\int \frac{1}{3^x+14}\,dx
+=
+\frac{x}{14}
+-
+\frac{1}{14\ln 3}\ln(3^x+14)+C
+=
+\frac{1}{14\ln 3}
+\ln\left(\frac{3^x}{3^x+14}\right)+C.
+\]
+Hence
+\[
+\int_1^\infty \frac{1}{3^x+14}\,dx
+=
+\frac{1}{14\ln 3}
+\left[
+\ln\left(\frac{3^x}{3^x+14}\right)
+\right]_1^\infty.
+\]
+Since
+\[
+\lim_{x\to\infty}\frac{3^x}{3^x+14}=1,
+\]
+we have
+\[
+\int_1^\infty \frac{1}{3^x+14}\,dx
+=
+-\frac{1}{14\ln 3}\ln\left(\frac3{17}\right)
+<\infty.
+\]
+Therefore, by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{1}{3^n+14}\text{ converges}.}
+\]
+
+\item Let
+\[
+f(x)=\frac{x^3}{x^4+4}, \qquad x\ge 2.
+\]
+Rewrite
+\[
+f(x)=\frac1{x+\frac4{x^3}}.
+\]
+The denominator \(g(x)=x+\frac4{x^3}\) satisfies
+\[
+g'(x)=1-\frac{12}{x^4}>0
+\qquad (x\ge 2),
+\]
+so \(g\) is increasing and hence \(f=1/g\) is decreasing on \([2,\infty)\).
+
+Also,
+\[
+\frac{d}{dx}(x^4+4)=4x^3.
+\]
+Thus
+\[
+\int_2^\infty \frac{x^3}{x^4+4}\,dx
+=
+\frac14\left[\ln(x^4+4)\right]_2^\infty
+=
+\infty.
+\]
+Therefore, by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n^3}{n^4+4}\text{ diverges}.}
+\]
+
+\item Let
+\[
+f(x)=xe^{-x^2}, \qquad x\ge 1.
+\]
+Since \(f(x)>0\), we may use logarithmic differentiation:
+\[
+\ln f(x)=\ln x-x^2.
+\]
+Hence
+\[
+\frac{f'(x)}{f(x)}
+=
+\frac1x-2x<0
+\qquad (x\ge 1).
+\]
+Thus \(f'(x)<0\), so \(f\) is decreasing on \([1,\infty)\).
+
+For the integral, observe that
+\[
+\frac{d}{dx}e^{-x^2}
+=
+-2xe^{-x^2}.
+\]
+Therefore,
+\[
+\int_1^\infty xe^{-x^2}\,dx
+=
+\left[-\frac12e^{-x^2}\right]_1^\infty
+=
+\frac{1}{2e}
+<\infty.
+\]
+Therefore, by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}ne^{-n^2}\text{ converges}.}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Converge or diverge?)}
+\subsection*{Problem}
+Determine whether the following series converges or diverges.
+\begin{enumerate}[label=(\alph*)]
+  \item \(\ds \sum_{n=1}^{\infty}\frac{1}{n^3+8}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{n^2}{n\cdot n}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{9^n}{3^{10n}}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{n^2+n+1}{n^4+n^2}\).
+  \item \(\ds \sum_{n=1}^{\infty}\sin\!\left(\frac{1}{n}\right)\).
+  \item \(\ds \sum_{n=2}^{\infty}\frac{1}{n\ln n}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{e^n-1}{n e^n-1}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{1}{n^{2/n}}\).
+  \item \(\ds \sum_{n=1}^{\infty}\frac{n^{4n}}{n^{6n}}\).
+  \item \(\ds \sum_{n=1}^{\infty}\tan^{-1}\!\left(\frac{1}{n^{1.2}+\tfrac13}\right)\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Asymptotic comparison with standard benchmark series}
+Throughout, we use that if \(a_n\sim b_n\) (i.e. \(\lim a_n/b_n=1\)) and \(\sum b_n\) converges/diverges, then \(\sum a_n\) has the same behaviour (Limit Comparison Test).
+
+\begin{enumerate}[label=(\alph*)]
+\item For large \(n\), \(\frac{1}{n^3+8}\sim \frac{1}{n^3}\).
+Indeed,
+\[
+\lim_{n\to\infty}\frac{\frac{1}{n^3+8}}{\frac{1}{n^3}}=\lim_{n\to\infty}\frac{n^3}{n^3+8}=1.
+\]
+Since \(\sum \frac{1}{n^3}\) converges (a \(p\)-series with \(p=3>1\)), we get
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{1}{n^3+8}\ \text{converges}.}
+\]
+
+\item Here \(\frac{n^2}{n\cdot n}=1\) for every \(n\), so the terms do not go to \(0\).
+Thus the series diverges by the \(n\)-th term test:
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n^2}{n\cdot n}\ \text{diverges}.}
+\]
+
+\item Simplify:
+\[
+\frac{9^n}{3^{10n}}=\left(\frac{9}{3^{10}}\right)^n=\left(\frac{3^2}{3^{10}}\right)^n=\left(\frac{1}{3^8}\right)^n.
+\]
+This is a geometric series with ratio \(r=\frac{1}{3^8}\in(0,1)\), hence
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{9^n}{3^{10n}}\ \text{converges}.}
+\]
+
+\item Divide numerator and denominator by \(n^4\):
+\[
+\frac{n^2+n+1}{n^4+n^2}
+=\frac{\frac{1}{n^2}+\frac{1}{n^3}+\frac{1}{n^4}}{1+\frac{1}{n^2}}.
+\]
+As \(n\to\infty\), this is asymptotic to \(\frac{1/n^2}{1}=1/n^2\). Formally,
+\[
+\lim_{n\to\infty}\frac{\frac{n^2+n+1}{n^4+n^2}}{\frac{1}{n^2}}
+=\lim_{n\to\infty}\frac{n^4}{n^4+n^2}\left(1+\frac{1}{n}+\frac{1}{n^2}\right)
+=1.
+\]
+Since \(\sum \frac{1}{n^2}\) converges, we obtain
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n^2+n+1}{n^4+n^2}\ \text{converges}.}
+\]
+
+\item Use the standard limit \(\lim_{x\to 0}\frac{\sin x}{x}=1\). Let \(x_n=\frac{1}{n}\to 0\). Then
+\[
+\lim_{n\to\infty}\frac{\sin(1/n)}{1/n}
+=\lim_{x\to 0}\frac{\sin x}{x}=1.
+\]
+So \(\sin(1/n)\sim 1/n\). Since \(\sum \frac{1}{n}\) diverges, by limit comparison,
+\[
+\boxed{\sum_{n=1}^{\infty}\sin\!\left(\frac{1}{n}\right)\ \text{diverges}.}
+\]
+
+\item The series \(\sum_{n=2}^\infty \frac{1}{n\ln n}\) is a classical divergent series (integral test or Cauchy condensation type behaviour).
+Using the integral test: \(f(x)=\frac{1}{x\ln x}\) is positive and decreasing for \(x\ge 3\), and
+\[
+\int_2^\infty \frac{1}{x\ln x}\,dx
+=\left[\ln(\ln x)\right]_{2}^{\infty}
+=\infty.
+\]
+Hence
+\[
+\boxed{\sum_{n=2}^{\infty}\frac{1}{n\ln n}\ \text{diverges}.}
+\]
+
+\item Compute asymptotics:
+\[
+\frac{e^n-1}{n e^n-1}
+=\frac{e^n\left(1-e^{-n}\right)}{e^n\left(n-e^{-n}\right)}
+=\frac{1-e^{-n}}{n-e^{-n}}.
+\]
+Then
+\[
+\lim_{n\to\infty}\frac{\frac{e^n-1}{n e^n-1}}{1/n}
+=\lim_{n\to\infty}\frac{n(1-e^{-n})}{n-e^{-n}}
+=\lim_{n\to\infty}\frac{n-n e^{-n}}{n-e^{-n}}=1.
+\]
+So the general term is asymptotic to \(1/n\), and therefore
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{e^n-1}{n e^n-1}\ \text{diverges}.}
+\]
+
+\item Since \(n^{2/n}=e^{(2\ln n)/n}\to e^0=1\), we have
+\[
+\lim_{n\to\infty}\frac{1}{n^{2/n}}=1\neq 0.
+\]
+Thus the series fails the \(n\)-th term test and diverges:
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{1}{n^{2/n}}\ \text{diverges}.}
+\]
+
+\item Simplify:
+\[
+\frac{n^{4n}}{n^{6n}}=\frac{1}{n^{2n}}.
+\]
+Use the root test: for \(a_n=\frac{1}{n^{2n}}\),
+\[
+\sqrt[n]{a_n}=\sqrt[n]{n^{-2n}}=n^{-2}\xrightarrow[n\to\infty]{}0<1,
+\]
+so the series converges absolutely:
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n^{4n}}{n^{6n}}\ \text{converges}.}
+\]
+
+\item Let \(a_n=\tan^{-1}\!\left(\frac{1}{n^{1.2}+\tfrac13}\right)\).
+As \(n\to\infty\), the inside tends to \(0\). Using \(\tan^{-1}x\sim x\) as \(x\to 0\),
+\[
+\tan^{-1}\!\left(\frac{1}{n^{1.2}+\tfrac13}\right)\sim \frac{1}{n^{1.2}+\tfrac13}\sim \frac{1}{n^{1.2}}.
+\]
+More formally, set \(x_n=\frac{1}{n^{1.2}+\tfrac13}\to 0\). Then
+\[
+\lim_{n\to\infty}\frac{a_n}{1/n^{1.2}}
+=
+\lim_{n\to\infty}
+\left(\frac{\tan^{-1}(x_n)}{x_n}\right)
+\left(\frac{x_n}{1/n^{1.2}}\right)
+=
+1\cdot 1=1,
+\]
+since \(\lim_{x\to 0}\frac{\tan^{-1}x}{x}=1\) and
+\(\frac{x_n}{1/n^{1.2}}=\frac{n^{1.2}}{n^{1.2}+\tfrac13}\to 1\).
+Because \(\sum \frac{1}{n^{1.2}}\) converges (a \(p\)-series with \(p=1.2>1\)),
+\[
+\boxed{\sum_{n=1}^{\infty}\tan^{-1}\!\left(\frac{1}{n^{1.2}+\tfrac13}\right)\ \text{converges}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Direct comparison inequalities and specialised tests}
+\begin{enumerate}[label=(\alph*)]
+\item Since \(n^3+8\ge n^3\), we have \(0<\frac{1}{n^3+8}\le \frac{1}{n^3}\). As \(\sum\frac{1}{n^3}\) converges, so does the given series.
+
+\item Since \(\frac{n^2}{n\cdot n}=1\), the partial sums are \(\sum_{k=1}^N 1=N\to\infty\), hence divergence.
+
+\item Already geometric:
+\(\sum \left(\frac{1}{3^8}\right)^n\) converges.
+
+\item For all \(n\ge 1\), \(n^4+n^2\ge n^4\) and \(n^2+n+1\le n^2+n^2+n^2=3n^2\) (for \(n\ge 1\), since \(n\le n^2\) and \(1\le n^2\)).
+Hence
+\[
+0<\frac{n^2+n+1}{n^4+n^2}\le \frac{3n^2}{n^4}=\frac{3}{n^2},
+\]
+so convergence follows from comparison with \(\sum \frac{1}{n^2}\).
+
+\item Use the inequality \(\sin x \ge \frac{2}{\pi}x\) for \(x\in[0,\frac{\pi}{2}]\).
+Since \(\frac{1}{n}\in\left[0,\frac{\pi}{2}\right]\) for all \(n\ge 1\), we have
+\[
+\sin\!\left(\frac{1}{n}\right)\ge \frac{2}{\pi}\cdot\frac{1}{n}.
+\]
+Thus the series diverges by comparison with the harmonic series.
+
+\item Use Cauchy condensation on \(a_n=\frac{1}{n\ln n}\), which is decreasing for \(n\ge 3\):
+\[
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\ \text{ diverges }
+\Longleftrightarrow
+\sum_{k=1}^{\infty} 2^k a_{2^k}=\sum_{k=1}^\infty \frac{2^k}{2^k\ln(2^k)}=\sum_{k=1}^\infty \frac{1}{k\ln 2}
+\ \text{ diverges.}
+\]
+
+\item For \(n\ge 1\), note \(e^n-1\ge \frac12 e^n\) (since \(1\le \frac12 e^n\) for \(n\ge 1\)) and \(n e^n-1\le n e^n\). Hence
+\[
+\frac{e^n-1}{n e^n-1}\ge \frac{\frac12 e^n}{n e^n}=\frac{1}{2n}.
+\]
+So divergence follows from comparison with \(\sum \frac{1}{n}\).
+
+\item Since \(\lim_{n\to\infty}\frac{1}{n^{2/n}}=1\), the series diverges by the term test.
+
+\item Root test as above gives convergence.
+
+\item Use the basic bound \(0\le \tan^{-1}x\le x\) for \(x\ge 0\). Then
+\[
+0\le \tan^{-1}\!\left(\frac{1}{n^{1.2}+\tfrac13}\right)
+\le \frac{1}{n^{1.2}+\tfrac13}
+\le \frac{1}{n^{1.2}}.
+\]
+Hence the series converges by comparison with \(\sum \frac{1}{n^{1.2}}\).
+\end{enumerate}
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (Find \(p\) for convergence)}
+\subsection*{Problem}
+Find the values of \(p\) for which the series is convergent:
+\[
+\sum_{n=1}^{\infty}\frac{1}{n^{2p}}.
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: \(p\)-series criterion}
+The series is a \(p\)-series of the form \(\sum \frac{1}{n^\alpha}\) with \(\alpha=2p\).
+It is known that
+\[
+\sum_{n=1}^{\infty}\frac{1}{n^\alpha}
+\text{ converges } \Longleftrightarrow \alpha>1.
+\]
+Thus
+\[
+2p>1 \Longleftrightarrow p>\frac12.
+\]
+Therefore,
+\[
+\boxed{\text{The series converges exactly when }p>\frac12.}
+\]
+
+\subsubsection*{Method 2: Integral Test (full derivation)}
+Let \(f(x)=x^{-2p}\) for \(x\ge 1\). Then \(f\) is continuous and positive. Also,
+\[
+f'(x)=-2p\,x^{-2p-1}.
+\]
+Hence \(f'(x)<0\) for all \(x\ge 1\) if \(p>0\), so \(f\) is decreasing on \([1,\infty)\) (this monotonicity condition is not needed when \(p\le 0\) since then terms do not even go to \(0\)).
+
+Compute the improper integral:
+\[
+\int_1^\infty x^{-2p}\,dx.
+\]
+If \(2p\neq 1\), then
+\begin{align*}
+\int_1^\infty x^{-2p}\,dx
+&=\left[\frac{x^{-2p+1}}{-2p+1}\right]_{1}^{\infty}.
+\end{align*}
+This converges iff the exponent \(-2p+1<0\), i.e. \(2p>1\) (so the numerator \(x^{-2p+1}\to 0\) as \(x\to\infty\)).
+If \(2p=1\), the integral becomes \(\int_1^\infty \frac{1}{x}\,dx=\infty\).
+
+Therefore,
+\[
+\int_1^\infty x^{-2p}\,dx<\infty \Longleftrightarrow p>\frac12,
+\]
+and by the Integral Test,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{1}{n^{2p}} \text{ converges } \Longleftrightarrow p>\frac12.}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section*{Question 4 (Limit Comparison Test: divergence transfer)}
+\subsection*{Problem}
+The Limit Comparison Test. Suppose \(\sum_{n=1}^\infty a_n\) and \(\sum_{n=1}^\infty b_n\) are series with positive terms. Prove that if
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=c
+\quad\text{and}\quad
+\sum_{n=1}^\infty b_n \text{ diverges},
+\]
+then \(\sum_{n=1}^\infty a_n\) diverges.
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: \(\varepsilon\)-comparison (direct)}
+Assume \(a_n>0\), \(b_n>0\), and \(\lim_{n\to\infty}\frac{a_n}{b_n}=c\).
+Since \(a_n/b_n\to c\), for \(\varepsilon=\frac{c}{2}>0\) there exists \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+\left|\frac{a_n}{b_n}-c\right|<\frac{c}{2}.
+\]
+In particular this implies
+\[
+\frac{a_n}{b_n}>c-\frac{c}{2}=\frac{c}{2}\qquad(n\ge N),
+\]
+so
+\[
+a_n\ge \frac{c}{2} b_n \qquad (n\ge N).
+\]
+Now consider partial sums. For any \(M\ge N\),
+\[
+\sum_{n=1}^{M} a_n \ge \sum_{n=N}^{M} a_n \ge \frac{c}{2}\sum_{n=N}^{M} b_n.
+\]
+Since \(\sum b_n\) diverges and \(b_n>0\), its tail sums \(\sum_{n=N}^{M} b_n\to\infty\) as \(M\to\infty\).
+Therefore \(\sum_{n=1}^{M} a_n\to\infty\) as \(M\to\infty\), meaning \(\sum a_n\) diverges. Hence
+\[
+\boxed{\sum_{n=1}^\infty b_n \text{ diverges and } \lim_{n\to\infty}\frac{a_n}{b_n}=c>0
+\ \Longrightarrow\ 
+\sum_{n=1}^\infty a_n \text{ diverges}.}
+\]
+
+\newpage
+\subsubsection*{Method 2: Contrapositive argument}
+We prove the contrapositive statement:
+\[
+\sum_{n=1}^\infty a_n \text{ converges } \Longrightarrow \sum_{n=1}^\infty b_n \text{ converges}.
+\]
+Assume \(\sum a_n\) converges and \(\lim_{n\to\infty}\frac{a_n}{b_n}=c>0\).
+By the definition of limit, for \(\varepsilon=\frac{c}{2}\) there exists \(N\) such that for all \(n\ge N\),
+\[
+\left|\frac{a_n}{b_n}-c\right|<\frac{c}{2}
+\quad\Longrightarrow\quad
+\frac{a_n}{b_n}<c+\frac{c}{2}=\frac{3c}{2}.
+\]
+Thus, for \(n\ge N\),
+\[
+b_n >0,\qquad a_n < \frac{3c}{2} b_n
+\quad\Longrightarrow\quad
+b_n > \frac{2}{3c} a_n.
+\]
+This inequality alone does not give convergence of \(\sum b_n\), but we can also get the \emph{reverse} inequality by using again
+\[
+\frac{a_n}{b_n}>c-\frac{c}{2}=\frac{c}{2}
+\quad\Longrightarrow\quad
+b_n < \frac{2}{c}a_n \qquad(n\ge N).
+\]
+Hence, for all \(n\ge N\),
+\[
+0<b_n \le \frac{2}{c} a_n.
+\]
+Since \(\sum a_n\) converges, the tail \(\sum_{n=N}^\infty a_n\) converges, so by direct comparison \(\sum_{n=N}^\infty b_n\) converges.
+Adding finitely many initial terms does not affect convergence, therefore \(\sum b_n\) converges.
+
+Thus we have shown:
+\[
+\sum a_n \text{ convergent } \Longrightarrow \sum b_n \text{ convergent}.
+\]
+Taking the contrapositive gives:
+\[
+\sum b_n \text{ divergent } \Longrightarrow \sum a_n \text{ divergent},
+\]
+which is exactly the desired claim, so
+\[
+\boxed{\sum_{n=1}^\infty b_n \text{ diverges } \Longrightarrow \sum_{n=1}^\infty a_n \text{ diverges (under } \lim a_n/b_n=c>0\text{)}.}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section*{Question 5 (Transformations of a convergent positive series)}
+\subsection*{Problem}
+Suppose \(b_n>0\) and \(\sum_{n=1}^{\infty} b_n\) is convergent. Prove that the following series are also convergent.
+\begin{enumerate}[label=(\roman*)]
+  \item \(\ds \sum_{n=1}^{\infty}\ln(1+b_n)\).
+  \item \(\ds \sum_{n=1}^{\infty}\sin(b_n)\).
+\end{enumerate}
+(\emph{Hint:} Use the Limit Comparison Test, and l'H\^opital's Rule.)
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Global inequalities (direct comparison)}
+Because \(b_n>0\) and \(\sum b_n\) converges, we know \(b_n\to 0\) as \(n\to\infty\).
+
+\begin{enumerate}[label=(\roman*)]
+\item For every \(x>-1\), \(\ln(1+x)\le x\). (Proof: define \(g(x)=x-\ln(1+x)\) on \((-1,\infty)\); then \(g'(x)=1-\frac{1}{1+x}=\frac{x}{1+x}\ge 0\) for \(x\ge 0\), and \(g(0)=0\), so \(g(x)\ge 0\) for \(x\ge 0\).)
+Applying this with \(x=b_n>0\) gives
+\[
+0<\ln(1+b_n)\le b_n.
+\]
+Since \(\sum b_n\) converges, by comparison \(\sum \ln(1+b_n)\) converges. Therefore
+\[
+\boxed{\sum_{n=1}^{\infty}\ln(1+b_n)\ \text{converges}.}
+\]
+
+\item For all real \(x\), \(|\sin x|\le |x|\). In particular, for \(b_n>0\),
+\[
+|\sin(b_n)|\le b_n.
+\]
+Since \(\sum b_n\) converges, the series \(\sum |\sin(b_n)|\) converges by comparison; hence \(\sum \sin(b_n)\) converges absolutely, and therefore converges. Thus
+\[
+\boxed{\sum_{n=1}^{\infty}\sin(b_n)\ \text{converges}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Taylor expansion with remainder}
+Because \(b_n>0\) and \(\sum_{n=1}^{\infty}b_n\) converges, we first have
+\[
+b_n\to 0.
+\]
+Thus, for all sufficiently large \(n\), \(0<b_n\le 1\).
+
+\begin{enumerate}[label=(\roman*)]
+\item We use the Taylor expansion of \(\ln(1+x)\) at \(x=0\):
+\[
+\ln(1+x)=x-\frac{x^2}{2}+O(x^3)\qquad (x\to 0).
+\]
+Therefore,
+\[
+\ln(1+b_n)=b_n+O(b_n^2).
+\]
+More explicitly, for all sufficiently large \(n\), there exists a constant \(C>0\) such that
+\[
+\left|\ln(1+b_n)-b_n\right|\le Cb_n^2.
+\]
+Since \(0<b_n\le 1\) eventually, we have
+\[
+b_n^2\le b_n.
+\]
+Hence
+\[
+\sum_{n=1}^{\infty}b_n^2
+\]
+converges by comparison with \(\sum b_n\). It follows that
+\[
+\sum_{n=1}^{\infty}\ln(1+b_n)
+=
+\sum_{n=1}^{\infty}b_n
++
+\sum_{n=1}^{\infty}O(b_n^2)
+\]
+converges. Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\ln(1+b_n)\ \text{converges}.}
+\]
+
+\item We use the Taylor expansion of \(\sin x\) at \(x=0\):
+\[
+\sin x=x-\frac{x^3}{6}+O(x^5)\qquad (x\to 0).
+\]
+Therefore,
+\[
+\sin(b_n)=b_n+O(b_n^3).
+\]
+More explicitly, for all sufficiently large \(n\), there exists a constant \(C>0\) such that
+\[
+\left|\sin(b_n)-b_n\right|\le Cb_n^3.
+\]
+Since \(0<b_n\le 1\) eventually, we have
+\[
+b_n^3\le b_n.
+\]
+Hence
+\[
+\sum_{n=1}^{\infty}b_n^3
+\]
+converges by comparison with \(\sum b_n\). It follows that
+\[
+\sum_{n=1}^{\infty}\sin(b_n)
+=
+\sum_{n=1}^{\infty}b_n
++
+\sum_{n=1}^{\infty}O(b_n^3)
+\]
+converges. Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\sin(b_n)\ \text{converges}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: General differentiability principle via the Mean Value Theorem}
+We prove a more general principle.
+
+\paragraph{Claim.}
+Let \(f\) be differentiable on an interval containing \(0\), with \(f(0)=0\), and suppose \(f'\) is bounded near \(0\). If \(b_n>0\) and \(\sum b_n\) converges, then
+\[
+\sum_{n=1}^{\infty}f(b_n)
+\]
+converges absolutely.
+
+\paragraph{Proof of the claim.}
+Since \(f'\) is bounded near \(0\), there exist constants \(C>0\) and \(\delta>0\) such that
+\[
+|f'(x)|\le C
+\qquad
+(0\le x\le \delta).
+\]
+Because \(\sum b_n\) converges and \(b_n>0\), we have \(b_n\to 0\). Hence there exists \(N\in\mathbb{N}\) such that
+\[
+0<b_n\le \delta
+\qquad
+(n\ge N).
+\]
+For \(n\ge N\), by the Mean Value Theorem applied to \(f\) on \([0,b_n]\), there exists \(c_n\in(0,b_n)\) such that
+\[
+f(b_n)-f(0)=f'(c_n)b_n.
+\]
+Since \(f(0)=0\), this gives
+\[
+|f(b_n)|=|f'(c_n)|b_n\le Cb_n.
+\]
+Therefore,
+\[
+\sum_{n=N}^{\infty}|f(b_n)|
+\le
+C\sum_{n=N}^{\infty}b_n
+<\infty.
+\]
+Adding finitely many initial terms does not affect convergence, so
+\[
+\sum_{n=1}^{\infty}f(b_n)
+\]
+converges absolutely.
+
+\begin{enumerate}[label=(\roman*)]
+\item Apply the claim to
+\[
+f(x)=\ln(1+x).
+\]
+Then
+\[
+f(0)=\ln 1=0,
+\qquad
+f'(x)=\frac{1}{1+x}.
+\]
+The derivative \(f'(x)\) is bounded near \(0\), for example on \([0,1]\),
+\[
+0<f'(x)=\frac1{1+x}\le 1.
+\]
+Thus, by the claim,
+\[
+\sum_{n=1}^{\infty}\ln(1+b_n)
+\]
+converges absolutely. Since the terms are positive, this simply means that
+\[
+\boxed{\sum_{n=1}^{\infty}\ln(1+b_n)\ \text{converges}.}
+\]
+
+\item Apply the claim to
+\[
+f(x)=\sin x.
+\]
+Then
+\[
+f(0)=0,
+\qquad
+f'(x)=\cos x.
+\]
+The derivative \(f'(x)=\cos x\) is bounded near \(0\), since
+\[
+|\cos x|\le 1
+\]
+for all real \(x\). Thus, by the claim,
+\[
+\sum_{n=1}^{\infty}\sin(b_n)
+\]
+converges absolutely. Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\sin(b_n)\ \text{converges}.}
+\]
+\end{enumerate}
+
+
+\newpage
+\subsubsection*{Method 4: Infinite product and Cauchy criterion}
+This method uses two different advanced viewpoints: the logarithm series is converted into an infinite product, while the sine series is handled by the Cauchy criterion.
+
+\begin{enumerate}[label=(\roman*)]
+\item Consider the partial sums
+\[
+S_N=\sum_{n=1}^{N}\ln(1+b_n).
+\]
+Using the logarithm product rule,
+\[
+S_N
+=
+\ln\left(\prod_{n=1}^{N}(1+b_n)\right).
+\]
+Thus it is natural to study the partial products
+\[
+P_N=\prod_{n=1}^{N}(1+b_n).
+\]
+Since \(b_n>0\), each factor \(1+b_n>1\), so \((P_N)\) is increasing.
+
+Also, using the inequality
+\[
+1+x\le e^x
+\qquad (x\ge 0),
+\]
+we get
+\[
+P_N
+=
+\prod_{n=1}^{N}(1+b_n)
+\le
+\prod_{n=1}^{N}e^{b_n}
+=
+e^{\sum_{n=1}^{N}b_n}.
+\]
+Since \(\sum b_n\) converges, its partial sums are bounded. Hence there exists \(M>0\) such that
+\[
+\sum_{n=1}^{N}b_n\le M
+\qquad
+\text{for all }N.
+\]
+Therefore,
+\[
+P_N\le e^M
+\qquad
+\text{for all }N.
+\]
+So \((P_N)\) is increasing and bounded above. Hence \(P_N\) converges to a finite positive limit \(P\).
+
+Since the logarithm function is continuous,
+\[
+S_N=\ln(P_N)\to \ln(P).
+\]
+Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\ln(1+b_n)\ \text{converges}.}
+\]
+
+\item We use the Cauchy criterion. Since \(\sum b_n\) converges, for every \(\varepsilon>0\), there exists \(N\in\mathbb{N}\) such that for all \(m\ge n\ge N\),
+\[
+\sum_{k=n}^{m}b_k<\varepsilon.
+\]
+Now use
+\[
+|\sin x|\le |x|
+\qquad
+(x\in\mathbb{R}).
+\]
+For \(m\ge n\ge N\),
+\[
+\left|
+\sum_{k=n}^{m}\sin(b_k)
+\right|
+\le
+\sum_{k=n}^{m}|\sin(b_k)|
+\le
+\sum_{k=n}^{m}b_k
+<
+\varepsilon.
+\]
+Therefore the partial sums of
+\[
+\sum_{n=1}^{\infty}\sin(b_n)
+\]
+form a Cauchy sequence. Hence the series converges. In fact, the same estimate also shows absolute convergence, because
+\[
+\sum_{n=1}^{\infty}|\sin(b_n)|
+\le
+\sum_{n=1}^{\infty}b_n
+<\infty.
+\]
+Thus,
+\[
+\boxed{\sum_{n=1}^{\infty}\sin(b_n)\ \text{converges absolutely}.}
+\]
+\end{enumerate}
+
+
+\newpage
+\subsubsection*{Method 5: Inequalities}
+
+\begin{enumerate}[label=(\roman*)]
+\item We prove the inequality
+\[
+\ln(1+x)\le x
+\qquad
+(x\ge 0).
+\]
+One way is to use the standard inequality
+\[
+e^t\ge 1+t
+\qquad
+(t\in\mathbb{R}).
+\]
+Set
+\[
+t=\ln(1+x).
+\]
+Then
+\[
+e^t=1+x.
+\]
+Since \(e^t\ge 1+t\), we get
+\[
+1+x\ge 1+t.
+\]
+Hence
+\[
+x\ge t=\ln(1+x).
+\]
+Therefore,
+\[
+0<\ln(1+b_n)\le b_n.
+\]
+Since \(\sum b_n\) converges, by the direct comparison test,
+\[
+\boxed{\sum_{n=1}^{\infty}\ln(1+b_n)\ \text{converges}.}
+\]
+
+\item We use the classical trigonometric inequality
+\[
+|\sin x|\le |x|
+\qquad
+(x\in\mathbb{R}).
+\]
+Applying this with \(x=b_n>0\), we get
+\[
+|\sin(b_n)|\le b_n.
+\]
+Since \(\sum b_n\) converges,
+\[
+\sum_{n=1}^{\infty}|\sin(b_n)|
+\le
+\sum_{n=1}^{\infty}b_n
+<\infty.
+\]
+Thus \(\sum \sin(b_n)\) converges absolutely. Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\sin(b_n)\ \text{converges}.}
+\]
+\end{enumerate}
+\end{document}

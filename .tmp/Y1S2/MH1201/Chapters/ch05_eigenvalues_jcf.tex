@@ -1,0 +1,672 @@
+\section{Eigenvalues, Diagonalization, and Jordan Canonical Form}
+
+Throughout, let $\mathbb{F}$ be a field (typically $\mathbb{R}$ or $\mathbb{C}$), and let $V$ be an $\mathbb{F}$-vector space. Write $\mathcal{L}(V)$ for the space of linear operators $T:V\to V$ and $I_V$ for the identity operator on $V$.
+
+\subsection{Eigenvalues, eigenvectors, and eigenspaces}
+
+\begin{definition}{Eigenvector and eigenvalue}{def:eigenvector-eigenvalue}
+Let $T\in\mathcal{L}(V)$. A vector $v\in V$ is an \emph{eigenvector} of $T$ if
+\[
+v\neq 0 \quad\text{and}\quad \exists\,\lambda\in\mathbb{F}\ \text{such that}\ T(v)=\lambda v.
+\]
+Any such $\lambda$ is called an \emph{eigenvalue} of $T$ (field-specific: $\lambda$ must lie in the base field $\mathbb{F}$).
+\end{definition}
+
+Geometrically, an eigenvector is a nonzero vector whose direction is preserved (or reversed) by $T$: the operator merely \emph{scales} it by the factor $\lambda$.
+Every other vector gets ``rotated'' or ``sheared'' by $T$, but eigenvectors stay on their own line through the origin.
+This is why eigenvectors are so useful---they identify the directions along which $T$ acts most simply.
+
+Note that the eigenvalue $\lambda$ associated to an eigenvector $v$ is \emph{unique}: if $T(v)=\lambda v=\mu v$ with $v\neq 0$, then $(\lambda-\mu)v=0$ forces $\lambda=\mu$.
+
+\begin{definition}{Eigenspace}{def:eigenspace}
+Let $T\in\mathcal{L}(V)$ and let $\lambda\in\mathbb{F}$. The \emph{eigenspace} of $T$ for $\lambda$ is
+\[
+E_{T,\lambda}\coloneqq \ker(T-\lambda I_V).
+\]
+Then the set of eigenvectors for $\lambda$ is $E_{T,\lambda}\setminus\{0\}$.
+\end{definition}
+
+The eigenspace $E_{T,\lambda}$ is always a \emph{subspace} of $V$ (it is the kernel of the linear map $T-\lambda I_V$).
+It collects all vectors that $T$ scales by $\lambda$, together with the zero vector.
+The scalar $\lambda$ is an eigenvalue of $T$ precisely when $E_{T,\lambda}$ is nontrivial (i.e.\ contains a nonzero vector).
+
+\begin{theorem}{Equivalent characterizations of an eigenvalue}{eigenvalue-equivalences}
+Let $T\in\mathcal{L}(V)$ and $\lambda\in\mathbb{F}$. The following are equivalent:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item $\lambda$ is an eigenvalue of $T$.
+\item $E_{T,\lambda}\neq\{0\}$.
+\item $T-\lambda I_V$ is not injective.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a)$\Leftrightarrow$(b): by definition, $\lambda$ is an eigenvalue iff $\exists\,v\neq 0$ with $(T-\lambda I_V)(v)=0$, i.e.\ $\ker(T-\lambda I_V)\neq\{0\}$.
+
+(b)$\Leftrightarrow$(c): a linear map is injective iff its kernel is $\{0\}$.
+\end{proof}
+
+When $V$ is finite-dimensional, we can add more equivalences to this list.
+In that case, $T-\lambda I_V$ is not injective $\Leftrightarrow$ $T-\lambda I_V$ is not surjective $\Leftrightarrow$ $T-\lambda I_V$ is not invertible $\Leftrightarrow$ $\det([T]_\beta^\beta - \lambda I_n)=0$.
+The last condition leads to the characteristic polynomial (next subsection).
+
+\begin{theorem}{Zero eigenvalue $\Leftrightarrow$ non-injectivity}{ch5-zero-eig-noninj}
+Let $T\in\mathcal{L}(V)$. Then $0$ is an eigenvalue of $T$ if and only if $T$ is not injective.
+\end{theorem}
+
+\begin{proof}
+Apply Theorem~\ref{thm:eigenvalue-equivalences} with $\lambda=0$: $0$ is an eigenvalue iff $\ker(T)\neq\{0\}$ iff $T$ is not injective.
+\end{proof}
+
+This gives a quick test: if $T$ has trivial kernel, then $0$ is \emph{not} an eigenvalue.
+Conversely, any non-injective operator automatically has $0$ as an eigenvalue.
+In finite dimensions, $0$ is an eigenvalue iff $\det([T]_\beta^\beta)=0$.
+
+\begin{examplebox}[title={Worked Example (Lecture Week 9): eigenvalues of $0_{V\to V}$ and $I_V$}]
+Let $T=0_{V\to V}$. Then $T(v)=0$ for all $v$. The eigenvalue equation is $0=\lambda v$ for some $v\neq 0$, which forces $\lambda=0$.
+So $0$ is the \emph{only} eigenvalue of $0_{V\to V}$ and $E_{T,0}=V$.
+
+Let $T=I_V$. Then $I_V(v)=\lambda v$ with $v\neq 0$ forces $\lambda=1$. Hence $1$ is the \emph{only} eigenvalue of $I_V$ and $E_{I_V,1}=V$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 8): rotation matrix over $\mathbb{R}$ vs $\mathbb{C}$}]
+Let $A=\begin{bmatrix}0&-1\\1&0\end{bmatrix}$ and define $T(v)=Av$.
+Then $p_T(\lambda)=\det(A-\lambda I_2)=\lambda^2+1$.
+\begin{itemize}
+\item Over $\mathbb{R}$: $\lambda^2+1=0$ has no real roots, so $T$ has \emph{no} real eigenvalues.
+\item Over $\mathbb{C}$: $\lambda^2+1=0$ gives $\lambda=\pm i$, so $T$ has eigenvalues $i$ and $-i$.
+\end{itemize}
+This is the same matrix acting on the same vectors, but the available eigenvalues depend entirely on the base field.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 8): spotting eigenvectors without computation}]
+Let $T(v)=Av$ on $\mathbb{R}^3$ where $A=\begin{bmatrix}1&2&3\\1&2&3\\1&2&3\end{bmatrix}$.
+\begin{itemize}
+\item Let $u=(1,1,1)^{\mathsf T}$. Then $Au=(6,6,6)^{\mathsf T}=6u$, so $u$ is an eigenvector for $\lambda=6$.
+\item For eigenvalue $0$: pick any nonzero $w$ with $(1,2,3)\cdot w=0$, e.g.\ $w=(2,-1,0)^{\mathsf T}$. Then $Aw=0=0\cdot w$, so $w$ is an eigenvector for $\lambda=0$.
+\end{itemize}
+\textbf{Key insight:} Since $\operatorname{rank}(A)=1$, we have $\dim(\ker(A))=2$, so $\lambda=0$ has geometric multiplicity $2$.
+We found eigenvectors for two distinct eigenvalues without computing any determinant.
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: eigenvalues depend on the base field}]
+A linear operator on a real vector space may have \emph{no} eigenvalues over $\mathbb{R}$ even though it has eigenvalues over $\mathbb{C}$.
+Always check whether the course is working over $\mathbb{R}$ or $\mathbb{C}$ before claiming eigenvalues exist.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Common Mistake: the zero vector is never an eigenvector}]
+By definition, eigenvectors are \emph{nonzero}.
+Although $T(0)=\lambda\cdot 0$ for every $\lambda$, the vector $0$ is not an eigenvector.
+The eigenspace $E_{T,\lambda}$ \emph{includes} $0$ (it is a subspace), but the set of \emph{eigenvectors} for $\lambda$ is $E_{T,\lambda}\setminus\{0\}$.
+\end{commonmistake}
+
+\subsection{Characteristic polynomial and computing eigenvalues}
+
+Now assume $V$ is finite-dimensional over $\mathbb{F}$ with $\dim(V)=n$, and fix an ordered basis $\beta$ of $V$.
+
+\begin{definition}{Characteristic polynomial function}{ch5-charpoly}
+Let $T\in\mathcal{L}(V)$ with $\dim(V)=n$. The \emph{characteristic polynomial function} of $T$ is
+\[
+p_T(\lambda)\coloneqq \det\!\bigl([T]_{\beta}^{\beta}-\lambda I_n\bigr)\qquad(\lambda\in\mathbb{F}),
+\]
+where $[T]_{\beta}^{\beta}\in\mathbb{F}^{n\times n}$ is the matrix representation of $T$ in the basis $\beta$.
+\end{definition}
+
+The characteristic polynomial is a degree-$n$ polynomial in $\lambda$.
+It encodes all the eigenvalue information of $T$: its roots (in $\mathbb{F}$) are exactly the eigenvalues.
+The leading term is $(-\lambda)^n$ (from the diagonal product of $A-\lambda I_n$), and the constant term is $\det(A)=p_T(0)$.
+
+\begin{theorem}{Basis-independence of $p_T$}{ch5-charpoly-basis-indep}
+The function $p_T$ does not depend on the chosen ordered basis $\beta$.
+\end{theorem}
+
+\begin{proof}
+Let $\gamma$ be another ordered basis. Then $[T]_{\gamma}^{\gamma}=Q^{-1}[T]_{\beta}^{\beta}Q$ for some invertible $Q$.
+Hence, for any $\lambda\in\mathbb{F}$,
+\[
+[T]_{\gamma}^{\gamma}-\lambda I_n
+=
+Q^{-1}\bigl([T]_{\beta}^{\beta}-\lambda I_n\bigr)Q,
+\]
+so $\det([T]_{\gamma}^{\gamma}-\lambda I_n)=\det([T]_{\beta}^{\beta}-\lambda I_n)$.
+\end{proof}
+
+This is why we can speak of ``the'' characteristic polynomial of $T$ without specifying a basis.
+The proof uses two facts: (1) matrix representations in different bases are similar, and (2) similar matrices have equal determinants.
+
+\begin{theorem}{Eigenvalues are roots of $p_T$}{eig-roots-charpoly}
+Let $T\in\mathcal{L}(V)$ with $\dim(V)=n$. Then $\lambda\in\mathbb{F}$ is an eigenvalue of $T$ if and only if
+\[
+p_T(\lambda)=0.
+\]
+In particular, $T$ has at most $n$ eigenvalues in $\mathbb{F}$.
+\end{theorem}
+
+\begin{proof}
+Fix a basis $\beta$ and set $A=[T]_{\beta}^{\beta}$. Then
+\[
+(T-\lambda I_V)(v)=0 \ \text{with }v\neq 0
+\quad\Longleftrightarrow\quad
+(A-\lambda I_n)[v]_{\beta}=0 \ \text{with }[v]_{\beta}\neq 0.
+\]
+Thus $\lambda$ is an eigenvalue iff $A-\lambda I_n$ is not invertible, iff $\det(A-\lambda I_n)=0$, i.e.\ $p_T(\lambda)=0$.
+\end{proof}
+
+The chain of equivalences used in the proof is worth memorizing for exams:
+\[
+\lambda\text{ eigenvalue}
+\;\Leftrightarrow\; T-\lambda I_V\text{ not injective}
+\;\Leftrightarrow\; [T]_\beta^\beta-\lambda I_n\text{ not invertible}
+\;\Leftrightarrow\; \det([T]_\beta^\beta-\lambda I_n)=0.
+\]
+Each step uses a different foundational result: the definition of eigenvalue, the matrix representation preserving injectivity, and the determinant criterion for invertibility.
+
+\begin{examplebox}[title={Worked Example (Tutorial 9, Question 1): eigenvalues of $L_A(v)=Av$}]
+Let $A\in\mathbb{F}^{n\times n}$ and define $L_A\in\mathcal{L}(\mathbb{F}^{n,1})$ by $L_A(v)=Av$.
+Then $\lambda$ is an eigenvalue of $L_A$ iff $\det(A-\lambda I_n)=0$, and
+\[
+p_{L_A}(\lambda)=\det(A-\lambda I_n).
+\]
+Moreover, $L_A$ is diagonalizable iff $A$ is similar to a diagonal matrix $\operatorname{diag}(\lambda_1,\dots,\lambda_n)$ with $\lambda_i$ eigenvalues of $A$.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: fast eigenvalue computation}]
+For an upper-/lower-triangular matrix $A$, the eigenvalues are the diagonal entries (with algebraic multiplicities).
+This is often the fastest way to read off eigenvalues before checking eigenspaces for diagonalizability.
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: trace/determinant shortcuts for $2\times 2$ matrices}]
+For $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$, the characteristic polynomial is $\lambda^2 - \operatorname{tr}(A)\lambda + \det(A) = \lambda^2-(a+d)\lambda+(ad-bc)$.
+The eigenvalues satisfy $\lambda_1+\lambda_2=\operatorname{tr}(A)$ and $\lambda_1\lambda_2=\det(A)$.
+This avoids expanding the determinant from scratch every time.
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: $3\times 3$ characteristic polynomial via cofactor expansion}]
+For upper-triangular $A$, read eigenvalues off the diagonal.
+Otherwise, expand $\det(A-\lambda I_3)$ along the row/column with the most zeros.
+A useful identity: for any $n\times n$ matrix,
+\[
+p_T(\lambda) = (-1)^n\bigl(\lambda^n - \operatorname{tr}(A)\lambda^{n-1} + \cdots + (-1)^n\det(A)\bigr).
+\]
+For $n=3$: $p_T(\lambda) = -\lambda^3 + \operatorname{tr}(A)\lambda^2 - (\text{sum of }2\times 2\text{ cofactors})\lambda + \det(A)$.
+\end{examtip}
+
+\subsection{Eigenspaces: direct sum structure and dimension bounds}
+
+\begin{theorem}{Sum of distinct eigenspaces is a direct sum}{distinct-eigenspaces-direct-sum}
+Let $T\in\mathcal{L}(V)$ and let $\lambda_1,\dots,\lambda_m\in\mathbb{F}$ be distinct eigenvalues of $T$.
+Then
+\[
+E_{T,\lambda_1}+\cdots+E_{T,\lambda_m}=E_{T,\lambda_1}\oplus\cdots\oplus E_{T,\lambda_m}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $v_i\in E_{T,\lambda_i}$ and suppose $v_1+\cdots+v_m=0$.
+We show $v_1=\cdots=v_m=0$.
+
+If $m=1$, the statement is immediate. Assume $m\ge 2$.
+Apply $T$ to the relation to get
+\[
+\lambda_1 v_1+\cdots+\lambda_m v_m=0.
+\]
+Subtract $\lambda_m(v_1+\cdots+v_m)=0$ to obtain
+\[
+(\lambda_1-\lambda_m)v_1+\cdots+(\lambda_{m-1}-\lambda_m)v_{m-1}=0.
+\]
+All scalars $\lambda_i-\lambda_m$ for $i<m$ are nonzero. By repeating the same argument inductively (reducing the number of summands),
+we conclude $v_1=\cdots=v_{m-1}=0$, and then $v_m=0$ from $v_1+\cdots+v_m=0$.
+Thus the sum is direct.
+\end{proof}
+
+Why is this result so important?
+It says that eigenvectors from different eigenspaces can \emph{never} be redundant: combining bases of the individual eigenspaces always yields a linearly independent set.
+This is the structural backbone of diagonalizability---if these independent eigenvectors span all of $V$, then $T$ is diagonalizable.
+
+\begin{theorem}{Sum of eigenspace dimensions is bounded by $\dim(V)$}{sum-dims-eigenspaces}
+Let $V$ be finite-dimensional and $T\in\mathcal{L}(V)$. Then
+\[
+\sum_{\lambda\ \text{eigenvalue of }T}\dim(E_{T,\lambda})\le \dim(V).
+\]
+\end{theorem}
+
+\begin{proof}
+There are finitely many eigenvalues of $T$ in $\mathbb{F}$ (Theorem~\ref{thm:eig-roots-charpoly}).
+By Theorem~\ref{thm:distinct-eigenspaces-direct-sum}, the sum of all eigenspaces is a direct sum, so
+\[
+\dim\!\Bigl(\sum_{\lambda}E_{T,\lambda}\Bigr)=\sum_{\lambda}\dim(E_{T,\lambda}).
+\]
+Since $\sum_{\lambda}E_{T,\lambda}$ is a subspace of $V$, its dimension is at most $\dim(V)$.
+\end{proof}
+
+\begin{extension}[title={Extension (Beyond Syllabus: Distinct eigenvalues $\Rightarrow$ independent eigenvectors)}]
+\textbf{Syllabus link:} MH1201 Weeks 9--10 --- Eigenvalues and Eigenvectors.
+
+\textbf{Lemma.} If $T\in\mathcal{L}(V)$ and $\lambda_1,\dots,\lambda_m$ are distinct eigenvalues with eigenvectors
+$v_i\in E_{T,\lambda_i}\setminus\{0\}$, then $\{v_1,\dots,v_m\}$ is linearly independent.
+
+\textbf{Proof.} Suppose $a_1v_1+\cdots+a_mv_m=0$ with $a_i\in\mathbb{F}$.
+This is a vector in $E_{T,\lambda_1}+\cdots+E_{T,\lambda_m}$ equal to $0$.
+By Theorem~\ref{thm:distinct-eigenspaces-direct-sum}, the sum is direct, hence each summand must be $0$:
+$a_iv_i=0$ for all $i$. Since $v_i\neq 0$, we get $a_i=0$ for all $i$. \qed
+\end{extension}
+
+\subsection{Diagonalization: definitions, criteria, and multiplicities}
+
+\begin{definition}{Diagonalizability}{def:diagonalizable}
+Let $V$ be a vector space (not necessarily finite-dimensional) and let $T\in\mathcal{L}(V)$.
+We say that $T$ is \emph{diagonalizable} if $V$ has a basis consisting of eigenvectors of $T$.
+\end{definition}
+
+The definition says that every vector in $V$ can be written as a linear combination of eigenvectors.
+Intuitively, a diagonalizable operator is one that acts ``independently along each direction'' in a suitable basis:
+$T$ simply scales each basis vector, and the matrix becomes diagonal.
+
+\begin{theorem}{Diagonal operator matrix representation}{thm:diag-basis-matrix}
+Let $V$ be finite-dimensional with $\dim(V)=n$ and let $T\in\mathcal{L}(V)$.
+Then $T$ is diagonalizable if and only if there exists an ordered basis $\beta$ of $V$ such that $[T]_{\beta}^{\beta}$ is diagonal.
+\end{theorem}
+
+\begin{proof}
+($\Rightarrow$) If $T$ is diagonalizable, let $\beta=(v_1,\dots,v_n)$ be an eigenbasis with $T(v_i)=\lambda_i v_i$.
+Then the $i$th column of $[T]_{\beta}^{\beta}$ is $[T(v_i)]_{\beta}=[\lambda_i v_i]_{\beta}=\lambda_i e_i$, so $[T]_{\beta}^{\beta}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$.
+
+($\Leftarrow$) If $[T]_{\beta}^{\beta}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$ for $\beta=(v_1,\dots,v_n)$, then
+\[
+[T(v_i)]_{\beta}=[T]_{\beta}^{\beta}[v_i]_{\beta}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)e_i=\lambda_i e_i=[\lambda_i v_i]_{\beta},
+\]
+so $T(v_i)=\lambda_i v_i$. Hence $\beta$ is an eigenbasis and $T$ is diagonalizable.
+\end{proof}
+
+\begin{examtip}[title={Exam Focus: reading diagonalization as $A=PDP^{-1}$}]
+If the eigenbasis is $\beta=(v_1,\dots,v_n)$ and the standard basis is $\sigma$, then:
+\[
+P = [I_V]_{\sigma\beta} = [\,v_1\ \cdots\ v_n\,],\quad D = [T]_\beta^\beta = \operatorname{diag}(\lambda_1,\dots,\lambda_n),
+\]
+and the change-of-basis formula gives
+\[
+[T]_\sigma^\sigma = P D P^{-1}.
+\]
+The columns of $P$ are the eigenvectors, and the diagonal entries of $D$ are the corresponding eigenvalues (in the \emph{same order}).
+\end{examtip}
+
+\begin{theorem}{Fundamental Theorem of Diagonalizability (finite dimensions)}{fundamental-diag}
+Let $V$ be finite-dimensional and let $T\in\mathcal{L}(V)$. The following are equivalent:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item $T$ is diagonalizable.
+\item $V=\sum_{\lambda\ \text{eigenvalue of }T} E_{T,\lambda}$.
+\item $\dim(V)=\sum_{\lambda\ \text{eigenvalue of }T}\dim(E_{T,\lambda})$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(b)$\Leftrightarrow$(c): by Theorem~\ref{thm:sum-dims-eigenspaces}, the sum $\sum_{\lambda}E_{T,\lambda}$ is a (finite) direct sum,
+so
+\[
+\dim\!\Bigl(\sum_{\lambda}E_{T,\lambda}\Bigr)=\sum_{\lambda}\dim(E_{T,\lambda}).
+\]
+Since $\sum_{\lambda}E_{T,\lambda}\subseteq V$, equality of subspaces holds iff dimensions are equal, hence (b)$\Leftrightarrow$(c).
+
+(a)$\Rightarrow$(b): let $B$ be a basis of $V$ consisting of eigenvectors. For each eigenvalue $\lambda$, let $B_\lambda=B\cap E_{T,\lambda}$.
+Then $B=\bigcup_\lambda B_\lambda$, so
+\[
+V=\operatorname{span}(B)=\sum_\lambda \operatorname{span}(B_\lambda)\subseteq \sum_\lambda E_{T,\lambda}\subseteq V,
+\]
+hence equality holds.
+
+(b)$\Rightarrow$(a): for each eigenvalue $\lambda$, choose a basis $B_\lambda$ for $E_{T,\lambda}$ and set $B=\bigcup_\lambda B_\lambda$.
+Then $\operatorname{span}(B)=\sum_\lambda E_{T,\lambda}=V$, so $B$ spans $V$ and consists of eigenvectors; extract a basis of $V$ from $B$.
+Thus $T$ is diagonalizable.
+\end{proof}
+
+In the last step of (b)$\Rightarrow$(a), we claimed that $B=\bigcup_\lambda B_\lambda$ is already a basis (not just a spanning set).
+This is because the sum $\sum_\lambda E_{T,\lambda}$ is direct: combining bases of the individual eigenspaces produces a linearly independent set.
+So $|B|=\sum_\lambda |B_\lambda| = \sum_\lambda \dim(E_{T,\lambda}) = \dim(V)$, and $B$ spans, hence $B$ is a basis.
+
+\begin{theorem}{Sufficient criterion: $n$ distinct eigenvalues}{thm:n-distinct-eigs}
+Let $V$ be $n$-dimensional and let $T\in\mathcal{L}(V)$. If $T$ has $n$ distinct eigenvalues in $\mathbb{F}$, then $T$ is diagonalizable.
+\end{theorem}
+
+\begin{proof}
+Let $\lambda_1,\dots,\lambda_n$ be distinct eigenvalues. Then each $E_{T,\lambda_i}\neq\{0\}$, so $\dim(E_{T,\lambda_i})\ge 1$.
+Hence $\sum_{i=1}^n \dim(E_{T,\lambda_i})\ge n=\dim(V)$.
+By Theorem~\ref{thm:sum-dims-eigenspaces}, the sum of these dimensions is also $\le \dim(V)$, so equality holds.
+Now apply Theorem~\ref{thm:fundamental-diag}.
+\end{proof}
+
+The converse is \emph{false}: an operator can be diagonalizable with repeated eigenvalues (e.g.\ $I_V$ has only eigenvalue $1$ but is trivially diagonalizable).
+The key condition is that \emph{geometric multiplicity equals algebraic multiplicity} for every eigenvalue, not that all eigenvalues are distinct.
+
+\begin{definition}{Algebraic vs.\ geometric multiplicity}{def:alg-geom-mult}
+Let $V$ be finite-dimensional and let $T\in\mathcal{L}(V)$.
+For an eigenvalue $\lambda$ of $T$:
+\begin{itemize}[leftmargin=*]
+\item The \emph{algebraic multiplicity} of $\lambda$ is the multiplicity of $\lambda$ as a root of $p_T$ (the highest power of $(x-\lambda)$ dividing $p_T(x)$).
+\item The \emph{geometric multiplicity} of $\lambda$ is $\dim(E_{T,\lambda})$.
+\end{itemize}
+\end{definition}
+
+The algebraic multiplicity counts how many times $\lambda$ appears as a root of the characteristic polynomial.
+The geometric multiplicity counts how many linearly independent eigenvectors exist for $\lambda$.
+The key inequality is:
+\[
+1 \;\le\; \text{geometric multiplicity of }\lambda \;\le\; \text{algebraic multiplicity of }\lambda.
+\]
+The lower bound holds because $\lambda$ is an eigenvalue (so at least one eigenvector exists).
+The upper bound is a standard result.
+Diagonalizability fails precisely when the geometric multiplicity is \emph{strictly less than} the algebraic multiplicity for some eigenvalue.
+
+\begin{theorem}{Multiplicity characterization of diagonalizability}{thm:mult-char-diag}
+Let $V$ be finite-dimensional and $T\in\mathcal{L}(V)$. Then $T$ is diagonalizable if and only if:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item $p_T$ factors completely into linear factors over $\mathbb{F}$, and
+\item for every eigenvalue $\lambda$, the geometric multiplicity of $\lambda$ equals its algebraic multiplicity.
+\end{enumerate}
+\end{theorem}
+
+Condition (a) is automatic over $\mathbb{C}$ (every polynomial splits), but can fail over $\mathbb{R}$ (e.g.\ $\lambda^2+1$).
+Condition (b) is the one you must check by computing eigenspace dimensions.
+
+\begin{examtip}[title={Exam Focus: diagonalizability checklist}]
+Given $T\in\mathcal{L}(V)$ with $\dim(V)=n$:
+\begin{enumerate}[leftmargin=*]
+\item Compute eigenvalues: solve $p_T(\lambda)=0$ (or use triangular/trace/det shortcuts).
+\item For each eigenvalue $\lambda$, compute $E_{T,\lambda}=\ker(T-\lambda I_V)$ and $\dim(E_{T,\lambda})$.
+\item If $\sum_\lambda \dim(E_{T,\lambda})=n$, then $T$ is diagonalizable; otherwise it is not.
+\item If diagonalizable, form an eigenbasis by concatenating bases of the eigenspaces; then $[T]_{\beta}^{\beta}$ is diagonal.
+\end{enumerate}
+\end{examtip}
+
+\begin{commonmistake}[title={Common Mistake: diagonalizability does not require distinct eigenvalues}]
+Having $n$ distinct eigenvalues is \emph{sufficient} but not \emph{necessary} for diagonalizability.
+The identity $I_V$ is trivially diagonalizable with only one eigenvalue ($\lambda=1$, geometric multiplicity $n$).
+The correct test is always: sum of geometric multiplicities $= n$.
+\end{commonmistake}
+
+\subsection{Core applications: powers, sums of powers, and conjugacy}
+
+\begin{keyformula}[title={Key Formula: powers via diagonalization}]
+If $A\in\mathbb{F}^{n\times n}$ is diagonalizable, i.e.\ $A=PDP^{-1}$ with $D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$, then
+\[
+A^k=PD^kP^{-1},\qquad D^k=\operatorname{diag}(\lambda_1^k,\dots,\lambda_n^k)\quad(k\in\mathbb{N}_0).
+\]
+More generally, for $p(t)=\sum_{j=0}^m a_j t^j$,
+\[
+p(A)=\sum_{j=0}^m a_j A^j = P\,p(D)\,P^{-1},\qquad p(D)=\operatorname{diag}(p(\lambda_1),\dots,p(\lambda_n)).
+\]
+\end{keyformula}
+
+The formula $A^k=PD^kP^{-1}$ follows from telescoping: $A^k=(PDP^{-1})^k=PD(P^{-1}P)D\cdots DP^{-1}=PD^kP^{-1}$.
+The general polynomial version uses the same idea together with linearity: $p(A)=\sum a_j A^j = \sum a_j PD^jP^{-1} = P(\sum a_j D^j)P^{-1}=Pp(D)P^{-1}$.
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 1): Fibonacci via diagonalization}]
+Let $F\in\mathcal{L}(\mathbb{R}^{2,1})$ be $F\bigl(\binom{x}{y}\bigr)=\binom{y}{x+y}$, i.e.\ $F(v)=Av$ with
+\[
+A=\begin{bmatrix}0&1\\1&1\end{bmatrix}.
+\]
+Then $p_A(\lambda)=\lambda^2-\lambda-1$, with eigenvalues
+\[
+\varphi=\frac{1+\sqrt{5}}{2},\qquad \psi=\frac{1-\sqrt{5}}{2}.
+\]
+An eigenbasis is $\bigl(\binom{1}{\varphi},\binom{1}{\psi}\bigr)$, so $A=P\operatorname{diag}(\varphi,\psi)P^{-1}$ and
+\[
+F^n\!\left(\begin{bmatrix}0\\1\end{bmatrix}\right)
+=
+\begin{bmatrix}F_n\\F_{n+1}\end{bmatrix},
+\qquad
+F_n=\frac{\varphi^n-\psi^n}{\sqrt{5}}\quad(n\in\mathbb{N}_0).
+\]
+\end{examplebox}
+
+The Fibonacci example illustrates the full diagonalization workflow:
+(1) find eigenvalues via $p_A$, (2) find eigenvectors, (3) form $P$ and $D$, (4) decompose the input vector in the eigenbasis, (5) apply $D^n$ (trivial for a diagonal matrix), (6) convert back.
+The induction proof $F^n\binom{0}{1}=\binom{F_n}{F_{n+1}}$ uses the recursion $F_{n+2}=F_{n+1}+F_n$ (which is encoded in the matrix product $A\binom{F_n}{F_{n+1}}=\binom{F_{n+1}}{F_n+F_{n+1}}$).
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 2): diagonalization on $\mathcal{P}_2(\mathbb{R})$}]
+Define $T\in\mathcal{L}(\mathcal{P}_2(\mathbb{R}))$ by
+\[
+T(a+bX+cX^2) = (a+b+c) + bX + (b+2c)X^2.
+\]
+In the standard basis $(1,X,X^2)$,
+$[T] = \begin{bmatrix}1&1&1\\0&1&0\\0&1&2\end{bmatrix}$.
+The characteristic polynomial is $\chi(\lambda)=(1-\lambda)^2(2-\lambda)$, giving eigenvalues $1$ (alg.\ mult.\ $2$) and $2$.
+
+Eigenspaces: $E_{T,1}=\operatorname{span}\{1,\, X^2-X\}$ (dim $2$), $E_{T,2}=\operatorname{span}\{1+X^2\}$ (dim $1$).
+Since $2+1=3=\dim(\mathcal{P}_2(\mathbb{R}))$, $T$ is diagonalizable with eigenbasis $\beta=(1,\, X^2-X,\, 1+X^2)$.
+
+\textbf{Iterates:} Decompose $P=a+bX+cX^2 = (a-b-c)\cdot 1 + (-b)(X^2-X) + (b+c)(1+X^2)$.
+Then
+\[
+T^n(P) = (a-b-c) + (-b)(X^2-X) + (b+c)\cdot 2^n(1+X^2).
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 9): diagonalizable vs.\ defective (upper triangular $3\times 3$)}]
+Define $T\in\mathcal{L}(\mathbb{R}^3)$ by
+\[
+T(x,y,z)=(6x+3y+4z,\ 6y+2z,\ 7z).
+\]
+In the standard basis, $T$ has upper-triangular matrix
+\[
+A=\begin{bmatrix}6&3&4\\0&6&2\\0&0&7\end{bmatrix},
+\]
+so eigenvalues are $6$ (algebraic multiplicity $2$) and $7$.
+
+Compute $E_{T,6}=\ker(A-6I_3)$:
+\[
+A-6I_3=\begin{bmatrix}0&3&4\\0&0&2\\0&0&1\end{bmatrix}
+\ \Rightarrow\ z=0,\ y=0,\ x\ \text{free}.
+\]
+Hence $\dim(E_{T,6})=1<2$, so $\sum_\lambda \dim(E_{T,\lambda})<3$ and $T$ is \emph{not} diagonalizable.
+\end{examplebox}
+
+This example is the prototypical ``defective'' case: the eigenvalue $6$ has algebraic multiplicity $2$ but geometric multiplicity $1$.
+The eigenspace $E_{T,6}$ is only one-dimensional, so there is no way to find a second linearly independent eigenvector for $\lambda=6$.
+The deficiency is $2-1=1$, and $T$ cannot be diagonalized.
+
+\begin{examplebox}[title={Worked Example (Lecture Week 9): diagonalization on $\mathbb{R}^{2,2}$}]
+Define $T\in\mathcal{L}(\mathbb{R}^{2,2})$ by
+\[
+T\!\left(\begin{bmatrix}a&b\\c&d\end{bmatrix}\right)=\begin{bmatrix}c&d\\a&b\end{bmatrix}.
+\]
+Then $T^2=I$, so the only possible eigenvalues are $\pm 1$ (since $T(v)=\lambda v\Rightarrow v=T^2(v)=\lambda^2 v$).
+Indeed,
+\[
+E_{T,1}=\left\{\begin{bmatrix}a&b\\a&b\end{bmatrix}\right\}=\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\},
+\quad
+E_{T,-1}=\left\{\begin{bmatrix}a&b\\-a&-b\end{bmatrix}\right\}=\operatorname{span}\left\{
+\begin{bmatrix}-1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&-1\\0&1\end{bmatrix}
+\right\}.
+\]
+Thus $\dim(E_{T,1})+\dim(E_{T,-1})=2+2=4=\dim(\mathbb{R}^{2,2})$, so $T$ is diagonalizable.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: involutions ($T^2=I$) are always diagonalizable (over fields where $\operatorname{char}\neq 2$)}]
+If $T^2=I_V$, then every eigenvalue satisfies $\lambda^2=1$, so $\lambda\in\{1,-1\}$.
+The polynomial $t^2-1=(t-1)(t+1)$ annihilates $T$, and since $1\neq -1$ (assuming $\operatorname{char}(\mathbb{F})\neq 2$), the eigenspaces for $1$ and $-1$ together span $V$, so $T$ is diagonalizable.
+More generally, if $p(T)=0$ for a polynomial $p$ that splits into \emph{distinct} linear factors over $\mathbb{F}$, then $T$ is diagonalizable.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 9): explicit formula for $\begin{bmatrix}0&-2\\1&3\end{bmatrix}^n$}]
+Let $M=\begin{bmatrix}0&-2\\1&3\end{bmatrix}$. Then
+\[
+\chi_M(\lambda)=\det(M-\lambda I_2)=\lambda^2-3\lambda+2=(\lambda-1)(\lambda-2),
+\]
+so eigenvalues are $1,2$ (distinct), hence $M$ is diagonalizable.
+
+Eigenvectors: for $\lambda=1$, take $v_1=\binom{-2}{1}$; for $\lambda=2$, take $v_2=\binom{-1}{1}$.
+Let $P=[v_1\ v_2]=\begin{bmatrix}-2&-1\\1&1\end{bmatrix}$, so $P^{-1}=\begin{bmatrix}-1&-1\\1&2\end{bmatrix}$.
+Then
+\[
+M^n=P\begin{bmatrix}1&0\\0&2^n\end{bmatrix}P^{-1}
+=
+\begin{bmatrix}
+2-2^n & 2-2^{n+1}\\
+-1+2^n & -1+2^{n+1}
+\end{bmatrix}
+\qquad(n\in\mathbb{N}_0).
+\]
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: sanity-checking $M^n = PD^nP^{-1}$}]
+After computing $M^n=PD^nP^{-1}$, always verify:
+\begin{itemize}
+\item $n=0$: does $M^0 = I$ match? (Substitute $n=0$ in your formula.)
+\item $n=1$: does $M^1 = M$ match? (Substitute $n=1$.)
+\item Trace: $\operatorname{tr}(M^n) = \lambda_1^n + \lambda_2^n + \cdots$ (since trace is a similarity invariant).
+\end{itemize}
+These quick checks catch most computational errors.
+\end{examtip}
+
+\begin{extension}[title={Extension (Tutorial 8, Question 3, Method 2)}]
+\textbf{Syllabus link:} MH1201 Weeks 9--10 --- Diagonalization (computational uses).
+
+\textbf{Lemma (Polynomial functional calculus on eigenvectors).}
+Let $A\in\mathbb{F}^{n\times n}$ and let $p(t)=\sum_{k=0}^m a_k t^k\in\mathbb{F}[t]$.
+If $Av=\lambda v$ for some $v\neq 0$, then $p(A)v=p(\lambda)v$.
+
+\textbf{Proof.}
+Using $A^k v=\lambda^k v$ (proved by induction on $k$),
+\[
+p(A)v=\Bigl(\sum_{k=0}^m a_k A^k\Bigr)v=\sum_{k=0}^m a_k A^k v=\sum_{k=0}^m a_k \lambda^k v=p(\lambda)v.
+\]
+\qed
+
+\textbf{Consequence:} If $A$ is diagonalizable with eigenvalues $\lambda_1,\dots,\lambda_n$, then $p(A)$ is also diagonalizable (in the \emph{same} eigenbasis) with eigenvalues $p(\lambda_1),\dots,p(\lambda_n)$.
+Hence $\det(p(A)) = p(\lambda_1)\cdots p(\lambda_n)$.
+\end{extension}
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 3): determinant of $\sum_{k=1}^n A^k$}]
+Let $A\in\mathbb{C}^{3\times 3}$ satisfy that $A-I_3$, $A-eI_3$, and $A-iI_3$ are not invertible.
+Then $1,e,i$ are eigenvalues of $A$; they are distinct, so $A$ is diagonalizable over $\mathbb{C}$.
+
+Let $S_n=\sum_{k=1}^n A^k=p_n(A)$ where $p_n(t)=\sum_{k=1}^n t^k$.
+By the extension above, the eigenvalues of $S_n$ are $p_n(1)=n$, $p_n(e)=\frac{e^{n+1}-e}{e-1}$, and $p_n(i)=\frac{i^{n+1}-i}{i-1}$,
+so
+\[
+\det\!\left(\sum_{k=1}^n A^k\right)=n\cdot \frac{e^{n+1}-e}{e-1}\cdot \frac{i^{n+1}-i}{i-1}\qquad(n\in\mathbb{N}).
+\]
+\end{examplebox}
+
+The key reasoning is: $A-\lambda I$ not invertible $\Rightarrow$ $\lambda$ is an eigenvalue.
+Three distinct eigenvalues in a $3\times 3$ matrix force diagonalizability.
+Then the polynomial functional calculus lets us evaluate $\det(p(A))$ as a product of $p(\lambda_i)$ without ever computing $P$ or $P^{-1}$.
+
+\begin{extension}[title={Extension (Tutorial 8, Question 4, Method 1)}]
+\textbf{Syllabus link:} MH1201 Weeks 9--10 --- Diagonalization (structure under distinct eigenvalues).
+
+\textbf{Lemma (Conjugacy from matched distinct eigenvalues in dimension $3$).}
+Let $V$ be a $3$-dimensional real vector space, and let $S,T\in\mathcal{L}(V)$.
+Assume $S$ and $T$ each have \emph{three distinct} real eigenvalues $\lambda_1,\lambda_2,\lambda_3$.
+Then there exists an invertible $R\in\mathcal{L}(V)$ such that $S=R^{-1}\circ T\circ R$.
+
+\textbf{Proof.}
+For each $j\in\{1,2,3\}$, pick nonzero eigenvectors $s_j\in E_{S,\lambda_j}$ and $t_j\in E_{T,\lambda_j}$.
+Distinct eigenvalues imply $\{s_1,s_2,s_3\}$ and $\{t_1,t_2,t_3\}$ are linearly independent, hence bases of $V$.
+Define $R\in\mathcal{L}(V)$ by $R(t_j)=s_j$ for $j=1,2,3$ and extend linearly; then $R$ is invertible.
+For each $j$,
+\[
+(S\circ R)(t_j)=S(s_j)=\lambda_j s_j=\lambda_j R(t_j)=(R\circ T)(t_j),
+\]
+so $S\circ R=R\circ T$ on a basis, hence on all of $V$. Right-compose with $R^{-1}$ to get $S=R\circ T\circ R^{-1}$,
+equivalently $S=R^{-1}\circ T\circ R$ after renaming $R\leftarrow R^{-1}$. \qed
+\end{extension}
+
+\begin{extension}[title={Extension (Tutorial 8, Question 4, Method 2): conjugacy via shared diagonal form}]
+\textbf{Syllabus link:} MH1201 Weeks 9--10 --- Diagonalization and similarity.
+
+\textbf{Observation.} If $S$ and $T$ in $\mathcal{L}(V)$ are both diagonalizable with the \emph{same} set of eigenvalues (counted with multiplicities), then $S\sim T$.
+
+\textbf{Proof.} Both $[S]_{\beta_S}^{\beta_S}$ and $[T]_{\beta_T}^{\beta_T}$ equal the same diagonal matrix $\Lambda=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$ (with eigenvalues listed in matching order).
+By transitivity of similarity, $[S]_\sigma^\sigma \sim \Lambda \sim [T]_\sigma^\sigma$, hence $S\sim T$.
+
+Concretely, the invertible operator that conjugates $T$ to $S$ is the change-of-basis map from $\beta_T$ to $\beta_S$. \qed
+\end{extension}
+
+\subsection{Edge cases and diagnostic traps}
+
+\begin{commonmistake}[title={Common Mistake: "repeated eigenvalue $\Rightarrow$ diagonalizable" (false)}]
+A repeated eigenvalue does \emph{not} guarantee enough eigenvectors.
+Always compute $\dim(E_{T,\lambda})$ for repeated eigenvalues and compare with algebraic multiplicity.
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Lecture Week 9): $D+D^2$ on $\mathcal{P}_3(\mathbb{R})$ is not diagonalizable}]
+Let $D:\mathcal{P}_3(\mathbb{R})\to\mathcal{P}_3(\mathbb{R})$ be the derivative operator and consider $T=D+D^2$.
+Since $D^4=0$ on $\mathcal{P}_3(\mathbb{R})$, $D$ is nilpotent; hence $T=D(I+D)$ is also nilpotent.
+Therefore the only eigenvalue of $T$ is $0$.
+
+If $T$ were diagonalizable with only eigenvalue $0$, then it would be similar to the zero diagonal matrix, hence $T=0$, contradiction (e.g.\ $T(X)=1\neq 0$).
+Thus $T$ is not diagonalizable.
+\end{examplebox}
+
+This example demonstrates a powerful shortcut: if $T$ is nilpotent and nonzero, it is \emph{automatically not diagonalizable}.
+The argument: nilpotent $\Rightarrow$ only eigenvalue is $0$ $\Rightarrow$ if diagonalizable then $T\sim 0$ $\Rightarrow$ $T=0$, contradiction.
+This avoids any eigenspace dimension computation.
+
+\begin{examtip}[title={Exam Focus: nilpotent operators and diagonalizability}]
+A linear operator $T$ is \emph{nilpotent} if $T^k=0$ for some $k\in\mathbb{N}$.
+Key facts about nilpotent operators:
+\begin{itemize}
+\item The only eigenvalue of a nilpotent operator is $0$ (if $T(v)=\lambda v$ and $T^k=0$, then $\lambda^k v = 0$, so $\lambda=0$).
+\item A nilpotent operator is diagonalizable if and only if it is the zero operator.
+\item Consequently, any nonzero nilpotent operator is \emph{defective} (not diagonalizable).
+\end{itemize}
+\end{examtip}
+
+\begin{examplebox}[title={Worked micro-example: the simplest non-diagonalizable matrix}]
+The matrix $N=\begin{bmatrix}0&1\\0&0\end{bmatrix}$ is nilpotent ($N^2=0$) and nonzero, hence not diagonalizable.
+Explicitly: eigenvalue $0$ has algebraic multiplicity $2$ but $\ker(N)=\operatorname{span}\{e_1\}$ has dimension $1$.
+So geometric multiplicity $<$ algebraic multiplicity, confirming non-diagonalizability.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: solvability of $(T-\lambda I)v=b$}]
+For $T\in\mathcal{L}(V)$ on finite-dimensional $V$:
+\[
+\lambda\ \text{is not an eigenvalue of }T \quad\Longleftrightarrow\quad T-\lambda I_V\ \text{is invertible}.
+\]
+So if $\lambda$ is not an eigenvalue, the equation $(T-\lambda I_V)v=b$ has a \emph{unique} solution for every $b\in V$
+(e.g.\ Tutorial 8, Question 5).
+\end{examtip}
+
+This is a frequently tested technique: to show an equation $T(v)=\lambda v + b$ has a solution, rewrite it as $(T-\lambda I)v = b$ and argue that $T-\lambda I$ is invertible (because $\lambda$ is not an eigenvalue).
+The argument requires knowing all eigenvalues of $T$---if $\lambda$ is not among them, the system is guaranteed to have a unique solution.
+
+\begin{examplebox}[title={Worked Example (Tutorial 8, Question 5): using the spectrum to solve $T(v)=8v+b$}]
+Let $T\in\mathcal{L}(\mathbb{R}^3)$ with eigenvalues $6$ and $7$ only.
+To show there exist $x,y,z$ with $T(x,y,z)=(6+8x,\,7+8y,\,13+8z)$, rewrite as
+\[
+(T-8I_3)(x,y,z) = (6,7,13).
+\]
+Since $8$ is not an eigenvalue of $T$, the operator $T-8I_3$ is invertible.
+Hence the equation $(T-8I_3)v=(6,7,13)$ has a (unique) solution $v=(x,y,z)\in\mathbb{R}^3$. \qed
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: confusing algebraic and geometric multiplicity}]
+When checking diagonalizability, you need \emph{both} multiplicities.
+A common error is to compute only eigenvalues (algebraic multiplicities) and declare the operator diagonalizable.
+You must also check that each eigenspace has dimension equal to the algebraic multiplicity.
+For instance, $A=\begin{bmatrix}6&3&4\\0&6&2\\0&0&7\end{bmatrix}$ has eigenvalue $6$ with algebraic multiplicity $2$, but $\dim(E_{T,6})=1$, so $A$ is \emph{not} diagonalizable.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: complete diagonalizability workflow summary}]
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Find eigenvalues:} Solve $\det(A-\lambda I)=0$. Record algebraic multiplicities.
+\item \textbf{Find eigenspaces:} For each $\lambda$, row-reduce $A-\lambda I$ and find $\ker(A-\lambda I)$. Record geometric multiplicities (= number of free variables = $n - \operatorname{rank}(A-\lambda I)$).
+\item \textbf{Test:} If $\sum(\text{geometric mult.})=n$, diagonalizable. Otherwise, not.
+\item \textbf{Build $P$ and $D$:} Columns of $P$ are eigenvectors (one basis per eigenspace, concatenated). Diagonal of $D$ has eigenvalues in the \emph{same column order as $P$}.
+\item \textbf{Apply:} $A^k = PD^kP^{-1}$, $p(A)=Pp(D)P^{-1}$.
+\end{enumerate}
+\end{examtip}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%=================================================
+% - (Write personal reminders, TODOs, or links here.)
+% - (E.g., "Re-derive the proof of Thm direct-sum-eigenspaces before midterm.")
+% - (Practice Tutorial 8 Q1 Fibonacci derivation end-to-end.)
+% - (Memorize: nilpotent + nonzero => not diagonalizable.)
+% - (For Q5-type problems, always check: is lambda in the spectrum? If not, T - lambda I is invertible.)
+% - (Remember: geometric mult <= algebraic mult, and equality for ALL eigenvalues <=> diagonalizable.)

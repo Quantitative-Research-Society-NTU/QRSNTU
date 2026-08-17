@@ -1,0 +1,797 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\textbf{Mathematical Foundations} \\
+MFE Spring 2026 \\
+Assignment 5 \\
+Due: Tuesday, February 10, \\
+9 am P.T.
+\end{center}
+
+\vspace{1em}
+
+\noindent \textbf{Student name:} Yuhe Sui \hspace{3.54cm} \textbf{Student ID:} job@yuhesui.com
+
+\vspace{1em}
+
+\noindent \textbf{Solved in team with another student (please underline):} \hspace{1cm} Yes \hspace{1cm} \underline{No}
+
+\vspace{1em}
+
+\noindent \textbf{Name of team member:} \hspace{3cm} \textbf{ID of team member:}
+
+\vspace{1em}
+
+\noindent \textbf{Instructions:} You should submit this assignment electronically via Canvas, as a PDF file. The preferred format is to use a text editor or other program with formula handling capacity, e.g., Scientific Word, MikTex, or MS Word with installed equation package, to create a an electronic document, and then save as PDF. We also accept handwritten, scanned, solutions, but these must be extremely clear and well written, or they will receive point deductions (see available sample files on bCourses).
+
+\vspace{1em}
+
+\noindent Please contact us at \texttt{HAASMFE.MATH@gmail.com} if you have any questions about the submission format!
+
+\vspace{1em}
+
+\noindent You should receive a confirmation e-mail within 24 hours of sending your solution. Assignments received up to 24 hours late will get a point deduction of $50\%$ of the points. Assignments received more than 24 hours late get a $100\%$ point deduction.
+
+\vspace{1em}
+
+\noindent You can send questions to \texttt{HAASMFE.MATH@gmail.com} if you get stuck.
+
+\vspace{1em}
+
+\noindent All answers need to be justified!
+
+\newpage
+
+\section{Probability spaces}
+
+Consider the state space $\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4\}$, with associated $\sigma$-algebra $\mathcal{F}=2^\Omega$, and probability measures $P$ and $Q$ defined by:
+\[
+\begin{array}{c|cccc}
+i & 1 & 2 & 3 & 4\\ \hline
+Q(\omega_i) & 0.1 & 0 & 0.5 & 0.4\\
+P(\omega_i) & 0.4 & 0.1 & 0.1 & 0.4
+\end{array}
+\]
+
+\begin{enumerate}
+\item[(a)] Are $P$ and $Q$ equivalent probability measures?
+\item[(b)] What is the Radon--Nikodym derivative, $L=\dfrac{dQ}{dP}$?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}
+\item[(a)] \textbf{Are $P$ and $Q$ equivalent probability measures?}
+
+\medskip
+Two probability measures $P$ and $Q$ on $(\Omega,\mathcal F)$ are \emph{equivalent} (denoted $P\sim Q$) if and only if they are mutually absolutely continuous:
+\[
+P\sim Q
+\quad \Longleftrightarrow \quad
+(P\ll Q)\ \text{and}\ (Q\ll P),
+\]
+where
+\[
+Q\ll P
+\quad \Longleftrightarrow \quad
+\forall A\in\mathcal F,\; P(A)=0 \implies Q(A)=0,
+\]
+and similarly
+\[
+P\ll Q
+\quad \Longleftrightarrow \quad
+\forall A\in\mathcal F,\; Q(A)=0 \implies P(A)=0.
+\]
+
+\medskip
+Since $\mathcal F=2^\Omega$ and $\Omega$ is finite, for any $A\subseteq \Omega$ we have
+\[
+P(A)=\sum_{\omega_i\in A}P(\omega_i),
+\qquad
+Q(A)=\sum_{\omega_i\in A}Q(\omega_i),
+\]
+so in particular $Q\ll P$ holds if and only if
+\[
+\forall i,\; P(\{\omega_i\})=0 \implies Q(\{\omega_i\})=0,
+\]
+and similarly for $P\ll Q$ (it suffices to check the atoms).
+
+\medskip
+\noindent\textbf{Check $Q\ll P$}
+
+Let $A\in\mathcal F$ and assume $P(A)=0$. Then
+\[
+0=P(A)=\sum_{\omega_i\in A}P(\omega_i).
+\]
+But $P(\omega_i)>0$ for each $i=1,2,3,4$ \cite{code_file:12}, hence the only way the sum can be $0$ is if $A=\emptyset$.
+Therefore $Q(A)=Q(\emptyset)=0$, so $Q\ll P$.
+
+\medskip
+\noindent\textbf{Check $P\ll Q$ (counterexample)}
+
+Take the event $A=\{\omega_2\}\in\mathcal F$. Then
+\[
+Q(A)=Q(\omega_2)=0
+\quad\text{but}\quad
+P(A)=P(\omega_2)=0.1>0. \cite{code_file:12}
+\]
+This violates the defining implication for $P\ll Q$, hence $P\not\ll Q$.
+
+\medskip
+\noindent Since $Q\ll P$ but $P\not\ll Q$, the measures are not equivalent:
+\[
+\boxed{\,P\not\sim Q.\,}
+\]
+
+\item[(b)] \textbf{Find the Radon--Nikodym derivative $L=\dfrac{dQ}{dP}$.}
+
+\medskip
+\noindent Since $Q\ll P$ (part (a)), the Radon--Nikodym derivative $L=\dfrac{dQ}{dP}$ exists.
+On a finite space with $P(\omega_i)>0$ for all $i$, it is given pointwise by
+\[
+L(\omega_i)=\frac{Q(\omega_i)}{P(\omega_i)},\qquad i=1,2,3,4,
+\]
+because for any $A\subseteq\Omega$,
+\[
+\int_A L\,dP=\sum_{\omega_i\in A}L(\omega_i)P(\omega_i)=\sum_{\omega_i\in A}Q(\omega_i)=Q(A).
+\]
+
+Compute each value:
+\[
+L(\omega_1)=\frac{0.1}{0.4}=0.25,\qquad
+L(\omega_2)=\frac{0}{0.1}=0,\qquad
+L(\omega_3)=\frac{0.5}{0.1}=5,\qquad
+L(\omega_4)=\frac{0.4}{0.4}=1. \cite{code_file:12}
+\]
+
+
+\[
+\boxed{
+\frac{dQ}{dP}(\omega)=
+\begin{cases}
+0.25, & \omega=\omega_1,\\
+0, & \omega=\omega_2,\\
+5, & \omega=\omega_3,\\
+1, & \omega=\omega_4.
+\end{cases}}
+\]
+\end{enumerate}
+\newpage
+\section{Measurability}
+
+Consider the state space $\Omega=\mathbb{R}$, the $\sigma$-algebra
+\[
+\mathcal{F}=\{(-\infty,0],(0,\infty),\emptyset,\mathbb{R}\},
+\]
+and the random variable $X:\Omega\to\mathbb{R}$ defined by
+\[
+X(\omega)=
+\begin{cases}
+3, & \omega<0,\\
+5, & \omega\ge 0.
+\end{cases}
+\]
+Is $X$ $\mathcal{F}$-measurable?
+
+\subsection*{Solution}
+$X$ is $\mathcal F$-measurable if and only if for every Borel set $B\in\mathcal B(\mathbb R)$,
+\[
+X^{-1}(B)=\{\omega\in\Omega:\ X(\omega)\in B\}\in\mathcal F.
+\]
+
+\medskip
+
+Let $B=\{3\}$, which is a Borel set. Then
+\[
+X^{-1}(\{3\})
+=\{\omega\in\mathbb R:\ X(\omega)=3\}
+=\{\omega\in\mathbb R:\ \omega<0\}
+=(-\infty,0).
+\]
+But
+\[
+(-\infty,0)\notin \{(-\infty,0],\ (0,\infty),\ \emptyset,\ \mathbb R\}=\mathcal F.
+\]
+Hence there exists a Borel set $B$ such that $X^{-1}(B)\notin\mathcal F$, so $X$ is not $\mathcal F$-measurable.
+
+\[
+\boxed{\,X \text{ is not } \mathcal F\text{-measurable.}\,}
+\]
+
+\newpage
+\section{Stochastic integration}
+
+A small company is investing resources in a risky project that it hopes will be profitable. The project could, for example, represent the manufacturing and selling of a gadget in a local market. The performance of the market is measured by the Brownian motion
+\[
+Z_t=\mu t+\sigma W_t,
+\]
+where $W_t$ is a standardized Brownian motion, as discussed in class. Here, the randomness of market performance could for example be driven by uncertain market demand.
+
+The small change $Z_{t+\Delta t}-Z_t=\mu\Delta t+\sigma(W_{t+\Delta t}-W_t)$, or in differential form,
+\[
+dZ_t=\mu\,dt+\sigma\,dW_t,
+\]
+represents how well the market performs over a short time period at time $t$. We call the variable $Z$ the ``market performance measure.'' We assume that $\mu\ge 0$ and $\sigma>0$, representing that the measure is (weakly) expected to increase and that it has a random component.
+
+At each point in time, the company chooses how much to invest in the market, $I$. Here, $I$ can in general be a function of $t$, as well as of $W_t$. We allow $I$ to be negative for technical reasons.\footnote{Although allowing for negative investments in this specific application may seem a bit far-fetched, in many real-world investments applications negative investments are indeed possible.}
+
+Let $V_t$ denote the value created by the project up until time $t$. The market performance measure $Z$ then has the following interpretation: If the company chooses to invest a constant, $k$, between $t$ and $t+\Delta t$, i.e., if $I_s=k$ for $t\le s\le t+\Delta t$, then
+\[
+V_{t+\Delta t}-V_t=k(Z_{t+\Delta t}-Z_t),
+\]
+i.e., the change in value depends on how well the market performed and how much the company invested. Written as a stochastic integral, this then leads to the formula
+\[
+V_T
+=
+\int_0^T I_t\,dZ_t
+=
+\int_0^T I_t(\mu\,dt+\sigma\,dW_t)
+=
+\mu\int_0^T I_t\,dt+\sigma\int_0^T I_t\,dW_t.
+\]
+Here, the stochastic (second) part of the integral is defined in the sense of It\^o, as discussed in class.
+
+\begin{enumerate}
+\item[(a)] Given that the company chooses a fixed investment strategy, $I\equiv k$ between time $0$ and $T$, derive an expression for what the value of the project at time $T$ is. The value should be expressed as a function of $W_T$, $k$, $\mu$ and $\sigma$.
+
+The company wants to choose an investment strategy, $I$, that leads to as high a value of the project as possible, but it is also risk averse, in that it dislikes high variations of the project's value. Specifically, we use the mean-variance utility model from a previous assignment, and assume that the ``value'' the company associates (at time $0$) with an investment strategy leading to the random value $V_T$ at time $T$ is
+\[
+U=\mathbb{E}[V_T]-\frac{\gamma}{2}\mathrm{Var}[V_T],
+\]
+where $\gamma>0$ is a risk aversion parameter that governs how the company trades off uncertainty in terms of variance against expected value.\footnote{This is in most real-world cases a too simplistic model for the objective function of (the owners of) a company. We choose it for simplicity.}
+
+\item[(b)] Assume that the company has to determine a constant investment strategy at $t=0$, $I\equiv k$. What value of $k$ should the company choose?
+
+It should follow from your result in (b) that in the special case when $\mu=0$, the company should choose $k=0$. This is not surprising since when $\mu=0$, the performance measure has an expected value of $0$ and is risky, so a risk averse investor sees no benefit in investing, but only costs in the form of risk.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Let the \emph{market performance measure} be the It\^o process
+\[
+Z_t=\mu t+\sigma W_t,\qquad \mu\ge 0,\ \sigma>0,
+\]
+so that
+\[
+dZ_t=\mu\,dt+\sigma\,dW_t.
+\]
+Given an investment strategy $(I_t)_{t\in[0,T]}$, the project value at time $T$ is defined by the stochastic integral
+\[
+V_T=\int_0^T I_t\,dZ_t
+=\int_0^T I_t(\mu\,dt+\sigma\,dW_t)
+=\mu\int_0^T I_t\,dt+\sigma\int_0^T I_t\,dW_t.
+\]
+The company evaluates a strategy via mean--variance utility
+\[
+U=\mathbb{E}[V_T]-\frac{\gamma}{2}\mathrm{Var}(V_T),\qquad \gamma>0.
+\]
+
+\begin{enumerate}
+\item[(a)] \textbf{Constant strategy $I\equiv k$ on $[0,T]$.}
+
+Assume $I_t=k$ for all $t\in[0,T]$, where $k\in\mathbb{R}$ is constant. Then
+\[
+V_T=\int_0^T k\,dZ_t.
+\]
+Since $k$ is constant, it can be pulled out of the integral:
+\[
+V_T=k\int_0^T dZ_t.
+\]
+Moreover, $Z$ is continuous with $Z_t=\mu t+\sigma W_t$, hence
+\[
+\int_0^T dZ_t = Z_T-Z_0
+\qquad\text{(integral of the constant integrand $1$ against $dZ$).}
+\]
+Because $W_0=0$, we have $Z_0=\mu\cdot 0+\sigma W_0=0$, so
+\[
+V_T=k(Z_T-Z_0)=kZ_T.
+\]
+Substituting $Z_T=\mu T+\sigma W_T$ yields
+\[
+V_T=k(\mu T+\sigma W_T)=k\mu T+k\sigma W_T.
+\]
+\[
+\boxed{\,V_T=k\mu T+k\sigma W_T.\,}
+\]
+
+\item[(b)] \textbf{Optimal constant $k$ under mean--variance utility.}
+
+From part (a),
+\[
+V_T=k\mu T+k\sigma W_T.
+\]
+
+\medskip
+\noindent\textbf{Mean}
+
+Using linearity of expectation and $\mathbb{E}[W_T]=0$,
+\[
+\mathbb{E}[V_T]=\mathbb{E}[k\mu T+k\sigma W_T]
+=k\mu T+k\sigma\,\mathbb{E}[W_T]
+=k\mu T.
+\]
+
+\medskip
+\noindent\textbf{Variance}
+
+Since adding a constant does not change variance,
+\[
+\mathrm{Var}(V_T)=\mathrm{Var}(k\mu T+k\sigma W_T)=\mathrm{Var}(k\sigma W_T).
+\]
+Using $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$ and $\mathrm{Var}(W_T)=T$,
+\[
+\mathrm{Var}(V_T)=(k\sigma)^2\,\mathrm{Var}(W_T)=k^2\sigma^2T.
+\]
+
+\medskip
+\noindent\textbf{We write the objective as a function of $k$.}
+
+Substitute the above into $U$:
+\[
+U(k)=k\mu T-\frac{\gamma}{2}k^2\sigma^2T
+=T\left(k\mu-\frac{\gamma}{2}\sigma^2k^2\right).
+\]
+Since $T>0$, maximizing $U(k)$ is equivalent to maximizing
+\[
+f(k):=k\mu-\frac{\gamma}{2}\sigma^2k^2.
+\]
+
+\medskip
+\noindent\textbf{First-order condition and concavity check.}
+
+Differentiate:
+\[
+f'(k)=\mu-\gamma\sigma^2k.
+\]
+Set $f'(k)=0$:
+\[
+\mu-\gamma\sigma^2k=0
+\quad\Longrightarrow\quad
+k^\ast=\frac{\mu}{\gamma\sigma^2}.
+\]
+Second derivative:
+\[
+f''(k)=-\gamma\sigma^2<0,
+\]
+so $f$ (and hence $U$) is strictly concave in $k$, and $k^\ast$ is the unique global maximizer.
+
+\[
+\boxed{\,k^\ast=\dfrac{\mu}{\gamma\sigma^2}.\,}
+\]
+
+\medskip
+\noindent \textbf{Consistency check: $\mu=0$.}
+If $\mu=0$, then $k^\ast=0$, so the company does not invest in a purely risky (zero-drift) performance measure:
+\[
+\boxed{\,\mu=0 \ \Longrightarrow\ k^\ast=0.\,}
+\]
+\end{enumerate}
+
+\newpage
+\section{It\^o's lemma}
+
+Consider the stochastic process
+\[
+dX_t=\mu\,dt+\sigma\,dW_t.
+\]
+Find a closed form expression for $Q$, defined by the stochastic integral
+\[
+Q=\int_0^T 3X_t(\mu X_t+\sigma^2)\,dt + 3X_t^2\,\sigma\, dW_t,
+\]
+by postulating a function $G(t,W_t)$ that satisfies
+\[
+dG_t = 3X_t(\mu X_t+\sigma^2)\,dt + 3X_t^2\,\sigma\, dW_t,
+\]
+and using the definition of the stochastic integral in class to get
+\[
+Q=G(T,W_T)-G(0,W_0).
+\]
+
+\subsection*{Solution}
+
+The integrand contains the terms \(3X_t^2\sigma\, dW_t\) and \(3X_t(\mu X_t+\sigma^2)\,dt\), which  suggests differentiating a power of \(X_t\).
+Try
+\[
+G_t = X_t^3.
+\]
+\noindent \textbf{Apply It\^{o}'s formula to \(G_t=X_t^3\)}
+
+Let \(f(x)=x^3\). Then
+\[
+f'(x)=3x^2,\qquad f''(x)=6x.
+\]
+It\^{o}'s formula gives
+\[
+df(X_t)=f'(X_t)\,dX_t+\frac12 f''(X_t)\,(dX_t)^2.
+\]
+Compute \((dX_t)^2\). Since \(dX_t=\mu\,dt+\sigma\,dW_t\),
+\[
+(dX_t)^2 = (\mu\,dt+\sigma\,dW_t)^2
+= \mu^2(dt)^2 + 2\mu\sigma\,dt\,dW_t + \sigma^2(dW_t)^2.
+\]
+Using the It\^{o} rules \((dt)^2=0\), \(dt\,dW_t=0\), \((dW_t)^2=dt\), we obtain
+\[
+(dX_t)^2=\sigma^2\,dt.
+\]
+Therefore,
+\begin{align*}
+d(X_t^3)
+&= 3X_t^2\,dX_t + \frac12\cdot 6X_t\,(dX_t)^2\\
+&= 3X_t^2(\mu\,dt+\sigma\,dW_t) + 3X_t(\sigma^2\,dt)\\
+&= \big(3\mu X_t^2 + 3\sigma^2 X_t\big)\,dt + 3\sigma X_t^2\,dW_t\\
+&= 3X_t(\mu X_t+\sigma^2)\,dt + 3X_t^2\sigma\,dW_t.
+\end{align*}
+This matches exactly the required differential. Hence the correct choice is
+\[
+G_t = X_t^3.
+\]
+
+By construction,
+\[
+Q=\int_0^T dG_t = G_T-G_0 = X_T^3 - X_0^3.
+\]
+
+\noindent \textbf{ Closed form in terms of \((t,W_t)\)}
+
+Integrating \(dX_t=\mu\,dt+\sigma\,dW_t\) yields
+\[
+X_t = X_0 + \mu t + \sigma W_t,
+\]
+(using \(W_0=0\) for standard Brownian motion). Therefore,
+\[
+X_T = X_0 + \mu T + \sigma W_T.
+\]
+Substituting into \(Q=X_T^3-X_0^3\) gives the closed form
+\[
+\boxed{
+Q = \big(X_0+\mu T+\sigma W_T\big)^3 - X_0^3.
+}
+\]
+
+
+\newpage
+\section*{Extra credit problem}
+
+
+\section{Optimal control}
+
+Consider an investor with utility function
+\[
+U=\sum_{t=0}^T \rho^t \ln(c_t),
+\qquad 0<\rho<1.
+\]
+As in class, each period the investor chooses consumption $c_t$ and investment $I_t=W_t-c_t$. Investments grow at the stochastic rate $R_t$ between $t$ and $t+1$, where $R_t$ depends on the value of $s_{t+1}$, which follows an $N$-state Markov process with transition matrix $\Phi\in\mathbb{R}_+^{N\times N}$. As in class, returns are summarized by the $N$-vector $R\in\mathbb{R}_{++}^N$. The agent faces the constraint that $W_t\ge 0$ at each point in time.
+
+\begin{enumerate}
+\item[(a)] Find the optimal consumption policy, $c(t,W_t)$ and indirect utility function $J(t,W_t)$, for all $t\in\{0,1,\ldots,T\}$.
+\item[(b)] How does the consumption policy depend on investment returns, $R$? Discuss whether the formula is reasonable.
+\item[(c)] Calculate the optimal consumption policy and indirect utility function in the infinite horizon case, i.e., in the limit when $T\to\infty$.
+\end{enumerate}
+
+\bigskip
+\bigskip
+
+\subsection*{Solution}
+
+Let $(s_t)_{t\ge 0}$ be the $N$-state Markov chain with transition matrix
+\[
+\Phi=(\phi_{ij})\in\mathbb{R}_+^{N\times N},
+\qquad
+\phi_{ij}=\mathbb{P}(s_{t+1}=j\mid s_t=i),
+\qquad
+\sum_{j=1}^N \phi_{ij}=1.
+\]
+Let $R=(R_1,\dots,R_N)\in\mathbb{R}_{++}^N$ be the vector of gross returns, so that if $s_{t+1}=j$ then
+\[
+R_t=R_j,
+\qquad
+W_{t+1}=R_{s_{t+1}}(W_t-c_t).
+\]
+The feasibility constraints are
+\[
+0\le c_t\le W_t,\qquad W_t\ge 0.
+\]
+
+Because returns are Markov, the indirect utility depends on the current state. For $i\in\{1,\dots,N\}$ define the (time-$t$ normalized) value function
+\[
+J_t^i(W)
+:=
+\sup_{(c_u)_{u=t}^T}
+\mathbb{E}\!\left[
+\sum_{u=t}^T \rho^{\,u-t}\ln(c_u)
+\ \Big|\ W_t=W,\ s_t=i
+\right],
+\qquad W>0.
+\]
+For $t<T$, the Bellman equation is
+\[
+J_t^i(W)
+=
+\max_{0\le c\le W}
+\left\{
+\ln c
++
+\rho\sum_{j=1}^N \phi_{ij}\,
+J_{t+1}^j\!\big(R_j(W-c)\big)
+\right\},
+\]
+and at the terminal date
+\[
+J_T^i(W)=\max_{0\le c\le W}\ln c=\ln W,
+\qquad c_T^*(W)=W.
+\]
+
+
+\newpage
+\begin{enumerate}
+\item[(a)] \textbf{Optimal consumption policy $c(t,W_t)$ and indirect utility $J(t,W_t)$.}
+
+\medskip
+\noindent\textbf{Log-linear guess.}
+Motivated by homotheticity of log utility and multiplicative wealth dynamics, conjecture
+\[
+J_t^i(W)=a_t^i+b_t\ln W,
+\]
+where $b_t$ is scalar (independent of $i$) and $a_t^i$ may depend on state $i$.
+The terminal condition $J_T^i(W)=\ln W$ implies
+\[
+b_T=1,
+\qquad
+a_T^i=0 \ \ \text{for all } i.
+\]
+
+\medskip
+\noindent\textbf{Reduction to a one-dimensional maximization.}
+Substituting the conjecture at $t+1$ gives, for each $j$,
+\[
+J_{t+1}^j\!\big(R_j(W-c)\big)
+=
+a_{t+1}^j+b_{t+1}\ln\!\big(R_j(W-c)\big)
+=
+a_{t+1}^j+b_{t+1}\ln R_j+b_{t+1}\ln(W-c).
+\]
+Taking conditional expectation given $s_t=i$,
+\[
+\sum_{j=1}^N \phi_{ij}J_{t+1}^j\!\big(R_j(W-c)\big)
+=
+\sum_{j=1}^N\phi_{ij}a_{t+1}^j
++
+b_{t+1}\sum_{j=1}^N\phi_{ij}\ln R_j
++
+b_{t+1}\ln(W-c).
+\]
+Hence the $c$-dependent part of the Bellman problem is
+\[
+\max_{0\le c\le W}\ \bigl\{\ln c+\rho b_{t+1}\ln(W-c)\bigr\}.
+\]
+
+\medskip
+\noindent\textbf{Optimal consumption share.}
+For $W>0$ the objective is strictly concave on $(0,W)$.
+The first-order condition for an interior maximizer is
+\[
+\frac{1}{c}-\frac{\rho b_{t+1}}{W-c}=0
+\quad\Longleftrightarrow\quad
+W-c=\rho b_{t+1}c
+\quad\Longleftrightarrow\quad
+c=\frac{1}{1+\rho b_{t+1}}\,W.
+\]
+Define the consumption share
+\[
+\alpha_t:=\frac{1}{1+\rho b_{t+1}},
+\qquad
+c_t^*(W)=\alpha_t W,
+\qquad
+I_t^*(W)=W-c_t^*(W)=(1-\alpha_t)W.
+\]
+
+\medskip
+\noindent\textbf{Recursion for $b_t$ and closed form.}
+Substituting the optimizer into the Bellman equation and collecting the coefficient on $\ln W$ yields
+\[
+b_t=1+\rho b_{t+1},
+\qquad b_T=1.
+\]
+Solving backward,
+\[
+b_t=\sum_{\tau=0}^{T-t}\rho^\tau=\frac{1-\rho^{T-t+1}}{1-\rho}.
+\]
+Therefore,
+\[
+\alpha_t
+=
+\frac{1}{1+\rho b_{t+1}}
+=
+\frac{1}{1+\rho\frac{1-\rho^{T-t}}{1-\rho}}
+=
+\frac{1-\rho}{1-\rho^{T-t+1}}.
+\]
+
+\medskip
+\noindent\textbf{Recursion for the constants $a_t^i$.}
+Let \(k_t:=\rho b_{t+1}>0\). At the optimizer \(c^*=W/(1+k_t)\) and \(W-c^*=(k_t/(1+k_t))W\),
+\[
+\ln c^*+k_t\ln(W-c^*)
+=
+(1+k_t)\ln W
++
+k_t\ln k_t
+-
+(1+k_t)\ln(1+k_t).
+\]
+Thus for $t<T$,
+\[
+a_t^i
+=
+\rho\sum_{j=1}^N\phi_{ij}a_{t+1}^j
++
+\rho b_{t+1}\sum_{j=1}^N\phi_{ij}\ln R_j
++
+k_t\ln k_t-(1+k_t)\ln(1+k_t),
+\qquad
+a_T^i=0.
+\]
+
+\medskip
+\noindent\textbf{Final expressions.}
+\[
+\boxed{
+c_t^*=\frac{1-\rho}{1-\rho^{T-t+1}}\,W_t,
+\qquad
+I_t^*=W_t-c_t^*=\left(1-\frac{1-\rho}{1-\rho^{T-t+1}}\right)W_t,
+\qquad t=0,1,\dots,T,
+}
+\]
+and
+\[
+\boxed{
+J_t^i(W)=a_t^i+b_t\ln W,
+\qquad
+b_t=\frac{1-\rho^{T-t+1}}{1-\rho},
+}
+\]
+with $(a_t^i)$ determined by the backward recursion above.
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\item[(b)] \textbf{Dependence of the consumption policy on returns $R$; reasonableness.}
+
+From part (a), the consumption \emph{share}
+\[
+\alpha_t=\frac{1-\rho}{1-\rho^{T-t+1}}
+\]
+depends only on $(\rho,T,t)$ and does not depend directly on the return vector $R$ nor on the transition matrix $\Phi$.
+
+Returns affect consumption only through their effect on the wealth path. Under the optimal policy,
+\[
+W_{t+1}=R_{s_{t+1}}(W_t-c_t^*)
+=
+R_{s_{t+1}}(1-\alpha_t)W_t,
+\qquad
+c_{t+1}^*=\alpha_{t+1}W_{t+1}.
+\]
+Thus higher returns (in distribution) increase expected future wealth and therefore increase future consumption \emph{in levels}, even though the optimal fraction consumed each period is pinned down by preferences.
+
+\paragraph{Reasonableness.}
+The formula is economically sensible:
+\[
+\alpha_T=1 \quad\Rightarrow\quad c_T^*=W_T,
+\]
+so the agent consumes all remaining wealth at the terminal date.
+Moreover, as patience increases (larger $\rho$), the agent consumes a smaller share today since
+\[
+\frac{\partial \alpha_t}{\partial \rho}<0,
+\]
+so more wealth is carried forward for future consumption.
+
+\medskip
+
+\newpage
+\item[(c)] \textbf{Infinite-horizon case: limit as $T\to\infty$.}
+
+Since \(0<\rho<1\), for fixed \(t\) we have \(\rho^{T-t+1}\to 0\) as \(T\to\infty\).
+Hence
+\[
+b_t=\frac{1-\rho^{T-t+1}}{1-\rho}\to b:=\frac{1}{1-\rho},
+\qquad
+\alpha_t=\frac{1-\rho}{1-\rho^{T-t+1}}\to \alpha:=1-\rho.
+\]
+Therefore the stationary optimal policy is
+\[
+\boxed{
+c_t^*=(1-\rho)W_t,
+\qquad
+I_t^*=\rho W_t.
+}
+\]
+
+For the stationary value function, postulate
+\[
+J^i(W)=a^i+b\ln W,
+\qquad b=\frac{1}{1-\rho}.
+\]
+Substitute \(c=(1-\rho)W\) and \(W'=R_{s'}\rho W\) into the stationary Bellman equation:
+\[
+a^i+b\ln W
+=
+\ln\big((1-\rho)W\big)
++
+\rho\sum_{j=1}^N\phi_{ij}\Big(a^j+b\ln\big(R_j\rho W\big)\Big).
+\]
+Expand the right-hand side and collect constants:
+\[
+a^i+b\ln W
+=
+\ln(1-\rho)+\ln W
++
+\rho\sum_{j=1}^N\phi_{ij}a^j
++
+\rho b\sum_{j=1}^N\phi_{ij}\ln R_j
++
+\rho b\ln\rho
++
+\rho b\ln W.
+\]
+Using \(b=1+\rho b\) (equivalently \(b=1/(1-\rho)\)) makes the \(\ln W\) terms match, leaving the linear system for \(a\):
+\[
+a^i
+=
+\ln(1-\rho)
++
+\rho\sum_{j=1}^N\phi_{ij}a^j
++
+\rho b\sum_{j=1}^N\phi_{ij}\ln R_j
++
+\rho b\ln\rho.
+\]
+In vector form,
+\[
+(I-\rho\Phi)a
+=
+\left(\ln(1-\rho)+\rho b\ln\rho\right)\mathbf 1
++
+\rho b\,\Phi(\ln R),
+\]
+where \(\mathbf 1\) is the \(N\)-vector of ones and \(\ln R\) is taken componentwise.
+Since \(0<\rho<1\) and \(\Phi\) is stochastic, \(I-\rho\Phi\) is invertible, so
+\[
+\boxed{
+J^i(W)=a^i+\frac{1}{1-\rho}\ln W,
+\qquad
+a=(I-\rho\Phi)^{-1}
+\left[
+\left(\ln(1-\rho)+\frac{\rho}{1-\rho}\ln\rho\right)\mathbf 1
++
+\frac{\rho}{1-\rho}\,\Phi(\ln R)
+\right].
+}
+\]
+
+\medskip
+\noindent\textbf{Nonnegativity constraint.}
+If \(W_t\ge 0\), then \(c_t^*=(1-\rho)W_t\ge 0\) and \(I_t^*=\rho W_t\ge 0\).
+Because each \(R_j>0\), wealth remains nonnegative:
+\[
+W_{t+1}=R_{s_{t+1}}I_t^*\ge 0.
+\]
+\end{enumerate}
+
+
+\end{document}

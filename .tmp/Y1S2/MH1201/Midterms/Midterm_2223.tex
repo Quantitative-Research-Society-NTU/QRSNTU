@@ -1,0 +1,852 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Midterm Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2022/2023, Semester 2}
+\newcommand{\ExamMetaShort}{Midterm AY22-23}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+\DeclareMathOperator{\range}{range}
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Linear maps on matrix spaces; matrix representations w.r.t.\ standard bases; null space and range; rank--nullity.
+  \item Subspace tests and counterexamples in function spaces, including polynomial-degree constraints and exponential--polynomial classes.
+  \item Subspace criteria: closure under addition/scalar multiplication vs.\ nonemptiness; equivalences via standard subspace tests.
+  \item Solution structure: each question is solved using multiple independent methods (Method 1 explanatory, Method 2 compact/symbolic, and an additional method when natural).
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+% ============================================================
+% Question 1
+% ============================================================
+% ============================================================
+% Question 1
+% ============================================================
+\section{Question 1 \hfill (15 marks)}
+
+\subsection{Problem}
+Let $T:\mathcal{M}_{2\times 2}(\mathbb{R})\to \mathbb{R}^4$ be the map defined by
+\[
+T\!\left(
+\begin{bmatrix}
+a_{11} & a_{12}\\
+a_{21} & a_{22}
+\end{bmatrix}
+\right)
+=
+\bigl(a_{11}+a_{12},\ a_{21}+a_{22},\ a_{11}+a_{21},\ a_{12}+a_{22}\bigr).
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that $T$ is a linear map.
+\item Let $\mathcal{B}=\{E_{11},E_{12},E_{21},E_{22}\}$ be the standard basis for $\mathcal{M}_{2\times 2}(\mathbb{R})$ and $\mathcal{A}=\{e_1,e_2,e_3,e_4\}$ be the standard basis for $\mathbb{R}^4$. Write down the matrix representation of $T$ with respect to $\mathcal{B}$ and $\mathcal{A}$.
+\item Determine a basis for either $\mathrm{null}(T)$ OR $\mathrm{range}(T)$.
+\item Determine the dimensions of $\mathrm{null}(T)$ AND $\mathrm{range}(T)$.
+\item Determine whether the following properties of $T$ is true. You are to explain your answer.
+  \begin{enumerate}[label=(\roman*)]
+  \item Is $T$ injective?
+  \item Is $T$ surjective?
+  \end{enumerate}
+\end{enumerate}
+\vspace{3cm}
+\subsection{Solution}
+\subsubsection{Method 1: Coordinate computation + row reduction (standard)}
+Write a general matrix as $A=\begin{bmatrix}a&b\\ c&d\end{bmatrix}$, so
+\[
+T(A)=(a+b,\ c+d,\ a+c,\ b+d).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+Let $A,B\in\mathcal{M}_{2\times 2}(\mathbb{R})$ and $\lambda\in\mathbb{R}$. Writing
+$A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ and $B=\begin{bmatrix}a'&b'\\c'&d'\end{bmatrix}$, we have
+\[
+\begin{aligned}
+T(A+B)
+&=T\!\left(\begin{bmatrix}a+a'&b+b'\\c+c'&d+d'\end{bmatrix}\right)\\
+&=(a+a'+b+b',\ c+c'+d+d',\ a+a'+c+c',\ b+b'+d+d')\\
+&= T(A)+T(B),
+\end{aligned}
+\]
+and
+\[
+T(\lambda A)=T\!\left(\begin{bmatrix}\lambda a&\lambda b\\\lambda c&\lambda d\end{bmatrix}\right)
+=(\lambda(a+b),\ \lambda(c+d),\ \lambda(a+c),\ \lambda(b+d))=\lambda\,T(A).
+\]
+Hence $T$ is linear.
+
+\item \textbf{Matrix representation.}
+Compute $T$ on the standard basis $\mathcal{B}=(E_{11},E_{12},E_{21},E_{22})$:
+\[
+T(E_{11})=(1,0,1,0),\quad
+T(E_{12})=(1,0,0,1),\quad
+T(E_{21})=(0,1,1,0),\quad
+T(E_{22})=(0,1,0,1).
+\]
+Since $\mathcal{A}$ is the standard basis, the $j$-th column of $[T]_{\mathcal{B}}^{\mathcal{A}}$ is $[T(E_{\cdot\cdot})]_{\mathcal{A}}=T(E_{\cdot\cdot})$. Therefore
+\[
+[T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}.
+\]
+\[
+\boxed{\, [T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{A basis for $\operatorname{null}(T)$.}
+Solve $T(A)=0$ for $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$. The system is
+\[
+a+b=0,\qquad c+d=0,\qquad a+c=0,\qquad b+d=0.
+\]
+From $a+b=0$, $b=-a$; from $a+c=0$, $c=-a$; then $c+d=0$ gives $d=a$. Thus
+\[
+\operatorname{null}(T)=\left\{\,a\begin{bmatrix}1&-1\\-1&1\end{bmatrix}: a\in\mathbb{R}\right\}
+=\mathrm{span}\left\{\begin{bmatrix}1&-1\\-1&1\end{bmatrix}\right\}.
+\]
+\[
+\boxed{\,\text{A basis for }\operatorname{null}(T)\text{ is }\left\{\begin{bmatrix}1&-1\\-1&1\end{bmatrix}\right\}. \,}
+\]
+
+\item \textbf{Dimensions of $\operatorname{null}(T)$ and $\operatorname{range}(T)$.}
+From (c), $\dim\operatorname{null}(T)=1$.
+
+Row-reduce $[T]_{\mathcal{B}}^{\mathcal{A}}$:
+\[
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}
+\overset{R_3\leftarrow R_3-R_1}{\sim}
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&-1&1&0\\
+0&1&0&1
+\end{bmatrix}.
+\]
+\[
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&-1&1&0\\
+0&1&0&1
+\end{bmatrix}
+\overset{R_3\leftarrow -R_3}{\sim}
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&1&-1&0\\
+0&1&0&1
+\end{bmatrix}.
+\]
+\[
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&1&-1&0\\
+0&1&0&1
+\end{bmatrix}
+\overset{R_4\leftarrow R_4-R_3}{\sim}
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&1&-1&0\\
+0&0&1&1
+\end{bmatrix}.
+\]
+\[
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+0&1&-1&0\\
+0&0&1&1
+\end{bmatrix}
+\overset{R_2\leftarrow R_2-R_4}{\sim}
+\begin{bmatrix}
+1&1&0&0\\
+0&0&0&0\\
+0&1&-1&0\\
+0&0&1&1
+\end{bmatrix}.
+\]
+There are $3$ pivot rows, hence $\mathrm{rank}(T)=3$ and $\dim\operatorname{range}(T)=3$. (Check: $1+3=4$.)
+\[
+\boxed{\,\dim\operatorname{null}(T)=1,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $T$ is injective $\iff \operatorname{null}(T)=\{0\}$. Since $\dim\operatorname{null}(T)=1$, $T$ is not injective.
+\item $T$ is surjective $\iff \operatorname{range}(T)=\mathbb{R}^4$. Since $\dim\operatorname{range}(T)=3<4$, $T$ is not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is neither injective nor surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 2: Rank via a linear relation + a nonzero minor (compact)}
+Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ and set
+\[
+T(A)=(a+b,\ c+d,\ a+c,\ b+d)=:(y_1,y_2,y_3,y_4).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+Each component $A\mapsto a+b$, $A\mapsto c+d$, $A\mapsto a+c$, $A\mapsto b+d$ is a linear functional on $\mathcal{M}_{2\times 2}(\mathbb{R})$, hence $T$ is linear.
+
+\item \textbf{Matrix representation.}
+As in Method 1,
+\[
+\boxed{\, [T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{Basis for $\operatorname{range}(T)$.}
+Let
+\[
+v_1=T(E_{11})=(1,0,1,0),\quad v_2=T(E_{12})=(1,0,0,1),\quad v_3=T(E_{21})=(0,1,1,0).
+\]
+Consider the $3\times 3$ minor using rows $1,2,3$:
+\[
+\det\!\begin{pmatrix}
+1&1&0\\
+0&0&1\\
+1&0&1
+\end{pmatrix}
+=-(0\cdot 1-1\cdot 1)=1\neq 0.
+\]
+Hence $v_1,v_2,v_3$ are linearly independent, so $\dim\operatorname{range}(T)\ge 3$.
+
+\[
+\boxed{\,\text{A basis for }\operatorname{range}(T)\text{ is }\{(1,0,1,0),(1,0,0,1),(0,1,1,0)\}.\,}
+\]
+
+\item \textbf{Dimensions.}
+For any $A$,
+\[
+y_1+y_2=(a+b)+(c+d)=a+b+c+d=(a+c)+(b+d)=y_3+y_4,
+\]
+so $\operatorname{range}(T)\subseteq H:=\{y\in\mathbb{R}^4:\ y_1+y_2-y_3-y_4=0\}$ and $\dim H=3$. Thus $\dim\operatorname{range}(T)\le 3$, and together with (c) we get $\dim\operatorname{range}(T)=3$.
+
+By the Rank--Nullity Theorem,
+\[
+\dim\operatorname{null}(T)=4-\dim\operatorname{range}(T)=4-3=1.
+\]
+\[
+\boxed{\,\dim\operatorname{null}(T)=1,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $\dim\operatorname{null}(T)=1\neq 0\Rightarrow T$ not injective.
+\item $\dim\operatorname{range}(T)=3<4\Rightarrow T$ not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is neither injective nor surjective.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 3: Row/column-sum interpretation}
+Interpret
+\[
+T\!\left(\begin{bmatrix}a&b\\c&d\end{bmatrix}\right)=(r_1,r_2,c_1,c_2),
+\]
+where $r_1=a+b$, $r_2=c+d$ are the row sums and $c_1=a+c$, $c_2=b+d$ are the column sums.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+Row sums and column sums are linear in the entries, hence $T$ is linear.
+
+\item \textbf{Matrix representation.}
+Using $T(E_{ij})$ as in Method 1 yields
+\[
+\boxed{\, [T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{Basis for $\operatorname{range}(T)$.}
+Every output satisfies
+\[
+r_1+r_2=(a+b)+(c+d)=a+b+c+d=(a+c)+(b+d)=c_1+c_2,
+\]
+so $\operatorname{range}(T)\subseteq\{(r_1,r_2,c_1,c_2): r_1+r_2=c_1+c_2\}$.
+Conversely, given $(r_1,r_2,c_1,c_2)$ with $r_1+r_2=c_1+c_2$, one can solve
+\[
+a+b=r_1,\quad c+d=r_2,\quad a+c=c_1,\quad b+d=c_2
+\]
+(consistency is exactly $r_1+r_2=c_1+c_2$). 
+
+Hence
+\[
+\operatorname{range}(T)=\{y\in\mathbb{R}^4:\ y_1+y_2=y_3+y_4\},
+\]
+a $3$-dimensional subspace. A convenient basis is
+\[
+(1,0,1,0),\quad (0,1,0,1),\quad (1,0,0,1).
+\]
+\[
+\boxed{\,\text{A basis for }\operatorname{range}(T)\text{ is }\{(1,0,1,0),(0,1,0,1),(1,0,0,1)\}.\,}
+\]
+
+\item \textbf{Dimensions.}
+From (c), $\dim\operatorname{range}(T)=3$, hence by rank--nullity $\dim\operatorname{null}(T)=4-3=1$.
+\[
+\boxed{\,\dim\operatorname{null}(T)=1,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $\dim\operatorname{null}(T)=1\Rightarrow T$ not injective.
+\item $\operatorname{range}(T)$ is a proper subspace of $\mathbb{R}^4$ (e.g.\ $(1,0,0,0)\notin\operatorname{range}(T)$ since $1+0\ne 0+0$), hence $T$ not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is neither injective nor surjective.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 4: Operator factorisation via left/right multiplication}
+Let $u=\begin{bmatrix}1\\1\end{bmatrix}\in\mathbb{R}^2$.
+For $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$, we have
+\[
+Au=\begin{bmatrix}a+b\\c+d\end{bmatrix},\qquad
+u^{\mathsf T}A=\begin{bmatrix}a+c & b+d\end{bmatrix}.
+\]
+Hence, identifying $\mathbb{R}^2\times \mathbb{R}^2\cong\mathbb{R}^4$ via $(x_1,x_2,y_1,y_2)$,
+\[
+T(A)=\big(Au,\ u^{\mathsf T}A\big)=(a+b,\ c+d,\ a+c,\ b+d).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+The map $L:\mathcal{M}_{2\times 2}(\mathbb{R})\to\mathbb{R}^2$, $L(A)=Au$, is linear since $(A+B)u=Au+Bu$ and $(\lambda A)u=\lambda(Au)$.
+Similarly, $R:\mathcal{M}_{2\times 2}(\mathbb{R})\to\mathbb{R}^2$, $R(A)=u^{\mathsf T}A$, is linear since $u^{\mathsf T}(A+B)=u^{\mathsf T}A+u^{\mathsf T}B$ and $u^{\mathsf T}(\lambda A)=\lambda u^{\mathsf T}A$.
+Therefore $T(A)=(L(A),R(A))$ is linear.
+
+\item \textbf{Matrix representation.}
+Compute $T(E_{ij})$ (as in Method 1):
+\[
+T(E_{11})=(1,0,1,0),\quad
+T(E_{12})=(1,0,0,1),\quad
+T(E_{21})=(0,1,1,0),\quad
+T(E_{22})=(0,1,0,1),
+\]
+so
+\[
+\boxed{\, [T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{A basis for $\operatorname{null}(T)$.}
+We have $T(A)=0$ iff $Au=0$ and $u^{\mathsf T}A=0$.
+Writing $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$, the conditions $Au=0$ give
+\[
+a+b=0,\qquad c+d=0,
+\]
+and $u^{\mathsf T}A=0$ gives
+\[
+a+c=0,\qquad b+d=0.
+\]
+Solving: $b=-a$, $c=-a$, $d=a$, hence
+\[
+\operatorname{null}(T)=\left\{a\begin{bmatrix}1&-1\\-1&1\end{bmatrix}:a\in\mathbb{R}\right\}
+=\mathrm{span}\left\{\begin{bmatrix}1&-1\\-1&1\end{bmatrix}\right\}.
+\]
+\[
+\boxed{\,\text{A basis for }\operatorname{null}(T)\text{ is }\left\{\begin{bmatrix}1&-1\\-1&1\end{bmatrix}\right\}. \,}
+\]
+
+\item \textbf{Dimensions.}
+From (c), $\dim\operatorname{null}(T)=1$.
+
+Also, for any $A$, the total sum of entries equals both the sum of row sums and the sum of column sums:
+\[
+(a+b)+(c+d)=(a+c)+(b+d),
+\]
+so $\operatorname{range}(T)\subseteq H:=\{y\in\mathbb{R}^4:\ y_1+y_2=y_3+y_4\}$ and $\dim H=3$.
+Conversely, given $y=(y_1,y_2,y_3,y_4)\in H$ (so $y_1+y_2=y_3+y_4$), choose any $a\in\mathbb{R}$ and set
+\[
+b=y_1-a,\qquad c=y_3-a,\qquad d=y_4-b=y_4-(y_1-a)=a+y_4-y_1.
+\]
+Then $a+b=y_1$, $a+c=y_3$, $b+d=y_4$, and
+\[
+c+d=(y_3-a)+(a+y_4-y_1)=y_3+y_4-y_1=y_2
+\]
+(using $y_1+y_2=y_3+y_4$). Hence $T(A)=y$ and $\operatorname{range}(T)=H$, so $\dim\operatorname{range}(T)=3$.
+\[
+\boxed{\,\dim\operatorname{null}(T)=1,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item Since $\dim\operatorname{null}(T)=1\neq 0$, $T$ is not injective.
+\item Since $\operatorname{range}(T)=H\ne \mathbb{R}^4$ (a proper hyperplane), $T$ is not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is neither injective nor surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 5: Hyperplane characterisation + First Isomorphism Theorem}
+\textbf{Theorem (First Isomorphism Theorem).} If $S:V\to W$ is a linear map, then $V/\ker(S)\cong \operatorname{range}(S)$.
+In particular, if $V$ is finite-dimensional, then
+\[
+\dim V=\dim\ker(S)+\dim\operatorname{range}(S).
+\]
+
+Define the hyperplane
+\[
+H:=\{y=(y_1,y_2,y_3,y_4)\in\mathbb{R}^4:\ y_1+y_2-y_3-y_4=0\}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+As in Method 1, each component of $T(A)=(a+b,c+d,a+c,b+d)$ is a linear functional in the entries of $A$, so $T$ is linear.
+
+\item \textbf{Matrix representation.}
+Compute $T$ on $\mathcal{B}=(E_{11},E_{12},E_{21},E_{22})$:
+\[
+T(E_{11})=(1,0,1,0),\ 
+T(E_{12})=(1,0,0,1),\ 
+T(E_{21})=(0,1,1,0),\ 
+T(E_{22})=(0,1,0,1),
+\]
+hence
+\[
+\boxed{\, [T]_{\mathcal{B}}^{\mathcal{A}}=
+\begin{bmatrix}
+1&1&0&0\\
+0&0&1&1\\
+1&0&1&0\\
+0&1&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{A basis for $\operatorname{range}(T)$.}
+First show $\operatorname{range}(T)\subseteq H$:
+for $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ and $T(A)=(y_1,y_2,y_3,y_4)$,
+\[
+y_1+y_2-y_3-y_4=(a+b)+(c+d)-(a+c)-(b+d)=0,
+\]
+so $T(A)\in H$.
+
+Next show $H\subseteq \operatorname{range}(T)$:
+take any $y=(y_1,y_2,y_3,y_4)\in H$ so $y_1+y_2=y_3+y_4$.
+Choose any $a\in\mathbb{R}$ and define
+\[
+b=y_1-a,\qquad c=y_3-a,\qquad d=y_4-b.
+\]
+Then $a+b=y_1$, $a+c=y_3$, $b+d=y_4$, and
+\[
+c+d=(y_3-a)+d=(y_3-a)+(y_4-b)=y_3+y_4-(a+b)=y_3+y_4-y_1=y_2
+\]
+(using $y_1+y_2=y_3+y_4$). Hence $T\!\left(\begin{bmatrix}a&b\\c&d\end{bmatrix}\right)=y$.
+Therefore $\operatorname{range}(T)=H$.
+
+A convenient basis for $H$ is, for instance,
+\[
+h_1=(1,0,1,0),\quad h_2=(0,1,0,1),\quad h_3=(1,0,0,1),
+\]
+which lie in $H$ and are linearly independent. Thus they form a basis of $\operatorname{range}(T)=H$.
+\[
+\boxed{\,\text{A basis for }\operatorname{range}(T)\text{ is }\{(1,0,1,0),(0,1,0,1),(1,0,0,1)\}.\,}
+\]
+
+\item \textbf{Dimensions via the First Isomorphism Theorem.}
+Since $\operatorname{range}(T)=H$ and $\dim H=3$, we have $\dim\operatorname{range}(T)=3$.
+Because $\dim\mathcal{M}_{2\times 2}(\mathbb{R})=4$, the First Isomorphism Theorem (dimension form) gives
+\[
+4=\dim\operatorname{null}(T)+3 \quad\Rightarrow\quad \dim\operatorname{null}(T)=1.
+\]
+\[
+\boxed{\,\dim\operatorname{null}(T)=1,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $T$ is injective $\iff \operatorname{null}(T)=\{0\}$. Since $\dim\operatorname{null}(T)=1$, $T$ is not injective.
+\item $T$ is surjective $\iff \operatorname{range}(T)=\mathbb{R}^4$. Since $\operatorname{range}(T)=H\ne\mathbb{R}^4$, $T$ is not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is neither injective nor surjective.}\,}
+\]
+\end{enumerate}
+\vspace{3cm}
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (2 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Shows additivity: $T(A+B)=T(A)+T(B)$ with correct componentwise evaluation.
+    \item (1) Shows homogeneity: $T(\lambda A)=\lambda T(A)$ with correct componentwise evaluation.
+  \end{itemize}
+
+  \item \textbf{(b) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Correctly computes $T(E_{11})$.
+    \item (1) Correctly computes $T(E_{12})$.
+    \item (1) Correctly computes $T(E_{21})$ and $T(E_{22})$.
+    \item (1) Assembles $[T]_{\mathcal{B}}^{\mathcal{A}}$ with correct column order matching $\mathcal{B}$ and standard coordinates in $\mathcal{A}$.
+  \end{itemize}
+
+  \item \textbf{(c) (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Sets up the condition defining $\operatorname{null}(T)$ or $\operatorname{range}(T)$ (e.g.\ $T(A)=0$ or a correct range constraint).
+    \item (1) Solves / constructs correctly to obtain a spanning set for the requested space.
+    \item (1) States a valid basis for either $\operatorname{null}(T)$ or $\operatorname{range}(T)$ and indicates why it spans (and is independent if required).
+  \end{itemize}
+
+  \item \textbf{(d) (2 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Correctly finds $\dim\operatorname{range}(T)$ (via row-reduction, minor, or a correct dimension argument).
+    \item (1) Correctly finds $\dim\operatorname{null}(T)$ (via basis from (c) and/or rank--nullity / isomorphism theorem) and states both dimensions.
+  \end{itemize}
+
+  \item \textbf{(e) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Injectivity: uses criterion $T$ injective $\Leftrightarrow \operatorname{null}(T)=\{0\}$ (or $\dim\null(T)=0$) and gives correct conclusion.
+    \item (2) Surjectivity: uses criterion $T$ surjective $\Leftrightarrow \operatorname{range}(T)=\mathbb{R}^4$ (or $\dim\range(T)=4$) and gives correct conclusion.
+  \end{itemize}
+\end{itemize}
+% ============================================================
+% Question 2
+% ============================================================
+% ============================================================
+% Question 2
+% ============================================================
+\newpage
+\section{Question 2 \hfill (10 marks)}
+
+\subsection{Problem}
+Recall that $\mathcal{F}(\mathbb{R},\mathbb{R})$ is the vector space comprising all functions with domain $\mathbb{R}$ and codomain $\mathbb{R}$.
+\begin{enumerate}[label=(\alph*)]
+\item Consider the set $\mathcal{U}=\{f\in \mathcal{P}(\mathbb{R}) : \deg(f)\ge 2023\}$. Is $\mathcal{U}$ a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$?
+\item Consider the set $\mathcal{V}=\{e^x f\in \mathcal{F}(\mathbb{R},\mathbb{R}) : f\in \mathcal{P}(\mathbb{R})\}$. Is $\mathcal{V}$ a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Subspace test}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{$\mathcal{U}$ is not a subspace.}
+If $\mathcal{U}$ were a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$, it must contain the zero vector (the zero function, i.e.\ the zero polynomial).
+Pick $f(x)=x^{2023}\in\mathcal{U}$. Closure under scalar multiplication would imply $0\cdot f\in\mathcal{U}$.
+But $0\cdot f=0$ is the zero polynomial, whose degree is not $\ge 2023$ (indeed $\deg(0)$ is undefined; under the standard convention one may take $\deg(0)=-\infty$). Hence $0\notin\mathcal{U}$, so $\mathcal{U}$ is not a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace of }\mathcal{F}(\mathbb{R},\mathbb{R}).\,}
+\]
+
+\item \textbf{$\mathcal{V}$ is a subspace.}
+First, $0\in\mathcal{V}$ since taking $f=0\in\mathcal{P}(\mathbb{R})$ gives $e^x f=0$.
+
+Let $e^x f, e^x g\in\mathcal{V}$ with $f,g\in\mathcal{P}(\mathbb{R})$ and let $\lambda\in\mathbb{R}$. Then
+\[
+(e^x f)+(e^x g)=e^x(f+g)\in\mathcal{V}\quad \text{since }f+g\in\mathcal{P}(\mathbb{R}),
+\]
+and
+\[
+\lambda(e^x f)=e^x(\lambda f)\in\mathcal{V}\quad \text{since }\lambda f\in\mathcal{P}(\mathbb{R}).
+\]
+Thus $\mathcal{V}$ is nonempty and closed under addition and scalar multiplication, hence a subspace.
+\[
+\boxed{\,\mathcal{V}\text{ is a subspace of }\mathcal{F}(\mathbb{R},\mathbb{R}).\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Range of a linear map is a subspace (structural)}
+\textbf{Theorem.} If $\Phi:V\to W$ is linear, then $\operatorname{range}(\Phi)$ is a subspace of $W$.
+
+Define
+\[
+\Phi:\mathcal{P}(\mathbb{R})\to \mathcal{F}(\mathbb{R},\mathbb{R}),\qquad \Phi(f)=e^x f.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item If $\mathcal{U}$ were a subspace then $0\in\mathcal{U}$. But $0\notin\mathcal{U}$ (degree constraint), so $\mathcal{U}$ is not a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace.}\,}
+\]
+
+\item $\Phi$ is linear since $\Phi(f+g)=e^x(f+g)=e^x f+e^x g$ and $\Phi(\lambda f)=e^x(\lambda f)=\lambda e^x f$.
+Moreover, by definition,
+\[
+\operatorname{range}(\Phi)=\{e^x f:\ f\in\mathcal{P}(\mathbb{R})\}=\mathcal{V}.
+\]
+Hence $\mathcal{V}=\operatorname{range}(\Phi)$ is a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$.
+\[
+\boxed{\,\mathcal{V}\text{ is a subspace.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 3: Multiplication operator is a linear automorphism (operator-theoretic)}
+Define the multiplication operator
+\[
+M_{e^x}:\mathcal{F}(\mathbb{R},\mathbb{R})\to\mathcal{F}(\mathbb{R},\mathbb{R}),\qquad (M_{e^x}h)(x)=e^x h(x).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item As before, $0\notin\mathcal{U}$ (since $\deg(0)$ is not $\ge 2023$), so $\mathcal{U}$ is not a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace.}\,}
+\]
+
+\item $M_{e^x}$ is linear. Since $e^x\neq 0$ for all $x\in\mathbb{R}$, the inverse operator is
+\[
+M_{e^{-x}}:\mathcal{F}(\mathbb{R},\mathbb{R})\to\mathcal{F}(\mathbb{R},\mathbb{R}),\qquad (M_{e^{-x}}h)(x)=e^{-x}h(x),
+\]
+and it satisfies $M_{e^{-x}}\circ M_{e^x}=M_{e^x}\circ M_{e^{-x}}=\mathrm{Id}$. Thus $M_{e^x}$ is a linear isomorphism of $\mathcal{F}(\mathbb{R},\mathbb{R})$.
+
+Now $\mathcal{P}(\mathbb{R})$ is a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$, and
+\[
+\mathcal{V}=\{e^x f:\ f\in\mathcal{P}(\mathbb{R})\}=M_{e^x}\big(\mathcal{P}(\mathbb{R})\big).
+\]
+The image of a subspace under a linear map is a subspace; in particular, the image under an isomorphism is a subspace. Hence $\mathcal{V}$ is a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$.
+\[
+\boxed{\,\mathcal{V}\text{ is a subspace of }\mathcal{F}(\mathbb{R},\mathbb{R}).\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 4: Subspace isomorphism viewpoint (explicit inverse on $\mathcal{V}$)}
+Define a map
+\[
+\psi:\mathcal{V}\to \mathcal{P}(\mathbb{R}),\qquad \psi(e^x f)=f.
+\]
+This is well-defined because if $e^x f=e^x g$, then multiplying by $e^{-x}$ (pointwise) gives $f=g$.
+
+\begin{enumerate}[label=(\alph*)]
+\item As above, $0\notin\mathcal{U}$, so $\mathcal{U}$ is not a subspace.
+\[
+\boxed{\,\mathcal{U}\text{ is not a subspace.}\,}
+\]
+
+\item Consider the restriction $\phi:=M_{e^x}\big|_{\mathcal{P}(\mathbb{R})}:\mathcal{P}(\mathbb{R})\to\mathcal{V}$ given by $\phi(f)=e^x f$.
+Then $\phi$ is linear and bijective with inverse $\psi$ (since $\psi(\phi(f))=f$ and $\phi(\psi(e^x f))=e^x f$).
+Thus $\phi$ is a vector space isomorphism $\mathcal{P}(\mathbb{R})\cong \mathcal{V}$.
+Since $\mathcal{P}(\mathbb{R})$ is a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$, it follows that $\mathcal{V}$ is a subspace as well (equivalently: $\mathcal{V}$ is the image of a subspace under a linear map).
+\[
+\boxed{\,\mathcal{V}\text{ is a subspace.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsection{Mark Scheme (10 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) States a necessary subspace condition to test (e.g.\ $0\in\mathcal{U}$, or closure under scalar multiplication).
+    \item (1) Provides a valid example $f\in\mathcal{U}$ (e.g.\ $f(x)=x^{2023}$).
+    \item (1) Uses closure under scalar multiplication to infer $0\cdot f\in\mathcal{U}$ would be required if $\mathcal{U}$ were a subspace.
+    \item (1) Observes $0\cdot f=0$ and explains why $0\notin\mathcal{U}$ (degree not $\ge 2023$; $\deg(0)$ undefined or $-\infty$ by convention).
+    \item (1) Concludes correctly that $\mathcal{U}$ is not a subspace.
+  \end{itemize}
+
+  \item \textbf{(b) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Shows $0\in\mathcal{V}$ (take $f=0$).
+    \item (2) Closure under addition: $(e^x f)+(e^x g)=e^x(f+g)$ and $f+g\in\mathcal{P}(\mathbb{R})$.
+    \item (1) Closure under scalar multiplication: $\lambda(e^x f)=e^x(\lambda f)$ and $\lambda f\in\mathcal{P}(\mathbb{R})$.
+    \item (1) Concludes correctly that $\mathcal{V}$ is a subspace of $\mathcal{F}(\mathbb{R},\mathbb{R})$.
+  \end{itemize}
+\end{itemize}
+
+% ------------------------------------------------------------
+\newpage
+
+% ============================================================
+% Question 3
+% ============================================================
+\section{Question 3 \hfill (5 marks)}
+
+\subsection{Problem}
+Let $V$ be a vector space. Let $S$ be a subset of $V$ that is closed under vector addition and scalar multiplication. Show that $S$ is a subspace of $V$ if and only if $S$ is nonempty.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct subspace test}
+\begin{enumerate}[label=(\roman*)]
+\item[$(\Rightarrow)$] If $S$ is a subspace of $V$, then by definition $0\in S$. In particular, $S$ is nonempty.
+\item[$(\Leftarrow)$] Suppose $S$ is nonempty. Choose $s\in S$. Since $S$ is closed under scalar multiplication, $0\cdot s\in S$, so $0\in S$.
+Now let $u,v\in S$ and $\lambda\in\mathbb{R}$. Since $S$ is closed under addition and scalar multiplication, we have $u+v\in S$ and $\lambda u\in S$. Hence $S$ contains $0$ and is closed under addition and scalar multiplication, so $S$ is a subspace of $V$.
+\end{enumerate}
+\[
+\boxed{\,S\text{ is a subspace of }V\ \Longleftrightarrow\ S\neq\varnothing.\,}
+\]
+
+\subsubsection{Method 2: Linear combinations criterion}
+\textbf{Theorem (Linear combinations subspace test).}
+A subset $S\subseteq V$ is a subspace iff $S\neq\varnothing$ and for all $u,v\in S$ and $\alpha,\beta\in\mathbb{R}$,
+\[
+\alpha u+\beta v\in S.
+\]
+
+Under the assumptions, if $S\neq\varnothing$ then for $u,v\in S$ and $\alpha,\beta\in\mathbb{R}$ we have $\alpha u\in S$ and $\beta v\in S$ by scalar closure, hence $\alpha u+\beta v\in S$ by additive closure. Therefore $S$ is a subspace.
+Conversely, any subspace is nonempty.
+\[
+\boxed{\,S\le V\ \Longleftrightarrow\ S\neq\varnothing.\,}
+\]
+
+\subsubsection{Method 3: Additive subgroup criterion}
+\textbf{Theorem.} A subset $S\subseteq V$ is a subspace iff:
+(i) $S$ is a subgroup of $(V,+)$ and
+(ii) $S$ is closed under scalar multiplication.
+
+Assume $S\neq\varnothing$ and is closed under addition and scalar multiplication.
+Pick $s\in S$. Then $0=0\cdot s\in S$.
+For any $u\in S$, we have $-u=(-1)u\in S$, so $S$ is closed under additive inverses.
+Together with closure under addition, $S$ is a subgroup of $(V,+)$; with scalar closure, $S$ is a subspace.
+The converse direction is immediate since any subspace contains $0$ and is nonempty.
+\[
+\boxed{\,S\text{ is a subspace of }V\ \Longleftrightarrow\ S\neq\varnothing.\,}
+\]
+
+\subsubsection{Method 4: Minimalist closure argument}
+\begin{enumerate}[label=(\roman*)]
+\item[$(\Rightarrow)$] If $S$ is a subspace, then $0\in S$, so $S\neq\varnothing$.
+\item[$(\Leftarrow)$] Suppose $S\neq\varnothing$ and fix $s\in S$.
+Then $0=0\cdot s\in S$ by scalar closure.
+For any $u\in S$, $-u=(-1)u\in S$, and hence for any $u,v\in S$ we have $u-v=u+(-v)\in S$.
+Thus $S$ contains $0$ and is closed under addition and scalar multiplication, so $S$ is a subspace.
+\end{enumerate}
+\[
+\boxed{\,S\le V\ \Longleftrightarrow\ S\neq\varnothing.\,}
+\]
+
+\subsection{Mark Scheme (5 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Proves $(\Rightarrow)$ direction: subspace $\Rightarrow 0\in S \Rightarrow S\neq\varnothing$.
+    \item (1) For $(\Leftarrow)$ direction, assumes $S\neq\varnothing$ and selects $s\in S$.
+    \item (1) Uses scalar closure to derive $0=0\cdot s\in S$.
+    \item (1) Uses closure (addition and scalar multiplication) to verify subspace axioms for arbitrary elements (or derives additive inverses and closure under linear combinations).
+    \item (1) States the final equivalence clearly.
+  \end{itemize}
+\end{itemize}
+\end{document}

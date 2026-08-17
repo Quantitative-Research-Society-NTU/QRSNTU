@@ -1,0 +1,1673 @@
+% Source files: Tutorial-11.pdf ; MH5200_ProblemSheet2.txt (style reference)
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 11 (Week 12) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on power series (Topics 6.1--6.2): radius/interval of convergence, coefficient-ratio characterisations of the radius, substitutions like \(x\mapsto x^2\), and constructing series representations of functions via geometric series and termwise differentiation/integration.
+
+\noindent
+\textbf{Question themes.}
+\begin{itemize}[leftmargin=*]
+  \item Radius and interval of convergence via ratio/root tests and endpoint checks.
+  \item Proving a radius-of-convergence formula from \(\lim \bigl|c_n/c_{n+1}\bigr|\).
+  \item Effect on radius under the substitution \(x\mapsto x^2\).
+  \item Building power series from the geometric series \(\frac{1}{1-u}=\sum_{n=0}^\infty u^n\).
+  \item Using differentiation/integration of known power series to represent new functions.
+  \item Approximations and summation tricks using power series identities.
+\end{itemize}
+
+\bigskip
+
+
+%====================================================
+% QUESTION 1
+%====================================================
+\newpage
+\section*{Question 1 (Radius \& interval of convergence)}
+\subsection*{Problem}
+Find the radius of convergence and interval of convergence of the series.
+\begin{enumerate}[label=(\alph*)]
+  \item \(\ds \sum_{n=1}^{\infty}\frac{(-1)^n}{(2n-1)\,2^n}(x-1)^n.\)
+  \item \(\ds \sum_{n=1}^{\infty}\frac{\sqrt{n}}{8^n}(x+6)^n.\)
+  \item \(\ds \sum_{n=2}^{\infty}\frac{b^n}{\ln n}(x-a)^n,\quad b>0.\)
+  \item \(\ds \sum_{n=1}^{\infty}\frac{x^n}{1\cdot 3\cdot 5\cdots (2n-1)}.\)
+\end{enumerate}
+
+\bigskip
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Ratio/root test with endpoint rechecking}
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+a_n(x)=\frac{(-1)^n}{(2n-1)\,2^n}(x-1)^n.
+\]
+Then
+\begin{align*}
+\left|\frac{a_{n+1}(x)}{a_n(x)}\right|
+&=
+\frac{2n-1}{2n+1}\cdot\frac{|x-1|}{2}
+\xrightarrow[n\to\infty]{}
+\frac{|x-1|}{2}.
+\end{align*}
+Hence the series converges absolutely when
+\[
+\frac{|x-1|}{2}<1
+\quad\Longleftrightarrow\quad
+|x-1|<2,
+\]
+and diverges when \(|x-1|>2\). Thus the radius is
+\[
+\boxed{R=2}.
+\]
+The open interval is
+\[
+-1<x<3.
+\]
+
+At \(x=3\),
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n}{(2n-1)2^n}(3-1)^n
+=
+\sum_{n=1}^{\infty}\frac{(-1)^n}{2n-1},
+\]
+which converges by the Alternating Series Test, since \(\frac1{2n-1}\downarrow0\).
+
+At \(x=-1\),
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n}{(2n-1)2^n}(-2)^n
+=
+\sum_{n=1}^{\infty}\frac1{2n-1},
+\]
+which diverges, since
+\[
+\frac1{2n-1}\ge \frac1{2n}
+\]
+and \(\sum \frac1{2n}\) diverges.
+
+Therefore
+\[
+\boxed{R=2,\qquad I=(-1,3]}.
+\]
+
+\item Let
+\[
+a_n(x)=\frac{\sqrt n}{8^n}(x+6)^n.
+\]
+Then
+\[
+\left|\frac{a_{n+1}(x)}{a_n(x)}\right|
+=
+\sqrt{\frac{n+1}{n}}\cdot\frac{|x+6|}{8}
+\xrightarrow[n\to\infty]{}
+\frac{|x+6|}{8}.
+\]
+Hence the series converges absolutely when
+\[
+|x+6|<8,
+\]
+and diverges when \(|x+6|>8\). Thus
+\[
+\boxed{R=8}.
+\]
+The open interval is
+\[
+-14<x<2.
+\]
+
+At \(x=2\),
+\[
+a_n(2)=\frac{\sqrt n}{8^n}8^n=\sqrt n\not\to0,
+\]
+so the series diverges by the \(n\)-th term test.
+
+At \(x=-14\),
+\[
+a_n(-14)=\frac{\sqrt n}{8^n}(-8)^n=(-1)^n\sqrt n\not\to0,
+\]
+so the series also diverges by the \(n\)-th term test.
+
+Therefore
+\[
+\boxed{R=8,\qquad I=(-14,2)}.
+\]
+
+\newpage
+\item Let
+\[
+a_n(x)=\frac{b^n}{\ln n}(x-a)^n,\qquad n\ge2.
+\]
+Use the root test:
+\[
+\sqrt[n]{|a_n(x)|}
+=
+b|x-a|\cdot\frac1{\sqrt[n]{\ln n}}.
+\]
+Since
+\[
+\sqrt[n]{\ln n}\to1,
+\]
+we get
+\[
+\lim_{n\to\infty}\sqrt[n]{|a_n(x)|}
+=
+b|x-a|.
+\]
+Therefore the series converges absolutely when
+\[
+b|x-a|<1
+\quad\Longleftrightarrow\quad
+|x-a|<\frac1b,
+\]
+and diverges when \(|x-a|>\frac1b\). Thus
+\[
+\boxed{R=\frac1b}.
+\]
+The open interval is
+\[
+a-\frac1b<x<a+\frac1b.
+\]
+
+At \(x=a+\frac1b\),
+\[
+\frac{b^n}{\ln n}\left(\frac1b\right)^n
+=
+\frac1{\ln n}.
+\]
+Thus the endpoint series is
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}.
+\]
+For all sufficiently large \(n\),
+\[
+\ln n<\sqrt n,
+\]
+so
+\[
+\frac1{\ln n}>\frac1{\sqrt n}.
+\]
+Since
+\[
+\sum_{n=2}^{\infty}\frac1{\sqrt n}
+\]
+diverges, the comparison test gives
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}
+\]
+divergent.
+
+At \(x=a-\frac1b\),
+\[
+\frac{b^n}{\ln n}\left(-\frac1b\right)^n
+=
+\frac{(-1)^n}{\ln n}.
+\]
+The sequence \(\frac1{\ln n}\) decreases to \(0\) for \(n\ge3\), so
+\[
+\sum_{n=2}^{\infty}\frac{(-1)^n}{\ln n}
+\]
+converges by the Alternating Series Test.
+
+Therefore
+\[
+\boxed{R=\frac1b,\qquad I=\left[a-\frac1b,\ a+\frac1b\right)}.
+\]
+
+\item Let
+\[
+(2n-1)!!=1\cdot3\cdot5\cdots(2n-1).
+\]
+The series is
+\[
+\sum_{n=1}^{\infty}\frac{x^n}{(2n-1)!!}.
+\]
+For \(x=0\), the series is \(0\), so it converges.
+
+For \(x\ne0\), let
+\[
+a_n(x)=\frac{x^n}{(2n-1)!!}.
+\]
+Then
+\[
+\left|\frac{a_{n+1}(x)}{a_n(x)}\right|
+=
+\left|\frac{x^{n+1}}{(2n+1)!!}\cdot\frac{(2n-1)!!}{x^n}\right|
+=
+\frac{|x|}{2n+1}
+\xrightarrow[n\to\infty]{}
+0.
+\]
+Thus the series converges absolutely for every real \(x\). Hence
+\[
+\boxed{R=\infty,\qquad I=(-\infty,\infty)}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Cauchy--Hadamard formula with endpoint checks}
+For a power series
+\[
+\sum_{n=0}^{\infty}c_n(x-x_0)^n,
+\]
+the Cauchy--Hadamard formula gives
+\[
+R=\frac1{\limsup\limits_{n\to\infty}\sqrt[n]{|c_n|}},
+\]
+with the conventions \(1/0=\infty\) and \(1/\infty=0\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Here
+\[
+c_n=\frac{(-1)^n}{(2n-1)2^n}.
+\]
+Then
+\[
+\sqrt[n]{|c_n|}
+=
+\frac1{2}\cdot\frac1{\sqrt[n]{2n-1}}
+\to
+\frac12.
+\]
+Therefore
+\[
+R=\frac1{1/2}=2.
+\]
+The endpoint checks are exactly as in Method 1, giving
+\[
+\boxed{I=(-1,3]}.
+\]
+
+\item Here
+\[
+c_n=\frac{\sqrt n}{8^n}.
+\]
+Then
+\[
+\sqrt[n]{|c_n|}
+=
+\frac{n^{1/(2n)}}8
+\to
+\frac18.
+\]
+Therefore
+\[
+R=8.
+\]
+At \(x=2\) and \(x=-14\), the terms do not tend to \(0\). Hence
+\[
+\boxed{I=(-14,2)}.
+\]
+
+\item Here
+\[
+c_n=\frac{b^n}{\ln n}.
+\]
+Then
+\[
+\sqrt[n]{|c_n|}
+=
+b\cdot\frac1{\sqrt[n]{\ln n}}
+\to b.
+\]
+Therefore
+\[
+R=\frac1b.
+\]
+The endpoint checks are exactly as in Method 1, giving
+\[
+\boxed{I=\left[a-\frac1b,\ a+\frac1b\right)}.
+\]
+
+\item Here
+\[
+c_n=\frac1{(2n-1)!!}.
+\]
+Since
+\[
+\frac{c_{n+1}}{c_n}=\frac1{2n+1}\to0,
+\]
+the standard ratio-root lemma for positive sequences gives
+\[
+\sqrt[n]{c_n}\to0.
+\]
+Thus
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}=0,
+\]
+and hence
+\[
+\boxed{R=\infty,\qquad I=(-\infty,\infty)}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: Dominant exponential factor recognition}
+This method identifies the part of the coefficient that controls the radius. Polynomial, logarithmic, and other subexponential factors do not change the radius, although they may still affect endpoint convergence.
+
+\begin{enumerate}[label=(\alph*)]
+\item The coefficient is
+\[
+c_n=\frac{(-1)^n}{(2n-1)2^n}.
+\]
+The factor \(\frac1{2n-1}\) is subexponential, while the exponential factor is \(2^{-n}\). Hence the radius is
+\[
+R=2.
+\]
+Endpoints still need to be checked. As in Method 1,
+\[
+x=3
+\]
+gives an alternating harmonic-type series, which converges, while
+\[
+x=-1
+\]
+gives the divergent odd harmonic subseries. Thus
+\[
+\boxed{I=(-1,3]}.
+\]
+
+\item The coefficient is
+\[
+c_n=\frac{\sqrt n}{8^n}.
+\]
+The factor \(\sqrt n\) is subexponential, and the exponential factor is \(8^{-n}\). Hence
+\[
+R=8.
+\]
+At both endpoints \(x=2\) and \(x=-14\), the terms fail to tend to \(0\). Therefore
+\[
+\boxed{I=(-14,2)}.
+\]
+
+\item The coefficient is
+\[
+c_n=\frac{b^n}{\ln n}.
+\]
+The logarithmic factor \(1/\ln n\) is subexponential, while the exponential factor is \(b^n\). Therefore
+\[
+R=\frac1b.
+\]
+The endpoint \(x=a+\frac1b\) gives \(\sum \frac1{\ln n}\), which diverges. The endpoint \(x=a-\frac1b\) gives \(\sum \frac{(-1)^n}{\ln n}\), which converges by the Alternating Series Test. Thus
+\[
+\boxed{I=\left[a-\frac1b,\ a+\frac1b\right)}.
+\]
+
+\item The denominator
+\[
+(2n-1)!!
+\]
+grows faster than any fixed exponential in the ratio-test sense, because
+\[
+\frac{1/(2n+1)!!}{1/(2n-1)!!}
+=
+\frac1{2n+1}\to0.
+\]
+Therefore the coefficient has exponential root limit \(0\), and so
+\[
+R=\infty.
+\]
+Hence
+\[
+\boxed{I=(-\infty,\infty)}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 4: Geometric domination of the tail}
+This method gives a direct tail comparison rather than only quoting the final ratio/root conclusion.
+
+\begin{enumerate}[label=(\alph*)]
+\item For the first series,
+\[
+\left|\frac{a_{n+1}}{a_n}\right|
+=
+\frac{2n-1}{2n+1}\cdot\frac{|x-1|}{2}.
+\]
+If \(|x-1|<2\), choose \(q\) such that
+\[
+\frac{|x-1|}{2}<q<1.
+\]
+Then for all sufficiently large \(n\),
+\[
+\left|\frac{a_{n+1}}{a_n}\right|\le q,
+\]
+so the tail is dominated by a geometric series and converges absolutely.
+
+If \(|x-1|>2\), the ratio is eventually larger than \(1\), so the terms cannot tend to \(0\); hence the series diverges. Endpoint checks give again
+\[
+\boxed{I=(-1,3]}.
+\]
+
+\item For the second series,
+\[
+\left|\frac{a_{n+1}}{a_n}\right|
+=
+\sqrt{\frac{n+1}{n}}\cdot\frac{|x+6|}{8}.
+\]
+If \(|x+6|<8\), the tail is geometrically dominated. If \(|x+6|>8\), the terms do not tend to \(0\). The endpoints also fail the \(n\)-th term test. Hence
+\[
+\boxed{I=(-14,2)}.
+\]
+
+\item For the third series,
+\[
+\sqrt[n]{|a_n(x)|}
+=
+b|x-a|\cdot\frac1{\sqrt[n]{\ln n}}.
+\]
+If \(|x-a|<\frac1b\), choose \(q<1\) such that
+\[
+b|x-a|<q<1.
+\]
+Then for all sufficiently large \(n\),
+\[
+\sqrt[n]{|a_n(x)|}\le q,
+\]
+so
+\[
+|a_n(x)|\le q^n
+\]
+eventually, and the series converges absolutely by geometric domination. If \(|x-a|>\frac1b\), the root-test limit is greater than \(1\), so the terms fail to tend to \(0\). Endpoint checks give
+\[
+\boxed{I=\left[a-\frac1b,\ a+\frac1b\right)}.
+\]
+
+\item For the fourth series, for any fixed \(x\in\mathbb R\), choose \(N\) so large that
+\[
+\frac{|x|}{2n+1}\le \frac12
+\qquad(n\ge N).
+\]
+Then
+\[
+\left|\frac{a_{n+1}}{a_n}\right|\le\frac12
+\qquad(n\ge N).
+\]
+Hence the tail is dominated by a geometric series. Therefore the series converges absolutely for every \(x\), so
+\[
+\boxed{I=(-\infty,\infty)}.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 5: Cauchy condensation at the logarithmic endpoint in part (c)}
+This method is only for the right endpoint of part (c). At
+\[
+x=a+\frac1b,
+\]
+the endpoint series becomes
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}.
+\]
+The sequence
+\[
+u_n=\frac1{\ln n}
+\]
+is positive and decreasing for \(n\ge3\). By Cauchy's condensation test,
+\[
+\sum_{n=3}^{\infty}u_n
+\]
+converges if and only if
+\[
+\sum_{k=1}^{\infty}2^k u_{2^k}
+\]
+converges. But
+\[
+2^k u_{2^k}
+=
+\frac{2^k}{\ln(2^k)}
+=
+\frac{2^k}{k\ln2}.
+\]
+Since
+\[
+\frac{2^k}{k\ln2}\not\to0,
+\]
+the condensed series diverges. Therefore
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}
+\]
+diverges. This confirms that the right endpoint
+\[
+x=a+\frac1b
+\]
+is excluded from the interval of convergence in part (c).
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Ratio of coefficients and radius)}
+\subsection*{Problem}
+Suppose that the power series
+\[
+\sum_{n=0}^{\infty}c_n(x-a)^n
+\]
+satisfies \(c_n\neq0\) for all \(n\). Show that if
+\[
+\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|
+\]
+exists, then it is equal to the radius of convergence of the power series.
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct ratio test on the absolute-value series}
+Let
+\[
+L=\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|,
+\]
+where \(L\in[0,\infty]\).
+
+At \(x=a\), the power series becomes
+\[
+c_0+\sum_{n=1}^{\infty}c_n0^n=c_0,
+\]
+so it always converges.
+
+Now suppose \(x\ne a\). Consider the absolute-value series
+\[
+\sum_{n=0}^{\infty}u_n,
+\qquad
+u_n=|c_n|\,|x-a|^n.
+\]
+Then \(u_n>0\), and
+\[
+\frac{u_{n+1}}{u_n}
+=
+\frac{|c_{n+1}|\,|x-a|^{n+1}}{|c_n|\,|x-a|^n}
+=
+\left|\frac{c_{n+1}}{c_n}\right||x-a|.
+\]
+
+First suppose \(0<L<\infty\). Then
+\[
+\left|\frac{c_{n+1}}{c_n}\right|\to\frac1L,
+\]
+so
+\[
+\frac{u_{n+1}}{u_n}
+\to
+\frac{|x-a|}{L}.
+\]
+By the ratio test:
+\begin{itemize}[leftmargin=*]
+\item if \(|x-a|<L\), then \(\sum u_n\) converges, so the power series converges absolutely;
+\item if \(|x-a|>L\), then \(\sum u_n\) diverges and the terms do not tend to \(0\), so the power series diverges.
+\end{itemize}
+Hence the radius of convergence is \(R=L\).
+
+If \(L=0\), then for every \(x\ne a\),
+\[
+\left|\frac{c_{n+1}}{c_n}\right||x-a|\to\infty.
+\]
+Thus the terms cannot tend to \(0\), so the series diverges for every \(x\ne a\). Hence
+\[
+R=0=L.
+\]
+
+If \(L=\infty\), then for every fixed \(x\),
+\[
+\left|\frac{c_{n+1}}{c_n}\right||x-a|\to0.
+\]
+Thus the ratio test gives convergence for every \(x\). Hence
+\[
+R=\infty=L.
+\]
+
+Therefore, in all cases,
+\[
+\boxed{
+R=\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|.
+}
+\]
+
+\newpage
+\subsubsection*{Method 2: Cauchy--Hadamard formula with the ratio-root lemma}
+The Cauchy--Hadamard formula states that the radius of convergence of
+\[
+\sum_{n=0}^{\infty}c_n(x-a)^n
+\]
+is
+\[
+R=\frac1{\limsup\limits_{n\to\infty}\sqrt[n]{|c_n|}}.
+\]
+
+Let
+\[
+L=\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|.
+\]
+Equivalently,
+\[
+\left|\frac{c_{n+1}}{c_n}\right|\to\frac1L,
+\]
+where we use the conventions
+\[
+\frac1{0}=\infty,\qquad \frac1{\infty}=0.
+\]
+
+A standard ratio-root lemma says that if \(d_n>0\) and
+\[
+\frac{d_{n+1}}{d_n}\to q,
+\]
+then
+\[
+\sqrt[n]{d_n}\to q.
+\]
+Applying this lemma to
+\[
+d_n=|c_n|,
+\]
+we obtain
+\[
+\sqrt[n]{|c_n|}\to \frac1L.
+\]
+Hence
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}
+=
+\frac1L.
+\]
+Therefore, by Cauchy--Hadamard,
+\[
+R=\frac1{1/L}=L.
+\]
+Thus
+\[
+\boxed{
+R=\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|.
+}
+\]
+
+\newpage
+\subsubsection*{Method 3: Finite-tail geometric domination}
+Let
+\[
+L=\lim_{n\to\infty}\left|\frac{c_n}{c_{n+1}}\right|.
+\]
+Again, \(x=a\) gives immediate convergence, so assume \(x\ne a\).
+
+Consider
+\[
+u_n=|c_n|\,|x-a|^n.
+\]
+Then
+\[
+\frac{u_{n+1}}{u_n}
+=
+\left|\frac{c_{n+1}}{c_n}\right||x-a|.
+\]
+
+Assume first that \(0<L<\infty\). If \(|x-a|<L\), choose \(q\) such that
+\[
+\frac{|x-a|}{L}<q<1.
+\]
+Since
+\[
+\left|\frac{c_{n+1}}{c_n}\right||x-a|\to\frac{|x-a|}{L},
+\]
+there exists \(N\) such that for all \(n\ge N\),
+\[
+\frac{u_{n+1}}{u_n}\le q.
+\]
+Thus the tail is dominated by a geometric sequence:
+\[
+u_{N+k}\le q^k u_N.
+\]
+Hence
+\[
+\sum u_n
+\]
+converges, and the power series converges absolutely.
+
+If \(|x-a|>L\), choose \(q>1\) such that
+\[
+1<q<\frac{|x-a|}{L}.
+\]
+For all sufficiently large \(n\),
+\[
+\frac{u_{n+1}}{u_n}\ge q>1.
+\]
+Therefore \(u_n\) cannot tend to \(0\), so the original power-series terms cannot tend to \(0\). Hence the power series diverges.
+
+Thus the convergence set is exactly determined by
+\[
+|x-a|<L,
+\]
+so the radius is
+\[
+\boxed{R=L}.
+\]
+The cases \(L=0\) and \(L=\infty\) are handled similarly: \(L=0\) gives divergence for every \(x\ne a\), while \(L=\infty\) gives geometric domination for every fixed \(x\). Hence the formula remains valid in all cases.
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (Radius under \(x\mapsto x^2\))}
+\subsection*{Problem}
+Suppose the series
+\[
+\sum_{n=0}^{\infty}c_nx^n
+\]
+has radius of convergence \(R\). What is the radius of convergence of the power series
+\[
+\sum_{n=0}^{\infty}c_nx^{2n}?
+\]
+Justify your answer.
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Substitution \(y=x^2\)}
+Let
+\[
+y=x^2.
+\]
+Then
+\[
+\sum_{n=0}^{\infty}c_nx^{2n}
+=
+\sum_{n=0}^{\infty}c_n(x^2)^n
+=
+\sum_{n=0}^{\infty}c_ny^n.
+\]
+The original power series in \(y\) has radius \(R\), so it converges when
+\[
+|y|<R
+\]
+and diverges when
+\[
+|y|>R.
+\]
+Since \(y=x^2\),
+\[
+|y|=|x^2|=|x|^2.
+\]
+Therefore the transformed series converges when
+\[
+|x|^2<R
+\quad\Longleftrightarrow\quad
+|x|<\sqrt R.
+\]
+Thus the new radius of convergence is
+\[
+\boxed{\sqrt R}.
+\]
+This includes the endpoint conventions
+\[
+\sqrt0=0,\qquad \sqrt{\infty}=\infty.
+\]
+
+\subsubsection*{Method 2: Formal Cauchy--Hadamard calculation}
+For the original series
+\[
+\sum_{n=0}^{\infty}c_nx^n,
+\]
+the Cauchy--Hadamard formula gives
+\[
+R=\frac1{\limsup\limits_{n\to\infty}\sqrt[n]{|c_n|}}.
+\]
+Thus
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}
+=
+\frac1R.
+\]
+
+For the transformed series
+\[
+\sum_{n=0}^{\infty}c_nx^{2n},
+\]
+the \(n\)-th term is
+\[
+c_nx^{2n}.
+\]
+By the root test,
+\[
+\sqrt[n]{|c_nx^{2n}|}
+=
+\sqrt[n]{|c_n|}\,|x|^2.
+\]
+Taking the limsup,
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_nx^{2n}|}
+=
+|x|^2\limsup_{n\to\infty}\sqrt[n]{|c_n|}
+=
+\frac{|x|^2}{R}.
+\]
+The root test gives convergence when
+\[
+\frac{|x|^2}{R}<1,
+\]
+that is,
+\[
+|x|<\sqrt R.
+\]
+Therefore the radius of convergence is
+\[
+\boxed{\sqrt R}.
+\]
+If \(R=0\), then the same formula gives radius \(0\). If \(R=\infty\), then \(\limsup\sqrt[n]{|c_n|}=0\), so the transformed series also has infinite radius.
+
+\newpage
+\subsubsection*{Method 3: Interval mapping}
+The original series converges for inputs satisfying
+\[
+|t|<R.
+\]
+The transformed series feeds
+\[
+t=x^2
+\]
+into the original power series. Therefore convergence requires
+\[
+|x^2|<R.
+\]
+Since
+\[
+|x^2|=x^2,
+\]
+this is
+\[
+x^2<R.
+\]
+For \(0<R<\infty\), this gives
+\[
+-\sqrt R<x<\sqrt R.
+\]
+Therefore the transformed series is centred at \(0\) and has radius
+\[
+\boxed{\sqrt R}.
+\]
+The same formula also holds under the conventions \(\sqrt0=0\) and \(\sqrt{\infty}=\infty\).
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section*{Question 4 (Manipulating a geometric series)}
+\subsection*{Problem}
+Find a power series in \(x\) representation for the function by manipulating a geometric series and determine the interval of convergence.
+\begin{enumerate}[label=(\alph*)]
+  \item \(f(x)=\ds \frac{4}{2x+3}\).
+  \item \(f(x)=\ds \frac{x^2}{x^4+16}\).
+  \item \(f(x)=\ds \frac{x-1}{x+2}\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct geometric-series rewriting}
+Recall
+\[
+\frac1{1-u}=\sum_{n=0}^{\infty}u^n,
+\qquad |u|<1.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\frac4{2x+3}
+=
+\frac43\cdot\frac1{1+\frac23x}
+=
+\frac43\cdot\frac1{1-\left(-\frac23x\right)}.
+\]
+Therefore
+\[
+\frac4{2x+3}
+=
+\frac43\sum_{n=0}^{\infty}\left(-\frac23x\right)^n
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{2^{n+2}}{3^{n+1}}x^n.
+\]
+The convergence condition is
+\[
+\left|-\frac23x\right|<1
+\quad\Longleftrightarrow\quad
+|x|<\frac32.
+\]
+At \(x=\frac32\), the geometric ratio is \(-1\), and at \(x=-\frac32\), the geometric ratio is \(1\). Both endpoint series diverge. Hence
+\[
+\boxed{
+\frac4{2x+3}
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{2^{n+2}}{3^{n+1}}x^n,
+\qquad
+I=\left(-\frac32,\frac32\right).
+}
+\]
+
+\item
+\[
+\frac{x^2}{x^4+16}
+=
+\frac{x^2}{16}\cdot\frac1{1+\frac{x^4}{16}}
+=
+\frac{x^2}{16}\cdot\frac1{1-\left(-\frac{x^4}{16}\right)}.
+\]
+Therefore
+\[
+\frac{x^2}{x^4+16}
+=
+\frac{x^2}{16}\sum_{n=0}^{\infty}\left(-\frac{x^4}{16}\right)^n
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{x^{4n+2}}{16^{n+1}}.
+\]
+The convergence condition is
+\[
+\left|-\frac{x^4}{16}\right|<1
+\quad\Longleftrightarrow\quad
+|x|<2.
+\]
+At \(x=2\) or \(x=-2\), the \(n\)-th term equals
+\[
+(-1)^n\frac14,
+\]
+which does not tend to \(0\). Hence both endpoints diverge. Therefore
+\[
+\boxed{
+\frac{x^2}{x^4+16}
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{x^{4n+2}}{16^{n+1}},
+\qquad
+I=(-2,2).
+}
+\]
+
+\item First rewrite
+\[
+\frac{x-1}{x+2}
+=
+1-\frac3{x+2}.
+\]
+Now
+\[
+\frac1{x+2}
+=
+\frac12\cdot\frac1{1+\frac x2}
+=
+\frac12\cdot\frac1{1-\left(-\frac x2\right)}.
+\]
+Therefore
+\[
+\frac{x-1}{x+2}
+=
+1-\frac32\sum_{n=0}^{\infty}\left(-\frac x2\right)^n.
+\]
+The convergence condition is
+\[
+\left|-\frac x2\right|<1
+\quad\Longleftrightarrow\quad
+|x|<2.
+\]
+At \(x=2\), the geometric ratio is \(-1\). At \(x=-2\), the geometric ratio is \(1\), and the original function is also undefined. Hence both endpoints are excluded. Therefore
+\[
+\boxed{
+\frac{x-1}{x+2}
+=
+1-\frac32\sum_{n=0}^{\infty}\left(-\frac x2\right)^n,
+\qquad
+I=(-2,2).
+}
+\]
+Equivalently, after separating the constant term,
+\[
+\frac{x-1}{x+2}
+=
+-\frac12+\sum_{n=1}^{\infty}\frac{3(-1)^{n+1}}{2^{n+1}}x^n,
+\qquad |x|<2.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Algebraic substitution into the standard geometric series}
+Start from
+\[
+\frac1{1-x}=\sum_{n=0}^{\infty}x^n,
+\qquad |x|<1.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Substitute
+\[
+x\mapsto -\frac23x
+\]
+and multiply by \(\frac43\). This gives
+\[
+\frac4{2x+3}
+=
+\frac43\sum_{n=0}^{\infty}\left(-\frac23x\right)^n,
+\qquad
+\left|-\frac23x\right|<1.
+\]
+Thus
+\[
+\boxed{I=\left(-\frac32,\frac32\right)}.
+\]
+
+\item Substitute
+\[
+x\mapsto -\frac{x^4}{16}
+\]
+and multiply by \(\frac{x^2}{16}\). This gives
+\[
+\frac{x^2}{x^4+16}
+=
+\frac{x^2}{16}\sum_{n=0}^{\infty}\left(-\frac{x^4}{16}\right)^n,
+\qquad
+\left|\frac{x^4}{16}\right|<1.
+\]
+Thus
+\[
+\boxed{I=(-2,2)}.
+\]
+
+\item Substitute
+\[
+x\mapsto -\frac x2
+\]
+to get
+\[
+\frac1{1+\frac x2}
+=
+\sum_{n=0}^{\infty}\left(-\frac x2\right)^n,
+\qquad |x|<2.
+\]
+Since
+\[
+\frac{x-1}{x+2}
+=
+1-\frac32\cdot\frac1{1+\frac x2},
+\]
+we get
+\[
+\frac{x-1}{x+2}
+=
+1-\frac32\sum_{n=0}^{\infty}\left(-\frac x2\right)^n,
+\qquad |x|<2.
+\]
+Thus
+\[
+\boxed{I=(-2,2)}.
+\]
+\end{enumerate}
+
+\bigskip
+\subsubsection*{Method 3: Nearest singularity recognition}
+For a rational function expanded about \(x=0\), the radius of convergence is the distance from \(0\) to the nearest singularity of the function. This method quickly predicts the same radii; the actual real interval endpoints still need to be checked.
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+f(x)=\frac4{2x+3}
+\]
+has its singularity at
+\[
+2x+3=0
+\quad\Longrightarrow\quad
+x=-\frac32.
+\]
+The distance from \(0\) is
+\[
+\left|-\frac32\right|=\frac32.
+\]
+Thus
+\[
+R=\frac32.
+\]
+The endpoint checks from Method 1 give
+\[
+\boxed{I=\left(-\frac32,\frac32\right)}.
+\]
+
+
+\newpage
+\item
+\[
+f(x)=\frac{x^2}{x^4+16}
+\]
+has singularities satisfying
+\[
+x^4+16=0
+\quad\Longleftrightarrow\quad
+x^4=-16.
+\]
+All four complex roots have modulus
+\[
+|x|=2.
+\]
+Thus the nearest singularities to \(0\) are at distance \(2\), so
+\[
+R=2.
+\]
+The endpoint checks from Method 1 give
+\[
+\boxed{I=(-2,2)}.
+\]
+
+\item
+\[
+f(x)=\frac{x-1}{x+2}
+\]
+has its singularity at
+\[
+x=-2.
+\]
+The distance from \(0\) is \(2\), so
+\[
+R=2.
+\]
+The endpoint checks from Method 1 give
+\[
+\boxed{I=(-2,2)}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section*{Question 5 (Differentiation / integration of power series)}
+\subsection*{Problem}
+By differentiating or integrating certain power series, find a power series in \(x\) representation for the function and determine the radius of convergence.
+\begin{enumerate}[label=(\alph*)]
+  \item \(f(x)=\ln(5-x)\).
+  \item \(f(x)=\left(\ds \frac{x}{2-x}\right)^3\).
+\end{enumerate}
+
+
+\bigskip
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct use of standard series formulas}
+\begin{enumerate}[label=(\alph*)]
+\item Write
+\[
+\ln(5-x)
+=
+\ln5+\ln\left(1-\frac x5\right).
+\]
+Using
+\[
+\ln(1-u)
+=
+-\sum_{n=1}^{\infty}\frac{u^n}{n},
+\qquad |u|<1,
+\]
+with
+\[
+u=\frac x5,
+\]
+we get
+\[
+\ln\left(1-\frac x5\right)
+=
+-\sum_{n=1}^{\infty}\frac1n\left(\frac x5\right)^n.
+\]
+Therefore
+\[
+\boxed{
+\ln(5-x)
+=
+\ln5-\sum_{n=1}^{\infty}\frac{x^n}{n5^n},
+\qquad |x|<5.
+}
+\]
+Hence the radius of convergence is
+\[
+\boxed{R=5}.
+\]
+
+\newpage
+\item Rewrite
+\[
+\left(\frac{x}{2-x}\right)^3
+=
+\frac{x^3}{(2-x)^3}
+=
+\frac{x^3}{8}\cdot\frac1{\left(1-\frac x2\right)^3}.
+\]
+Using
+\[
+\frac1{(1-u)^3}
+=
+\sum_{n=0}^{\infty}\binom{n+2}{2}u^n,
+\qquad |u|<1,
+\]
+with
+\[
+u=\frac x2,
+\]
+we obtain
+\[
+\frac1{\left(1-\frac x2\right)^3}
+=
+\sum_{n=0}^{\infty}\binom{n+2}{2}\left(\frac x2\right)^n.
+\]
+Hence
+\[
+\left(\frac{x}{2-x}\right)^3
+=
+\sum_{n=0}^{\infty}\binom{n+2}{2}\frac{x^{n+3}}{2^{n+3}},
+\qquad |x|<2.
+\]
+Equivalently, with \(m=n+3\),
+\[
+\boxed{
+\left(\frac{x}{2-x}\right)^3
+=
+\sum_{m=3}^{\infty}\binom{m-1}{2}\frac{x^m}{2^m},
+\qquad |x|<2.
+}
+\]
+Thus the radius of convergence is
+\[
+\boxed{R=2}.
+\]
+\end{enumerate}
+
+\bigskip
+\subsubsection*{Method 2: Building from the geometric series by integration and differentiation}
+Start from
+\[
+\frac1{1-u}
+=
+\sum_{n=0}^{\infty}u^n,
+\qquad |u|<1.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Integrate term-by-term:
+\[
+\int\frac1{1-u}\,du
+=
+\int\sum_{n=0}^{\infty}u^n\,du.
+\]
+This gives
+\[
+-\ln(1-u)
+=
+\sum_{n=0}^{\infty}\frac{u^{n+1}}{n+1}
+=
+\sum_{n=1}^{\infty}\frac{u^n}{n}.
+\]
+Therefore
+\[
+\ln(1-u)
+=
+-\sum_{n=1}^{\infty}\frac{u^n}{n},
+\qquad |u|<1.
+\]
+Now put
+\[
+u=\frac x5.
+\]
+Then
+\[
+\ln(5-x)
+=
+\ln5+\ln\left(1-\frac x5\right)
+=
+\ln5-\sum_{n=1}^{\infty}\frac{x^n}{n5^n},
+\qquad |x|<5.
+\]
+Thus
+\[
+\boxed{R=5}.
+\]
+%\newpage
+\item Differentiate the geometric series once:
+\[
+\frac1{(1-u)^2}
+=
+\sum_{n=1}^{\infty}n u^{n-1}.
+\]
+Differentiate again:
+\[
+\frac2{(1-u)^3}
+=
+\sum_{n=2}^{\infty}n(n-1)u^{n-2}.
+\]
+Hence
+\[
+\frac1{(1-u)^3}
+=
+\sum_{n=2}^{\infty}\frac{n(n-1)}2u^{n-2}.
+\]
+Let \(k=n-2\). Then
+\[
+\frac1{(1-u)^3}
+=
+\sum_{k=0}^{\infty}\frac{(k+2)(k+1)}2u^k
+=
+\sum_{k=0}^{\infty}\binom{k+2}{2}u^k.
+\]
+Now substitute
+\[
+u=\frac x2
+\]
+and multiply by \(x^3/8\):
+\[
+\left(\frac{x}{2-x}\right)^3
+=
+\frac{x^3}{8}\cdot\frac1{\left(1-\frac x2\right)^3}
+=
+\sum_{k=0}^{\infty}\binom{k+2}{2}\frac{x^{k+3}}{2^{k+3}},
+\qquad |x|<2.
+\]
+Therefore
+\[
+\boxed{R=2}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: Taylor coefficients and Cauchy product recognition}
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+f(x)=\ln(5-x).
+\]
+Then
+\[
+f'(x)=-\frac1{5-x}.
+\]
+For \(n\ge1\), repeated differentiation gives
+\[
+f^{(n)}(x)=-(n-1)!(5-x)^{-n}.
+\]
+Thus
+\[
+f^{(n)}(0)=-(n-1)!5^{-n}.
+\]
+The Taylor series about \(0\) is
+\[
+f(x)
+=
+f(0)+\sum_{n=1}^{\infty}\frac{f^{(n)}(0)}{n!}x^n
+=
+\ln5-\sum_{n=1}^{\infty}\frac{x^n}{n5^n}.
+\]
+The nearest singularity is at \(x=5\), so the radius is
+\[
+\boxed{R=5}.
+\]
+
+\item First expand
+\[
+\frac{x}{2-x}
+=
+\frac{x/2}{1-\frac x2}
+=
+\sum_{n=1}^{\infty}\frac{x^n}{2^n},
+\qquad |x|<2.
+\]
+Therefore
+\[
+\left(\frac{x}{2-x}\right)^3
+=
+\left(\sum_{n=1}^{\infty}\frac{x^n}{2^n}\right)^3.
+\]
+The coefficient of \(x^m\) comes from triples of positive integers
+\[
+i+j+k=m,
+\qquad i,j,k\ge1.
+\]
+The number of such triples is
+\[
+\binom{m-1}{2}.
+\]
+Each triple contributes
+\[
+\frac{x^m}{2^m}.
+\]
+Hence
+\[
+\boxed{
+\left(\frac{x}{2-x}\right)^3
+=
+\sum_{m=3}^{\infty}\binom{m-1}{2}\frac{x^m}{2^m},
+\qquad |x|<2.
+}
+\]
+Thus
+\[
+\boxed{R=2}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section*{Question 6 (Applications of power series)}
+\subsection*{Problem}
+\begin{enumerate}[label=(\alph*)]
+  \item Use the first three terms of a power series to evaluate \(\ds \int_0^{0.4}\ln(1+x^4)\,dx\).
+  \item Find the sum of the series \(\ds \sum_{n=2}^{\infty}\frac{n(n-1)}{2^n}\). \\
+  \emph{Hint:} Evaluate \(\sum_{n=2}^{\infty}n(n-1)x^n\) at \(x=\frac12\), using a power series. Recall that
+  \[
+  \frac{1}{(1-x)^2}=\sum_{n=1}^{\infty}n x^{n-1},\qquad |x|<1.
+  \]
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct truncation and differentiated geometric series}
+\begin{enumerate}[label=(\alph*)]
+\item For \(|u|<1\),
+\[
+\ln(1+u)=u-\frac{u^2}{2}+\frac{u^3}{3}-\frac{u^4}{4}+\cdots.
+\]
+Take
+\[
+u=x^4.
+\]
+For \(|x|<1\),
+\[
+\ln(1+x^4)
+=
+x^4-\frac{x^8}{2}+\frac{x^{12}}{3}-\frac{x^{16}}4+\cdots.
+\]
+Using the first three nonzero terms,
+\[
+\ln(1+x^4)
+\approx
+x^4-\frac{x^8}{2}+\frac{x^{12}}3.
+\]
+Hence
+\begin{align*}
+\int_0^{0.4}\ln(1+x^4)\,dx
+&\approx
+\int_0^{0.4}\left(x^4-\frac{x^8}{2}+\frac{x^{12}}3\right)\,dx\\
+&=
+\left[\frac{x^5}{5}-\frac{x^9}{18}+\frac{x^{13}}{39}\right]_0^{0.4}\\
+&=
+\frac{0.4^5}{5}-\frac{0.4^9}{18}+\frac{0.4^{13}}{39}.
+\end{align*}
+Numerically,
+\[
+\frac{0.4^5}{5}-\frac{0.4^9}{18}+\frac{0.4^{13}}{39}
+\approx
+0.0020336.
+\]
+Therefore
+\[
+\boxed{
+\int_0^{0.4}\ln(1+x^4)\,dx
+\approx 0.002034.
+}
+\]
+
+\item Start from
+\[
+\frac1{1-x}=\sum_{n=0}^{\infty}x^n,
+\qquad |x|<1.
+\]
+Differentiate twice:
+\[
+\frac2{(1-x)^3}
+=
+\sum_{n=2}^{\infty}n(n-1)x^{n-2}.
+\]
+Multiplying by \(x^2\), we get
+\[
+\sum_{n=2}^{\infty}n(n-1)x^n
+=
+\frac{2x^2}{(1-x)^3}.
+\]
+Substitute \(x=\frac12\):
+\[
+\sum_{n=2}^{\infty}\frac{n(n-1)}{2^n}
+=
+\frac{2(1/2)^2}{(1-1/2)^3}
+=
+\frac{1/2}{1/8}
+=
+4.
+\]
+Therefore
+\[
+\boxed{
+\sum_{n=2}^{\infty}\frac{n(n-1)}{2^n}=4.
+}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Alternating error control and hinted identity}
+\begin{enumerate}[label=(\alph*)]
+\item On \(0\le x\le0.4\), we have
+\[
+0\le x^4\le0.4^4<1.
+\]
+Thus
+\[
+\ln(1+x^4)
+=
+x^4-\frac{x^8}{2}+\frac{x^{12}}3-\frac{x^{16}}4+\cdots
+\]
+is an alternating series in the variable \(x^4\), with decreasing term magnitudes. After using the first three nonzero terms, the error is bounded by the integral of the next term:
+\[
+|E|
+\le
+\int_0^{0.4}\frac{x^{16}}4\,dx
+=
+\left[\frac{x^{17}}{68}\right]_0^{0.4}
+=
+\frac{0.4^{17}}{68}.
+\]
+Hence
+\[
+|E|\le \frac{0.4^{17}}{68}\approx 2.53\times10^{-9}.
+\]
+So the approximation
+\[
+\boxed{0.002034}
+\]
+is justified to the displayed decimal places.
+
+\newpage
+\item Use the hinted identity
+\[
+\frac1{(1-x)^2}
+=
+\sum_{n=1}^{\infty}n x^{n-1},
+\qquad |x|<1.
+\]
+Differentiate both sides:
+\[
+\frac2{(1-x)^3}
+=
+\sum_{n=2}^{\infty}n(n-1)x^{n-2}.
+\]
+Multiplying by \(x^2\),
+\[
+\sum_{n=2}^{\infty}n(n-1)x^n
+=
+\frac{2x^2}{(1-x)^3}.
+\]
+Substituting \(x=\frac12\),
+\[
+\sum_{n=2}^{\infty}\frac{n(n-1)}{2^n}
+=
+\frac{2(1/2)^2}{(1-1/2)^3}
+=
+4.
+\]
+Therefore
+\[
+\boxed{
+\sum_{n=2}^{\infty}\frac{n(n-1)}{2^n}=4.
+}
+\]
+\end{enumerate}
+
+\end{document}

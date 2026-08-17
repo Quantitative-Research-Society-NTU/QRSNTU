@@ -1,0 +1,1060 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 4 (Week 5) -- Problems \& Solutions}
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- COMMON MACROS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\nullity}{nullity}
+\DeclareMathOperator{\range}{range}
+
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+
+%---------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on core MH1201 themes:
+\begin{itemize}[leftmargin=*]
+  \item verifying linearity of a given map by definition and by ``test vectors'';
+  \item structure of linear maps on one-dimensional spaces (every endomorphism is a scalar multiple of the identity);
+  \item how (non-)injectivity affects linear dependence under images;
+  \item constructing a basis for $\cL(V,W)$ and proving $\dim(\cL(V,W)) = (\dim V)(\dim W)$;
+  \item non-commutativity of linear operators when $\dim V>1$;
+  \item matrix representations under suitable choices of ordered bases (derivative operator);
+  \item symmetric / skew-symmetric decompositions, rank-nullity, and standard matrices of linear maps on matrix spaces.
+\end{itemize}
+
+\bigskip
+
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Linearity of a map $\R^3\to\R^2$)}
+\subsection{Problem}
+Let $b,c\in\R$, and define a function $T:\R^3\to\R^2$ by
+\[
+\forall x,y,z\in\R:\qquad T(x,y,z)\coloneqq \bigl(2x-4y+3z+b,\; 6x + cxyz\bigr).
+\]
+Show that $T\in \cL(\R^3,\R^2)$ if and only if $b=c=0$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Use the definition of linearity (zero and additivity tests)}
+Recall that $T$ is linear if and only if:
+\[
+T(\bm{0})=\bm{0}\quad\text{and}\quad T(u+v)=T(u)+T(v)\ \text{for all }u,v\in\R^3,
+\]
+(or equivalently the full condition $T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)$).
+
+\medskip
+\noindent\textbf{($\Rightarrow$) Necessity.}
+First compute $T(0,0,0)$:
+\[
+T(0,0,0)=\bigl(b,\;0\bigr).
+\]
+If $T$ is linear then $T(0,0,0)=\bm{0}$, hence $b=0$.
+
+Next, still assuming linearity, use additivity with specific vectors.
+Let $u=(1,0,0)$ and $v=(0,1,1)$. Then $u+v=(1,1,1)$. Compute:
+\[
+T(1,1,1)=\bigl(2-4+3+b,\;6 + c\bigr)=\bigl(1+b,\;6+c\bigr).
+\]
+Also
+\[
+T(1,0,0)=\bigl(2+b,\;6\bigr),\qquad
+T(0,1,1)=\bigl(-4+3+b,\;0\bigr)=\bigl(-1+b,\;0\bigr).
+\]
+So
+\[
+T(1,0,0)+T(0,1,1)=\bigl((2+b)+(-1+b),\;6+0\bigr)=\bigl(1+2b,\;6\bigr).
+\]
+By linearity, $T(u+v)=T(u)+T(v)$, so
+\[
+(1+b,\;6+c)=(1+2b,\;6).
+\]
+Comparing components gives $b=0$ (again) and $c=0$.
+
+\medskip
+\noindent\textbf{($\Leftarrow$) Sufficiency.}
+If $b=c=0$, then
+\[
+T(x,y,z)=\bigl(2x-4y+3z,\;6x\bigr).
+\]
+This is of the form $T(x,y,z)=A\begin{bmatrix}x\\y\\z\end{bmatrix}$ with
+\[
+A=\begin{bmatrix}
+2 & -4 & 3\\
+6 & 0 & 0
+\end{bmatrix},
+\]
+hence $T$ is linear.
+
+\[
+\boxed{\,T\in\cL(\R^3,\R^2)\ \Longleftrightarrow\ b=c=0\,}
+\]
+
+\subsubsection{Method 2: Homogeneity forces $b=0$ and kills the nonlinear term $cxyz$}
+Assume $T$ is linear. Then for all $(x,y,z)\in\R^3$ and $\alpha\in\R$,
+\[
+T(\alpha x,\alpha y,\alpha z)=\alpha\,T(x,y,z).
+\]
+
+\medskip
+\noindent\textbf{Step 1: $b=0$ from $\alpha=0$.}
+Taking $\alpha=0$ yields $T(0,0,0)=0\cdot T(x,y,z)=\bm{0}$, so $(b,0)=\bm{0}$ and hence $b=0$.
+
+\medskip
+\noindent\textbf{Step 2: $c=0$ by comparing scaling of the second component.}
+Now set $x=y=z=1$. Then
+\[
+T(1,1,1)=\bigl(2-4+3+b,\;6+c\bigr)=\bigl(1+b,\;6+c\bigr).
+\]
+With $\alpha=2$,
+\[
+T(2,2,2)=\bigl(4-8+6+b,\;12+8c\bigr)=\bigl(2+b,\;12+8c\bigr),
+\]
+since $(2)(2)(2)=8$.
+But linearity gives $T(2,2,2)=2T(1,1,1)$, so
+\[
+(2+b,\;12+8c)=2(1+b,\;6+c)=(2+2b,\;12+2c).
+\]
+Comparing the first component gives $b=0$, and comparing the second component gives
+\[
+12+8c=12+2c\quad\Rightarrow\quad 6c=0\quad\Rightarrow\quad c=0.
+\]
+Conversely, if $b=c=0$ we already saw $T$ is represented by a matrix, hence linear.
+
+\[
+\boxed{\,T\in\cL(\R^3,\R^2)\ \Longleftrightarrow\ b=c=0\,}
+\]
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Linear maps on a one-dimensional space)}
+\subsection{Problem}
+Let (i) $V$ be a one-dimensional vector space over a field $\F$, and (ii) $T\in \cL(V)$.
+Show that there exists a unique scalar $\lambda\in \F$ such that, for all $v\in V$, we have
+\[
+T(v)=\lambda\cdot v.
+\]
+\emph{Remark:} A linear transformation on a one-dimensional vector space is therefore just a scaling.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Choose a nonzero basis vector and extend by linearity}
+Since $\dim V=1$, pick any nonzero vector $v_0\in V$. Then $\{v_0\}$ is a basis of $V$.
+In particular, every $v\in V$ can be written uniquely as
+\[
+v = a v_0 \quad \text{for a unique } a\in\F.
+\]
+
+\medskip
+\noindent\textbf{Existence.}
+Because $T(v_0)\in V$ and $\{v_0\}$ is a basis, there exists a unique scalar $\lambda\in\F$ such that
+\[
+T(v_0)=\lambda v_0.
+\]
+Now let $v=av_0$ be arbitrary. By linearity,
+\[
+T(v)=T(av_0)=aT(v_0)=a(\lambda v_0)=\lambda (a v_0)=\lambda v.
+\]
+So this $\lambda$ works for all $v$.
+
+\medskip
+\noindent\textbf{Uniqueness.}
+Suppose $\lambda,\mu\in\F$ both satisfy $T(v)=\lambda v$ and $T(v)=\mu v$ for all $v$.
+Apply both to $v_0\neq 0$:
+\[
+\lambda v_0 = T(v_0) = \mu v_0 \quad\Rightarrow\quad (\lambda-\mu)v_0=0.
+\]
+Since $v_0\neq 0$, we must have $\lambda-\mu=0$, hence $\lambda=\mu$.
+
+\[
+\boxed{\,\exists!\ \lambda\in\F\text{ such that }T(v)=\lambda v\ \forall v\in V\,}
+\]
+
+\subsubsection{Method 2: Identify $V$ with $\F$ via an isomorphism}
+Pick any nonzero $v_0\in V$. Define $\phi:\F\to V$ by $\phi(a)=av_0$.
+Then $\phi$ is a linear isomorphism because it is linear, surjective (every $v\in V$ equals $av_0$),
+and injective (if $av_0=0$ then $a=0$ since $v_0\neq 0$).
+
+Consider the conjugated map on $\F$:
+\[
+S \coloneqq \phi^{-1}\circ T \circ \phi : \F \to \F.
+\]
+Then $S$ is linear (composition of linear maps). But $\F$ as a vector space over itself is one-dimensional
+with basis $\{1\}$. Therefore $S$ is determined by $S(1)=\lambda$ for some $\lambda\in\F$, and for any $a\in\F$,
+\[
+S(a)=S(a\cdot 1)=a S(1)=a\lambda=\lambda a.
+\]
+Now for any $v\in V$, write $v=\phi(a)$, then
+\[
+T(v)=T(\phi(a))=\phi(S(a))=\phi(\lambda a)=\lambda \phi(a)=\lambda v.
+\]
+Uniqueness follows as in Method 1 by evaluating at any nonzero $v$.
+
+\[
+\boxed{\,T=\lambda\,\mathrm{Id}_V\text{ for a unique }\lambda\in\F\,}
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Images of linearly dependent sets)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ and $W$ be vector spaces over the same field,
+\item $T\in \cL(V,W)$, and
+\item $S$ be a linearly dependent subset of $V$.
+\end{enumerate}
+Is it necessarily true that the image $T[S]$ of $S$ under $T$ is a linearly dependent subset of $W$?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Counterexample (answer: no, not necessarily)}
+\noindent\textbf{Claim:} It is \emph{not} necessarily true. We give an explicit counterexample.
+
+Let $V=\R^3$ and $W=\R^2$. Define $T:\R^3\to\R^2$ by
+\[
+T(x,y,z)=(x,y).
+\]
+This is linear (it is the coordinate projection onto the first two coordinates).
+
+Now define the subset
+\[
+S=\bigl\{v_1,v_2,v_3,v_4\bigr\}\subset \R^3,
+\quad
+v_1=\begin{bmatrix}1\\0\\0\end{bmatrix},\ 
+v_2=\begin{bmatrix}0\\1\\0\end{bmatrix},\ 
+v_3=\begin{bmatrix}1\\0\\1\end{bmatrix},\ 
+v_4=\begin{bmatrix}0\\1\\1\end{bmatrix}.
+\]
+
+\medskip
+\noindent\textbf{Step 1: $S$ is linearly dependent in $V$.}
+Compute
+\[
+v_3 - v_1 - v_4 + v_2
+=
+\begin{bmatrix}1\\0\\1\end{bmatrix}
+-
+\begin{bmatrix}1\\0\\0\end{bmatrix}
+-
+\begin{bmatrix}0\\1\\1\end{bmatrix}
++
+\begin{bmatrix}0\\1\\0\end{bmatrix}
+=
+\begin{bmatrix}0\\0\\0\end{bmatrix}.
+\]
+The coefficients $(1,-1, -1, 1)$ are not all zero, so $S$ is linearly dependent.
+
+\medskip
+\noindent\textbf{Step 2: $T[S]$ is linearly independent in $W$.}
+Compute the images:
+\[
+T(v_1)=(1,0),\quad T(v_2)=(0,1),\quad T(v_3)=(1,0),\quad T(v_4)=(0,1).
+\]
+Hence, as a \emph{set},
+\[
+T[S]=\{(1,0),(0,1)\}.
+\]
+This set is linearly independent in $\R^2$, since
+\[
+a(1,0)+b(0,1)=(0,0)\ \Rightarrow\ (a,b)=(0,0).
+\]
+Therefore $T[S]$ need not be linearly dependent even if $S$ is linearly dependent.
+
+\[
+\boxed{\,\text{No: }S\text{ dependent does not force }T[S]\text{ dependent.}\,}
+\]
+
+\subsubsection{Method 2: The statement becomes true under injectivity (use contrapositive)}
+While the answer is \emph{no} in general, it is useful to record a sufficient condition.
+
+\medskip
+\noindent\textbf{Claim:} If $T$ is injective, then $S$ linearly dependent $\Rightarrow T[S]$ linearly dependent.
+
+\medskip
+\noindent\textbf{Proof (contrapositive).}
+Assume $T[S]$ is linearly independent. We show $S$ must be linearly independent.
+
+Take any finite distinct vectors $v_1,\dots,v_k\in S$ and scalars $a_1,\dots,a_k$ such that
+\[
+a_1 v_1+\cdots+a_k v_k=0.
+\]
+Apply $T$ and use linearity:
+\[
+a_1 T(v_1)+\cdots+a_k T(v_k)=T(0)=0.
+\]
+Since $T[S]$ is linearly independent, the vectors $T(v_1),\dots,T(v_k)$ are linearly independent,
+so $a_1=\cdots=a_k=0$. Thus every such relation is trivial, hence $S$ is linearly independent.
+
+Therefore, if $S$ were dependent, $T[S]$ could not be independent; equivalently $T[S]$ must be dependent.
+
+\medskip
+\noindent This shows precisely why non-injectivity is where counterexamples can occur (as in Method 1).
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (A basis for $\cL(V,W)$)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $m,n\in\mathbb{N}$,
+\item $\F$ be a field,
+\item $V$ be an $m$-dimensional vector space over $\F$ with basis $\{v_1,\dots,v_m\}$, and
+\item $W$ be an $n$-dimensional vector space over $\F$ with basis $\{w_1,\dots,w_n\}$.
+\end{enumerate}
+Given $(i,j)\in\{1,\dots,m\}\times\{1,\dots,n\}$, let $T_{i,j}\in \cL(V,W)$ be uniquely specified by the rule
+\[
+\forall k\in\{1,\dots,m\}:\qquad
+T_{i,j}(v_k)=
+\begin{cases}
+w_j, & k=i,\\
+0_W, & k\neq i.
+\end{cases}
+\]
+Show that $\{T_{i,j}\}_{i=1,\dots,m;\,j=1,\dots,n}$ is a basis for $\cL(V,W)$ (hence, $\dim(\cL(V,W))=mn$).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Show spanning and linear independence directly}
+
+\noindent\textbf{Step 1: Spanning.}
+Let $T\in\cL(V,W)$ be arbitrary. For each basis vector $v_i\in V$, we can expand $T(v_i)$ in the basis of $W$:
+\[
+T(v_i)=\sum_{j=1}^n a_{j i}\, w_j \qquad (a_{j i}\in\F).
+\]
+Define a linear combination of the $T_{i,j}$ by
+\[
+\widetilde{T}\coloneqq \sum_{i=1}^m\sum_{j=1}^n a_{j i}\, T_{i,j}.
+\]
+We claim $\widetilde{T}=T$. It suffices to check on the basis $\{v_1,\dots,v_m\}$.
+Fix $k\in\{1,\dots,m\}$. Then using the defining property of $T_{i,j}$,
+\[
+\widetilde{T}(v_k)
+=
+\sum_{i=1}^m\sum_{j=1}^n a_{j i}\, T_{i,j}(v_k)
+=
+\sum_{i=1}^m\sum_{j=1}^n a_{j i}\,
+\begin{cases}
+w_j,& k=i,\\
+0,& k\neq i,
+\end{cases}
+=
+\sum_{j=1}^n a_{j k}\, w_j
+=
+T(v_k).
+\]
+Hence $\widetilde{T}$ and $T$ agree on a basis, so $\widetilde{T}=T$. Therefore $\{T_{i,j}\}$ spans $\cL(V,W)$.
+
+\medskip
+\noindent\textbf{Step 2: Linear independence.}
+Suppose
+\[
+\sum_{i=1}^m\sum_{j=1}^n \alpha_{i,j} T_{i,j}=0
+\quad\text{(the zero map)}.
+\]
+Apply both sides to $v_k$:
+\[
+0
+=
+\left(\sum_{i=1}^m\sum_{j=1}^n \alpha_{i,j} T_{i,j}\right)(v_k)
+=
+\sum_{i=1}^m\sum_{j=1}^n \alpha_{i,j}\, T_{i,j}(v_k)
+=
+\sum_{j=1}^n \alpha_{k,j}\, w_j,
+\]
+because $T_{i,j}(v_k)=0$ unless $i=k$. Since $\{w_1,\dots,w_n\}$ is a basis, the representation is unique, hence
+\[
+\alpha_{k,1}=\cdots=\alpha_{k,n}=0.
+\]
+As $k$ was arbitrary, all $\alpha_{i,j}=0$, proving linear independence.
+
+Thus $\{T_{i,j}\}$ is a basis, and it contains $mn$ elements, so
+\[
+\boxed{\,\dim(\cL(V,W))=mn\,}.
+\]
+
+\subsubsection{Method 2: Identify $\cL(V,W)$ with a matrix space $M_{n\times m}(\F)$}
+Fix ordered bases $\beta=(v_1,\dots,v_m)$ for $V$ and $\gamma=(w_1,\dots,w_n)$ for $W$.
+Each $T\in\cL(V,W)$ has a matrix representation $[T]_\gamma^\beta\in M_{n\times m}(\F)$ whose $i$th column is
+the coordinate vector of $T(v_i)$ in the basis $\gamma$.
+
+Define
+\[
+\Phi:\cL(V,W)\to M_{n\times m}(\F),\qquad \Phi(T)=[T]_\gamma^\beta.
+\]
+Standard linear algebra shows $\Phi$ is a linear isomorphism (it is linear and bijective).
+
+Now compute $\Phi(T_{i,j})$. By definition, $T_{i,j}(v_i)=w_j$ and $T_{i,j}(v_k)=0$ for $k\neq i$.
+Hence the $i$th column of $[T_{i,j}]_\gamma^\beta$ is $e_j$ (the $j$th standard basis vector of $\F^n$),
+and all other columns are $0$. Therefore $\Phi(T_{i,j})$ is exactly the matrix unit $E_{j i}$ (a $1$ in row $j$,
+column $i$, and $0$ elsewhere).
+
+But $\{E_{j i}\}_{1\le j\le n,\ 1\le i\le m}$ is the standard basis of $M_{n\times m}(\F)$.
+Since $\Phi$ is an isomorphism, the preimage set $\{T_{i,j}\}$ must be a basis of $\cL(V,W)$, and its size is $mn$.
+Thus
+\[
+\boxed{\,\{T_{i,j}\}\text{ is a basis of }\cL(V,W)\ \text{and}\ \dim(\cL(V,W))=mn\,}.
+\]
+
+\subsubsection{Method 3: Dimension-count via an explicit isomorphism $\cL(V,W)\cong W^m$}
+Define $\Psi:\cL(V,W)\to W^m$ by
+\[
+\Psi(T)=(T(v_1),\dots,T(v_m)).
+\]
+This is linear. It is injective because if $T(v_i)=0$ for all $i$, then $T$ is zero on a basis, hence $T=0$.
+It is surjective because given any $(u_1,\dots,u_m)\in W^m$, there exists a unique linear map $T$ such that
+$T(v_i)=u_i$ (define $T(\sum a_i v_i)=\sum a_i u_i$ and check well-definedness).
+Hence $\Psi$ is an isomorphism, so
+\[
+\dim(\cL(V,W))=\dim(W^m)=m\dim(W)=mn.
+\]
+Moreover, the maps $T_{i,j}$ correspond to tuples with $w_j$ in the $i$th slot and $0$ elsewhere, which form a basis of $W^m$.
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Non-commuting linear maps exist when $\dim V>1$)}
+\subsection{Problem}
+Let $V$ be a finite-dimensional vector space, with $\dim(V)>1$.
+Show that there exist $S,T\in \cL(V)$ such that $S\circ T\neq T\circ S$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Construct operators using a basis and test on one vector}
+Since $\dim V>1$, we can choose two linearly independent vectors $e_1,e_2\in V$ and extend them to a basis
+$\beta=(e_1,e_2,e_3,\dots,e_n)$ of $V$.
+
+Define $T,S\in\cL(V)$ on the basis vectors by
+\[
+T(e_1)=e_2,\quad T(e_2)=0,\quad T(e_k)=0\ (k\ge 3),
+\]
+and
+\[
+S(e_1)=e_1,\quad S(e_2)=0,\quad S(e_k)=0\ (k\ge 3).
+\]
+Extend both maps linearly to all of $V$.
+
+Now compute on $e_1$:
+\[
+(S\circ T)(e_1)=S(T(e_1))=S(e_2)=0,
+\]
+while
+\[
+(T\circ S)(e_1)=T(S(e_1))=T(e_1)=e_2.
+\]
+Hence $(S\circ T)(e_1)\neq (T\circ S)(e_1)$, so $S\circ T\neq T\circ S$.
+
+\[
+\boxed{\,\exists S,T\in\cL(V)\text{ with }S\circ T\neq T\circ S\quad (\dim V>1)\,}
+\]
+
+\subsubsection{Method 2: Embed $2\times 2$ matrices into $\cL(V)$}
+Pick a 2-dimensional subspace $U\subset V$ (possible since $\dim V>1$), and choose an ordered basis $(e_1,e_2)$ of $U$.
+Define linear maps on $U$ with matrices
+\[
+A=\begin{bmatrix}1&0\\0&0\end{bmatrix},
+\qquad
+B=\begin{bmatrix}0&1\\0&0\end{bmatrix}
+\quad\text{(with respect to }(e_1,e_2)\text{)}.
+\]
+Compute:
+\[
+AB=
+\begin{bmatrix}1&0\\0&0\end{bmatrix}
+\begin{bmatrix}0&1\\0&0\end{bmatrix}
+=
+\begin{bmatrix}0&1\\0&0\end{bmatrix}
+=B,
+\qquad
+BA=
+\begin{bmatrix}0&1\\0&0\end{bmatrix}
+\begin{bmatrix}1&0\\0&0\end{bmatrix}
+=
+\begin{bmatrix}0&0\\0&0\end{bmatrix}
+=0.
+\]
+So $AB\neq BA$ on $U$.
+
+Extend these maps to all of $V$ by choosing a direct sum decomposition $V=U\oplus U'$ and defining both maps to be $0$ on $U'$.
+Then the extensions (still denoted $S,T$) satisfy $ST\neq TS$ on $V$ because they already disagree on $U$.
+
+\[
+\boxed{\,\cL(V)\text{ is non-commutative when }\dim V>1\,}
+\]
+
+\subsubsection{Method 3: Commutator argument using rank and kernels}
+Let $e_1,e_2$ be linearly independent.
+Let $T$ be any linear map such that $T(e_1)=e_2$ and $T(e_2)=0$ (extend linearly).
+Let $S$ be any linear map such that $S(e_2)=0$ but $S(e_1)=e_1$.
+Then $(ST)(e_1)=S(e_2)=0$ while $(TS)(e_1)=T(e_1)=e_2\neq 0$. Hence they do not commute.
+This shows non-commutativity can be forced by arranging incompatible kernel/image constraints.
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Choose bases so that $[D]_\gamma^\beta = [I_3\ \ 0]$)}
+\subsection{Problem}
+Let $D$ denote the derivative operator from $P_3(\R)$ to $P_2(\R)$.
+Find an ordered basis $\beta$ for $P_3(\R)$ and an ordered basis $\gamma$ for $P_2(\R)$ such that
+\[
+[D]_{\gamma}^{\beta} =
+\begin{bmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0
+\end{bmatrix}.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct construction by choosing antiderivatives}
+We want $[D]_{\gamma}^{\beta}$ to have the following meaning:
+\[
+D(\beta_1)=\gamma_1,\quad D(\beta_2)=\gamma_2,\quad D(\beta_3)=\gamma_3,\quad D(\beta_4)=0.
+\]
+So choose any ordered basis $\gamma$ of $P_2(\R)$, then pick $\beta_1,\beta_2,\beta_3$ as antiderivatives of $\gamma_1,\gamma_2,\gamma_3$,
+and pick $\beta_4$ as a nonzero element of $\ker D$ (i.e.\ a nonzero constant polynomial).
+
+A convenient choice is
+\[
+\gamma=(\gamma_1,\gamma_2,\gamma_3)=(1,\ x,\ x^2),
+\]
+which is an ordered basis of $P_2(\R)$.
+
+Now choose
+\[
+\beta=(\beta_1,\beta_2,\beta_3,\beta_4)=\left(x,\ \frac{x^2}{2},\ \frac{x^3}{3},\ 1\right).
+\]
+Then
+\[
+D(x)=1,\qquad D\!\left(\frac{x^2}{2}\right)=x,\qquad D\!\left(\frac{x^3}{3}\right)=x^2,\qquad D(1)=0.
+\]
+Therefore, the coordinate vectors of $D(\beta_i)$ in the basis $\gamma$ are
+\[
+[D(\beta_1)]_\gamma = \begin{bmatrix}1\\0\\0\end{bmatrix},\quad
+[D(\beta_2)]_\gamma = \begin{bmatrix}0\\1\\0\end{bmatrix},\quad
+[D(\beta_3)]_\gamma = \begin{bmatrix}0\\0\\1\end{bmatrix},\quad
+[D(\beta_4)]_\gamma = \begin{bmatrix}0\\0\\0\end{bmatrix}.
+\]
+Hence
+\[
+[D]_{\gamma}^{\beta}=
+\begin{bmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0
+\end{bmatrix},
+\]
+as required.
+
+\[
+\boxed{\,
+\beta=\left(x,\ \frac{x^2}{2},\ \frac{x^3}{3},\ 1\right),\quad
+\gamma=(1,\ x,\ x^2)\,}
+\]
+
+\subsubsection{Method 2: Kernel--image decomposition and basis adaptation}
+Let $V=P_3(\R)$ and $W=P_2(\R)$. The derivative map $D:V\to W$ is linear.
+
+\medskip
+\noindent\textbf{Step 1: Identify $\ker D$ and $\range D$.}
+\[
+\ker D=\{p\in P_3(\R): p'(x)=0\ \forall x\}=\{\text{constant polynomials}\}=\spn\{1\}.
+\]
+Also, every polynomial in $P_2(\R)$ has an antiderivative in $P_3(\R)$, so $D$ is surjective:
+\[
+\range D = P_2(\R).
+\]
+
+\medskip
+\noindent\textbf{Step 2: Choose bases compatible with an isomorphism on a complement.}
+Pick any ordered basis $\gamma=(\gamma_1,\gamma_2,\gamma_3)$ of $W=P_2(\R)$ (e.g.\ $\gamma=(1,x,x^2)$).
+For each $\gamma_i$, choose $\beta_i\in V$ such that $D(\beta_i)=\gamma_i$; this is possible since $D$ is surjective.
+Finally, choose $\beta_4$ to be a basis vector for $\ker D$ (e.g.\ $\beta_4=1$).
+
+Then the matrix $[D]_\gamma^\beta$ has columns equal to $[D(\beta_i)]_\gamma$; by construction,
+the first three columns are $e_1,e_2,e_3$ and the last is $0$.
+Hence $[D]_\gamma^\beta=[I_3\ \ 0]$.
+
+\medskip
+\noindent A concrete choice recovered from this method is exactly Method 1:
+$\gamma=(1,x,x^2)$ and $\beta=(x,x^2/2,x^3/3,1)$.
+
+\subsubsection{Method 3: Change-of-basis from the monomial representation}
+With respect to the monomial bases
+\[
+\beta_{\text{mon}}=(1,x,x^2,x^3),\qquad \gamma_{\text{mon}}=(1,x,x^2),
+\]
+we have
+\[
+D(1)=0,\quad D(x)=1,\quad D(x^2)=2x,\quad D(x^3)=3x^2,
+\]
+so
+\[
+[D]_{\gamma_{\text{mon}}}^{\beta_{\text{mon}}}
+=
+\begin{bmatrix}
+0&1&0&0\\
+0&0&2&0\\
+0&0&0&3
+\end{bmatrix}.
+\]
+Now scale the domain basis vectors $x^2,x^3$ by $1/2,1/3$ respectively and reorder the domain basis as
+$(x, x^2/2, x^3/3, 1)$ while keeping $\gamma=(1,x,x^2)$. This turns the above matrix into $[I_3\ \ 0]$.
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (The map $T(M)=M-M^{\mathsf{T}}$ on matrix spaces)}
+\subsection{Problem}
+Letting $n\in\mathbb{N}$, define a function $T:\R^{n,n}\to\R^{n,n}$ by
+\[
+\forall M\in\R^{n,n}:\qquad T(M)\coloneqq M - M^{\mathsf{T}}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that $T\in \cL(\R^{n,n})$.
+\item Find the standard matrix representation of $T$ in the case $n=2$.
+
+\emph{Remark:} The standard ordered basis for $\R^{2,2}$ is
+\[
+\left(
+\begin{bmatrix}1&0\\0&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&0\\0&1\end{bmatrix}
+\right).
+\]
+\item Find $\nullity(T)$.
+\item Find $\rank(T)$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct computation (linearity, standard matrix, then rank-nullity)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+Let $A,B\in\R^{n,n}$ and $\alpha,\beta\in\R$. Using $(A+B)^{\mathsf{T}}=A^{\mathsf{T}}+B^{\mathsf{T}}$ and $(\alpha A)^{\mathsf{T}}=\alpha A^{\mathsf{T}}$,
+\begin{align*}
+T(\alpha A+\beta B)
+&=(\alpha A+\beta B)-(\alpha A+\beta B)^{\mathsf{T}}\\
+&=\alpha A+\beta B - (\alpha A^{\mathsf{T}}+\beta B^{\mathsf{T}})\\
+&=\alpha(A-A^{\mathsf{T}})+\beta(B-B^{\mathsf{T}})\\
+&=\alpha T(A)+\beta T(B).
+\end{align*}
+Hence $T\in\cL(\R^{n,n})$.
+
+\item \textbf{Standard matrix for $n=2$.}
+Let the standard ordered basis be
+\[
+(E_{11},E_{12},E_{21},E_{22})
+=
+\left(
+\begin{bmatrix}1&0\\0&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&0\\0&1\end{bmatrix}
+\right).
+\]
+Compute $T$ on basis elements:
+\[
+T(E_{11})=E_{11}-E_{11}^{\mathsf{T}}=0,\quad
+T(E_{22})=E_{22}-E_{22}^{\mathsf{T}}=0,
+\]
+and
+\[
+T(E_{12})=E_{12}-E_{21},\qquad T(E_{21})=E_{21}-E_{12}=-(E_{12}-E_{21}).
+\]
+Write these in coordinates relative to $(E_{11},E_{12},E_{21},E_{22})$:
+\[
+[T(E_{11})]=\begin{bmatrix}0\\0\\0\\0\end{bmatrix},\quad
+[T(E_{12})]=\begin{bmatrix}0\\1\\-1\\0\end{bmatrix},\quad
+[T(E_{21})]=\begin{bmatrix}0\\-1\\1\\0\end{bmatrix},\quad
+[T(E_{22})]=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}.
+\]
+Therefore, the standard matrix of $T$ for $n=2$ is the $4\times 4$ matrix with these vectors as columns:
+\[
+[T]=
+\begin{bmatrix}
+0&0&0&0\\
+0&1&-1&0\\
+0&-1&1&0\\
+0&0&0&0
+\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{\ [T]_{(E_{11},E_{12},E_{21},E_{22})}=
+\begin{bmatrix}
+0&0&0&0\\
+0&1&-1&0\\
+0&-1&1&0\\
+0&0&0&0
+\end{bmatrix}\ }.
+\]
+
+\item \textbf{$\nullity(T)$.}
+We have $T(M)=0 \iff M-M^{\mathsf{T}}=0 \iff M=M^{\mathsf{T}}$, i.e.\ $M$ is symmetric.
+A real symmetric $n\times n$ matrix is determined by:
+\begin{itemize}[leftmargin=*]
+\item $n$ diagonal entries, and
+\item $\frac{n(n-1)}{2}$ entries above the diagonal (the entries below are forced by symmetry).
+\end{itemize}
+Hence
+\[
+\nullity(T)=\dim(\ker T)=n+\frac{n(n-1)}{2}=\frac{n(n+1)}{2}.
+\]
+So
+\[
+\boxed{\,\nullity(T)=\dfrac{n(n+1)}{2}\,}.
+\]
+
+\item \textbf{$\rank(T)$.}
+By rank-nullity on the vector space $\R^{n,n}$ of dimension $n^2$,
+\[
+\rank(T)=n^2-\nullity(T)=n^2-\frac{n(n+1)}{2}
+=\frac{2n^2-n^2-n}{2}
+=\frac{n(n-1)}{2}.
+\]
+Thus
+\[
+\boxed{\,\rank(T)=\dfrac{n(n-1)}{2}\,}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Conceptual decomposition into symmetric and skew-symmetric parts}
+
+Define the subspaces
+\[
+\operatorname{Sym}_n
+=\{M\in\mathbb R^{n,n}: M^{\mathsf T}=M\},
+\qquad
+\operatorname{Skew}_n
+=\{M\in\mathbb R^{n,n}: M^{\mathsf T}=-M\}.
+\]
+
+\medskip
+\noindent
+\textbf{Step 1: Direct sum decomposition.}
+
+For any $M\in\mathbb R^{n,n}$,
+\[
+M
+=
+\underbrace{\frac{M+M^{\mathsf T}}{2}}_{\in \operatorname{Sym}_n}
++
+\underbrace{\frac{M-M^{\mathsf T}}{2}}_{\in \operatorname{Skew}_n}.
+\]
+This decomposition is unique and
+\[
+\mathbb R^{n,n}
+=
+\operatorname{Sym}_n
+\oplus
+\operatorname{Skew}_n.
+\]
+
+\medskip
+\noindent
+\textbf{(a) Linearity.}
+
+The transpose map is linear, hence
+\[
+T(M)=M-M^{\mathsf T}
+\]
+is the difference of two linear maps, and therefore linear.
+Thus,
+\[
+\boxed{\,T\in \mathcal L(\mathbb R^{n,n})\,}.
+\]
+
+\medskip
+\noindent
+\textbf{(b) Standard matrix for $n=2$.}
+
+Using the standard ordered basis
+\[
+(E_{11},E_{12},E_{21},E_{22}),
+\]
+we compute
+\[
+T(E_{11})=0,
+\quad
+T(E_{22})=0,
+\]
+\[
+T(E_{12})=E_{12}-E_{21},
+\quad
+T(E_{21})=E_{21}-E_{12}.
+\]
+Hence the coordinate vectors are
+\[
+[T(E_{11})]=\begin{bmatrix}0\\0\\0\\0\end{bmatrix},
+\quad
+[T(E_{12})]=\begin{bmatrix}0\\1\\-1\\0\end{bmatrix},
+\quad
+[T(E_{21})]=\begin{bmatrix}0\\-1\\1\\0\end{bmatrix},
+\quad
+[T(E_{22})]=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+[T]=
+\begin{bmatrix}
+0&0&0&0\\
+0&1&-1&0\\
+0&-1&1&0\\
+0&0&0&0
+\end{bmatrix}
+}.
+\]
+
+\medskip
+\noindent
+\textbf{(c) Nullity.}
+
+We have
+\[
+T(M)=0
+\iff
+M-M^{\mathsf T}=0
+\iff
+M=M^{\mathsf T}.
+\]
+Hence
+\[
+\ker T=\operatorname{Sym}_n.
+\]
+Counting parameters:
+\[
+\dim(\operatorname{Sym}_n)
+=
+n+\frac{n(n-1)}{2}
+=
+\frac{n(n+1)}{2}.
+\]
+Therefore
+\[
+\boxed{\nullity(T)=\frac{n(n+1)}{2}}.
+\]
+
+\medskip
+\noindent
+\textbf{(d) Rank.}
+
+For any $M$,
+\[
+T(M)^{\mathsf T}
+=
+(M-M^{\mathsf T})^{\mathsf T}
+=
+M^{\mathsf T}-M
+=
+-\,T(M),
+\]
+so $T(M)$ is skew-symmetric. Thus
+\[
+\operatorname{range}(T)\subseteq \operatorname{Skew}_n.
+\]
+Conversely, if $K\in\operatorname{Skew}_n$, let $M=\frac12 K$.
+Then
+\[
+T(M)=K.
+\]
+Hence
+\[
+\operatorname{range}(T)=\operatorname{Skew}_n.
+\]
+Counting parameters:
+\[
+\dim(\operatorname{Skew}_n)
+=
+\frac{n(n-1)}{2}.
+\]
+Thus
+\[
+\boxed{\rank(T)=\frac{n(n-1)}{2}}.
+\]
+
+\subsubsection{Method 3: Specialization to $n=2$ as a consistency check}
+
+Let
+\[
+M=
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}.
+\]
+Then
+\[
+T(M)
+=
+M-M^{\mathsf T}
+=
+\begin{bmatrix}
+0 & b-c\\
+c-b & 0
+\end{bmatrix}.
+\]
+
+\medskip
+\noindent
+\textbf{(a) Linearity.}
+
+Since transpose is linear and subtraction preserves linearity,
+\[
+\boxed{T\in \mathcal L(\mathbb R^{2,2})}.
+\]
+
+\medskip
+\noindent
+\textbf{(b) Standard matrix.}
+
+Using the ordered basis
+\[
+(E_{11},E_{12},E_{21},E_{22}),
+\]
+the matrix representation is
+\[
+\boxed{
+[T]=
+\begin{bmatrix}
+0&0&0&0\\
+0&1&-1&0\\
+0&-1&1&0\\
+0&0&0&0
+\end{bmatrix}
+}.
+\]
+
+\medskip
+\noindent
+\textbf{(c) Nullity.}
+
+We have
+\[
+T(M)=0
+\iff
+b=c.
+\]
+Thus $a,b,d$ are free parameters.
+Hence
+\[
+\boxed{\nullity(T)=3}.
+\]
+
+\medskip
+\noindent
+\textbf{(d) Rank.}
+
+Since $\dim(\mathbb R^{2,2})=4$,
+\[
+\rank(T)=4-3=1.
+\]
+Therefore
+\[
+\boxed{\rank(T)=1}.
+\]
+
+\medskip
+\noindent
+These agree with the general formulas
+\[
+\frac{n(n+1)}{2}\Big|_{n=2}=3,
+\qquad
+\frac{n(n-1)}{2}\Big|_{n=2}=1.
+\]
+
+\end{document}

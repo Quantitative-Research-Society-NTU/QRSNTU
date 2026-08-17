@@ -1,0 +1,1457 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 7 (Week 8 \& 9) -- Problems \& Solutions}
+\newcommand{\DocTypeShort}{Tutorial 7}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \DocTypeShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%=========================
+% Convenience macros
+%=========================
+
+%----- Number systems -----
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+
+%----- Calculus / constants -----
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+
+%----- Linear algebra -----
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\nullity}{\operatorname{nullity}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\Ker}{\operatorname{ker}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\dimn}{\operatorname{dim}}
+
+%----- Matrix / operator properties -----
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+
+% Symmetric / skew-symmetric spaces
+\DeclareMathOperator{\Sym}{Sym}     % symmetric matrices
+\DeclareMathOperator{\Skew}{Skew}   % skew-symmetric matrices
+
+%----- Identity / basis -----
+\newcommand{\I}{I}
+\newcommand{\Id}{\mathrm{id}}
+\newcommand{\e}{\mathbf{e}}
+
+%----- Polynomial space -----
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item matrix representations of linear maps from $1$-dimensional spaces and the ``single-column'' principle;
+  \item upper-triangular structure forced by nested span conditions on images of basis vectors;
+  \item infinite-dimensional phenomena: injective but not surjective operators and absence of eigenvalues;
+  \item rotation operators on $\R^2$ and the (non-)existence of real eigenvalues;
+  \item eigenvalues/eigenspaces of concrete linear maps on $\R^2$ and $\R^{2,2}$;
+  \item diagonalizability criteria via eigenspace dimension counts and explicit eigenbases.
+\end{itemize}
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Matrix of $T_v:\F\to V$)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ be a finite-dimensional vector space over a field $\F$,
+\item $v\in V$, and
+\item $\beta$ be an ordered basis for $V$.
+\end{enumerate}
+Define $T_v\in \cL(\F,V)$ as follows:
+\[
+\forall \lambda\in \F:\qquad T_v(\lambda)\coloneqq \lambda\cdot v.
+\]
+Show that
+\[
+[T_v]_{\beta}^{(1_{\F})} = [v]_{\beta}.
+\]
+\emph{Remark:} $(1_{\F})$ is an ordered basis for $\F$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: ``One-dimensional domain $\Rightarrow$ one column''}
+Let $\beta=(b_1,\dots,b_n)$, where $n=\dim(V)$. Since $\F$ is $1$-dimensional over itself with ordered basis $(1_{\F})$,
+the matrix $[T_v]_{\beta}^{(1_{\F})}$ is an $n\times 1$ matrix whose unique column is the coordinate vector of
+$T_v(1_{\F})$ in the basis $\beta$:
+\[
+[T_v]_{\beta}^{(1_{\F})}
+=
+\bigl[\, [T_v(1_{\F})]_{\beta}\,\bigr].
+\]
+But $T_v(1_{\F}) = 1_{\F}\cdot v=v$. Hence
+\[
+[T_v]_{\beta}^{(1_{\F})} = [v]_{\beta}.
+\]
+\[
+\boxed{\, [T_v]_{\beta}^{(1_{\F})} = [v]_{\beta}\, }.
+\]
+
+\newpage
+\subsubsection{Method 2: Use the defining identity $[T(x)] = [T]\,[x]$}
+For any $\lambda\in\F$, the coordinate of $\lambda$ in the basis $(1_{\F})$ is
+\[
+[\lambda]_{(1_{\F})}=\begin{bmatrix}\lambda\end{bmatrix}.
+\]
+By the fundamental matrix representation identity,
+\[
+[T_v(\lambda)]_{\beta} = [T_v]_{\beta}^{(1_{\F})}\,[\lambda]_{(1_{\F})}.
+\]
+But $T_v(\lambda)=\lambda v$, so by linearity of the coordinate map $[\ \cdot\ ]_{\beta}$,
+\[
+[T_v(\lambda)]_{\beta} = [\lambda v]_{\beta}=\lambda [v]_{\beta}.
+\]
+Thus, for all $\lambda\in\F$,
+\[
+\lambda [v]_{\beta}
+=
+[T_v]_{\beta}^{(1_{\F})}\begin{bmatrix}\lambda\end{bmatrix}.
+\]
+Taking $\lambda=1_{\F}$ gives
+\[
+[v]_{\beta}=[T_v]_{\beta}^{(1_{\F})}\begin{bmatrix}1\end{bmatrix}.
+\]
+Since multiplying an $n\times 1$ matrix by $\begin{bmatrix}1\end{bmatrix}$ returns its unique column, that unique column must be $[v]_{\beta}$.
+Hence $[T_v]_{\beta}^{(1_{\F})}=[v]_{\beta}$.
+
+\[
+\boxed{\, [T_v]_{\beta}^{(1_{\F})} = [v]_{\beta}\, }.
+\]
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Nested span condition $\Rightarrow$ upper-triangular matrix)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ and $W$ be finite-dimensional vector spaces over a field $\F$, with $\dim(V)=\dim(W)=n$,
+\item $\beta=(v_1,\dots,v_n)$ and $\gamma=(w_1,\dots,w_n)$ be ordered bases for $V$ and $W$, respectively, and
+\item $T\in\cL(V,W)$ with the property that
+\[
+\forall k\in\{1,\dots,n\}:\qquad T(v_k)\in \Span(\{w_1,\dots,w_k\}).
+\]
+\end{enumerate}
+Show that $[T]_{\gamma}^{\beta}$ is an upper-triangular $n\times n$ $\F$-matrix.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Column-by-column argument (coordinates of $T(v_k)$)}
+Let $A=[T]_{\gamma}^{\beta}=(a_{ij})_{1\le i,j\le n}$. By definition, the $k$th column of $A$ is
+\[
+[T(v_k)]_{\gamma}=
+\begin{bmatrix}
+a_{1k}\\ \vdots \\ a_{nk}
+\end{bmatrix}.
+\]
+The hypothesis $T(v_k)\in \Span(w_1,\dots,w_k)$ means precisely that in the $\gamma$-coordinates,
+\[
+T(v_k)=\sum_{i=1}^k a_{ik} w_i,
+\]
+so the coefficients in front of $w_{k+1},\dots,w_n$ must be $0$. Equivalently,
+\[
+a_{ik}=0\quad\text{for all }i>k.
+\]
+But $a_{ik}=0$ for $i>k$ says: all entries strictly below the diagonal are $0$.
+Therefore $A$ is upper triangular.
+
+\[
+\boxed{\, [T]_{\gamma}^{\beta}\ \text{is upper triangular.}\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Coordinate functionals (dual basis)}
+
+Let $A=[T]_{\gamma}^{\beta}=(a_{ij})_{1\le i,j\le n}$. Fix $k \in \{1,\dots,n\}$. 
+Since $\gamma=(w_1,\dots,w_n)$ is a basis, there exist $\varphi_i \in \cL(W,\F)$ such that
+\[
+\varphi_i(w_j)=\delta_{ij}.
+\]
+Then
+\[
+a_{ik}=\varphi_i\bigl(T(v_k)\bigr).
+\]
+
+Given $T(v_k)\in \Span(w_1,\dots,w_k)$, we have
+\[
+\varphi_i\bigl(T(v_k)\bigr)=0 \quad \text{for all } i>k.
+\]
+Hence $a_{ik}=0$ for all $i>k$, so $[T]_{\gamma}^{\beta}$ is upper triangular.
+
+\[
+\boxed{\, [T]_{\gamma}^{\beta}\ \text{is upper triangular.}\,}
+\]
+\bigskip
+\subsubsection{Method 3: Flag invariance}
+
+Let $A=[T]_{\gamma}^{\beta}=(a_{ij})_{1\le i,j\le n}$ ,$\quad W_k:=\Span(w_1,\dots,w_k)$. Then
+\[
+T(v_k)\in W_k \;\Longrightarrow\; T\bigl(\Span(v_1,\dots,v_k)\bigr)\subseteq W_k.
+\]
+
+In basis $\gamma$, vectors in $W_k$ have zero coordinates below row $k$. Hence the $k$th column of $[T]_{\gamma}^{\beta}$ has zeros below row $k$, i.e.
+\[
+a_{ik}=0 \quad (i>k).
+\]
+
+Thus $[T]_{\gamma}^{\beta}$ is upper triangular.
+
+\[
+\boxed{\, [T]_{\gamma}^{\beta}\ \text{is upper triangular.}\,}
+\]
+
+\bigskip
+\subsubsection{Method 4: Filtration / quotient argument}
+
+Let $V_k:=\Span(v_1,\dots,v_k)$ and $W_k:=\Span(w_1,\dots,w_k)$. Then
+\[
+T(V_k)\subseteq W_k \quad \forall k.
+\]
+
+This induces linear maps
+\[
+\widetilde{T}_k : V_k/V_{k-1} \to W_k/W_{k-1},
+\]
+each between $1$-dimensional spaces. Hence each $\widetilde{T}_k$ is scalar, implying no mixing into lower levels.
+
+Thus $a_{ik}=0$ for all $i>k$, so $[T]_{\gamma}^{\beta}$ is upper triangular.
+
+\[
+\boxed{\, [T]_{\gamma}^{\beta}\ \text{is upper triangular.}\,}
+\]
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Right-shift on $\R^\infty$)}
+\subsection{Problem}
+Recall the right-shift operator $\sigma_{\rightarrow}\in \cL(\R^\infty)$, defined by
+\[
+\forall x=(x_1,x_2,x_3,\dots)\in \R^\infty:\qquad
+\sigma_{\rightarrow}(x)\coloneqq (0,x_1,x_2,x_3,\dots).
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\sigma_{\rightarrow}$ is injective but not surjective onto $\R^\infty$.
+\item Why does this not contradict Problem 3 of Tutorial Problem Set 6?
+\item Show that $\sigma_{\rightarrow}$ has no (real) eigenvalues.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct definition-chasing on sequences}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Injective.}
+Suppose $\sigma_{\rightarrow}(x)=\sigma_{\rightarrow}(y)$ for $x=(x_1,x_2,\dots)$ and $y=(y_1,y_2,\dots)$.
+Then
+\[
+(0,x_1,x_2,x_3,\dots)=(0,y_1,y_2,y_3,\dots),
+\]
+so $x_k=y_k$ for all $k\ge 1$. Hence $x=y$, proving injectivity.
+
+\medskip
+\noindent\textbf{Not surjective.}
+Consider $z=(1,0,0,0,\dots)\in\R^\infty$. If $z$ were in the range of $\sigma_{\rightarrow}$, then
+$z=\sigma_{\rightarrow}(x)=(0,x_1,x_2,\dots)$ for some $x$, which forces $z_1=0$, contradiction since $z_1=1$.
+Hence $\sigma_{\rightarrow}$ is not surjective.
+
+\[
+\boxed{\,\sigma_{\rightarrow}\ \text{injective but not surjective on }\R^\infty.\,}
+\]
+
+\item Problem 3 of Tutorial Problem Set 6 established (in finite dimensions) that if $\dim(V)=\dim(W)<\infty$, then
+injective $\Leftrightarrow$ surjective for $T\in\cL(V,W)$. Here $\R^\infty$ is \emph{infinite-dimensional}.
+The finite-dimensional argument relies on rank--nullity / dimension counting, which does not apply as stated when dimensions are infinite.
+Therefore there is no contradiction.
+
+\[
+\boxed{\,\text{No contradiction: }\R^\infty\ \text{is infinite-dimensional, so injective}\nRightarrow\text{surjective.}\,}
+\]
+
+\item Suppose $\lambda\in\R$ is an eigenvalue. Then there exists $x\neq 0$ in $\R^\infty$ such that
+\[
+\sigma_{\rightarrow}(x)=\lambda x.
+\]
+Writing coordinates:
+\[
+(0,x_1,x_2,x_3,\dots)=(\lambda x_1,\lambda x_2,\lambda x_3,\dots).
+\]
+Comparing the first coordinate gives $0=\lambda x_1$.
+
+If $\lambda\neq 0$, then $x_1=0$. Comparing the second coordinate gives $x_1=\lambda x_2$, hence $0=\lambda x_2$ and so $x_2=0$.
+Inductively, $x_k=0$ for all $k$, so $x=0$, contradicting the eigenvector requirement $x\neq 0$.
+
+If $\lambda=0$, then $\sigma_{\rightarrow}(x)=0$ implies $(0,x_1,x_2,\dots)=(0,0,0,\dots)$, hence $x=0$, again a contradiction.
+
+Thus no $\lambda\in\R$ can satisfy the eigenvalue condition.
+
+\[
+\boxed{\,\sigma_{\rightarrow}\ \text{has no real eigenvalues.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Kernel/range structure and eigenvalue obstruction}
+\begin{enumerate}[label=(\alph*)]
+\item $\ker(\sigma_{\rightarrow})=\{0\}$ because $\sigma_{\rightarrow}(x)=0$ forces all $x_k=0$.
+Hence $\sigma_{\rightarrow}$ is injective. But $\Range(\sigma_{\rightarrow})=\{(y_1,y_2,\dots):y_1=0\}$, a proper subset of $\R^\infty$,
+so it is not surjective.
+
+\item The injective $\Rightarrow$ surjective equivalence holds for finite-dimensional spaces of the same dimension; $\R^\infty$ is not finite-dimensional.
+
+\item If $\lambda=0$ were an eigenvalue, we would need $\ker(\sigma_{\rightarrow})\neq\{0\}$, but $\ker(\sigma_{\rightarrow})=\{0\}$.
+If $\lambda\neq 0$ were an eigenvalue with eigenvector $x$, then $x=\lambda^{-1}\sigma_{\rightarrow}(x)$ lies in $\Range(\sigma_{\rightarrow})$,
+so $x_1=0$. Applying the same reasoning repeatedly gives $x\in\Range(\sigma_{\rightarrow}^k)$ for all $k$,
+forcing $x_1=x_2=\cdots=0$ and thus $x=0$, contradiction. Hence no real eigenvalues exist.
+\end{enumerate}
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Rotation on $\R^2$ has no real eigenvalues unless $\theta\in\mathbb{Z}\pi$)}
+\subsection{Problem}
+Let $\theta\in\R$, and define $R_{\theta}\in \cL(\R^2)$ by
+\[
+\forall x,y\in\R:\qquad
+R_{\theta}(x,y)\coloneqq (x\cos\theta - y\sin\theta,\ x\sin\theta + y\cos\theta).
+\]
+Show that if $\theta\in \R\setminus \mathbb{Z}\pi$, then $R_{\theta}$ has no (real) eigenvalues.
+
+\medskip
+\noindent\textit{Remark:} $R_{\theta}$ is the operator of counterclockwise rotation by the angle $\theta$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Characteristic polynomial and discriminant}
+With respect to the standard basis, $R_{\theta}$ has matrix
+\[
+A_\theta=
+\begin{bmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{bmatrix}.
+\]
+A real number $\lambda$ is an eigenvalue iff $\det(A_\theta-\lambda I_2)=0$:
+\begin{align*}
+0&=\det
+\begin{bmatrix}
+\cos\theta-\lambda & -\sin\theta\\
+\sin\theta & \cos\theta-\lambda
+\end{bmatrix}
+=(\cos\theta-\lambda)^2+\sin^2\theta\\
+&=\lambda^2-2(\cos\theta)\lambda+(\cos^2\theta+\sin^2\theta)\\
+&=\lambda^2-2(\cos\theta)\lambda+1.
+\end{align*}
+Thus eigenvalues (over $\mathbb{C}$) are
+\[
+\lambda=\cos\theta \pm \sqrt{\cos^2\theta-1}=\cos\theta \pm i\sin\theta.
+\]
+These are real iff $\sin\theta=0$, i.e.\ $\theta\in\mathbb{Z}\pi$.
+Hence if $\theta\notin\mathbb{Z}\pi$, then $\sin\theta\neq 0$ and there are no real eigenvalues.
+
+\[
+\boxed{\,\theta\notin\mathbb{Z}\pi\ \Longrightarrow\ R_{\theta}\ \text{has no real eigenvalues.}\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Eigenvector implies invariant line}
+
+Assume $\lambda\in\R$ is an eigenvalue, with eigenvector $u\in\R^2\setminus\{0\}$:
+\[
+R_\theta(u)=\lambda u.
+\]
+Then $R_\theta(u)\in \Span(u)$, so $R_\theta(u)$ is parallel to $u$.
+
+By definition, $R_\theta$ rotates every nonzero vector through angle $\theta$. A nonzero vector is sent to a parallel vector by rotation iff the rotation angle is $0$ or $\pi$ modulo $2\pi$, i.e.
+\[
+\theta\in\mathbb{Z}\pi.
+\]
+Hence $\theta\notin\mathbb{Z}\pi$ contradicts the existence of such $u$.
+
+Therefore $R_\theta$ has no real eigenvalues.
+
+\[
+\boxed{\,\theta\notin\mathbb{Z}\pi\ \Longrightarrow\ R_{\theta}\ \text{has no real eigenvalues.}\,}
+\]
+
+\subsubsection{Method 3: Norm preservation}
+
+Assume $R_\theta(u)=\lambda u$ for some $u\neq 0$ and $\lambda\in\R$.
+
+Since $R_\theta$ is a rotation,
+\[
+\|R_\theta(u)\|=\|u\|.
+\]
+But
+\[
+\|R_\theta(u)\|=\|\lambda u\|=|\lambda|\,\|u\|.
+\]
+As $u\neq 0$, this gives
+\[
+|\lambda|=1 \;\Longrightarrow\; \lambda=\pm1.
+\]
+Hence
+\[
+R_\theta(u)=\pm u,
+\]
+so $R_\theta(u)$ is parallel to $u$. A rotation sends a nonzero vector to a parallel vector iff $\theta\in\mathbb{Z}\pi$. Contradiction.
+
+Thus $\theta\notin\mathbb{Z}\pi \Rightarrow R_\theta$ has no real eigenvalues.
+
+\[
+\boxed{\,\theta\notin\mathbb{Z}\pi\ \Longrightarrow\ R_{\theta}\ \text{has no real eigenvalues.}\,}
+\]
+
+\newpage
+\subsubsection{Method 4: Trace--determinant criterion}
+
+With respect to the standard basis,
+\[
+[R_\theta]=
+\begin{bmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{bmatrix},
+\qquad
+\tr(R_\theta)=2\cos\theta,\qquad
+\det(R_\theta)=1.
+\]
+Hence any eigenvalue $\lambda$ satisfies
+\[
+\lambda^2-\tr(R_\theta)\lambda+\det(R_\theta)=0,
+\]
+i.e.
+\[
+\lambda^2-2(\cos\theta)\lambda+1=0.
+\]
+Its discriminant is
+\[
+\Delta = 4\cos^2\theta-4 = -4\sin^2\theta.
+\]
+If $\theta\notin\mathbb{Z}\pi$, then $\sin\theta\neq 0$, so
+\[
+\Delta<0.
+\]
+Therefore the quadratic has no real root, so $R_\theta$ has no real eigenvalues.
+
+\[
+\boxed{\,\theta\notin\mathbb{Z}\pi\ \Longrightarrow\ R_{\theta}\ \text{has no real eigenvalues.}\,}
+\]
+
+\subsubsection{Method 5: Complexification}
+
+Identify $\R^2$ with $\C$ via
+\[
+(x,y)\longleftrightarrow x+iy.
+\]
+Under this identification,
+\[
+R_\theta(z)=e^{i\theta}z \qquad (z\in\C).
+\]
+Thus, over $\C$, the scalar corresponding to $R_\theta$ is
+\[
+e^{i\theta}=\cos\theta+i\sin\theta.
+\]
+A real eigenvalue would have to be real as a complex number. But
+\[
+e^{i\theta}\in\R
+\;\Longleftrightarrow\;
+\sin\theta=0
+\;\Longleftrightarrow\;
+\theta\in\mathbb{Z}\pi.
+\]
+Hence if $\theta\notin\mathbb{Z}\pi$, then $e^{i\theta}\notin\R$, so $R_\theta$ has no real eigenvalues.
+
+\[
+\boxed{\,\theta\notin\mathbb{Z}\pi\ \Longrightarrow\ R_{\theta}\ \text{has no real eigenvalues.}\,}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Eigenvalues/eigenspaces of a map on $\R^{2,1}$)}
+\subsection{Problem}
+Define $F\in \cL(\R^{2,1})$ by
+\[
+\forall x,y\in\R:\qquad
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+\coloneqq
+\begin{bmatrix}
+y\\
+x+y
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Compute the (real) eigenvalues of $F$.
+\item For each (real) eigenvalue $\lambda$ of $F$, determine its corresponding eigenspace $E_{F,\lambda}$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Matrix/characteristic polynomial}
+With respect to the standard basis of $\R^{2,1}$,
+\[
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)=
+\begin{bmatrix}
+0&1\\
+1&1
+\end{bmatrix}
+\begin{bmatrix}x\\y\end{bmatrix},
+\qquad
+A\coloneqq
+\begin{bmatrix}
+0&1\\
+1&1
+\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item The characteristic polynomial is
+\[
+\chi_A(\lambda)=\det(A-\lambda I_2)=
+\det\begin{bmatrix}-\lambda&1\\1&1-\lambda\end{bmatrix}
+=\lambda^2-\lambda-1.
+\]
+Thus the (real) eigenvalues are the roots:
+\[
+\lambda_{1,2}=\frac{1\pm \sqrt{5}}{2}.
+\]
+\[
+\boxed{\,\text{Eigenvalues: }\ \lambda=\dfrac{1+\sqrt5}{2},\ \dfrac{1-\sqrt5}{2}\, }.
+\]
+
+\item For an eigenvalue $\lambda$, solve $(A-\lambda I_2)\binom{x}{y}=0$:
+\[
+\begin{bmatrix}-\lambda&1\\1&1-\lambda\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0
+\quad\Longrightarrow\quad
+-\lambda x+y=0 \ \Rightarrow\ y=\lambda x.
+\]
+(Then the second equation is $x+(1-\lambda)y=0$, which holds automatically because $\lambda^2-\lambda-1=0$.)
+
+Hence an eigenvector is $\binom{1}{\lambda}$ and the eigenspace is one-dimensional:
+\[
+E_{F,\lambda}=\Span\left\{\begin{bmatrix}1\\ \lambda\end{bmatrix}\right\}.
+\]
+So
+\[
+\boxed{\,
+E_{F,\lambda}=\Span\left\{\begin{bmatrix}1\\ \lambda\end{bmatrix}\right\}
+\ \text{for }\lambda\in\left\{\dfrac{1+\sqrt5}{2},\dfrac{1-\sqrt5}{2}\right\}.
+\,}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Solve the eigenvector equation directly}
+
+Let $\lambda\in\R$ and $u=\binom{x}{y}\neq 0$ satisfy
+\[
+F(u)=\lambda u.
+\]
+Then
+\[
+\begin{bmatrix}y\\x+y\end{bmatrix}
+=
+\begin{bmatrix}\lambda x\\ \lambda y\end{bmatrix},
+\]
+so
+\[
+y=\lambda x,\qquad x+y=\lambda y.
+\]
+Substitute $y=\lambda x$ into the second equation:
+\[
+x+\lambda x=\lambda^2x.
+\]
+If $x=0$, then $y=\lambda x=0$, contradicting $u\neq 0$. Hence $x\neq 0$, and dividing by $x$ gives
+\[
+\lambda^2-\lambda-1=0.
+\]
+Thus
+\[
+\lambda=\frac{1\pm\sqrt5}{2}.
+\]
+
+For either such $\lambda$, the relation $y=\lambda x$ gives
+\[
+\begin{bmatrix}x\\y\end{bmatrix}
+=
+x\begin{bmatrix}1\\\lambda\end{bmatrix}.
+\]
+Therefore
+\[
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\},
+\qquad
+\lambda\in\left\{\frac{1+\sqrt5}{2},\frac{1-\sqrt5}{2}\right\}.
+\]
+
+\[
+\boxed{\,\text{Eigenvalues: }\ \dfrac{1+\sqrt5}{2},\ \dfrac{1-\sqrt5}{2}\,}
+\]
+\[
+\boxed{\,
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}
+\ \text{for each such }\lambda.
+\,}
+\]
+
+\newpage
+\subsubsection{Method 3: Trace--determinant shortcut}
+
+With respect to the standard basis,
+\[
+[F]=A=
+\begin{bmatrix}
+0&1\\
+1&1
+\end{bmatrix},
+\qquad
+\tr(A)=1,\qquad
+\det(A)=-1.
+\]
+Hence any eigenvalue $\lambda$ satisfies
+\[
+\lambda^2-(\tr A)\lambda+\det A=0,
+\]
+i.e.
+\[
+\lambda^2-\lambda-1=0.
+\]
+So
+\[
+\lambda=\frac{1\pm\sqrt5}{2}.
+\]
+
+Now let $\lambda$ be either root. An eigenvector $u=\binom{x}{y}\neq 0$ satisfies
+\[
+F(u)=\lambda u
+\;\Longrightarrow\;
+y=\lambda x.
+\]
+If $x=0$, then $y=0$, impossible. Thus $x\neq 0$, and
+\[
+u=x\begin{bmatrix}1\\\lambda\end{bmatrix}.
+\]
+Therefore
+\[
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}.
+\]
+
+\[
+\boxed{\,\text{Eigenvalues: }\ \dfrac{1+\sqrt5}{2},\ \dfrac{1-\sqrt5}{2}\,}
+\]
+\[
+\boxed{\,
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}
+\ \text{for each such }\lambda.
+\,}
+\]
+
+\newpage
+\subsubsection{Method 4: Ansatz $\binom{1}{r}$}
+
+Seek an eigenvector of the form
+\[
+\begin{bmatrix}1\\r\end{bmatrix}.
+\]
+Then
+\[
+F\!\left(\begin{bmatrix}1\\r\end{bmatrix}\right)
+=
+\begin{bmatrix}r\\1+r\end{bmatrix}.
+\]
+If this is an eigenvector with eigenvalue $\lambda$, then
+\[
+\begin{bmatrix}r\\1+r\end{bmatrix}
+=
+\lambda\begin{bmatrix}1\\r\end{bmatrix},
+\]
+hence
+\[
+r=\lambda,\qquad 1+r=\lambda r.
+\]
+Substituting $r=\lambda$ gives
+\[
+1+\lambda=\lambda^2
+\quad\Longleftrightarrow\quad
+\lambda^2-\lambda-1=0.
+\]
+Thus
+\[
+\lambda=\frac{1\pm\sqrt5}{2}.
+\]
+
+For either such $\lambda$, taking $r=\lambda$ shows directly that
+\[
+F\!\left(\begin{bmatrix}1\\\lambda\end{bmatrix}\right)
+=
+\lambda\begin{bmatrix}1\\\lambda\end{bmatrix},
+\]
+so
+\[
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}.
+\]
+
+\[
+\boxed{\,\text{Eigenvalues: }\ \dfrac{1+\sqrt5}{2},\ \dfrac{1-\sqrt5}{2}\,}
+\]
+\[
+\boxed{\,
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}
+\ \text{for each such }\lambda.
+\,}
+\]
+
+\newpage
+\subsubsection{Method 5: Recognise the Fibonacci / companion pattern}
+
+With respect to the standard basis,
+\[
+[F]=
+\begin{bmatrix}
+0&1\\
+1&1
+\end{bmatrix}.
+\]
+This is the standard Fibonacci matrix, equivalently the companion matrix of
+\[
+t^2-t-1.
+\]
+Hence its characteristic polynomial is
+\[
+\chi_F(\lambda)=\lambda^2-\lambda-1,
+\]
+so the real eigenvalues are
+\[
+\lambda=\frac{1\pm\sqrt5}{2}.
+\]
+
+For an eigenvalue $\lambda$, the eigenvector equation
+\[
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+=
+\lambda \begin{bmatrix}x\\y\end{bmatrix}
+\]
+gives
+\[
+y=\lambda x.
+\]
+Thus every eigenvector has the form
+\[
+\begin{bmatrix}x\\y\end{bmatrix}
+=
+x\begin{bmatrix}1\\\lambda\end{bmatrix},
+\]
+and hence
+\[
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}.
+\]
+
+\[
+\boxed{\,\text{Eigenvalues: }\ \dfrac{1+\sqrt5}{2},\ \dfrac{1-\sqrt5}{2}\,}
+\]
+\[
+\boxed{\,
+E_{F,\lambda}
+=
+\Span\left\{\begin{bmatrix}1\\\lambda\end{bmatrix}\right\}
+\ \text{for each such }\lambda.
+\,}
+\]
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Eigen-structure of $T(A)=A^{\mathsf T}+2\tr(A)I_2$ on $\R^{2,2}$)}
+\subsection{Problem}
+Define $T\in \cL(\R^{2,2})$ by
+\[
+\forall A\in\R^{2,2}:\qquad T(A)\coloneqq A^{\mathsf T}+2\,\tr(A)\,I_2.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Compute the (real) eigenvalues of $T$.
+\item For each (real) eigenvalue $\lambda$ of $T$, determine its corresponding eigenspace $E_{T,\lambda}$.
+\item Does $\R^{2,2}$ have a basis consisting of eigenvectors of $T$? If so, derive such a basis.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Write $T$ in coordinates and compute eigenvalues/eigenspaces}
+Let
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix},\qquad \tr(A)=a+d,\qquad A^{\mathsf T}=\begin{bmatrix}a&c\\b&d\end{bmatrix}.
+\]
+Then
+\[
+T(A)=A^{\mathsf T}+2(a+d)I_2=
+\begin{bmatrix}
+a+2(a+d) & c\\
+b & d+2(a+d)
+\end{bmatrix}
+=
+\begin{bmatrix}
+3a+2d & c\\
+b & 2a+3d
+\end{bmatrix}.
+\]
+Thus in the coordinate vector $(a,b,c,d)^{\mathsf T}$ (relative to the standard basis $(E_{11},E_{12},E_{21},E_{22})$),
+the operator has matrix
+\[
+M=
+\begin{bmatrix}
+3&0&0&2\\
+0&0&1&0\\
+0&1&0&0\\
+2&0&0&3
+\end{bmatrix},
+\quad
+\text{since }
+(a,b,c,d)\mapsto (3a+2d,\ c,\ b,\ 2a+3d).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item The matrix $M$ is block diagonal with respect to the decomposition
+\[
+(a,d)\ \text{block:}\ \begin{bmatrix}3&2\\2&3\end{bmatrix},
+\qquad
+(b,c)\ \text{block:}\ \begin{bmatrix}0&1\\1&0\end{bmatrix}.
+\]
+Eigenvalues of $\begin{bmatrix}3&2\\2&3\end{bmatrix}$ are $5$ and $1$; eigenvalues of $\begin{bmatrix}0&1\\1&0\end{bmatrix}$ are $1$ and $-1$.
+Hence the real eigenvalues of $T$ are
+\[
+\boxed{\,\lambda\in\{-1,\ 1,\ 5\}\,}
+\]
+(with $\lambda=1$ having algebraic multiplicity $2$).
+
+\item Compute eigenspaces by solving $T(A)=\lambda A$.
+
+\medskip
+\noindent\textbf{Case $\lambda=5$.}
+From $T(A)=5A$, comparing off-diagonals gives $c=5b$ and $b=5c$, hence $b=c=0$.
+Comparing diagonals gives
+\[
+3a+2d=5a\Rightarrow d=a,\qquad 2a+3d=5d\Rightarrow a=d,
+\]
+consistent. Thus $A=aI_2$. Hence
+\[
+\boxed{\,E_{T,5}=\Span\!\left\{I_2\right\}\, }.
+\]
+
+\medskip
+\noindent\textbf{Case $\lambda=-1$.}
+Then $T(A)=-A$ gives diagonals $3a+2d=-a$ and $2a+3d=-d$, i.e.\ $4a+2d=0$ and $2a+4d=0$,
+so $a=d=0$. Off-diagonals give $c=-b$ and $b=-c$ (same condition). Thus
+\[
+A=b\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+So
+\[
+\boxed{\,E_{T,-1}=\Span\!\left\{\begin{bmatrix}0&1\\-1&0\end{bmatrix}\right\}\, }.
+\]
+
+\medskip
+\noindent\textbf{Case $\lambda=1$.}
+Then $T(A)=A$ gives diagonals $3a+2d=a$ and $2a+3d=d$, i.e.\ $2a+2d=0$ so $d=-a$.
+Off-diagonals give $c=b$ and $b=c$, i.e.\ $b=c$ is free.
+Hence
+\[
+A=
+a\begin{bmatrix}1&0\\0&-1\end{bmatrix}
++
+b\begin{bmatrix}0&1\\1&0\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{\,
+E_{T,1}
+=
+\Span\!\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\}
+\ \text{(dimension }2\text{)}.
+\,}
+\]
+
+\item Since
+\[
+\dim(E_{T,5})+\dim(E_{T,1})+\dim(E_{T,-1})=1+2+1=4=\dim(\R^{2,2}),
+\]
+the eigenvectors span $\R^{2,2}$, so $\R^{2,2}$ has a basis consisting of eigenvectors of $T$.
+One such eigenbasis is
+\[
+\left(
+I_2,\ 
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},\
+\begin{bmatrix}0&1\\1&0\end{bmatrix},\
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right),
+\]
+corresponding to eigenvalues $5,1,1,-1$, respectively.
+
+\[
+\boxed{\,\text{Yes. An eigenbasis is } \left\{I_2,\ \begin{bmatrix}1&0\\0&-1\end{bmatrix},\ \begin{bmatrix}0&1\\1&0\end{bmatrix},\ \begin{bmatrix}0&1\\-1&0\end{bmatrix}\right\}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Decompose into symmetric and skew-symmetric parts}
+
+Let
+\[
+\Sym_2:=\{A\in\R^{2,2}:A^{\mathsf T}=A\},\qquad
+\Skew_2:=\{A\in\R^{2,2}:A^{\mathsf T}=-A\}.
+\]
+Then
+\[
+\R^{2,2}=\Sym_2\oplus\Skew_2.
+\]
+
+If $A\in\Skew_2$, then $\tr(A)=0$ and $A^{\mathsf T}=-A$, so
+\[
+T(A)=A^{\mathsf T}+2\tr(A)I_2=-A.
+\]
+Hence
+\[
+E_{T,-1}=\Skew_2
+=\Span\!\left\{\begin{bmatrix}0&1\\-1&0\end{bmatrix}\right\}.
+\]
+
+If $A\in\Sym_2$, then $A^{\mathsf T}=A$, so
+\[
+T(A)=A+2\tr(A)I_2.
+\]
+Now split
+\[
+\Sym_2=\R I_2\oplus \Sym_2^0,
+\qquad
+\Sym_2^0:=\{A\in\Sym_2:\tr(A)=0\}.
+\]
+Then:
+\[
+A=tI_2 \;\Longrightarrow\; T(A)=tI_2+2(2t)I_2=5tI_2,
+\]
+so
+\[
+E_{T,5}=\R I_2=\Span\{I_2\},
+\]
+and
+\[
+A\in\Sym_2^0 \;\Longrightarrow\; T(A)=A,
+\]
+so
+\[
+E_{T,1}=\Sym_2^0
+=
+\Span\!\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\}.
+\]
+
+Thus
+\[
+E_{T,5}=\R I_2,\qquad
+E_{T,1}=\Sym_2^0,\qquad
+E_{T,-1}=\Skew_2.
+\]
+Their dimensions are $1,2,1$, summing to $4$, so $T$ is diagonalizable. Hence
+\[
+\left(
+I_2,\
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},\
+\begin{bmatrix}0&1\\1&0\end{bmatrix},\
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right)
+\]
+is an eigenbasis.
+
+\[
+\boxed{\,\lambda=-1,1,5;\ E_{T,-1}=\Skew_2,\ E_{T,1}=\Sym_2^0,\ E_{T,5}=\R I_2.\,}
+\]
+
+\newpage
+\subsubsection{Method 3: Canonical decomposition $\R^{2,2}=\R I_2\oplus \Sym_2^0\oplus \Skew_2$}
+
+Use the direct sum decomposition
+\[
+\R^{2,2}=\R I_2\oplus \Sym_2^0\oplus \Skew_2,
+\]
+where
+\[
+\Sym_2^0:=\{A\in\R^{2,2}:A^{\mathsf T}=A,\ \tr(A)=0\},\qquad
+\Skew_2:=\{A\in\R^{2,2}:A^{\mathsf T}=-A\}.
+\]
+Let
+\[
+A=tI_2+S+K
+\qquad
+(t\in\R,\ S\in\Sym_2^0,\ K\in\Skew_2).
+\]
+Then
+\[
+A^{\mathsf T}=tI_2+S-K,
+\qquad
+\tr(A)=2t.
+\]
+Hence
+\[
+T(A)=A^{\mathsf T}+2\tr(A)I_2
+=(tI_2+S-K)+4tI_2
+=5tI_2+S-K.
+\]
+
+Therefore \(T\) acts by scalar multiplication on the three summands:
+\[
+5 \text{ on } \R I_2,\qquad
+1 \text{ on } \Sym_2^0,\qquad
+-1 \text{ on } \Skew_2.
+\]
+So the real eigenvalues are
+\[
+\boxed{\, -1,\ 1,\ 5 \, }.
+\]
+Moreover,
+\[
+E_{T,5}=\R I_2,
+\qquad
+E_{T,1}=\Sym_2^0,
+\qquad
+E_{T,-1}=\Skew_2.
+\]
+A concrete basis for these eigenspaces is
+\[
+E_{T,5}=\Span\{I_2\},
+\]
+\[
+E_{T,1}=
+\Span\!\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\},
+\]
+\[
+E_{T,-1}=
+\Span\!\left\{
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right\}.
+\]
+Thus \(T\) is diagonalizable, and an eigenbasis is
+\[
+\left(
+I_2,\
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},\
+\begin{bmatrix}0&1\\1&0\end{bmatrix},\
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right).
+\]
+
+\[
+\boxed{\,\text{$T$ is diagonalizable with eigenspaces } \R I_2,\ \Sym_2^0,\ \Skew_2.\,}
+\]
+
+\newpage
+\subsubsection{Method 4: Choose a basis adapted to the operator}
+
+Consider
+\[
+B_1:=I_2,\qquad
+B_2:=\begin{bmatrix}1&0\\0&-1\end{bmatrix},\qquad
+B_3:=\begin{bmatrix}0&1\\1&0\end{bmatrix},\qquad
+B_4:=\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+These four matrices are linearly independent, hence form a basis of $\R^{2,2}$.
+
+Now compute:
+\[
+T(B_1)=B_1+2\tr(B_1)I_2=I_2+4I_2=5B_1,
+\]
+since \(\tr(B_1)=2\).
+
+Also \(B_2,B_3\) are symmetric and traceless, so
+\[
+T(B_2)=B_2,\qquad T(B_3)=B_3.
+\]
+Finally, \(B_4\) is skew-symmetric and traceless, so
+\[
+T(B_4)=-B_4.
+\]
+
+Hence \(B_1,B_2,B_3,B_4\) are eigenvectors with eigenvalues
+\[
+5,\ 1,\ 1,\ -1,
+\]
+respectively. Therefore the real eigenvalues are
+\[
+\boxed{\, -1,\ 1,\ 5 \, }.
+\]
+Their eigenspaces are
+\[
+E_{T,5}=\Span\{B_1\}=\Span\{I_2\},
+\]
+\[
+E_{T,1}=\Span\{B_2,B_3\}
+=
+\Span\!\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\},
+\]
+\[
+E_{T,-1}=\Span\{B_4\}
+=
+\Span\!\left\{
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right\}.
+\]
+Since \((B_1,B_2,B_3,B_4)\) is a basis of eigenvectors, \(T\) is diagonalizable.
+
+\[
+\boxed{\,\text{Yes. } (B_1,B_2,B_3,B_4) \text{ is an eigenbasis of } \R^{2,2}. \,}
+\]
+
+\newpage
+\subsubsection{Method 5: Projection-operator viewpoint}
+
+Every \(A\in\R^{2,2}\) decomposes uniquely as
+\[
+A=\alpha I_2+S+K,
+\]
+where
+\[
+\alpha:=\frac{\tr(A)}{2},\qquad
+S:=\frac{A+A^{\mathsf T}}2-\frac{\tr(A)}2 I_2\in \Sym_2^0,
+\qquad
+K:=\frac{A-A^{\mathsf T}}2\in\Skew_2.
+\]
+Then
+\[
+A^{\mathsf T}=\alpha I_2+S-K,
+\qquad
+\tr(A)=2\alpha.
+\]
+So
+\[
+T(A)=A^{\mathsf T}+2\tr(A)I_2
+=(\alpha I_2+S-K)+4\alpha I_2
+=5\alpha I_2+S-K.
+\]
+
+Thus the three components are eigen-components:
+\[
+\alpha I_2 \mapsto 5\alpha I_2,\qquad
+S\mapsto S,\qquad
+K\mapsto -K.
+\]
+Hence
+\[
+E_{T,5}=\R I_2,\qquad
+E_{T,1}=\Sym_2^0,\qquad
+E_{T,-1}=\Skew_2.
+\]
+In particular, the real eigenvalues are
+\[
+\boxed{\, -1,\ 1,\ 5 \, }.
+\]
+Choosing bases of these three subspaces gives an eigenbasis; for example,
+\[
+\left(
+I_2,\
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},\
+\begin{bmatrix}0&1\\1&0\end{bmatrix},\
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right).
+\]
+
+\[
+\boxed{\,\text{$T$ acts diagonally on } \R I_2\oplus \Sym_2^0\oplus \Skew_2,\ \text{so $T$ is diagonalizable.}\,}
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Eigenvalues/eigenspaces of an invertible operator and its inverse)}
+
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ be a vector space over a field $\F$ (not necessarily finite-dimensional), and
+\item $T\in \cL(V)$ be invertible.
+\end{enumerate}
+Establish the following two statements:
+\begin{enumerate}[label=(\arabic*)]
+\item If $\lambda\in\F$ is an eigenvalue of $T$, then $\lambda\neq 0_{\F}$ and $\lambda^{-1}$ is an eigenvalue of $T^{-1}$.
+\item If $\lambda\in\F$ is an eigenvalue of $T$, then
+\[
+E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.
+\]
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Apply $T^{-1}$ to the eigenvector}
+
+Let $\lambda\in\F$ be an eigenvalue of $T$. Then there exists $v\in V\setminus\{0\}$ such that
+\[
+T(v)=\lambda v.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item Since $T$ is invertible, $\ker(T)=\{0\}$. If $\lambda=0$, then
+\[
+T(v)=\lambda v=0,
+\]
+which would imply $v\in\ker(T)$, hence $v=0$, contradiction. Therefore
+\[
+\lambda\neq 0_{\F}.
+\]
+
+Now apply $T^{-1}$ to $T(v)=\lambda v$:
+\[
+v=T^{-1}(\lambda v)=\lambda\,T^{-1}(v).
+\]
+Since $\lambda\neq 0$, multiply by $\lambda^{-1}$:
+\[
+T^{-1}(v)=\lambda^{-1}v.
+\]
+Thus $v\neq 0$ is an eigenvector of $T^{-1}$ with eigenvalue $\lambda^{-1}$. Hence
+\[
+\boxed{\,\lambda^{-1}\ \text{is an eigenvalue of }T^{-1}.\,}
+\]
+
+\item Let $v\in E_{T,\lambda}$. Then $v\neq 0$ and $T(v)=\lambda v$. By part (1),
+\[
+T^{-1}(v)=\lambda^{-1}v,
+\]
+so $v\in E_{T^{-1},\lambda^{-1}}$. Thus
+\[
+E_{T,\lambda}\subseteq E_{T^{-1},\lambda^{-1}}.
+\]
+
+Conversely, let $v\in E_{T^{-1},\lambda^{-1}}$. Then $v\neq 0$ and
+\[
+T^{-1}(v)=\lambda^{-1}v.
+\]
+Apply $T$ to both sides:
+\[
+v=\lambda^{-1}T(v).
+\]
+Since $\lambda\neq 0$, this gives
+\[
+T(v)=\lambda v.
+\]
+Hence $v\in E_{T,\lambda}$, so
+\[
+E_{T^{-1},\lambda^{-1}}\subseteq E_{T,\lambda}.
+\]
+Therefore
+\[
+\boxed{\,E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.\,}
+\]
+\end{enumerate}
+
+\bigskip
+\subsubsection{Method 2: Rearrangement of the eigenvalue equation}
+
+Let $v\neq 0$ satisfy
+\[
+T(v)=\lambda v.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item If $\lambda=0$, then $T(v)=0$, contradicting invertibility of $T$. Hence $\lambda\neq 0$.
+
+Also,
+\[
+T(v)=\lambda v
+\quad\Longleftrightarrow\quad
+v=\lambda\,T^{-1}(v)
+\quad\Longleftrightarrow\quad
+T^{-1}(v)=\lambda^{-1}v.
+\]
+Thus $\lambda^{-1}$ is an eigenvalue of $T^{-1}$.
+
+\item For any $v\neq 0$,
+\[
+T(v)=\lambda v
+\quad\Longleftrightarrow\quad
+T^{-1}(v)=\lambda^{-1}v.
+\]
+Hence
+\[
+v\in E_{T,\lambda}
+\quad\Longleftrightarrow\quad
+v\in E_{T^{-1},\lambda^{-1}}.
+\]
+Therefore
+\[
+\boxed{\,E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.\,}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Kernel formulation}
+
+Recall
+\[
+E_{T,\lambda}=\ker(T-\lambda I)\setminus\{0\},
+\qquad
+E_{T^{-1},\lambda^{-1}}=\ker(T^{-1}-\lambda^{-1}I)\setminus\{0\}.
+\]
+
+Let $\lambda$ be an eigenvalue of $T$. Then $\ker(T-\lambda I)\neq\{0\}$.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Since $T$ is invertible, $0$ cannot be an eigenvalue of $T$, so $\lambda\neq 0$.
+
+Now
+\[
+T^{-1}-\lambda^{-1}I
+=
+-\lambda^{-1}T^{-1}(T-\lambda I).
+\]
+Therefore
+\[
+\ker(T^{-1}-\lambda^{-1}I)=\ker(T-\lambda I),
+\]
+because $-\lambda^{-1}T^{-1}$ is invertible. Hence $\ker(T^{-1}-\lambda^{-1}I)\neq\{0\}$, so $\lambda^{-1}$ is an eigenvalue of $T^{-1}$.
+
+\item From
+\[
+\ker(T^{-1}-\lambda^{-1}I)=\ker(T-\lambda I),
+\]
+we immediately obtain
+\[
+E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.
+\]
+\end{enumerate}
+
+\[
+\boxed{\,\lambda\neq 0,\ \lambda^{-1}\in \sigma(T^{-1}),\ \text{and }E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.\,}
+\]
+
+\bigskip
+\subsubsection{Method 4: Operator identity}
+
+Let $\lambda$ be an eigenvalue of $T$. Since $T$ is invertible, $\lambda\neq 0$.
+
+Observe the identity
+\[
+T-\lambda I
+=
+-\lambda\,T\bigl(T^{-1}-\lambda^{-1}I\bigr).
+\]
+Since $-\lambda T$ is invertible, the two operators have the same kernel:
+\[
+\ker(T-\lambda I)=\ker(T^{-1}-\lambda^{-1}I).
+\]
+Hence
+\[
+E_{T,\lambda}=E_{T^{-1},\lambda^{-1}}.
+\]
+In particular, if $E_{T,\lambda}\neq \{0\}$, then also
+\[
+E_{T^{-1},\lambda^{-1}}\neq \{0\},
+\]
+so $\lambda^{-1}$ is an eigenvalue of $T^{-1}$.
+
+\[
+\boxed{\,E_{T,\lambda}=E_{T^{-1},\lambda^{-1}},\quad \lambda^{-1}\ \text{is an eigenvalue of }T^{-1}.\,}
+\]
+\end{document}

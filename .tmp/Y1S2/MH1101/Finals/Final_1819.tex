@@ -1,0 +1,1653 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Final Examination Solutions}
+\newcommand{\ExamMeta}{AY 2018/2019, Semester II}
+\newcommand{\ExamMetaShort}{Final Examination AY18/19}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+\allowdisplaybreaks
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item This document contains full worked solutions for the MH1101/MH111S Calculus II Semester II Examination, AY 2018/2019.
+  \item The main topics tested are numerical integration, techniques of integration, convergence tests for series, monotone bounded sequences, power series, and Maclaurin-series coefficient extraction.
+  \item Standard MH1101 methods are used first. Where useful, a second method is included to show a cleaner recognition, a power-series shortcut, or a more structural argument.
+\end{overview}
+
+\newpage
+\tableofcontents
+
+% ============================================================
+\newpage
+\section{Question 1 (Trapezoidal Rule and error bound, 15 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Use the Trapezoidal Rule with $n=4$ to approximate the integral
+\[
+\int_3^5 \ln x \dd x.
+\]
+
+\item Using the Error Bound formula, find an appropriate $n$ such that the approximation $T_n$ of the integral
+\[
+\int_3^5 \ln x \dd x
+\]
+using the Trapezoidal Rule has an absolute error of at most $10^{-3}$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct trapezoidal approximation and derivative-bound estimate}
+
+Let
+\[
+f(x)=\ln x,\qquad a=3,\qquad b=5.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item For the Trapezoidal Rule with $n=4$,
+\[
+\Delta x=\frac{b-a}{n}=\frac{5-3}{4}=\frac12.
+\]
+The nodes are
+\[
+x_0=3,\qquad x_1=\frac72,\qquad x_2=4,\qquad x_3=\frac92,\qquad x_4=5.
+\]
+Hence
+\begin{align*}
+T_4
+&=\frac{\Delta x}{2}\left[f(x_0)+2f(x_1)+2f(x_2)+2f(x_3)+f(x_4)\right] \\
+&=\frac{1/2}{2}\left[\ln 3+2\ln\frac72+2\ln 4+2\ln\frac92+\ln 5\right] \\
+&=\frac14\left[\ln 3+2\ln\frac72+2\ln 4+2\ln\frac92+\ln 5\right].
+\end{align*}
+Numerically,
+\[
+T_4\approx 2.748579913.
+\]
+Therefore, to two decimal places,
+\[
+\boxed{T_4\approx 2.75.}
+\]
+
+\item The Trapezoidal Rule error bound is
+\[
+|E_T|\le \frac{K(b-a)^3}{12n^2},
+\]
+where $K$ satisfies
+\[
+|f''(x)|\le K
+\qquad\text{for all }x\in[3,5].
+\]
+Since
+\[
+f'(x)=\frac1x,\qquad f''(x)=-\frac1{x^2},
+\]
+we have
+\[
+|f''(x)|=\frac1{x^2}.
+\]
+On $[3,5]$, the function $x\mapsto 1/x^2$ is decreasing, so its maximum occurs at $x=3$. Thus
+\[
+K=\frac19.
+\]
+Therefore
+\begin{align*}
+|E_T|
+&\le \frac{\frac19(5-3)^3}{12n^2} \\
+&=\frac{\frac19\cdot 8}{12n^2} \\
+&=\frac{2}{27n^2}.
+\end{align*}
+We require
+\[
+\frac{2}{27n^2}\le 10^{-3}.
+\]
+Solving for $n$ gives
+\begin{align*}
+27n^2 &\ge 2000,\\
+n^2 &\ge \frac{2000}{27},\\
+n &\ge \sqrt{\frac{2000}{27}}\approx 8.6066.
+\end{align*}
+Since $n$ must be a positive integer, the smallest suitable value is
+\[
+\boxed{n=9.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(7 marks)}
+\begin{itemize}
+\item 1 mark: Correctly identifies $\Delta x=\frac12$.
+\item 2 marks: Correctly lists the nodes $3,\frac72,4,\frac92,5$.
+\item 2 marks: Correctly applies the Trapezoidal Rule weights $1,2,2,2,1$.
+\item 2 marks: Correct numerical approximation $T_4\approx 2.75$.
+\end{itemize}
+
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correctly computes $f''(x)=-1/x^2$.
+\item 2 marks: Correctly finds $K=1/9$ on $[3,5]$.
+\item 2 marks: Correctly applies $|E_T|\le K(b-a)^3/(12n^2)$.
+\item 2 marks: Correctly solves the inequality and obtains $n=9$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+
+\newpage
+\section{Question 2 (Techniques of integration, 15 marks)}
+
+\subsection{Problem}
+
+Evaluate the following integrals.
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\int 2x(\ln x)^2\dd x.
+\]
+
+\item
+\[
+\int \frac{2x^3+18x-1}{(x^2+9)^2}\dd x.
+\]
+\end{enumerate}
+
+
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Integration by parts, numerator splitting, and trigonometric substitution}
+
+\begin{enumerate}[label=(\alph*)]
+\item We use integration by parts. Let
+\[
+u=(\ln x)^2,\qquad \dd v=2x\dd x.
+\]
+Then
+\[
+\dd u=2\ln x\cdot \frac1x\dd x=\frac{2\ln x}{x}\dd x,
+\qquad
+v=x^2.
+\]
+Thus
+\begin{align*}
+\int 2x(\ln x)^2\dd x
+&=x^2(\ln x)^2-\int x^2\cdot \frac{2\ln x}{x}\dd x\\
+&=x^2(\ln x)^2-\int 2x\ln x\dd x.
+\end{align*}
+For the remaining integral, use integration by parts again. Let
+\[
+u=\ln x,\qquad \dd v=2x\dd x.
+\]
+Then
+\[
+\dd u=\frac1x\dd x,\qquad v=x^2.
+\]
+Therefore
+\begin{align*}
+\int 2x\ln x\dd x
+&=x^2\ln x-\int x^2\cdot\frac1x\dd x\\
+&=x^2\ln x-\int x\dd x\\
+&=x^2\ln x-\frac{x^2}{2}.
+\end{align*}
+Substituting this back gives
+\begin{align*}
+\int 2x(\ln x)^2\dd x
+&=x^2(\ln x)^2-\left(x^2\ln x-\frac{x^2}{2}\right)+C\\
+&=x^2(\ln x)^2-x^2\ln x+\frac{x^2}{2}+C.
+\end{align*}
+Hence
+\[
+\boxed{\int 2x(\ln x)^2\dd x
+=x^2(\ln x)^2-x^2\ln x+\frac{x^2}{2}+C.}
+\]
+
+\item First split the numerator:
+\[
+2x^3+18x-1=2x(x^2+9)-1.
+\]
+Thus
+\begin{align*}
+\int \frac{2x^3+18x-1}{(x^2+9)^2}\dd x
+&=\int \frac{2x(x^2+9)-1}{(x^2+9)^2}\dd x\\
+&=\int \frac{2x}{x^2+9}\dd x-\int \frac{1}{(x^2+9)^2}\dd x.
+\end{align*}
+For the first integral, let
+\[
+u=x^2+9,\qquad \dd u=2x\dd x.
+\]
+Then
+\[
+\int \frac{2x}{x^2+9}\dd x=\ln(x^2+9).
+\]
+For the second integral, use the trigonometric substitution
+\[
+x=3\tan\theta,\qquad \dd x=3\sec^2\theta\dd\theta.
+\]
+Then
+\[
+x^2+9=9\tan^2\theta+9=9\sec^2\theta,
+\]
+so
+\begin{align*}
+\int \frac{1}{(x^2+9)^2}\dd x
+&=\int \frac{3\sec^2\theta}{(9\sec^2\theta)^2}\dd\theta\\
+&=\frac{1}{27}\int \cos^2\theta\dd\theta\\
+&=\frac{1}{27}\int \frac{1+\cos 2\theta}{2}\dd\theta\\
+&=\frac{1}{54}\theta+\frac{1}{108}\sin 2\theta+C.
+\end{align*}
+Since
+\[
+\tan\theta=\frac{x}{3},
+\qquad
+\theta=\tan^{-1}\frac{x}{3},
+\]
+and
+\[
+\sin 2\theta=2\sin\theta\cos\theta.
+\]
+From the right triangle with opposite side $x$, adjacent side $3$, and hypotenuse $\sqrt{x^2+9}$,
+\[
+\sin\theta=\frac{x}{\sqrt{x^2+9}},
+\qquad
+\cos\theta=\frac{3}{\sqrt{x^2+9}}.
+\]
+Therefore
+\[
+\sin 2\theta
+=2\cdot \frac{x}{\sqrt{x^2+9}}\cdot \frac{3}{\sqrt{x^2+9}}
+=\frac{6x}{x^2+9}.
+\]
+Hence
+\[
+\int \frac{1}{(x^2+9)^2}\dd x
+=\frac{1}{54}\tan^{-1}\frac{x}{3}+\frac{x}{18(x^2+9)}+C.
+\]
+Therefore
+\begin{align*}
+\int \frac{2x^3+18x-1}{(x^2+9)^2}\dd x
+&=\ln(x^2+9)-\left(\frac{1}{54}\tan^{-1}\frac{x}{3}+\frac{x}{18(x^2+9)}\right)+C\\
+&=\ln(x^2+9)-\frac{x}{18(x^2+9)}-\frac{1}{54}\tan^{-1}\frac{x}{3}+C.
+\end{align*}
+Thus
+\[
+\boxed{\int \frac{2x^3+18x-1}{(x^2+9)^2}\dd x
+=\ln(x^2+9)-\frac{x}{18(x^2+9)}-\frac{1}{54}\tan^{-1}\frac{x}{3}+C.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Tabular integration by parts and derivative recognition}
+
+\begin{enumerate}[label=(\alph*)]
+\item For
+\[
+I=\int 2x(\ln x)^2\dd x,
+\]
+observe that the factor $2x\dd x$ integrates to $x^2$, while repeated differentiation of $(\ln x)^2$ reduces the logarithmic power. Applying integration by parts twice gives
+\begin{align*}
+I
+&=x^2(\ln x)^2-\int x^2\cdot \frac{2\ln x}{x}\dd x\\
+&=x^2(\ln x)^2-\int 2x\ln x\dd x\\
+&=x^2(\ln x)^2-\left(x^2\ln x-\int x\dd x\right)\\
+&=x^2(\ln x)^2-x^2\ln x+\frac{x^2}{2}+C.
+\end{align*}
+Therefore
+\[
+\boxed{I=x^2(\ln x)^2-x^2\ln x+\frac{x^2}{2}+C.}
+\]
+
+\item For the second integral, after splitting
+\[
+\frac{2x^3+18x-1}{(x^2+9)^2}
+=
+\frac{2x}{x^2+9}-\frac{1}{(x^2+9)^2},
+\]
+use the standard derivative identity
+\[
+\frac{\dd}{\dd x}\left(\frac{x}{x^2+9}\right)
+=
+\frac{(x^2+9)-2x^2}{(x^2+9)^2}
+=
+\frac{9-x^2}{(x^2+9)^2}.
+\]
+Also,
+\[
+\frac{\dd}{\dd x}\left(\tan^{-1}\frac{x}{3}\right)
+=
+\frac{1}{1+(x/3)^2}\cdot \frac13
+=
+\frac{3}{x^2+9}.
+\]
+One may verify the standard antiderivative
+\[
+\int \frac{1}{(x^2+9)^2}\dd x
+=
+\frac{x}{18(x^2+9)}+\frac{1}{54}\tan^{-1}\frac{x}{3}+C.
+\]
+Indeed,
+\begin{align*}
+\frac{\dd}{\dd x}\left[\frac{x}{18(x^2+9)}+\frac{1}{54}\tan^{-1}\frac{x}{3}\right]
+&=\frac1{18}\cdot \frac{9-x^2}{(x^2+9)^2}
++\frac1{54}\cdot \frac{3}{x^2+9}\\
+&=\frac{9-x^2}{18(x^2+9)^2}
++\frac{x^2+9}{18(x^2+9)^2}\\
+&=\frac{18}{18(x^2+9)^2}\\
+&=\frac{1}{(x^2+9)^2}.
+\end{align*}
+Thus
+\[
+\boxed{\int \frac{2x^3+18x-1}{(x^2+9)^2}\dd x
+=\ln(x^2+9)-\frac{x}{18(x^2+9)}-\frac{1}{54}\tan^{-1}\frac{x}{3}+C.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(7 marks)}
+\begin{itemize}
+\item 2 marks: Correct first integration by parts setup.
+\item 2 marks: Correct second integration by parts setup.
+\item 2 marks: Correct simplification of the antiderivative.
+\item 1 mark: Correct constant of integration.
+\end{itemize}
+
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correct numerator split $2x^3+18x-1=2x(x^2+9)-1$.
+\item 2 marks: Correctly integrates $\int 2x/(x^2+9)\dd x$.
+\item 3 marks: Correctly evaluates $\int 1/(x^2+9)^2\dd x$.
+\item 1 mark: Correct final combination with signs and constant.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 3 (Convergence of series, 15 marks)}
+
+\subsection{Problem}
+
+Determine whether each of the following series converges or diverges. Justify your answer.
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\sum_{n=1}^{\infty}
+\ln\left(\frac{n^4+2n^3}{2n^4+n^3}\right).
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}
+\frac{7^n+n^2}{8^n-n}.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty} n!\ee^{-n^2}.
+\]
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Standard convergence tests}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+a_n=\ln\left(\frac{n^4+2n^3}{2n^4+n^3}\right).
+\]
+Factor $n^3$ from the numerator and denominator:
+\[
+\frac{n^4+2n^3}{2n^4+n^3}
+=
+\frac{n^3(n+2)}{n^3(2n+1)}
+=
+\frac{n+2}{2n+1}.
+\]
+Therefore
+\[
+\lim_{n\to\infty}\frac{n^4+2n^3}{2n^4+n^3}
+=
+\lim_{n\to\infty}\frac{n+2}{2n+1}
+=
+\frac12.
+\]
+Since the logarithm function is continuous on $(0,\infty)$,
+\[
+\lim_{n\to\infty}a_n
+=
+\ln\frac12
+\ne 0.
+\]
+A necessary condition for $\sum a_n$ to converge is $a_n\to 0$. This condition fails. Hence, by the $n$th-term test,
+\[
+\boxed{\sum_{n=1}^{\infty}
+\ln\left(\frac{n^4+2n^3}{2n^4+n^3}\right)
+\text{ diverges}.}
+\]
+
+
+
+%\bigskip
+\newpage
+\item Let
+\[
+a_n=\frac{7^n+n^2}{8^n-n}.
+\]
+For $n\ge 1$, the denominator $8^n-n$ is positive. Compare with the geometric series
+\[
+b_n=\left(\frac78\right)^n=\frac{7^n}{8^n}.
+\]
+Then
+\begin{align*}
+\lim_{n\to\infty}\frac{a_n}{b_n}
+&=
+\lim_{n\to\infty}
+\frac{7^n+n^2}{8^n-n}\cdot \frac{8^n}{7^n}\\
+&=
+\lim_{n\to\infty}
+\frac{1+n^2/7^n}{1-n/8^n}\\
+&=1.
+\end{align*}
+Since
+\[
+\sum_{n=1}^{\infty}\left(\frac78\right)^n
+\]
+is a convergent geometric series with common ratio $7/8$, the Limit Comparison Test implies that
+\[
+\boxed{\sum_{n=1}^{\infty}
+\frac{7^n+n^2}{8^n-n}
+\text{ converges}.}
+\]
+
+\item Let
+\[
+a_n=n!\ee^{-n^2}.
+\]
+All terms are positive. Use the Ratio Test:
+\begin{align*}
+\left|\frac{a_{n+1}}{a_n}\right|
+&=
+\frac{(n+1)!\ee^{-(n+1)^2}}{n!\ee^{-n^2}}\\
+&=(n+1)\ee^{-[(n+1)^2-n^2]}\\
+&=(n+1)\ee^{-(2n+1)}\\
+&=\frac{n+1}{\ee^{2n+1}}.
+\end{align*}
+Now
+\[
+\lim_{n\to\infty}\frac{n+1}{\ee^{2n+1}}=0,
+\]
+because the exponential term dominates the linear term. Thus the Ratio Test gives
+\[
+\rho=0<1.
+\]
+Therefore
+\[
+\boxed{\sum_{n=1}^{\infty}n!\ee^{-n^2}\text{ converges}.}
+\]
+Since the terms are nonnegative, this is also absolute convergence.
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Dominant-growth recognition for selected parts}
+
+\begin{enumerate}[label=(\alph*)]
+\item The summand satisfies
+\[
+\ln\left(\frac{n^4+2n^3}{2n^4+n^3}\right)
+=
+\ln\left(\frac{1+2/n}{2+1/n}\right)
+\longrightarrow
+\ln\frac12\ne 0.
+\]
+Thus the terms do not tend to zero, so
+\[
+\boxed{\text{the series diverges}.}
+\]
+
+\item The dominant terms in the numerator and denominator are $7^n$ and $8^n$, respectively:
+\[
+\frac{7^n+n^2}{8^n-n}
+\sim
+\frac{7^n}{8^n}
+=
+\left(\frac78\right)^n.
+\]
+Since the corresponding geometric series converges and the rigorous limit comparison in Method 1 gives limit $1$, the series converges:
+\[
+\boxed{\text{the series converges}.}
+\]
+
+\item Since
+\[
+n!\le n^n,
+\]
+we have
+\[
+0<n!\ee^{-n^2}\le n^n\ee^{-n^2}.
+\]
+Let
+\[
+b_n=n^n\ee^{-n^2}.
+\]
+Then
+\[
+\sqrt[n]{b_n}
+=
+\sqrt[n]{n^n\ee^{-n^2}}
+=
+n\ee^{-n}.
+\]
+Hence
+\[
+\lim_{n\to\infty}\sqrt[n]{b_n}
+=
+\lim_{n\to\infty}\frac{n}{\ee^n}
+=0.
+\]
+By the Root Test, $\sum b_n$ converges. Since
+\[
+0<a_n\le b_n,
+\]
+the Comparison Test gives
+\[
+\boxed{\sum_{n=1}^{\infty}n!\ee^{-n^2}\text{ converges}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correctly simplifies or evaluates the limit of the logarithm's argument.
+\item 2 marks: Correctly obtains $\lim a_n=\ln(1/2)\ne0$.
+\item 1 mark: Correctly applies the $n$th-term test and concludes divergence.
+\end{itemize}
+
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correct comparison with $(7/8)^n$.
+\item 2 marks: Correct limit comparison computation.
+\item 1 mark: Correct conclusion of convergence.
+\end{itemize}
+
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correct ratio-test setup.
+\item 2 marks: Correct limit $\lim (n+1)/\ee^{2n+1}=0$.
+\item 1 mark: Correct conclusion of convergence.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 4 (Recursive sequence and monotone convergence, 15 marks)}
+
+\subsection{Problem}
+
+Let $a_1=c$ for some positive real number $c>1$. For $n\ge 1$, define
+\[
+a_{n+1}=2-\frac1{a_n}.
+\]
+
+\begin{enumerate}[label=(\roman*)]
+\item Compute the value of $a_2$ and $a_3$ in terms of $c$.
+\item Show that $a_3-a_2<0$.
+\item Show that the sequence $\{a_n\}_{n=2}^{\infty}$ is bounded and decreasing.
+\item Show that $\lim_{n\to\infty}a_n$ exists and find its value.
+\end{enumerate}
+
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Induction on bounds and monotonicity}
+
+\begin{enumerate}[label=(\roman*)]
+\item Since $a_1=c$,
+\[
+a_2=2-\frac1c=\frac{2c-1}{c}.
+\]
+Next,
+\begin{align*}
+a_3
+&=2-\frac1{a_2}\\
+&=2-\frac1{2-\frac1c}\\
+&=2-\frac{c}{2c-1}\\
+&=\frac{2(2c-1)-c}{2c-1}\\
+&=\frac{3c-2}{2c-1}.
+\end{align*}
+Thus
+\[
+\boxed{a_2=\frac{2c-1}{c},\qquad a_3=\frac{3c-2}{2c-1}.}
+\]
+
+\item Using the expressions from part (i),
+\begin{align*}
+a_3-a_2
+&=
+\frac{3c-2}{2c-1}-\frac{2c-1}{c}\\
+&=
+\frac{c(3c-2)-(2c-1)^2}{c(2c-1)}\\
+&=
+\frac{3c^2-2c-(4c^2-4c+1)}{c(2c-1)}\\
+&=
+\frac{-c^2+2c-1}{c(2c-1)}\\
+&=
+-\frac{(c-1)^2}{c(2c-1)}.
+\end{align*}
+Since $c>1$, we have
+\[
+(c-1)^2>0,\qquad c>0,\qquad 2c-1>0.
+\]
+Therefore
+\[
+a_3-a_2=-\frac{(c-1)^2}{c(2c-1)}<0.
+\]
+Hence
+\[
+\boxed{a_3-a_2<0.}
+\]
+
+\item First prove that
+\[
+1<a_n<2
+\qquad\text{for all }n\ge 2.
+\]
+For $n=2$,
+\[
+a_2=2-\frac1c.
+\]
+Since $c>1$,
+\[
+0<\frac1c<1,
+\]
+so
+\[
+1<2-\frac1c<2.
+\]
+Thus
+\[
+1<a_2<2.
+\]
+
+Assume that for some $k\ge 2$,
+\[
+1<a_k<2.
+\]
+Then
+\[
+\frac12<\frac1{a_k}<1.
+\]
+Multiplying by $-1$ reverses the inequalities:
+\[
+-1<-\frac1{a_k}<-\frac12.
+\]
+Adding $2$ throughout gives
+\[
+1<2-\frac1{a_k}<\frac32<2.
+\]
+Since
+\[
+a_{k+1}=2-\frac1{a_k},
+\]
+we obtain
+\[
+1<a_{k+1}<2.
+\]
+By induction,
+\[
+1<a_n<2
+\qquad\text{for all }n\ge 2.
+\]
+Therefore $\{a_n\}_{n=2}^{\infty}$ is bounded below by $1$ and bounded above by $2$.
+
+It remains to prove that the sequence is decreasing. From part (ii),
+\[
+a_3-a_2<0.
+\]
+Assume that for some $k\ge 2$,
+\[
+a_{k+1}-a_k<0.
+\]
+Then
+\begin{align*}
+a_{k+2}-a_{k+1}
+&=
+\left(2-\frac1{a_{k+1}}\right)-\left(2-\frac1{a_k}\right)\\
+&=
+\frac1{a_k}-\frac1{a_{k+1}}\\
+&=
+\frac{a_{k+1}-a_k}{a_ka_{k+1}}.
+\end{align*}
+From the bound already proved, $a_k>1$ and $a_{k+1}>1$, so
+\[
+a_ka_{k+1}>0.
+\]
+Since $a_{k+1}-a_k<0$, it follows that
+\[
+a_{k+2}-a_{k+1}<0.
+\]
+By induction,
+\[
+a_{n+1}<a_n
+\qquad\text{for all }n\ge 2.
+\]
+Hence
+\[
+\boxed{\{a_n\}_{n=2}^{\infty}\text{ is bounded and decreasing}.}
+\]
+
+\item Since $\{a_n\}_{n=2}^{\infty}$ is decreasing and bounded below, the Monotone Convergence Theorem implies that
+\[
+\lim_{n\to\infty}a_n
+\]
+exists. Let
+\[
+L=\lim_{n\to\infty}a_n.
+\]
+Since $1<a_n<2$ for all $n\ge2$, the limit satisfies
+\[
+1\le L\le 2.
+\]
+Taking limits on both sides of
+\[
+a_{n+1}=2-\frac1{a_n}
+\]
+gives
+\[
+L=2-\frac1L.
+\]
+Since $L\ge 1$, division by $L$ is valid. Multiplying by $L$ gives
+\[
+L^2=2L-1.
+\]
+Thus
+\[
+L^2-2L+1=0,
+\]
+so
+\[
+(L-1)^2=0.
+\]
+Therefore
+\[
+\boxed{\lim_{n\to\infty}a_n=1.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{(3 marks)}
+\begin{itemize}
+\item 1 mark: Correct $a_2$.
+\item 1 mark: Correct setup for $a_3$.
+\item 1 mark: Correct simplified expression for $a_3$.
+\end{itemize}
+
+\item \textbf{(3 marks)}
+\begin{itemize}
+\item 2 marks: Correct algebra for $a_3-a_2$.
+\item 1 mark: Correct sign conclusion using $c>1$.
+\end{itemize}
+
+\item \textbf{(6 marks)}
+\begin{itemize}
+\item 3 marks: Correct induction proving $1<a_n<2$ for all $n\ge2$.
+\item 3 marks: Correct induction proving $a_{n+1}<a_n$ for all $n\ge2$.
+\end{itemize}
+
+\item \textbf{(3 marks)}
+\begin{itemize}
+\item 1 mark: Correctly invokes monotone bounded convergence.
+\item 1 mark: Correct fixed-point equation $L=2-1/L$.
+\item 1 mark: Correct limit $L=1$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 5 (Power series and absolute convergence, 20 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Find the interval of convergence of the following power series, and for every $x\in\R$, determine whether the series converges absolutely, converges conditionally or diverges at $x$. Justify your answer.
+\[
+\sum_{n=2}^{\infty}\frac{(3x-7)^n}{n\ln n}.
+\]
+
+\item Let $\{a_n\}_{n=1}^{\infty}$ be a sequence such that
+\[
+\lim_{n\to\infty} n^2a_n=M
+\]
+for some real number $M\in\R$. Does the series
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converge absolutely? Justify your answer.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Ratio test, endpoint tests, and direct comparison}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+u=3x-7.
+\]
+The series becomes
+\[
+\sum_{n=2}^{\infty}\frac{u^n}{n\ln n}.
+\]
+For the absolute series, define
+\[
+A_n=\left|\frac{u^n}{n\ln n}\right|
+=\frac{|u|^n}{n\ln n}.
+\]
+Use the Ratio Test:
+\begin{align*}
+\frac{A_{n+1}}{A_n}
+&=
+\frac{|u|^{n+1}}{(n+1)\ln(n+1)}\cdot \frac{n\ln n}{|u|^n}\\
+&=
+|u|\cdot \frac{n}{n+1}\cdot \frac{\ln n}{\ln(n+1)}.
+\end{align*}
+Now
+\[
+\lim_{n\to\infty}\frac{n}{n+1}=1.
+\]
+Also,
+\[
+\lim_{n\to\infty}\frac{\ln n}{\ln(n+1)}=1,
+\]
+because both logarithms have the same leading growth. Hence
+\[
+\lim_{n\to\infty}\frac{A_{n+1}}{A_n}
+=
+|u|
+=
+|3x-7|.
+\]
+By the Ratio Test:
+\[
+|3x-7|<1
+\quad\Longrightarrow\quad
+\text{absolute convergence},
+\]
+and
+\[
+|3x-7|>1
+\quad\Longrightarrow\quad
+\text{divergence}.
+\]
+Solving
+\[
+|3x-7|<1
+\]
+gives
+\[
+-1<3x-7<1.
+\]
+Thus
+\[
+6<3x<8,
+\]
+so
+\[
+2<x<\frac83.
+\]
+We now check the endpoints.
+
+At $x=\frac83$,
+\[
+3x-7=1.
+\]
+The series becomes
+\[
+\sum_{n=2}^{\infty}\frac1{n\ln n}.
+\]
+Use the Integral Test with
+\[
+f(t)=\frac1{t\ln t},\qquad t\ge 2.
+\]
+The function is positive and decreasing on $[2,\infty)$, and
+\begin{align*}
+\int_2^\infty \frac1{t\ln t}\dd t
+&=
+\lim_{b\to\infty}\int_2^b \frac1{t\ln t}\dd t\\
+&=
+\lim_{b\to\infty}\left[\ln(\ln t)\right]_2^b\\
+&=
+\lim_{b\to\infty}\left(\ln(\ln b)-\ln(\ln 2)\right)\\
+&=\infty.
+\end{align*}
+Hence
+\[
+\sum_{n=2}^{\infty}\frac1{n\ln n}
+\]
+diverges. Therefore the original series diverges at $x=8/3$.
+
+At $x=2$,
+\[
+3x-7=-1.
+\]
+The series becomes
+\[
+\sum_{n=2}^{\infty}\frac{(-1)^n}{n\ln n}.
+\]
+Let
+\[
+b_n=\frac1{n\ln n}.
+\]
+We have
+\[
+\lim_{n\to\infty}b_n=0.
+\]
+Also, for $n\ge 2$, the function
+\[
+g(t)=t\ln t
+\]
+is increasing because
+\[
+g'(t)=\ln t+1>0.
+\]
+Hence $n\ln n$ is increasing and therefore $b_n=1/(n\ln n)$ is decreasing. By the Alternating Series Test,
+\[
+\sum_{n=2}^{\infty}\frac{(-1)^n}{n\ln n}
+\]
+converges. However, its absolute series is
+\[
+\sum_{n=2}^{\infty}\frac1{n\ln n},
+\]
+which diverges by the preceding endpoint calculation. Thus the convergence at $x=2$ is conditional.
+
+Therefore, the interval of convergence is
+\[
+\boxed{\left[2,\frac83\right).}
+\]
+The full classification is
+\[
+\boxed{
+\begin{array}{ll}
+\text{converges absolutely}, & 2<x<\frac83,\\[0.2em]
+\text{converges conditionally}, & x=2,\\[0.2em]
+\text{diverges}, & x<2\text{ or }x\ge \frac83.
+\end{array}}
+\]
+
+\item We are given
+\[
+\lim_{n\to\infty}n^2a_n=M.
+\]
+To prove absolute convergence, it is enough to compare $|a_n|$ with a constant multiple of $1/n^2$.
+
+Since
+\[
+n^2a_n\to M,
+\]
+there exists $N\in\N$ such that for all $n\ge N$,
+\[
+|n^2a_n-M|<1.
+\]
+Then
+\[
+|n^2a_n|
+=
+|(n^2a_n-M)+M|
+\le
+|n^2a_n-M|+|M|
+<
+1+|M|.
+\]
+Therefore, for all $n\ge N$,
+\[
+|a_n|<\frac{|M|+1}{n^2}.
+\]
+The comparison series
+\[
+\sum_{n=N}^{\infty}\frac{|M|+1}{n^2}
+\]
+converges because it is a constant multiple of a $p$-series with $p=2>1$. Hence, by the Comparison Test,
+\[
+\sum_{n=N}^{\infty}|a_n|
+\]
+converges. Adding or removing finitely many terms does not affect convergence, so
+\[
+\sum_{n=1}^{\infty}|a_n|
+\]
+converges. Therefore
+\[
+\boxed{\sum_{n=1}^{\infty}a_n\text{ converges absolutely}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Cauchy--Hadamard radius check and limiting comparison cases}
+
+\begin{enumerate}[label=(\alph*)]
+\item Rewrite
+\[
+3x-7=3\left(x-\frac73\right).
+\]
+Hence
+\[
+\sum_{n=2}^{\infty}\frac{(3x-7)^n}{n\ln n}
+=
+\sum_{n=2}^{\infty}
+\frac{3^n}{n\ln n}
+\left(x-\frac73\right)^n.
+\]
+This is a power series centered at $7/3$, with coefficients
+\[
+c_n=\frac{3^n}{n\ln n}
+\qquad (n\ge 2).
+\]
+By the Cauchy--Hadamard formula,
+\[
+R=
+\frac{1}{\limsup\limits_{n\to\infty}\sqrt[n]{|c_n|}}.
+\]
+Now
+\[
+\sqrt[n]{|c_n|}
+=
+\sqrt[n]{\frac{3^n}{n\ln n}}
+=
+\frac{3}{\sqrt[n]{n\ln n}}.
+\]
+Since
+\[
+\lim_{n\to\infty}\sqrt[n]{n\ln n}=1,
+\]
+we get
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}=3.
+\]
+Thus
+\[
+R=\frac13.
+\]
+Therefore the power series converges absolutely for
+\[
+\left|x-\frac73\right|<\frac13,
+\]
+which gives
+\[
+2<x<\frac83.
+\]
+The endpoints are
+\[
+x=\frac73-\frac13=2,
+\qquad
+x=\frac73+\frac13=\frac83.
+\]
+At $x=2$, the series is
+\[
+\sum_{n=2}^{\infty}\frac{(-1)^n}{n\ln n},
+\]
+which converges by the Alternating Series Test and not absolutely because
+\[
+\sum_{n=2}^{\infty}\frac1{n\ln n}
+\]
+diverges. At $x=8/3$, the series becomes
+\[
+\sum_{n=2}^{\infty}\frac1{n\ln n},
+\]
+which diverges by the Integral Test. Therefore
+\[
+\boxed{
+\begin{array}{ll}
+\text{converges absolutely}, & 2<x<\frac83,\\[0.2em]
+\text{converges conditionally}, & x=2,\\[0.2em]
+\text{diverges}, & x<2\text{ or }x\ge \frac83.
+\end{array}}
+\]
+
+\item If $M\ne0$, then
+\[
+\lim_{n\to\infty}\frac{|a_n|}{1/n^2}
+=
+\lim_{n\to\infty}n^2|a_n|
+=
+|M|.
+\]
+Since $|M|\in(0,\infty)$, the Limit Comparison Test with $\sum 1/n^2$ gives absolute convergence.
+
+If $M=0$, then
+\[
+n^2a_n\to0.
+\]
+In particular, there exists $N\in\N$ such that for all $n\ge N$,
+\[
+|n^2a_n|<1.
+\]
+Therefore
+\[
+|a_n|<\frac1{n^2}
+\qquad(n\ge N).
+\]
+By comparison with $\sum 1/n^2$, the series
+\[
+\sum_{n=1}^{\infty}|a_n|
+\]
+converges.
+
+Thus, in all cases,
+\[
+\boxed{\sum_{n=1}^{\infty}a_n\text{ converges absolutely}.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(12 marks)}
+\begin{itemize}
+\item 3 marks: Correct ratio/root/Cauchy--Hadamard setup.
+\item 2 marks: Correctly obtains $|3x-7|<1$ or $R=1/3$ centered at $7/3$.
+\item 2 marks: Correctly identifies the open interval $(2,8/3)$.
+\item 2 marks: Correctly shows divergence at $x=8/3$.
+\item 2 marks: Correctly shows conditional convergence at $x=2$.
+\item 1 mark: Correct final classification for all real $x$.
+\end{itemize}
+
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correctly interprets $n^2a_n\to M$ as eventual boundedness of $n^2a_n$.
+\item 2 marks: Correctly derives $|a_n|\le C/n^2$ eventually.
+\item 2 marks: Correct comparison with a convergent $p$-series.
+\item 2 marks: Correct conclusion of absolute convergence.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 6 (Power series and Maclaurin series, 20 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Find a power series with center $c=1$ that represents the function
+\[
+f(x)=\frac1{3-x}.
+\]
+
+\item Using the Maclaurin series, find the fourth derivative $f^{(4)}(0)$ at the point $0$ of the function
+\[
+f(x)=\sin(2x)\sqrt{1+x}.
+\]
+
+\item Using power series or otherwise, find the sum
+\[
+\sum_{n=1}^{\infty}\frac{n}{(n+2)!}.
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Geometric expansion, coefficient extraction, and factorial telescoping}
+
+\begin{enumerate}[label=(\alph*)]
+\item We want a power series centered at $c=1$, so rewrite the denominator in terms of $x-1$:
+\[
+3-x=2-(x-1).
+\]
+Hence
+\begin{align*}
+\frac1{3-x}
+&=\frac1{2-(x-1)}\\
+&=\frac12\cdot \frac1{1-\frac{x-1}{2}}.
+\end{align*}
+Using the geometric series
+\[
+\frac1{1-r}=\sum_{n=0}^{\infty}r^n,
+\qquad |r|<1,
+\]
+with
+\[
+r=\frac{x-1}{2},
+\]
+we obtain
+\begin{align*}
+\frac1{3-x}
+&=\frac12\sum_{n=0}^{\infty}\left(\frac{x-1}{2}\right)^n\\
+&=\sum_{n=0}^{\infty}\frac{(x-1)^n}{2^{n+1}}.
+\end{align*}
+The condition for convergence is
+\[
+\left|\frac{x-1}{2}\right|<1,
+\]
+so
+\[
+|x-1|<2.
+\]
+Thus the representation is
+\[
+\boxed{\frac1{3-x}=\sum_{n=0}^{\infty}\frac{(x-1)^n}{2^{n+1}},
+\qquad |x-1|<2.}
+\]
+
+\item We need the coefficient of $x^4$ in the Maclaurin series of
+\[
+f(x)=\sin(2x)\sqrt{1+x}.
+\]
+Use the standard Maclaurin series
+\[
+\sin z=z-\frac{z^3}{3!}+\frac{z^5}{5!}-\cdots.
+\]
+With $z=2x$,
+\[
+\sin(2x)=2x-\frac{(2x)^3}{3!}+O(x^5)
+=
+2x-\frac43x^3+O(x^5).
+\]
+Also, by the binomial series,
+\[
+(1+x)^{1/2}
+=
+1+\frac12x+\frac{(1/2)(-1/2)}{2!}x^2
++\frac{(1/2)(-1/2)(-3/2)}{3!}x^3
++O(x^4).
+\]
+Compute the coefficients:
+\[
+\frac{(1/2)(-1/2)}{2!}=-\frac18,
+\]
+and
+\[
+\frac{(1/2)(-1/2)(-3/2)}{3!}
+=
+\frac{3}{8}\cdot\frac1{6}
+=
+\frac1{16}.
+\]
+Thus
+\[
+\sqrt{1+x}
+=
+1+\frac12x-\frac18x^2+\frac1{16}x^3+O(x^4).
+\]
+Now multiply only the terms that can contribute to $x^4$:
+\begin{align*}
+\sin(2x)\sqrt{1+x}
+&=
+\left(2x-\frac43x^3+O(x^5)\right)
+\left(1+\frac12x-\frac18x^2+\frac1{16}x^3+O(x^4)\right).
+\end{align*}
+The $x^4$ coefficient comes from
+\[
+(2x)\left(\frac1{16}x^3\right)
+\quad\text{and}\quad
+\left(-\frac43x^3\right)\left(\frac12x\right).
+\]
+Therefore the coefficient of $x^4$ is
+\[
+2\cdot\frac1{16}-\frac43\cdot\frac12
+=
+\frac18-\frac23
+=
+\frac{3}{24}-\frac{16}{24}
+=
+-\frac{13}{24}.
+\]
+In a Maclaurin series,
+\[
+f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n.
+\]
+Hence
+\[
+\frac{f^{(4)}(0)}{4!}=-\frac{13}{24}.
+\]
+Since $4!=24$,
+\[
+f^{(4)}(0)=24\left(-\frac{13}{24}\right)=-13.
+\]
+Thus
+\[
+\boxed{f^{(4)}(0)=-13.}
+\]
+
+\item We evaluate
+\[
+S=\sum_{n=1}^{\infty}\frac{n}{(n+2)!}.
+\]
+Rewrite the numerator as
+\[
+n=(n+2)-2.
+\]
+Then
+\begin{align*}
+\frac{n}{(n+2)!}
+&=\frac{(n+2)-2}{(n+2)!}\\
+&=\frac{n+2}{(n+2)!}-\frac{2}{(n+2)!}\\
+&=\frac{1}{(n+1)!}-\frac{2}{(n+2)!}.
+\end{align*}
+Therefore
+\begin{align*}
+S
+&=
+\sum_{n=1}^{\infty}\left(\frac{1}{(n+1)!}-\frac{2}{(n+2)!}\right)\\
+&=
+\sum_{n=1}^{\infty}\frac{1}{(n+1)!}
+-
+2\sum_{n=1}^{\infty}\frac{1}{(n+2)!}.
+\end{align*}
+For the first sum, let $m=n+1$. Then $m$ runs from $2$ to $\infty$:
+\[
+\sum_{n=1}^{\infty}\frac{1}{(n+1)!}
+=
+\sum_{m=2}^{\infty}\frac{1}{m!}
+=
+\ee-1-1
+=
+\ee-2.
+\]
+For the second sum, let $m=n+2$. Then $m$ runs from $3$ to $\infty$:
+\[
+\sum_{n=1}^{\infty}\frac{1}{(n+2)!}
+=
+\sum_{m=3}^{\infty}\frac{1}{m!}
+=
+\ee-1-1-\frac12
+=
+\ee-\frac52.
+\]
+Thus
+\begin{align*}
+S
+&=(\ee-2)-2\left(\ee-\frac52\right)\\
+&=\ee-2-2\ee+5\\
+&=3-\ee.
+\end{align*}
+Therefore
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n}{(n+2)!}=3-\ee.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Leibniz derivative formula and exponential generating function}
+
+\begin{enumerate}[label=(\alph*)]
+\item The geometric-series derivation in Method 1 gives directly
+\[
+\boxed{\frac1{3-x}=\sum_{n=0}^{\infty}\frac{(x-1)^n}{2^{n+1}},
+\qquad |x-1|<2.}
+\]
+
+\item Let
+\[
+g(x)=\sin(2x),
+\qquad
+h(x)=\sqrt{1+x}=(1+x)^{1/2}.
+\]
+Then
+\[
+f(x)=g(x)h(x).
+\]
+By the Leibniz formula,
+\[
+f^{(4)}(0)
+=
+\sum_{k=0}^{4}\binom{4}{k}g^{(k)}(0)h^{(4-k)}(0).
+\]
+Now
+\[
+g(0)=0,\qquad g'(x)=2\cos(2x),\qquad g'(0)=2,
+\]
+\[
+g''(x)=-4\sin(2x),\qquad g''(0)=0,
+\]
+\[
+g'''(x)=-8\cos(2x),\qquad g'''(0)=-8,
+\]
+and
+\[
+g^{(4)}(x)=16\sin(2x),\qquad g^{(4)}(0)=0.
+\]
+Thus only the $k=1$ and $k=3$ terms contribute:
+\[
+f^{(4)}(0)
+=
+\binom41g'(0)h^{(3)}(0)
++
+\binom43g^{(3)}(0)h'(0).
+\]
+For
+\[
+h(x)=(1+x)^{1/2},
+\]
+we have
+\[
+h'(x)=\frac12(1+x)^{-1/2},
+\]
+so
+\[
+h'(0)=\frac12.
+\]
+Also
+\[
+h''(x)=\frac12\left(-\frac12\right)(1+x)^{-3/2},
+\]
+and
+\[
+h'''(x)=\frac12\left(-\frac12\right)\left(-\frac32\right)(1+x)^{-5/2}.
+\]
+Therefore
+\[
+h'''(0)=\frac12\left(-\frac12\right)\left(-\frac32\right)=\frac38.
+\]
+Substitute these values:
+\begin{align*}
+f^{(4)}(0)
+&=
+4(2)\left(\frac38\right)
++
+4(-8)\left(\frac12\right)\\
+&=3-16\\
+&=-13.
+\end{align*}
+Hence
+\[
+\boxed{f^{(4)}(0)=-13.}
+\]
+
+\item Define
+\[
+F(x)=\sum_{n=2}^{\infty}\frac{x^{n-2}}{n!}.
+\]
+Using the Maclaurin series
+\[
+\ee^x=\sum_{n=0}^{\infty}\frac{x^n}{n!},
+\]
+we get
+\[
+\ee^x-1-x=\sum_{n=2}^{\infty}\frac{x^n}{n!}.
+\]
+Dividing by $x^2$ gives
+\[
+F(x)=\frac{\ee^x-1-x}{x^2}.
+\]
+Differentiate termwise:
+\[
+F'(x)
+=
+\sum_{n=3}^{\infty}\frac{(n-2)x^{n-3}}{n!}.
+\]
+Let $m=n-2$. Then $n=m+2$, and as $n$ runs from $3$ to $\infty$, $m$ runs from $1$ to $\infty$. Hence
+\[
+F'(x)
+=
+\sum_{m=1}^{\infty}\frac{m x^{m-1}}{(m+2)!}.
+\]
+Therefore
+\[
+F'(1)=\sum_{m=1}^{\infty}\frac{m}{(m+2)!}.
+\]
+Now compute $F'(x)$ from
+\[
+F(x)=\frac{\ee^x-1-x}{x^2}.
+\]
+Using the quotient rule,
+\begin{align*}
+F'(x)
+&=
+\frac{x^2(\ee^x-1)-2x(\ee^x-1-x)}{x^4}.
+\end{align*}
+Thus
+\begin{align*}
+F'(1)
+&=
+\frac{1^2(\ee-1)-2(1)(\ee-1-1)}{1^4}\\
+&=
+(\ee-1)-2(\ee-2)\\
+&=
+\ee-1-2\ee+4\\
+&=
+3-\ee.
+\end{align*}
+Therefore
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{n}{(n+2)!}=3-\ee.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(6 marks)}
+\begin{itemize}
+\item 2 marks: Correctly rewrites $3-x=2-(x-1)$.
+\item 2 marks: Correctly applies the geometric series.
+\item 1 mark: Correct power series coefficients.
+\item 1 mark: Correct convergence condition $|x-1|<2$.
+\end{itemize}
+
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correct Maclaurin expansions for $\sin(2x)$ and $\sqrt{1+x}$ to sufficient order.
+\item 2 marks: Correctly identifies the terms contributing to the $x^4$ coefficient.
+\item 2 marks: Correct coefficient $-13/24$.
+\item 2 marks: Correctly converts the coefficient into $f^{(4)}(0)=-13$.
+\end{itemize}
+
+\item \textbf{(6 marks)}
+\begin{itemize}
+\item 2 marks: Correctly rewrites or generates the summand.
+\item 2 marks: Correct use of the exponential series or equivalent factorial-sum identities.
+\item 2 marks: Correct final sum $3-\ee$.
+\end{itemize}
+\end{enumerate}
+
+\end{document}

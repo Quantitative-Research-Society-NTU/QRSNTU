@@ -1,0 +1,899 @@
+\section{Formula \& Key Results Reference}
+
+%==================================================
+\subsection*{Chapter 1: Vector Spaces and Subspaces}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Vector space over $\mathbb F$.} A nonempty set $V$ with addition and scalar multiplication satisfying the usual axioms.
+
+\item \textbf{Subspace.} For $W\subseteq V$,
+\[
+W\le V \iff W\text{ is a vector space under the restricted operations from }V.
+\]
+
+\item \textbf{Linear combination / span.} For $S\subseteq V$,
+\[
+\Span(S)=\{\text{all finite linear combinations of vectors from }S\}.
+\]
+Convention: $\Span(\varnothing)=\{0\}$.
+
+\item \textbf{Sum and intersection of subspaces.} For $V_1,\dots,V_n\le V$,
+\[
+V_1+\cdots+V_n=\{v_1+\cdots+v_n:\ v_i\in V_i\},
+\qquad
+\bigcap_{i=1}^n V_i=\{v\in V:\ v\in V_i\ \forall i\}.
+\]
+
+\item \textbf{Direct sum.} 
+\[
+W=V_1\oplus\cdots\oplus V_n
+\]
+means $W=V_1+\cdots+V_n$ and each $w\in W$ has a unique decomposition $w=v_1+\cdots+v_n$ with $v_i\in V_i$.
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Subspace Test.}
+\[
+W\le V \iff \Bigl(W\neq\varnothing\ \wedge\ u,v\in W\Rightarrow u+v\in W\ \wedge\ c\in\mathbb F,\ u\in W\Rightarrow cu\in W\Bigr).
+\]
+
+\item \textbf{One-line subspace test.}
+\[
+W\le V \iff \Bigl(W\neq\varnothing\ \wedge\ \forall u,v\in W,\forall c\in\mathbb F:\ cu+v\in W\Bigr).
+\]
+
+\item \textbf{Span is a subspace and smallest containing subspace.}
+\[
+S\subseteq \Span(S),\qquad \Span(S)\le V,
+\qquad
+S\subseteq W\le V\Rightarrow \Span(S)\subseteq W.
+\]
+
+\item \textbf{Basic span identities.}
+\[
+A\subseteq B\Rightarrow \Span(A)\subseteq \Span(B),
+\qquad
+\Span(\Span(A))=\Span(A),
+\qquad
+\Span(A\cup B)=\Span(A)+\Span(B).
+\]
+
+\item \textbf{Intersection and sum of subspaces are subspaces.} If $V_i\le V$, then $\bigcap_i V_i\le V$ and $V_1+\cdots+V_n\le V$.
+
+\item \textbf{Union criterion.} For $W_1,W_2\le V$,
+\[
+W_1\cup W_2\le V \iff (W_1\subseteq W_2)\text{ or }(W_2\subseteq W_1).
+\]
+
+\item \textbf{Direct-sum zero-sum criterion.}
+\[
+V_1+\cdots+V_n=V_1\oplus\cdots\oplus V_n
+\iff
+\Bigl(\sum_{i=1}^n v_i=0,\ v_i\in V_i\Rightarrow v_1=\cdots=v_n=0\Bigr).
+\]
+
+\item \textbf{Two-subspace criterion.}
+\[
+W=U\oplus Z \iff \bigl(W=U+Z\bigr)\ \wedge\ \bigl(U\cap Z=\{0\}\bigr).
+\]
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Derived vector-space identities.}
+\[
+-(-u)=u,
+\qquad
+0_{\mathbb F}u=0_V,
+\qquad
+(-1)u=-u,
+\qquad
+c0_V=0_V.
+\]
+
+\item \textbf{Immediate subspace consequences.} If $W\le V$, then
+\[
+0\in W,
+\qquad
+u\in W\Rightarrow -u\in W,
+\qquad
+u,v\in W\Rightarrow u-v\in W.
+\]
+
+\item \textbf{Fast disproof.}
+\[
+0\notin W\Rightarrow W\not\le V.
+\]
+
+\item \textbf{Kernel viewpoint.} If $T:V\to U$ is linear, then
+\[
+\ker(T)=\{v\in V:T(v)=0\}\le V.
+\]
+Homogeneous linear conditions usually define subspaces.
+
+\item \textbf{Affine-subspace criterion.} For fixed $b\in V$,
+\[
+\{\lambda_1a_1+\cdots+\lambda_n a_n+b:\lambda_i\in\mathbb F\}\le V
+\iff
+b\in\Span\{a_1,\dots,a_n\}.
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Subspace proof routes.} Use: (i) Subspace Test; (ii) identify as a kernel/solution space of homogeneous linear equations; (iii) show $W=\Span(S)$.
+
+\item \textbf{Direct-sum workflow.} Show $V=U+W$ and $U\cap W=\{0\}$; or use the zero-sum criterion.
+
+\item \textbf{Sum-map reformulation.} For $U,W\le V$, define $\phi:U\times W\to V$ by $\phi(u,w)=u+w$.
+Then
+\[
+\operatorname{Im}(\phi)=U+W,
+\qquad
+\ker(\phi)\cong U\cap W.
+\]
+Hence $U\oplus W$ iff $\phi$ is injective.
+\end{itemize}
+
+%==================================================
+\subsection*{Chapter 2: Finite-Dimensional Vector Spaces}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Linear independence.} $S\subseteq V$ is linearly independent (LI) iff every finite relation
+\[
+\lambda_1v_1+\cdots+\lambda_n v_n=0
+\]
+with distinct $v_i\in S$ forces $\lambda_1=\cdots=\lambda_n=0$.
+
+\item \textbf{Basis.} $B\subseteq V$ is a basis iff $B$ is LI and $\Span(B)=V$.
+
+\item \textbf{Ordered basis and coordinates.} If $\mathcal B=(b_1,\dots,b_n)$ is an ordered basis and
+\[
+v=\sum_{i=1}^n c_i b_i,
+\]
+then
+\[
+[v]_{\mathcal B}=\begin{pmatrix}c_1\\ \vdots\\ c_n\end{pmatrix}\in\mathbb F^{n,1}.
+\]
+
+\item \textbf{Finite-dimensional / dimension.} $V$ is finite-dimensional iff it has a finite basis; then
+\[
+\dim(V)=|B|\quad\text{for any basis }B.
+\]
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Dependence criterion.} A set $S$ is linearly dependent iff one vector in $S$ lies in the span of the others.
+
+\item \textbf{Unique expansion in a basis.} If $B$ is a basis of $V$, every $v\in V$ has a unique expression as a finite linear combination of vectors in $B$.
+
+\item \textbf{Basis existence.} Every vector space has a basis.
+
+\item \textbf{Size-Limitation Lemma.} If $V$ has a basis of size $n$, then every LI subset of $V$ has size at most $n$.
+
+\item \textbf{Well-defined dimension.} In a finite-dimensional space, all bases have the same size.
+
+\item \textbf{Basis extension / extraction.} If $\dim(V)<\infty$:
+\begin{align*}
+&\text{any LI subset extends to a basis},\\
+&\text{any spanning set contains a basis}.
+\end{align*}
+
+\item \textbf{Subspaces of finite-dimensional spaces are finite-dimensional.} If $W\le V$ and $\dim(V)<\infty$, then $\dim(W)\le \dim(V)$.
+
+\item \textbf{Dimension formula.} If $U,W\le V$ and $\dim(V)<\infty$, then
+\[
+\dim(U+W)=\dim(U)+\dim(W)-\dim(U\cap W).
+\]
+
+\item \textbf{Direct-sum dimension formula.} If $V=U\oplus W$ and $\dim(V)<\infty$, then
+\[
+\dim(V)=\dim(U)+\dim(W).
+\]
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Quick LI facts.}
+\[
+\varnothing\text{ is LI},
+\qquad
+\{v\}\text{ is LI }\iff v\neq 0,
+\qquad
+S\text{ dependent}\Rightarrow\text{ every superset dependent}.
+\]
+
+\item \textbf{Matrix LI test in $\mathbb F^m$.} For $A=[v_1\ \cdots\ v_n]$,
+\[
+\{v_1,\dots,v_n\}\text{ LI}
+\iff A\lambda=0\text{ has only the trivial solution}
+\iff\text{every column of }\operatorname{rref}(A)\text{ is a pivot column}.
+\]
+
+\item \textbf{Dimension bounds in an $n$-dimensional space.}
+\[
+\text{LI set }\Rightarrow |S|\le n,
+\qquad
+\text{spanning set }\Rightarrow |S|\ge n.
+\]
+
+\item \textbf{Exact-$n$ criterion.} If $\dim(V)=n$ and $|S|=n$, then
+\[
+S\text{ basis}
+\iff S\text{ spans }V
+\iff S\text{ is LI}.
+\]
+
+\item \textbf{Standard dimensions.}
+\[
+\dim(\mathbb F^n)=n,
+\qquad
+\dim(\mathcal P_n(\mathbb F))=n+1,
+\qquad
+\dim(\mathbb F^{m,n})=mn.
+\]
+
+\item \textbf{Common matrix-subspace dimensions.}
+\[
+\dim\{A\in\mathbb R^{n,n}:A^\mathsf T=A\}=\frac{n(n+1)}{2},
+\qquad
+\dim\{A\in\mathbb R^{n,n}:A^\mathsf T=-A\}=\frac{n(n-1)}{2},
+\]
+\[
+\dim\{A\in\mathbb R^{n,n}:A\text{ upper triangular}\}=\frac{n(n+1)}{2},
+\qquad
+\dim\{A\in\mathbb F^{n,n}:\operatorname{tr}(A)=0\}=n^2-1.
+\]
+
+\item \textbf{Direct sum via dimensions.} For $U,W\le V$ with $\dim(V)<\infty$,
+\[
+V=U\oplus W
+\iff
+\bigl(V=U+W\bigr)\ \wedge\ \bigl(\dim(U)+\dim(W)=\dim(V)\bigr).
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Basis test.} Prove spanning $+$ LI; or, if the number of vectors equals $\dim(V)$, prove only one of the two.
+
+\item \textbf{Coordinates in $\mathbb R^n$.} If $P=[b_1\ \cdots\ b_n]$, then
+\[
+[v]_{\mathcal B}=P^{-1}v.
+\]
+Equivalently row-reduce $[\,b_1\ \cdots\ b_n\mid v\,]$.
+
+\item \textbf{Extend LI set to a basis.} Append vectors from a known spanning set or standard basis and discard redundant additions.
+
+\item \textbf{Extract a basis from a spanning set.} Remove vectors that lie in the span of earlier/remaining vectors until LI remains.
+
+\item \textbf{Dimension problems.} Compute $\dim(U\cap W)$ via
+\[
+\dim(U\cap W)=\dim(U)+\dim(W)-\dim(U+W).
+\]
+\end{itemize}
+
+%==================================================
+\subsection*{Chapter 3: Linear Transformations}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Linear map.} $T:V\to W$ is linear iff
+\[
+T(u+v)=T(u)+T(v),
+\qquad
+T(cu)=cT(u)
+\quad(\forall u,v\in V,\ c\in\mathbb F),
+\]
+equivalently,
+\[
+T(\alpha u+\beta v)=\alpha T(u)+\beta T(v).
+\]
+
+\item \textbf{Space of linear maps.}
+\[
+\mathcal L(V,W)=\{T:V\to W:\ T\text{ linear}\},
+\qquad
+\mathcal L(V)=\mathcal L(V,V).
+\]
+
+\item \textbf{Kernel / range.}
+\[
+\Null(T)=\ker(T)=\{v\in V:T(v)=0\},
+\qquad
+\Range(T)=\operatorname{im}(T)=\{T(v):v\in V\}.
+\]
+
+\item \textbf{Rank / nullity.}
+\[
+\operatorname{Rank}(T)=\dim(\Range(T)),
+\qquad
+\operatorname{Nullity}(T)=\dim(\Null(T)).
+\]
+
+\item \textbf{Injective / surjective / bijective.} Standard meanings for a map $T:V\to W$.
+
+\item \textbf{Invertible linear map.} $T\in\mathcal L(V,W)$ is invertible iff there exists $S:W\to V$ such that
+\[
+S\circ T=I_V,
+\qquad
+T\circ S=I_W.
+\]
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{$\mathcal L(V,W)$ is a vector space.} Under pointwise addition and scalar multiplication.
+
+\item \textbf{Kernel and range are subspaces.}
+\[
+\Null(T)\le V,
+\qquad
+\Range(T)\le W.
+\]
+
+\item \textbf{Preimage of a subspace is a subspace.} If $U\le W$, then
+\[
+T^{-1}(U)=\{v\in V:T(v)\in U\}\le V.
+\]
+
+\item \textbf{Rank--Nullity.} If $\dim(V)<\infty$ and $T\in\mathcal L(V,W)$, then
+\[
+\dim(V)=\operatorname{Rank}(T)+\operatorname{Nullity}(T).
+\]
+
+\item \textbf{Injectivity via kernel.}
+\[
+T\text{ injective}\iff \Null(T)=\{0\}.
+\]
+
+\item \textbf{Invertibility $\iff$ bijectivity.} A linear map is invertible iff it is bijective; if invertible, then $T^{-1}$ is linear.
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Linearity quick checks.}
+\[
+T(0)=0,
+\qquad
+T(-v)=-T(v).
+\]
+
+\item \textbf{Finite-dimensional criteria.}
+\[
+T\text{ injective}
+\iff \operatorname{Nullity}(T)=0,
+\qquad
+T\text{ surjective}
+\iff \operatorname{Rank}(T)=\dim(W).
+\]
+
+\item \textbf{Equal-dimension criterion.} If $\dim(V)=\dim(W)$, then
+\[
+T\text{ injective}
+\iff T\text{ surjective}
+\iff T\text{ bijective}
+\iff T\text{ invertible}.
+\]
+
+\item \textbf{Composition facts.}
+\[
+S,T\text{ invertible}\Rightarrow (T\circ S)^{-1}=S^{-1}\circ T^{-1}.
+\]
+Also,
+\[
+T\circ S\text{ injective}\Rightarrow S\text{ injective},
+\qquad
+T\circ S\text{ surjective}\Rightarrow T\text{ surjective}.
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Linearity test.} Check $T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)$ directly.
+
+\item \textbf{Kernel / range workflow.} Compute $\ker(T)$ and $\operatorname{im}(T)$; then apply Rank--Nullity and infer injectivity/surjectivity.
+
+\item \textbf{Polynomial / matrix operator workflow.} On $\mathcal P_n$ or matrix spaces, evaluate $T$ on a chosen basis; kernel and range then become linear-system questions in coordinates.
+\end{itemize}
+
+%==================================================
+\subsection*{Chapter 4: Matrix Representations and Change of Basis}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Ordered basis and coordinate map.} For $\beta=(b_1,\dots,b_n)$,
+\[
+[v]_\beta=\begin{pmatrix}c_1\\ \vdots\\ c_n\end{pmatrix}
+\iff
+v=\sum_{i=1}^n c_i b_i.
+\]
+
+\item \textbf{Matrix representation of a linear map.} For $T:V\to W$ with ordered bases $\beta=(b_1,\dots,b_n)$ for $V$ and $\gamma=(c_1,\dots,c_m)$ for $W$,
+\[
+[T]^{\gamma}_{\beta}=
+\begin{bmatrix}
+[T(b_1)]_\gamma & \cdots & [T(b_n)]_\gamma
+\end{bmatrix}\in\mathbb F^{m\times n}.
+\]
+
+\item \textbf{Change-of-coordinate matrix.} For ordered bases $\beta,\gamma$ of $V$,
+\[
+[I_V]^{\gamma}_{\beta}
+\]
+converts $\beta$-coordinates to $\gamma$-coordinates.
+
+\item \textbf{Similarity.} For $A,B\in\mathbb F^{n\times n}$,
+\[
+A\sim B \iff \exists Q\text{ invertible such that }B=Q^{-1}AQ.
+\]
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Coordinate map is a linear isomorphism.}
+\[
+[\cdot]_\beta:V\to \mathbb F^{n,1}
+\]
+is a linear isomorphism.
+
+\item \textbf{Fundamental coordinate identity.}
+\[
+[T(v)]_\gamma=[T]^{\gamma}_{\beta}[v]_\beta
+\qquad(\forall v\in V).
+\]
+
+\item \textbf{Composition corresponds to multiplication.} If $S:U\to V$ and $T:V\to W$ are linear, then
+\[
+[T\circ S]^{\gamma}_{\alpha}=[T]^{\gamma}_{\beta}[S]^{\beta}_{\alpha}.
+\]
+
+\item \textbf{Coordinate conversion.}
+\[
+[v]_\gamma=[I_V]^{\gamma}_{\beta}[v]_\beta,
+\qquad
+[I_V]^{\beta}_{\gamma}=\bigl([I_V]^{\gamma}_{\beta}\bigr)^{-1}.
+\]
+
+\item \textbf{Inverse map / inverse matrix.} If $T\in\mathcal L(V)$ is invertible, then
+\[
+[T^{-1}]^{\beta}_{\beta}=\bigl([T]^{\beta}_{\beta}\bigr)^{-1}.
+\]
+
+\item \textbf{Change-of-basis formula for one operator.} For $T\in\mathcal L(V)$ and ordered bases $\beta,\gamma$ of $V$,
+\[
+[T]^{\gamma}_{\gamma}=[I_V]^{\gamma}_{\beta}[T]^{\beta}_{\beta}[I_V]^{\beta}_{\gamma}.
+\]
+
+\item \textbf{Similarity invariants.} If $A\sim B$, then
+\[
+\det(A)=\det(B),
+\qquad
+\operatorname{tr}(A)=\operatorname{tr}(B).
+\]
+
+\item \textbf{Matrix representations in different bases are similar.}
+\[
+[T]^{\beta}_{\beta}\sim [T]^{\gamma}_{\gamma}.
+\]
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Size check for $[T]^{\gamma}_{\beta}$.}
+\[
+[T]^{\gamma}_{\beta}\in\mathbb F^{(\dim W)\times(\dim V)}.
+\]
+Rows = codomain dimension; columns = domain dimension.
+
+\item \textbf{Read-off-columns rule.} The $j$th column of $[T]^{\gamma}_{\beta}$ is $[T(b_j)]_\gamma$.
+
+\item \textbf{Change of basis via a standard basis $\sigma$.}
+\[
+[I_V]^{\gamma}_{\beta}=\bigl([I_V]^{\sigma}_{\gamma}\bigr)^{-1}[I_V]^{\sigma}_{\beta}.
+\]
+If $V=\mathbb F^n$, then
+\[
+[I_V]^{\sigma}_{\beta}=
+\begin{bmatrix}[b_1]_\sigma&\cdots&[b_n]_\sigma\end{bmatrix}.
+\]
+
+\item \textbf{Triangular-shape criterion.} If
+\[
+T(v_k)\in\Span(w_1,\dots,w_k)\quad(\forall k),
+\]
+then $[T]^{\gamma}_{\beta}$ is upper triangular for $\beta=(v_1,\dots,v_n)$ and $\gamma=(w_1,\dots,w_n)$.
+
+\item \textbf{$2\times 2$ characteristic identity.} For $A\in\mathbb F^{2\times 2}$,
+\[
+\det(A-\lambda I_2)=\lambda^2-\operatorname{tr}(A)\lambda+\det(A).
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Build $[T]^{\gamma}_{\beta}$.} Compute $T(b_j)$ for each domain basis vector, express each in the codomain basis, use these coordinate columns.
+
+\item \textbf{Build $[I_V]^{\gamma}_{\beta}$.} Express each $b_j$ in the basis $\gamma$; those coordinate vectors are the columns.
+
+\item \textbf{Fast row-reduction trick for basis change.} If $P_\beta=[I_V]^{\sigma}_{\beta}$ and $P_\gamma=[I_V]^{\sigma}_{\gamma}$, then
+\[
+[I_V]^{\gamma}_{\beta}=P_\gamma^{-1}P_\beta.
+\]
+
+\item \textbf{Exam workflow for iterates.} If $[T]^{\beta}_{\beta}$ is diagonal or triangular in a well-chosen basis, compute powers there first, then convert back.
+\end{itemize}
+
+%==================================================
+\subsection*{Chapter 5: Eigenvalues, Diagonalization, and Structure Theory}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Eigenvalue / eigenvector.} For $T\in\mathcal L(V)$,
+\[
+T(v)=\lambda v\quad\text{with }v\neq 0.
+\]
+
+\item \textbf{Eigenspace.}
+\[
+E_{T,\lambda}=\ker(T-\lambda I_V).
+\]
+
+\item \textbf{Characteristic polynomial.} If $\dim(V)=n$,
+\[
+p_T(\lambda)=\det([T]^{\beta}_{\beta}-\lambda I_n),
+\]
+independent of basis $\beta$.
+
+\item \textbf{Diagonalizable.} $T\in\mathcal L(V)$ is diagonalizable iff $V$ has a basis consisting of eigenvectors of $T$.
+
+\item \textbf{Algebraic / geometric multiplicity.} For an eigenvalue $\lambda$:
+\[
+\operatorname{algmult}(\lambda)=\text{multiplicity of }\lambda\text{ as a root of }p_T,
+\qquad
+\operatorname{geomult}(\lambda)=\dim(E_{T,\lambda}).
+\]
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Eigenvalue equivalences.}
+\[
+\lambda\text{ eigenvalue}
+\iff E_{T,\lambda}\neq\{0\}
+\iff T-\lambda I_V\text{ not injective}.
+\]
+In finite dimensions,
+\[
+\lambda\text{ eigenvalue}
+\iff T-\lambda I_V\text{ not invertible}
+\iff \det([T]^{\beta}_{\beta}-\lambda I)=0.
+\]
+
+\item \textbf{Zero eigenvalue criterion.}
+\[
+0\text{ eigenvalue of }T \iff T\text{ not injective}.
+\]
+
+\item \textbf{Characteristic polynomial is basis-independent.}
+
+\item \textbf{Eigenvalues are roots of $p_T$.} In particular, a linear operator on an $n$-dimensional space has at most $n$ eigenvalues in $\mathbb F$.
+
+\item \textbf{Distinct eigenvalues give LI eigenvectors.}
+
+\item \textbf{Distinct eigenspaces sum directly.}
+\[
+E_{T,\lambda_1}+\cdots+E_{T,\lambda_k}
+=
+E_{T,\lambda_1}\oplus\cdots\oplus E_{T,\lambda_k}
+\qquad(\lambda_i\text{ distinct}).
+\]
+
+\item \textbf{Dimension bound for eigenspaces.}
+\[
+\sum_{\lambda\text{ eigenvalue}}\dim(E_{T,\lambda})\le \dim(V).
+\]
+
+\item \textbf{Fundamental Theorem of Diagonalizability.} For finite-dimensional $V$,
+\[
+T\text{ diagonalizable}
+\iff
+V=\bigoplus_{\lambda}E_{T,\lambda}
+\iff
+\dim(V)=\sum_{\lambda}\dim(E_{T,\lambda}).
+\]
+
+\item \textbf{Distinct-eigenvalue criterion.} If $\dim(V)=n$ and $T$ has $n$ distinct eigenvalues in $\mathbb F$, then $T$ is diagonalizable.
+
+\item \textbf{Multiplicity criterion.} $T$ is diagonalizable iff:
+\begin{enumerate}[leftmargin=*]
+\item $p_T$ splits completely over $\mathbb F$;
+\item for every eigenvalue $\lambda$,
+\[
+\operatorname{geomult}(\lambda)=\operatorname{algmult}(\lambda).
+\]
+\end{enumerate}
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Diagonalization as $A=PDP^{-1}$.} If $\beta=(v_1,\dots,v_n)$ is an eigenbasis with eigenvalues $\lambda_1,\dots,\lambda_n$, then
+\[
+P=[I_V]^{\sigma}_{\beta}=[\,v_1\ \cdots\ v_n\,],
+\qquad
+D=[T]^{\beta}_{\beta}=\operatorname{diag}(\lambda_1,\dots,\lambda_n),
+\]
+so
+\[
+[T]^{\sigma}_{\sigma}=PDP^{-1}.
+\]
+Columns of $P$ are eigenvectors, in the same order as diagonal entries of $D$.
+
+\item \textbf{Powers / polynomials via diagonalization.} If $A=PDP^{-1}$, then
+\[
+A^k=PD^kP^{-1},
+\qquad
+D^k=\operatorname{diag}(\lambda_1^k,\dots,\lambda_n^k).
+\]
+More generally, for $p(t)=\sum a_j t^j$,
+\[
+p(A)=P\,p(D)\,P^{-1},
+\qquad
+p(D)=\operatorname{diag}(p(\lambda_1),\dots,p(\lambda_n)).
+\]
+
+\item \textbf{Field dependence.} Eigenvalues are roots in the base field only.
+
+\item \textbf{Multiplicity inequalities.}
+\[
+1\le \operatorname{geomult}(\lambda)\le \operatorname{algmult}(\lambda).
+\]
+
+\item \textbf{Nilpotent diagnostic.} If $T^m=0$ for some $m\ge 1$, then the only possible eigenvalue is $0$. Hence a nonzero nilpotent operator is not diagonalizable.
+
+\item \textbf{Solvability of $(T-\lambda I)v=b$.} In finite dimensions,
+\[
+\lambda\text{ not an eigenvalue}
+\iff T-\lambda I\text{ invertible}
+\iff (T-\lambda I)v=b\text{ has a unique solution for every }b.
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Eigenvalue workflow.} Compute $p_T(\lambda)$, solve $p_T(\lambda)=0$ in the correct field, then compute each eigenspace $\ker(T-\lambda I)$.
+
+\item \textbf{Diagonalizability checklist.}
+\begin{enumerate}[leftmargin=*]
+\item Find eigenvalues.
+\item Compute $\dim(E_{T,\lambda})$ for each eigenvalue.
+\item Check whether the eigenspace dimensions sum to $\dim(V)$.
+\item If yes, concatenate eigenspace bases to form an eigenbasis.
+\end{enumerate}
+
+\item \textbf{Iterates / recurrence workflow.} After diagonalizing $A=PDP^{-1}$, move the initial vector into the eigenbasis, apply $D^n$, then convert back.
+
+\item \textbf{Fast exam checks.}
+\begin{itemize}[leftmargin=*]
+\item Triangular matrix $\Rightarrow$ eigenvalues are diagonal entries.
+\item Repeated eigenvalue $\not\Rightarrow$ diagonalizable.
+\item Distinct eigenvalues $\Rightarrow$ diagonalizable.
+\end{itemize}
+\end{itemize}
+
+%==================================================
+\subsection*{Chapter 6: Inner Product Spaces}
+
+\subsubsection*{Definitions}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Inner product.} A map $\langle\cdot,\cdot\rangle:V\times V\to\mathbb F$ satisfying conjugate symmetry, linearity in the chosen slot, and positive-definiteness.
+
+\item \textbf{Norm / distance.}
+\[
+\|v\|=\sqrt{\langle v,v\rangle},
+\qquad
+d(u,v)=\|u-v\|.
+\]
+
+\item \textbf{Orthogonality.}
+\[
+u\perp v \iff \langle u,v\rangle=0.
+\]
+Orthogonal set: pairwise orthogonal. Orthonormal set: orthogonal and each vector has norm $1$.
+
+\item \textbf{Orthonormal basis (ONB).} A basis that is orthonormal.
+
+\item \textbf{Projection onto a nonzero vector.}
+\[
+\operatorname{proj}_u(v)=\frac{\langle u,v\rangle}{\langle u,u\rangle}u
+\qquad(u\neq 0).
+\]
+
+\item \textbf{Orthogonal complement.} For nonempty $A\subseteq V$,
+\[
+A^\perp=\{v\in V:\ \langle u,v\rangle=0\ \forall u\in A\}.
+\]
+
+\item \textbf{Orthogonal projection onto a subspace.} If $V=W\oplus W^\perp$, then for $v=p+q$ with $p\in W$, $q\in W^\perp$,
+\[
+P_W(v)=p.
+\]
+\end{itemize}
+
+\subsubsection*{Theorems}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Basic norm properties.}
+\[
+\|v\|\ge 0,
+\qquad
+\|v\|=0\iff v=0,
+\qquad
+\|cv\|=|c|\,\|v\|.
+\]
+
+\item \textbf{Cauchy--Schwarz.}
+\[
+|\langle u,v\rangle|\le \|u\|\,\|v\|.
+\]
+Equality iff $u,v$ are linearly dependent.
+
+\item \textbf{Triangle inequality.}
+\[
+\|u+v\|\le \|u\|+\|v\|.
+\]
+
+\item \textbf{Orthogonal nonzero sets are LI.}
+
+\item \textbf{Fourier coefficient formula in an ONB.} If $\beta$ is an ONB, then
+\[
+v=\sum_{u\in\beta}\langle u,v\rangle u.
+\]
+For a finite ONB $\beta=(u_1,\dots,u_n)$,
+\[
+v=\sum_{i=1}^n\langle u_i,v\rangle u_i.
+\]
+
+\item \textbf{Projection error is orthogonal.}
+\[
+u\perp \bigl(v-\operatorname{proj}_u(v)\bigr)
+\qquad(u\neq 0).
+\]
+
+\item \textbf{Gram--Schmidt.} For a basis $(b_1,\dots,b_n)$,
+\[
+v_1=b_1,
+\qquad
+v_k=b_k-\sum_{j=1}^{k-1}\operatorname{proj}_{v_j}(b_k)
+=b_k-\sum_{j=1}^{k-1}\frac{\langle v_j,b_k\rangle}{\langle v_j,v_j\rangle}v_j
+\quad(2\le k\le n).
+\]
+Then $(v_1,\dots,v_n)$ is orthogonal and
+\[
+\Span(v_1,\dots,v_k)=\Span(b_1,\dots,b_k)\quad(\forall k).
+\]
+Normalization gives an ONB.
+
+\item \textbf{Orthogonal complements are subspaces.}
+
+\item \textbf{Basic orthogonal-complement properties.}
+\[
+\{0\}^\perp=V,
+\qquad
+V^\perp=\{0\},
+\qquad
+A\subseteq B\Rightarrow B^\perp\subseteq A^\perp,
+\qquad
+A^\perp=\Span(A)^\perp.
+\]
+
+\item \textbf{Orthogonal direct sum decomposition.} If $\dim(V)<\infty$ and $W\le V$, then
+\[
+V=W\oplus W^\perp,
+\qquad
+\dim(V)=\dim(W)+\dim(W^\perp).
+\]
+
+\item \textbf{Double orthogonal complement.} If $\dim(V)<\infty$ and $W\le V$, then
+\[
+W^{\perp\perp}=W.
+\]
+
+\item \textbf{Projection formula for a subspace.} If $(b_1,\dots,b_m)$ is an ONB of $W$, then
+\[
+P_W(v)=\sum_{k=1}^m\langle b_k,v\rangle b_k,
+\qquad
+v-P_W(v)\in W^\perp.
+\]
+\end{itemize}
+
+\subsubsection*{Equivalences / Identities}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Orthogonal vs orthonormal.} Orthogonal means pairwise perpendicular; orthonormal additionally requires norm $1$.
+
+\item \textbf{Fourier formula for an orthogonal basis $\{u_i\}$.}
+\[
+v=\sum_i \frac{\langle u_i,v\rangle}{\langle u_i,u_i\rangle}u_i.
+\]
+The simpler coefficient formula requires an ONB.
+
+\item \textbf{Computing $W^\perp$ from a basis.} If $B$ is a basis of $W$, then
+\[
+W^\perp=\{v\in V:\ \langle b,v\rangle=0\ \forall b\in B\}.
+\]
+
+\item \textbf{Frobenius inner product.} On $\mathbb R^{n,n}$,
+\[
+\langle A,B\rangle_F=\operatorname{tr}(A^\mathsf T B)=\sum_{i,j}a_{ij}b_{ij}.
+\]
+Useful orthogonal-complement facts:
+\begin{align*}
+&D=\{\text{diagonal matrices}\}\Rightarrow D^\perp=\{A:a_{ii}=0\ \forall i\},\\
+&U=\{\text{upper triangular matrices}\}\Rightarrow U^\perp=\{\text{strictly lower triangular matrices}\}.
+\end{align*}
+
+\item \textbf{Least squares / normal equations.} For $y\in\mathbb R^{n,1}$ and $A\in\mathbb R^{n\times m}$,
+\[
+\min_b \|y-Ab\|^2
+\iff
+y-Ab\in\Range(A)^\perp
+\iff
+A^\mathsf T A\,b=A^\mathsf T y.
+\]
+\end{itemize}
+
+\subsubsection*{Algorithms / Templates}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Gram--Schmidt workflow.} Keep the orthogonal vectors unnormalized until the end; normalize only once.
+
+\item \textbf{Find $A^\perp$ for a finite set $A$.}
+\begin{enumerate}[leftmargin=*]
+\item Replace $A$ by a basis of $\Span(A)$.
+\item Solve the equations $\langle b,v\rangle=0$ for all basis vectors $b$.
+\end{enumerate}
+
+\item \textbf{Projection onto a subspace.}
+\begin{enumerate}[leftmargin=*]
+\item Find an ONB of $W$.
+\item Use $P_W(v)=\sum \langle b_k,v\rangle b_k$.
+\item The error vector is $v-P_W(v)\in W^\perp$.
+\end{enumerate}
+
+\item \textbf{Hyperplane shortcut in Euclidean spaces.} If
+\[
+W=\{x\in\mathbb R^n:Mx=0\},
+\]
+then
+\[
+W^\perp=\Span\{\text{rows of }M\}.
+\]
+
+\item \textbf{Frobenius-complement workflow.} Test against matrix units $E_{ij}$ to force specific entries to vanish.
+\end{itemize}

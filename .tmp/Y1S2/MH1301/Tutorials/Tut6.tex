@@ -1,0 +1,1719 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+% Cross-check file: :contentReference[oaicite:1]{index=1}
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 6}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial - QRS@NTU - qrsntu.org}
+\SetWatermarkScale{1.0}
+\SetWatermarkLightness{0.985}
+
+%------------- SHORTCUTS -------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.82\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.82\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This document covers the Week 7 tutorial-discussion set from the handout. The main themes are:
+\begin{itemize}[leftmargin=*]
+  \item solving coupled recurrence systems by elimination and matrix methods;
+  \item higher-order linear homogeneous recurrences with distinct roots and repeated roots;
+  \item non-homogeneous recurrences solved by undetermined coefficients, annihilators, and sequence transformations;
+  \item derivation of classical summation formulas from recurrence relations;
+  \item structural properties of recurrence-defined sequences, including induced recurrences and closure under linear combination.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Additional Exercise 1: simultaneous recurrences in two sequences.
+  \item Ex.\ 8.2.11 and Ex.\ 8.2.15: third-order homogeneous recurrences.
+  \item Ex.\ 8.2.22 and Ex.\ 8.2.25: non-homogeneous recurrences with polynomial and exponential forcing terms.
+  \item Ex.\ 8.2.26: sum of squares via recurrence methods.
+  \item Additional Exercise 2: a higher-order recurrence satisfied by Fibonacci numbers.
+  \item Additional Exercise 3: linear combinations of solutions.
+\end{itemize}
+
+\newpage
+%====================================================
+% TABLE OF CONTENTS
+%====================================================
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Additional Exercise 1: Simultaneous recurrence relations)}
+
+\subsection{Problem}
+Solve the simultaneous recurrence relations
+\[
+a_n=3a_{n-1}+2b_{n-1},\qquad
+b_n=a_{n-1}+2b_{n-1},
+\]
+with
+\[
+a_0=1,\qquad b_0=2.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Eliminate one sequence}
+We first eliminate \(a_n\) to obtain a recurrence purely in \(b_n\).
+
+From
+\[
+b_n=a_{n-1}+2b_{n-1},
+\]
+we get
+\[
+a_{n-1}=b_n-2b_{n-1}. \tag{1}
+\]
+Replacing \(n\) by \(n+1\) in \((1)\) gives
+\[
+a_n=b_{n+1}-2b_n. \tag{2}
+\]
+Now substitute \((1)\) and \((2)\) into
+\[
+a_n=3a_{n-1}+2b_{n-1}.
+\]
+Using \((2)\) on the left-hand side and \((1)\) on the right-hand side,
+\[
+b_{n+1}-2b_n=3(b_n-2b_{n-1})+2b_{n-1}.
+\]
+Hence
+\[
+b_{n+1}-2b_n=3b_n-6b_{n-1}+2b_{n-1}=3b_n-4b_{n-1},
+\]
+so
+\[
+b_{n+1}=5b_n-4b_{n-1}. \tag{3}
+\]
+
+We now solve \((3)\). Its characteristic equation is
+\[
+r^2-5r+4=0,
+\]
+which factors as
+\[
+(r-4)(r-1)=0.
+\]
+Thus
+\[
+b_n=h_1\,4^n+h_2.
+\]
+
+We need two initial values. We already have
+\[
+b_0=2.
+\]
+Also,
+\[
+b_1=a_0+2b_0=1+2(2)=5.
+\]
+Therefore
+\[
+2=h_1+h_2,\qquad 5=4h_1+h_2.
+\]
+Subtracting gives
+\[
+3=3h_1 \implies h_1=1,
+\]
+and hence
+\[
+h_2=1.
+\]
+Therefore
+\[
+b_n=4^n+1.
+\]
+
+Finally, recover \(a_n\) from \((2)\):
+\begin{align*}
+a_n&=b_{n+1}-2b_n\\
+&=(4^{n+1}+1)-2(4^n+1)\\
+&=4\cdot 4^n+1-2\cdot 4^n-2\\
+&=2\cdot 4^n-1.
+\end{align*}
+Thus
+\[
+\boxed{a_n=2\cdot 4^n-1,\qquad b_n=4^n+1.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct eigenmode template}
+Let
+\[
+\binom{a_n}{b_n}=v\,r^n,\qquad
+v\neq 0.
+\]
+Then
+\[
+v r^n=
+\begin{pmatrix}
+3 & 2\\
+1 & 2
+\end{pmatrix}
+v r^{n-1}
+\quad\Longrightarrow\quad
+\begin{pmatrix}
+3 & 2\\
+1 & 2
+\end{pmatrix}v=r v.
+\]
+Hence
+\[
+\det\!\begin{pmatrix}
+3-r & 2\\
+1 & 2-r
+\end{pmatrix}
+=(3-r)(2-r)-2=r^2-5r+4=(r-4)(r-1)=0.
+\]
+So the eigenmodes are
+\[
+r=4 \text{ with } v_1=\binom21,
+\qquad
+r=1 \text{ with } v_2=\binom{-1}{1}.
+\]
+Therefore
+\[
+\binom{a_n}{b_n}
+=C_1\,4^n\binom21+C_2\binom{-1}{1}.
+\]
+Using
+\[
+\binom{a_0}{b_0}
+=\binom12
+=
+C_1\binom21+C_2\binom{-1}{1},
+\]
+we get
+\[
+2C_1-C_2=1,\qquad C_1+C_2=2,
+\]
+so
+\[
+C_1=1,\qquad C_2=1.
+\]
+Hence
+\[
+\binom{a_n}{b_n}
+=
+4^n\binom21+\binom{-1}{1}
+=
+\binom{2\cdot 4^n-1}{4^n+1}.
+\]
+Thus
+\[
+\boxed{a_n=2\cdot 4^n-1,\qquad b_n=4^n+1.}
+\]
+
+\newpage
+\subsubsection{Method 3: Matrix method}
+Write the system in vector form:
+\[
+\begin{pmatrix}
+a_n\\
+b_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+3 & 2\\
+1 & 2
+\end{pmatrix}
+\begin{pmatrix}
+a_{n-1}\\
+b_{n-1}
+\end{pmatrix}.
+\]
+Set
+\[
+M=\begin{pmatrix}
+3 & 2\\
+1 & 2
+\end{pmatrix},\qquad
+v_n=\begin{pmatrix}
+a_n\\
+b_n
+\end{pmatrix}.
+\]
+Then
+\[
+v_n=Mv_{n-1}=M^n v_0,
+\qquad
+v_0=\begin{pmatrix}1\\2\end{pmatrix}.
+\]
+
+We diagonalize \(M\). Its characteristic polynomial is
+\[
+\det(M-\lambda I)
+=
+\begin{vmatrix}
+3-\lambda & 2\\
+1 & 2-\lambda
+\end{vmatrix}
+=(3-\lambda)(2-\lambda)-2
+=\lambda^2-5\lambda+4.
+\]
+Hence the eigenvalues are
+\[
+\lambda_1=4,\qquad \lambda_2=1.
+\]
+
+For \(\lambda=4\), solve
+\[
+(M-4I)x=0
+\quad\Longrightarrow\quad
+\begin{pmatrix}
+-1 & 2\\
+1 & -2
+\end{pmatrix}
+\begin{pmatrix}
+x\\y
+\end{pmatrix}
+=0.
+\]
+So \(x=2y\), and one eigenvector is
+\[
+v^{(1)}=\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+
+For \(\lambda=1\), solve
+\[
+(M-I)x=0
+\quad\Longrightarrow\quad
+\begin{pmatrix}
+2 & 2\\
+1 & 1
+\end{pmatrix}
+\begin{pmatrix}
+x\\y
+\end{pmatrix}
+=0.
+\]
+So \(x=-y\), and one eigenvector is
+\[
+v^{(2)}=\begin{pmatrix}-1\\1\end{pmatrix}.
+\]
+
+Express the initial vector as a linear combination:
+\[
+\begin{pmatrix}1\\2\end{pmatrix}
+=c_1\begin{pmatrix}2\\1\end{pmatrix}
++c_2\begin{pmatrix}-1\\1\end{pmatrix}.
+\]
+This gives
+\[
+\begin{cases}
+2c_1-c_2=1,\\
+c_1+c_2=2.
+\end{cases}
+\]
+Solving yields
+\[
+c_1=1,\qquad c_2=1.
+\]
+Therefore
+\[
+v_n=M^n v_0
+=
+4^n\begin{pmatrix}2\\1\end{pmatrix}
++\begin{pmatrix}-1\\1\end{pmatrix}
+=
+\begin{pmatrix}
+2\cdot 4^n-1\\
+4^n+1
+\end{pmatrix}.
+\]
+Hence
+\[
+\boxed{a_n=2\cdot 4^n-1,\qquad b_n=4^n+1.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Ex.\ 8.2.11: Third-order homogeneous recurrence)}
+
+\subsection{Problem}
+Find the solution to
+\[
+a_n=2a_{n-1}+5a_{n-2}-6a_{n-3},
+\]
+with
+\[
+a_0=7,\qquad a_1=-4,\qquad a_2=8.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Characteristic equation}
+The recurrence is linear homogeneous of degree \(3\). Its characteristic equation is
+\[
+r^3-2r^2-5r+6=0.
+\]
+We factor the polynomial:
+\[
+r^3-2r^2-5r+6=(r-1)(r+2)(r-3).
+\]
+So the three distinct roots are
+\[
+r=1,\qquad r=-2,\qquad r=3.
+\]
+Hence the general solution has the form
+\[
+a_n=h_1\cdot 1^n+h_2(-2)^n+h_3 3^n
+=h_1+h_2(-2)^n+h_3 3^n.
+\]
+
+Now use the initial conditions:
+\[
+a_0=7 \implies h_1+h_2+h_3=7, \tag{1}
+\]
+\[
+a_1=-4 \implies h_1-2h_2+3h_3=-4, \tag{2}
+\]
+\[
+a_2=8 \implies h_1+4h_2+9h_3=8. \tag{3}
+\]
+
+Subtract \((1)\) from \((2)\):
+\[
+-3h_2+2h_3=-11. \tag{4}
+\]
+Subtract \((1)\) from \((3)\):
+\[
+3h_2+8h_3=1. \tag{5}
+\]
+Add \((4)\) and \((5)\):
+\[
+10h_3=-10 \implies h_3=-1.
+\]
+Then from \((5)\),
+\[
+3h_2+8(-1)=1 \implies 3h_2=9 \implies h_2=3.
+\]
+Finally, from \((1)\),
+\[
+h_1+3-1=7 \implies h_1=5.
+\]
+Therefore
+\[
+\boxed{a_n=5+3(-2)^n-3^n.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct characteristic-root template}
+\[
+r^3-2r^2-5r+6=(r-1)(r+2)(r-3)=0.
+\]
+Distinct roots \(1,-2,3\). Hence
+\[
+a_n=C_1+C_2(-2)^n+C_3 3^n.
+\]
+Using \(a_0=7,\ a_1=-4,\ a_2=8\),
+\[
+C_1+C_2+C_3=7,
+\]
+\[
+C_1-2C_2+3C_3=-4,
+\]
+\[
+C_1+4C_2+9C_3=8.
+\]
+Hence
+\[
+-3C_2+2C_3=-11,\qquad 3C_2+8C_3=1.
+\]
+So
+\[
+C_3=-1,\qquad C_2=3,\qquad C_1=5.
+\]
+Therefore
+\[
+\boxed{a_n=5+3(-2)^n-3^n.}
+\]
+
+\newpage
+\subsubsection{Method 3: Generating function}
+Let
+\[
+A(x)=\sum_{n\ge 0} a_n x^n.
+\]
+For \(n\ge 3\), the recurrence gives
+\[
+a_n-2a_{n-1}-5a_{n-2}+6a_{n-3}=0.
+\]
+Multiply by \(x^n\) and sum for \(n\ge 3\):
+\[
+\sum_{n\ge 3} a_n x^n
+-2\sum_{n\ge 3} a_{n-1}x^n
+-5\sum_{n\ge 3} a_{n-2}x^n
++6\sum_{n\ge 3} a_{n-3}x^n
+=0.
+\]
+Rewrite each sum:
+\[
+\sum_{n\ge 3} a_n x^n=A(x)-a_0-a_1x-a_2x^2=A(x)-7+4x-8x^2,
+\]
+\[
+\sum_{n\ge 3} a_{n-1}x^n=x\sum_{n\ge 3} a_{n-1}x^{n-1}=x(A(x)-a_0-a_1x)=x(A(x)-7+4x),
+\]
+\[
+\sum_{n\ge 3} a_{n-2}x^n=x^2(A(x)-a_0)=x^2(A(x)-7),
+\]
+\[
+\sum_{n\ge 3} a_{n-3}x^n=x^3 A(x).
+\]
+Substitute these into the recurrence sum:
+\begin{align*}
+&\bigl(A(x)-7+4x-8x^2\bigr)
+-2x\bigl(A(x)-7+4x\bigr)
+-5x^2\bigl(A(x)-7\bigr)
++6x^3A(x)=0.
+\end{align*}
+Collect terms:
+\[
+A(x)\bigl(1-2x-5x^2+6x^3\bigr)-7+18x+13x^2=0.
+\]
+Hence
+\[
+A(x)=\frac{7-18x-13x^2}{1-2x-5x^2+6x^3}.
+\]
+Factor the denominator:
+\[
+1-2x-5x^2+6x^3=(1-x)(1+2x)(1-3x).
+\]
+So
+\[
+A(x)=\frac{5}{1-x}+\frac{3}{1+2x}-\frac{1}{1-3x}.
+\]
+Therefore
+\[
+A(x)=5\sum_{n\ge 0}x^n+3\sum_{n\ge 0}(-2x)^n-\sum_{n\ge 0}(3x)^n
+=\sum_{n\ge 0}\bigl(5+3(-2)^n-3^n\bigr)x^n.
+\]
+Thus
+\[
+\boxed{a_n=5+3(-2)^n-3^n.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Ex.\ 8.2.15: Repeated root of multiplicity three)}
+
+\subsection{Problem}
+Solve the recurrence relation
+\[
+a_n=-3a_{n-1}-3a_{n-2}-a_{n-3},
+\]
+with
+\[
+a_0=5,\qquad a_1=-9,\qquad a_2=15.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Characteristic equation}
+The characteristic equation is
+\[
+r^3+3r^2+3r+1=0.
+\]
+This factors as
+\[
+(r+1)^3=0.
+\]
+Hence \(r=-1\) is a root of multiplicity \(3\). Therefore the general solution is
+\[
+a_n=(h_1 n^2+h_2 n+h_3)(-1)^n.
+\]
+
+Use the initial conditions:
+\[
+a_0=5 \implies h_3=5.
+\]
+Next,
+\[
+a_1=-9 \implies -(h_1+h_2+h_3)=-9
+\implies h_1+h_2+5=9
+\implies h_1+h_2=4. \tag{1}
+\]
+Also,
+\[
+a_2=15 \implies (4h_1+2h_2+5)=15
+\implies 2h_1+h_2=5. \tag{2}
+\]
+Subtract \((1)\) from \((2)\):
+\[
+h_1=1.
+\]
+Then from \((1)\),
+\[
+h_2=3.
+\]
+Thus
+\[
+\boxed{a_n=(n^2+3n+5)(-1)^n.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct repeated-root template}
+\[
+r^3+3r^2+3r+1=(r+1)^3=0.
+\]
+Root \(-1\) has multiplicity \(3\). Hence
+\[
+a_n=(C_1+C_2 n+C_3 n^2)(-1)^n.
+\]
+Using \(a_0=5\),
+\[
+C_1=5.
+\]
+Using \(a_1=-9\),
+\[
+-(C_1+C_2+C_3)=-9
+\quad\Longrightarrow\quad
+C_2+C_3=4.
+\]
+Using \(a_2=15\),
+\[
+C_1+2C_2+4C_3=15
+\quad\Longrightarrow\quad
+C_2+2C_3=5.
+\]
+Hence
+\[
+C_3=1,\qquad C_2=3.
+\]
+Therefore
+\[
+\boxed{a_n=(n^2+3n+5)(-1)^n.}
+\]
+
+\newpage
+\subsubsection{Method 3: Remove the alternating sign}
+Define
+\[
+b_n=(-1)^n a_n.
+\]
+Then \(a_n=(-1)^n b_n\). Substitute this into the recurrence:
+\[
+(-1)^n b_n=-3(-1)^{n-1}b_{n-1}-3(-1)^{n-2}b_{n-2}-(-1)^{n-3}b_{n-3}.
+\]
+Factor out \((-1)^n\):
+\[
+(-1)^n b_n=(-1)^n\bigl(3b_{n-1}-3b_{n-2}+b_{n-3}\bigr).
+\]
+So
+\[
+b_n=3b_{n-1}-3b_{n-2}+b_{n-3}.
+\]
+Equivalently,
+\[
+b_n-3b_{n-1}+3b_{n-2}-b_{n-3}=0.
+\]
+But this is precisely the condition that the third forward difference of \(b_n\) is zero. Therefore \(b_n\) must be a polynomial of degree at most \(2\):
+\[
+b_n=An^2+Bn+C.
+\]
+
+Now compute the transformed initial values:
+\[
+b_0=(-1)^0 a_0=5,\qquad b_1=(-1)^1 a_1=9,\qquad b_2=(-1)^2 a_2=15.
+\]
+Hence
+\[
+C=5,
+\]
+\[
+A+B+5=9 \implies A+B=4, \tag{1}
+\]
+\[
+4A+2B+5=15 \implies 2A+B=5. \tag{2}
+\]
+Subtracting \((1)\) from \((2)\) gives
+\[
+A=1,
+\]
+and then
+\[
+B=3.
+\]
+So
+\[
+b_n=n^2+3n+5.
+\]
+Therefore
+\[
+a_n=(-1)^n b_n=(n^2+3n+5)(-1)^n.
+\]
+Thus
+\[
+\boxed{a_n=(n^2+3n+5)(-1)^n.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Ex.\ 8.2.22: A first-order non-homogeneous recurrence)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Find all solutions of
+\[
+a_n=2a_{n-1}+2n^2 \qquad (n\ge 2).
+\]
+\item Find the solution of the recurrence relation in part (a) with initial condition \(a_1=4\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Undetermined coefficients}
+\begin{enumerate}[label=(\alph*)]
+\item First solve the associated homogeneous recurrence
+\[
+b_n=2b_{n-1}.
+\]
+Its general solution is
+\[
+b_n=h\,2^n.
+\]
+
+We now seek a particular solution of the original recurrence
+\[
+a_n=2a_{n-1}+2n^2.
+\]
+Since the forcing term \(2n^2\) is a polynomial of degree \(2\), and \(1\) is not a root of the homogeneous characteristic equation \(r-2=0\), we try a particular solution of the form
+\[
+a_n^{(p)}=cn^2+dn+e.
+\]
+Substitute:
+\[
+cn^2+dn+e=2\bigl(c(n-1)^2+d(n-1)+e\bigr)+2n^2.
+\]
+Expand the right-hand side:
+\begin{align*}
+2\bigl(c(n-1)^2+d(n-1)+e\bigr)+2n^2
+&=2\bigl(cn^2-2cn+c+dn-d+e\bigr)+2n^2\\
+&=(2c+2)n^2+(-4c+2d)n+(2c-2d+2e).
+\end{align*}
+Hence coefficient comparison gives
+\[
+c=2c+2,\qquad d=-4c+2d,\qquad e=2c-2d+2e.
+\]
+So
+\[
+c=-2,\qquad d=-8,\qquad e=-12.
+\]
+Thus a particular solution is
+\[
+a_n^{(p)}=-2n^2-8n-12.
+\]
+Therefore the general solution is
+\[
+a_n=h\,2^n-2n^2-8n-12.
+\]
+Hence
+\[
+\boxed{a_n=h\,2^n-2n^2-8n-12\qquad (n\ge 2),\ \text{for arbitrary constant }h.}
+\]
+
+\item Use \(a_1=4\):
+\[
+4=h\cdot 2^1-2(1)^2-8(1)-12=2h-22.
+\]
+Hence
+\[
+2h=26 \implies h=13.
+\]
+Therefore
+\[
+\boxed{a_n=13\cdot 2^n-2n^2-8n-12\qquad (n\ge 1).}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Direct template from the non-homogeneous form}
+\begin{enumerate}[label=(\alph*)]
+\item Homogeneous part:
+\[
+a_n^{(h)}=C\,2^n.
+\]
+Since the forcing term is a degree-\(2\) polynomial and \(1\) is not a root of \(r-2=0\), take
+\[
+a_n^{(p)}=An^2+Bn+D.
+\]
+Substitute into
+\[
+a_n=2a_{n-1}+2n^2:
+\]
+\[
+An^2+Bn+D
+=
+2\bigl(A(n-1)^2+B(n-1)+D\bigr)+2n^2.
+\]
+Hence
+\[
+An^2+Bn+D
+=
+(2A+2)n^2+(-4A+2B)n+(2A-2B+2D).
+\]
+So
+\[
+A=2A+2,\qquad B=-4A+2B,\qquad D=2A-2B+2D.
+\]
+Thus
+\[
+A=-2,\qquad B=-8,\qquad D=-12.
+\]
+Therefore
+\[
+a_n=C\,2^n-2n^2-8n-12.
+\]
+Hence
+\[
+\boxed{a_n=C\,2^n-2n^2-8n-12\qquad (n\ge 2).}
+\]
+
+\item Using \(a_1=4\),
+\[
+4=2C-2-8-12=2C-22.
+\]
+So
+\[
+C=13.
+\]
+Hence
+\[
+\boxed{a_n=13\cdot 2^n-2n^2-8n-12\qquad (n\ge 1).}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Transform the sequence to remove the forcing term}
+\begin{enumerate}[label=(\alph*)]
+\item We look for a quadratic polynomial \(p(n)\) such that
+\[
+c_n:=a_n+p(n)
+\]
+satisfies a homogeneous recurrence of the form
+\[
+c_n=2c_{n-1}.
+\]
+This requires
+\[
+a_n+p(n)=2(a_{n-1}+p(n-1)).
+\]
+Using the given recurrence \(a_n=2a_{n-1}+2n^2\), this becomes
+\[
+2a_{n-1}+2n^2+p(n)=2a_{n-1}+2p(n-1).
+\]
+Hence we need
+\[
+p(n)-2p(n-1)=-2n^2. \tag{1}
+\]
+
+Take
+\[
+p(n)=2n^2+8n+12.
+\]
+Then
+\begin{align*}
+p(n)-2p(n-1)
+&=(2n^2+8n+12)-2\bigl(2(n-1)^2+8(n-1)+12\bigr)\\
+&=2n^2+8n+12-2(2n^2-4n+2+8n-8+12)\\
+&=2n^2+8n+12-(4n^2+8n+12)\\
+&=-2n^2.
+\end{align*}
+So \((1)\) holds.
+
+Therefore, if we define
+\[
+c_n=a_n+2n^2+8n+12,
+\]
+then
+\[
+c_n=2c_{n-1}.
+\]
+Hence
+\[
+c_n=h\,2^n
+\]
+for some constant \(h\). Returning to \(a_n\),
+\[
+a_n=h\,2^n-2n^2-8n-12.
+\]
+So
+\[
+\boxed{a_n=h\,2^n-2n^2-8n-12\qquad (n\ge 2).}
+\]
+
+\item Using \(a_1=4\),
+\[
+c_1=a_1+2(1)^2+8(1)+12=4+2+8+12=26.
+\]
+But also
+\[
+c_1=h\,2^1=2h.
+\]
+So
+\[
+h=13.
+\]
+Hence
+\[
+\boxed{a_n=13\cdot 2^n-2n^2-8n-12\qquad (n\ge 1).}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Ex.\ 8.2.25 modified: Recurrences with different forcing terms)}
+
+\subsection{Problem}
+Find all solutions of the recurrence relation
+\[
+a_n=4a_{n-1}-3a_{n-2}+F(n),
+\]
+where \(F(n)\) is
+\begin{enumerate}[label=(\alph*)]
+\item \(2^n\),
+\item \(3^n\),
+\item \(n+3\),
+\item \(n+2^n+3\). \hfill
+\textit{Hint: To obtain a particular solution for \(n+2^n+3\), add up the particular solutions in Parts (a) and (c).}
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Solve the homogeneous part, then use undetermined coefficients}
+The associated homogeneous recurrence is
+\[
+b_n=4b_{n-1}-3b_{n-2}.
+\]
+Its characteristic equation is
+\[
+r^2-4r+3=0=(r-1)(r-3).
+\]
+Thus the homogeneous solution is
+\[
+b_n=h_1+h_2 3^n.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Here \(F(n)=2^n\). Since \(2\) is not a root of the homogeneous characteristic equation, try
+\[
+a_n^{(p)}=c\,2^n.
+\]
+Substitute:
+\[
+c\,2^n=4c\,2^{n-1}-3c\,2^{n-2}+2^n.
+\]
+Divide by \(2^{n-2}\):
+\[
+4c=8c-3c+4.
+\]
+Hence
+\[
+-c=4 \implies c=-4.
+\]
+So
+\[
+a_n^{(p)}=-4\cdot 2^n=-2^{n+2}.
+\]
+Therefore
+\[
+\boxed{a_n=h_1+h_2 3^n-2^{n+2}.}
+\]
+
+\item Here \(F(n)=3^n\). Since \(3\) \emph{is} a root of the homogeneous characteristic equation and it has multiplicity \(1\), try
+\[
+a_n^{(p)}=c\,n\,3^n.
+\]
+Substitute:
+\[
+cn3^n=4c(n-1)3^{n-1}-3c(n-2)3^{n-2}+3^n.
+\]
+Divide by \(3^{n-2}\):
+\[
+9cn=12c(n-1)-3c(n-2)+9.
+\]
+Simplify the right-hand side:
+\[
+12c(n-1)-3c(n-2)=12cn-12c-3cn+6c=9cn-6c.
+\]
+So
+\[
+9cn=9cn-6c+9,
+\]
+hence
+\[
+6c=9 \implies c=\frac32.
+\]
+Therefore
+\[
+a_n^{(p)}=\frac32\,n\,3^n=\frac{n\,3^{n+1}}{2}.
+\]
+Thus
+\[
+\boxed{a_n=h_1+h_2 3^n+\frac{n\,3^{n+1}}{2}.}
+\]
+
+\item Here \(F(n)=n+3\), a polynomial of degree \(1\). Since \(1\) is a root of the homogeneous characteristic equation and has multiplicity \(1\), we multiply the usual degree-\(1\) polynomial trial by \(n\). So try
+\[
+a_n^{(p)}=n(cn+d)=cn^2+dn.
+\]
+Substitute:
+\[
+cn^2+dn
+=
+4\bigl(c(n-1)^2+d(n-1)\bigr)-3\bigl(c(n-2)^2+d(n-2)\bigr)+n+3.
+\]
+Expand:
+\begin{align*}
+4\bigl(c(n-1)^2+d(n-1)\bigr)
+&=4(cn^2-2cn+c+dn-d)\\
+&=4cn^2+(-8c+4d)n+(4c-4d),
+\end{align*}
+and
+\begin{align*}
+-3\bigl(c(n-2)^2+d(n-2)\bigr)
+&=-3(cn^2-4cn+4c+dn-2d)\\
+&=-3cn^2+(12c-3d)n+(-12c+6d).
+\end{align*}
+Adding \(n+3\), the right-hand side becomes
+\[
+cn^2+(4c+d+1)n+(-8c+2d+3).
+\]
+Therefore
+\[
+cn^2+dn=cn^2+(4c+d+1)n+(-8c+2d+3).
+\]
+Comparing coefficients yields
+\[
+d=4c+d+1,\qquad 0=-8c+2d+3.
+\]
+Thus
+\[
+4c+1=0 \implies c=-\frac14,
+\]
+and then
+\[
+0=-8\left(-\frac14\right)+2d+3=2+2d+3
+\implies 2d=-5 \implies d=-\frac52.
+\]
+So
+\[
+a_n^{(p)}=-\frac{n^2}{4}-\frac{5n}{2}.
+\]
+Therefore
+\[
+\boxed{a_n=h_1+h_2 3^n-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+
+\item Here \(F(n)=n+2^n+3\). By linearity, we may add the particular solutions from parts (a) and (c):
+\[
+a_n^{(p)}=-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.
+\]
+Hence
+\[
+\boxed{a_n=h_1+h_2 3^n-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Direct trial-template method}
+\[
+r^2-4r+3=(r-1)(r-3)=0
+\quad\Longrightarrow\quad
+a_n^{(h)}=C_1+C_2 3^n.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \(F(n)=2^n\). Since \(2\notin\{1,3\}\), take
+\[
+a_n^{(p)}=A2^n.
+\]
+Then
+\[
+A2^n=4A2^{n-1}-3A2^{n-2}+2^n
+\quad\Longrightarrow\quad
+4A=8A-3A+4,
+\]
+so
+\[
+A=-4.
+\]
+Hence
+\[
+\boxed{a_n=C_1+C_2 3^n-2^{n+2}.}
+\]
+
+\item \(F(n)=3^n\). Since \(3\) is a simple homogeneous root, take
+\[
+a_n^{(p)}=An3^n.
+\]
+Then
+\[
+9An=12A(n-1)-3A(n-2)+9=9An-6A+9,
+\]
+so
+\[
+A=\frac32.
+\]
+Hence
+\[
+\boxed{a_n=C_1+C_2 3^n+\frac{n\,3^{n+1}}{2}.}
+\]
+
+\item \(F(n)=n+3\). Polynomial of degree \(1\), and \(1\) is a simple homogeneous root, so take
+\[
+a_n^{(p)}=n(An+B)=An^2+Bn.
+\]
+Substituting,
+\[
+An^2+Bn=An^2+(4A+B+1)n+(-8A+2B+3).
+\]
+Hence
+\[
+4A+1=0,\qquad -8A+2B+3=0,
+\]
+so
+\[
+A=-\frac14,\qquad B=-\frac52.
+\]
+Therefore
+\[
+\boxed{a_n=C_1+C_2 3^n-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+
+\item \(F(n)=n+2^n+3\). Add the particular solutions from (a) and (c):
+\[
+a_n^{(p)}=-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.
+\]
+Thus
+\[
+\boxed{a_n=C_1+C_2 3^n-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Annihilator/superposition viewpoint}
+Again the homogeneous solution is
+\[
+b_n=h_1+h_2 3^n.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since the forcing term is \(2^n\), an annihilator is \(E-2\), where \(E\) is the shift operator \((Ea)_n=a_{n+1}\). The homogeneous operator is
+\[
+E^2-4E+3=(E-1)(E-3).
+\]
+Because \(2\) is not a root of the homogeneous characteristic polynomial, the full solution space must contain a term proportional to \(2^n\) in addition to the homogeneous part:
+\[
+a_n=h_1+h_2 3^n+c2^n.
+\]
+Substituting this form into the recurrence determines \(c=-4\), as in Method 1. Therefore
+\[
+\boxed{a_n=h_1+h_2 3^n-2^{n+2}.}
+\]
+
+\item Since the forcing term is \(3^n\), whose base \(3\) is already a simple homogeneous root, the annihilator method predicts a particular term of the form
+\[
+cn3^n.
+\]
+Thus
+\[
+a_n=h_1+h_2 3^n+cn3^n.
+\]
+Substituting into the recurrence yields \(c=\frac32\), so
+\[
+\boxed{a_n=h_1+h_2 3^n+\frac{n\,3^{n+1}}{2}.}
+\]
+
+\item Since the forcing term \(n+3\) is a polynomial of degree \(1\), its annihilator is \((E-1)^2\). Because \(1\) is already a simple homogeneous root, the particular solution must be of the form
+\[
+cn^2+dn.
+\]
+So
+\[
+a_n=h_1+h_2 3^n+cn^2+dn.
+\]
+Substitution gives
+\[
+c=-\frac14,\qquad d=-\frac52.
+\]
+Hence
+\[
+\boxed{a_n=h_1+h_2 3^n-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+
+\item By linearity of the recurrence operator
+\[
+L(a)_n:=a_n-4a_{n-1}+3a_{n-2},
+\]
+if \(p_n\) is a particular solution for \(2^n\) and \(q_n\) is a particular solution for \(n+3\), then \(p_n+q_n\) is a particular solution for \(n+2^n+3\). Using parts (a) and (c),
+\[
+p_n=-2^{n+2},\qquad q_n=-\frac{n^2}{4}-\frac{5n}{2},
+\]
+so
+\[
+p_n+q_n=-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.
+\]
+Therefore
+\[
+\boxed{a_n=h_1+h_2 3^n-2^{n+2}-\frac{n^2}{4}-\frac{5n}{2}.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex.\ 8.2.26: Sum of the first \(n\) perfect squares)}
+
+\subsection{Problem}
+Let
+\[
+a_n=\sum_{k=1}^{n} k^2.
+\]
+Using linear non-homogeneous recurrence relations, determine a formula for \(a_n\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Solve the recurrence by undetermined coefficients}
+Since
+\[
+a_n=a_{n-1}+n^2 \qquad (n\ge 1),
+\]
+with
+\[
+a_0=0,
+\]
+we solve the non-homogeneous recurrence
+\[
+a_n-a_{n-1}=n^2.
+\]
+
+The associated homogeneous recurrence is
+\[
+b_n=b_{n-1},
+\]
+whose general solution is a constant:
+\[
+b_n=\alpha.
+\]
+
+Because the forcing term is a polynomial of degree \(2\), and \(1\) is a root of the homogeneous characteristic equation of multiplicity \(1\), we seek a particular solution of the form
+\[
+a_n^{(p)}=cn^3+dn^2+en.
+\]
+Substitute into
+\[
+a_n=a_{n-1}+n^2:
+\]
+\[
+cn^3+dn^2+en
+=
+c(n-1)^3+d(n-1)^2+e(n-1)+n^2.
+\]
+Expand the right-hand side:
+\begin{align*}
+c(n-1)^3+d(n-1)^2+e(n-1)+n^2
+&=c(n^3-3n^2+3n-1)+d(n^2-2n+1)+en-e+n^2\\
+&=cn^3+(-3c+d+1)n^2+(3c-2d+e)n+(-c+d-e).
+\end{align*}
+Matching coefficients with the left-hand side \(cn^3+dn^2+en\) gives
+\[
+d=-3c+d+1,\qquad e=3c-2d+e,\qquad 0=-c+d-e.
+\]
+Hence
+\[
+3c=1 \implies c=\frac13,
+\]
+\[
+0=3c-2d \implies d=\frac12,
+\]
+\[
+0=-c+d-e \implies e=\frac16.
+\]
+Therefore
+\[
+a_n^{(p)}=\frac13 n^3+\frac12 n^2+\frac16 n.
+\]
+The general solution is
+\[
+a_n=\alpha+\frac13 n^3+\frac12 n^2+\frac16 n.
+\]
+Use \(a_0=0\):
+\[
+0=\alpha.
+\]
+Hence
+\[
+a_n=\frac13 n^3+\frac12 n^2+\frac16 n.
+\]
+Put everything over the common denominator \(6\):
+\[
+a_n=\frac{2n^3+3n^2+n}{6}
+=\frac{n(2n^2+3n+1)}{6}
+=\frac{n(n+1)(2n+1)}{6}.
+\]
+Therefore
+\[
+\boxed{a_n=\frac{n(n+1)(2n+1)}{6}.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct polynomial-template method}
+\[
+a_n-a_{n-1}=n^2,\qquad a_0=0.
+\]
+Homogeneous part:
+\[
+a_n^{(h)}=C.
+\]
+Since the forcing term is degree \(2\) and \(1\) is a simple homogeneous root, take
+\[
+a_n^{(p)}=An^3+Bn^2+Cn.
+\]
+Then
+\[
+An^3+Bn^2+Cn
+=
+A(n-1)^3+B(n-1)^2+C(n-1)+n^2.
+\]
+So
+\[
+An^3+Bn^2+Cn
+=
+An^3+(-3A+B+1)n^2+(3A-2B+C)n+(-A+B-C).
+\]
+Hence
+\[
+3A=1,\qquad 3A-2B=0,\qquad -A+B-C=0.
+\]
+Thus
+\[
+A=\frac13,\qquad B=\frac12,\qquad C=\frac16.
+\]
+Therefore
+\[
+a_n=K+\frac13 n^3+\frac12 n^2+\frac16 n.
+\]
+Using \(a_0=0\),
+\[
+K=0.
+\]
+Hence
+\[
+a_n=\frac13 n^3+\frac12 n^2+\frac16 n
+=\frac{n(n+1)(2n+1)}{6}.
+\]
+Thus
+\[
+\boxed{a_n=\frac{n(n+1)(2n+1)}{6}.}
+\]
+
+\newpage
+\subsubsection{Method 3: Generating function for the recurrence}
+Again we use
+\[
+a_n=a_{n-1}+n^2,\qquad a_0=0.
+\]
+Let
+\[
+A(x)=\sum_{n\ge 0} a_n x^n.
+\]
+Multiply the recurrence by \(x^n\) and sum for \(n\ge 1\):
+\[
+\sum_{n\ge 1} a_n x^n
+=
+\sum_{n\ge 1} a_{n-1}x^n
++
+\sum_{n\ge 1} n^2 x^n.
+\]
+Now
+\[
+\sum_{n\ge 1} a_n x^n=A(x),
+\]
+because \(a_0=0\), and
+\[
+\sum_{n\ge 1} a_{n-1}x^n=xA(x).
+\]
+Also, the standard generating function for squares is
+\[
+\sum_{n\ge 1} n^2 x^n=\frac{x(x+1)}{(1-x)^3}.
+\]
+Hence
+\[
+A(x)=xA(x)+\frac{x(x+1)}{(1-x)^3}.
+\]
+So
+\[
+(1-x)A(x)=\frac{x(x+1)}{(1-x)^3},
+\]
+and therefore
+\[
+A(x)=\frac{x(x+1)}{(1-x)^4}.
+\]
+
+Now use
+\[
+(1-x)^{-4}=\sum_{n\ge 0}\binom{n+3}{3}x^n.
+\]
+Thus
+\[
+A(x)=x(1+x)(1-x)^{-4}
+=x(1-x)^{-4}+x^2(1-x)^{-4}.
+\]
+So the coefficient of \(x^n\) is
+\[
+a_n=\binom{n+2}{3}+\binom{n+1}{3}.
+\]
+Compute:
+\begin{align*}
+a_n
+&=\frac{(n+2)(n+1)n}{6}+\frac{(n+1)n(n-1)}{6}\\
+&=\frac{n(n+1)\bigl((n+2)+(n-1)\bigr)}{6}\\
+&=\frac{n(n+1)(2n+1)}{6}.
+\end{align*}
+Hence
+\[
+\boxed{a_n=\frac{n(n+1)(2n+1)}{6}.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Additional Exercise 2: A higher-order recurrence for Fibonacci numbers)}
+
+\subsection{Problem}
+Show that the Fibonacci numbers satisfy the recurrence relation
+\[
+f_n=5f_{n-4}+3f_{n-5}\qquad (n=5,6,7,\dots),
+\]
+together with the initial conditions
+\[
+f_0=0,\quad f_1=1,\quad f_2=1,\quad f_3=2,\quad f_4=3.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Repeated substitution from the Fibonacci recurrence}
+The Fibonacci recurrence is
+\[
+f_n=f_{n-1}+f_{n-2}. \tag{1}
+\]
+Also,
+\[
+f_{n-1}=f_{n-2}+f_{n-3}. \tag{2}
+\]
+Substitute \((2)\) into \((1)\):
+\[
+f_n=(f_{n-2}+f_{n-3})+f_{n-2}=2f_{n-2}+f_{n-3}. \tag{3}
+\]
+Next,
+\[
+f_{n-2}=f_{n-3}+f_{n-4}. \tag{4}
+\]
+Substitute \((4)\) into \((3)\):
+\[
+f_n=2(f_{n-3}+f_{n-4})+f_{n-3}=3f_{n-3}+2f_{n-4}. \tag{5}
+\]
+Now use
+\[
+f_{n-3}=f_{n-4}+f_{n-5}. \tag{6}
+\]
+Substitute \((6)\) into \((5)\):
+\[
+f_n=3(f_{n-4}+f_{n-5})+2f_{n-4}=5f_{n-4}+3f_{n-5}.
+\]
+Thus
+\[
+\boxed{f_n=5f_{n-4}+3f_{n-5}\qquad (n\ge 5).}
+\]
+
+The initial conditions are the usual Fibonacci initial values:
+\[
+\boxed{f_0=0,\quad f_1=1,\quad f_2=1,\quad f_3=2,\quad f_4=3.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct closed-form/root check}
+The Fibonacci characteristic equation is
+\[
+r^2-r-1=0.
+\]
+Let its roots be
+\[
+\phi=\frac{1+\sqrt5}{2},\qquad \psi=\frac{1-\sqrt5}{2}.
+\]
+Then
+\[
+f_n=\frac{\phi^n-\psi^n}{\sqrt5}.
+\]
+Since \(r^2=r+1\), we get
+\[
+r^3=2r+1,\qquad r^4=3r+2,\qquad r^5=5r+3.
+\]
+Hence each of \(r=\phi,\psi\) satisfies
+\[
+r^5-5r-3=0.
+\]
+Therefore
+\[
+\phi^n=5\phi^{n-4}+3\phi^{n-5},
+\qquad
+\psi^n=5\psi^{n-4}+3\psi^{n-5}.
+\]
+Subtracting and dividing by \(\sqrt5\),
+\[
+f_n=5f_{n-4}+3f_{n-5}\qquad (n\ge 5).
+\]
+Also
+\[
+f_0=0,\quad f_1=1,\quad f_2=1,\quad f_3=2,\quad f_4=3.
+\]
+Thus
+\[
+\boxed{f_n=5f_{n-4}+3f_{n-5}\qquad (n\ge 5).}
+\]
+
+\newpage
+\subsubsection{Method 3: Operator factorization}
+Let \(E\) denote the shift operator:
+\[
+(Ef)_n=f_{n+1}.
+\]
+The Fibonacci recurrence
+\[
+f_n=f_{n-1}+f_{n-2}
+\]
+can be written as
+\[
+(E^2-E-1)f=0.
+\]
+Now factor the polynomial
+\[
+E^5-5E-3.
+\]
+Direct multiplication gives
+\[
+(E^2-E-1)(E^3+E^2+2E+3)=E^5-5E-3.
+\]
+Since \((E^2-E-1)f=0\), applying \(E^3+E^2+2E+3\) to both sides still yields zero, so
+\[
+(E^5-5E-3)f=0.
+\]
+This means
+\[
+f_{n+5}-5f_{n+1}-3f_n=0.
+\]
+Reindex by replacing \(n\) with \(n-5\). Then for \(n\ge 5\),
+\[
+f_n-5f_{n-4}-3f_{n-5}=0,
+\]
+that is,
+\[
+\boxed{f_n=5f_{n-4}+3f_{n-5}\qquad (n\ge 5).}
+\]
+
+The initial conditions remain
+\[
+\boxed{f_0=0,\quad f_1=1,\quad f_2=1,\quad f_3=2,\quad f_4=3.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 8
+%====================================================
+\section{Question 8 (Additional Exercise 3: Linear combinations of solutions)}
+
+\subsection{Problem}
+Suppose that the sequences \((s_0,s_1,s_2,\dots)\) and \((t_0,t_1,t_2,\dots)\) both satisfy the same linear homogeneous recurrence relation with constant coefficients:
+\[
+s_k=5s_{k-1}-4s_{k-2},\qquad
+t_k=5t_{k-1}-4t_{k-2}
+\qquad (k\ge 2).
+\]
+Define a new sequence \((u_0,u_1,u_2,\dots)\) by
+\[
+u_i=2s_i+3t_i.
+\]
+Show that \((u_0,u_1,u_2,\dots)\) also satisfies the same relation, that is,
+\[
+u_k=5u_{k-1}-4u_{k-2}.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct substitution}
+From the hypotheses,
+\[
+s_k=5s_{k-1}-4s_{k-2},
+\qquad
+t_k=5t_{k-1}-4t_{k-2}.
+\]
+Multiply the first equation by \(2\):
+\[
+2s_k=10s_{k-1}-8s_{k-2}. \tag{1}
+\]
+Multiply the second equation by \(3\):
+\[
+3t_k=15t_{k-1}-12t_{k-2}. \tag{2}
+\]
+Add \((1)\) and \((2)\):
+\[
+2s_k+3t_k=10s_{k-1}+15t_{k-1}-8s_{k-2}-12t_{k-2}.
+\]
+Group the terms:
+\[
+2s_k+3t_k=5(2s_{k-1}+3t_{k-1})-4(2s_{k-2}+3t_{k-2}).
+\]
+By the definition \(u_i=2s_i+3t_i\), this becomes
+\[
+u_k=5u_{k-1}-4u_{k-2}.
+\]
+Therefore
+\[
+\boxed{u_k=5u_{k-1}-4u_{k-2}\qquad (k\ge 2).}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct closed-form template}
+The common recurrence has characteristic equation
+\[
+r^2-5r+4=(r-1)(r-4)=0.
+\]
+Hence
+\[
+s_k=A+B4^k,\qquad t_k=C+D4^k
+\]
+for some constants \(A,B,C,D\).
+Therefore
+\[
+u_k=2s_k+3t_k
+=2(A+B4^k)+3(C+D4^k)
+=(2A+3C)+(2B+3D)4^k.
+\]
+So \(u_k\) is again of the form
+\[
+u_k=E+F4^k,
+\]
+which is exactly the general solution of
+\[
+u_k=5u_{k-1}-4u_{k-2}.
+\]
+Hence
+\[
+\boxed{u_k=5u_{k-1}-4u_{k-2}\qquad (k\ge 2).}
+\]
+
+\newpage
+\subsubsection{Method 3: Use linearity of the recurrence operator}
+Define the linear operator
+\[
+L(x)_k:=x_k-5x_{k-1}+4x_{k-2}\qquad (k\ge 2).
+\]
+The assumptions that \((s_k)\) and \((t_k)\) satisfy the recurrence are exactly
+\[
+L(s)_k=0,\qquad L(t)_k=0\qquad (k\ge 2).
+\]
+
+Now let
+\[
+u_k=2s_k+3t_k.
+\]
+Because \(L\) is linear,
+\[
+L(u)_k=L(2s+3t)_k=2L(s)_k+3L(t)_k.
+\]
+But \(L(s)_k=0\) and \(L(t)_k=0\), so
+\[
+L(u)_k=2\cdot 0+3\cdot 0=0.
+\]
+Hence
+\[
+u_k-5u_{k-1}+4u_{k-2}=0,
+\]
+or equivalently,
+\[
+\boxed{u_k=5u_{k-1}-4u_{k-2}\qquad (k\ge 2).}
+\]
+
+\end{document}

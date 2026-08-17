@@ -1,0 +1,793 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Midterm Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2023/2024, Semester 2}
+\newcommand{\ExamMetaShort}{Midterm AY23-24}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% Boxed final answers (safe): use as \[ \boxed{\,\cdots\,} \]
+\let\amsboxed\boxed
+\renewcommand{\boxed}[1]{\amsboxed{\,#1\,}}
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Linear transformations between polynomial spaces: linearity, matrix representations w.r.t.\ standard bases, kernel and range, rank--nullity, injective/surjective tests.
+  \item Subspace tests in matrix spaces: symmetric matrices, affine translates of subspaces, and structural criteria for (non-)subspaces.
+  \item Basis manipulations: verifying a list is a basis via linear independence/spanning and change-of-basis matrices.
+  \item Solution structure: each question includes multiple genuinely distinct methods; final answers are boxed and each question ends with a mark scheme.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+% ============================================================
+% Question 1
+% ============================================================
+% ============================================================
+\section{Question 1 \hfill (15 marks)}
+
+Let $T : P_2(\mathbb{R}) \to P_4(\mathbb{R})$ be the map defined by $T(f(x)) = f(x^2)$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $T$ is a linear map.
+\item Let $B = \{1, x, x^2\}$ be the standard basis for $P_2(\mathbb{R})$ and $A = \{1, x, x^2, x^3, x^4\}$ be the standard basis for $P_4(\mathbb{R})$. Write down the matrix representation of $T$ with respect to $B$ and $A$.
+\item Determine a basis for either $\mathrm{null}(T)$ OR $\mathrm{range}(T)$.
+\item Determine the dimensions of $\mathrm{null}(T)$ AND $\mathrm{range}(T)$.
+\item Determine whether the following properties of $T$ is true. You are to explain your answer.
+  \begin{enumerate}[label=(\roman*)]
+  \item Is $T$ injective?
+  \item Is $T$ surjective?
+  \end{enumerate}
+\end{enumerate}
+
+\vfill
+\subsection{Solution}
+
+\subsubsection{Method 1: Basis images + matrix rank (standard / explanatory)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+Let $f,g\in P_2(\mathbb{R})$ and $\lambda\in\mathbb{R}$. Then for all $x\in\mathbb{R}$,
+\[
+T(f+\lambda g)(x)=(f+\lambda g)(x^2)=f(x^2)+\lambda g(x^2)=T(f)(x)+\lambda T(g)(x),
+\]
+hence $T(f+\lambda g)=T(f)+\lambda T(g)$. Therefore $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+\vspace{2cm}
+
+\newpage
+\item \textbf{Matrix representation.}
+Compute images of the basis $B=(1,x,x^2)$:
+\[
+T(1)=1,\qquad T(x)=x^2,\qquad T(x^2)=x^4.
+\]
+With respect to $A=(1,x,x^2,x^3,x^4)$, the coordinate vectors are
+\[
+[T(1)]_{A}=\begin{bmatrix}1\\0\\0\\0\\0\end{bmatrix},\quad
+[T(x)]_{A}=\begin{bmatrix}0\\0\\1\\0\\0\end{bmatrix},\quad
+[T(x^2)]_{A}=\begin{bmatrix}0\\0\\0\\0\\1\end{bmatrix}.
+\]
+Thus
+\[
+[T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}.
+\]
+\[
+\boxed{\, [T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{A basis for $\operatorname{range}(T)$.}
+Let $f(x)=a+bx+cx^2\in P_2(\mathbb{R})$. Then
+\[
+T(f)(x)=f(x^2)=a+bx^2+cx^4.
+\]
+Hence
+\[
+\operatorname{range}(T)=\{a+bx^2+cx^4:\ a,b,c\in\mathbb{R}\}=\mathrm{span}\{1,x^2,x^4\}.
+\]
+To show $\{1,x^2,x^4\}$ is linearly independent, suppose
+\[
+\alpha\cdot 1+\beta x^2+\gamma x^4\equiv 0 \quad\text{in }P_4(\mathbb{R}).
+\]
+Comparing coefficients gives $\alpha=\beta=\gamma=0$. Thus $\{1,x^2,x^4\}$ is a basis of $\operatorname{range}(T)$.
+\[
+\boxed{\,\text{A basis for }\operatorname{range}(T)\text{ is }\{1,x^2,x^4\}.\,}
+\]
+
+\item \textbf{Dimensions of $\operatorname{null}(T)$ and $\operatorname{range}(T)$.}
+From (c), $\dim\operatorname{range}(T)=3$.
+
+Also, the matrix in (b) has $3$ pivot columns (equivalently rank $3$), so $\operatorname{rank}(T)=3$.
+Since $\dim P_2(\mathbb{R})=3$, rank--nullity gives
+\[
+\dim\operatorname{null}(T)=3-\operatorname{rank}(T)=3-3=0.
+\]
+\[
+\boxed{\,\dim\operatorname{null}(T)=0,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $T$ is injective $\iff \operatorname{null}(T)=\{0\}$. Since $\dim\operatorname{null}(T)=0$, $T$ is injective.
+\item $T$ is surjective $\iff \operatorname{range}(T)=P_4(\mathbb{R})$. But $\dim\operatorname{range}(T)=3<\dim P_4(\mathbb{R})=5$, so $T$ is not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is injective but not surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 2: Coefficient comparison}
+Write $f(x)=a+bx+cx^2$ and $g(x)=a'+b'x+c'x^2$.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+For all $x$,
+\[
+T(f+\lambda g)(x)=(f+\lambda g)(x^2)=f(x^2)+\lambda g(x^2)=T(f)(x)+\lambda T(g)(x),
+\]
+so $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item \textbf{Matrix representation.}
+Using $T(1)=1$, $T(x)=x^2$, $T(x^2)=x^4$ and reading coordinates in $A$ gives
+\[
+\boxed{\, [T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{A basis for $\operatorname{null}(T)$ OR $\operatorname{range}(T)$.}
+If $T(f)=0$, then
+\[
+0\equiv T(f)(x)=a+bx^2+cx^4\quad \Rightarrow\quad a=b=c=0
+\]
+by coefficient comparison in $P_4(\mathbb{R})$. Hence $\operatorname{null}(T)=\{0\}$.
+Also,
+\[
+\operatorname{range}(T)=\{a+bx^2+cx^4:\ a,b,c\in\mathbb{R}\}=\mathrm{span}\{1,x^2,x^4\}.
+\]
+\[
+\boxed{\,\operatorname{null}(T)=\{0\},\ \text{and }\{1,x^2,x^4\}\text{ is a basis of }\operatorname{range}(T).\,}
+\]
+
+\item \textbf{Dimensions.}
+$\dim\operatorname{null}(T)=0$ and $\dim\operatorname{range}(T)=3$ (three free parameters $a,b,c$).
+\[
+\boxed{\,\dim\operatorname{null}(T)=0,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $\operatorname{null}(T)=\{0\}\Rightarrow T$ injective.
+\item $\dim\operatorname{range}(T)=3<5\Rightarrow T$ not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is injective but not surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 3: Even-subspace characterisation via composition}
+\textbf{Theorem (Roots of a nonzero polynomial are finite).}
+If $p\in\mathbb{R}[x]$ is not the zero polynomial, then $p$ has only finitely many real roots.
+
+Let $g(x)=x^2$, so $T(f)=f\circ g$.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+For all $x$,
+\[
+T(f+\lambda h)(x)=(f+\lambda h)(x^2)=f(x^2)+\lambda h(x^2)=T(f)(x)+\lambda T(h)(x),
+\]
+so $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item \textbf{Matrix representation.}
+$T(1)=1$, $T(x)=x^2$, $T(x^2)=x^4$; hence
+\[
+\boxed{\, [T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Range and kernel.}
+For any $f$, $T(f)$ is even since $T(f)(-x)=f((-x)^2)=f(x^2)=T(f)(x)$. Hence $\operatorname{range}(T)$ is contained in the even subspace
+\[
+W:=\{p\in P_4(\mathbb{R}): p(-x)=p(x)\}=\mathrm{span}\{1,x^2,x^4\}.
+\]
+Conversely, each $a+bx^2+cx^4\in W$ equals $T(a+bx+cx^2)$, so $\operatorname{range}(T)=W$.
+
+If $T(f)=0$, then $f(x^2)=0$ for all $x$, so $f(t)=0$ for all $t\ge 0$ (take $t=x^2$). Since $[0,\infty)$ is infinite, the theorem implies $f$ must be the zero polynomial. Hence $\operatorname{null}(T)=\{0\}$.
+\[
+\boxed{\,\operatorname{range}(T)=\mathrm{span}\{1,x^2,x^4\},\qquad \operatorname{null}(T)=\{0\}.\,}
+\]
+
+\item \textbf{Dimensions.}
+$\dim\operatorname{range}(T)=3$ and $\dim\operatorname{null}(T)=0$.
+\[
+\boxed{\,\dim\operatorname{null}(T)=0,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $\operatorname{null}(T)=\{0\}\Rightarrow T$ injective.
+\item $\operatorname{range}(T)=W\subsetneq P_4(\mathbb{R})$ (e.g.\ $x\notin W$) $\Rightarrow T$ not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is injective but not surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 4: Explicit isomorphism onto the even subspace}
+Define the even subspace
+\[
+W:=\mathrm{span}\{1,x^2,x^4\}\subset P_4(\mathbb{R}).
+\]
+Define a linear map
+\[
+S:W\to P_2(\mathbb{R}),\qquad S(a+bx^2+cx^4)=a+bx+cx^2.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+For $f,g\in P_2$ and $\lambda\in\mathbb{R}$,
+\[
+T(f+\lambda g)(x)=(f+\lambda g)(x^2)=f(x^2)+\lambda g(x^2)=T(f)(x)+\lambda T(g)(x),
+\]
+so $T$ is linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item \textbf{Matrix representation.}
+$T(1)=1$, $T(x)=x^2$, $T(x^2)=x^4$; thus
+\[
+\boxed{\, [T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Range/kernel via two-sided inverse on $W$.}
+For $f(x)=a+bx+cx^2$, we have $T(f)=a+bx^2+cx^4\in W$, so $T(P_2)\subseteq W$.
+
+Moreover, for all $f\in P_2$,
+\[
+(S\circ T)(f)=S\bigl(a+bx^2+cx^4\bigr)=a+bx+cx^2=f,
+\]
+so $S\circ T=\mathrm{Id}_{P_2}$, which implies $T$ is injective and $T(P_2)$ has dimension $3$.
+
+Also, for any $w=a+bx^2+cx^4\in W$,
+\[
+(T\circ S)(w)=T(a+bx+cx^2)=a+bx^2+cx^4=w,
+\]
+so $T\circ S=\mathrm{Id}_{W}$, hence $T(P_2)=W$ and $T$ restricts to an isomorphism $P_2\cong W$.
+Therefore a basis of $\operatorname{range}(T)$ is $\{1,x^2,x^4\}$ and $\operatorname{null}(T)=\{0\}$.
+\[
+\boxed{\,\operatorname{range}(T)=W=\mathrm{span}\{1,x^2,x^4\},\qquad \operatorname{null}(T)=\{0\}.\,}
+\]
+
+\item \textbf{Dimensions.}
+Since $T:P_2\to W$ is an isomorphism, $\dim\operatorname{range}(T)=\dim W=3$ and $\dim\operatorname{null}(T)=0$.
+\[
+\boxed{\,\dim\operatorname{null}(T)=0,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item Injective since $S\circ T=\mathrm{Id}_{P_2}$.
+\item Not surjective onto $P_4$ since $\operatorname{range}(T)=W\subsetneq P_4(\mathbb{R})$.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is injective but not surjective.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 5: Rank by a nonzero minor + rank--nullity}
+\textbf{Theorem (Rank from a nonzero minor).}
+A matrix has rank at least $r$ if it contains an $r\times r$ minor with nonzero determinant.
+
+\textbf{Theorem (Rank--Nullity).}
+For linear $T:V\to W$ with $\dim V<\infty$,
+\[
+\dim V=\dim\operatorname{null}(T)+\dim\operatorname{range}(T).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+As in previous methods, $T(f+\lambda g)(x)=(f+\lambda g)(x^2)=f(x^2)+\lambda g(x^2)=T(f)(x)+\lambda T(g)(x)$, hence $T$ linear.
+\[
+\boxed{\,T\text{ is linear.}\,}
+\]
+
+\item \textbf{Matrix representation.}
+$T(1)=1$, $T(x)=x^2$, $T(x^2)=x^4$, so
+\[
+\boxed{\, [T]_{B}^{A}=
+\begin{bmatrix}
+1&0&0\\
+0&0&0\\
+0&1&0\\
+0&0&0\\
+0&0&1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Basis for $\operatorname{range}(T)$.}
+From $T(a+bx+cx^2)=a+bx^2+cx^4$, we have $\operatorname{range}(T)=\mathrm{span}\{1,x^2,x^4\}$, and coefficient comparison shows independence, hence it is a basis.
+\[
+\boxed{\,\text{A basis for }\operatorname{range}(T)\text{ is }\{1,x^2,x^4\}.\,}
+\]
+
+\item \textbf{Dimensions.}
+In $[T]_B^A$, consider the $3\times 3$ minor using rows $1,3,5$ and all $3$ columns:
+\[
+\det\!\begin{pmatrix}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{pmatrix}=1\neq 0.
+\]
+Thus $\operatorname{rank}(T)=3$. Since $\dim P_2=3$, rank--nullity gives $\dim\operatorname{null}(T)=0$ and $\dim\operatorname{range}(T)=3$.
+\[
+\boxed{\,\dim\operatorname{null}(T)=0,\qquad \dim\operatorname{range}(T)=3.\,}
+\]
+
+\item \textbf{Injective / surjective.}
+\begin{enumerate}[label=(\roman*)]
+\item $\dim\operatorname{null}(T)=0\Rightarrow T$ injective.
+\item $\dim\operatorname{range}(T)=3<5\Rightarrow T$ not surjective.
+\end{enumerate}
+\[
+\boxed{\,T\text{ is injective but not surjective.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (2 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Computes $T(f+\lambda g)(x)$ and expands using evaluation at $x^2$.
+    \item (1) Concludes $T(f+\lambda g)=T(f)+\lambda T(g)$ and states linearity.
+  \end{itemize}
+
+  \item \textbf{(b) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Computes $T(1)=1$ and writes its coordinates in $A$.
+    \item (1) Computes $T(x)=x^2$ and writes its coordinates in $A$.
+    \item (1) Computes $T(x^2)=x^4$ and writes its coordinates in $A$.
+    \item (1) Forms $[T]_B^A$ with correct column order matching $B$.
+  \end{itemize}
+
+  \item \textbf{(c) (3 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Correctly characterises $\operatorname{range}(T)$ (or $\operatorname{null}(T)$) from $T(a+bx+cx^2)=a+bx^2+cx^4$.
+    \item (1) Produces a correct spanning set for the chosen space (e.g.\ $\{1,x^2,x^4\}$ for $\operatorname{range}(T)$).
+    \item (1) Justifies that it is a basis (coefficient/independence or dimension argument).
+  \end{itemize}
+
+  \item \textbf{(d) (2 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Determines $\dim\operatorname{range}(T)=3$ (basis or rank).
+    \item (1) Determines $\dim\operatorname{null}(T)=0$ (kernel computation or rank--nullity) and states both.
+  \end{itemize}
+
+  \item \textbf{(e) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Injective: uses $\operatorname{null}(T)=\{0\}$ criterion (or $\dim\null(T)=0$) and concludes injective.
+    \item (2) Surjective: uses dimension/range obstruction ($\dim\operatorname{range}(T)<5$ or $x\notin\operatorname{range}(T)$) and concludes not surjective.
+  \end{itemize}
+\end{itemize}
+
+% ------------------------------------------------------------
+\newpage
+
+% ============================================================
+% Question 2
+% ============================================================
+\section{Question 2 \hfill (10 marks)}
+Recall that $M_{24\times 24}(\mathbb{R})$ is the vector space comprising all $(24\times 24)$-matrices. Also, recall that $S_{24\times 24}(\mathbb{R})$
+is the vector space comprising all $(24 \times 24)$-symmetric matrices.
+\begin{enumerate}[label=(\alph*)]
+\item Let $E_{1,1}$ be the matrix with one at the first row and the first column, and zero elsewhere. In other words, $E_{1,1}$ has exactly one $1$.
+Consider the set $U = \{A + E_{1,1} \in M_{24\times 24}(\mathbb{R}) : A \in S_{24\times 24}(\mathbb{R}) \}$. Is $U$ a subspace of $M_{24\times 24}(\mathbb{R})$?
+\item Let $E_{20,24}$ be the matrix with one at the 20-th row and the 24-th column, and zero elsewhere. In other words, $E_{20,24}$ has exactly one $1$.
+Consider the set $V = \{A + E_{20,24} \in M_{24\times 24}(\mathbb{R}) : A \in S_{24\times 24}(\mathbb{R}) \}$. Is $V$ a subspace of $M_{24\times 24}(\mathbb{R})$?
+\end{enumerate}
+\bigskip
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct identification / zero test (standard / explanatory)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{$U$ is a subspace.}
+$E_{1,1}$ is symmetric, hence $E_{1,1}\in S_{24\times 24}(\mathbb{R})$. We show $U=S_{24\times 24}(\mathbb{R})$.
+
+If $B\in U$, then $B=A+E_{1,1}$ for some symmetric $A$. Since $E_{1,1}$ is symmetric, $B$ is a sum of symmetric matrices, hence symmetric; so $B\in S_{24\times 24}(\mathbb{R})$.
+Conversely, if $B\in S_{24\times 24}(\mathbb{R})$, then $B=(B-E_{1,1})+E_{1,1}$ and $B-E_{1,1}$ is symmetric, so $B\in U$.
+Thus $U=S_{24\times 24}(\mathbb{R})$, which is a subspace of $M_{24\times 24}(\mathbb{R})$.
+\[
+\boxed{\,U\text{ is a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+
+\item \textbf{$V$ is not a subspace.}
+If $V$ were a subspace, then $0\in V$. That would mean $A+E_{20,24}=0$ for some symmetric $A$, i.e.\ $A=-E_{20,24}$.
+But $E_{20,24}^{\mathsf T}=E_{24,20}\neq E_{20,24}$, so $-E_{20,24}$ is not symmetric. Hence $0\notin V$ and $V$ is not a subspace.
+\[
+\boxed{\,V\text{ is not a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+\end{enumerate}
+\bigskip
+\subsubsection{Method 2: Affine-translate criterion}
+\textbf{Theorem (Translate of a subspace).}
+Let $W\le X$ be a subspace and $w_0\in X$. Then $w_0+W:=\{w_0+w:\ w\in W\}$ is a subspace of $X$ if and only if $w_0\in W$.
+(In that case, $w_0+W=W$.)
+
+\begin{enumerate}[label=(\alph*)]
+\item Take $X=M_{24\times 24}(\mathbb{R})$, $W=S_{24\times 24}(\mathbb{R})$, $w_0=E_{1,1}$.
+Since $E_{1,1}$ is symmetric, $w_0\in W$, hence $U=w_0+W$ is a subspace (indeed $U=W$).
+\[
+\boxed{\,U\text{ is a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+
+\item Here $w_0=E_{20,24}\notin W$ (not symmetric). Hence $V=w_0+W$ is not a subspace.
+\[
+\boxed{\,V\text{ is not a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 3: Symmetric--skew decomposition}
+\textbf{Theorem (Symmetric--skew decomposition).}
+Every $X\in M_{n\times n}(\mathbb{R})$ decomposes uniquely as
+\[
+X=\underbrace{\frac{X+X^{\mathsf T}}{2}}_{\text{symmetric}}+\underbrace{\frac{X-X^{\mathsf T}}{2}}_{\text{skew-symmetric}}.
+\]
+In particular, $X$ is symmetric iff $\frac{X-X^{\mathsf T}}{2}=0$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Since $E_{1,1}^{\mathsf T}=E_{1,1}$, its skew-symmetric part is $0$. If $A$ is symmetric, then
+\[
+\frac{(A+E_{1,1})-(A+E_{1,1})^{\mathsf T}}{2}
+=\frac{A-A^{\mathsf T}}{2}+\frac{E_{1,1}-E_{1,1}^{\mathsf T}}{2}=0.
+\]
+Hence every element of $U$ is symmetric. Conversely, any symmetric $B$ can be written as $(B-E_{1,1})+E_{1,1}$ with $B-E_{1,1}$ symmetric, so $U$ is exactly the symmetric subspace. Therefore $U$ is a subspace.
+\[
+\boxed{\,U\text{ is a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+
+\item For $E_{20,24}$,
+\[
+\frac{E_{20,24}-E_{20,24}^{\mathsf T}}{2}=\frac{E_{20,24}-E_{24,20}}{2}\neq 0.
+\]
+If $A$ is symmetric then the skew part of $A+E_{20,24}$ equals the skew part of $E_{20,24}$ (since the skew part of $A$ is $0$), hence is nonzero. In particular, $0$ (whose skew part is $0$) cannot lie in $V$, so $V$ is not a subspace.
+\[
+\boxed{\,V\text{ is not a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+\end{enumerate}
+\bigskip
+\subsubsection{Method 4: Kernel / preimage under the skew-projection}
+Define the linear map (skew-projection)
+\[
+\pi_{\mathrm{skew}}:M_{24\times 24}(\mathbb{R})\to M_{24\times 24}(\mathbb{R}),\qquad
+\pi_{\mathrm{skew}}(X)=\frac{X-X^{\mathsf T}}{2}.
+\]
+\textbf{Theorem.} The kernel of a linear map is a subspace.
+
+Note that
+\[
+\ker(\pi_{\mathrm{skew}})=\{X:\ X=X^{\mathsf T}\}=S_{24\times 24}(\mathbb{R}).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since $E_{1,1}\in\ker(\pi_{\mathrm{skew}})$, we have
+\[
+U=E_{1,1}+\ker(\pi_{\mathrm{skew}})=\ker(\pi_{\mathrm{skew}})
+\]
+(because adding an element of the kernel does not change the coset). Hence $U$ is a subspace.
+\[
+\boxed{\,U\text{ is a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+
+\item Since $E_{20,24}\notin\ker(\pi_{\mathrm{skew}})$, the coset
+\[
+V=E_{20,24}+\ker(\pi_{\mathrm{skew}})
+\]
+does not contain $0$, hence cannot be a subspace. (Equivalently, if it were a subspace it must equal the kernel itself, forcing $E_{20,24}\in\ker(\pi_{\mathrm{skew}})$, contradiction.)
+\[
+\boxed{\,V\text{ is not a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+\end{enumerate}
+\bigskip
+\subsubsection{Method 5: Quotient-space / coset argument}
+Let $M:=M_{24\times 24}(\mathbb{R})$ and $S:=S_{24\times 24}(\mathbb{R})$.
+
+\textbf{Theorem (Cosets in a quotient).}
+If $S\le M$ is a subspace, then the quotient $M/S$ is a vector space. A coset $m+S$ is a subspace of $M$ if and only if $m+S=S$ (equivalently $m\in S$).
+
+\begin{enumerate}[label=(\alph*)]
+\item $U=E_{1,1}+S$. Since $E_{1,1}$ is symmetric, $E_{1,1}\in S$, hence $E_{1,1}+S=S$. Therefore $U$ is a subspace.
+\[
+\boxed{\,U\text{ is a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+
+\item $V=E_{20,24}+S$. Since $E_{20,24}$ is not symmetric, $E_{20,24}\notin S$, hence $E_{20,24}+S\neq S$. Therefore $V$ is not a subspace.
+\[
+\boxed{\,V\text{ is not a subspace of }M_{24\times 24}(\mathbb{R}).\,}
+\]
+\end{enumerate}
+\bigskip
+\subsection{Mark Scheme (10 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Notes $E_{1,1}$ is symmetric and $S_{24\times 24}(\mathbb{R})$ is a subspace of $M_{24\times 24}(\mathbb{R})$.
+    \item (2) Shows $U\subseteq S_{24\times 24}(\mathbb{R})$ (sum of symmetric matrices is symmetric).
+    \item (1) Shows $S_{24\times 24}(\mathbb{R})\subseteq U$ by writing $B=(B-E_{1,1})+E_{1,1}$ with $B-E_{1,1}$ symmetric.
+    \item (1) Concludes $U$ is a subspace (equivalently $U=S_{24\times 24}(\mathbb{R})$).
+  \end{itemize}
+
+  \item \textbf{(b) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) States a necessary subspace condition (e.g.\ $0\in V$) or applies translate/coset criterion.
+    \item (2) Sets up $0\in V\Rightarrow A=-E_{20,24}$ with $A$ required to be symmetric.
+    \item (1) Observes $E_{20,24}^{\mathsf T}=E_{24,20}\ne E_{20,24}$, hence $-E_{20,24}$ is not symmetric.
+    \item (1) Concludes $0\notin V$ and hence $V$ is not a subspace.
+  \end{itemize}
+\end{itemize}
+
+% ------------------------------------------------------------
+\newpage
+
+% ============================================================
+% Question 3
+% ============================================================
+\section{Question 3 \hfill (5 marks)}
+Let $[v_1, v_2, v_3]$ be a basis for the vector space $V$. Show that $[v_1 + \lambda v_3, v_2 + \mu v_3, v_3]$ is a basis for $V$ for any real values $\lambda$ and $\mu$.
+\bigskip
+\subsection{Solution}
+
+\subsubsection{Method 1: Linear independence in the given basis (standard / explanatory)}
+Since $[v_1,v_2,v_3]$ is a basis, $\{v_1,v_2,v_3\}$ is linearly independent.
+
+Let
+\[
+\alpha (v_1+\lambda v_3)+\beta (v_2+\mu v_3)+\gamma v_3=0.
+\]
+Expanding,
+\[
+\alpha v_1+\beta v_2+(\alpha\lambda+\beta\mu+\gamma)v_3=0.
+\]
+By linear independence of $\{v_1,v_2,v_3\}$,
+\[
+\alpha=0,\qquad \beta=0,\qquad \alpha\lambda+\beta\mu+\gamma=\gamma=0.
+\]
+Thus $\{v_1+\lambda v_3,\ v_2+\mu v_3,\ v_3\}$ is linearly independent. Since it has $3$ vectors in a $3$-dimensional space, it is a basis.
+\[
+\boxed{\, [v_1 + \lambda v_3, v_2 + \mu v_3, v_3]\text{ is a basis for }V\ \text{for all }\lambda,\mu\in\mathbb{R}. \,}
+\]
+\bigskip
+\subsubsection{Method 2: Spanning by recovering the original basis}
+Let
+\[
+w_1=v_1+\lambda v_3,\qquad w_2=v_2+\mu v_3,\qquad w_3=v_3.
+\]
+Then
+\[
+v_3=w_3,\qquad v_1=w_1-\lambda w_3,\qquad v_2=w_2-\mu w_3.
+\]
+Hence $\{v_1,v_2,v_3\}\subseteq \mathrm{span}\{w_1,w_2,w_3\}$, so
+\[
+V=\mathrm{span}\{v_1,v_2,v_3\}\subseteq \mathrm{span}\{w_1,w_2,w_3\}\subseteq V,
+\]
+and therefore $\mathrm{span}\{w_1,w_2,w_3\}=V$. Since there are $3$ spanning vectors and $\dim V=3$, $\{w_1,w_2,w_3\}$ is a basis.
+\[
+\boxed{\, [v_1 + \lambda v_3, v_2 + \mu v_3, v_3]\text{ is a basis for }V. \,}
+\]
+\bigskip
+\subsubsection{Method 3: Change-of-basis matrix and determinant (matrix method)}
+Relative to the basis $(v_1,v_2,v_3)$, the coordinate columns of
+\[
+w_1=v_1+\lambda v_3,\qquad w_2=v_2+\mu v_3,\qquad w_3=v_3
+\]
+are
+\[
+[w_1]_{(v_1,v_2,v_3)}=\begin{bmatrix}1\\0\\\lambda\end{bmatrix},\quad
+[w_2]_{(v_1,v_2,v_3)}=\begin{bmatrix}0\\1\\\mu\end{bmatrix},\quad
+[w_3]_{(v_1,v_2,v_3)}=\begin{bmatrix}0\\0\\1\end{bmatrix}.
+\]
+Thus the change-of-basis matrix is
+\[
+C=
+\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+\lambda&\mu&1
+\end{bmatrix},
+\]
+which is lower triangular with $\det(C)=1\neq 0$. Hence $C$ is invertible, so $(w_1,w_2,w_3)$ is a basis of $V$.
+\[
+\boxed{\, [v_1 + \lambda v_3, v_2 + \mu v_3, v_3]\text{ is a basis for }V. \,}
+\]
+\bigskip
+\subsubsection{Method 4: Elementary basis transformation theorem}
+\textbf{Theorem (Elementary basis transformations).}
+If $(u_1,\dots,u_n)$ is a basis, then replacing some $u_i$ by $u_i+\alpha u_j$ ($i\neq j$) yields another basis.
+
+Let $(v_1,v_2,v_3)$ be a basis. Replace $v_1$ by $v_1+\lambda v_3$; since this is of the form $u_1+\alpha u_3$, the theorem implies $(v_1+\lambda v_3,\ v_2,\ v_3)$ is a basis.
+Next replace $v_2$ by $v_2+\mu v_3$ in that basis; again the theorem applies, giving $(v_1+\lambda v_3,\ v_2+\mu v_3,\ v_3)$ as a basis.
+\[
+\boxed{\, [v_1 + \lambda v_3, v_2 + \mu v_3, v_3]\text{ is a basis for }V. \,}
+\]
+\newpage
+\subsubsection{Method 5: Automorphism on coordinate space)}
+Let $\Phi:\mathbb{R}^3\to V$ be the coordinate isomorphism associated with the basis $(v_1,v_2,v_3)$:
+\[
+\Phi(a,b,c)=av_1+bv_2+cv_3.
+\]
+\textbf{Theorem.} If $\Phi$ is an isomorphism and $C\in GL_3(\mathbb{R})$, then $\{\Phi(Ce_1),\Phi(Ce_2),\Phi(Ce_3)\}$ is a basis of $V$.
+
+Take
+\[
+C=\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+\lambda&\mu&1
+\end{bmatrix},
+\]
+which satisfies $\det(C)=1\neq 0$, hence $C\in GL_3(\mathbb{R})$.
+Compute:
+\[
+Ce_1=\begin{bmatrix}1\\0\\\lambda\end{bmatrix},\quad
+Ce_2=\begin{bmatrix}0\\1\\\mu\end{bmatrix},\quad
+Ce_3=\begin{bmatrix}0\\0\\1\end{bmatrix}.
+\]
+Therefore,
+\[
+\Phi(Ce_1)=v_1+\lambda v_3,\qquad \Phi(Ce_2)=v_2+\mu v_3,\qquad \Phi(Ce_3)=v_3,
+\]
+and the theorem implies these form a basis of $V$.
+\[
+\boxed{\, [v_1 + \lambda v_3, v_2 + \mu v_3, v_3]\text{ is a basis for }V. \,}
+\]
+\bigskip
+\subsection{Mark Scheme (5 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Uses that $[v_1,v_2,v_3]$ is a basis $\Rightarrow$ $\{v_1,v_2,v_3\}$ is linearly independent and $\dim V=3$.
+    \item (2) Sets up $\alpha (v_1+\lambda v_3)+\beta (v_2+\mu v_3)+\gamma v_3=0$ and expands in $\{v_1,v_2,v_3\}$.
+    \item (1) Applies linear independence (or invertibility/determinant criterion) to conclude $\alpha=\beta=\gamma=0$ (or establishes spanning with 3 vectors).
+    \item (1) Concludes the new list is a basis of $V$ for all $\lambda,\mu\in\mathbb{R}$.
+  \end{itemize}
+\end{itemize}
+\end{document}

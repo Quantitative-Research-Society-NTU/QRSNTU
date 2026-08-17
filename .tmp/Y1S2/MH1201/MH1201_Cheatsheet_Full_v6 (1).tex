@@ -1,0 +1,563 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.34in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage[hidelinks]{hyperref}
+
+% =========================
+% Watermark (optional)
+% =========================
+\SetWatermarkText{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{1pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize \textbf{MH1201 Linear Algebra II - Cheat Sheet}}
+\fancyhead[R]{\normalsize\textbf{\href{https://qrsntu.org}{QRS@NTU}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.0em}
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{0.94}
+\setlength{\columnsep}{7pt}
+
+% =========================
+% Headings readability
+% =========================
+\titleformat{\section}{\bfseries\normalsize}{}{0pt}{\underline}
+% Moved \underline to the format command here:
+\titleformat{\subsection}{\bfseries\small}{}{0pt}{\underline} 
+
+\titlespacing*{\section}{0pt}{1.5pt}{0.2pt}
+% Replaced \underline with a valid length (e.g., 1.5pt) and removed the extra {0.1pt}:
+\titlespacing*{\subsection}{0pt}{1.5pt}{0.7pt}
+
+% =========================
+% Quick macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\Range}{\operatorname{Range}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Null}{\operatorname{Null}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\Row}{\operatorname{Row}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spann}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\nullity}{\operatorname{nullity}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\algmult}{\operatorname{algmult}}
+\newcommand{\geomult}{\operatorname{geomult}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\T}{^{\mathsf T}}
+\newenvironment{cheatitems}{\par\vspace{-1pt}}{\par\vspace{-1pt}}
+\newcommand{\cheatrow}[2]{%
+  \par\noindent\textbf{#1:}\nobreak\enspace #2\par
+}
+
+\begin{document}
+
+\begin{multicols}{3}
+\footnotesize
+
+%==================================================
+\section*{Vector Spaces (Ch1)}
+
+\subsection*{Subspaces, span, sums}
+\begin{cheatitems}
+\cheatrow{Vector-space facts}{$-(-u)=u$, $0_{\F}u=0_V$, $(-1)u=-u$, $c0_V=0_V$, $u-v=u+(-v)$.}
+\cheatrow{Subspace test}{$W\le V \iff W\neq\varnothing$ and $u,v\in W\Rightarrow u+v\in W$, $c\in\F,\ u\in W\Rightarrow cu\in W$.}
+\cheatrow{One-line test}{$W\le V \iff W\neq\varnothing$ and $cu+v\in W$ for all $u,v\in W$, $c\in\F$.}
+\cheatrow{Fast disproof}{$0\notin W\Rightarrow W\not\le V$. If $W\le V$, then $0\in W$, $u\in W\Rightarrow -u\in W$, $u,v\in W\Rightarrow u-v\in W$.}
+\cheatrow{Kernel trick}{$T:V\to U$ linear $\Rightarrow \Ker(T)=\{v:T(v)=0\}\le V$. Homogeneous linear conditions usually define subspaces.}
+\cheatrow{Span}{$\spann(S)=$ set of all finite linear combinations of vectors in $S$; $\spann(\varnothing)=\{0\}$. Smallest-subspace property: $S\subseteq W\le V\Rightarrow \spann(S)\subseteq W$.}
+\cheatrow{Span identities}{$A\subseteq B\Rightarrow \spann(A)\subseteq\spann(B)$; $\spann(\spann(A))=\spann(A)$; $\spann(A\cup B)=\spann(A)+\spann(B)$.}
+\cheatrow{Subspace ops}{If $U,W\le V$, then $U\cap W\le V$ and $U+W=\spann(U\cup W)\le V$.}
+\cheatrow{Union criterion}{$W_1\cup W_2\le V \iff (W_1\subseteq W_2)$ or $(W_2\subseteq W_1)$.}
+\cheatrow{Affine/coset test}{$\{\sum_i\lambda_i a_i+b\}\le V \iff b\in\spann\{a_i\}$. If $W\le V$, then $w_0+W\le V \iff w_0\in W$ (then $w_0+W=W$).}
+\end{cheatitems}
+
+\subsection*{Direct sums}
+\begin{cheatitems}
+\cheatrow{Definition}{$V_1\oplus\cdots\oplus V_n$ means every $v\in V_1+\cdots+V_n$ has a unique decomposition $v=v_1+\cdots+v_n$ with $v_i\in V_i$.}
+\cheatrow{Zero-sum test}{$V_1+\cdots+V_n$ is direct $\iff$ $v_1+\cdots+v_n=0$, $v_i\in V_i$ $\Rightarrow$ $v_1=\cdots=v_n=0$.}
+\cheatrow{2-subspace test}{$V=U\oplus W \iff V=U+W$ and $U\cap W=\{0\}$.}
+\cheatrow{Intersection form}{$V_1+\cdots+V_n$ direct $\iff V_i\cap\bigl(\sum_{j\ne i}V_j\bigr)=\{0\}$ for all $i$.}
+\cheatrow{Warning}{Pairwise trivial intersections are not enough when $n\ge 3$.}
+\cheatrow{LI link}{If $S$ is LI and $S=A\sqcup B$, then $\spann(S)=\spann(A)\oplus\spann(B)$.}
+\cheatrow{Sum-map view}{$\phi:V_1\times\cdots\times V_n\to V$, $\phi(v_1,\dots,v_n)=\sum_i v_i$. Then $\im(\phi)=\sum_iV_i$ and the sum is direct $\iff \Ker(\phi)=\{0\}$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Finite-Dimensional Spaces (Ch2)}
+
+\subsection*{LI, basis, coordinates}
+\begin{cheatitems}
+\cheatrow{LI}{$S$ is LI $\iff \lambda_1v_1+\cdots+\lambda_kv_k=0$ (distinct $v_i\in S$) implies $\lambda_1=\cdots=\lambda_k=0$.}
+\cheatrow{Dependence criterion}{$S$ dependent $\iff \exists v\in S$ with $v\in\spann(S\setminus\{v\})$. In particular, $0\in S\Rightarrow S$ dependent.}
+\cheatrow{Quick facts}{$\varnothing$ is LI; $\{v\}$ is LI $\iff v\neq 0$; LI $\Rightarrow$ every subset LI; dependent $\Rightarrow$ every superset dependent.}
+\cheatrow{Column test}{For $A=[v_1\ \cdots\ v_n]$ with $v_i\in\F^m$: $\{v_i\}$ LI $\iff A\lambda=0$ has only the trivial solution $\iff \operatorname{rref}(A)$ has a pivot in every column.}
+\cheatrow{Basis}{$B$ basis of $V$ $\iff B$ is LI and $\spann(B)=V$.}
+\cheatrow{Unique expansion}{If $\beta=(b_1,\dots,b_n)$ is an ordered basis and $v=\sum_i c_i b_i$, then $[v]_\beta=(c_1,\dots,c_n)\T$. Order matters.}
+\cheatrow{Determining a basis}{In an $n$-dimensional space, any $n$ vectors form a basis $\iff$ they are LI $\iff$ they span. If $W\le V$ with $\dim W=k$, then any $k$ LI vectors in $W$ form a basis of $W$, and any $k$ spanning vectors of $W$ form a basis of $W$.}
+\end{cheatitems}
+
+\subsection*{Dimension logic}
+\begin{cheatitems}
+\cheatrow{Bounds}{If $\dim V=n$, then every LI set has size $\le n$ and every spanning set has size $\ge n$.}
+\cheatrow{Extension/extraction}{Any LI set extends to a basis; any spanning set contains a basis.}
+\cheatrow{Add-one-more}{If $S$ is LI, then $S\cup\{v\}$ is LI $\iff v\notin\spann(S)$.}
+\cheatrow{Subspace dim}{$W\le V$, $\dim V<\infty \Rightarrow \dim W\le \dim V$, with equality $\iff W=V$.}
+\cheatrow{Dimension formula}{$\dim(U+W)=\dim U+\dim W-\dim(U\cap W)$. Hence $\dim(U\cap W)\ge \dim U+\dim W-\dim V$.}
+\cheatrow{Direct sum dim}{$V=U\oplus W \iff V=U+W$ and $\dim V=\dim U+\dim W$.}
+\cheatrow{Standard dims}{$\dim \F^n=n$, $\dim \F^{m\times n}=mn$, $\dim P_n(\F)=n+1$, $\dim P(\F)=\infty$.}
+\cheatrow{Common matrix dims}{$\dim\{A\in\R^{n\times n}:A\T=A\}=\frac{n(n+1)}2$, $\dim\{A\in\R^{n\times n}:A\T=-A\}=\frac{n(n-1)}2$, $\dim\{A\in\F^{n\times n}:\tr(A)=0\}=n^2-1$.}
+\cheatrow{Codim-1 kernel}{If $\ell:W\to\F$ is nonzero linear and $\dim W<\infty$, then $\dim\Ker(\ell)=\dim W-1$ and, for any $p$ with $\ell(p)\neq 0$, $W=\Ker(\ell)\oplus\spann\{p\}$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Linear Transformations (Ch3)}
+
+\subsection*{Kernel, range, rank-nullity}
+\begin{cheatitems}
+\cheatrow{Linearity}{$T:V\to W$ linear $\iff T(u+v)=T(u)+T(v)$ and $T(cu)=cT(u)$ $\iff T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)$.}
+\cheatrow{Basic consequences}{$T(0)=0$, $T(-v)=-T(v)$, and $T(\sum_i c_iv_i)=\sum_i c_iT(v_i)$.}
+\cheatrow{Determined by basis}{If $\beta=(b_i)$ is a basis of $V$, specifying $T(b_i)$ determines a unique linear map $T$.}
+\cheatrow{Kernel/range}{$\Ker(T)=\{v:T(v)=0\}\le V$, $\Range(T)=\{T(v):v\in V\}\le W$.}
+\cheatrow{Rank-nullity}{If $\dim V<\infty$, then $\dim V=\rank(T)+\nullity(T)$, where $\rank(T)=\dim\Range(T)$ and $\nullity(T)=\dim\Ker(T)$.}
+\cheatrow{Injective tests}{$T$ injective $\iff \Ker(T)=\{0\} \iff \nullity(T)=0 \iff \rank(T)=\dim V$.}
+\cheatrow{Surjective tests}{$T$ onto $W$ $\iff \Range(T)=W \iff \rank(T)=\dim W$.}
+\cheatrow{Equal-dim rule}{If $\dim V=\dim W<\infty$, then injective $\iff$ surjective $\iff$ bijective $\iff$ invertible.}
+\cheatrow{Square-matrix chain}{For $A\in\F^{n\times n}$: $\det A\neq 0 \iff A$ invertible $\iff \rank A=n \iff \nullity A=0 \iff \Ker A=\{0\} \iff \Range A=\F^{n,1} \iff 0$ is not an eigenvalue of $A$.}
+\cheatrow{Composition}{$T\circ S$ injective $\Rightarrow S$ injective; $T\circ S$ surjective $\Rightarrow T$ surjective; if $S,T$ invertible, then $(T\circ S)^{-1}=S^{-1}\circ T^{-1}$.}
+\cheatrow{Preimages}{If $U\le W$, then $T^{-1}(U)=\{v:T(v)\in U\}\le V$.}
+\cheatrow{Isomorphism theorem}{$V/\Ker(T)\cong \Range(T)$.}
+\end{cheatitems}
+
+\subsection*{High-yield templates}
+\begin{cheatitems}
+\cheatrow{Find $T$ from basis values}{Write $v=\sum_i c_i b_i$, then $T(v)=\sum_i c_iT(b_i)$.}
+\cheatrow{Kernel/range workflow}{Solve $T(v)=0$ for a basis of $\Ker(T)$; parametrize $T(v)$ or use pivot columns / images of basis vectors for a basis of $\Range(T)$.}
+\cheatrow{Idempotent maps}{$P^2=P \Rightarrow V=\Ker(P)\oplus\Range(P)$ and $v=(v-Pv)+Pv$. Also $Q=I-P$ satisfies $Q^2=Q$, $\Range(Q)=\Ker(P)$, $\Ker(Q)=\Range(P)$.}
+\cheatrow{Hyperplane trick}{If $\ell\neq 0$ linear and $H=\Ker(\ell)$, then $\dim H=\dim V-1$. If $\Range(T)\subseteq H$ and $\dim\Range(T)\ge \dim H$, then $\Range(T)=H$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Matrices / Coordinates / Similarity (Ch4)}
+
+\subsection*{Coordinate maps and matrix reps}
+\begin{cheatitems}
+\cheatrow{Coordinate map}{If $\beta=(b_1,\dots,b_n)$ is an ordered basis of $V$, then $[\cdot]_\beta:V\to\F^{n,1}$ is a linear isomorphism.}
+\cheatrow{Matrix rep}{For $T:V\to W$, bases $\beta=(b_1,\dots,b_n)$ of $V$, $\gamma=(c_1,\dots,c_m)$ of $W$: $[T]^\gamma_\beta=\bigl[[T(b_1)]_\gamma\ \cdots\ [T(b_n)]_\gamma\bigr]\in\F^{m\times n}$.}
+\cheatrow{Fundamental identity}{$[T(v)]_\gamma=[T]^\gamma_\beta[v]_\beta$.}
+\cheatrow{Composition}{$[T\circ S]^\gamma_\alpha=[T]^\gamma_\beta[S]^\beta_\alpha$ (the middle basis must match).}
+\cheatrow{Inverse}{If $T$ invertible, then $[T^{-1}]^\beta_\gamma=([T]^\gamma_\beta)^{-1}$.}
+\cheatrow{Standard matrix}{If $\beta,\gamma$ are standard bases, $[T]^\gamma_\beta$ is the standard matrix of $T$. In polynomial spaces: columns are coordinate vectors of images of $1,X,X^2,\dots$.}
+\cheatrow{RREF criteria}{For $A=[T]^\gamma_\beta\in\F^{m\times n}$: $T$ injective $\iff \operatorname{rref}(A)$ has a pivot in every column; $T$ onto $W$ $\iff$ $\operatorname{rref}(A)$ has a pivot in every row.}
+\end{cheatitems}
+
+\subsection*{Change of basis / similarity}
+\begin{cheatitems}
+\cheatrow{Coord conversion}{$[v]_\gamma=[I_V]^\gamma_\beta[v]_\beta$ and $[I_V]^\beta_\gamma=([I_V]^\gamma_\beta)^{-1}$.}
+\cheatrow{Columns of $[I]$}{The $j$-th column of $[I_V]^\gamma_\beta$ is $[b_j]_\gamma$. It converts $\beta$-coordinates to $\gamma$-coordinates.}
+\cheatrow{Using standard basis}{If $P_\beta=[I_V]^\sigma_\beta=\bigl[[b_1]_\sigma\ \cdots\ [b_n]_\sigma\bigr]$, then $[I_V]^\gamma_\beta=P_\gamma^{-1}P_\beta$.}
+\cheatrow{Change-of-rep formula}{$[T]^\gamma_\gamma=[I_V]^\gamma_\beta\,[T]^\beta_\beta\,[I_V]^\beta_\gamma$. If $Q=[I_V]^\beta_\gamma$, then $[T]^\gamma_\gamma=Q^{-1}[T]^\beta_\beta Q$.}
+\cheatrow{Similarity}{$A\sim B \iff \exists Q\in GL_n(\F)$ with $B=Q^{-1}AQ$. Similarity = same operator in different bases.}
+\cheatrow{Similarity invariants}{$\det$, $\tr$, characteristic polynomial, eigenvalues (with multiplicity), rank, nullity. One differing invariant proves $A\not\sim B$.}
+\cheatrow{Useful identities}{$\det(Q^{-1}AQ)=\det(A)$, $\tr(Q^{-1}AQ)=\tr(A)$, $\tr(XY)=\tr(YX)$.}
+\cheatrow{$2\times2$ char poly}{If $A=\begin{bmatrix}a&b\\ c&d\end{bmatrix}$, then $p_A(\lambda)=\lambda^2-\tr(A)\lambda+\det(A)$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Eigenvalues / Diagonalization (Ch5)}
+
+\subsection*{Eigenvalues and eigenspaces}
+\begin{cheatitems}
+\cheatrow{Definitions}{$\lambda$ eigenvalue of $T$ $\iff \exists v\neq 0$ with $T(v)=\lambda v$ $\iff E_{T,\lambda}=\Ker(T-\lambda I)\neq\{0\}$.}
+\cheatrow{Matrix test}{If $A=[T]^\beta_\beta$ on an $n$-dimensional space, then $\lambda$ eigenvalue $\iff \det(A-\lambda I_n)=0$.}
+\cheatrow{Characteristic poly}{$p_T(\lambda)=\det(A-\lambda I_n)$ is basis-independent. Its roots in the base field are the eigenvalues.}
+\cheatrow{Quick consequences}{$0$ eigenvalue $\iff T$ not injective. If $V=W$ finite-dim, then $0$ eigenvalue $\iff T$ not invertible $\iff \det(A)=0$.}
+\cheatrow{Triangular matrices}{If $A$ is triangular, its eigenvalues are its diagonal entries (with algebraic multiplicities).}
+\cheatrow{Distinct eigenvalues}{Eigenvectors for distinct eigenvalues are LI; hence $E_{\lambda_1}+\cdots+E_{\lambda_k}=E_{\lambda_1}\oplus\cdots\oplus E_{\lambda_k}$.}
+\cheatrow{Field warning}{Over $\R$, a matrix/operator may have no real eigenvalues even if it has complex eigenvalues.}
+\end{cheatitems}
+
+\subsection*{Diagonalizability criteria}
+\begin{cheatitems}
+\cheatrow{Definition}{$T$ diagonalizable $\iff V$ has a basis of eigenvectors $\iff [T]^\beta_\beta$ is diagonal for some basis $\beta$.}
+\cheatrow{Constructing $PDP^{-1}$}{If columns of $P$ are eigenvectors $v_1,\dots,v_n$ and corresponding eigenvalues are $\lambda_1,\dots,\lambda_n$, then $A=PDP^{-1}$ with $D=\diag(\lambda_1,\dots,\lambda_n)$.}
+\cheatrow{Core criterion}{$T$ diagonalizable $\iff \dim V=\sum_\lambda \dim E_{T,\lambda}$.}
+\cheatrow{Multiplicity criterion}{If $p_T$ splits over $\F$, then $T$ diagonalizable $\iff \geomult(\lambda)=\algmult(\lambda)$ for every eigenvalue $\lambda$. Always $1\le \geomult(\lambda)\le \algmult(\lambda)$.}
+\cheatrow{Easy sufficient test}{If $\dim V=n$ and $T$ has $n$ distinct eigenvalues in $\F$, then $T$ is diagonalizable.}
+\cheatrow{Repeated-root warning}{Repeated eigenvalue does not decide diagonalizability; compute eigenspaces. Distinct eigenvalues are sufficient, not necessary.}
+\cheatrow{Powers}{If $A=PDP^{-1}$, then $A^k=PD^kP^{-1}$ with $D^k=\diag(\lambda_1^k,\dots,\lambda_n^k)$.}
+\cheatrow{Polynomial calculus}{If $Av=\lambda v$, then $p(A)v=p(\lambda)v$. If $A=PDP^{-1}$, then $p(A)=P\diag(p(\lambda_1),\dots,p(\lambda_n))P^{-1}$.}
+\cheatrow{Distinct-root annihilator}{If $p(T)=0$ and $p$ splits into distinct linear factors over $\F$, then $T$ is diagonalizable. In particular, $T^2=I$ implies diagonalizable when $\operatorname{char}(\F)\neq 2$.}
+\cheatrow{Nilpotent facts}{$T$ nilpotent means $T^k=0$ for some $k$. Then the only eigenvalue is $0$. A nilpotent operator is diagonalizable $\iff T=0$; hence any nonzero nilpotent operator is not diagonalizable.}
+\end{cheatitems}
+
+%==================================================
+\section*{Inner Product Spaces (Ch6)}
+
+\subsection*{Inner products}
+\begin{cheatitems}
+
+\cheatrow{Definition}{
+$\langle\cdot,\cdot\rangle:V\times V\to\mathbb{F}$ is an inner product iff: \\
+\textbf{(1) Linearity / Sesquilinearity:}
+Real: bilinear; \\
+Complex: conjugate-linear in first $\langle au_1+bu_2,v\rangle=\overline{a}\langle u_1,v\rangle+\overline{b}\langle u_2,v\rangle$, \\
+linear in second $\langle u,av_1+bv_2\rangle=a\langle u,v_1\rangle+b\langle u,v_2\rangle$ \\
+\textbf{(2) Symmetry:}
+Real: $\langle u,v\rangle=\langle v,u\rangle$;
+Complex: $\langle u,v\rangle=\overline{\langle v,u\rangle}$ \\
+\textbf{(3) Positive definite:}
+$\langle u,u\rangle\ge0$, and $=0 \iff u=0$
+}
+
+\cheatrow{Fast test (matrix form)}{
+$\langle x,y\rangle = x^\top G y$ (real), $x^\dagger H y$ (complex) \\
+Real: inner product $\iff G=G^\top$ and $G \succ 0$; \\
+Complex: $H=H^\dagger$ and $H \succ 0$
+}
+
+\cheatrow{Sylvester's Criterion}{
+$H\succ0 \iff \det(H_k)>0\ \forall k$ (Hermitian $H$)
+}
+
+\cheatrow{Spectral Theorem}{
+$H=H^\dagger \Rightarrow H=U\Lambda U^\dagger$, so $x^\dagger H x=\sum \lambda_i |y_i|^2$ in eigenbasis
+}
+
+\cheatrow{Eigenvalue test}{
+$H \succ 0 \iff \lambda_i(H)>0 \ \forall i$; $H \succeq 0 \iff \lambda_i(H)\ge0$
+}
+
+\cheatrow{Gram Matrix}{
+$G_{ij}=\langle v_i,v_j\rangle \Rightarrow x^\dagger G x=\|\sum x_i v_i\|^2 \ge 0 \Rightarrow G \succeq 0$
+}
+
+\cheatrow{$A^\dagger A$ PSD}{
+$x^\dagger (A^\dagger A)x = \|Ax\|^2 \ge 0 \Rightarrow A^\dagger A \succeq 0$
+}
+\cheatrow{Cholesky Decomposition}{\\
+$H \succ 0 \iff H=LL^\dagger$ with $L$ lower triangular 
+\vspace{-8pt}
+\\
+(constructive PD test) 
+$\qquad H=\begin{bmatrix}a&b\\ \overline{b}&c\end{bmatrix}
+\Rightarrow 
+L=\begin{bmatrix}
+\sqrt{a} & 0\\[4pt]
+\dfrac{b}{\sqrt{a}} & \sqrt{c-\dfrac{|b|^2}{a}}
+\end{bmatrix}$ \vspace{-15pt} \\[6pt]
+then $x^\dagger Hx=\|Lx\|^2>0$ for $x\ne0$. \\
+Equiv. $H=R^\dagger R$ with $R$ invertible upper triangular;\\
+then $x^\dagger Hx=\|Rx\|^2>0$ for $x\ne0$.}
+
+\cheatrow{Cauchy--Schwarz}{
+$|\langle x,y\rangle|^2 \le \langle x,x\rangle \langle y,y\rangle$
+}
+
+\cheatrow{Rayleigh Quotient}{
+$R(x)=\frac{x^\dagger H x}{x^\dagger x}$ satisfies $\lambda_{\min}\le R(x)\le \lambda_{\max}$
+}
+
+\cheatrow{Polarisation link}{
+Norm determines inner product via polarisation; see Norms section. 
+Useful when proving two inner products are equal from equal norms.
+}
+\end{cheatitems}
+
+
+
+\vspace{1pt}
+\subsection*{Norms and identities}
+\begin{cheatitems}
+
+\cheatrow{Norm \& distance}{
+$\|u\|=\sqrt{\ip{u}{u}}$, \quad $d(u,v)=\|u-v\|$
+}
+
+\cheatrow{Norm expansion ($\pm$)}{
+$\|u\pm v\|^2=\|u\|^2+\|v\|^2\pm 2\operatorname{Re}\langle u,v\rangle$\\
+Real: $\operatorname{Re}\langle u,v\rangle=\langle u,v\rangle$
+}
+
+\cheatrow{Parallelogram Identity}{
+$\|u+v\|^2+\|u-v\|^2=2\|u\|^2+2\|v\|^2$
+}
+
+\cheatrow{Polarisation Identity}{
+Recover $\langle x,y\rangle$ from norm.\\
+$\displaystyle \Re\langle x,y\rangle=\frac{1}{4}\big(\|x+y\|^2-\|x-y\|^2\big)$ ; $\displaystyle \Im\langle x,y\rangle=\frac{1}{4}\big(\|x+iy\|^2-\|x-iy\|^2\big)$
+}
+
+\cheatrow{Cauchy--Schwarz}{
+$|\ip{u}{v}|\le \|u\|\,\|v\|$, equality $\iff$ $u,v$ LD
+}
+
+\cheatrow{Triangle inequality}{
+$\|u+v\|\le \|u\|+\|v\|$
+}
+
+\cheatrow{Pythagoras}{
+$u\perp v \Rightarrow \|u+v\|^2=\|u\|^2+\|v\|^2$
+}
+
+\end{cheatitems}
+
+\subsection*{Orthogonality and expansions}
+\begin{cheatitems}
+
+\cheatrow{Orthogonality}{
+$u\perp v \iff \ip{u}{v}=0$; orthogonal set = pairwise orthogonal;  
+orthonormal (ON) = orthogonal + $\|u\|=1$; orthogonal nonzero set $\Rightarrow$ LI
+}
+
+\cheatrow{ONB expansion}{
+If $\beta=(e_i)$ is ONB, then
+$v=\sum_i \ip{e_i}{v}e_i$; Fourier coefficients: $c_i=\ip{e_i}{v}$
+}
+
+\cheatrow{Orthogonal basis expansion}{
+If $\{u_i\}$ is orthogonal and nonzero, then
+$v=\sum_i \dfrac{\ip{u_i}{v}}{\ip{u_i}{u_i}}u_i$
+}
+
+\cheatrow{Fourier coefficients}{
+ONB: $c_i=\ip{e_i}{v}$; orthogonal basis: 
+$c_i=\dfrac{\ip{u_i}{v}}{\ip{u_i}{u_i}}$.\\
+Use after normalizing GS outputs; no need to solve a coordinate system.
+}
+
+\cheatrow{Parity shortcut}{
+On $[-a,a]$, odd integrals vanish; even--odd functions are orthogonal.\\
+For $\ip{f}{g}=\int_{-1}^{1}fg$, GS on $(1,x,x^2,x^3)$ splits into even block $(1,x^2)$ and odd block $(x,x^3)$.
+}
+
+\cheatrow{Legendre shortcut}{
+For $\ip{f}{g}=\int_{-1}^{1}fg$, GS on $(1,x,x^2,\dots)$ gives Legendre polynomials.\\
+$L_0=1,\ L_1=x,\ L_2=\frac12(3x^2-1),\ L_3=\frac12(5x^3-3x)$;\\
+$\int_{-1}^{1}L_mL_n=0$ if $m\ne n$, and $\|L_n\|^2=\dfrac{2}{2n+1}$.
+}
+
+\cheatrow{Legendre ONB}{
+$\phi_n=\sqrt{\dfrac{2n+1}{2}}L_n$ is ON under $\int_{-1}^{1}fg$.\\
+Useful identities:
+$x^2=\dfrac13+\dfrac23L_2$, 
+$x^3=\dfrac35L_1+\dfrac25L_3$.
+}
+
+\end{cheatitems}
+
+
+
+\subsection*{Projection, Gram--Schmidt, complements}
+\begin{cheatitems}
+
+\cheatrow{Proj onto vector}{
+$\proj_u(v)=\frac{\ip{u}{v}}{\ip{u}{u}}u$, $u\neq0$; $v-\proj_u(v)\perp u$
+}
+
+\cheatrow{Proj onto subspace}{
+If ONB $(b_i)$ of $W$, then
+$P_W(v)=\sum_i \ip{b_i}{v}b_i$ and $v-P_W(v)\in W^\perp$
+}
+
+\cheatrow{Best approx}{
+$P_W(v)$ is the unique minimizer of $\|v-w\|$ over $w\in W$;  
+condition: $v-w\in W^\perp$
+}
+
+\cheatrow{Gram--Schmidt}{
+$v_1=b_1$, 
+$v_k=b_k-\sum_{j<k}\proj_{v_j}(b_k)$;  
+$g_k=v_k/\|v_k\|$ gives ONB.\\
+Keep $v_k$ unnormalized until the end to simplify coefficients.
+}
+
+\cheatrow{GS on orthogonal list}{
+If $(b_i)$ already orthogonal, all projection terms vanish; non-normalized GS returns $v_i=b_i$.\\
+If normalized GS is required, output is $g_i=b_i/\|b_i\|$.
+}
+
+\cheatrow{Nested spans}{
+GS output satisfies
+$\spann(v_1,\dots,v_k)=\spann(b_1,\dots,b_k)$ for all $k$
+}
+
+\cheatrow{GS preserves flags}{
+If $F_k=\spann(b_1,\dots,b_k)$, then GS gives
+$\spann(g_1,\dots,g_k)=F_k$.\\
+So GS changes the basis but preserves the same nested subspaces.
+}
+
+\cheatrow{Upper triangular flag}{
+For basis $\beta=(b_i)$, $[T]_\beta^\beta$ upper triangular
+$\iff T(F_k)\subseteq F_k$ for all $k$, where 
+$F_k=\spann(b_1,\dots,b_k)$.
+}
+
+\cheatrow{Flag-slice ONB}{
+For a flag $F_1\subset\cdots\subset F_n$, choose
+$g_k\in F_k\cap F_{k-1}^{\perp}$, $\|g_k\|=1$.\\
+Then $(g_k)$ is ON and $\spann(g_1,\dots,g_k)=F_k$.
+}
+
+\cheatrow{QR}{
+GS on columns of $A$ gives $A=QR$, where $Q$ has ON columns and $R$ is upper triangular;  
+$r_{ij}=\ip{q_i}{a_j}$ for $i\le j$
+}
+
+\cheatrow{QR + triangularity}{
+If $B=[T]_\beta^\beta$ is upper triangular and the GS change matrix is upper triangular, then
+$[T]_\gamma^\gamma=RBR^{-1}$ is upper triangular.
+}
+
+\cheatrow{Orthogonal complement}{
+$W^\perp=\{v:\ip{w}{v}=0\ \forall w\in W\}$;  
+$A^\perp=(\spann A)^\perp$
+}
+
+\cheatrow{Finite-dim facts}{
+$V=W\oplus W^\perp$; $\dim W+\dim W^\perp=\dim V$;  
+$W\cap W^\perp=\{0\}$; $(W^\perp)^\perp=W$
+}
+
+\cheatrow{Double complement warning}{
+Always $W\subseteq W^{\perp\perp}$. Finite dim: $W^{\perp\perp}=W$.\\
+Hilbert space: $W^{\perp\perp}=\overline W$; equality can fail if $W$ is not closed.
+}
+
+\cheatrow{Kernel-row theorem}{
+For real matrix $A$, $\Null(A)^\perp=\Row(A)$.\\
+Thus $W=\{x:Ax=0\}\Rightarrow W^\perp=\Row(A)$.
+}
+
+\cheatrow{Hyperplane normal}{
+If $W=\{x:n\cdot x=0\}=n^\perp$, then $W^\perp=\spann\{n\}$.\\
+One equation $\Rightarrow$ orthogonal complement is the span of the coefficient/normal vector.
+}
+
+\cheatrow{Hyperplane projection}{
+If $W=\{x:n\cdot x=0\}$ and $p=a+b$, $a\in W$, $b\in W^\perp$, then\\
+$b=\dfrac{p\cdot n}{n\cdot n}n$, \qquad
+$a=p-b$.
+}
+
+\cheatrow{Least squares}{
+$y-Ab\in\Range(A)^\perp \iff A^\top(y-Ab)=0 \iff A^\top A b=A^\top y$
+}
+
+\end{cheatitems}
+
+\subsection*{Standard workflows}
+\begin{cheatitems}
+
+\cheatrow{Subspace / direct sum}{
+To show $W\le V$: use subspace test, kernel trick, or $W=\spann(S)$.\\
+To show $V=U\oplus W$: prove $V=U+W$ and $U\cap W=\{0\}$, or use dimensions.
+}
+
+\cheatrow{LI / basis / dim}{
+Put vectors as columns and row-reduce. In an $n$-dimensional space: 
+$n$ vectors form a basis iff LI iff spanning. Use extension/extraction aggressively.
+}
+
+\cheatrow{Kernel / range}{
+Solve $T(v)=0$ for $\Ker(T)$. For $\Range(T)$, use pivot columns of a matrix rep or images of basis vectors, then apply rank-nullity.
+}
+
+\cheatrow{Matrix rep}{
+Compute $T$ on the domain basis vectors, express each image in the codomain basis, place those coordinate vectors as columns.
+}
+
+\cheatrow{Change of basis}{
+Build $[I_V]^\gamma_\beta$ from columns $[b_j]_\gamma$;  
+if both bases are in standard coordinates, use $P_\gamma^{-1}P_\beta$.
+}
+
+\cheatrow{Diagonalize}{
+Compute $p_A(\lambda)$, find eigenvalues, compute each eigenspace, compare 
+$\sum_\lambda \dim E_\lambda$ with $n$; then assemble $P$ from eigenvectors and $D$ from matching eigenvalues.
+}
+
+\cheatrow{Projection / least squares}{
+Find an ONB of $W$ first. Then $P_W(v)=\sum \ip{b_i}{v}b_i$.\\
+For $Ax\approx y$, use $y-Ab\in\Range(A)^\perp \iff A\T(y-Ab)=0 \iff A\T A\,b=A\T y$.
+}
+
+\cheatrow{Gram--Schmidt}{
+Keep unnormalized $v_k$ until the end; projection coefficients are 
+$\ip{v_j}{b_k}/\ip{v_j}{v_j}$; normalize only after orthogonalization.
+}
+
+\cheatrow{Fast IP-space recognition}{
+Already orthogonal $\Rightarrow$ GS unchanged; 
+matrix IP $\Rightarrow$ check symmetric/Hermitian PD;\\
+hyperplane $n\cdot x=0\Rightarrow W^\perp=\spann\{n\}$; 
+Frobenius diagonal complement $\Rightarrow$ zero diagonal.
+}
+
+\cheatrow{Fast theorem choices}{
+Upper triangular $\Rightarrow$ invariant flag; 
+polynomial IP on $[-1,1]\Rightarrow$ parity/Legendre;\\
+finite dim complement $\Rightarrow W^{\perp\perp}=W$; 
+infinite dim $\Rightarrow$ check closure.
+}
+
+\cheatrow{Inner product proof workflow}{
+Direct definition: check linear/sesquilinear, symmetry/conjugate symmetry, positive definite.\\
+Matrix form: check $G=G^\top$ or $H=H^\dagger$, then use Sylvester/eigenvalues/Cholesky/squares for PD.
+}
+
+\cheatrow{Orthogonal complement workflow}{
+If $W=\spann(S)$, solve $\ip{x}{s}=0$ for all $s\in S$.\\
+If $W=\{x:Ax=0\}$, use $W^\perp=\Row(A)$.\\
+If $W=n^\perp$, use $W^\perp=\spann\{n\}$.
+}
+
+\end{cheatitems}
+
+
+
+\section*{High-yield traps}
+\begin{cheatitems}
+\cheatrow{Subspaces}{Must contain $0$. Kernels and homogeneous solution spaces are subspaces; affine translates usually are not.}
+\cheatrow{Coordinates}{Distinguish vectors from coordinate columns. Order of basis matters. $[T]^\gamma_\beta$ means input in $\beta$-coordinates, output in $\gamma$-coordinates.}
+\cheatrow{Maps vs matrices}{Operator statements are basis-free; matrices depend on bases. Similar matrices represent the same operator in different bases.}
+\cheatrow{Rank-nullity}{Injective $\Leftrightarrow$ surjective requires equal finite dimensions.}
+\cheatrow{Diagonalization}{Repeated eigenvalue does not imply diagonalizable. Check eigenspace dimensions; compare geometric vs algebraic multiplicity.}
+\cheatrow{Orthogonality}{Orthogonal $\neq$ orthonormal. Fourier coefficient formula $v=\sum\ip{u}{v}u$ needs an ONB; for merely orthogonal bases divide by $\ip{u_i}{u_i}$. Projection onto $u$ requires $u\neq 0$.}
+\cheatrow{Field issues}{Over $\R$, some matrices/operators have no real eigenvalues. Over $\C$, keep conjugation in the correct slot of the inner product.}
+\end{cheatitems}
+
+\end{multicols}
+\end{document}

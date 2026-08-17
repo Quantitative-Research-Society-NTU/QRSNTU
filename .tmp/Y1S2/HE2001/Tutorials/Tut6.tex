@@ -1,0 +1,739 @@
+% :contentReference[oaicite:0]{index=0}
+% :contentReference[oaicite:1]{index=1}
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Tutorial 6 / Mock Exam}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- SHORTCUTS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_+}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dotp}{\cdot}
+\newcommand{\pii}{\pi}
+\newcommand{\cdf}{F}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This mock exam reviews core tools from consumer theory and asset pricing:
+\begin{itemize}[leftmargin=*]
+  \item revealed preference and WARP (direct and strict revealed preference);
+  \item normal goods, cross-price effects, and ambiguity of comparative statics;
+  \item labor supply: substitution vs income effects;
+  \item present value and no-arbitrage decisions;
+  \item first-order stochastic dominance (FOSD);
+  \item Cobb--Douglas demands and Slutsky decomposition;
+  \item present value of multi-period assets and perpetuities; no-arbitrage rates of return.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% PART I
+%====================================================
+\newpage
+\begin{center}
+  \rule{0.9\textwidth}{0.6pt}\\[6pt]
+  {\Large \textbf{Part I: Short Questions}}\\[4pt]
+  \rule{0.9\textwidth}{0.6pt}
+\end{center}
+
+%====================================================
+% SHORT QUESTION 1
+%====================================================
+\section*{Question 1 (Revealed preference)}
+\subsection*{Problem}
+Bob maximizes an increasing utility function \(U\).
+Bob buys \(x=(5,5)\) when prices are \(p=(1,1)\).
+Is the bundle \((8,2)\) revealed preferred to the bundle \((1,6)\)?
+
+\subsection*{Solution}
+With only one observation \((p,x)\), define the \emph{(direct) revealed preference relation} \(R\) by
+\[
+xR y \quad\Longleftrightarrow\quad p\dotp y \le p\dotp x,
+\]
+i.e.\ \(y\) is affordable at prices \(p\) with expenditure \(m=p\dotp x\).
+
+Here \(m=p\dotp x=1\cdot 5+1\cdot 5=10\).
+
+\subsubsection*{Method 1: Definition-based (what is actually revealed?)}
+To conclude ``\((8,2)\) is revealed preferred to \((1,6)\)'', we would need an observation where \((8,2)\) is \emph{chosen} and \((1,6)\) is affordable at that same observation.
+But \((8,2)\) is \emph{not} observed as a chosen bundle; the only observed chosen bundle is \((5,5)\).
+
+From the single observation, we can infer only statements of the form:
+\[
+(5,5)R y \quad \text{for every }y\text{ with } p\dotp y\le 10.
+\]
+Thus the data reveal \((5,5)\) is (weakly) preferred to both \((8,2)\) (since \(p\dotp(8,2)=10\)) and \((1,6)\) (since \(p\dotp(1,6)=7\)),
+but the data reveal \emph{nothing} about the preference ordering between \((8,2)\) and \((1,6)\).
+
+\[
+\boxed{\text{No: from the given observation, we cannot conclude that }(8,2)\text{ is revealed preferred to }(1,6).}
+\]
+
+\subsubsection*{Method 2: Construct two increasing preferences consistent with the data but giving opposite rankings}
+We show the ranking between \((8,2)\) and \((1,6)\) is not identified even under increasing preferences.
+
+\paragraph{Preference 1 (increasing, favors good 1).}
+Let \(U_1(x_1,x_2)=x_1+0.01x_2\) (strictly increasing).
+Then
+\[
+U_1(8,2)=8+0.02=8.02,\qquad U_1(1,6)=1+0.06=1.06,
+\]
+so \((8,2)\succ_1(1,6)\).
+
+\paragraph{Preference 2 (increasing, favors good 2).}
+Let \(U_2(x_1,x_2)=0.01x_1+x_2\) (strictly increasing).
+Then
+\[
+U_2(8,2)=0.08+2=2.08,\qquad U_2(1,6)=0.01+6=6.01,
+\]
+so \((1,6)\succ_2(8,2)\).
+
+Both utilities are increasing, and the single observation \(x=(5,5)\) at \(p=(1,1)\) does not force a unique ranking between \((8,2)\) and \((1,6)\).
+Therefore no revealed-preference conclusion between these two bundles is warranted.
+
+\[
+\boxed{\text{Not enough information: the data do not reveal whether }(8,2)R(1,6)\text{ or vice versa.}}
+\]
+
+%====================================================
+% SHORT QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Normal goods and a cross-price change)}
+\subsection*{Problem}
+There are two goods (\(L=2\)) and both goods are normal.
+The price of good 1 increases.
+What can we conclude about the change in demand for good 2 (increase, decrease, or cannot say)?
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Slutsky decomposition (substitution vs income effect)}
+Let Marshallian demand be \(x(p,m)\). Consider an increase in \(p_1\) holding \(p_2,m\) fixed.
+For good 2, the total change can be decomposed into:
+\[
+\Delta x_2
+=\underbrace{\Delta x_2^{\,s}}_{\text{substitution effect}}
++\underbrace{\Delta x_2^{\,n}}_{\text{income effect}}.
+\]
+\begin{itemize}[leftmargin=*]
+\item The substitution effect \(\Delta x_2^{\,s}\) can be positive or negative depending on whether goods are net substitutes or net complements.
+\item If goods are normal, a rise in \(p_1\) reduces real purchasing power (with \(m\) fixed), making the income effect for good 2 \emph{non-positive}:
+\[
+\Delta x_2^{\,n}\le 0.
+\]
+\end{itemize}
+Since \(\Delta x_2^{\,s}\) has ambiguous sign, the sum is ambiguous.
+
+\[
+\boxed{\text{Cannot say: }x_2\text{ may increase or decrease depending on substitution vs income effects.}}
+\]
+
+\subsubsection*{Method 2: Counterexamples with normal goods}
+We exhibit two standard preference classes where both goods are normal but the cross-price effect differs.
+
+\paragraph{Case A: Substitutes (cross-price effect positive).}
+For Cobb--Douglas \(U=x_1^\alpha x_2^{1-\alpha}\) (\(\alpha\in(0,1)\)), both goods are normal and
+\[
+x_2(p,m)=\frac{(1-\alpha)m}{p_2},
+\]
+which does not decrease with \(p_1\); in fact the substitution effect tends to raise \(x_2\) when \(p_1\) rises.
+
+\paragraph{Case B: Complements (cross-price effect negative).}
+For Leontief \(U=\min\{x_1,x_2\}\), both goods are normal and demands satisfy \(x_1=x_2=m/(p_1+p_2)\),
+so as \(p_1\) rises, \(x_2\) \emph{falls}.
+
+Thus even with normality, the sign is not pinned down.
+
+\[
+\boxed{\text{Cannot say.}}
+\]
+
+%====================================================
+% SHORT QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (Labor supply with normal consumption and leisure)}
+\subsection*{Problem}
+Bob supplies 60 hours/week of labor. Bob gets utility from consumption and leisure, which are both normal goods.
+Bob's wage rises from \$10/hour to \$20/hour.
+What can we conclude about Bob's labor supply (increase, decrease, or cannot say)?
+
+\subsection*{Solution}
+Let total time endowment be \(T\), labor be \(\ell\), and leisure be \(L=T-\ell\).
+Consumption equals labor income (for simplicity): \(c=w\ell\).
+Utility \(U(c,L)\) with both \(c\) and \(L\) normal.
+
+\subsubsection*{Method 1: Substitution vs income effect}
+A wage increase has two forces:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Substitution effect:} leisure becomes more expensive (higher opportunity cost), so the consumer tends to substitute away from leisure toward labor:
+\[
+\ell \text{ tends to increase}.
+\]
+\item \textbf{Income effect:} higher wage increases potential income for any given \(\ell\); with leisure normal, higher real income increases leisure \(L\), which reduces labor \(\ell=T-L\):
+\[
+\ell \text{ tends to decrease}.
+\]
+\end{itemize}
+Because these effects work in opposite directions, the net change is ambiguous.
+
+\[
+\boxed{\text{Cannot say: labor supply may increase or decrease.}}
+\]
+
+\subsubsection*{Method 2: Provide two standard examples with opposite responses}
+\paragraph{Example where labor rises.}
+Take preferences with weak income effect relative to substitution (e.g.\ quasi-linear in consumption),
+so the substitution effect dominates: wage up \(\Rightarrow\) labor up.
+
+\paragraph{Example where labor falls (backward-bending supply).}
+With sufficiently strong income effects (e.g.\ Cobb--Douglas over \(c\) and \(L\) and large initial income),
+the income effect can dominate: wage up \(\Rightarrow\) leisure up \(\Rightarrow\) labor down.
+
+Hence no definite prediction follows from normality alone.
+
+\[
+\boxed{\text{Cannot say.}}
+\]
+
+%====================================================
+% SHORT QUESTION 4
+%====================================================
+\newpage
+\section*{Question 4 (Present value decision)}
+\subsection*{Problem}
+The interest rate is \(r=0.1\). There are two periods \(t=0,1\).
+Farmer Ann's cow produces \$0 today and \$109 next period, then dies.
+You have \$100 today you want to save. Ann offers to sell you the cow for \$100 today.
+Should you buy the cow (yes/no/not enough information)? How do you maximize the present value?
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Compare present values}
+If you keep your \$100 and save at interest rate \(r=0.1\), then next period you have
+\[
+100(1+r)=100(1.1)=110.
+\]
+If you buy the cow for \$100 today, you receive \$109 next period.
+Compare next-period payoffs: \(109<110\), so saving dominates buying the cow.
+
+Equivalently compare present value (PV) at \(t=0\):
+\[
+PV(\text{cow})=\frac{109}{1.1}=\frac{1090}{11}\approx 99.09 < 100 = PV(\text{keep cash}).
+\]
+
+\[
+\boxed{\text{No. Do not buy the cow; save the \$100 at interest rate }0.1.}
+\]
+
+\subsubsection*{Method 2: No-arbitrage / dominance argument}
+If a risk-free investment of \$100 yields \$110 at \(t=1\), any alternative that costs \$100 at \(t=0\) must deliver \(\ge \$110\) at \(t=1\) to be weakly preferred (since there is no other benefit/cost stated).
+The cow delivers only \$109 at \(t=1\), hence it is strictly dominated by saving.
+
+\[
+\boxed{\text{No: the cow is dominated by the risk-free saving technology.}}
+\]
+
+%====================================================
+% SHORT QUESTION 5
+%====================================================
+\newpage
+\section*{Question 5 (First-order stochastic dominance)}
+\subsection*{Problem}
+There are 3 states with probabilities \(\pi=(\tfrac13,\tfrac13,\tfrac13)\).
+Consider contingent consumption bundles
+\[
+x=(1,3,3),\qquad x'=(5,1,2).
+\]
+Does either bundle first-order stochastically dominate the other?
+
+\subsection*{Solution}
+Treat each bundle as a random variable taking the three listed values with equal probability.
+
+\subsubsection*{Method 1: Compare cumulative distribution functions (CDFs)}
+Let \(X\) take values \(\{1,3,3\}\) and \(X'\) take values \(\{5,1,2\}\), each with probability \(1/3\).
+Sort outcomes:
+\[
+X:\ 1,3,3;\qquad X':\ 1,2,5.
+\]
+Compute CDFs \(\cdf_X(t)=\mathbb{P}(X\le t)\), \(\cdf_{X'}(t)=\mathbb{P}(X'\le t)\):
+\begin{itemize}[leftmargin=*]
+\item For \(1\le t<2\): \(\cdf_X(t)=1/3\), \(\cdf_{X'}(t)=1/3\) (tie).
+\item For \(2\le t<3\): \(\cdf_X(t)=1/3\) (only the \(1\)), but \(\cdf_{X'}(t)=2/3\) (values \(1,2\)).
+Thus \(\cdf_X(t) < \cdf_{X'}(t)\) here (which favors \(X\)).
+\item For \(3\le t<5\): \(\cdf_X(t)=1\) (all values \(\le 3\)), but \(\cdf_{X'}(t)=2/3\).
+Thus \(\cdf_X(t) > \cdf_{X'}(t)\) here (which favors \(X'\)).
+\end{itemize}
+Since the CDFs cross, neither distribution has \(\cdf\) everywhere weakly below the other.
+Therefore no FOSD holds.
+
+\[
+\boxed{\text{Neither }x\text{ nor }x'\text{ first-order stochastically dominates the other.}}
+\]
+
+\subsubsection*{Method 2: Construct increasing-utility reversals (characterisation of FOSD)}
+Recall: \(X\) FOSD \(X'\) iff \(\E[u(X)]\ge \E[u(X')]\) for all increasing \(u\).
+
+We show there exist two increasing utility functions ranking the bundles in opposite ways.
+
+\paragraph{Utility that values high outcomes strongly (favoring \(x'\)).}
+Let \(u_1(t)=t^2\) (increasing). Then
+\[
+\E[u_1(X)]=\tfrac13(1^2+3^2+3^2)=\tfrac13(1+9+9)=\tfrac{19}{3},
+\]
+\[
+\E[u_1(X')]=\tfrac13(5^2+1^2+2^2)=\tfrac13(25+1+4)=10.
+\]
+So \(\E[u_1(X')]> \E[u_1(X)]\), favoring \(x'\).
+
+\paragraph{Utility that is very steep near low outcomes (favoring \(x\)).}
+Let \(u_2(t)=\min\{t,\,2.5\}\) (nondecreasing, hence increasing in the weak sense used for FOSD tests).
+Then
+\[
+u_2(X):\ (1,2.5,2.5)\ \Rightarrow\ \E[u_2(X)]=\tfrac13(1+2.5+2.5)=2,
+\]
+\[
+u_2(X'):\ (2.5,1,2)\ \Rightarrow\ \E[u_2(X')]=\tfrac13(2.5+1+2)=\tfrac{5.5}{3}\approx 1.833.
+\]
+So \(\E[u_2(X)]>\E[u_2(X')]\), favoring \(x\).
+
+Since different increasing utilities prefer different bundles, neither FOSD relation can hold.
+
+\[
+\boxed{\text{No FOSD: preferences can reverse across increasing utility functions.}}
+\]
+
+%====================================================
+% PART II
+%====================================================
+\newpage
+\begin{center}
+  \rule{0.9\textwidth}{0.6pt}\\[6pt]
+  {\Large \textbf{Part II: Long Questions}}\\[4pt]
+  \rule{0.9\textwidth}{0.6pt}
+\end{center}
+
+%====================================================
+% LONG QUESTION 1
+%====================================================
+\section*{Question 1 (Revealed preference and WARP)}
+\subsection*{Problem}
+Bob buys \(x^{1}=(1,4)\) when prices are \(p^{1}=(4,2)\) and Bob buys \(x^{2}=(2,2)\) when prices are \(p^{2}=(3,3)\).
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item How much money did Bob spend in each period?
+\item Is \(x^{1}\) directly revealed preferred to \(x^{2}\)?
+\item Is \(x^{1}\) directly strictly revealed preferred to \(x^{2}\)?
+\item Does Bob satisfy WARP?
+\item Suppose \(p^{3}=(4,1)\). Find an \(x^{3}=(x^{3}_1,x^{3}_2)\) so that if Bob bought \(x^{3}\) when prices were \(p^{3}\) then Bob would violate WARP.
+\end{enumerate}
+
+\subsection*{Solution}
+Let expenditures be \(m^{t}=p^{t}\dotp x^{t}\). Define direct revealed preference:
+\[
+x^{t}R x^{s}\iff p^{t}\dotp x^{s}\le p^{t}\dotp x^{t}=m^t,\qquad
+x^{t}P x^{s}\iff p^{t}\dotp x^{s}<m^t.
+\]
+
+\subsubsection*{Method 1: Dot products and the definition}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Spending:
+\[
+m^1=p^1\dotp x^1=4\cdot 1+2\cdot 4=4+8=12,
+\qquad
+m^2=p^2\dotp x^2=3\cdot 2+3\cdot 2=6+6=12.
+\]
+\[
+\boxed{m^1=12,\quad m^2=12.}
+\]
+
+\item Check if \(x^2\) is affordable at \((p^1,m^1)\):
+\[
+p^1\dotp x^2=4\cdot 2+2\cdot 2=8+4=12\le 12=m^1.
+\]
+So \(x^1 R x^2\).
+\[
+\boxed{\text{Yes: }x^1\text{ is directly revealed preferred to }x^2.}
+\]
+
+\item Strictness requires \(p^1\dotp x^2<m^1\), but equality holds. Hence not strict.
+\[
+\boxed{\text{No: }x^1\text{ is not directly strictly revealed preferred to }x^2.}
+\]
+
+\item WARP: a violation would require \(x^1 R x^2\) and \(x^2 P x^1\) (or the reverse).
+We already have \(x^1 R x^2\). Check whether \(x^2 P x^1\):
+\[
+p^2\dotp x^1=3\cdot 1+3\cdot 4=3+12=15.
+\]
+Since \(15>m^2=12\), \(x^1\) is not affordable in period 2, so \(x^2 R x^1\) fails and thus \(x^2 P x^1\) fails.
+Therefore there is no WARP-violating pair.
+\[
+\boxed{\text{Yes: Bob satisfies WARP (given only these two observations).}}
+\]
+
+\item Construct \(x^3\) at \(p^3=(4,1)\) to create a WARP violation with \(x^2\).
+We want:
+\[
+x^3 R x^2 \quad\text{and}\quad x^2 P x^3.
+\]
+These conditions are:
+\[
+p^3\dotp x^2 \le p^3\dotp x^3 \quad\text{and}\quad p^2\dotp x^3 < p^2\dotp x^2=m^2=12.
+\]
+Compute \(p^3\dotp x^2=4\cdot 2+1\cdot 2=10\). Thus require \(p^3\dotp x^3\ge 10\).
+Also need \(p^2\dotp x^3=3(x_1^3+x_2^3)<12\iff x_1^3+x_2^3<4\).
+
+Choose, for instance,
+\[
+x^3=(3,\tfrac12).
+\]
+Then \(x_1^3+x_2^3=3.5<4\) so \(p^2\dotp x^3=3\cdot 3.5=10.5<12\), hence \(x^2 P x^3\).
+Also \(p^3\dotp x^3=4\cdot 3+1\cdot \tfrac12=12.5\ge 10=p^3\dotp x^2\), hence \(x^3 R x^2\).
+Thus WARP is violated by the pair \((x^2,x^3)\).
+
+\[
+\boxed{x^3=(3,\tfrac12)\ \text{works (among many possible choices).}}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Geometry and inequalities (budget lines and affordability)}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Same dot-product computation gives \(m^1=m^2=12\).
+
+\item At period 1, the budget line is \(4x_1+2x_2=12\).
+Since \(4\cdot 2+2\cdot 2=12\), the point \(x^2=(2,2)\) lies on the period-1 budget line, hence is affordable. Therefore \(x^1 R x^2\).
+
+\item Because \(x^2\) lies exactly on the line (not strictly inside), strict revealed preference does not hold.
+
+\item At period 2, the budget line is \(3x_1+3x_2=12\), i.e.\ \(x_1+x_2=4\).
+But \(x^1=(1,4)\) has \(x_1+x_2=5>4\), so it lies strictly outside the budget set and is not affordable; hence no reversal is possible and WARP holds.
+
+\item For WARP violation with \(x^2\), we need \(x^3\) such that:
+\[
+x^3\text{ is strictly inside budget 2: }x_1^3+x_2^3<4,
+\]
+yet at prices \(p^3=(4,1)\) the expenditure on \(x^3\) is at least that on \(x^2\):
+\[
+4x_1^3+x_2^3 \ge 4\cdot 2+2=10.
+\]
+The choice \(x^3=(3,\tfrac12)\) satisfies both, so it generates the violation.
+\end{enumerate}
+
+\[
+\boxed{\text{Final: }m^1=m^2=12;\ x^1 R x^2\text{ but not strictly; WARP holds; }x^3=(3,\tfrac12)\text{ violates WARP.}}
+\]
+
+%====================================================
+% LONG QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Symmetric utility and Slutsky)}
+\subsection*{Problem}
+Bob's utility function is
+\[
+U(x_1,x_2)=5u(x_1)+5u(x_2)
+\]
+where \(u\) is an increasing function.
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Does Bob prefer \((1,2)\) or \((2,2)\) (or not enough info)?
+\item Does Bob prefer \((1,2)\) or \((3,1)\) (or not enough info)?
+\item Suppose \(u(x)=\ln(x)\) so \(u'(x)=1/x\). Find Bob's demand function \(x(p_1,p_2,m)\).
+\item Prices are \((1,1)\) and Bob has \(4\) to spend. How much of each good does Bob buy?
+The price of good 1 increases to \(2\). How much of each good does Bob buy?
+\item Calculate the substitution and income effects \(\Delta x_1^{\,s}\) and \(\Delta x_1^{\,n}\) from the price change in part (d).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Monotonicity + full optimisation when \(u=\ln\)}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Since \(u\) is increasing, \(U\) is increasing in each argument. Bundle \((2,2)\) has weakly more of each good and strictly more of good 1 than \((1,2)\), hence
+\[
+(2,2)\succ (1,2).
+\]
+\[
+\boxed{(2,2)\text{ is preferred.}}
+\]
+
+\item Bundles \((1,2)\) and \((3,1)\) are not comparable by componentwise dominance. With only that \(u\) is increasing, the curvature is unknown, so we cannot rank them.
+\[
+\boxed{\text{Not enough information.}}
+\]
+
+\item If \(u(x)=\ln x\), then
+\[
+U(x_1,x_2)=5\ln x_1+5\ln x_2 = 5\ln(x_1x_2),
+\]
+so maximising \(U\) is equivalent to maximising \(\ln x_1+\ln x_2\), i.e.\ Cobb--Douglas with equal weights.
+
+Set up the Lagrangian:
+\[
+\mathcal{L}=\ln x_1+\ln x_2+\lambda(m-p_1x_1-p_2x_2).
+\]
+FOCs:
+\[
+\frac{1}{x_1}-\lambda p_1=0,\qquad \frac{1}{x_2}-\lambda p_2=0.
+\]
+Thus \(\lambda=\frac{1}{p_1x_1}=\frac{1}{p_2x_2}\), hence \(p_1x_1=p_2x_2\).
+Using the budget \(p_1x_1+p_2x_2=m\), we get \(2p_1x_1=m\) and \(2p_2x_2=m\), so
+\[
+x_1(p,m)=\frac{m}{2p_1},\qquad x_2(p,m)=\frac{m}{2p_2}.
+\]
+\[
+\boxed{x(p_1,p_2,m)=\left(\dfrac{m}{2p_1},\ \dfrac{m}{2p_2}\right).}
+\]
+
+\item At \(p=(1,1)\), \(m=4\):
+\[
+x=\left(\frac{4}{2\cdot 1},\frac{4}{2\cdot 1}\right)=(2,2).
+\]
+If \(p_1\) rises to \(2\) while \(p_2=1\) and \(m=4\) stays fixed:
+\[
+x'=\left(\frac{4}{2\cdot 2},\frac{4}{2\cdot 1}\right)=(1,2).
+\]
+\[
+\boxed{\text{Old: }(2,2).\ \text{New: }(1,2).}
+\]
+
+\item Slutsky decomposition for good 1 from \(p=(1,1)\) to \(p'=(2,1)\).
+Initial bundle \(x^0=(2,2)\), so \(x_1^0=2\).
+New Marshallian bundle (with \(m=4\)) is \(x^1=(1,2)\), so \(x_1^1=1\).
+
+Slutsky (compensated) income:
+\[
+m_s:=p'\dotp x^0 = (2,1)\dotp(2,2)=4+2=6.
+\]
+Compensated demand at new prices:
+\[
+x^c=x(p',m_s)=\left(\frac{6}{2\cdot 2},\frac{6}{2\cdot 1}\right)=\left(\frac{3}{2},3\right),
+\]
+so \(x_1^c=3/2\).
+
+Therefore
+\[
+\Delta x_1^{\,s}=x_1^c-x_1^0=\frac{3}{2}-2=-\frac{1}{2},
+\qquad
+\Delta x_1^{\,n}=x_1^1-x_1^c=1-\frac{3}{2}=-\frac{1}{2}.
+\]
+\[
+\boxed{\Delta x_1^{\,s}=-\tfrac12,\qquad \Delta x_1^{\,n}=-\tfrac12.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Expenditure shares + Hicksian confirmation}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item (a) follows from monotonicity and dominance: \((2,2)\) strictly dominates \((1,2)\) in good 1.
+
+\item (b) cannot be determined because increasing \(u\) alone does not specify substitution between goods.
+
+\item (c) For \(\ln\)-Cobb--Douglas with equal exponents, the optimal spending shares are equal:
+\[
+p_1x_1=p_2x_2=\frac{m}{2},
+\]
+so \(x_1=m/(2p_1)\), \(x_2=m/(2p_2)\).
+
+\item (d) Plugging gives the same numerical bundles as Method 1.
+
+\item (e) Hicksian (utility-compensated) viewpoint:
+Initial utility (dropping constant factor 5) is \(\ln 2+\ln 2=\ln 4\).
+To keep utility at \(\ln 4\) under \(p'=(2,1)\), minimise \(2x_1+x_2\) s.t.\ \(x_1x_2\ge 4\).
+At optimum \(x_1x_2=4\) and tangency gives \(MRS=x_2/x_1=p_1/p_2=2\), hence \(x_2=2x_1\).
+Then \(x_1(2x_1)=4\Rightarrow x_1=\sqrt{2}\approx 1.414\), which is \emph{Hicksian} compensation.
+Slutsky compensation uses the cost of the original bundle at new prices, yielding the \emph{Slutsky} compensated bundle \(x^c=(3/2,3)\) computed above; this directly gives \(\Delta x_1^{\,s}=-1/2\) and \(\Delta x_1^{\,n}=-1/2\).
+\end{enumerate}
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\centering
+Final: $(2,2)\succ(1,2)$; $(1,2)$ versus $(3,1)$ is ambiguous;
+$x=\left(\frac{m}{2p_1},\frac{m}{2p_2}\right)$; $(2,2)\to(1,2)$; and
+$\Delta x_1^{\,s}=\Delta x_1^{\,n}=-\tfrac12$.
+}}
+\end{center}
+
+%====================================================
+% LONG QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (Present value and no-arbitrage)}
+\subsection*{Problem}
+People can save and borrow at an interest rate \(r>0\).
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item If I save \$5 today, how much will this become next period? If I borrow \$5 today, how much will I owe next period?
+\item What is the present value of the asset \(a=(0,1,5)\), i.e.\ it pays 0 in period 0, 1 in period 1, and 5 in period 2?
+\item What is the present value of the asset which pays out \$5 each period starting in period 1? Argue your answer.
+\item Today you buy an asset for price \(p_0\). The asset pays out nothing in period 0. You sell the asset next period for \(p_1\).
+Assuming there are no arbitrage opportunities, what can we say about the rate of return \(\frac{p_1-p_0}{p_0}\)? Justify.
+\item Suppose now the asset is a house which provides benefit \(y_0\) in period 0 (monetary value), with \(y_0<p_0\).
+The rate of return on buying the house for one period is \(\frac{p_1-(p_0-y_0)}{p_0-y_0}\).
+If there are no arbitrage opportunities, what can we say about this rate of return? Justify.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Discounting and comparison to the risk-free asset}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Saving \$5 today yields next-period wealth
+\[
+5(1+r).
+\]
+Borrowing \$5 today means repaying next period
+\[
+5(1+r).
+\]
+\[
+\boxed{\text{Save: }5(1+r).\quad \text{Borrow: owe }5(1+r).}
+\]
+
+\item Present value of \(a=(0,1,5)\):
+\[
+PV(a)=0+\frac{1}{1+r}+\frac{5}{(1+r)^2}.
+\]
+\[
+\boxed{PV(a)=\dfrac{1}{1+r}+\dfrac{5}{(1+r)^2}.}
+\]
+
+\item Asset paying \$5 each period starting in period 1 is a perpetuity:
+\[
+PV= \sum_{t=1}^{\infty}\frac{5}{(1+r)^t}
+=5\sum_{t=1}^\infty (1+r)^{-t}.
+\]
+Let \(q=(1+r)^{-1}\in(0,1)\). Then
+\[
+\sum_{t=1}^\infty q^t=\frac{q}{1-q}.
+\]
+So
+\[
+PV=5\cdot \frac{q}{1-q}
+=5\cdot \frac{(1+r)^{-1}}{1-(1+r)^{-1}}
+=5\cdot \frac{1}{r}
+=\frac{5}{r}.
+\]
+\[
+\boxed{PV=\dfrac{5}{r}.}
+\]
+
+\item Asset bought at \(p_0\), sold at \(p_1\), no dividends/cash flows.
+Its gross return is \(p_1/p_0\), hence rate of return is \((p_1-p_0)/p_0\).
+If \(\frac{p_1-p_0}{p_0}>r\), one could borrow at rate \(r\), buy the asset, and repay next period, earning sure profit (arbitrage).
+If \(\frac{p_1-p_0}{p_0}<r\), one could short the asset, invest proceeds at rate \(r\), and buy back next period, earning sure profit.
+Therefore no-arbitrage implies equality:
+\[
+\frac{p_1-p_0}{p_0}=r
+\quad\Longleftrightarrow\quad
+p_1=(1+r)p_0.
+\]
+\[
+\boxed{\frac{p_1-p_0}{p_0}=r.}
+\]
+
+\item With a house providing benefit \(y_0\) in period 0, the effective net cost of owning the house over the period is \(p_0-y_0\).
+No-arbitrage requires the rate of return on the net investment equals the risk-free rate:
+\[
+\frac{p_1-(p_0-y_0)}{p_0-y_0}=r
+\quad\Longleftrightarrow\quad
+p_1=(1+r)(p_0-y_0).
+\]
+\[
+\boxed{\frac{p_1-(p_0-y_0)}{p_0-y_0}=r.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: State the pricing rule and apply it}
+\paragraph{Pricing rule.}
+With a risk-free gross return \(1+r\) and no arbitrage, the time-0 price of a sure time-\(t\) payoff of 1 is \((1+r)^{-t}\).
+Equivalently, the present value of a deterministic cash-flow stream \((c_0,c_1,c_2,\dots)\) is
+\[
+PV=\sum_{t=0}^\infty \frac{c_t}{(1+r)^t}.
+\]
+
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item (a) is immediate from the definition of the gross return \(1+r\).
+
+\item (b) Apply the PV formula:
+\[
+PV(0,1,5)=\frac{1}{1+r}+\frac{5}{(1+r)^2}.
+\]
+
+\item (c) Apply the PV formula to \((0,5,5,5,\dots)\) and evaluate the geometric series to get \(5/r\).
+
+\item (d) The asset has cash flow \((-p_0, p_1)\). No-arbitrage implies \(0 = -p_0 + \frac{p_1}{1+r}\), so \(p_1=(1+r)p_0\), i.e.\ return \(r\).
+
+\item (e) The net cash flow is \(\bigl(-(p_0-y_0),\,p_1\bigr)\). No-arbitrage implies
+\[
+0=-(p_0-y_0)+\frac{p_1}{1+r}
+\quad\Rightarrow\quad
+\frac{p_1-(p_0-y_0)}{p_0-y_0}=r.
+\]
+\end{enumerate}
+
+\[
+\boxed{\text{Final: }(a)\ 5(1+r);\ (b)\ \frac{1}{1+r}+\frac{5}{(1+r)^2};\ (c)\ \frac{5}{r};\ (d)\ \frac{p_1-p_0}{p_0}=r;\ (e)\ \frac{p_1-(p_0-y_0)}{p_0-y_0}=r.}
+\]
+
+\end{document}

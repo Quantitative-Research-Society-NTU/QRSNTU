@@ -1,0 +1,1499 @@
+% Sources: [file:4][file:2]
+
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 3 (Week 4) -- Problems \& Solutions}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- COMMON MACROS -------------
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\dimn}{\operatorname{dim}}
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial Problem Set}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This sheet focuses on linear dependence/basis extraction, commutants, polynomial subspaces, and dimension arguments:
+\begin{itemize}[leftmargin=*]
+  \item Equivalent characterisations of linear dependence and bases in finite dimensions.
+  \item Extracting a linearly independent subset with the same span (basis inside a spanning set).
+  \item Computing \(\dim\{B: AB=BA\}\) for a fixed matrix \(A\).
+  \item Polynomial subspaces defined by evaluation constraints and constructing direct-sum complements.
+  \item Proving linear independence after translation by a vector outside a span.
+  \item Dimension formula applications to show nontrivial intersections of subspaces.
+  \item Viewing \(\R\) as a \(\Q\)-vector space and computing dimensions depending on rationality/irrationality.
+\end{itemize}
+
+\bigskip
+\newpage
+\tableofcontents
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+\section{Question 1 (Linear dependence iff one vector is in the span of others)}
+\subsection{Problem}
+Let (i) \(V\) be a vector space over a field \(\F\), and (ii) \(S\) be a set of \(V\)-vectors (not necessarily finite).
+Show that the following two statements are equivalent (i.e.\ imply each other):
+\begin{enumerate}[label=(\alph*)]
+\item \(S\) is linearly dependent.
+\item There exist a non-negative integer \(n\) and \(n+1\) distinct vectors \(v,w_1,\ldots,w_n\in S\) such that
+\[
+v\in \Span(\{w_1,\ldots,w_n\}).
+\]
+\end{enumerate}
+\noindent
+\textbf{Remark.} If \(n=0\), then \(\{w_1,\ldots,w_n\}=\varnothing\), in which case \(\Span(\varnothing)=\{0_V\}\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Solve a dependence relation for one vector}
+\textbf{(\(\Rightarrow\)).}
+Assume \(S\) is linearly dependent.
+By definition, there exist \emph{distinct} vectors \(s_0,s_1,\ldots,s_m\in S\) and scalars \(\alpha_0,\alpha_1,\ldots,\alpha_m\in\F\), not all zero, such that
+\[
+\alpha_0 s_0+\alpha_1 s_1+\cdots+\alpha_m s_m=0.
+\]
+Choose an index \(k\in\{0,1,\ldots,m\}\) such that \(\alpha_k\neq 0\).
+Then
+\[
+\alpha_k s_k = -\sum_{\substack{i=0\\ i\neq k}}^{m} \alpha_i s_i,
+\]
+and multiplying both sides by \(\alpha_k^{-1}\) (which exists since \(\F\) is a field) gives
+\[
+s_k = \sum_{\substack{i=0\\ i\neq k}}^{m} \left(-\frac{\alpha_i}{\alpha_k}\right)s_i \in \Span\bigl(\{s_0,\ldots,s_m\}\setminus\{s_k\}\bigr).
+\]
+Now define
+\[
+v \coloneqq s_k,\qquad \{w_1,\ldots,w_n\}\coloneqq \{s_0,\ldots,s_m\}\setminus\{s_k\}.
+\]
+Then \(v,w_1,\ldots,w_n\) are distinct, \(n=m\), and \(v\in\Span(\{w_1,\ldots,w_n\})\), as required.
+
+\textbf{(\(\Leftarrow\)).}
+Assume there exist distinct \(v,w_1,\ldots,w_n\in S\) such that
+\[
+v\in \Span(\{w_1,\ldots,w_n\}).
+\]
+Then there exist scalars \(\beta_1,\ldots,\beta_n\in\F\) such that
+\[
+v=\beta_1 w_1+\cdots+\beta_n w_n.
+\]
+Rearrange:
+\[
+v-\beta_1 w_1-\cdots-\beta_n w_n=0.
+\]
+This is a linear combination of \emph{distinct} vectors from \(S\) equalling \(0\), with the coefficient of \(v\) equal to \(1\neq 0\).
+Hence the coefficients are not all zero, so \(S\) is linearly dependent.
+
+Therefore,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+\subsubsection{Method 2: Minimal dependent subset argument (covers the \(n=0\) remark cleanly)}
+\textbf{(\(\Rightarrow\)).}
+Assume \(S\) is linearly dependent.
+Then there exists at least one finite dependent subset \(T\subseteq S\).
+Among all finite dependent subsets of \(S\), choose one with minimal cardinality, say
+\[
+T=\{u_0,u_1,\ldots,u_m\}\subseteq S,
+\]
+where all \(u_i\) are distinct and \(m\ge 0\).
+
+Because \(T\) is dependent, there exist scalars \(\alpha_0,\ldots,\alpha_m\) not all zero such that
+\[
+\alpha_0 u_0+\cdots+\alpha_m u_m=0.
+\]
+\textbf{Claim: every \(\alpha_i\neq 0\).}
+If \(\alpha_k=0\) for some \(k\), then
+\[
+\sum_{\substack{i=0\\ i\neq k}}^{m} \alpha_i u_i=0
+\]
+is a nontrivial dependence among the smaller set \(T\setminus\{u_k\}\), contradicting minimality of \(T\).
+So \(\alpha_i\neq 0\) for all \(i\).
+
+In particular, \(\alpha_0\neq 0\), so we can solve for \(u_0\):
+\[
+u_0 = -\sum_{i=1}^{m}\frac{\alpha_i}{\alpha_0}u_i \in \Span(\{u_1,\ldots,u_m\}).
+\]
+Set \(v=u_0\) and \(w_1=u_1,\ldots,w_n=u_m\) (so \(n=m\)).
+This gives statement (b).
+If \(m=0\), then \(T=\{u_0\}\) is dependent, which forces \(u_0=0_V\); then \(v=0_V\in \Span(\varnothing)=\{0_V\}\), matching the remark.
+
+\textbf{(\(\Leftarrow\)).}
+Same as Method 1: if \(v\in\Span(\{w_1,\ldots,w_n\})\), then
+\[
+v-\sum_{i=1}^{n}\beta_i w_i=0
+\]
+is a nontrivial dependence relation.
+
+Thus again,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+\subsubsection{Method 3: Use the characterization}
+
+\(S \text{ linearly dependent}\ \Longleftrightarrow\ \exists\,v\in S:\ v\in \Span(S\setminus\{v\}).\)
+\hfill $(*)$
+\medskip
+
+\textbf{(\(\Rightarrow\)).}
+Assume \(S\) is linearly dependent. By \((*)\),
+\[
+\exists\,v\in S:\ v\in \Span(S\setminus\{v\}).
+\]
+Thus \(\exists\,n\ge 0\), \(\exists\) distinct \(w_1,\ldots,w_n\in S\setminus\{v\}\), \(\exists\,\beta_1,\ldots,\beta_n\in\F\) s.t.
+\[
+v=\sum_{i=1}^n \beta_i w_i \ \Longrightarrow\ v\in \Span(\{w_1,\ldots,w_n\}),
+\]
+i.e.\ (b) (and \(n=0\Rightarrow v=0_V\in\Span(\varnothing)\)).
+
+\textbf{(\(\Leftarrow\)).}
+Assume \(\exists\) distinct \(v,w_1,\ldots,w_n\in S\) with \(v\in \Span(\{w_1,\ldots,w_n\})\).
+Then \(\exists\,\beta_1,\ldots,\beta_n\in\F\) s.t.
+\[
+v=\sum_{i=1}^n \beta_i w_i.
+\]
+Since \(\{w_1,\ldots,w_n\}\subseteq S\) and \(w_i\neq v\) for all \(i\), we have \(\{w_1,\ldots,w_n\}\subseteq S\setminus\{v\}\).
+Hence any linear combination of \(w_1,\ldots,w_n\) is a linear combination of elements of \(S\setminus\{v\}\), so
+\[
+v\in \Span(\{w_1,\ldots,w_n\}) \ \Longrightarrow\ v\in \Span(S\setminus\{v\}).
+\]
+Therefore \(\exists\,v\in S:\ v\in \Span(S\setminus\{v\})\), and by \((*)\), \(S\) is linearly dependent.
+
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Basis iff independent with correct size)}
+\subsection{Problem}
+Let (i) \(V\) be a finite-dimensional vector space, and (ii) \(S\) be a set of \(V\)-vectors.
+Show that the following two statements are equivalent:
+\begin{enumerate}[label=(\alph*)]
+\item \(S\) is a basis.
+\item \(S\) is linearly independent and has exactly \(\dimn(V)\) elements.
+\end{enumerate}
+\noindent
+\textbf{Hint:} Use the Basis Extension Theorem to show that (b) implies (a).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Basis extension theorem (as hinted)}
+\textbf{(\(\Rightarrow\)).}
+Assume \(S\) is a basis of \(V\).
+By definition of basis, \(S\) is linearly independent and spans \(V\).
+In a finite-dimensional vector space, the cardinality of any basis equals \(\dimn(V)\).
+Hence \(S\) is linearly independent and has exactly \(\dimn(V)\) elements.
+
+\textbf{(\(\Leftarrow\)).}
+Assume \(S\) is linearly independent and \(|S|=\dimn(V)\).
+By the Basis Extension Theorem, any linearly independent set in a finite-dimensional vector space can be extended to a basis.
+So there exists a basis \(B\) with
+\[
+S\subseteq B.
+\]
+Taking cardinalities,
+\[
+|S|\le |B|=\dimn(V).
+\]
+But \(|S|=\dimn(V)\), so \(|S|=|B|\) and the inclusion \(S\subseteq B\) forces \(S=B\).
+Therefore \(S\) itself is a basis.
+
+Hence,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+\subsubsection{Method 2: Linear map / rank-nullity argument}
+Assume \(S=\{s_1,\ldots,s_n\}\) is linearly independent and has \(n=\dimn(V)\) elements.
+Define the linear map
+\[
+T:\F^n\to V,
+\qquad
+T(\alpha_1,\ldots,\alpha_n)\coloneqq \sum_{i=1}^n \alpha_i s_i.
+\]
+Because \(\{s_1,\ldots,s_n\}\) is linearly independent, the only solution to
+\[
+T(\alpha_1,\ldots,\alpha_n)=0
+\]
+is \(\alpha_1=\cdots=\alpha_n=0\).
+Hence \(\ker(T)=\{0\}\), so \(T\) is injective and
+\[
+\dimn(\operatorname{Im}(T))=\dimn(\F^n)-\dimn(\ker(T))=n-0=n
+\]
+by rank-nullity.
+But \(\operatorname{Im}(T)\) is a subspace of \(V\) of dimension \(n=\dimn(V)\), so it must be all of \(V\):
+\[
+\operatorname{Im}(T)=V.
+\]
+Thus \(S\) spans \(V\).
+Since \(S\) is also linearly independent, it is a basis.
+
+The reverse direction (basis \(\Rightarrow\) independent and size \(\dimn(V)\)) is immediate from definitions and the meaning of \(\dimn(V)\).
+
+Therefore,
+\[
+\boxed{\ (a)\Longleftrightarrow (b).\ }
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Basis extraction from a set; basis contained in a spanning set)}
+\subsection{Problem}
+Let (i) \(V\) be a finite-dimensional vector space, and (ii) \(S\) be a set of \(V\)-vectors.
+Establish the following two statements:
+\begin{enumerate}[label=(\alph*)]
+\item \(S\) has a linearly independent subset \(B\) such that \(\Span(B)=\Span(S)\).
+\item If \(\Span(S)=V\), then \(S\) contains a basis for \(V\) as a subset.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Constructive ``deletion'' algorithm via a finite spanning subcollection}
+Since \(V\) is finite-dimensional, the subspace \(\Span(S)\le V\) is also finite-dimensional.
+Let \(d=\dimn(\Span(S))\), so \(d<\infty\).
+
+\textbf{Step 1: Reduce to a finite subset.}
+Choose a basis \(\{b_1,\ldots,b_d\}\) of \(\Span(S)\).
+Each \(b_i\in \Span(S)\) is a finite linear combination of elements of \(S\), so there exists a finite subset \(S_i\subseteq S\) with \(b_i\in\Span(S_i)\).
+Let
+\[
+S_0\coloneqq S_1\cup\cdots\cup S_d,
+\]
+a finite subset of \(S\).
+Then \(\Span(S_0)\) contains each \(b_i\), hence
+\[
+\Span(S)\;=\;\Span(\{b_1,\ldots,b_d\})\;\subseteq\;\Span(S_0)\;\subseteq\;\Span(S),
+\]
+so \(\Span(S_0)=\Span(S)\).
+
+\textbf{Step 2: Delete dependent vectors until independent.}
+Write \(S_0=\{u_1,\ldots,u_m\}\).
+If \(\{u_1,\ldots,u_m\}\) is linearly independent, set \(B=S_0\) and we are done.
+
+Otherwise, \(\{u_1,\ldots,u_m\}\) is dependent, so by Question 1 there exists an index \(k\) such that
+\[
+u_k\in \Span(\{u_1,\ldots,u_m\}\setminus\{u_k\}).
+\]
+Then removing \(u_k\) does not change the span:
+\[
+\Span(\{u_1,\ldots,u_m\})=\Span(\{u_1,\ldots,u_m\}\setminus\{u_k\}).
+\]
+Indeed, the right-hand side is contained in the left-hand side trivially, and the only missing vector \(u_k\) is already in the right-hand side, so the spans are equal.
+
+Now replace the set by the smaller set and repeat.
+Because the set is finite and decreases in size each time, the process must terminate after finitely many steps, yielding a finite subset \(B\subseteq S_0\subseteq S\) that is linearly independent.
+At every deletion step the span stayed the same, so in the end
+\[
+\Span(B)=\Span(S_0)=\Span(S).
+\]
+This proves (a).
+
+\textbf{For (b).}
+If \(\Span(S)=V\), then by (a) there exists a linearly independent subset \(B\subseteq S\) with \(\Span(B)=V\).
+Therefore \(B\) is a basis of \(V\), and it is contained in \(S\).
+
+Thus the final conclusions are
+\[
+\boxed{
+\begin{aligned}
+&\text{(a) } \exists\,B\subseteq S\ \text{linearly independent with } \Span(B)=\Span(S),\\
+&\text{(b) If }\Span(S)=V,\ \text{then } S \text{ contains a basis of }V.
+\end{aligned}}
+\]
+
+\subsubsection{Method 2: Maximal linearly independent subset of \(S\)}
+\textbf{(a).}
+Consider the collection
+\[
+\mathcal{I}\coloneqq \{\,I\subseteq S \mid I \text{ is linearly independent}\,\}.
+\]
+Since \(\varnothing\in\mathcal{I}\), the collection is nonempty.
+Because \(V\) is finite-dimensional, every linearly independent subset has cardinality at most \(\dimn(V)\), so there exists an element of \(\mathcal{I}\) with maximal cardinality.
+Choose such a maximal independent subset and call it \(B\subseteq S\).
+
+\textbf{Claim: \(\Span(B)=\Span(S)\).}
+Suppose not. Then there exists \(s\in S\) with \(s\notin \Span(B)\).
+But then \(B\cup\{s\}\) is linearly independent (if \(s\) were a linear combination of vectors in \(B\), it would lie in \(\Span(B)\)).
+This contradicts maximality of \(B\).
+Hence every \(s\in S\) lies in \(\Span(B)\), so \(\Span(S)\subseteq \Span(B)\).
+The reverse inclusion \(\Span(B)\subseteq \Span(S)\) holds because \(B\subseteq S\).
+Therefore \(\Span(B)=\Span(S)\), proving (a).
+
+\textbf{(b).}
+If \(\Span(S)=V\), then the \(B\subseteq S\) from (a) satisfies \(\Span(B)=V\).
+So \(B\) is a basis and is contained in \(S\).
+
+Thus again,
+\[
+\boxed{
+\begin{aligned}
+&\text{(a) } \exists\,B\subseteq S\ \text{linearly independent with } \Span(B)=\Span(S),\\
+&\text{(b) If }\Span(S)=V,\ \text{then } S \text{ contains a basis of }V.
+\end{aligned}}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Dimension of a commutant in \(\R^{2,2}\))}
+\subsection{Problem}
+Let
+\[
+A \coloneqq
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix},
+\qquad
+V \coloneqq \left\{B\in \R^{2,2}\ \middle|\ AB=BA\right\}.
+\]
+Determine \(\dimn(V)\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct computation with entries}
+Let
+\[
+B=
+\begin{pmatrix}
+x & y\\
+z & t
+\end{pmatrix}.
+\]
+Compute
+\[
+AB=
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+x & y\\
+z & t
+\end{pmatrix}
+=
+\begin{pmatrix}
+x+2z & y+2t\\
+z & t
+\end{pmatrix},
+\]
+and
+\[
+BA=
+\begin{pmatrix}
+x & y\\
+z & t
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+x & 2x+y\\
+z & 2z+t
+\end{pmatrix}.
+\]
+Impose \(AB=BA\) by equating entries:
+\begin{align*}
+x+2z &= x \quad\Rightarrow\quad z=0,\\
+y+2t &= 2x+y \quad\Rightarrow\quad 2t=2x \Rightarrow t=x,\\
+z &= z \quad\text{(automatic)},\\
+t &= 2z+t \quad\Rightarrow\quad 0=2z \quad\text{(automatic when }z=0).
+\end{align*}
+So the commuting matrices are exactly
+\[
+B=
+\begin{pmatrix}
+x & y\\
+0 & x
+\end{pmatrix}
+= x
+\begin{pmatrix}
+1&0\\0&1
+\end{pmatrix}
++y
+\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix}.
+\]
+Hence \(V\) is spanned by two linearly independent matrices, so
+\[
+\boxed{\,\dimn(V)=2.\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Use \(A=I+2N\) with a nilpotent \(N\)}
+Write
+\[
+A=
+\begin{pmatrix}
+1&2\\0&1
+\end{pmatrix}
+=
+I+2N,
+\qquad
+N\coloneqq
+\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix},
+\quad N^2=0.
+\]
+Then \(AB=BA\) is equivalent to \((I+2N)B=B(I+2N)\), i.e.
+\[
+IB+2NB = BI+2BN
+\quad\Longleftrightarrow\quad
+NB=BN.
+\]
+So \(V=\{B: NB=BN\}\).
+
+Let \(B=\begin{pmatrix}x&y\\z&t\end{pmatrix}\).
+Compute
+\[
+NB=
+\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix}
+\begin{pmatrix}
+x&y\\z&t
+\end{pmatrix}
+=
+\begin{pmatrix}
+z&t\\0&0
+\end{pmatrix},
+\qquad
+BN=
+\begin{pmatrix}
+x&y\\z&t
+\end{pmatrix}
+\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix}
+=
+\begin{pmatrix}
+0&x\\0&z
+\end{pmatrix}.
+\]
+Equating \(NB=BN\) gives \(z=0\) and \(t=x\), with \(y\) free.
+Thus again
+\[
+B=
+\begin{pmatrix}
+x&y\\0&x
+\end{pmatrix}
+= xI+yN,
+\]
+so \(V=\Span\{I,N\}\) and
+\[
+\boxed{\,\dimn(V)=2.\,}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Polynomial subspace \(P(2)=P(5)\), basis extension, and direct sum)}
+\subsection{Problem}
+Define a vector subspace \(V\) of \(\Pfour\) by
+\[
+V \coloneqq \{P\in \Pfour \mid P(2)=P(5)\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Find a basis for \(V\).
+\item Extend the basis for \(V\) from part (a) to a basis for \(\Pfour\).
+\item Find a vector subspace \(W\) of \(\Pfour\) such that \(\Pfour = V \oplus W\).
+\end{enumerate}
+
+\subsection{Solution}
+
+%====================================================
+\subsubsection{Method 1: Division by \((t-2)(t-5)\) (remainder decomposition)}
+Let \(q(t)\coloneqq (t-2)(t-5)\) (degree \(2\)). For any \(R\), \((qR)(2)=0=(qR)(5)\), hence \(qR\in V\).
+
+\begin{enumerate}[label=(\alph*)]
+\item For any \(P\in \Pfour\), by the division algorithm (by \(q\)), \(\exists!\ Q,L\) with
+\[
+P(t)=q(t)Q(t)+L(t),\qquad \deg L<2,
+\]
+so \(L(t)=\alpha t+\beta\) and \(\deg Q\le 2\). Impose \(P(2)=P(5)\):
+\[
+L(2)=L(5)\ \Longleftrightarrow\ 2\alpha+\beta=5\alpha+\beta\ \Longleftrightarrow\ \alpha=0.
+\]
+Thus \(L\) is constant and
+\[
+V=\{\,q(t)Q(t)+c:\ Q\in \P_2,\ c\in \F\,\}
+=\Span\{\,1,\ q,\ tq,\ t^2q\,\}.
+\]
+These four are linearly independent (distinct degrees \(0,2,3,4\) with nonzero leading coefficients). Hence
+\[
+\boxed{\ \mathcal B_V=\{\,1,\ (t-2)(t-5),\ t(t-2)(t-5),\ t^2(t-2)(t-5)\,\}\ \text{is a basis of }V.\ }
+\]
+
+\item Since \(\dim \Pfour=5\) and \(\dim V=4\), add any \(p_0\notin V\); e.g.\ \(t(2)\ne t(5)\), so \(t\notin V\). Then
+\[
+\boxed{\ \mathcal B_{\Pfour}=\mathcal B_V\cup\{t\}\ \text{is a basis of }\Pfour.\ }
+\]
+
+\item Take \(W\coloneqq \Span\{t\}\). If \(\alpha t\in V\), then \(2\alpha=5\alpha\Rightarrow \alpha=0\), so \(V\cap W=\{0\}\).
+Also \(\dim(V)+\dim(W)=4+1=5=\dim(\Pfour)\), hence \(V+W=\Pfour\). Therefore
+\[
+\boxed{\ W=\Span\{t\}\ \text{and}\ \Pfour=V\oplus W.\ }
+\]
+\end{enumerate}
+
+%====================================================
+\subsubsection{Method 2: Linear functional (kernel) + rank--nullity + explicit kernel basis}
+Define \(L:\Pfour\to\F\) by \(L(P)\coloneqq P(2)-P(5)\). Then \(L\) is linear and
+\[
+V=\ker L.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since \(L(t)=2-5\ne 0\), \(L\neq 0\). As \(\dim(\F)=1\), \(\operatorname{rank}(L)=1\). Rank--nullity gives
+\[
+\dim V=\dim\ker L=5-1=4.
+\]
+Let \(q(t)=(t-2)(t-5)\). Then \(1,q,tq,t^2q\in \ker L\) and are linearly independent (degrees \(0,2,3,4\)).
+Thus, by \(\dim V=4\),
+\[
+\boxed{\ \mathcal B_V=\{\,1,\ q,\ tq,\ t^2q\,\}\ \text{is a basis of }V.\ }
+\]
+
+\item Choose \(p_0\in \Pfour\) with \(L(p_0)\ne 0\), e.g.\ \(p_0=t\). Then \(p_0\notin V\), hence
+\[
+\boxed{\ \mathcal B_{\Pfour}=\mathcal B_V\cup\{t\}\ \text{is a basis of }\Pfour.\ }
+\]
+
+\item Let \(W=\Span\{t\}\). Then \(V\cap W=\{0\}\) since \(\alpha t\in\ker L\Rightarrow 0=L(\alpha t)=\alpha L(t)\Rightarrow \alpha=0\).
+For any \(P\in\Pfour\), set \(\alpha:=L(P)/L(t)\) and \(Q:=P-\alpha t\). Then \(L(Q)=0\Rightarrow Q\in V\) and \(P=Q+\alpha t\in V+W\).
+So \(\Pfour=V\oplus W\). Hence
+\[
+\boxed{\ W=\Span\{t\},\ \Pfour=V\oplus W.\ }
+\]
+\end{enumerate}
+
+%====================================================
+\subsubsection{Method 3 : One-shot theorem for nonzero linear functional}
+\noindent\textbf{Theorem \((*)\).}\quad If \(U\) is finite-dimensional, \(f:U\to\F\) is nonzero linear, and \(u_0\in U\) satisfies \(f(u_0)\ne 0\), then
+\[
+U=\ker f\ \oplus\ \Span\{u_0\}.
+\]
+
+Let \(L:\Pfour\to\F\), \(L(P)=P(2)-P(5)\),so \(V=\ker L\).
+
+\begin{enumerate}[label=(\alph*)]
+\item As \(L(t)\ne 0\), \(L\neq 0\) so \(\dim V=4\) (rank--nullity, or \(\dim(U/\ker L)=1\)). Using \(q(t)=(t-2)(t-5)\),
+\[
+1,\ q,\ tq,\ t^2q\in V,\ \text{LI} \Rightarrow
+\boxed{\ \mathcal B_V=\{1,q,tq,t^2q\}\ \text{basis of }V.\ }
+\]
+
+\item Since \(t\notin V\), the extension is immediate:
+\[
+\boxed{\ \mathcal B_{\Pfour}=\{1,q,tq,t^2q,t\}\ \text{basis of }\Pfour.\ }
+\]
+
+\item Apply \((*)\) with \(U=\Pfour\), \(f=L\), \(u_0=t\):
+\[
+\boxed{\ \Pfour=V\oplus \Span\{t\}\ } \quad\Rightarrow\quad
+\boxed{\ W=\Span\{t\}\ \text{works.} }
+\]
+\end{enumerate}
+
+%====================================================
+\subsubsection{Method 4 : First isomorphism theorem / quotient-space view}
+Let \(L:\Pfour\to\F\), \(L(P)=P(2)-P(5)\), so \(V=\ker L\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Since \(L(t)\ne 0\), \(\operatorname{Im}L=\F\) (1D codomain), hence \(\dim(\operatorname{Im}L)=1\).
+By rank--nullity (or by the first isomorphism theorem),
+\[
+\Pfour/\ker L \cong \operatorname{Im}L=\F\quad\Rightarrow\quad \dim V=\dim\ker L=5-1=4.
+\]
+Again \(q=(t-2)(t-5)\) gives \(1,q,tq,t^2q\in V\), LI by degrees, so
+\[
+\boxed{\ \mathcal B_V=\{1,q,tq,t^2q\}\ \text{basis of }V.\ }
+\]
+
+\item Add any \(p_0\) with \(L(p_0)\ne 0\), e.g.\ \(t\):
+\[
+\boxed{\ \{1,q,tq,t^2q,t\}\ \text{basis of }\Pfour.\ }
+\]
+
+\item The quotient \(\Pfour/V\) is 1-dimensional, generated by the coset \(t+V\) since \(L(t)\ne 0\).
+Thus \(\Pfour=V+\Span\{t\}\). Also \(V\cap\Span\{t\}=\{0\}\) (same computation as before), hence
+\[
+\boxed{\ \Pfour=V\oplus\Span\{t\},\ \ W=\Span\{t\}.\ }
+\]
+\end{enumerate}
+
+%====================================================
+\subsubsection{Method 5 : Constraint as a single linear equation in coordinates}
+Use the standard basis \(1,t,t^2,t^3,t^4\). Write
+\[
+P(t)=a_0+a_1 t+a_2 t^2+a_3 t^3+a_4 t^4.
+\]
+Then \(P(2)=P(5)\) becomes one linear equation in \((a_0,\dots,a_4)\):
+\[
+a_1(2-5)+a_2(2^2-5^2)+a_3(2^3-5^3)+a_4(2^4-5^4)=0,
+\]
+i.e.
+\[
+-3a_1-21a_2-117a_3-609a_4=0
+\quad\Longleftrightarrow\quad
+a_1=-7a_2-39a_3-203a_4.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Parameterize by free variables \(a_0,a_2,a_3,a_4\):
+\[
+P(t)=a_0+a_2(t^2-7t)+a_3(t^3-39t)+a_4(t^4-203t).
+\]
+Hence a basis is
+\[
+\boxed{\ \mathcal B_V=\{\,1,\ t^2-7t,\ t^3-39t,\ t^4-203t\,\}. }
+\]
+(Each satisfies \(P(2)=P(5)\) by construction; LI is clear since these have distinct top degrees \(0,2,3,4\).)
+
+\item Add any polynomial not in \(V\), e.g.\ \(t\):
+\[
+\boxed{\ \{\,1,\ t^2-7t,\ t^3-39t,\ t^4-203t,\ t\,\}\ \text{basis of }\Pfour.\ }
+\]
+
+\item Let \(W=\Span\{t\}\). Then \(V\cap W=\{0\}\) since \(\alpha t\in V\Rightarrow 2\alpha=5\alpha\Rightarrow \alpha=0\).
+Also \(\dim V=4\) (one independent linear constraint) and \(\dim W=1\), so \(V\oplus W=\Pfour\):
+\[
+\boxed{\ W=\Span\{t\},\ \Pfour=V\oplus W. }
+\]
+\end{enumerate}
+
+%====================================================
+\subsubsection{Method 6 : “Vanishing at two points” + decomposition \(P=c+(t-2)(t-5)Q\)}
+Let \(q(t)=(t-2)(t-5)\). Note that \(P(2)=P(5)\) iff \(P(t)-P(2)\) vanishes at \(t=2,5\), i.e.
+\[
+P(t)-P(2)\ \text{has roots }2,5\ \Longleftrightarrow\ q(t)\mid (P(t)-P(2)).
+\]
+Thus \(\exists\,Q\in\P_2\) with
+\[
+P(t)=P(2)+q(t)Q(t).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Write \(Q(t)=b_0+b_1 t+b_2 t^2\). Then
+\[
+P(t)=c+b_0 q(t)+b_1\,tq(t)+b_2\,t^2q(t),
+\]
+so
+\[
+\boxed{\ \mathcal B_V=\{\,1,\ q,\ tq,\ t^2q\,\}\ \text{basis of }V. }
+\]
+
+\item Add \(t\notin V\):
+\[
+\boxed{\ \{1,q,tq,t^2q,t\}\ \text{basis of }\Pfour. }
+\]
+
+\item Let \(W=\Span\{t\}\). Then \(V\cap W=\{0\}\) as before, and \(\dim V+\dim W=5\), hence
+\[
+\boxed{\ \Pfour=V\oplus W,\ \ W=\Span\{t\}. }
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Translation by an ``outside'' vector preserves independence)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\alph*)]
+\item \(V\) be a vector space,
+\item \(v_1,\ldots,v_{2025}\) be distinct \(V\)-vectors such that \(\{v_1,\ldots,v_{2025}\}\) is linearly independent, and
+\item \(w\) be a \(V\)-vector such that \(w\notin \Span(\{v_1,\ldots,v_{2025}\})\).
+\end{enumerate}
+Show that \(\{v_1+w,\ldots,v_{2025}+w\}\) is linearly independent.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Coefficient-sum trick (direct algebra)}
+Let scalars \(\alpha_1,\ldots,\alpha_{2025}\in\F\) satisfy
+\[
+\alpha_1(v_1+w)+\cdots+\alpha_{2025}(v_{2025}+w)=0.
+\]
+Expand and group terms:
+\[
+\left(\sum_{i=1}^{2025}\alpha_i v_i\right) + \left(\sum_{i=1}^{2025}\alpha_i\right) w=0.
+\]
+Let \(s\coloneqq \sum_{i=1}^{2025}\alpha_i\).
+Then the equation is
+\[
+\sum_{i=1}^{2025}\alpha_i v_i + s\,w=0.
+\]
+If \(s\neq 0\), then we can solve for \(w\):
+\[
+w = -\frac{1}{s}\sum_{i=1}^{2025}\alpha_i v_i \in \Span(\{v_1,\ldots,v_{2025}\}),
+\]
+contradicting the assumption that \(w\notin \Span(\{v_1,\ldots,v_{2025}\})\).
+Therefore we must have \(s=0\).
+
+Substituting \(s=0\) back gives
+\[
+\sum_{i=1}^{2025}\alpha_i v_i=0.
+\]
+Since \(\{v_1,\ldots,v_{2025}\}\) is linearly independent, it follows that
+\[
+\alpha_1=\cdots=\alpha_{2025}=0.
+\]
+Hence \(\{v_1+w,\ldots,v_{2025}+w\}\) is linearly independent.
+
+So the final answer is
+\[
+\boxed{\,\{v_1+w,\ldots,v_{2025}+w\}\ \text{is linearly independent.}\,}
+\]
+
+\subsubsection{Method 2: Use an explicit invertible linear operator}
+First note that \(w\notin\Span(\{v_1,\ldots,v_{2025}\})\) implies the set
+\[
+\{v_1,\ldots,v_{2025},w\}
+\]
+is linearly independent: if \(\sum_{i=1}^{2025}\alpha_i v_i+\beta w=0\) and \(\beta\neq 0\), then \(w\in\Span(\{v_i\})\), contradiction; hence \(\beta=0\) and then all \(\alpha_i=0\).
+
+Let
+\[
+U \coloneqq \Span(\{v_1,\ldots,v_{2025},w\}),
+\]
+so \(\dimn(U)=2026\), and \(\mathcal{B}\coloneqq (v_1,\ldots,v_{2025},w)\) is a basis of \(U\).
+
+Define \(T:U\to U\) on the basis \(\mathcal{B}\) by
+\[
+T(v_i)\coloneqq v_i+w \quad (i=1,\ldots,2025),
+\qquad
+T(w)\coloneqq w,
+\]
+and extend \(T\) linearly to all of \(U\).
+This is well-defined and linear because values are prescribed on a basis.
+
+Define another linear map \(S:U\to U\) by
+\[
+S(v_i)\coloneqq v_i-w \quad (i=1,\ldots,2025),
+\qquad
+S(w)\coloneqq w,
+\]
+and extend linearly.
+Then for each basis vector,
+\[
+(S\circ T)(v_i)=S(v_i+w)=(v_i+w)-w=v_i,\qquad (S\circ T)(w)=S(w)=w,
+\]
+so \(S\circ T=\mathrm{Id}_U\).
+Similarly, \(T\circ S=\mathrm{Id}_U\).
+Therefore \(T\) is invertible (hence injective).
+
+Now the set \(\{v_1,\ldots,v_{2025}\}\) is linearly independent in \(U\).
+Since \(T\) is injective, its image set
+\[
+\{T(v_1),\ldots,T(v_{2025})\}=\{v_1+w,\ldots,v_{2025}+w\}
+\]
+must also be linearly independent: if \(\sum \alpha_i T(v_i)=0\), then \(T(\sum \alpha_i v_i)=0\), hence \(\sum \alpha_i v_i=0\), hence all \(\alpha_i=0\).
+
+Thus,
+\[
+\boxed{\,\{v_1+w,\ldots,v_{2025}+w\}\ \text{is linearly independent.}\,}
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Two 5D subspaces of \(\R^9\) must intersect nontrivially)}
+\subsection{Problem}
+Let both \(U\) and \(V\) be 5-dimensional vector subspaces of \(\R^9\).
+Show that \(U\cap V\neq \{0\}\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Dimension formula for sums and intersections}
+We use the Grassmann dimension identity: for subspaces \(U,V\) of a finite-dimensional vector space,
+\[
+\dimn(U+V)=\dimn(U)+\dimn(V)-\dimn(U\cap V).
+\]
+
+Since \(U+V\subseteq \R^9\), we have
+\[
+\dimn(U+V)\le 9.
+\]
+
+Substituting \(\dimn(U)=\dimn(V)=5\) gives
+\[
+\dimn(U+V)=10-\dimn(U\cap V)\le 9.
+\]
+
+Hence
+\[
+10-\dimn(U\cap V)\le 9
+\quad\Longrightarrow\quad
+\dimn(U\cap V)\ge 1.
+\]
+
+Therefore \(U\cap V\) contains a nonzero vector, so
+\[
+\boxed{U\cap V\neq \{0\}.}
+\]
+
+\subsubsection{Method 2: Contradiction via direct sum dimension}
+Assume for contradiction that
+\[
+U\cap V=\{0\}.
+\]
+
+Then the sum \(U+V\) is direct:
+\[
+U+V=U\oplus V.
+\]
+
+By the dimension formula for direct sums,
+\[
+\dimn(U\oplus V)=\dimn(U)+\dimn(V)=5+5=10.
+\]
+
+But \(U+V\subseteq \R^9\), so
+\[
+\dimn(U+V)\le 9,
+\]
+a contradiction.
+
+Hence
+\[
+\boxed{U\cap V\neq \{0\}.}
+\]
+
+\subsubsection{Method 3: Rank--Nullity using the linear map \(T(u,v)=u+v\)}
+Define a linear map
+\[
+T:U\times V\to \R^9,
+\qquad
+T(u,v)=u+v.
+\]
+
+This map is linear because addition in \(\R^9\) is linear.
+
+The image of \(T\) is
+\[
+\operatorname{Im}(T)=U+V.
+\]
+
+The kernel is
+\[
+\ker T=\{(u,v)\in U\times V: u+v=0\}.
+\]
+
+If \(u+v=0\), then \(v=-u\), so
+\[
+u\in U\cap V.
+\]
+Hence
+\[
+\ker T=\{(x,-x):x\in U\cap V\}.
+\]
+
+Thus
+\[
+\dimn(\ker T)=\dimn(U\cap V).
+\]
+
+Since
+\[
+\dimn(U\times V)=\dimn(U)+\dimn(V)=10,
+\]
+the Rank--Nullity Theorem gives
+\[
+10=\dimn(\ker T)+\dimn(\operatorname{Im}T).
+\]
+
+But
+\[
+\dimn(\operatorname{Im}T)=\dimn(U+V)\le 9,
+\]
+so
+\[
+10\le \dimn(U\cap V)+9.
+\]
+
+Therefore
+\[
+\dimn(U\cap V)\ge 1,
+\]
+and hence
+\[
+\boxed{U\cap V\neq \{0\}.}
+\]
+
+\newpage
+\subsubsection{Method 4: Quotient-space argument}
+Consider the quotient space
+\[
+\R^9/U.
+\]
+
+Since \(\dimn(U)=5\), we have
+\[
+\dimn(\R^9/U)=9-5=4.
+\]
+
+Let
+\[
+\pi:\R^9\to \R^9/U
+\]
+be the quotient map, and restrict it to \(V\):
+\[
+\pi|_V:V\to \R^9/U.
+\]
+
+Since \(\dimn(V)=5\) while \(\dimn(\R^9/U)=4\), this linear map cannot be injective.
+
+Thus there exists \(v\in V\), \(v\neq 0\), such that
+\[
+\pi(v)=0.
+\]
+
+But \(\pi(v)=0\) precisely when \(v\in U\). Hence
+\[
+v\in U\cap V.
+\]
+
+Therefore
+\[
+\boxed{U\cap V\neq \{0\}.}
+\]
+
+\subsubsection{Method 5: Injection / dimension monotonicity argument}
+Recall the theorem: if \(T:X\to Y\) is an injective linear map between finite-dimensional vector spaces, then
+\[
+\dimn(X)\le \dimn(Y).
+\]
+
+Again consider the quotient map
+\(\pi:\R^9\to \R^9/U.
+\)
+
+
+Restrict it to \(V\):
+\(
+T=\pi|_V:V\to \R^9/U.
+\)
+
+If \(U\cap V=\{0\}\), then \(T\) would be injective. Indeed,
+\[
+T(v)=0 \iff \pi(v)=0 \iff v\in U,
+\]
+so if the intersection were trivial, the only vector mapped to \(0\) would be \(v=0\).
+
+Thus \(T\) would be injective, which would imply
+\[
+\dimn(V)\le \dimn(\R^9/U).
+\]
+
+But
+\[
+\dimn(V)=5
+\qquad
+\text{and}
+\qquad
+\dimn(\R^9/U)=4,
+\]
+which is impossible.
+
+Therefore \(T\) cannot be injective, and hence
+\[
+\ker T=U\cap V\neq \{0\}.
+\]
+
+Thus
+\[
+\boxed{U\cap V\neq \{0\}.}
+\]
+%====================================================
+% QUESTION 8
+%====================================================
+\newpage
+\section{Question 8 (A \(\Q\)-vector space structure on \(\R\) and a 2D subspace)}
+\subsection{Problem}
+We can make \(\R\) into a rational vector space as follows:
+\begin{itemize}[leftmargin=*]
+\item Vector addition \(+:\R\times \R\to \R\) is the usual real addition.
+\item Scalar multiplication \(\cdot:\Q\times \R\to \R\) is the restriction of usual real multiplication to \(\Q\times \R\).
+\end{itemize}
+Denote this rational vector space by \(\R_{\Q}\), and let
+\[
+V \coloneqq \{a+br\in\R \mid a,b\in\Q\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that \(V\) is a rational vector subspace of \(\R_{\Q}\).
+\item Show that
+\[
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\
+2, & \text{if } r\notin\Q.
+\end{cases}
+\]
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct subspace test and basis computation}
+\begin{enumerate}[label=(\alph*)]
+\item We verify that \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+First, \(0\in V\), since
+\[
+0=0+0\cdot r
+\]
+with \(0,0\in\Q\).
+
+Next, let \(x,y\in V\). Then there exist \(a_1,a_2,b_1,b_2\in\Q\) such that
+\[
+x=a_1+b_1r,
+\qquad
+y=a_2+b_2r.
+\]
+Hence
+\[
+x+y=(a_1+a_2)+(b_1+b_2)r.
+\]
+Since \(\Q\) is closed under addition, \(a_1+a_2\in\Q\) and \(b_1+b_2\in\Q\). Therefore \(x+y\in V\).
+
+Now let \(q\in\Q\) and \(x\in V\). Write
+\[
+x=a+br
+\qquad\text{with } a,b\in\Q.
+\]
+Then
+\[
+q x = q(a+br)=(qa)+(qb)r.
+\]
+Since \(qa,qb\in\Q\), it follows that \(qx\in V\).
+
+Thus \(V\) contains \(0\), is closed under addition, and is closed under scalar multiplication by elements of \(\Q\). Therefore \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+\item We compute \(\dimn(V)\) by splitting into cases.
+
+\textbf{Case 1: \(r\in\Q\).}
+
+For any \(a,b\in\Q\), we have \(br\in\Q\), hence
+\[
+a+br\in\Q.
+\]
+So \(V\subseteq \Q\). Conversely, if \(q\in\Q\), then
+\[
+q=q+0\cdot r\in V.
+\]
+Thus \(V=\Q\) as sets. As a vector space over \(\Q\), the set \(\Q\) has basis \(\{1\}\). Hence
+\[
+\dimn(V)=1.
+\]
+
+\textbf{Case 2: \(r\notin\Q\).}
+
+We claim that \(\{1,r\}\) is a basis of \(V\) over \(\Q\).
+
+First, \(\{1,r\}\) spans \(V\): if \(x\in V\), then by definition
+\[
+x=a+br=a\cdot 1+b\cdot r
+\]
+for some \(a,b\in\Q\). Hence
+\[
+V=\operatorname{span}_{\Q}\{1,r\}.
+\]
+
+Next, \(\{1,r\}\) is linearly independent over \(\Q\). Suppose
+\[
+\alpha\cdot 1+\beta\cdot r=0
+\qquad\text{for some } \alpha,\beta\in\Q.
+\]
+If \(\beta\neq 0\), then
+\[
+r=-\frac{\alpha}{\beta}\in\Q,
+\]
+contrary to the assumption \(r\notin\Q\). Therefore \(\beta=0\). Then \(\alpha=0\) follows from \(\alpha+\beta r=0\).
+
+So \(\{1,r\}\) is linearly independent and spans \(V\), hence is a basis of \(V\). Therefore
+\[
+\dimn(V)=2.
+\]
+
+Combining the two cases,
+\[
+\boxed{
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\[1mm]
+2, & \text{if } r\notin\Q.
+\end{cases}}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Realize \(V\) as \(\operatorname{span}_{\Q}\{1,r\}\)}
+\begin{enumerate}[label=(\alph*)]
+\item We first observe that
+\[
+V=\operatorname{span}_{\Q}\{1,r\}.
+\]
+
+Indeed, if \(x\in V\), then by definition \(x=a+br\) for some \(a,b\in\Q\), so
+\[
+x=a\cdot 1+b\cdot r\in \operatorname{span}_{\Q}\{1,r\}.
+\]
+Thus \(V\subseteq \operatorname{span}_{\Q}\{1,r\}\).
+
+Conversely, let \(x\in \operatorname{span}_{\Q}\{1,r\}\). By the definition of span, there exist \(\alpha,\beta\in\Q\) such that
+\[
+x=\alpha\cdot 1+\beta\cdot r=\alpha+\beta r.
+\]
+Hence \(x\in V\). Therefore
+\[
+V=\operatorname{span}_{\Q}\{1,r\}.
+\]
+
+Since the span of any subset of a vector space is a subspace, it follows that \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+\item Since
+\[
+V=\operatorname{span}_{\Q}\{1,r\},
+\]
+its dimension is the number of vectors in a basis extracted from \(\{1,r\}\).
+
+\textbf{Case 1: \(r\in\Q\).}
+
+Then
+\[
+r=r\cdot 1,
+\]
+so \(r\in \operatorname{span}_{\Q}\{1\}\). Hence
+\[
+\operatorname{span}_{\Q}\{1,r\}=\operatorname{span}_{\Q}\{1\}.
+\]
+Therefore \(V\) has basis \(\{1\}\), and
+\[
+\dimn(V)=1.
+\]
+
+\textbf{Case 2: \(r\notin\Q\).}
+
+We show that \(\{1,r\}\) is linearly independent over \(\Q\). Suppose
+\[
+a\cdot 1+b\cdot r=0
+\qquad\text{with } a,b\in\Q.
+\]
+If \(b\neq 0\), then
+\[
+r=-\frac{a}{b}\in\Q,
+\]
+a contradiction. Hence \(b=0\), and then \(a=0\). So \(\{1,r\}\) is linearly independent.
+
+Since \(V=\operatorname{span}_{\Q}\{1,r\}\), the set \(\{1,r\}\) is a basis of \(V\). Therefore
+\[
+\dimn(V)=2.
+\]
+
+Thus
+\[
+\boxed{
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\[1mm]
+2, & \text{if } r\notin\Q.
+\end{cases}}
+\]
+\end{enumerate}
+
+\subsubsection{Method 3: Use a linear map \(\phi:\Q^2\to \R_{\Q}\) and Rank--Nullity}
+\begin{enumerate}[label=(\alph*)]
+\item Define
+\[
+\phi:\Q^2\to \R_{\Q},
+\qquad
+\phi(a,b):=a+br.
+\]
+We show that \(\phi\) is \(\Q\)-linear.
+
+Let \((a_1,b_1),(a_2,b_2)\in\Q^2\). Then
+\begin{align*}
+\phi\bigl((a_1,b_1)+(a_2,b_2)\bigr)
+&=\phi(a_1+a_2,b_1+b_2)\\
+&=(a_1+a_2)+(b_1+b_2)r\\
+&=(a_1+b_1r)+(a_2+b_2r)\\
+&=\phi(a_1,b_1)+\phi(a_2,b_2).
+\end{align*}
+Also, for \(q\in\Q\),
+\[
+\phi\bigl(q(a,b)\bigr)=\phi(qa,qb)=qa+(qb)r=q(a+br)=q\,\phi(a,b).
+\]
+Hence \(\phi\) is linear.
+
+By definition,
+\[
+\operatorname{Im}(\phi)=\{a+br:a,b\in\Q\}=V.
+\]
+Since the image of a linear map is a subspace, \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+\item We apply the Rank--Nullity Theorem to the linear map
+\[
+\phi:\Q^2\to \R_{\Q}.
+\]
+Since \(\operatorname{Im}(\phi)=V\), we have
+\[
+\dimn(V)=\dimn(\operatorname{Im}\phi)
+=\dimn(\Q^2)-\dimn(\ker\phi)
+=2-\dimn(\ker\phi).
+\]
+
+We now compute \(\ker\phi\).
+
+By definition,
+\[
+(a,b)\in\ker\phi
+\iff \phi(a,b)=0
+\iff a+br=0.
+\]
+
+\textbf{Case 1: \(r\in\Q\).}
+
+Then \(( -r,1)\in\Q^2\) and
+\[
+\phi(-r,1)=-r+r=0,
+\]
+so \(\ker\phi\neq \{(0,0)\}\). In fact, if \(a+br=0\), then
+\[
+a=-br,
+\]
+so
+\[
+(a,b)=(-br,b)=b(-r,1).
+\]
+Hence
+\[
+\ker\phi=\operatorname{span}_{\Q}\{(-r,1)\}.
+\]
+Therefore \(\dimn(\ker\phi)=1\), and so
+\[
+\dimn(V)=2-1=1.
+\]
+
+\textbf{Case 2: \(r\notin\Q\).}
+
+Suppose \((a,b)\in\ker\phi\). Then
+\[
+a+br=0.
+\]
+If \(b\neq 0\), then
+\[
+r=-\frac{a}{b}\in\Q,
+\]
+contrary to \(r\notin\Q\). Hence \(b=0\), and then \(a=0\). Thus
+\[
+\ker\phi=\{(0,0)\}.
+\]
+So \(\dimn(\ker\phi)=0\), and therefore
+\[
+\dimn(V)=2-0=2.
+\]
+
+Hence
+\[
+\boxed{
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\[1mm]
+2, & \text{if } r\notin\Q.
+\end{cases}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 4: Basis extraction from a generating set}
+\begin{enumerate}[label=(\alph*)]
+\item By definition,
+\[
+V=\{a+br:a,b\in\Q\}.
+\]
+Thus every element of \(V\) is a \(\Q\)-linear combination of \(1\) and \(r\), so
+\[
+V=\operatorname{span}_{\Q}\{1,r\}.
+\]
+Since the span of any set is a subspace, \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+\item We use the theorem that every finite spanning set contains a basis, obtained by removing linearly dependent vectors.
+
+Since \(\{1,r\}\) spans \(V\), a basis of \(V\) is obtained from \(\{1,r\}\) by deleting redundant vectors if necessary.
+
+\textbf{Case 1: \(r\in\Q\).}
+
+Then \(r=r\cdot 1\), so \(r\in \operatorname{span}_{\Q}\{1\}\). Thus \(\{1,r\}\) is linearly dependent, and \(r\) is redundant. Hence \(\{1\}\) is a basis of \(V\), so
+\[
+\dimn(V)=1.
+\]
+
+\textbf{Case 2: \(r\notin\Q\).}
+
+We show that neither \(1\) nor \(r\) lies in the span of the other.
+
+Certainly \(1\neq 0\), so \(1\notin \operatorname{span}_{\Q}(\varnothing)\). Also,
+\[
+r\notin \operatorname{span}_{\Q}\{1\},
+\]
+for otherwise \(r=q\cdot 1=q\) for some \(q\in\Q\), contradicting \(r\notin\Q\).
+
+Thus no vector in \(\{1,r\}\) is redundant, so \(\{1,r\}\) itself is a basis of \(V\). Hence
+\[
+\dimn(V)=2.
+\]
+
+Therefore
+\[
+\boxed{
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\[1mm]
+2, & \text{if } r\notin\Q.
+\end{cases}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 5: Contradiction through linear dependence of \(\{1,r\}\)}
+\begin{enumerate}[label=(\alph*)]
+\item For any \(a,b\in\Q\),
+\[
+a+br=a\cdot 1+b\cdot r,
+\]
+so every element of \(V\) is a \(\Q\)-linear combination of \(1\) and \(r\). Hence
+\[
+V=\operatorname{span}_{\Q}\{1,r\}.
+\]
+Therefore \(V\) is a \(\Q\)-vector subspace of \(\R_{\Q}\).
+
+\item Since \(V=\operatorname{span}_{\Q}\{1,r\}\), its dimension is at most \(2\). We determine whether it is \(1\) or \(2\).
+
+\textbf{Case 1: \(r\in\Q\).}
+
+Then \(r\) is a scalar multiple of \(1\), so
+\[
+V=\operatorname{span}_{\Q}\{1\}.
+\]
+Hence \(\dimn(V)=1\).
+
+\textbf{Case 2: \(r\notin\Q\).}
+
+Assume, for contradiction, that \(\dimn(V)=1\). Then \(V\) is spanned by a single nonzero vector \(v\). Since \(1,r\in V\), there exist \(\alpha,\beta\in\Q\) such that
+\[
+1=\alpha v,
+\qquad
+r=\beta v.
+\]
+If \(\alpha=0\), then \(1=0\), impossible. Hence \(\alpha\neq 0\), and so
+\[
+v=\alpha^{-1}.
+\]
+Substituting into the second equation gives
+\[
+r=\beta \alpha^{-1}\in\Q,
+\]
+contradicting \(r\notin\Q\).
+
+Therefore \(\dimn(V)\neq 1\). Since \(V\) is spanned by two vectors, \(\dimn(V)\le 2\). It follows that
+\[
+\dimn(V)=2.
+\]
+
+So
+\[
+\boxed{
+\dimn(V)=
+\begin{cases}
+1, & \text{if } r\in\Q,\\[1mm]
+2, & \text{if } r\notin\Q.
+\end{cases}}
+\]
+\end{enumerate}
+\end{document}

@@ -1,0 +1,1689 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1301}
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Large Structured Practice Paper (Solutions)}
+\newcommand{\ExamMeta}{Parts I--IV Practice Set}
+\newcommand{\ExamMetaShort}{Large Practice}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\dimn}{\operatorname{dim}}
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{4}     % Ensures \subsubsection level shows in TOC
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+    \item Part I contains Questions 1--5 on permutations, combinations, round-table arrangements, stars and bars, indistinguishable objects, and password counting.
+    \item Part II contains Questions 6--10 on combinatorial identities; each question requires an algebraic proof and a combinatorial proof.
+    \item Part III contains Questions 11--15 on recurrence relations, including verification, solving, selecting appropriate particular forms, and modelling by recurrences.
+    \item Part IV contains Questions 16--20 on graph definitions, degree, regular graphs, handshaking, subgraphs, induced subgraphs, graph isomorphism, complete graphs, cycle graphs, and counting labeled graphs.
+    \item Full worked solutions are included for every question.
+\end{overview}
+
+\newpage
+\tableofcontents
+
+
+\newpage
+\part{Part  I --- Combinatorics}
+\section{Question 1 \hfill (10 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item In how many ways can $8$ distinct books be arranged on $3$ distinguishable shelves if each shelf contains at least one book and the order of the books on each shelf matters?
+    \item In how many ways can $8$ distinct books be arranged on the same $3$ distinguishable shelves if Shelf 1 contains exactly $2$ books, while Shelves 2 and 3 each contain at least one book, and the order of the books on each shelf matters?
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Arrange the $8$ books in a row first. This can be done in
+    \[
+    8!
+    \]
+    ways.
+
+    To divide this row into $3$ nonempty consecutive blocks for Shelves 1, 2, and 3, choose $2$ of the $7$ gaps between consecutive books as separators. Hence the number of shelf arrangements is
+    \[
+    8!\binom{7}{2}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{8!\binom{7}{2}=846720}.
+    \]
+
+    \item First choose and order the $2$ books on Shelf 1. This gives
+    \[
+    {}_8P_2=8\cdot 7
+    \]
+    possibilities.
+
+    The remaining $6$ books are to be arranged on Shelves 2 and 3, both nonempty, with order mattering. Arrange these $6$ books in a row in
+    \[
+    6!
+    \]
+    ways, then choose $1$ of the $5$ internal gaps as the separator between Shelves 2 and 3. Thus this part contributes
+    \[
+    6!\binom{5}{1}=6!\cdot 5.
+    \]
+
+    Hence the total number of arrangements is
+    \[
+    (8\cdot 7)(6!)(5).
+    \]
+
+    Therefore,
+    \[
+    \boxed{8\cdot 7\cdot 6!\cdot 5=201600}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 2 \hfill (10 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item In how many ways can $5$ boys and $5$ girls be seated around a round table such that no two boys sit next to one another?
+    \item In how many ways can $5$ boys and $5$ girls be seated around a round table such that no two boys sit next to one another and two specified girls sit next to each other?
+\end{enumerate}
+
+\subsection{Solution}
+
+\paragraph{Method 1: Seat the girls first, then place the boys in the gaps}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Arrange the $5$ girls around the round table first. Since rotations are identical, this can be done in
+    \[
+    (5-1)!=4!
+    \]
+    ways.
+
+    This creates exactly $5$ gaps between consecutive girls. To ensure that no two boys are adjacent, the $5$ boys must occupy these $5$ gaps, one boy in each gap. The boys can be arranged in these gaps in
+    \[
+    5!
+    \]
+    ways.
+
+    Hence the required number of seatings is
+    \[
+    4!\cdot 5!.
+    \]
+
+    Therefore,
+    \[
+    \boxed{4!\,5!=2880}.
+    \]
+
+    \item Since there are equal numbers of boys and girls, the condition that no two boys sit next to one another forces the seating to alternate between boys and girls around the table.
+
+    Hence every girl must have boys on both sides, so no two girls can be adjacent.
+
+    Therefore the required number of seatings is
+    \[
+    \boxed{0}.
+    \]
+\end{enumerate}
+
+\paragraph{Method 2: Concise circular-template count}
+
+For part (a), equal numbers of boys and girls together with the condition ``no two boys adjacent'' force an alternating arrangement. Hence
+\[
+\boxed{(5-1)!\,5!=2880}.
+\]
+
+For part (b), the same alternation argument shows that no two girls can be adjacent. Therefore
+\[
+\boxed{0}.
+\]
+
+\newpage
+\section{Question 3 \hfill (10 marks)}
+\subsection{Problem}
+
+$14$ identical candies are to be distributed among $5$ distinct children.
+
+\begin{enumerate}[label=(\alph*)]
+    \item In how many ways can this be done if every child receives at least one candy?
+    \item In how many ways can this be done if every child receives at least one candy and no child receives more than $4$ candies?
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Let $x_i$ be the number of candies received by child $i$. Then
+    \[
+    x_1+x_2+x_3+x_4+x_5=14,
+    \qquad x_i\ge 1.
+    \]
+
+    Set $y_i=x_i-1$. Then $y_i\ge 0$ and
+    \[
+    y_1+y_2+y_3+y_4+y_5=9.
+    \]
+
+    By stars and bars, the number of solutions is
+    \[
+    \binom{9+5-1}{5-1}=\binom{13}{4}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\binom{13}{4}=715}.
+    \]
+
+    \item From part (a), we begin with all solutions of
+    \[
+    y_1+y_2+y_3+y_4+y_5=9,
+    \qquad y_i\ge 0,
+    \]
+    where $y_i=x_i-1$.
+
+    The condition $x_i\le 4$ becomes $y_i\le 3$. So we count the nonnegative solutions with each $y_i\le 3$.
+
+    Total solutions without the upper bound:
+    \[
+    \binom{13}{4}=715.
+    \]
+
+    Let $A_i$ be the set of solutions with $y_i\ge 4$.
+
+    For a fixed $i$, set $z_i=y_i-4\ge 0$. Then
+    \[
+    z_i+\sum_{j\ne i} y_j=5,
+    \]
+    so
+    \[
+    |A_i|=\binom{5+5-1}{4}=\binom{9}{4}=126.
+    \]
+    Hence
+    \[
+    \sum |A_i|=5\binom{9}{4}=630.
+    \]
+
+    For $A_i\cap A_j$ with $i\ne j$, set $y_i=z_i+4$, $y_j=z_j+4$. Then
+    \[
+    z_i+z_j+\sum_{\ell\ne i,j} y_\ell =1,
+    \]
+    so
+    \[
+    |A_i\cap A_j|=\binom{1+5-1}{4}=\binom{5}{4}=5.
+    \]
+    There are $\binom{5}{2}=10$ such pairs, so
+    \[
+    \sum |A_i\cap A_j|=10\cdot 5=50.
+    \]
+
+    No three of the $A_i$ can occur simultaneously, because that would require at least $12$ candies above the baseline of $1$ each, whereas only $9$ remain.
+
+    By inclusion--exclusion, the required number is
+    \[
+    715-630+50=135.
+    \]
+
+    Therefore,
+    \[
+    \boxed{135}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 4 \hfill (10 marks)}
+\subsection{Problem}
+
+Consider the word \texttt{STATISTICS}.
+
+\begin{enumerate}[label=(\alph*)]
+    \item How many distinct arrangements of its letters are there?
+    \item How many distinct arrangements are there in which no two letters \texttt{S} are adjacent?
+    \item How many distinct arrangements are there in which all three letters \texttt{T} are consecutive?
+\end{enumerate}
+
+\subsection{Solution}
+
+\paragraph{Method 1: Direct counting with repeated letters}
+
+The letters of \texttt{STATISTICS} are
+\[
+S,S,S,\ T,T,T,\ I,I,\ A,\ C.
+\]
+Thus there are $10$ letters in total, with multiplicities $3,3,2,1,1$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item The number of distinct arrangements is
+    \[
+    \frac{10!}{3!\,3!\,2!}.
+    \]
+    Hence
+    \[
+    \boxed{\frac{10!}{3!\,3!\,2!}=50400}.
+    \]
+
+    \item First arrange the $7$ non-\texttt{S} letters
+    \[
+    T,T,T,I,I,A,C.
+    \]
+    The number of such arrangements is
+    \[
+    \frac{7!}{3!\,2!}=420.
+    \]
+
+    Around these $7$ letters there are $8$ available slots for placing the three identical \texttt{S}'s: one before the first letter, one after the last letter, and one in each of the $6$ internal gaps.
+    To ensure that no two \texttt{S}'s are adjacent, choose $3$ of these $8$ slots. This can be done in
+    \[
+    \binom{8}{3}
+    \]
+    ways.
+
+    Therefore the required number is
+    \[
+    \frac{7!}{3!\,2!}\binom{8}{3}=420\cdot 56.
+    \]
+    Hence
+    \[
+    \boxed{23520}.
+    \]
+
+    \item Treat the block \texttt{TTT} as one object. Then we arrange the $8$ objects
+    \[
+    (\texttt{TTT}),\ S,S,S,\ I,I,\ A,\ C.
+    \]
+    Since the three \texttt{S}'s are identical and the two \texttt{I}'s are identical, the number of distinct arrangements is
+    \[
+    \frac{8!}{3!\,2!}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\frac{8!}{3!\,2!}=3360}.
+    \]
+\end{enumerate}
+
+\paragraph{Method 2: Compact multinomial check}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \(\displaystyle \frac{10!}{3!3!2!}=50400\).
+    \item Arrange the non-\texttt{S} letters first and insert the three identical \texttt{S}'s into $3$ of the $8$ slots:
+    \[
+    \boxed{\frac{7!}{3!2!}\binom{8}{3}=23520}.
+    \]
+    \item Collapse \texttt{TTT} into one block:
+    \[
+    \boxed{\frac{8!}{3!2!}=3360}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 5 \hfill (12 marks)}
+\subsection{Problem}
+
+A password is formed using only the six letters
+\[
+A,B,C,d,e,f
+\]
+and the two special characters
+\[
+\#,\ \&.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item How many different $6$-character passwords are possible if exactly one special character is used and repetition is allowed?
+    \item How many different $7$-character passwords are possible if exactly two special characters are used, the two special characters are not adjacent, and repetition is allowed?
+    \item How many different $7$-character passwords are possible if exactly two special characters are used, the two special characters are not adjacent, repetition is allowed, and at least one uppercase letter is used?
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Choose the position of the unique special character in
+    \[
+    \binom{6}{1}=6
+    \]
+    ways, choose the special character itself in
+    \[
+    2
+    \]
+    ways, and fill the remaining $5$ positions using the $6$ letters in
+    \[
+    6^5
+    \]
+    ways.
+
+    Hence the number of passwords is
+    \[
+    6\cdot 2\cdot 6^5.
+    \]
+
+    Therefore,
+    \[
+    \boxed{12\cdot 6^5=93312}.
+    \]
+
+    \item First choose the positions of the two special characters among the $7$ positions, with the condition that they are not adjacent.
+
+    The number of ways to choose $2$ nonadjacent positions from $7$ is
+    \[
+    \binom{7-2+1}{2}=\binom{6}{2}=15.
+    \]
+
+    The two special positions can each be filled by either \# or \&, so there are
+    \[
+    2^2=4
+    \]
+    choices for the special characters.
+
+    The remaining $5$ positions are filled by letters, with repetition allowed, giving
+    \[
+    6^5
+    \]
+    possibilities.
+
+    Hence the total number is
+    \[
+    \binom{6}{2}\cdot 2^2\cdot 6^5.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\binom{6}{2}\cdot 4\cdot 6^5=466560}.
+    \]
+
+    \item Parts (b) and (c) differ only in the filling of the $5$ letter-positions.
+
+    The number of $5$-letter strings over
+    \[
+    \{A,B,C,d,e,f\}
+    \]
+    with at least one uppercase letter is
+    \[
+    6^5-3^5,
+    \]
+    because there are $6^5$ unrestricted strings and $3^5$ strings using only the lowercase letters $d,e,f$.
+
+    Therefore the required number is
+    \[
+    \binom{6}{2}\cdot 2^2\cdot (6^5-3^5).
+    \]
+
+    Hence,
+    \[
+    \boxed{\binom{6}{2}\cdot 4\cdot (6^5-3^5)=451980}.
+    \]
+\end{enumerate}
+
+\newpage
+\part{Part  II --- Combinatorial Identities}
+\section{Question 6 \hfill (10 marks)}
+\subsection{Problem}
+
+Prove the identity
+\[
+\sum_{k=1}^{n} k\binom{n}{k}=n2^{n-1}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Give an algebraic proof.
+    \item Give a combinatorial proof.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item For $1\le k\le n$,
+    \[
+    k\binom{n}{k}
+    =k\frac{n!}{k!(n-k)!}
+    =\frac{n!}{(k-1)!(n-k)!}
+    =n\frac{(n-1)!}{(k-1)!((n-1)-(k-1))!}
+    =n\binom{n-1}{k-1}.
+    \]
+
+    Hence
+    \[
+    \sum_{k=1}^{n} k\binom{n}{k}
+    =n\sum_{k=1}^{n} \binom{n-1}{k-1}.
+    \]
+    Let $j=k-1$. Then
+    \[
+    n\sum_{j=0}^{n-1} \binom{n-1}{j}
+    =n2^{n-1}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\sum_{k=1}^{n} k\binom{n}{k}=n2^{n-1}}.
+    \]
+
+    \item Count the number of ways to form a committee from $n$ people and then choose a chairperson from that committee.
+
+    If the committee has size $k$, then it can be chosen in $\binom{n}{k}$ ways and its chairperson can be chosen in $k$ ways. Summing over all possible committee sizes $k\ge 1$, the number of outcomes is
+    \[
+    \sum_{k=1}^{n} k\binom{n}{k}.
+    \]
+
+    On the other hand, choose the chairperson first in $n$ ways. Each of the remaining $n-1$ people may then either be in or out of the committee, independently, giving $2^{n-1}$ possibilities.
+
+    Thus the same set of outcomes is counted by
+    \[
+    n2^{n-1}.
+    \]
+
+    Hence,
+    \[
+    \boxed{\sum_{k=1}^{n} k\binom{n}{k}=n2^{n-1}}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 7 \hfill (10 marks)}
+\subsection{Problem}
+
+Prove the identity
+\[
+\sum_{k=2}^{n} \binom{k}{2}=\binom{n+1}{3}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Give an algebraic proof.
+    \item Give a combinatorial proof.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Use the identity
+    \[
+    \binom{k}{2}=\binom{k+1}{3}-\binom{k}{3}.
+    \]
+    Therefore,
+    \[
+    \sum_{k=2}^{n} \binom{k}{2}
+    =\sum_{k=2}^{n}\left(\binom{k+1}{3}-\binom{k}{3}\right).
+    \]
+
+    This is a telescoping sum:
+    \[
+    \left(\binom{3}{3}-\binom{2}{3}\right)
+    +\left(\binom{4}{3}-\binom{3}{3}\right)
+    +\cdots+
+    \left(\binom{n+1}{3}-\binom{n}{3}\right)
+    =\binom{n+1}{3}.
+    \]
+
+    Hence,
+    \[
+    \boxed{\sum_{k=2}^{n} \binom{k}{2}=\binom{n+1}{3}}.
+    \]
+
+    \item Count the number of $3$-element subsets of
+    \[
+    \{1,2,3,\dots,n+1\}.
+    \]
+
+    Directly, there are
+    \[
+    \binom{n+1}{3}
+    \]
+    such subsets.
+
+    Alternatively, classify each $3$-element subset by its largest element. If the largest element is $k+1$, where $2\le k\le n$, then the other two elements must be chosen from
+    \[
+    \{1,2,\dots,k\},
+    \]
+    which can be done in
+    \[
+    \binom{k}{2}
+    \]
+    ways.
+
+    Summing over all possible largest elements gives
+    \[
+    \sum_{k=2}^{n} \binom{k}{2}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\sum_{k=2}^{n} \binom{k}{2}=\binom{n+1}{3}}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 8 \hfill (10 marks)}
+\subsection{Problem}
+
+Prove the identity
+\[
+\binom{n}{r}\binom{r}{m}=\binom{n}{m}\binom{n-m}{r-m},
+\qquad 0\le m\le r\le n.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Give an algebraic proof.
+    \item Give a combinatorial proof.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Using factorials,
+    \[
+    \binom{n}{r}\binom{r}{m}
+    =\frac{n!}{r!(n-r)!}\cdot \frac{r!}{m!(r-m)!}
+    =\frac{n!}{m!(r-m)!(n-r)!}.
+    \]
+
+    On the other hand,
+    \[
+    \binom{n}{m}\binom{n-m}{r-m}
+    =\frac{n!}{m!(n-m)!}\cdot\frac{(n-m)!}{(r-m)!((n-m)-(r-m))!}
+    =\frac{n!}{m!(r-m)!(n-r)!}.
+    \]
+
+    Hence the two sides are equal, so
+    \[
+    \boxed{\binom{n}{r}\binom{r}{m}=\binom{n}{m}\binom{n-m}{r-m}}.
+    \]
+
+    \item Count the number of ways to choose an $r$-element committee from $n$ people and then choose an $m$-element subcommittee from that committee.
+
+    First method: choose the $r$-element committee in $\binom{n}{r}$ ways, then choose the $m$-element subcommittee from it in $\binom{r}{m}$ ways. This gives
+    \[
+    \binom{n}{r}\binom{r}{m}.
+    \]
+
+    Second method: choose the $m$ people in the subcommittee first, in $\binom{n}{m}$ ways. Then choose the remaining $r-m$ members of the full committee from the remaining $n-m$ people, in
+    \[
+    \binom{n-m}{r-m}
+    \]
+    ways.
+
+    Thus the same collection of outcomes is counted by
+    \[
+    \binom{n}{m}\binom{n-m}{r-m}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\binom{n}{r}\binom{r}{m}=\binom{n}{m}\binom{n-m}{r-m}}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 9 \hfill (10 marks)}
+\subsection{Problem}
+
+Prove the identity
+\[
+\sum_{k=0}^{n} \binom{n}{k}^{2}=\binom{2n}{n}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Give an algebraic proof.
+    \item Give a combinatorial proof.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Consider the coefficient of $x^n$ in
+    \[
+    (1+x)^n(1+x)^n=(1+x)^{2n}.
+    \]
+
+    From the right-hand side, the coefficient of $x^n$ is
+    \[
+    \binom{2n}{n}.
+    \]
+
+    From the left-hand side,
+    \[
+    (1+x)^n(1+x)^n
+    =\left(\sum_{k=0}^{n}\binom{n}{k}x^k\right)
+    \left(\sum_{j=0}^{n}\binom{n}{j}x^j\right).
+    \]
+    The coefficient of $x^n$ is therefore
+    \[
+    \sum_{k=0}^{n}\binom{n}{k}\binom{n}{n-k}.
+    \]
+    Since $\binom{n}{n-k}=\binom{n}{k}$, this becomes
+    \[
+    \sum_{k=0}^{n}\binom{n}{k}^2.
+    \]
+
+    Hence,
+    \[
+    \boxed{\sum_{k=0}^{n}\binom{n}{k}^{2}=\binom{2n}{n}}.
+    \]
+
+    \item Suppose there are $n$ men and $n$ women. Count the number of ways to choose a group of $n$ people.
+
+    Directly, this can be done in
+    \[
+    \binom{2n}{n}
+    \]
+    ways.
+
+    Alternatively, if exactly $k$ men are chosen, then exactly $n-k$ women must be chosen. This can be done in
+    \[
+    \binom{n}{k}\binom{n}{n-k}=\binom{n}{k}^2
+    \]
+    ways.
+
+    Summing over $k=0,1,\dots,n$ gives
+    \[
+    \sum_{k=0}^{n}\binom{n}{k}^2.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\sum_{k=0}^{n}\binom{n}{k}^{2}=\binom{2n}{n}}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 10 \hfill (10 marks)}
+\subsection{Problem}
+
+Prove the identity
+\[
+\sum_{k=0}^{n} k^2\binom{n}{k}=n(n+1)2^{n-2}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Give an algebraic proof.
+    \item Give a combinatorial proof.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Write
+    \[
+    k^2=k(k-1)+k.
+    \]
+    Hence
+    \[
+    \sum_{k=0}^{n} k^2\binom{n}{k}
+    =\sum_{k=0}^{n} k(k-1)\binom{n}{k}+\sum_{k=0}^{n} k\binom{n}{k}.
+    \]
+
+    Now
+    \[
+    k(k-1)\binom{n}{k}
+    =k(k-1)\frac{n!}{k!(n-k)!}
+    =n(n-1)\binom{n-2}{k-2}.
+    \]
+    Therefore
+    \[
+    \sum_{k=0}^{n} k(k-1)\binom{n}{k}
+    =n(n-1)\sum_{k=2}^{n}\binom{n-2}{k-2}
+    =n(n-1)2^{n-2}.
+    \]
+
+    Also, from Question 6,
+    \[
+    \sum_{k=0}^{n} k\binom{n}{k}=n2^{n-1}.
+    \]
+
+    Thus
+    \[
+    \sum_{k=0}^{n} k^2\binom{n}{k}
+    =n(n-1)2^{n-2}+n2^{n-1}
+    =n(n+1)2^{n-2}.
+    \]
+
+    Hence,
+    \[
+    \boxed{\sum_{k=0}^{n} k^2\binom{n}{k}=n(n+1)2^{n-2}}.
+    \]
+
+    \item Count ordered triples $(S,x,y)$ where $S\subseteq \{1,2,\dots,n\}$ and $x,y\in S$.
+
+    If $|S|=k$, then there are $\binom{n}{k}$ choices for $S$ and $k^2$ ordered choices for $(x,y)$, since $x$ and $y$ may be equal. Thus the total number of such triples is
+    \[
+    \sum_{k=0}^{n} k^2\binom{n}{k}.
+    \]
+
+    Now count the same triples by first choosing $(x,y)$.
+
+    \textbf{Case 1:} $x=y$. There are $n$ choices for this common value. Once it is chosen, each of the remaining $n-1$ elements may or may not belong to $S$, giving
+    \[
+    n2^{n-1}
+    \]
+    triples.
+
+    \textbf{Case 2:} $x\ne y$. There are $n(n-1)$ ordered choices for $(x,y)$. Once both are forced into $S$, each of the remaining $n-2$ elements may or may not be in $S$, giving
+    \[
+    n(n-1)2^{n-2}
+    \]
+    triples.
+
+    Hence the total number of triples is
+    \[
+    n2^{n-1}+n(n-1)2^{n-2}=n(n+1)2^{n-2}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\sum_{k=0}^{n} k^2\binom{n}{k}=n(n+1)2^{n-2}}.
+    \]
+\end{enumerate}
+
+\newpage
+\part{Part  III --- Recurrence Relations}
+Questions 11--15
+
+\newpage
+\section{Question 11 \hfill (10 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Verify that the sequence $a_n=2^n+n$ satisfies
+    \[
+    a_n=3a_{n-1}-2a_{n-2}+2,\qquad n\ge 2,
+    \]
+    with initial conditions $a_0=1$ and $a_1=3$.
+    \item Suppose that the sequences $(s_n)$ and $(t_n)$ satisfy
+    \[
+    s_n=4s_{n-1}-4s_{n-2}+3^n,\qquad n\ge 2,
+    \]
+    and
+    \[
+    t_n=4t_{n-1}-4t_{n-2}-2\cdot 3^n,\qquad n\ge 2.
+    \]
+    Define $u_n=s_n+t_n$. Find a recurrence relation satisfied by $(u_n)$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item We first check the initial conditions:
+    \[
+    a_0=2^0+0=1,
+    \qquad
+    a_1=2^1+1=3.
+    \]
+    So the given initial conditions hold.
+
+    For $n\ge 2$,
+    \begin{align*}
+    3a_{n-1}-2a_{n-2}+2
+    &=3\bigl(2^{n-1}+(n-1)\bigr)-2\bigl(2^{n-2}+(n-2)\bigr)+2 \\
+    &=3\cdot 2^{n-1}-2\cdot 2^{n-2}+3n-3-2n+4+2 \\
+    &=2^n+n.
+    \end{align*}
+    But $2^n+n=a_n$. Hence
+    \[
+    a_n=3a_{n-1}-2a_{n-2}+2
+    \]
+    for all $n\ge 2$.
+
+    Therefore the sequence satisfies the recurrence with the stated initial conditions.
+
+    \item Since $u_n=s_n+t_n$,
+    \begin{align*}
+    u_n
+    &=s_n+t_n \\
+    &=\bigl(4s_{n-1}-4s_{n-2}+3^n\bigr)+\bigl(4t_{n-1}-4t_{n-2}-2\cdot 3^n\bigr) \\
+    &=4(s_{n-1}+t_{n-1})-4(s_{n-2}+t_{n-2})-3^n \\
+    &=4u_{n-1}-4u_{n-2}-3^n.
+    \end{align*}
+
+    Hence $(u_n)$ satisfies the recurrence relation
+    \[
+    \boxed{u_n=4u_{n-1}-4u_{n-2}-3^n,\qquad n\ge 2.}
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 12 \hfill (10 marks)}
+\subsection{Problem}
+
+Solve the recurrence relation
+\[
+a_n=5a_{n-1}-6a_{n-2},\qquad n\ge 2,
+\]
+with initial conditions
+\[
+a_0=2,\qquad a_1=7.
+\]
+
+\subsection{Solution}
+
+\paragraph{Method 1: Characteristic equation}
+
+The characteristic equation is
+\[
+r^2-5r+6=0.
+\]
+Factorising,
+\[
+(r-2)(r-3)=0,
+\]
+so the roots are $r=2,3$.
+
+Hence the general solution is
+\[
+a_n=A2^n+B3^n
+\]
+for constants $A,B$.
+
+Using $a_0=2$,
+\[
+A+B=2.
+\]
+Using $a_1=7$,
+\[
+2A+3B=7.
+\]
+Subtracting $2(A+B)=4$ from the second equation gives
+\[
+B=3.
+\]
+Then
+\[
+A=2-3=-1.
+\]
+
+Therefore,
+\[
+a_n=-2^n+3\cdot 3^n=3^{n+1}-2^n.
+\]
+Hence
+\[
+\boxed{a_n=3^{n+1}-2^n.}
+\]
+
+\paragraph{Method 2: Concise template method}
+
+\[
+r^2-5r+6=0\iff (r-2)(r-3)=0.
+\]
+So
+\[
+a_n=A2^n+B3^n.
+\]
+Initial conditions:
+\[
+A+B=2,
+\qquad
+2A+3B=7.
+\]
+Thus
+\[
+B=3,
+\qquad
+A=-1.
+\]
+Therefore
+\[
+\boxed{a_n=3^{n+1}-2^n.}
+\]
+
+\newpage
+\section{Question 13 \hfill (12 marks)}
+\subsection{Problem}
+
+Solve the recurrence relation
+\[
+a_n=4a_{n-1}-4a_{n-2}+n,\qquad n\ge 2,
+\]
+with initial conditions
+\[
+a_0=5,\qquad a_1=11.
+\]
+
+\subsection{Solution}
+
+\paragraph{Method 1: Homogeneous part plus particular solution}
+
+First solve the associated homogeneous recurrence
+\[
+a_n^{(h)}=4a_{n-1}^{(h)}-4a_{n-2}^{(h)}.
+\]
+Its characteristic equation is
+\[
+r^2-4r+4=0,
+\]
+that is,
+\[
+(r-2)^2=0.
+\]
+So $r=2$ is a repeated root, and hence
+\[
+a_n^{(h)}=(A+Bn)2^n.
+\]
+
+For a particular solution, since the forcing term is the polynomial $n$ and $1$ is not a root of the characteristic equation, try
+\[
+a_n^{(p)}=pn+q.
+\]
+Substituting into the recurrence gives
+\begin{align*}
+pn+q
+&=4\bigl(p(n-1)+q\bigr)-4\bigl(p(n-2)+q\bigr)+n \\
+&=4pn-4p+4q-4pn+8p-4q+n \\
+&=n+4p.
+\end{align*}
+Equating coefficients yields
+\[
+p=1,
+\qquad q=4.
+\]
+Thus
+\[
+a_n^{(p)}=n+4.
+\]
+
+Therefore the general solution is
+\[
+a_n=(A+Bn)2^n+n+4.
+\]
+
+Now use the initial conditions.
+
+From $a_0=5$,
+\[
+A+4=5 \implies A=1.
+\]
+
+From $a_1=11$,
+\[
+2(A+B)+1+4=11.
+\]
+Since $A=1$,
+\[
+2(1+B)+5=11
+\implies 2B=4
+\implies B=2.
+\]
+
+Hence
+\[
+a_n=(1+2n)2^n+n+4.
+\]
+Therefore,
+\[
+\boxed{a_n=(1+2n)2^n+n+4.}
+\]
+
+\paragraph{Method 2: Formula-first check}
+
+\[
+r^2-4r+4=(r-2)^2
+\quad\Longrightarrow\quad
+ a_n^{(h)}=(A+Bn)2^n.
+\]
+For the forcing term $n$, take
+\[
+a_n^{(p)}=pn+q.
+\]
+Substitution gives
+\[
+pn+q=n+4p,
+\]
+so
+\[
+p=1,\qquad q=4.
+\]
+Hence
+\[
+a_n=(A+Bn)2^n+n+4.
+\]
+Using
+\[
+a_0=5\Rightarrow A=1,
+\qquad
+ a_1=11\Rightarrow 2(1+B)+5=11\Rightarrow B=2,
+\]
+we obtain
+\[
+\boxed{a_n=(1+2n)2^n+n+4.}
+\]
+
+\newpage
+\section{Question 14 \hfill (10 marks)}
+\subsection{Problem}
+
+For each of the following recurrence relations, determine an appropriate form for a particular solution. You need not determine the coefficients.
+
+\begin{enumerate}[label=(\alph*)]
+    \item \(a_n=5a_{n-1}-6a_{n-2}+n3^n\).
+    \item \(b_n=2b_{n-1}-b_{n-2}+7\).
+    \item \(c_n=6c_{n-1}-9c_{n-2}+n^2 3^n\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item The associated homogeneous recurrence has characteristic equation
+    \[
+    r^2-5r+6=0=(r-2)(r-3).
+    \]
+    Since the forcing term is
+    \[
+    n3^n=P_1(n)3^n
+    \]
+    and $r=3$ is a simple root of the characteristic equation, we multiply the usual trial form by $n$.
+
+    Thus an appropriate particular form is
+    \[
+    \boxed{a_n^{(p)}=n(An+B)3^n.}
+    \]
+
+    \item The associated homogeneous recurrence has characteristic equation
+    \[
+    r^2-2r+1=(r-1)^2.
+    \]
+    The forcing term is the constant $7=7\cdot 1^n$, and $r=1$ is a root of multiplicity $2$. Hence we multiply the usual constant trial by $n^2$.
+
+    Therefore an appropriate particular form is
+    \[
+    \boxed{b_n^{(p)}=Cn^2.}
+    \]
+
+    \item The associated homogeneous recurrence has characteristic equation
+    \[
+    r^2-6r+9=(r-3)^2.
+    \]
+    The forcing term is
+    \[
+    n^2 3^n=P_2(n)3^n,
+    \]
+    and $r=3$ is a root of multiplicity $2$. Hence we multiply the standard degree-$2$ polynomial trial by $n^2$.
+
+    Therefore an appropriate particular form is
+    \[
+    \boxed{c_n^{(p)}=n^2(An^2+Bn+C)3^n.}
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 15 \hfill (10 marks)}
+\subsection{Problem}
+
+Let $a_n$ be the number of ways to tile a $3\times n$ rectangular board using $3\times 1$ tiles and $3\times 3$ tiles.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find a recurrence relation for $(a_n)$.
+    \item State suitable initial conditions.
+    \item Find $a_6$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\paragraph{Method 1: Classify by the first tile placed}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Consider the leftmost part of the board.
+
+    There are only two possibilities.
+
+    \textbf{Case 1:} The first tile is a $3\times 1$ tile. It occupies the entire first column, leaving a $3\times (n-1)$ board. This contributes $a_{n-1}$ tilings.
+
+    \textbf{Case 2:} The first tile is a $3\times 3$ tile. It occupies the first three columns, leaving a $3\times (n-3)$ board. This contributes $a_{n-3}$ tilings.
+
+    These two cases are disjoint and exhaustive. Hence, for $n\ge 3$,
+    \[
+    \boxed{a_n=a_{n-1}+a_{n-3}.}
+    \]
+
+    \item The initial conditions are obtained directly:
+    \[
+    a_0=1
+    \]
+    (empty tiling),
+    \[
+    a_1=1
+    \]
+    (one vertical $3\times 1$ tile), and
+    \[
+    a_2=1
+    \]
+    (two vertical $3\times 1$ tiles).
+
+    Thus suitable initial conditions are
+    \[
+    \boxed{a_0=1,\quad a_1=1,\quad a_2=1.}
+    \]
+
+    \item Using the recurrence,
+    \[
+    a_3=a_2+a_0=1+1=2,
+    \]
+    \[
+    a_4=a_3+a_1=2+1=3,
+    \]
+    \[
+    a_5=a_4+a_2=3+1=4,
+    \]
+    \[
+    a_6=a_5+a_3=4+2=6.
+    \]
+
+    Therefore,
+    \[
+    \boxed{a_6=6}.
+    \]
+\end{enumerate}
+
+\paragraph{Method 2: Compact recurrence template}
+
+The first tile uses width $1$ or width $3$, so
+\[
+a_n=a_{n-1}+a_{n-3}\qquad (n\ge 3).
+\]
+With
+\[
+a_0=a_1=a_2=1,
+\]
+we obtain
+\[
+a_3=2,\ a_4=3,\ a_5=4,\ a_6=6.
+\]
+Hence
+\[
+\boxed{a_6=6.}
+\]
+
+\newpage
+\part{Part  IV --- Graph Theory}
+Questions 16--20
+
+\newpage
+\section{Question 16 \hfill (10 marks)}
+\subsection{Problem}
+
+Consider the undirected simple graph $G$ with vertex set
+\[
+V=\{A,B,C,D,E,F\}
+\]
+and edge set
+\[
+E=\bigl\{\{A,B\},\{A,C\},\{A,F\},\{B,C\},\{B,D\},\{C,E\},\{D,E\},\{D,F\},\{E,F\}\bigr\}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Determine the degree of each vertex.
+    \item List all neighbors of $A$ and all neighbors of $D$.
+    \item Is $G$ regular? If so, state its degree.
+    \item Verify the Handshaking Lemma for $G$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item We read the edges incident with each vertex directly from the edge set:
+    \[
+    \deg(A)=3 \quad (AB,AC,AF),
+    \]
+    \[
+    \deg(B)=3 \quad (AB,BC,BD),
+    \]
+    \[
+    \deg(C)=3 \quad (AC,BC,CE),
+    \]
+    \[
+    \deg(D)=3 \quad (BD,DE,DF),
+    \]
+    \[
+    \deg(E)=3 \quad (CE,DE,EF),
+    \]
+    \[
+    \deg(F)=3 \quad (AF,DF,EF).
+    \]
+
+    Therefore,
+    \[
+    \boxed{\deg(A)=\deg(B)=\deg(C)=\deg(D)=\deg(E)=\deg(F)=3.}
+    \]
+
+    \item The neighbors of $A$ are the vertices joined to $A$ by an edge:
+    \[
+    N(A)=\{B,C,F\}.
+    \]
+    Similarly,
+    \[
+    N(D)=\{B,E,F\}.
+    \]
+
+    Hence,
+    \[
+    \boxed{N(A)=\{B,C,F\},\qquad N(D)=\{B,E,F\}.}
+    \]
+
+    \item Since every vertex has degree $3$, the graph is regular. More precisely,
+    \[
+    \boxed{G\text{ is }3\text{-regular}.}
+    \]
+
+    \item The graph has $9$ edges. Hence the Handshaking Lemma predicts that
+    \[
+    \sum_{v\in V}\deg(v)=2|E|=2\cdot 9=18.
+    \]
+
+    From part (a),
+    \[
+    \sum_{v\in V}\deg(v)=3+3+3+3+3+3=18.
+    \]
+
+    Since both sides are equal, the Handshaking Lemma is verified.
+\end{enumerate}
+
+\newpage
+\section{Question 17 \hfill (10 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Does a simple $3$-regular graph with $7$ vertices exist? Give a reason.
+    \item Does a simple $4$-regular graph with $6$ vertices exist? If so, state how many edges it has.
+    \item How many simple graphs with labeled vertex set $\{1,2,3,4,5,6\}$ have exactly $13$ edges?
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item If such a graph existed, then the sum of the degrees would be
+    \[
+    7\cdot 3=21.
+    \]
+    But by the Handshaking Lemma, the sum of the degrees of a graph must be even, because it equals $2|E|$.
+
+    Since $21$ is odd, such a graph cannot exist.
+
+    Therefore,
+    \[
+    \boxed{\text{No, a simple }3\text{-regular graph with }7\text{ vertices does not exist.}}
+    \]
+
+    \item If a simple $4$-regular graph with $6$ vertices exists, then the number of edges must satisfy
+    \[
+    2|E|=6\cdot 4=24,
+    \]
+    so
+    \[
+    |E|=12.
+    \]
+
+    Such a graph does exist. For example, start with $K_6$ (which has degree $5$ at each vertex) and remove the edges of a perfect matching; each vertex then loses exactly one incident edge and hence has degree $4$.
+
+    Therefore,
+    \[
+    \boxed{\text{Yes; it has }12\text{ edges.}}
+    \]
+
+    \item A simple graph on $6$ labeled vertices has
+    \[
+    \binom{6}{2}=15
+    \]
+    possible edges.
+
+    To form a graph with exactly $13$ edges, choose which $13$ of these $15$ possible edges are present. Thus the number of such graphs is
+    \[
+    \binom{15}{13}=\binom{15}{2}=105.
+    \]
+
+    Hence,
+    \[
+    \boxed{105}.
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 18 \hfill (12 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Determine the number of non-isomorphic subgraphs of $C_4$ that contain exactly three vertices. Treat vertices as indistinguishable. Draw the non-isomorphic graphs.
+    \item Determine the number of non-isomorphic induced subgraphs of $C_5$ that contain exactly three vertices. Treat vertices as indistinguishable. Draw the non-isomorphic graphs.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item A subgraph of $C_4$ with exactly three vertices may contain any subset of the cycle edges whose endpoints lie among those three chosen vertices.
+
+    Up to isomorphism, the possibilities are:
+
+    \begin{itemize}
+        \item three isolated vertices,
+        \item one edge together with one isolated vertex,
+        \item two edges forming a path on three vertices.
+    \end{itemize}
+
+    There cannot be three edges, because a graph on three vertices with three edges is a triangle, and $C_4$ contains no triangle.
+
+    Hence the number of non-isomorphic subgraphs is
+    \[
+    \boxed{3}.
+    \]
+
+    A simple text sketch of the three possibilities is:
+    \[
+    \text{(i) } \bullet\ \ \bullet\ \ \bullet
+    \qquad
+    \text{(ii) } \bullet\! -\! \bullet\ \ \bullet
+    \qquad
+    \text{(iii) } \bullet\! -\! \bullet\! -\! \bullet
+    \]
+
+    \item For an \emph{induced} subgraph of $C_5$ on three vertices, all edges of $C_5$ joining the chosen vertices must be included.
+
+    Choose any three vertices from the cycle $C_5$.
+
+    \begin{itemize}
+        \item If the three chosen vertices include two consecutive edges of the cycle, the induced subgraph is a path on three vertices.
+        \item Otherwise, exactly one pair of the chosen vertices is adjacent, so the induced subgraph is one edge together with one isolated vertex.
+    \end{itemize}
+
+    A graph of three isolated vertices cannot occur, because in any choice of three vertices from $C_5$, at least one pair is adjacent. A triangle cannot occur because $C_5$ has no triangle.
+
+    Hence the number of non-isomorphic induced subgraphs is
+    \[
+    \boxed{2}.
+    \]
+
+    The two possibilities are:
+    \[
+    \text{(i) } \bullet\! -\! \bullet\ \ \bullet
+    \qquad
+    \text{(ii) } \bullet\! -\! \bullet\! -\! \bullet
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 19 \hfill (12 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Let $G_1$ be the graph with vertex set $\{a,b,c,d,e,f\}$ and edge set
+    \[
+    E(G_1)=\bigl\{\{a,b\},\{b,c\},\{c,d\},\{d,a\},\{a,e\},\{c,f\}\bigr\}.
+    \]
+    Let $H_1$ be the graph with vertex set $\{1,2,3,4,5,6\}$ and edge set
+    \[
+    E(H_1)=\bigl\{\{1,4\},\{4,2\},\{2,5\},\{5,1\},\{1,3\},\{2,6\}\bigr\}.
+    \]
+    Determine whether $G_1$ and $H_1$ are isomorphic. If they are, give an isomorphism.
+
+    \item Let $G_2$ be the graph with vertex set $\{a,b,c,d,e,f\}$ and edge set
+    \[
+    E(G_2)=\bigl\{\{a,b\},\{b,c\},\{c,a\},\{a,d\},\{b,e\},\{d,f\}\bigr\}.
+    \]
+    Let $H_2$ be the graph with vertex set $\{1,2,3,4,5,6\}$ and edge set
+    \[
+    E(H_2)=\bigl\{\{1,2\},\{2,3\},\{3,4\},\{4,1\},\{1,5\},\{2,6\}\bigr\}.
+    \]
+    Determine whether $G_2$ and $H_2$ are isomorphic. If they are not, give a reason using a graph invariant.
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Yes, they are isomorphic.
+
+    Consider the map
+    \[
+    \varphi(a)=1,
+    \quad
+    \varphi(b)=4,
+    \quad
+    \varphi(c)=2,
+    \quad
+    \varphi(d)=5,
+    \quad
+    \varphi(e)=3,
+    \quad
+    \varphi(f)=6.
+    \]
+
+    This is a bijection from $V(G_1)$ to $V(H_1)$.
+
+    Now check the images of the edges of $G_1$:
+    \[
+    \{a,b\}\mapsto \{1,4\},
+    \qquad
+    \{b,c\}\mapsto \{4,2\},
+    \qquad
+    \{c,d\}\mapsto \{2,5\},
+    \]
+    \[
+    \{d,a\}\mapsto \{5,1\},
+    \qquad
+    \{a,e\}\mapsto \{1,3\},
+    \qquad
+    \{c,f\}\mapsto \{2,6\}.
+    \]
+    These are exactly the edges of $H_1$.
+
+    Therefore,
+    \[
+    \boxed{G_1\cong H_1}
+    \]
+    via the isomorphism $\varphi$ above.
+
+    \item No, they are not isomorphic.
+
+    First observe that both graphs have the same degree sequence:
+    \[
+    (3,3,2,2,1,1).
+    \]
+    So degree sequence alone does not distinguish them.
+
+    However, $G_2$ contains a triangle, namely the cycle on vertices $a,b,c$.
+
+    On the other hand, $H_2$ does not contain any triangle: its four main vertices form a $4$-cycle, and the remaining two vertices are pendant vertices attached to $1$ and $2$.
+
+    Since the number of triangles is a graph invariant, the two graphs cannot be isomorphic.
+
+    Therefore,
+    \[
+    \boxed{G_2\not\cong H_2.}
+    \]
+\end{enumerate}
+
+\newpage
+\section{Question 20 \hfill (12 marks)}
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+    \item How many simple graphs are there with labeled vertex set $\{1,2,3,4,5\}$?
+    \item How many subgraphs of $K_5$ with vertex set contained in $\{1,2,3,4,5\}$ are isomorphic to $K_3$?
+    \item How many subgraphs of $K_5$ with vertex set contained in $\{1,2,3,4,5\}$ are isomorphic to $C_4$?
+    \item How many labeled simple graphs with vertex set $\{1,2,3,4,5,6,7\}$ are isomorphic to $C_7$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+    \item A simple graph on $5$ labeled vertices is determined by deciding, for each of the
+    \[
+    \binom{5}{2}=10
+    \]
+    possible edges, whether it is present or absent.
+
+    Hence the number of simple graphs is
+    \[
+    2^{10}=1024.
+    \]
+
+    Therefore,
+    \[
+    \boxed{1024}.
+    \]
+
+    \item A subgraph of $K_5$ isomorphic to $K_3$ is obtained by choosing any $3$ of the $5$ vertices; all edges among them are automatically present in $K_5$.
+
+    Thus the number of such subgraphs is
+    \[
+    \binom{5}{3}=10.
+    \]
+
+    Therefore,
+    \[
+    \boxed{10}.
+    \]
+
+    \item First choose the $4$ vertices on which the $4$-cycle will lie. This can be done in
+    \[
+    \binom{5}{4}=5
+    \]
+    ways.
+
+    On a fixed set of $4$ labeled vertices, the number of distinct $4$-cycles is
+    \[
+    \frac{(4-1)!}{2}=3,
+    \]
+    since we may arrange the $4$ labels around a circle in $(4-1)!$ ways, and each cycle is counted twice because clockwise and anticlockwise orderings determine the same set of edges.
+
+    Therefore the number of subgraphs of $K_5$ isomorphic to $C_4$ is
+    \[
+    \binom{5}{4}\cdot \frac{(4-1)!}{2}=5\cdot 3=15.
+    \]
+
+    Hence,
+    \[
+    \boxed{15}.
+    \]
+
+    \item A labeled graph isomorphic to $C_7$ is exactly a $7$-cycle on the labeled vertex set $\{1,2,3,4,5,6,7\}$.
+
+    Arrange the $7$ labels around a circle. The number of circular orderings is
+    \[
+    (7-1)!=6!.
+    \]
+    But each cycle is counted twice, once in each direction around the circle. Therefore the number of distinct labeled $7$-cycles is
+    \[
+    \frac{6!}{2}=360.
+    \]
+
+    Hence,
+    \[
+    \boxed{360}.
+    \]
+\end{enumerate}
+
+\end{document}

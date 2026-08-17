@@ -1,0 +1,1460 @@
+% Added Extension boxes for Tutorial 3 Q2 Method 2; Tutorial 3 Q4 Method 2; Tutorial 3 Q5 Method 2; Tutorial 3 Q6 Method 2; Tutorial 3 Q7 Method 2
+
+%====================================================================
+
+\section{Finite-Dimensional Vector Spaces}
+
+\label{sec:finite-dimensional-vector-spaces}
+
+%====================================================================
+
+This chapter corresponds to Study Weeks 3--4 (ILOs 2--3). The focus is on \emph{finite-dimensional} structure: linear independence, bases, coordinates, and dimension arguments.
+
+%--------------------------------------------------------------------
+
+\subsection{Span and Generating Sets}
+
+%--------------------------------------------------------------------
+
+Throughout, let $V$ be a vector space over a field $\mathbb{F}$ (typically $\mathbb{R}$ or $\mathbb{C}$).
+
+\begin{definition}{Linear combination and span}{ch2-lincomb-span}
+
+Let $S \subseteq V$.
+
+\begin{itemize}
+
+\item A \textbf{linear combination} of vectors in $S$ means an expression
+
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n
+\]
+
+where $n\in\mathbb{N}$, $v_1,\ldots,v_n\in S$ are \emph{distinct}, and $\lambda_1,\ldots,\lambda_n\in\mathbb{F}$.
+
+\item The \textbf{span} of $S$ is
+
+\[
+\operatorname{Span}(S)\;=\;\left\{\lambda_1 v_1+\cdots+\lambda_n v_n \,\middle|\,
+n\in\mathbb{N},\ v_1,\ldots,v_n\in S\text{ distinct},\ \lambda_i\in\mathbb{F}\right\}.
+\]
+
+\item We say $S$ \textbf{generates} (or \textbf{spans}) $V$ if $\operatorname{Span}(S)=V$.
+
+\end{itemize}
+
+\end{definition}
+
+\begin{theorem}{Span is the smallest subspace containing a set}{ch2-span-smallest}
+
+Let $S\subseteq V$.
+
+\begin{enumerate}
+
+\item $\operatorname{Span}(S)$ is a vector subspace of $V$ and contains $S$.
+
+\item If $W$ is a subspace of $V$ and $S\subseteq W$, then $\operatorname{Span}(S)\subseteq W$.
+
+\end{enumerate}
+
+Hence $\operatorname{Span}(S)$ is the \emph{smallest} subspace of $V$ containing $S$.
+
+\begin{proof}
+
+(1) By definition, $0\in\operatorname{Span}(S)$ (take all coefficients $0$), and the set is closed under addition and scalar multiplication because sums/scalar multiples of finite linear combinations are again finite linear combinations of elements of $S$. Also $S\subseteq \operatorname{Span}(S)$ since each $s\in S$ equals $1\cdot s$.
+
+(2) If $S\subseteq W$ and $W$ is a subspace, then every linear combination of vectors in $S$ lies in $W$ by closure. Therefore $\operatorname{Span}(S)\subseteq W$.
+
+\end{proof}
+
+\end{theorem}
+
+\begin{commonmistake}
+
+\begin{itemize}
+
+\item Confusing $S$ with $\operatorname{Span}(S)$: the span is usually \emph{much larger} than the set.
+
+\item Forgetting that $\operatorname{Span}(\varnothing)=\{0\}$ (the empty linear combination is $0$).
+
+\end{itemize}
+
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Linear Independence and Dependence}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Linear independence}{ch2-linear-independence}
+
+Let $S\subseteq V$ (not necessarily finite).
+
+\begin{itemize}
+
+\item $S$ is \textbf{linearly independent} if whenever
+
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n = 0
+\]
+
+for some $n\in\mathbb{N}$, distinct $v_1,\ldots,v_n\in S$, and scalars $\lambda_i\in\mathbb{F}$, then
+
+\[
+\lambda_1=\cdots=\lambda_n=0.
+\]
+
+\item Otherwise, $S$ is \textbf{linearly dependent}.
+
+\end{itemize}
+
+\end{definition}
+
+% --- ADDED: Intuition for linear independence ---
+Intuitively, a set $S$ is linearly independent when \emph{no vector in $S$ is redundant}: you cannot ``build'' any element of $S$ from the others.
+Equivalently, the only way to combine vectors from $S$ to get $0$ is by using all-zero coefficients---there is no ``shortcut'' or ``hidden relation.''
+The negation (linear dependence) means some vector in $S$ \emph{can} be expressed using the others; this is made precise in Theorem~\ref{thm:ch2-dep-iff-in-span}.
+
+% --- ADDED: Quick facts about subsets ---
+\begin{policynote}
+\textbf{Useful quick facts about linear independence.}
+\begin{itemize}[leftmargin=*]
+\item \emph{Any subset of a linearly independent set is linearly independent.}  (If a finite sub-selection could give a nontrivial relation, that same relation would work in the larger set.)
+\item \emph{Any superset of a linearly dependent set is linearly dependent.}  (A nontrivial relation among a subset extends to the whole set by assigning coefficient $0$ to the extra vectors.)
+\item $\varnothing$ is linearly independent (vacuously: there are no finite selections to test).
+\item $\{v\}$ is linearly independent if and only if $v\neq 0$.
+\item $\{u,v\}$ is linearly dependent if and only if one is a scalar multiple of the other.
+\end{itemize}
+\end{policynote}
+
+\begin{keyformula}
+
+\textbf{Finite-set test (most used in computations).}
+
+For distinct $v_1,\ldots,v_n\in V$,
+
+\[
+\begin{aligned}
+\{v_1,\ldots,v_n\}\text{ is linearly independent}
+\quad\Longleftrightarrow\quad&
+\lambda_1 v_1+\cdots+\lambda_n v_n=0\\
+&\Rightarrow\ \lambda_1=\cdots=\lambda_n=0.
+\end{aligned}
+\]
+
+In $\mathbb{F}^m$, place $v_1,\ldots,v_n$ as columns of a matrix $A$:
+
+\[
+A=[v_1\ \cdots\ v_n].
+\]
+
+Then $\{v_1,\ldots,v_n\}$ is linearly independent $\Longleftrightarrow$ the homogeneous system $A\lambda=0$ has only the trivial solution $\Longleftrightarrow$ every column is a pivot column in $\operatorname{rref}(A)$.
+
+\end{keyformula}
+
+% --- ADDED: Dimension sanity check ---
+\begin{examtip}
+\textbf{Quick dimension sanity check for independence.}
+In $\mathbb{F}^m$, any set of more than $m$ vectors is automatically linearly dependent (you have more unknowns than equations in the homogeneous system, so a nontrivial solution must exist).
+In particular, in $\mathbb{R}^{2,2}\cong\mathbb{R}^4$, at most $4$ matrices can be independent; in $P_n(\mathbb{F})$, at most $n+1$ polynomials can be independent.
+\end{examtip}
+
+\begin{theorem}{Dependence iff one vector lies in the span of the others (Tutorial 3, Question 1)}{ch2-dep-iff-in-span}
+
+Let $S\subseteq V$. The following are equivalent:
+
+\begin{enumerate}
+
+\item $S$ is linearly dependent.
+
+\item There exist $n\in\mathbb{N}\cup\{0\}$ and $n+1$ distinct vectors $v,w_1,\ldots,w_n\in S$ such that
+
+\[
+v\in \operatorname{Span}(\{w_1,\ldots,w_n\}).
+\]
+
+(For $n=0$, this means $v\in\operatorname{Span}(\varnothing)=\{0\}$, i.e.\ $v=0$.)
+
+\end{enumerate}
+
+\begin{proof}
+
+$(1)\Rightarrow(2)$: If $S$ is dependent, then there exist distinct $s_0,\ldots,s_m\in S$ and scalars $\alpha_0,\ldots,\alpha_m$, not all zero, such that
+
+\[
+\alpha_0 s_0+\cdots+\alpha_m s_m=0.
+\]
+
+Choose $k$ with $\alpha_k\neq 0$ and solve for $s_k$:
+
+\[
+s_k=-\sum_{i\neq k}\frac{\alpha_i}{\alpha_k}s_i\in \operatorname{Span}(\{s_0,\ldots,s_m\}\setminus\{s_k\}).
+\]
+
+Set $v=s_k$ and list the remaining vectors as $w_1,\ldots,w_n$.
+
+$(2)\Rightarrow(1)$: If $v=\beta_1 w_1+\cdots+\beta_n w_n$, then
+
+\[
+v-\beta_1 w_1-\cdots-\beta_n w_n=0
+\]
+
+is a nontrivial linear dependence relation among distinct vectors from $S$ (the coefficient of $v$ is $1\neq 0$). Hence $S$ is dependent.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Proof note on the minimal-dependent-subset refinement ---
+\begin{policynote}
+\textbf{Refinement via minimal dependent subsets (Tutorial 3, Question 1, Method 2).}
+One can strengthen the $(1)\Rightarrow(2)$ direction by choosing a \emph{minimal} finite dependent subset $T\subseteq S$ (one of smallest cardinality).  In such a minimal set, \emph{every} coefficient in the dependence relation is nonzero (if some $\alpha_k=0$, the smaller set $T\setminus\{s_k\}$ would still be dependent, contradicting minimality).
+This is useful in proofs where you need to remove a \emph{specific} vector (e.g.\ the one with the largest index, or one satisfying an extra condition) and be certain its coefficient is nonzero.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 3 lecture): linear independence in $\mathbb{R}^{2,2}$.}
+
+Determine whether
+
+\[
+M_1=\begin{pmatrix}1&0\\-2&1\end{pmatrix},\
+M_2=\begin{pmatrix}0&-1\\1&1\end{pmatrix},\
+M_3=\begin{pmatrix}-1&2\\1&0\end{pmatrix},\
+M_4=\begin{pmatrix}2&1\\2&-2\end{pmatrix}
+\]
+
+is a linearly independent subset of $\mathbb{R}^{2,2}$.
+
+\medskip
+
+\textbf{Solution.}
+
+Consider
+
+\[
+c_1M_1+c_2M_2+c_3M_3+c_4M_4=0.
+\]
+
+Equating entries gives a homogeneous system in $(c_1,c_2,c_3,c_4)$:
+
+\[
+\begin{pmatrix}
+1 & 0 & -1 & 2\\
+0 & -1 & 2 & 1\\
+-2 & 1 & 1 & 2\\
+1 & 1 & 0 & -2
+\end{pmatrix}
+\begin{pmatrix}c_1\\c_2\\c_3\\c_4\end{pmatrix}
+=
+\begin{pmatrix}0\\0\\0\\0\end{pmatrix}.
+\]
+
+Row reduction yields $\operatorname{rref}=I_4$, so the only solution is $c_1=c_2=c_3=c_4=0$.
+
+Hence $\{M_1,M_2,M_3,M_4\}$ is linearly independent.
+
+\end{examplebox}
+
+% --- ADDED: General method note for non-R^n spaces ---
+\begin{policynote}
+\textbf{Strategy for non-$\mathbb{R}^n$ spaces (matrices, polynomials, functions).}
+The worked example above illustrates the general recipe:
+\begin{enumerate}[leftmargin=*]
+\item \emph{Flatten} the vectors into coordinate vectors (read off entries of matrices, or coefficients of polynomials).
+\item \emph{Form a matrix} with those coordinate vectors as columns.
+\item \emph{Row reduce} to determine whether every column is a pivot column.
+\end{enumerate}
+For function spaces (e.g.\ $\{e^x,e^{-x}\}$ in $\mathbb{R}^{\mathbb{R}}$), there is no natural finite coordinate system, so instead you \emph{evaluate at specific points} to generate equations, as in the next example.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 3 lecture): linear independence of functions.}
+
+Let $f,g:\mathbb{R}\to\mathbb{R}$ be defined by $f(x)=e^x$ and $g(x)=e^{-x}$. Show that $\{f,g\}$ is linearly independent.
+
+\medskip
+
+\textbf{Solution.}
+
+Assume $\alpha f+\beta g=0$ as functions. Then for all $x\in\mathbb{R}$,
+
+\[
+\alpha e^x+\beta e^{-x}=0.
+\]
+
+Multiply by $e^x$:
+
+\[
+\alpha e^{2x}+\beta=0 \quad\text{for all }x.
+\]
+
+Setting $x=0$ gives $\alpha+\beta=0$, and setting $x=1$ gives $\alpha e^{2}+\beta=0$.
+
+Subtracting the two equations yields $\alpha(e^2-1)=0$, so $\alpha=0$, hence $\beta=0$.
+
+Therefore $\{f,g\}$ is linearly independent.
+
+\end{examplebox}
+
+% --- ADDED: Lecture Week 3 example on {v1-v2, v2-v3, v3-v4, v4} ---
+\begin{examplebox}
+\textbf{Worked Example (Week 3 lecture): independence of differences.}
+
+Let $v_1,v_2,v_3,v_4$ be distinct vectors such that $\{v_1,v_2,v_3,v_4\}$ is linearly independent.
+Show that $\{v_1-v_2,\;v_2-v_3,\;v_3-v_4,\;v_4\}$ is linearly independent.
+
+\medskip
+
+\textbf{Solution.}
+Suppose $\alpha_1(v_1-v_2)+\alpha_2(v_2-v_3)+\alpha_3(v_3-v_4)+\alpha_4 v_4=0$.
+Expanding:
+\[
+\alpha_1 v_1+(\alpha_2-\alpha_1)v_2+(\alpha_3-\alpha_2)v_3+(\alpha_4-\alpha_3)v_4=0.
+\]
+By independence of $\{v_1,v_2,v_3,v_4\}$, all coefficients are zero:
+\[
+\alpha_1=0,\quad \alpha_2-\alpha_1=0,\quad \alpha_3-\alpha_2=0,\quad \alpha_4-\alpha_3=0.
+\]
+This gives $\alpha_1=\alpha_2=\alpha_3=\alpha_4=0$.
+Hence $\{v_1-v_2,\;v_2-v_3,\;v_3-v_4,\;v_4\}$ is linearly independent.
+
+\medskip
+\emph{Key idea:} express the new vectors in terms of the old basis and check that the ``change-of-basis'' matrix is invertible.  Here the matrix is lower-triangular with $1$'s on the diagonal, hence invertible.
+\end{examplebox}
+
+\begin{commonmistake}
+
+\begin{itemize}
+
+\item Using the finite-set definition incorrectly for infinite sets: linear dependence is witnessed by a \emph{finite} nontrivial linear combination.
+
+\item Forgetting "distinct vectors" in the definition: repeated vectors can hide dependence in notation.
+
+\end{itemize}
+
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Bases and Coordinate Representations}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Basis}{ch2-basis}
+
+A \textbf{basis} for $V$ is a subset $B\subseteq V$ such that
+
+\begin{enumerate}
+
+\item $B$ is linearly independent;
+
+\item $\operatorname{Span}(B)=V$.
+
+\end{enumerate}
+
+If $B$ is finite, we often write it as an ordered list $(b_1,\ldots,b_n)$ when computing coordinates.
+
+\end{definition}
+
+% --- ADDED: Intuition for a basis ---
+A basis is a ``coordinate system'' for $V$: it provides a minimal set of building blocks from which every vector can be uniquely assembled.
+Condition~(1) (independence) ensures no building block is redundant; condition~(2) (spanning) ensures every vector is reachable.
+Together they give the key consequence: every $v\in V$ has a \emph{unique} representation as a linear combination of basis vectors.
+
+% --- ADDED: Standard bases ---
+\begin{keyformula}
+\textbf{Standard bases (know these by heart).}
+\begin{itemize}[leftmargin=*]
+\item $\mathbb{F}^n$: the standard basis is $\{e_1,\ldots,e_n\}$ where $e_i$ has a $1$ in position $i$ and $0$'s elsewhere.
+\item $P_n(\mathbb{F})$: the monomial basis is $\{1,X,X^2,\ldots,X^n\}$; note $\dim(P_n(\mathbb{F}))=n+1$.
+\item $\mathbb{F}^{m,n}$: the matrix-unit basis is $\{E_{ij}\mid 1\le i\le m,\,1\le j\le n\}$; note $\dim(\mathbb{F}^{m,n})=mn$.
+\item $P(\mathbb{F})$ (all polynomials): the infinite monomial basis $\{1,X,X^2,\ldots\}$; $\dim(P(\mathbb{F}))=\infty$.
+\end{itemize}
+\end{keyformula}
+
+\begin{theorem}{Unique linear combination in a basis}{ch2-unique-lincomb-basis}
+
+Let $B$ be a basis of $V$. Then each $v\in V$ can be written as a linear combination of vectors of $B$ in \emph{exactly one} way (as a finite sum):
+
+\[
+v=\sum_{b\in B}\lambda_b\,b,
+\]
+
+where only finitely many $\lambda_b\in\mathbb{F}$ are nonzero.
+
+\begin{proof}
+
+Existence: since $\operatorname{Span}(B)=V$, every $v$ is a finite linear combination of elements of $B$.
+
+Uniqueness: if also $v=\sum_{b\in B}\mu_b\,b$ (finite sums), subtracting gives
+
+\[
+\sum_{b\in B}(\lambda_b-\mu_b)b=0
+\]
+
+as a finite linear combination of distinct vectors in $B$. Linear independence forces $\lambda_b-\mu_b=0$ for all $b$, so $\lambda_b=\mu_b$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Basis Existence Theorem ---
+\begin{theorem}{Basis Existence Theorem (Lecture Week 3)}{ch2-basis-existence}
+Every vector space has a basis.
+\end{theorem}
+
+This theorem is equivalent to the Axiom of Choice and is a pure existence result.
+In practice, for the spaces encountered in MH1201 ($\mathbb{F}^n$, $P_n(\mathbb{F})$, $\mathbb{F}^{m,n}$, etc.), explicit bases are readily constructed.
+There exist vector spaces (e.g.\ $\mathbb{R}^{\mathbb{R}}$) for which no explicit basis can be written down, even though one must exist.
+
+\begin{definition}{Coordinate vector (finite basis)}{ch2-coordinate-vector}
+
+Let $V$ be a vector space with an \emph{ordered} basis $\mathcal{B}=(b_1,\ldots,b_n)$.
+
+For $v\in V$, write uniquely
+
+\[
+v=\lambda_1 b_1+\cdots+\lambda_n b_n.
+\]
+
+The column vector
+
+\[
+[v]_{\mathcal{B}}\;\stackrel{\mathrm{def}}{=}\;
+\begin{pmatrix}\lambda_1\\ \vdots\\ \lambda_n\end{pmatrix}\in\mathbb{F}^{n,1}
+\]
+
+is called the \textbf{coordinate vector} of $v$ with respect to $\mathcal{B}$.
+
+\end{definition}
+
+% --- ADDED: Ordering matters ---
+\begin{commonmistake}
+\textbf{Ordering matters for coordinate vectors.}
+The coordinate vector depends on the \emph{order} of the basis vectors.
+If $\mathcal{B}=(b_1,b_2)$ and $\mathcal{B}'=(b_2,b_1)$, and $v=3b_1+5b_2$, then
+\[
+[v]_{\mathcal{B}}=\begin{pmatrix}3\\5\end{pmatrix},
+\qquad
+[v]_{\mathcal{B}'}=\begin{pmatrix}5\\3\end{pmatrix}.
+\]
+Always check which ordering the problem specifies.
+\end{commonmistake}
+
+\begin{examplebox}
+
+\textbf{Worked Example: compute coordinates in a nonstandard basis.}
+
+Let $\mathcal{B}=(b_1,b_2,b_3)$ be a basis of $\mathbb{R}^3$ where
+
+\[
+b_1=\begin{pmatrix}1\\0\\1\end{pmatrix},\quad
+b_2=\begin{pmatrix}0\\1\\1\end{pmatrix},\quad
+b_3=\begin{pmatrix}1\\1\\0\end{pmatrix}.
+\]
+
+Find $[v]_{\mathcal{B}}$ for $v=\begin{pmatrix}2\\1\\3\end{pmatrix}$.
+
+\medskip
+
+\textbf{Solution.}
+
+Solve $v=\lambda_1 b_1+\lambda_2 b_2+\lambda_3 b_3$:
+
+\[
+\begin{pmatrix}2\\1\\3\end{pmatrix}
+=
+\lambda_1\begin{pmatrix}1\\0\\1\end{pmatrix}
++\lambda_2\begin{pmatrix}0\\1\\1\end{pmatrix}
++\lambda_3\begin{pmatrix}1\\1\\0\end{pmatrix}
+=
+\begin{pmatrix}\lambda_1+\lambda_3\\ \lambda_2+\lambda_3\\ \lambda_1+\lambda_2\end{pmatrix}.
+\]
+
+Thus
+
+\[
+\lambda_1+\lambda_3=2,\quad \lambda_2+\lambda_3=1,\quad \lambda_1+\lambda_2=3.
+\]
+
+Subtract the first two equations from the third:
+
+\[
+(\lambda_1+\lambda_2)-(\lambda_1+\lambda_3)-(\lambda_2+\lambda_3)=3-2-1 \Rightarrow -2\lambda_3=0 \Rightarrow \lambda_3=0.
+\]
+
+Then $\lambda_1=2$ and $\lambda_2=1$. Hence
+
+\[
+[v]_{\mathcal{B}}=\begin{pmatrix}2\\1\\0\end{pmatrix}.
+\]
+
+\end{examplebox}
+
+% --- ADDED: General method for coordinate computations ---
+\begin{policynote}
+\textbf{General method for finding $[v]_{\mathcal{B}}$ in $\mathbb{R}^n$.}
+Form the augmented matrix $[b_1\ b_2\ \cdots\ b_n\ |\ v]$ and row reduce.
+The solution gives the coordinates $\lambda_1,\ldots,\lambda_n$.
+Equivalently, if $P$ is the matrix with columns $b_1,\ldots,b_n$, then $[v]_{\mathcal{B}}=P^{-1}v$.
+\end{policynote}
+
+\begin{examtip}
+
+When asked to show a set $B$ is a basis, do \emph{not} argue informally. Use one of:
+
+\begin{itemize}
+
+\item show \textbf{spanning} + \textbf{independence}; or
+
+\item in finite dimensions, show $|B|=\dim(V)$ and either spanning or independence (then the other follows by theorem).
+
+\end{itemize}
+
+\end{examtip}
+
+%--------------------------------------------------------------------
+
+\subsection{Dimension and Core Theorems in Finite Dimensions}
+
+%--------------------------------------------------------------------
+
+\begin{theorem}{Size-Limitation Lemma}{ch2-size-limitation}
+
+Let $V$ be a vector space that has a \emph{finite} basis of size $n$.
+
+Then every linearly independent subset of $V$ is finite and has size $\le n$.
+
+\begin{proof}
+
+Let $B=\{b_1,\ldots,b_n\}$ be a basis of $V$. Suppose for contradiction that $V$ has a linearly independent set containing $n+1$ distinct vectors $v_1,\ldots,v_{n+1}$.
+
+Each $v_i$ is a linear combination of $b_1,\ldots,b_n$, so there exist scalars $\lambda_{i,1},\ldots,\lambda_{i,n}\in\mathbb{F}$ with
+
+\[
+v_i=\lambda_{i,1}b_1+\cdots+\lambda_{i,n}b_n \qquad (i=1,\ldots,n+1).
+\]
+
+For scalars $\mu_1,\ldots,\mu_{n+1}$, we have
+
+\[
+\mu_1v_1+\cdots+\mu_{n+1}v_{n+1}
+=
+\sum_{j=1}^{n}\left(\lambda_{1,j}\mu_1+\cdots+\lambda_{n+1,j}\mu_{n+1}\right)b_j.
+\]
+
+Thus $\mu_1v_1+\cdots+\mu_{n+1}v_{n+1}=0$ holds whenever
+
+\[
+\lambda_{1,j}\mu_1+\cdots+\lambda_{n+1,j}\mu_{n+1}=0 \qquad (j=1,\ldots,n).
+\]
+
+This is a homogeneous system of $n$ equations in $n+1$ unknowns, so it has a nontrivial solution $(\mu_1,\ldots,\mu_{n+1})\neq 0$.
+
+Hence there is a nontrivial linear combination of $v_1,\ldots,v_{n+1}$ equal to $0$, contradicting linear independence.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Proof strategy note ---
+\begin{policynote}
+\textbf{Why does the Size-Limitation Lemma work?}
+The key idea is a \emph{counting argument}: $n+1$ vectors, each expressed in terms of $n$ basis vectors, give an under-determined homogeneous system ($n$ equations, $n+1$ unknowns).
+Under-determined homogeneous systems always have nontrivial solutions (this is a fundamental fact from MH1200 / linear systems theory).
+This lemma is the engine behind almost every dimension result in the course.
+\end{policynote}
+
+\begin{theorem}{Fundamental Theorem of MH1201 (basis size is well-defined for finite bases)}{ch2-fundamental-mh1201}
+
+If $V$ has a finite basis of size $n$, then every basis of $V$ is finite and has size $n$.
+
+\begin{proof}
+
+Let $B$ be a basis with $|B|=n$, and let $\widetilde{B}$ be any other basis.
+
+Since $\widetilde{B}$ is linearly independent, the Size-Limitation Lemma gives $|\widetilde{B}|\le n$.
+
+Applying the same lemma with $\widetilde{B}$ as the finite basis yields $n\le |\widetilde{B}|$.
+
+Therefore $|\widetilde{B}|=n$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Significance note ---
+\begin{policynote}
+\textbf{Why ``Fundamental''?}
+This theorem guarantees that dimension is an intrinsic property of the vector space, not an artefact of a particular basis choice.
+Without it, we could not define $\dim(V)$ unambiguously.
+The proof uses the Size-Limitation Lemma \emph{twice}, with the two bases swapping roles---this ``ping-pong'' argument is a standard proof technique.
+\end{policynote}
+
+\begin{definition}{Dimension and finite-dimensionality}{ch2-dimension}
+
+Let $V$ be a vector space. If $V$ has a finite basis, define
+
+\[
+\dim(V)\;\stackrel{\mathrm{def}}{=}\;\text{the number of vectors in any (hence every) basis of }V.
+\]
+
+Then $V$ is \textbf{finite-dimensional} iff $\dim(V)$ is finite.
+
+\end{definition}
+
+% --- ADDED: Quick reference table ---
+\begin{keyformula}
+\textbf{Quick reference: dimensions of common spaces.}
+
+\medskip
+
+\begin{tabular}{ll}
+Space & Dimension \\
+\hline
+$\mathbb{F}^n$ & $n$ \\
+$P_n(\mathbb{F})$ & $n+1$ \\
+$\mathbb{F}^{m,n}$ & $mn$ \\
+$\{M\in\mathbb{F}^{n,n}\mid \operatorname{trace}(M)=0\}$ & $n^2-1$ \\
+$\{M\in\mathbb{R}^{n,n}\mid M^T=M\}$ (symmetric) & $n(n+1)/2$ \\
+$\{M\in\mathbb{R}^{n,n}\mid M^T=-M\}$ (skew-symmetric) & $n(n-1)/2$ \\
+$\{M\in\mathbb{R}^{n,n}\mid M\text{ upper triangular}\}$ & $n(n+1)/2$ \\
+\end{tabular}
+\end{keyformula}
+
+\begin{keyformula}
+
+\textbf{Equivalences in finite dimensions.}
+
+Let $\dim(V)=n$ and let $S\subseteq V$ be a set with exactly $n$ vectors. Then the following are equivalent:
+
+\[
+S\text{ is a basis}\quad\Longleftrightarrow\quad S\text{ spans }V \quad\Longleftrightarrow\quad S\text{ is linearly independent}.
+\]
+
+Also:
+
+\begin{itemize}
+
+\item any linearly independent set has size $\le n$;
+
+\item any spanning set has size $\ge n$.
+
+\end{itemize}
+
+\end{keyformula}
+
+% --- ADDED: Why this equivalence is so powerful ---
+\begin{policynote}
+\textbf{Why is this equivalence so useful in practice?}
+It halves your work.  If you know $|S|=\dim(V)$, you only need to prove \emph{one} of the two conditions (independence or spanning); the other is then automatic.
+This is the go-to shortcut on exams: count vectors, compare with the known dimension, and check whichever condition is easier.
+\end{policynote}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 2, Method 2)}]
+
+Let $S=\{s_1,\ldots,s_n\}\subseteq V$ and define $T:\mathbb{F}^n\to V$ by
+
+$T(\alpha_1,\ldots,\alpha_n)=\sum_{i=1}^n \alpha_i s_i$.
+
+Then $\operatorname{Im}(T)=\operatorname{Span}(S)$ and $\ker(T)$ is the space of linear relations among the $s_i$.
+
+If $n=\dim(V)$ and $S$ is linearly independent, then $\ker(T)=\{0\}$ so $T$ is injective; by rank--nullity, $\dim(\operatorname{Im}(T))=n=\dim(V)$, hence $\operatorname{Im}(T)=V$ and $S$ spans $V$.
+
+\end{extension}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 3 lecture): basis for a trace-zero subspace.}
+
+Let
+
+\[
+W=\left\{M\in\mathbb{R}^{2,2}\ \middle|\ \operatorname{trace}(M)=0\right\}.
+\]
+
+Find a basis of $W$ and compute $\dim(W)$.
+
+\medskip
+
+\textbf{Solution.}
+
+Write $M=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. The constraint $\operatorname{trace}(M)=a+d=0$ implies $d=-a$, so
+
+\[
+M=\begin{pmatrix}a&b\\c&-a\end{pmatrix}
+=
+a\begin{pmatrix}1&0\\0&-1\end{pmatrix}
++b\begin{pmatrix}0&1\\0&0\end{pmatrix}
++c\begin{pmatrix}0&0\\1&0\end{pmatrix}.
+\]
+
+The three displayed matrices are linearly independent (distinct support patterns in entries), hence they form a basis.
+
+Therefore $\dim(W)=3$.
+
+\end{examplebox}
+
+% --- ADDED: Kernel viewpoint for trace-zero ---
+\begin{policynote}
+\textbf{Kernel viewpoint for the trace-zero subspace.}
+The trace map $\operatorname{tr}:\mathbb{R}^{2,2}\to\mathbb{R}$ is a linear functional (a linear map to the scalar field).
+Since $\operatorname{tr}\neq 0$ (e.g.\ $\operatorname{tr}(I)=2$), it is surjective, so $\operatorname{rank}(\operatorname{tr})=1$.
+By rank--nullity, $\dim(\ker(\operatorname{tr}))=\dim(\mathbb{R}^{2,2})-1=4-1=3$.
+This gives $\dim(W)=3$ without explicitly finding a basis---useful as a sanity check.
+\end{policynote}
+
+%--------------------------------------------------------------------
+
+\subsection{Adding Vectors, Extending Bases, and Extracting Bases}
+
+%--------------------------------------------------------------------
+
+\begin{theorem}{Add-One-More Lemma}{ch2-add-one-more}
+
+Let $S\subseteq V$ be linearly independent and let $v\in V$.
+
+Then the following are equivalent:
+
+\begin{enumerate}
+
+\item $v\notin S$ and $S\cup\{v\}$ is linearly independent.
+
+\item $v\notin \operatorname{Span}(S)$.
+
+\end{enumerate}
+
+\begin{proof}
+
+$(1)\Rightarrow(2)$: If $v\in \operatorname{Span}(S)$, then $v=\sum_{i=1}^n\lambda_i s_i$ for distinct $s_i\in S$, so
+
+\[
+1\cdot v-\sum_{i=1}^n\lambda_i s_i=0
+\]
+
+is a nontrivial dependence among distinct vectors in $S\cup\{v\}$, contradiction.
+
+$(2)\Rightarrow(1)$: If $v\notin \operatorname{Span}(S)$, then $v\notin S$ since $S\subseteq \operatorname{Span}(S)$. If a nontrivial linear combination of distinct vectors in $S\cup\{v\}$ equals $0$, the coefficient of $v$ must be nonzero (otherwise we contradict independence of $S$), and then we can solve for $v$ as a linear combination of vectors in $S$, contradicting $v\notin\operatorname{Span}(S)$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Why this lemma matters ---
+\begin{policynote}
+\textbf{The Add-One-More Lemma in action.}
+This lemma is the workhorse behind \emph{both} the Basis Extension Theorem (keep adding vectors outside the span until you reach a basis) and the hereditary dimension theorem (a maximal independent set in a subspace must span it, because otherwise we could add one more).
+It encodes the precise boundary between ``can still grow'' and ``already spans.''
+\end{policynote}
+
+\begin{theorem}{Finite-dimensionality is hereditary}{ch2-hereditary}
+
+Let $V$ be finite-dimensional and let $W$ be a subspace of $V$. Then $W$ is finite-dimensional.
+
+\begin{proof}
+
+Let $n=\dim(V)$. Any linearly independent subset of $W$ is also linearly independent in $V$, hence has size $\le n$ by the Size-Limitation Lemma. Take a linearly independent subset $B\subseteq W$ of maximal size (existence follows since sizes are bounded by $n$). We claim $\operatorname{Span}(B)=W$. If not, pick $v\in W\setminus \operatorname{Span}(B)$; by the Add-One-More Lemma, $B\cup\{v\}$ is linearly independent in $W$, contradicting maximality. Hence $B$ is a finite basis of $W$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Corollary on dimension inequality ---
+\begin{keyformula}
+\textbf{Dimension inequality for subspaces.}
+If $W$ is a subspace of a finite-dimensional space $V$, then:
+\[
+\dim(W)\le\dim(V),
+\]
+with equality if and only if $W=V$.
+
+\emph{Proof of equality case:} if $\dim(W)=\dim(V)=n$, any basis of $W$ is an independent set of $n$ vectors in $V$, hence a basis of $V$ by the equivalence theorem, so $W=V$.
+\end{keyformula}
+
+\begin{theorem}{Basis Extension Theorem}{ch2-basis-extension}
+
+Let $V$ be finite-dimensional and let $S\subseteq V$ be linearly independent. Then $S$ can be extended to a basis of $V$.
+
+\begin{proof}
+
+Let $n=\dim(V)$. Among all linearly independent subsets of $V$ that contain $S$, pick one of maximal size, call it $B$ (sizes are bounded by $n$). If $\operatorname{Span}(B)\neq V$, choose $v\in V\setminus\operatorname{Span}(B)$; then $B\cup\{v\}$ is linearly independent by the Add-One-More Lemma, contradicting maximality. Hence $\operatorname{Span}(B)=V$, so $B$ is a basis extending $S$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Practical algorithm from Week 4 lecture ---
+\begin{policynote}
+\textbf{Practical algorithm for basis extension (Lecture Week 4).}
+To extend an independent set $S=\{v_1,\ldots,v_m\}$ to a basis of $V$ with $\dim(V)=n$:
+\begin{enumerate}[leftmargin=*]
+\item Append a known basis $\{b_1,\ldots,b_n\}$ of $V$ to form the list $v_1,\ldots,v_m,b_1,\ldots,b_n$.
+\item Convert to coordinate vectors (columns in $\mathbb{F}^n$) if necessary.
+\item Row reduce the combined matrix.  Identify which of the appended basis vectors $b_j$ correspond to non-pivot columns---these are the \emph{redundant} ones.
+\item Remove the redundant $b_j$'s.  The remaining list $v_1,\ldots,v_m,b_{i_1},\ldots,b_{i_{n-m}}$ is a basis of $V$.
+\end{enumerate}
+As a bonus, $V=\operatorname{Span}(S)\oplus\operatorname{Span}\{b_{i_1},\ldots,b_{i_{n-m}}\}$, giving a direct-sum complement ``for free.''
+\end{policynote}
+
+\begin{theorem}{Spanning sets contain a basis (Tutorial 3, Question 3)}{ch2-spanning-contains-basis}
+
+Let $V$ be finite-dimensional and let $S\subseteq V$ be a spanning set: $\operatorname{Span}(S)=V$.
+
+Then $S$ contains a basis of $V$.
+
+\begin{proof}
+
+Start with a finite spanning subset of $S$ (in finite dimensions, spanning implies there is a finite spanning subset).
+
+List it as $(u_1,\ldots,u_m)$.
+
+If $\{u_1,\ldots,u_m\}$ is linearly independent, it is already a basis.
+
+Otherwise it is dependent; by Theorem~\ref{thm:ch2-dep-iff-in-span}, one of the $u_k$ lies in the span of the others, so removing $u_k$ does not change the span.
+
+Repeat until the remaining list is linearly independent. The process terminates because the list size strictly decreases.
+
+The remaining set is linearly independent and still spans $V$, hence is a basis contained in $S$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Two complementary directions summary ---
+\begin{keyformula}
+\textbf{Two directions for building a basis.}
+\begin{itemize}[leftmargin=*]
+\item \emph{Bottom-up (extension):} start with an independent set, keep adding vectors outside the span.  Terminates when the set spans $V$.
+\item \emph{Top-down (extraction):} start with a spanning set, keep removing vectors that lie in the span of the remaining ones.  Terminates when the set is independent.
+\end{itemize}
+Both produce a basis.  The choice depends on what you start with.
+\end{keyformula}
+
+\begin{examtip}
+
+\begin{itemize}
+
+\item \textbf{To prove a set is linearly independent:} start from $\sum \alpha_i v_i=0$ and force $\alpha_i=0$.
+
+\item \textbf{To prove a set spans:} take an arbitrary $v$ and explicitly solve for coefficients.
+
+\item \textbf{Fast finite-dimensional shortcut:} if you already know $\dim(V)=n$, then for $n$ vectors,
+
+independence $\Longleftrightarrow$ spanning $\Longleftrightarrow$ basis.
+
+\end{itemize}
+
+\end{examtip}
+
+%--------------------------------------------------------------------
+
+\subsection{Dimension Computations and Dimension Formulae}
+
+%--------------------------------------------------------------------
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 4 lecture): dimension of a plane in $\mathbb{R}^3$.}
+
+Let
+
+\[
+\Pi=\left\{(x,y,z)\in\mathbb{R}^3 \ \middle|\ x+2y+3z=0\right\}.
+\]
+
+Find a basis and $\dim(\Pi)$.
+
+\medskip
+
+\textbf{Solution.}
+
+Solve $x=-2y-3z$ and parametrize by $y=s$, $z=t$:
+
+\[
+(x,y,z)=(-2s-3t,\ s,\ t)=s(-2,1,0)+t(-3,0,1).
+\]
+
+Thus
+
+\[
+\Pi=\operatorname{Span}\{(-2,1,0),\ (-3,0,1)\}.
+\]
+
+The two spanning vectors are linearly independent, hence form a basis. Therefore $\dim(\Pi)=2$.
+
+\end{examplebox}
+
+% --- ADDED: General method for constraint-defined subspaces ---
+\begin{policynote}
+\textbf{General recipe for constraint-defined subspaces.}
+If $W=\{v\in V\mid \text{linear conditions on }v\}$:
+\begin{enumerate}[leftmargin=*]
+\item Write out the constraints as linear equations in the coordinates/entries.
+\item Solve the system: express the constrained variables in terms of the free variables.
+\item Parametrize: write a generic element of $W$ as a linear combination of fixed vectors (one per free parameter).
+\item The fixed vectors form a spanning set for $W$; check independence (usually immediate from the parametrisation).
+\end{enumerate}
+The number of free parameters equals $\dim(W)$.
+As a sanity check: each \emph{independent} linear constraint reduces the dimension by $1$ (when the constraints are independent), so $\dim(W)\ge\dim(V)-(\text{number of constraints})$.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 4 lecture): dimension of upper-triangular matrices.}
+
+Let $U_n=\{M\in\mathbb{R}^{n,n}\mid M \text{ is upper triangular}\}$.
+
+Find $\dim(U_n)$.
+
+\medskip
+
+\textbf{Solution.}
+
+A matrix in $U_n$ has free entries in positions $(i,j)$ with $1\le i\le j\le n$.
+
+There are
+
+\[
+1+2+\cdots+n=\frac{n(n+1)}{2}
+\]
+
+such positions. A natural basis is $\{E_{ij}\mid 1\le i\le j\le n\}$ (matrix units), so
+
+\[
+\dim(U_n)=\frac{n(n+1)}{2}.
+\]
+
+\end{examplebox}
+
+\begin{theorem}{Dimension of a sum}{ch2-dim-sum}
+
+Let $V$ be a finite-dimensional vector space and let $V_1,V_2$ be subspaces of $V$.
+
+Then $V_1+V_2$ and $V_1\cap V_2$ are finite-dimensional and
+
+\[
+\dim(V_1+V_2)=\dim(V_1)+\dim(V_2)-\dim(V_1\cap V_2).
+\]
+
+\begin{proof}
+
+Let $A$ be a basis of $V_1\cap V_2$.
+
+Extend $A$ to a basis of $V_1$ by adding a set $B$ (so $A\cup B$ is a basis of $V_1$),
+
+and extend $A$ to a basis of $V_2$ by adding a set $C$ (so $A\cup C$ is a basis of $V_2$).
+
+One shows that $A\cup B\cup C$ is linearly independent and spans $V_1+V_2$, hence is a basis of $V_1+V_2$.
+
+Therefore
+
+\[
+\dim(V_1+V_2)=|A|+|B|+|C|
+=\bigl(|A|+|B|\bigr)+\bigl(|A|+|C|\bigr)-|A|
+=\dim(V_1)+\dim(V_2)-\dim(V_1\cap V_2).
+\]
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Full proof that A ∪ B ∪ C is independent ---
+\begin{policynote}
+\textbf{Why is $A\cup B\cup C$ linearly independent? (Lecture Week 4, full detail).}
+
+Suppose $\sum_{a\in A}\lambda_a\,a + \sum_{b\in B}\mu_b\,b + \sum_{c\in C}\kappa_c\,c = 0$.
+Then $\sum_{b\in B}\mu_b\,b = -\sum_{a\in A}\lambda_a\,a - \sum_{c\in C}\kappa_c\,c$.
+The left side lies in $V_1$ (since $B\subseteq V_1$), and the right side can be rewritten as $\sum(-\lambda_a)\,a + \sum(-\kappa_c)\,c\in V_2$ (since $A\subseteq V_1\cap V_2\subseteq V_2$ and $C\subseteq V_2$).
+
+Hence $\sum\mu_b\,b\in V_1\cap V_2=\operatorname{Span}(A)$.
+But $\sum\mu_b\,b\in\operatorname{Span}(B)$, and $\operatorname{Span}(A)\cap\operatorname{Span}(B)=\{0\}$ (since $A\cup B$ is a basis of $V_1$, and by the Three-Concepts-in-One Theorem from Chapter~1).
+So $\sum\mu_b\,b=0$, and by independence of $B$, all $\mu_b=0$.
+
+Similarly, $\sum\kappa_c\,c\in V_1\cap V_2=\operatorname{Span}(A)$, and $\operatorname{Span}(A)\cap\operatorname{Span}(C)=\{0\}$, so all $\kappa_c=0$.
+
+Substituting back: $\sum\lambda_a\,a=0$, so all $\lambda_a=0$ by independence of $A$.
+Hence $A\cup B\cup C$ is linearly independent.
+\end{policynote}
+
+% --- ADDED: Analogy with inclusion-exclusion ---
+\begin{policynote}
+\textbf{Analogy with inclusion-exclusion (Lecture Week 4).}
+The dimension formula $\dim(V_1+V_2)=\dim(V_1)+\dim(V_2)-\dim(V_1\cap V_2)$ is the vector-space analogue of the set-theoretic inclusion-exclusion formula $|A\cup B|=|A|+|B|-|A\cap B|$.
+
+\emph{Caution (also from Lecture Week 4):} this analogy does \emph{not} extend to three subspaces.  The ``three-subspace inclusion-exclusion'' formula
+$\dim(V_1+V_2+V_3)=\dim(V_1)+\dim(V_2)+\dim(V_3)-\dim(V_1\cap V_2)-\dim(V_2\cap V_3)-\dim(V_1\cap V_3)+\dim(V_1\cap V_2\cap V_3)$
+is \emph{false} in general for vector subspaces.
+\end{policynote}
+
+\begin{keyformula}
+
+\textbf{Dimension identity and immediate inequalities.}
+
+For subspaces $U,V\subseteq \mathbb{F}^n$,
+
+\[
+\dim(U\cap V)=\dim(U)+\dim(V)-\dim(U+V).
+\]
+
+Since $\dim(U+V)\le n$, we get the useful bound
+
+\[
+\dim(U\cap V)\ \ge\ \dim(U)+\dim(V)-n.
+\]
+
+This is often the fastest way to prove intersections are nontrivial.
+
+\end{keyformula}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 3, Question 7): two $5$D subspaces in $\mathbb{R}^9$ intersect nontrivially.}
+
+Let $U$ and $V$ be $5$-dimensional subspaces of $\mathbb{R}^9$. Show $U\cap V\neq\{0\}$.
+
+\medskip
+
+\textbf{Solution.}
+
+By Theorem~\ref{thm:ch2-dim-sum},
+
+\[
+\dim(U\cap V)=\dim(U)+\dim(V)-\dim(U+V)\ge 5+5-9=1,
+\]
+
+since $U+V\subseteq\mathbb{R}^9$ implies $\dim(U+V)\le 9$.
+
+Thus $\dim(U\cap V)\ge 1$, so $U\cap V$ contains a nonzero vector.
+
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 7, Method 2)}]
+
+If $U\cap V=\{0\}$, then $\mathbb{R}^9\supseteq U+V=U\oplus V$, so
+
+\[
+\dim(U+V)=\dim(U)+\dim(V)=10.
+\]
+
+But any subspace of $\mathbb{R}^9$ has dimension at most $9$, contradiction.
+
+Hence $U\cap V\neq\{0\}$.
+
+\end{extension}
+
+% --- ADDED: Lecture Week 4 example on linear planes ---
+\begin{examplebox}
+\textbf{Worked Example (Week 4 lecture): intersection of two planes in $\mathbb{R}^3$.}
+
+Let $\Pi_1$ and $\Pi_2$ be linear planes (i.e.\ $2$-dimensional subspaces) in $\mathbb{R}^3$.
+What are the possible dimensions for $\Pi_1\cap\Pi_2$?
+
+\medskip
+
+\textbf{Solution.}
+By the dimension formula,
+\[
+\dim(\Pi_1\cap\Pi_2)=\dim(\Pi_1)+\dim(\Pi_2)-\dim(\Pi_1+\Pi_2)=4-\dim(\Pi_1+\Pi_2).
+\]
+Since $\Pi_1+\Pi_2$ is a subspace of $\mathbb{R}^3$, we have $2\le\dim(\Pi_1+\Pi_2)\le 3$ (it must contain $\Pi_1$, so $\dim\ge 2$).
+
+\begin{itemize}[leftmargin=*]
+\item If $\dim(\Pi_1+\Pi_2)=3$: then $\dim(\Pi_1\cap\Pi_2)=1$ (a line through the origin).
+\item If $\dim(\Pi_1+\Pi_2)=2$: then $\dim(\Pi_1\cap\Pi_2)=2$, which forces $\Pi_1=\Pi_2$ (same plane).
+\end{itemize}
+Both cases are realisable, so the possible dimensions are $\{1,2\}$.
+\end{examplebox}
+
+\begin{definition}{Direct sum (as used in Weeks 3--4)}{ch2-direct-sum}
+
+Let $U,W$ be subspaces of $V$.
+
+We write $V=U\oplus W$ if
+
+\[
+V=U+W
+\quad\text{and}\quad
+U\cap W=\{0\}.
+\]
+
+In this case, each $v\in V$ has a \emph{unique} decomposition $v=u+w$ with $u\in U$, $w\in W$.
+
+\end{definition}
+
+\begin{theorem}{Dimension of a direct sum}{ch2-dim-direct-sum}
+
+If $V=U\oplus W$ with $V$ finite-dimensional, then
+
+\[
+\dim(V)=\dim(U)+\dim(W).
+\]
+
+\begin{proof}
+
+Since $U\cap W=\{0\}$, Theorem~\ref{thm:ch2-dim-sum} gives
+
+\[
+\dim(U+W)=\dim(U)+\dim(W)-\dim(U\cap W)=\dim(U)+\dim(W).
+\]
+
+But $U+W=V$, so $\dim(V)=\dim(U)+\dim(W)$.
+
+\end{proof}
+
+\end{theorem}
+
+% --- ADDED: Useful criterion for direct sum via dimensions ---
+\begin{keyformula}
+\textbf{Checking a direct sum via dimensions (very common on exams).}
+Let $U,W\le V$ with $V$ finite-dimensional.  Then $V=U\oplus W$ if and only if \emph{any two} of the following three conditions hold:
+\begin{enumerate}[leftmargin=*]
+\item $V=U+W$;
+\item $U\cap W=\{0\}$;
+\item $\dim(U)+\dim(W)=\dim(V)$.
+\end{enumerate}
+\emph{Why any two suffice:} conditions (1) and (2) are the definition; if (1) and (3) hold, the dimension formula gives $\dim(U\cap W)=0$, so (2) follows; if (2) and (3) hold, the dimension formula gives $\dim(U+W)=\dim(V)$, so (1) follows.
+
+This shortcut often saves a full spanning argument: just verify (2) and (3).
+\end{keyformula}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 4 lecture): a direct-sum conclusion from dimensions.}
+
+Let $U,V\subseteq\mathbb{R}^8$ be subspaces such that $\dim(U)=3$, $\dim(V)=5$, and $\dim(U+V)=8$.
+
+Show that $\mathbb{R}^8=U\oplus V$.
+
+\medskip
+
+\textbf{Solution.}
+
+By Theorem~\ref{thm:ch2-dim-sum},
+
+\[
+\dim(U\cap V)=\dim(U)+\dim(V)-\dim(U+V)=3+5-8=0.
+\]
+
+Hence $U\cap V=\{0\}$. Since $U+V=\mathbb{R}^8$ by the dimension assumption, we conclude $\mathbb{R}^8=U\oplus V$.
+
+\end{examplebox}
+
+% --- ADDED: Week 4 lecture example on P_4(R) with kernel viewpoint ---
+\begin{examplebox}
+\textbf{Worked Example (Week 4 lecture): basis, extension, and direct-sum complement for $\{P\in P_4(\mathbb{R})\mid P(6)=0\}$.}
+
+Define $V=\{P\in P_4(\mathbb{R})\mid P(6)=0\}$.
+
+\medskip
+\emph{(a) Basis and dimension.}
+The evaluation map $\operatorname{ev}_6:P_4(\mathbb{R})\to\mathbb{R}$ given by $\operatorname{ev}_6(P)=P(6)$ is a nonzero linear functional, so $\dim(\ker(\operatorname{ev}_6))=5-1=4$.
+Every polynomial vanishing at $6$ has $(t-6)$ as a factor (up to degree consideration): $P(t)=(t-6)Q(t)$ with $\deg(Q)\le 3$.
+A basis is $\{t-6,\;t(t-6),\;t^2(t-6),\;t^3(t-6)\}$, confirming $\dim(V)=4$.
+
+\medskip
+\emph{(b) Extension and complement.}
+Choose any $p\notin V$, e.g.\ $p=1$ since $1(6)=6\neq 0$.
+Then $\{t-6,\;t(t-6),\;t^2(t-6),\;t^3(t-6),\;1\}$ is a basis of $P_4(\mathbb{R})$, and $W=\operatorname{Span}\{1\}$ satisfies $P_4(\mathbb{R})=V\oplus W$.
+\end{examplebox}
+
+%--------------------------------------------------------------------
+
+\subsection{High-Yield Worked Problems from Tutorial 3}
+
+%--------------------------------------------------------------------
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 3, Question 4): commuting matrices form a subspace and its dimension.}
+
+Let
+
+\[
+A=\begin{pmatrix}1&2\\0&1\end{pmatrix},
+\qquad
+\mathcal{V}=\left\{B\in\mathbb{R}^{2,2}\ \middle|\ AB=BA\right\}.
+\]
+
+Find $\dim(\mathcal{V})$.
+
+\medskip
+
+\textbf{Solution.}
+
+Write $B=\begin{pmatrix}x&y\\ z&t\end{pmatrix}$.
+
+Compute
+
+\[
+AB=\begin{pmatrix}x+2z&y+2t\\ z&t\end{pmatrix},
+\qquad
+BA=\begin{pmatrix}x&2x+y\\ z&2z+t\end{pmatrix}.
+\]
+
+Equating entries $AB=BA$ gives
+
+\[
+x+2z=x \Rightarrow z=0,
+\qquad
+y+2t=2x+y \Rightarrow t=x,
+\]
+
+and the remaining equations are automatic once $z=0$.
+
+Thus
+
+\[
+B=\begin{pmatrix}x&y\\0&x\end{pmatrix}
+=x\begin{pmatrix}1&0\\0&1\end{pmatrix}
++y\begin{pmatrix}0&1\\0&0\end{pmatrix}.
+\]
+
+Therefore $\mathcal{V}=\operatorname{Span}\!\left\{I,\ \begin{pmatrix}0&1\\0&0\end{pmatrix}\right\}$ and $\dim(\mathcal{V})=2$.
+
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 4, Method 2)}]
+
+Write $A=I+2N$ with $N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$ and $N^2=0$.
+
+Since $I$ commutes with everything, $AB=BA$ iff $NB=BN$.
+
+For $B=\begin{pmatrix}x&y\\ z&t\end{pmatrix}$,
+
+\[
+NB=\begin{pmatrix}z&t\\0&0\end{pmatrix},
+\qquad
+BN=\begin{pmatrix}0&x\\0&z\end{pmatrix}.
+\]
+
+Thus $NB=BN$ forces $z=0$ and $t=x$, giving $B=xI+yN$ and hence $\dim(\mathcal{V})=2$ with fewer computations.
+
+\end{extension}
+
+% --- ADDED: General commutant observation ---
+\begin{policynote}
+\textbf{Why the nilpotent decomposition helps (general principle).}
+If $A=\alpha I+N$ where $N$ is nilpotent, then $AB=BA\iff NB=BN$ because $I$ commutes with everything.
+This reduces the problem to commuting with a simpler (nilpotent) matrix.
+For $2\times 2$ matrices, the commutant of a non-scalar matrix always has dimension $2$; the commutant of a scalar matrix ($A=\alpha I$) is all of $\mathbb{R}^{2,2}$, with dimension $4$.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 3, Question 5): a polynomial subspace, basis extension, and direct sum.}
+
+Let
+
+\[
+V=\left\{P\in P_4(\mathbb{R})\ \middle|\ P(2)=P(5)\right\}.
+\]
+
+\begin{enumerate}
+
+\item Find a basis of $V$ and $\dim(V)$.
+
+\item Extend your basis to a basis of $P_4(\mathbb{R})$.
+
+\item Find a subspace $W$ such that $P_4(\mathbb{R})=V\oplus W$.
+
+\end{enumerate}
+
+\medskip
+
+\textbf{Solution.}
+
+Let $q(t)=(t-2)(t-5)$ (degree $2$). For any $Q$, $(qQ)(2)=(qQ)(5)=0$, so $qQ\in V$.
+
+Every $P\in P_4(\mathbb{R})$ can be written uniquely as
+
+\[
+P(t)=q(t)Q(t)+L(t),
+\]
+
+where $\deg(Q)\le 2$ and $\deg(L)\le 1$ (polynomial division by $q$). Write $L(t)=at+b$.
+
+Then
+
+\[
+P(2)=L(2)=2a+b,\qquad P(5)=L(5)=5a+b,
+\]
+
+so the constraint $P(2)=P(5)$ forces $2a+b=5a+b$, hence $a=0$.
+
+Thus $L$ must be constant, and we obtain the description
+
+\[
+V=\left\{q(t)Q(t)+c \ \middle|\ \deg(Q)\le 2,\ c\in\mathbb{R}\right\}.
+\]
+
+A convenient basis is
+
+\[
+\mathcal{B}_V=\left\{1,\ q(t),\ t\,q(t),\ t^2 q(t)\right\},
+\]
+
+so $\dim(V)=4$.
+
+Since $\dim(P_4(\mathbb{R}))=5$, we extend by adding any polynomial not in $V$; for instance $t\notin V$ because $t(2)\neq t(5)$.
+
+Hence
+
+\[
+\mathcal{B}=\left\{1,\ q(t),\ t\,q(t),\ t^2 q(t),\ t\right\}
+\]
+
+is a basis of $P_4(\mathbb{R})$.
+
+Let $W=\operatorname{Span}\{t\}$. Then $V+W=P_4(\mathbb{R})$ by the basis above.
+
+Also $V\cap W=\{0\}$: if $ct\in V$, then $(ct)(2)=(ct)(5)$ implies $2c=5c$, so $c=0$.
+
+Therefore $P_4(\mathbb{R})=V\oplus W$.
+
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 5, Method 2)}]
+
+Define the linear functional $L:P_4(\mathbb{R})\to\mathbb{R}$ by $L(P)=P(2)-P(5)$.
+
+Then $V=\ker(L)$. Since $L\neq 0$, $\dim(\ker(L))=\dim(P_4)-1=4$.
+
+To build a complement, choose any $p$ with $L(p)\neq 0$; for example $p(t)=t$ gives $L(t)=2-5=-3$.
+
+Then $P_4(\mathbb{R})=\ker(L)\oplus \operatorname{Span}\{t\}$, with decomposition
+
+$P=\bigl(P-\tfrac{L(P)}{L(t)}t\bigr)+\tfrac{L(P)}{L(t)}t$.
+
+\end{extension}
+
+% --- ADDED: General codimension-1 complement recipe ---
+\begin{examtip}
+\textbf{General recipe for complementing a codimension-$1$ subspace.}
+If $V=\ker(L)$ for a nonzero linear functional $L:W\to\mathbb{F}$, then:
+\begin{itemize}[leftmargin=*]
+\item $\dim(V)=\dim(W)-1$.
+\item Pick \emph{any} $p\in W$ with $L(p)\neq 0$.
+\item Then $W=V\oplus\operatorname{Span}\{p\}$.
+\item The explicit decomposition is: $w = \bigl(w-\tfrac{L(w)}{L(p)}p\bigr)+\tfrac{L(w)}{L(p)}p$.
+\end{itemize}
+This pattern appears repeatedly in MH1201 (trace-zero matrices, evaluation constraints, etc.).
+\end{examtip}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Week 4 lecture / dimension application): translate a large independent set.}
+
+Let $v_1,\ldots,v_{2024}\in V$ be linearly independent. Show that for any $w\in V$,
+
+\[
+\dim\Bigl(\operatorname{Span}\{v_1+w,\ldots,v_{2024}+w\}\Bigr)\ge 2023.
+\]
+
+\medskip
+
+\textbf{Solution.}
+
+Consider the $2023$ vectors
+
+\[
+(v_1+w)-(v_2+w)=v_1-v_2,\ \ (v_2+w)-(v_3+w)=v_2-v_3,\ \ \ldots,\ \ (v_{2023}+w)-(v_{2024}+w)=v_{2023}-v_{2024}.
+\]
+
+Each difference lies in $\operatorname{Span}\{v_1+w,\ldots,v_{2024}+w\}$, so it suffices to show that
+
+\[
+\{v_1-v_2,\ v_2-v_3,\ \ldots,\ v_{2023}-v_{2024}\}
+\]
+
+is linearly independent.
+
+Suppose $\sum_{i=1}^{2023}\alpha_i (v_i-v_{i+1})=0$. Expanding gives
+
+\[
+\alpha_1 v_1+(\alpha_2-\alpha_1)v_2+\cdots+(\alpha_{2023}-\alpha_{2022})v_{2023}-\alpha_{2023}v_{2024}=0.
+\]
+
+Since $\{v_1,\ldots,v_{2024}\}$ is linearly independent, all coefficients must be zero:
+
+\[
+\alpha_1=0,\ \ \alpha_2-\alpha_1=0,\ \ldots,\ \alpha_{2023}-\alpha_{2022}=0,\ \ -\alpha_{2023}=0.
+\]
+
+Hence $\alpha_1=\cdots=\alpha_{2023}=0$, proving the differences are independent.
+
+Therefore the span of $\{v_1+w,\ldots,v_{2024}+w\}$ contains $2023$ independent vectors, so its dimension is at least $2023$.
+
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 6, Method 2)}]
+
+\textbf{Stronger fact (and a structural proof).}
+
+If $\{v_1,\ldots,v_n\}$ is linearly independent and $w\notin\operatorname{Span}\{v_1,\ldots,v_n\}$, then $\{v_1+w,\ldots,v_n+w\}$ is linearly independent.
+
+Let $U=\operatorname{Span}\{v_1,\ldots,v_n,w\}$ and define $T:U\to U$ by $T(v_i)=v_i+w$ and $T(w)=w$, extended linearly.
+
+Then $T$ is invertible with inverse $S(v_i)=v_i-w$, $S(w)=w$, so $T$ is injective; injective linear maps send independent sets to independent sets, hence $\{v_i+w\}$ is independent.
+
+\end{extension}
+
+% --- ADDED: Tutorial 3 Q8 on Q-vector spaces ---
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 3, Question 8): $\mathbb{R}$ as a $\mathbb{Q}$-vector space.}
+
+Let $\mathbb{R}_{\mathbb{Q}}$ denote $\mathbb{R}$ viewed as a vector space over $\mathbb{Q}$ (with usual addition and $\mathbb{Q}$-scalar multiplication).
+For a fixed $r\in\mathbb{R}$, define $V=\{a+br\mid a,b\in\mathbb{Q}\}$.
+
+\begin{enumerate}[leftmargin=*]
+\item $V$ is a $\mathbb{Q}$-subspace of $\mathbb{R}_{\mathbb{Q}}$: it is non-empty ($0\in V$), closed under addition ($\mathbb{Q}$-sums of rationals are rational), and closed under $\mathbb{Q}$-scalar multiplication ($\mathbb{Q}\cdot\mathbb{Q}\subseteq\mathbb{Q}$).
+\item If $r\in\mathbb{Q}$: then $V=\{a+br\mid a,b\in\mathbb{Q}\}=\mathbb{Q}$ (every element is rational), so $\dim_{\mathbb{Q}}(V)=1$ with basis $\{1\}$.
+\item If $r\notin\mathbb{Q}$: then $\{1,r\}$ spans $V$ by definition.  For independence: if $\alpha\cdot 1+\beta\cdot r=0$ with $\alpha,\beta\in\mathbb{Q}$ and $\beta\neq 0$, then $r=-\alpha/\beta\in\mathbb{Q}$, contradiction.  Hence $\{1,r\}$ is a $\mathbb{Q}$-basis and $\dim_{\mathbb{Q}}(V)=2$.
+\end{enumerate}
+
+\emph{Key takeaway:} dimension depends on the field.  Over $\mathbb{R}$, $\dim_{\mathbb{R}}(\mathbb{R})=1$.  Over $\mathbb{Q}$, $\dim_{\mathbb{Q}}(\mathbb{R})$ is infinite (uncountable, in fact).
+\end{examplebox}
+
+\begin{commonmistake}
+
+\begin{itemize}
+
+\item Forgetting that \textbf{dimension depends on the field}. For example, $\mathbb{R}$ as a vector space over $\mathbb{Q}$ has very different dimension properties than over $\mathbb{R}$.
+
+\item Misusing the dimension formula: it requires \emph{subspaces} of a \emph{finite-dimensional} vector space.
+
+\end{itemize}
+
+\end{commonmistake}
+
+\begin{examtip}
+
+\textbf{Dimension-proof checklist (very common in MH1201).}
+
+\begin{itemize}
+
+\item If asked to show $U\cap V\neq\{0\}$, try $\dim(U\cap V)\ge \dim(U)+\dim(V)-\dim(\text{ambient})$.
+
+\item If given $\dim(U)+\dim(V)=\dim(U+V)$, then $\dim(U\cap V)=0$ and (if $U+V$ is the whole space) you get a direct sum.
+
+\item If asked to build a basis for a constraint-defined subspace (e.g.\ $P(2)=P(5)$, $\operatorname{trace}(M)=0$, $AB=BA$):
+
+translate the condition into \emph{linear equations in coefficients/entries}, then parametrize and read off a spanning set; finally check independence (often immediate).
+
+\end{itemize}
+
+\end{examtip}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% - (Write personal reminders, TODOs, or links here.)
+% - TODO: Memorize the "any two of three" criterion for direct sums (sum, trivial intersection, dimension sum).
+% - TODO: Practice the practical basis-extension algorithm (append + row reduce) on Tutorial 3 Q5 and Week 4 P(6)=0 example.
+% - TODO: Know the standard dimension table by heart (F^n, P_n, F^{m,n}, trace-zero, symmetric, skew-symmetric, upper-triangular).
+% - TODO: Re-derive the full proof that A ∪ B ∪ C is independent in the dimension-of-sum theorem.
+% - TODO: Remember that the three-subspace inclusion-exclusion formula FAILS for vector spaces.
+% - Midterm focus: Size-Limitation Lemma proof, Basis Extension, dimension formula applications.

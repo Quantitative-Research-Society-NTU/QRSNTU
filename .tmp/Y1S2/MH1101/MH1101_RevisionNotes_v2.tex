@@ -1,0 +1,475 @@
+% Course information source: :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+% MOVE HYPERREF HERE
+\usepackage{hyperref} 
+
+\usepackage{draftwatermark}
+
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+ breakable=false,
+ colback=green!5!white,        % light interior
+ colframe=green!40!black,      % border
+ colbacktitle=green!50!black,  % dark title band
+ coltitle=white,               % title text colour
+ fonttitle=\bfseries,
+ title filled,                 % puts title inside the band
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+ breakable=false,
+ colback=blue!3!white,
+ colframe=blue!40!black,
+ colbacktitle=blue!55!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{thm}
+
+% ---------- ENVIRONMENTS USING TCOLORBOXENVIRONMENT ----------
+\tcolorboxenvironment{identity}{
+  enhanced,
+  breakable=false,
+  colback=green!5!white,
+  colframe=green!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+  enhanced,
+  breakable=false,
+  colback=red!5!white,
+  colframe=red!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+% Optional argument [1][] lets you override the default title if needed:
+%   \begin{keyformula}[title={Key Formula: Demand Curve}] ... \end{keyformula}
+
+\newtcolorbox{keyformula}[1][]{
+    enhanced,
+    breakable=false,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Key Formula,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% *** CHANGED TO BROWN AS REQUESTED ***
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    breakable=false,
+    colback=brown!5!white,
+    colframe=brown!75!black,
+    title=Worked Example,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+    enhanced,
+    breakable=false,
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Common Mistake,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{policynote}[1][]{
+    enhanced,
+    breakable=false,
+    colback=yellow!10!white,
+    colframe=orange!75!black,
+    title=Policy Application,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examtip}[1][]{
+    enhanced,
+    breakable=false,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    title=Exam Focus,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% ---------- EXTENSION / ENRICHMENT BOX ----------
+% For concise “extra” viewpoints (e.g., kernel-of-linear-map proof, stronger generalisation, elegant trick).
+\newtcolorbox{extension}[1][]{
+    enhanced,
+    breakable=false,
+    colback=cyan!5!white,
+    colframe=cyan!75!black,
+    title=Extension,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+%==================================================
+% TITLE / HEADER / FOOTER / WATERMARK
+%==================================================
+
+\title{%
+    \vspace{-0.5cm}
+    {\Large\bfseries \CourseCode\ \CourseName{} -- \DocType}
+}
+
+\author{\AcademicYear \\[0.3em]
+\textit{\href{https://qrsntu.org}{\color{black}Quantitative Research Society @ NTU}}}
+\date{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+ This document is provided for educational purposes and does not constitute an
+ official question paper, answer key, or any formally authorised academic
+ material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+    pdfauthor={Quantitative Research Society, NTU},
+    pdfsubject={\CourseName},
+    pdfkeywords={microeconomics, QRS@NTU, revision notes}
+}
+
+
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, integrating core definitions, key results, worked examples, and exam-focused techniques.
+\end{abstract}
+
+\vspace{0.5cm}
+
+\section*{Course Overview \& Topic Map}
+
+%====================================================================
+
+\begin{center}
+\begin{tabular}{|l|l|p{8.3cm}|}
+\hline
+\textbf{Topic Area} & \textbf{Chapters} & \textbf{Key Concepts} \\
+\hline
+Integrals & Ch.\ 1 & Antiderivatives; area problem; definite integrals; Fundamental Theorem of Calculus; substitution rule; improper integrals; Mean Value Theorem for integrals \\
+\hline
+Applications of Integrals & Ch.\ 2 & Area between curves; volumes (disks/washers); cylindrical shells; arc length \\
+\hline
+Techniques of Integration & Ch.\ 3 & Integration by parts; trigonometric integrals; trigonometric substitution; partial fractions; numerical integration (midpoint, trapezoidal, Simpson's rule) \\
+\hline
+Sequences and Series & Ch.\ 4 & Limits of sequences; monotone sequences; series \\
+\hline
+Convergence Tests & Ch.\ 5 & Integral test; comparison tests; absolute vs.\ conditional convergence; ratio test; root test \\
+\hline
+Power Series & Ch.\ 6 & Power series; Taylor series; Maclaurin series; binomial series \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+\textit{This revision guide follows the official MH1101 chapter structure while emphasizing problem-solving techniques and exam-relevant intuition.}
+
+%====================================================================
+\newpage
+\tableofcontents
+
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+\subsection*{Structure of the Notes}
+
+These notes are designed to be used together with your lectures and tutorials. Each chapter is organised into:
+
+\begin{enumerate}
+    \item \textbf{Core Theory} — definitions, statements of key results, and conceptual interpretation.
+    \item \textbf{Mathematical Framework} — formulas, standard manipulations, and common patterns.
+    \item \textbf{Worked Examples} — representative questions with full solutions.
+    \item \textbf{Applications} — modelling or interpretation links (where relevant).
+    \item \textbf{Exam Focus} — high-yield checklists, typical traps and time-saving techniques.
+\end{enumerate}
+
+A practical way to revise:
+\begin{itemize}
+    \item First pass: read Core Theory + Key Formula boxes to map the chapter.
+    \item Second pass: attempt Worked Examples yourself \emph{before} checking solutions.
+    \item Final pass: review Common Mistake boxes and your own error log before timed practice.
+\end{itemize}
+
+\subsection*{Colour and Box System (Legend)}
+
+The document uses a colour-coded system. Each box has a \textbf{name} at the top so you can quickly recognise its purpose:
+
+\begin{center}
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Colour} & \textbf{Box Name} & \textbf{Use This For} \\
+\hline
+\colorbox{green!5}{Green} & \textbf{Definition / Theorem} & Formal statements of definitions and theorems used throughout the course. \\
+\hline
+\colorbox{blue!5}{Blue}   & \textbf{Key Formula}          & Core identities and methods you should be able to apply quickly. \\
+\hline
+\colorbox{brown!5}{Brown} & \textbf{Worked Example}       & Fully worked questions. Try on your own before reading the solution. \\
+\hline
+\colorbox{red!5}{Red}     & \textbf{Common Mistake}       & Typical errors, misleading shortcuts and conceptual traps to avoid. \\
+\hline
+\colorbox{yellow!10}{Yellow} & \textbf{Policy Application} & Interpretation notes (units, modelling intuition, and ``what the answer means''). \\
+\hline
+\colorbox{purple!5}{Purple} & \textbf{Exam Focus}          & High-yield checklists, time-saving techniques, and typical exam patterns. \\
+\hline
+\colorbox{cyan!5}{Cyan}   & \textbf{Extension}            & Optional enrichment: elegant viewpoints, stronger generalisations, or structural remarks. \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+When you print in black and white, you can still identify boxes by their \textbf{title text}:
+\begin{itemize}
+    \item Look for the name at the top: \textit{Definition}, \textit{Theorem}, \textit{Key Formula}, \textit{Worked Example}, \textit{Common Mistake}, \textit{Policy Application}, \textit{Exam Focus}, \textit{Extension}.
+    \item In digital version, use the colour + name; in printed version, rely mainly on the name.
+\end{itemize}
+
+\newpage
+
+%==================================================
+%\part{Main Notes}
+%==================================================
+
+\input{MH1101/Chapters/ch01_integrals}
+\input{MH1101/Chapters/ch02_applications_of_integrals}
+\newpage
+\input{MH1101/Chapters/ch03_techniques_of_integration}
+\newpage
+\input{MH1101/Chapters/ch04_sequences_and_series}
+\newpage
+\input{MH1101/Chapters/ch05_convergence_tests}
+\newpage
+\input{MH1101/Chapters/ch06_power_series}
+\newpage
+
+
+\appendix
+%==================================================
+\input{MH1101/appendix/Special_Techniques}
+
+
+%==================================================
+\newpage
+
+\input{MH1101/appendix/Formula_and_Key_Reference}
+%==================================================
+\newpage
+\section{Notation}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}p{0.18\textwidth}p{0.42\textwidth}p{0.34\textwidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Where / typical use} \\
+\midrule
+$\displaystyle \int f(x)\,dx$ & Indefinite integral / antiderivative $F'(x)=f(x)$ & Find families of primitives; IBP, $u$-sub, PF \\
+$\displaystyle \int_a^b f(x)\,dx$ & Definite integral (net area) & FTC II evaluation; area/volume/work templates \\
+$t$ (dummy var.) & Placeholder variable in integrals/series & FTC I: $F(x)=\int_a^x f(t)\,dt$ \\
+$u=g(x)$ & Substitution variable & $u$-sub: match $du=g'(x)\,dx$; change bounds in definite form \\
+$\displaystyle \int_a^{\infty} f$,\ $\int_{-\infty}^b f$ & Improper (Type I) as limits of proper integrals & Convergence via $p$-test, comparison, limit comparison \\
+$\displaystyle \int_a^b f,\ f\to\infty$ at endpoint & Improper (Type II) limit at singularity & Split at interior singularities; evaluate by limits \\
+$f_{\text{avg}}$ & Average value $\frac{1}{b-a}\int_a^b f$ & MVT for integrals; average-value problems \\
+$A$ & Area & Area between curves: $A=\int(\text{top}-\text{bot})\,dx$ or $\int(\text{right}-\text{left})\,dy$ \\
+$V$ & Volume & Washers/shells/slicing formulas \\
+$L$ & Arc length & $L=\int\sqrt{1+(f')^2}\,dx$ or $\int\sqrt{1+(g')^2}\,dy$ \\
+$S$ & Surface area of revolution & $S=\int 2\pi(\text{radius})\,ds$ \\
+$W$ & Work & $W=\int F(x)\,dx$; fluids: $dW=\rho g\,A(y)D(y)\,dy$ \\
+$\rho,\ g$ & Density / gravitational accel. & Hydrostatic force, pumping work \\
+$\sum_{n=1}^{\infty} a_n$ & Infinite series & Convergence tests; compare to geometric / $p$-series \\
+$S_n=\sum_{k=1}^{n} a_k$ & Partial sums & $\sum a_n$ converges iff $S_n\to S$ \\
+$S$ & Series sum (if convergent) & $S=\lim_{n\to\infty}S_n$ \\
+$R_n=S-S_n$ & Remainder (tail) & Error estimate; alternating: $|R_n|\le b_{n+1}$ \\
+$\to$,\ $\lim$ & Convergence / limit & $a_n\to L$, $S_n\to S$ \\
+$\sum |a_n|$ & Absolute series & Absolute vs conditional convergence \\
+$\sim$ & Asymptotic equivalence: $f\sim g\iff f/g\to 1$ & Limit comparison for integrals/series; simplify large-$n$ behavior \\
+$O(g(x))$ & Big-O: $|f|\le C|g|$ near point / $\infty$ & Error bounds, asymptotic estimates, test setup \\
+$o(g(x))$ & Little-o: $f/g\to 0$ & Sharper asymptotics; remainder comparisons \\
+$\displaystyle \sum_{n=0}^{\infty} c_n(x-a)^n$ & Power series about $a$ & Radius/interval of convergence; termwise ops \\
+$R$ & Radius of convergence & Usually from ratio/root test \\
+IOC & Interval of convergence & $(a-R,a+R)$ plus endpoint checks \\
+$T_n(x)$ & Taylor polynomial degree $n$ about $a$ & Approximation; series generation \\
+$R_n(x)$ & Taylor remainder & Lagrange form; error bounds \\
+$n!$ & Factorial ($n\cdot(n-1)\cdots 1$; $0!=1$) & Taylor coefficients; ratio test with factorial terms \\
+$\binom{n}{k}$ & Binomial coefficient $\frac{n!}{k!(n-k)!}$ & Binomial expansions; series manipulations \\
+$\approx$ & Numerical approximation & Taylor / numerical integration approximations \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\newpage
+%==================================================
+\section{Exam \& Assessment Information}
+%==================================================
+
+\subsection{Assessment Breakdown (Course-Specific Summary)}
+\begin{itemize}
+  \item Assignment 1: 5\% (released Week 4; due late Week 7).
+  \item Wooclap class participation: 5\% (full marks typically requires meeting a completion threshold across in-class activities).
+  \item Midterm test: 20\% (Week 8).
+  \item Assignment 2: 10\% (released Week 9; due mid-semester).
+  \item Final exam: 60\%.
+\end{itemize}
+
+\subsection{Midterm / Final Notes (Placeholders for Personalisation)}
+\begin{itemize}
+  \item Bring writing instruments, student card, and any permitted materials.
+  \item Timing strategy: allocate time per question; reserve a buffer for checks.
+  \item Show working clearly; make substitutions and limit steps explicit.
+\end{itemize}
+
+\subsection{Allowed Reference Sheet Reminder}
+\begin{itemize}
+  \item You are allowed \textbf{one double-sided A4 reference sheet} with handwritten or typed text.
+  \item Do \textbf{not} attach sticky notes/post-its to the sheet.
+\end{itemize}
+
+\subsection{Revision Checklist}
+\begin{itemize}
+  \item I can set up a definite integral correctly (bounds, variable, integrand).
+  \item I can choose between substitution vs.\ integration by parts vs.\ partial fractions.
+  \item I can classify an integral as improper and apply the correct limit definition.
+  \item I can distinguish sequence vs.\ series and use an appropriate convergence test.
+  \item I can compute an interval of convergence for a power series and test endpoints.
+\end{itemize}
+
+\end{document}

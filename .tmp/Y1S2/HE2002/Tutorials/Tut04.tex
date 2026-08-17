@@ -1,0 +1,763 @@
+% :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+
+%------------- CORE PREAMBLE (MH5200-compatible) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{HE2002 }
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Tutorial 4}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial --- QRS@NTU --- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial consolidates the IS--LM model and its policy implications. Key themes:
+\begin{itemize}[leftmargin=*]
+  \item Deriving an IS relation from a numerical goods-market model and verifying equilibrium components.
+  \item Interpreting a central bank interest-rate target and the implied real money supply via an LM equation.
+  \item Comparative statics of expansionary monetary policy (money supply increase) and fiscal policy (government spending increase).
+  \item Policy mixes to achieve output/interest-rate/deficit objectives.
+  \item Fisher equation concepts: nominal vs real interest rates and the role of expected inflation.
+\end{itemize}
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section*{Question 1 (Chapter 5, Q5)}
+\subsection*{Problem}
+Considering the following numerical example of the IS--LM model:
+\[
+C = 100 + 0.3Y_D,\qquad
+I = 150 + 0.2Y - 1000i,\qquad
+G = 200,\qquad
+T = 100,\qquad
+i = 0.03.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Derive the IS relation. (Hint: You want an equation with \(Y\) on the left side and everything else on the right.)
+  \item The central bank sets an interest rate of \(3\%\). How is that decision represented in the equations?
+  \item What is the level of real money supply when the interest rate is \(3\%\)? Use the expression:
+  \[
+  \left(\frac{M}{P}\right) = 2Y - 4000i.
+  \]
+  \item Solve for the equilibrium values of \(C\) and \(I\), and verify the value you obtained for \(Y\) by adding \(C\), \(I\) and \(G\).
+  \item Now suppose that the central bank increases money supply to \(1500\). How does this change the LM curve? Solve for \(Y\), \(I\) and \(C\), and describe in words the effects of an expansionary money policy.
+  \item Return to the initial situation in which the interest rate set by the central bank is \(3\%\). Suppose that government spending increases to \(G=300\). Summarize the effects of an expansionary fiscal policy on \(Y\), \(I\) and \(C\). What is the effect of the expansionary fiscal policy on the real money supply?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct algebra (derive IS, then apply policy regimes)}
+Throughout, disposable income is \(Y_D=Y-T=Y-100\), so
+\begin{align*}
+C &= 100 + 0.3(Y-100)
+= 100 + 0.3Y - 30
+= 70 + 0.3Y.
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Derive the IS relation.}
+
+Goods-market equilibrium is
+\[
+Y = C + I + G.
+\]
+Substitute \(C=70+0.3Y\), \(I=150+0.2Y-1000i\), \(G=200\):
+\begin{align*}
+Y &= (70+0.3Y) + (150+0.2Y-1000i) + 200 \\
+  &= (70+150+200) + (0.3Y+0.2Y) - 1000i \\
+  &= 420 + 0.5Y - 1000i.
+\end{align*}
+Bring \(0.5Y\) to the left:
+\[
+Y - 0.5Y = 420 - 1000i
+\quad\Longrightarrow\quad
+0.5Y = 420 - 1000i.
+\]
+Multiply by \(2\):
+\[
+Y = 840 - 2000i.
+\]
+Thus the IS relation is
+\[
+\boxed{\,Y = 840 - 2000i\,}.
+\]
+
+\item \textbf{Representing the central bank decision \(i=3\%\).}
+
+An interest-rate target is represented as an exogenous policy rule:
+\[
+\boxed{\,i = 0.03\,}.
+\]
+In an IS--LM diagram, this corresponds to the central bank choosing the money supply endogenously so that the equilibrium interest rate equals \(0.03\).
+
+\item \textbf{Real money supply when \(i=3\%\).}
+
+Under the interest-rate target \(i=0.03\), equilibrium output follows from the IS relation:
+\[
+Y = 840 - 2000(0.03) = 840 - 60 = 780.
+\]
+Then the money-market equation implies:
+\begin{align*}
+\frac{M}{P}
+&= 2Y - 4000i
+= 2(780) - 4000(0.03) \\
+&= 1560 - 120
+= 1440.
+\end{align*}
+Hence
+\[
+\boxed{\,\left(\frac{M}{P}\right)=1440\,}.
+\]
+
+\item \textbf{Equilibrium \(C\), \(I\), and verification of \(Y\).}
+
+From part (c), under the interest-rate target \(i=0.03\), output is
+\[
+Y = 840 - 2000(0.03) = 780.
+\]
+
+With \(Y=780\):
+\[
+Y_D = Y-T = 780-100=680,
+\]
+\[
+C = 100 + 0.3(680)=100+204=304
+\quad\Rightarrow\quad
+\boxed{\,C=304\,}.
+\]
+Investment:
+\begin{align*}
+I &= 150 + 0.2(780) - 1000(0.03) \\
+  &= 150 + 156 - 30 \\
+  &= 276
+\quad\Rightarrow\quad
+\boxed{\,I=276\,}.
+\end{align*}
+Verification:
+\[
+C+I+G = 304 + 276 + 200 = 780 = Y,
+\]
+so the output level is consistent with goods-market equilibrium.
+
+\item \textbf{Increase money supply to \(\frac{M}{P}=1500\): new LM, equilibrium \(Y\), \(I\), \(C\).}
+
+The LM curve is obtained from
+\[
+\frac{M}{P} = 2Y - 4000i.
+\]
+Solve for \(i\) as a function of \(Y\) given \(\frac{M}{P}\):
+\[
+4000i = 2Y - \frac{M}{P}
+\quad\Longrightarrow\quad
+i = \frac{2Y - \frac{M}{P}}{4000}.
+\]
+With \(\frac{M}{P}=1500\), the LM curve becomes
+\[
+\boxed{\,i = \frac{2Y-1500}{4000}=\frac{Y-750}{2000}\, }.
+\]
+Equilibrium now requires intersection of IS and LM:
+\[
+\text{IS: } Y=840-2000i,
+\qquad
+\text{LM: } i=\frac{Y-750}{2000}.
+\]
+Substitute LM into IS:
+\begin{align*}
+Y &= 840 - 2000\left(\frac{Y-750}{2000}\right) \\
+  &= 840 - (Y-750) \\
+  &= 840 - Y + 750.
+\end{align*}
+Hence
+\[
+Y = 1590 - Y
+\quad\Longrightarrow\quad
+2Y = 1590
+\quad\Longrightarrow\quad
+Y=795.
+\]
+Then
+\[
+i=\frac{Y-750}{2000}=\frac{795-750}{2000}=\frac{45}{2000}=0.0225.
+\]
+So
+\[
+\boxed{\,Y=795,\qquad i=0.0225\ (2.25\%)\, }.
+\]
+Now compute \(C\) and \(I\).
+
+Disposable income:
+\[
+Y_D=Y-T=795-100=695.
+\]
+Consumption:
+\[
+C=100+0.3(695)=100+208.5=308.5
+\quad\Rightarrow\quad
+\boxed{\,C=308.5\, }.
+\]
+Investment:
+\begin{align*}
+I &= 150 + 0.2(795) - 1000(0.0225) \\
+  &= 150 + 159 - 22.5 \\
+  &= 286.5
+\quad\Rightarrow\quad
+\boxed{\,I=286.5\, }.
+\end{align*}
+(Verification: \(308.5+286.5+200=795\).)
+
+\textbf{Policy interpretation:} increasing \(\frac{M}{P}\) shifts LM \emph{down/right} (lower \(i\) for a given \(Y\)), reducing the equilibrium interest rate and thereby raising output; both consumption and investment rise.
+
+\item \textbf{Return to interest-rate target \(i=3\%\) and increase \(G\) to \(300\).}
+
+Now \(i=0.03\) is fixed again, but \(G\) increases from \(200\) to \(300\). Re-derive the IS relation with the new \(G\).
+
+Goods-market equilibrium:
+\[
+Y = C + I + G,
+\]
+with the same \(C=70+0.3Y\) and \(I=150+0.2Y-1000i\), but \(G=300\):
+\begin{align*}
+Y &= (70+0.3Y) + (150+0.2Y-1000i) + 300 \\
+  &= (70+150+300) + 0.5Y - 1000i \\
+  &= 520 + 0.5Y - 1000i.
+\end{align*}
+Thus
+\[
+0.5Y = 520 - 1000i
+\quad\Longrightarrow\quad
+Y = 1040 - 2000i,
+\]
+so with \(i=0.03\),
+\[
+Y = 1040 - 2000(0.03)=1040-60=980
+\quad\Rightarrow\quad
+\boxed{\,Y=980\, }.
+\]
+Now compute \(C\) and \(I\):
+\[
+Y_D=980-100=880,
+\qquad
+C=100+0.3(880)=100+264=364
+\quad\Rightarrow\quad
+\boxed{\,C=364\, }.
+\]
+\begin{align*}
+I &= 150 + 0.2(980) - 1000(0.03) \\
+  &= 150 + 196 - 30 \\
+  &= 316
+\quad\Rightarrow\quad
+\boxed{\,I=316\, }.
+\end{align*}
+Finally, the real money supply required to keep \(i=0.03\) is
+\begin{align*}
+\frac{M}{P}
+&=2Y-4000i
+=2(980)-4000(0.03) \\
+&=1960-120
+=1840.
+\end{align*}
+Hence
+\[
+\boxed{\,\left(\frac{M}{P}\right)=1840\, }.
+\]
+
+\textbf{Summary of fiscal expansion effects (with fixed \(i\)):}
+\[
+Y: 780\to 980\ (+200),\qquad
+C: 304\to 364\ (+60),\qquad
+I: 276\to 316\ (+40),
+\]
+and the central bank must \emph{increase} real money supply from \(1440\) to \(1840\) to maintain \(i=3\%\).
+\end{enumerate}
+
+\subsubsection*{Method 2: Structural-parameter approach (multipliers + policy rules)}
+This method isolates the induced-demand feedback and uses it to compute changes cleanly.
+
+\paragraph{Step 1: Write the IS relation in reduced form.}
+From the primitives
+\[
+C=70+0.3Y,\qquad I=150+0.2Y-1000i,\qquad Z=C+I+G,
+\]
+we have
+\[
+Z(Y,i)= (70+150+G) + (0.3+0.2)Y - 1000i
+= (220+G) + 0.5Y - 1000i.
+\]
+Equilibrium is \(Y=Z\), hence
+\[
+Y = (220+G) + 0.5Y - 1000i
+\quad\Longrightarrow\quad
+0.5Y = (220+G) - 1000i
+\quad\Longrightarrow\quad
+\boxed{\,Y = 2(220+G) - 2000i\, }.
+\]
+Therefore:
+\[
+\boxed{\,\text{IS: } Y = (440+2G) - 2000i\, }.
+\]
+For the initial \(G=200\), this reproduces \(Y=840-2000i\). For \(G=300\), it gives \(Y=1040-2000i\).
+
+\paragraph{Step 2: Policy regime A (interest-rate target \(i=\bar i\)).}
+Under \(i=\bar i\), output is determined solely by the IS equation:
+\[
+Y = (440+2G) - 2000\bar i.
+\]
+With \(\bar i=0.03\) and \(G=200\):
+\[
+Y = 840 - 60 = 780,
+\]
+and money supply is endogenously chosen to satisfy LM:
+\[
+\frac{M}{P}=2Y-4000\bar i=2(780)-120=1440.
+\]
+If \(G\) rises by \(\Delta G\), then
+\[
+\Delta Y = 2\,\Delta G
+\quad\Rightarrow\quad
+\boxed{\,\frac{\partial Y}{\partial G}\Big|_{i=\bar i}=2\, }.
+\]
+For \(\Delta G=100\), \(\Delta Y=200\), matching \(780\to 980\).
+Then
+\[
+\Delta\left(\frac{M}{P}\right)
+= 2\,\Delta Y
+= 2(200)
+= 400,
+\]
+so \(\frac{M}{P}\) must rise from \(1440\) to \(1840\), as in Method 1.
+
+\paragraph{Step 3: Policy regime B (money-supply target \(\frac{M}{P}=\overline{m}\)).}
+With a fixed money supply, LM implies
+\[
+\overline{m}=2Y-4000i
+\quad\Longrightarrow\quad
+i=\frac{2Y-\overline{m}}{4000}=\frac{Y}{2000}-\frac{\overline{m}}{4000}.
+\]
+Substitute into IS for \(G=200\):
+\begin{align*}
+Y &= 840 - 2000\left(\frac{2Y-\overline{m}}{4000}\right)
+= 840 - \frac{2000}{4000}(2Y-\overline{m}) \\
+&= 840 - \frac{1}{2}(2Y-\overline{m})
+= 840 - (Y-\tfrac{\overline{m}}{2})
+= 840 - Y + \frac{\overline{m}}{2}.
+\end{align*}
+Thus
+\[
+2Y = 840 + \frac{\overline{m}}{2}
+\quad\Longrightarrow\quad
+Y = 420 + \frac{\overline{m}}{4}.
+\]
+For \(\overline{m}=1500\):
+\[
+Y = 420 + \frac{1500}{4} = 420 + 375 = 795,
+\]
+and then
+\[
+i = \frac{2Y-\overline{m}}{4000}=\frac{1590-1500}{4000}=0.0225,
+\]
+which matches Method 1.
+
+\paragraph{Step 4: Recover \(C\) and \(I\).}
+Given any \((Y,i)\),
+\[
+C=70+0.3Y,\qquad I=150+0.2Y-1000i,
+\]
+so for \((Y,i)=(795,0.0225)\), we obtain \(C=308.5\) and \(I=286.5\), as before.
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section*{Question 2 (Chapter 5, Q8)}
+\subsection*{Problem}
+What mix of monetary and fiscal policy is needed to meet the following objectives?
+\begin{enumerate}[label=(\alph*)]
+  \item Increase \(Y\) while keeping \(i\) constant. Would investment \((I)\) change?
+  \item Decrease a fiscal deficit while keeping \(Y\) constant. Why must \(i\) also change?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: IS--LM shifts with explicit comparative statics}
+Assume standard IS--LM structure:
+\[
+\text{IS: } Y = \mathcal{A} - \alpha i,\quad \alpha>0,
+\qquad
+\text{LM: } i = \lambda Y - \mu\left(\frac{M}{P}\right),\quad \lambda,\mu>0,
+\]
+where \(\mathcal{A}\) is an ``autonomous demand'' term increasing in \(G\) and decreasing in \(T\).
+The signs \(\alpha,\lambda,\mu>0\) encode the usual slopes: IS downward, LM upward.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Increase \(Y\) while keeping \(i\) constant.}
+
+To raise \(Y\) at a fixed interest rate \(i=i_0\), the economy must experience a rightward shift in the IS curve (higher \(\mathcal{A}\), e.g.\ \(\Delta G>0\) or \(\Delta T<0\)). However, along an upward-sloping LM curve, the IS shift would normally raise \(i\). To keep \(i\) fixed at \(i_0\), monetary policy must accommodate by increasing real money supply \(\frac{M}{P}\) so that the LM curve shifts down/right enough to offset the upward pressure on \(i\).
+
+Formally, holding \(i\) fixed at \(i_0\), the IS equation implies
+\[
+Y = \mathcal{A} - \alpha i_0,
+\]
+so any increase \(\Delta\mathcal{A}>0\) directly increases \(Y\) by \(\Delta Y = \Delta\mathcal{A}\). To make LM consistent with the higher \(Y\) while keeping \(i=i_0\), solve LM for \(\frac{M}{P}\):
+\[
+i_0 = \lambda Y - \mu\left(\frac{M}{P}\right)
+\quad\Longrightarrow\quad
+\frac{M}{P} = \frac{\lambda Y - i_0}{\mu}.
+\]
+Thus if \(Y\) increases, \(\frac{M}{P}\) must also increase (since \(\lambda,\mu>0\)).
+
+Therefore the required mix is:
+
+\begin{center}
+
+\boxed{
+\begin{aligned}
+&\text{Expansionary fiscal policy (IS right) +} \\
+&\text{expansionary monetary policy (LM right)} \\
+&\text{to keep } i \text{ constant.}
+\end{aligned}
+}
+\end{center}
+
+\textbf{Would investment change?}
+Under the common textbook assumption \(I=I(i)\) only and \(I'(i)<0\), holding \(i\) constant implies
+\[
+\Delta I = 0.
+\]
+So in that benchmark:
+\[
+\boxed{\,\text{If }I=I(i)\text{ only, then with }i\text{ constant, investment does not change.}\,}
+\]
+(If instead investment also depends positively on output, e.g.\ \(I=b_0+b_1Y-b_2i\) with \(b_1>0\), then keeping \(i\) constant and raising \(Y\) implies \(\Delta I=b_1\Delta Y>0\).)
+
+\item \textbf{Decrease the fiscal deficit while keeping \(Y\) constant; why must \(i\) change?}
+
+Reducing the fiscal deficit typically means lowering \(G\) and/or raising \(T\), which reduces autonomous demand \(\mathcal{A}\) and shifts IS left:
+\[
+\Delta \mathcal{A}<0.
+\]
+At the initial LM curve, this would reduce equilibrium \(Y\). To keep \(Y\) unchanged, monetary policy must stimulate private demand (typically investment) by lowering the interest rate \(i\). In IS--LM terms, the central bank must increase \(\frac{M}{P}\) (shift LM right/down), which lowers \(i\) at the given \(Y\).
+
+Formally, to keep \(Y=Y_0\) fixed, the IS equation requires
+\[
+Y_0 = \mathcal{A} - \alpha i
+\quad\Longrightarrow\quad
+i = \frac{\mathcal{A}-Y_0}{\alpha}.
+\]
+If \(\mathcal{A}\) falls (fiscal contraction), then \(i\) must fall to satisfy the equation at the same \(Y_0\). Hence \(i\) must change:
+\[
+\Delta\mathcal{A}<0\quad\Longrightarrow\quad \Delta i = \frac{\Delta\mathcal{A}}{\alpha}<0.
+\]
+Therefore,
+\[
+\boxed{
+\begin{aligned}
+&\text{To cut the deficit while keeping } Y \text{ constant,} \\
+&\text{monetary policy must lower } i \text{ (via higher } M/P). \\
+&i \text{ must change.}
+\end{aligned}
+}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: ``Target rules'' viewpoint (solve for required instrument adjustments)}
+Think of the central bank and government as choosing instruments to hit targets.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Target: higher \(Y\) with constant \(i=i_0\).}
+
+A constant \(i=i_0\) is itself a policy target. Then the goods market determines output as
+\[
+Y = \text{(autonomous demand)} \times \text{multiplier} \ \ \text{given}\ i=i_0.
+\]
+So the government can raise \(Y\) by raising \(G\) or lowering \(T\). But since \(Y\) rises, money demand rises. To keep \(i=i_0\), the central bank must supply the additional real balances demanded at that interest rate. Thus the monetary instrument (money supply) must move endogenously:
+\[
+\boxed{\,\text{Government chooses }G\uparrow\text{ or }T\downarrow;\ \text{central bank chooses }M/P\uparrow\text{ to keep }i=i_0.\,}
+\]
+Investment changes only if it depends on variables other than \(i\). Under \(I=I(i)\) only, it does not change; under an accelerator \(I=I(Y,i)\), it increases when \(Y\) increases at fixed \(i\).
+
+\item \textbf{Target: lower deficit with constant \(Y=Y_0\).}
+
+Lowering the deficit means \(G\downarrow\) and/or \(T\uparrow\), reducing demand at any given \(i\). To keep \(Y=Y_0\), private spending must rise to offset the fiscal contraction. In IS--LM, the main lever is lower \(i\), which boosts investment and possibly consumption. Therefore monetary policy must set a lower interest rate target (or equivalently increase money supply enough) so that at \(Y_0\), money market equilibrium holds:
+\begin{center}
+\boxed{
+\begin{aligned}
+&\text{To keep } Y=Y_0 \text{ while deficit falls,} \\
+&\text{the central bank must lower } i \text{ (accommodating money).}
+\end{aligned}
+}
+\end{center}
+The necessity that \(i\) changes is exactly the statement that the composition of demand must shift from public to private spending, which requires an incentive shift (a lower cost of borrowing).
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section*{Question 3 (Chapter 5, Q7: Fiscal--monetary policy mix after the Great Financial Crisis)}
+\subsection*{Problem}
+The Great Financial Crisis left many nations with slow GDP growth rates and high levels of public debt. While most nations pursued a monetary policy, some nations simply lowered income taxes through expansionary fiscal policy.
+\begin{enumerate}[label=(\alph*)]
+  \item Illustrate the effect of such a policy mix on output.
+  \item Why did the policy mix differ for different nations in 2008?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: IS--LM comparative statics (two expansions and their joint effect)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Effect on output of monetary expansion plus tax cuts.}
+
+A cut in income taxes (holding spending fixed) increases disposable income and consumption demand, shifting the IS curve to the right:
+\[
+T\downarrow \ \Longrightarrow\ C\uparrow \ \Longrightarrow\ \text{IS shifts right}.
+\]
+An expansionary monetary policy increases real money supply \(\frac{M}{P}\), shifting LM to the right/down:
+\[
+\frac{M}{P}\uparrow \ \Longrightarrow\ i\downarrow\ \text{(for given }Y)\ \Longrightarrow\ \text{LM shifts right}.
+\]
+In the IS--LM diagram, the \emph{new equilibrium} is at the intersection of the new IS and new LM:
+\begin{itemize}[leftmargin=*]
+  \item IS right tends to increase \(Y\) and (absent LM shifts) increase \(i\).
+  \item LM right tends to increase \(Y\) and decrease \(i\).
+\end{itemize}
+Therefore, the unambiguous implication is
+\[
+\boxed{\,Y\ \text{increases.}\,}
+\]
+The effect on \(i\) is in general ambiguous and depends on the relative sizes of the two shifts:
+\[
+\boxed{\,i\ \text{may rise, fall, or remain roughly unchanged depending on the mix.}\,}
+\]
+In particular, if the central bank explicitly targets a low policy rate, then \(i\) remains (approximately) constant and monetary policy endogenously accommodates the money supply as output rises.
+
+\item \textbf{Why policy mixes differed across nations (2008).}
+
+Different countries faced different constraints and incentives, leading to different feasible mixes:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Monetary sovereignty:} countries with their own central bank and currency could cut policy rates, provide lender-of-last-resort support, and expand balance sheets; countries without full monetary sovereignty (e.g.\ in a currency union) had less direct control.
+  \item \textbf{Zero lower bound and transmission:} if nominal rates were already near zero and financial intermediation impaired, conventional monetary easing had limited marginal effect; fiscal policy (e.g.\ tax cuts) could be used more aggressively.
+  \item \textbf{Fiscal space / debt sustainability:} highly indebted governments faced higher borrowing costs and political constraints on deficits, limiting fiscal expansion; governments with more fiscal space could run larger deficits.
+  \item \textbf{Institutional and political constraints:} legal deficit rules, coalition politics, and differences in public preferences affected willingness to expand spending or cut taxes.
+  \item \textbf{Shock heterogeneity:} exposure to housing/financial shocks, banking-sector fragility, and trade exposure differed, affecting the magnitude and composition of required stabilization.
+\end{itemize}
+Thus the observed heterogeneity in mixes can be rationalized as different solutions to a constrained stabilization problem:
+\begin{align*}
+\boxed{
+  \begin{aligned}
+    &\text{Policy mix differs because countries differ in} \\&\text{monetary/fiscal capacity, constraints, and} \\
+    &\text{shock exposure.}
+  \end{aligned}
+}
+\end{align*}
+\end{enumerate}
+
+\subsubsection*{Method 2: Constraint-based stabilization logic (targets, instruments, and feasibility)}
+This method frames the issue as: \emph{what instruments were available to meet stabilization goals?}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Illustration via targets and instruments.}
+
+A common stabilization goal after the crisis was to raise output (reduce the output gap) while preventing a destabilizing increase in borrowing costs. Two main instruments:
+\[
+\text{Fiscal: }(G,T),\qquad \text{Monetary: }(i\ \text{or }M/P).
+\]
+A tax cut \(T\downarrow\) increases private disposable income and shifts aggregate demand up; monetary easing reduces \(i\) and supports interest-sensitive demand (investment, durable consumption). When used together, the policy package increases output through \emph{two} channels (demand shift + lower financing cost), making a larger increase in \(Y\) feasible than either instrument alone:
+\begin{align*}
+\boxed{
+  \begin{aligned}
+    &\text{Joint expansion (tax cuts + monetary easing)} \\
+    &\text{raises } Y \text{ more than single-instrument} \\
+    &\text{action, \textit{ceteris paribus}.}
+  \end{aligned}
+}
+\end{align*}
+
+\item \textbf{Why different nations chose different mixes.}
+
+Let a country face constraints:
+\[
+\text{Fiscal constraint: } \text{debt limits, market access, rules}, 
+\]
+\[
+\text{Monetary constraint: } \text{ZLB, currency regime, credibility}.
+\]
+If monetary policy is constrained (e.g.\ ZLB, impaired banking transmission), a government may rely more on fiscal tools. If fiscal policy is constrained (high debt, deficit rules), the country may rely more on monetary policy or structural measures. Therefore, different constraints imply different corner solutions:
+\[
+\boxed{\,\text{Mix heterogeneity arises because the feasible set of policies differs across countries.}\,}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section*{Question 4 (Chapter 6, Q1)}
+\subsection*{Problem}
+Using the information in this chapter, label each of the following statements true, false, or uncertain. Explain briefly.
+\begin{enumerate}[label=(\alph*)]
+  \item The nominal interest rate is measured in terms of goods; the real interest rate is measured in terms of money.
+  \item As long as expected inflation remains roughly constant, the movements in the real interest rate are roughly equal to the movements in the nominal interest rate.
+  \item When expected inflation increases, the real rate of interest falls.
+  \item The nominal policy interest rate is set by the central bank.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Definitions + Fisher equation}
+Let \(i\) denote the nominal interest rate, \(r\) the real interest rate, and \(\pi^e\) expected inflation.
+The (approximate) Fisher relation is
+\[
+r \approx i - \pi^e,
+\]
+and the exact relation is
+\[
+1+r = \frac{1+i}{1+\pi^e}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{False.}
+Nominal interest is measured in \emph{money} terms (dollar return per dollar lent). Real interest is measured in \emph{goods} terms (purchasing-power return). The statement reverses these:
+\[
+\boxed{\,\text{False. Nominal is in money units; real is in goods/purchasing-power units.}\,}
+\]
+
+\item \textbf{True (under constant \(\pi^e\)).}
+If \(\pi^e\) is roughly constant, then \(r \approx i - \pi^e\) implies changes satisfy
+\[
+\Delta r \approx \Delta i - \Delta \pi^e \approx \Delta i.
+\]
+Hence
+\[
+\boxed{\,\text{True: with roughly constant expected inflation, }\Delta r \approx \Delta i.\,}
+\]
+
+\item \textbf{Uncertain (depends on what happens to \(i\)).}
+From \(r \approx i - \pi^e\), holding \(i\) fixed implies
+\[
+\Delta \pi^e>0 \ \Longrightarrow\ \Delta r \approx -\Delta \pi^e < 0,
+\]
+so \(r\) falls. However, if \(i\) rises one-for-one with expected inflation (a Fisher effect), then \(r\) may remain unchanged:
+\[
+\Delta i \approx \Delta \pi^e \ \Longrightarrow\ \Delta r \approx 0.
+\]
+Therefore,
+\[
+\boxed{\,\text{Uncertain: if }i\text{ is fixed, }r\downarrow;\ \text{if }i\uparrow\text{ with }\pi^e,\ r\text{ may not fall.}\,}
+\]
+
+\item \textbf{True (in standard modern monetary frameworks).}
+Central banks set (or target) a short-term \emph{nominal} policy rate (e.g.\ an overnight/interbank rate), using open market operations and standing facilities to implement it. Thus
+\[
+\boxed{\,\text{True: the nominal policy interest rate is set/targeted by the central bank.}\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Concrete purchasing-power examples}
+Use a simple one-year lending example: lend \$1 today, receive \(1+i\) dollars next year. Let the price level rise by \(1+\pi\) (inflation \(\pi\)). Then the \emph{real} gross return in goods is
+\[
+\text{real gross return}=\frac{1+i}{1+\pi},
+\quad\text{so}\quad
+1+r=\frac{1+i}{1+\pi}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Nominal vs real units (shows statement (a) is false).}
+Nominal return \(1+i\) is in dollars. Real return depends on dividing by the price-level change \(1+\pi\), which converts dollars into goods. Hence real is in goods/purchasing power, not money units:
+\[
+\boxed{\,\text{(a) is false.}\,}
+\]
+
+\item \textbf{Constant expected inflation implies real and nominal move together (supports (b)).}
+Suppose \(\pi^e=2\%\) is constant. If \(i\) moves from \(3\%\) to \(4\%\), then approximate real rates move from
+\[
+r \approx 3\%-2\%=1\% \quad\text{to}\quad r \approx 4\%-2\%=2\%,
+\]
+so the change in \(r\) matches the change in \(i\) (about \(+1\%\)):
+\[
+\boxed{\,\text{(b) is true under constant }\pi^e.\,}
+\]
+
+\item \textbf{Expected inflation increase can reduce real rate if nominal does not adjust (clarifies (c)).}
+Fix \(i=3\%\). If expected inflation rises from \(2\%\) to \(4\%\), then
+\[
+r \approx 3\%-2\%=1\% \quad\text{to}\quad r \approx 3\%-4\%=-1\%,
+\]
+so \(r\) falls. But if the nominal rate rises from \(3\%\) to \(5\%\) alongside \(\pi^e\) rising from \(2\%\) to \(4\%\), then
+\[
+r \approx 3\%-2\%=1\% \quad\text{and}\quad r \approx 5\%-4\%=1\%,
+\]
+so \(r\) does \emph{not} fall. Hence:
+\[
+\boxed{\,\text{(c) is uncertain without specifying how }i\text{ responds.}\,}
+\]
+
+\item \textbf{Policy rate as a nominal rate (supports (d)).}
+Central banks announce and implement a nominal short-term policy rate (stated in percent per year). This is directly a nominal variable:
+\[
+\boxed{\,\text{(d) is true in the standard policy implementation sense.}\,}
+\]
+\end{enumerate}
+
+\end{document}

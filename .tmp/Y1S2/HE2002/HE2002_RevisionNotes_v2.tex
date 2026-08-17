@@ -1,0 +1,2615 @@
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{draftwatermark}
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{HE2002}
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+breakable,
+colback=green!5!white,
+colframe=green!40!black,
+colbacktitle=green!50!black,
+coltitle=white,
+fonttitle=\bfseries,
+title filled,
+boxed title style={
+size=small,
+top=2pt, bottom=2pt,
+left=6pt, right=6pt,
+arc=1pt, outer arc=1pt
+},
+boxrule=0.9pt,
+arc=1pt,
+left=8pt, right=8pt, top=10pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+breakable,
+colback=blue!3!white,
+colframe=blue!40!black,
+colbacktitle=blue!55!black,
+coltitle=white,
+fonttitle=\bfseries,
+title filled,
+boxed title style={
+size=small,
+top=2pt, bottom=2pt,
+left=6pt, right=6pt,
+arc=1pt, outer arc=1pt
+},
+boxrule=0.9pt,
+arc=1pt,
+left=8pt, right=8pt, top=10pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}{thm}
+
+\tcolorboxenvironment{identity}{
+enhanced,
+breakable,
+colback=green!5!white,
+colframe=green!60!black,
+fonttitle=\bfseries,
+boxrule=1pt,
+arc=3pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+enhanced,
+breakable,
+colback=red!5!white,
+colframe=red!60!black,
+fonttitle=\bfseries,
+boxrule=1pt,
+arc=3pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+
+\newtcolorbox{keyformula}[1][]{
+enhanced,
+breakable,
+colback=blue!5!white,
+colframe=blue!75!black,
+title=Key Formula,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{examplebox}[1][]{
+enhanced,
+breakable,
+colback=brown!5!white,
+colframe=brown!75!black,
+title=Worked Example,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+enhanced,
+breakable,
+colback=red!5!white,
+colframe=red!75!black,
+title=Common Mistake,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{policynote}[1][]{
+enhanced,
+breakable,
+colback=yellow!10!white,
+colframe=orange!75!black,
+title=Policy Application,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{examtip}[1][]{
+enhanced,
+breakable,
+colback=purple!5!white,
+colframe=purple!75!black,
+title=Exam Focus,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+%==================================================
+% TITLE / HEADER / FOOTER / WATERMARK
+%==================================================
+
+\title{%
+\vspace{-0.5cm}
+{\Large\bfseries \CourseCode\ \CourseName{} -- \DocType}
+}
+
+\author{Quantitative Research Society @ NTU}
+\date{\AcademicYear}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14.5pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU --- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+This document is provided for educational purposes and does not constitute an
+official question paper, answer key, or any formally authorised academic
+material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+pdfauthor={Quantitative Research Society, NTU},
+pdfsubject={\CourseName},
+pdfkeywords={macroeconomics, QRS@NTU, revision notes}
+}
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, structured around Lectures 5--11 and aligned to the closed-book final examination. The notes preserve the original template while adding model logic, derivations, diagrams, worked intuition, and an exam-priority map distinguishing short-answer material from likely MCQ-only content.
+\end{abstract}
+
+\vspace{0.5cm}
+\newpage
+\tableofcontents
+\newpage
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+\section*{Course Overview \& Topic Map}
+\addcontentsline{toc}{section}{Course Overview \& Topic Map}
+%====================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{6pt}
+
+\begin{tabularx}{\textwidth}{
+|>{\raggedright\arraybackslash}p{3.2cm}
+|>{\raggedright\arraybackslash}p{1.6cm}
+|>{\raggedright\arraybackslash}X
+|>{\raggedright\arraybackslash}p{1.8cm}|
+}
+\hline
+\textbf{Topic Area} & \textbf{Study Weeks} & \textbf{Key Concepts} & \textbf{ILOs} \\
+\hline
+Goods Market (closed economy) &
+Week 1 (13 Jan) &
+Goods-market equilibrium, consumption, investment, government spending, taxes, multiplier logic, and the demand side of output determination. &
+1,2 \\
+\hline
+Financial Market &
+Week 2 (20 Jan) &
+Money versus bonds, money demand, nominal and real interest rates, and central-bank control of the policy rate. &
+1,2 \\
+\hline
+IS--LM Model &
+Week 3 (27 Jan) &
+Joint equilibrium in goods and financial markets; IS relation; LM relation; short-run policy analysis. &
+1,2,4 \\
+\hline
+Extended IS--LM &
+Week 4 (3 Feb) &
+Risk premia, credit conditions, and the role of the financial system in shifting the effective borrowing rate. &
+1,2,4 \\
+\hline
+Labor Market &
+Week 5 (10 Feb) &
+Employment, unemployment, participation, wage setting, price setting, WS--PS diagram, natural rate of unemployment. &
+1,2 \\
+\hline
+Inflation and Phillips Curve &
+Week 6 (17 Feb) &
+Expected inflation, expectations-augmented Phillips curve, de-anchoring and re-anchoring of expectations, accelerationist Phillips curve. &
+2,4 \\
+\hline
+Assessment checkpoint &
+Week 7 (24 Feb) &
+Quiz 1 / consolidation of the short-run block and labour-market block. &
+1,2 \\
+\hline
+Recess Week &
+Recess &
+Catch-up, integration of IS--LM with the labour market, and preparation for the medium-run framework. &
+1,2 \\
+\hline
+IS--LM--PC Framework &
+Week 8 (10 Mar) &
+Output gap, Okun's law, inflation dynamics, medium-run convergence, natural rate of interest, fiscal consolidation, oil shocks, stagflation. &
+1,2,4 \\
+\hline
+Facts of Growth &
+Week 9 (17 Mar) &
+PPP, output per person versus output per worker, convergence, Malthusian trap, production function, capital accumulation versus technology. &
+3 \\
+\hline
+Economic Growth (I) &
+Week 10 (24 Mar) &
+Saving, capital accumulation, depreciation, steady state, transitional dynamics, golden-rule capital, human capital. &
+3 \\
+\hline
+Economic Growth (II) &
+Week 11 (31 Mar) &
+Technological progress, effective labour, balanced growth, steady state with technology, determinants of innovation, institutions. &
+3 \\
+\hline
+Economic Growth (III) \& Challenges &
+Week 12 (7 Apr) &
+Robots and unemployment, inequality, redistribution, Gini coefficient, climate change, carbon pricing. &
+3,4 \\
+\hline
+Revision \& exam preparation &
+Week 13 (14 Apr) &
+Cross-model synthesis across Lectures 5--11, graph revision, and distinction between short-answer analytical content and MCQ-only qualitative content. &
+1,2,3,4 \\
+\hline
+\end{tabularx}
+\end{center}
+
+\noindent
+This revision guide is organised by economic models and policy questions rather than by slide chronology, so that links between the labour market, inflation dynamics, macroeconomic stabilisation, and long-run growth remain explicit.
+
+\newpage
+
+%====================================================================
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+\subsection*{Structure of the Notes}
+
+These notes are designed to be used together with your lectures and tutorials. Each chapter is organised into:
+
+\begin{enumerate}
+\item \textbf{Core Theory} --- formal definitions, results and economic intuition.
+\item \textbf{Mathematical Framework} --- formulas, algebra and derivations.
+\item \textbf{Worked Examples} --- tutorial-style questions with full solutions.
+\item \textbf{Applications} --- policy or real-world interpretations where relevant.
+\item \textbf{Exam Focus} --- high-yield concepts, typical traps and checklist items.
+\end{enumerate}
+
+A good way to revise:
+\begin{itemize}
+\item First pass: read Core Theory + Definition/Theorem + Key Formula boxes.
+\item Second pass: attempt Worked Examples yourself \emph{before} checking solutions.
+\item Final pass: review Exam Focus and Common Mistake boxes in the week before the exam.
+\end{itemize}
+
+\subsection*{Colour and Box System (Legend)}
+
+The document uses a colour-coded system. Each box has a \textbf{name} at the top so you can quickly recognise its purpose:
+
+\begin{center}
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Colour} & \textbf{Box Name} & \textbf{Use This For} \\
+\hline
+\colorbox{green!5}{Green} & \textbf{Definition} & Precise concepts, variables, and model primitives to be used consistently throughout the course. \\
+\hline
+\colorbox{blue!3}{Blue} & \textbf{Theorem} & Core results and formal statements that structure the model logic (state assumptions and conclusions). \\
+\hline
+\colorbox{blue!5}{Blue} & \textbf{Key Formula} & Core equations and identities that you should memorise or be able to derive quickly. \\
+\hline
+\colorbox{brown!5}{Brown} & \textbf{Worked Example} & Fully worked questions. Try on your own before reading the solution. \\
+\hline
+\colorbox{red!5}{Red} & \textbf{Common Mistake} & Typical errors, misleading shortcuts and conceptual traps to avoid in exams. \\
+\hline
+\colorbox{yellow!10}{Yellow} & \textbf{Policy Application} & Real-world or policy-related interpretations to help build intuition and essay points. \\
+\hline
+\colorbox{purple!5}{Purple} & \textbf{Exam Focus} & High-yield checklists, ``must-know'' results and exam strategy tips. \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+When you print in black and white, you can still identify boxes by their \textbf{title text}:
+\begin{itemize}
+\item Look for the name at the top: \textit{Definition}, \textit{Theorem}, \textit{Key Formula}, \textit{Worked Example}, \textit{Common Mistake}, \textit{Policy Application}, \textit{Exam Focus}.
+\item In digital version, use the colour + name; in printed version, rely mainly on the name.
+\end{itemize}
+
+
+%==================================================
+% Main Notes
+%==================================================
+
+
+\input{HE2002/Chapters/ch01_goods_market}
+
+
+
+\newpage
+\input{HE2002/Chapters/ch02_financial_markets}
+
+\newpage
+\input{HE2002/Chapters/ch03_is_lm_model}
+
+
+\newpage
+\input{HE2002/Chapters/ch04_extended_is_lm}
+
+\newpage
+\section{The Labor Market}
+
+\subsection{Tour of the labour market}
+
+The labour market sits at the centre of the short-run to medium-run adjustment process. When firms increase production, they hire more workers; unemployment falls; wage pressure rises; firms raise prices; and higher prices feed back into wage demands. This wage--price interaction is the reason the labour market matters for macroeconomics beyond employment statistics.
+
+\begin{definition}{Labour-market categories}{}
+For measurement purposes, each person of working age is placed into one of three groups:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Employed:} worked full-time or part-time in the past week, or was temporarily absent from a job.
+\item \textbf{Unemployed:} did not work in the preceding week but actively looked for work.
+\item \textbf{Out of the labour force:} neither worked nor searched for work.
+\end{itemize}
+The \textbf{labour force} is the sum of employed and unemployed people.
+\end{definition}
+
+\begin{keyformula}
+\[
+\text{Unemployment rate}=\frac{\text{Unemployed}}{\text{Labour force}}
+=\frac{U}{N+U},
+\qquad
+\text{Participation rate}=\frac{\text{Labour force}}{\text{Population aged }16+}.
+\]
+\end{keyformula}
+
+\subsection{What movements in unemployment mean}
+
+High unemployment hurts workers in two ways:
+\begin{enumerate}[leftmargin=1.5em]
+\item employed workers face a higher probability of losing their jobs;
+\item unemployed workers face a lower probability of finding jobs.
+\end{enumerate}
+So unemployment is not only a stock measure; it summarizes underlying \emph{flows} into and out of employment.
+
+\begin{policynote}
+When unemployment is high, the labour market is weak on both margins. Job destruction is more likely, and job finding is slower. This is why recessions are especially damaging even before we study inflation or output.
+\end{policynote}
+
+\subsection{Wage determination}
+
+\begin{definition}{Reservation wage and bargaining power}{}
+The \textbf{reservation wage} is the wage that makes a worker indifferent between taking a job and remaining unemployed. Actual wages often exceed reservation wages because firms care about retention, morale, and effort. Workers with scarce skills or better outside options have more bargaining power.
+\end{definition}
+
+Two facts matter for wage determination:
+\begin{itemize}[leftmargin=1.5em]
+\item wages tend to exceed reservation wages;
+\item wages are higher when labour-market conditions are tighter, that is, when unemployment is lower.
+\end{itemize}
+
+\begin{definition}{Efficiency wages}{}
+Efficiency-wage theories argue that firms may deliberately pay wages above the bare minimum because higher wages improve productivity, reduce shirking, reduce turnover, or attract better workers.
+\end{definition}
+
+\begin{keyformula}
+\[
+W=P^eF(u,z).
+\]
+The aggregate nominal wage depends positively on the expected price level $P^e$, negatively on the unemployment rate $u$, and on a catch-all variable $z$ summarising institutions and policies that affect wage setting.
+\end{keyformula}
+
+\paragraph{Interpretation of each argument.}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Expected price level $P^e$:} workers and firms care about the real wage $W/P$. If prices are expected to be higher, workers ask for a higher nominal wage.
+\item \textbf{Unemployment rate $u$:} higher unemployment weakens worker bargaining power and makes it easier for firms to fill vacancies, so wage pressure falls.
+\item \textbf{Other factors $z$:} unemployment benefits, employment protection, minimum-wage arrangements, and bargaining institutions all shift wage setting at a given unemployment rate.
+\end{itemize}
+
+\subsection{Price determination}
+
+Lecture 5 uses a very simple production structure:
+\[
+Y=AN.
+\]
+Setting $A=1$ for simplicity gives $Y=N$. Then one extra unit of output requires one extra worker, so the marginal cost of producing one more unit is simply the nominal wage $W$.
+
+\begin{keyformula}
+\[
+P=(1+m)W,
+\]
+where $m$ is the markup set by firms over marginal cost.
+\end{keyformula}
+
+Thus firms determine the real wage they are willing to pay:
+\[
+\frac{W}{P}=\frac{1}{1+m}.
+\]
+
+\subsection{Wage setting, price setting, and the natural rate}
+
+If actual and expected prices coincide, $P^e=P$, then the wage-setting equation becomes
+\[
+\frac{W}{P}=F(u,z).
+\]
+This is the \textbf{WS relation}. It is downward sloping in unemployment: high unemployment lowers the real wage chosen in wage setting.
+
+The price-setting equation gives
+\[
+\frac{W}{P}=\frac{1}{1+m}.
+\]
+This is the \textbf{PS relation}. It is horizontal because the real wage implied by firm pricing depends on the markup, not on unemployment directly.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (8.2,0) node[right] {Unemployment rate, $u$};
+\draw[->] (0,0) -- (0,5.2) node[above] {Real wage, $W/P$};
+
+\draw[thick,blue!70!black] (0.7,4.4) .. controls (2.2,3.47) and (4.3,2.7) .. (7.1,1.1);
+\node[blue!70!black] at (6.9,1.6) {WS};
+
+\draw[thick,red!70!black] (0,2.3) -- (7.4,2.3);
+\node[red!70!black] at (6.9,2.6) {PS};
+
+\draw[dashed] (4.8,0) -- (4.8,2.3);
+\fill (4.8,2.3) circle (2pt);
+\node[above right] at (4.8,2.3) {$A$};
+\node[below] at (4.8,0) {$u_n$};
+\node[left] at (0,2.3) {$1/1+m$}
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}{Natural rate of unemployment}{}
+The natural rate of unemployment $u_n$ is the unemployment rate at which the real wage chosen in wage setting equals the real wage implied by price setting:
+\[
+F(u_n,z)=\frac{1}{1+m}.
+\]
+At this point, the labour market is in equilibrium in the sense of the WS--PS model.
+\end{theorem}
+
+
+\newpage
+\subsection{Comparative statics}
+
+\paragraph{Higher unemployment benefits or stronger worker protection: $z \uparrow$.}
+At a given unemployment rate, wage setters demand a higher real wage. WS shifts up, so the natural rate of unemployment rises.
+
+\paragraph{Higher markup: $m \uparrow$.}
+A higher markup lowers the real wage firms are willing to pay:
+\[
+\frac{1}{1+m}\downarrow.
+\]
+PS shifts down, so the natural rate of unemployment rises.
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+You should be able to do the following quickly:
+\begin{itemize}[leftmargin=1.5em]
+\item explain why WS slopes downward and PS is horizontal;
+\item show how $z \uparrow$ raises $u_n$ through an upward shift of WS;
+\item show how $m \uparrow$ raises $u_n$ through a downward shift of PS;
+\item explain why a higher natural rate of unemployment means a lower natural level of employment and output when $Y=N$.
+\end{itemize}
+\end{examtip}
+
+\begin{commonmistake}
+Do not say that a fall in unemployment directly shifts PS. Price setting determines the real wage through the markup. Unemployment affects the \emph{wage-setting} side, not the firm markup relation itself.
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example: Linear wage-setting form}]
+Suppose
+\[
+F(u,z)=1-\alpha u+z.
+\]
+Then the natural rate satisfies
+\[
+1-\alpha u_n+z=\frac{1}{1+m}.
+\]
+Solving,
+\[
+u_n=\frac{1+z-\frac{1}{1+m}}{\alpha}.
+\]
+For small markups, $\frac{1}{1+m}\approx 1-m$, so
+\[
+u_n\approx \frac{m+z}{\alpha}.
+\]
+This approximation is exactly the form used in Lecture 6.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Background assumed from IS--LM}]
+Lecture 5 is where medium-run analysis starts. In Lecture 7, a shock that raises the markup also raises the natural rate of unemployment and lowers potential output. Keep this channel in mind when studying oil-price shocks.
+\end{examtip}
+
+\newpage
+
+
+\section{The Phillips Curve, the Natural Rate of Unemployment, and Inflation}
+
+\subsection{From wage setting to inflation}
+
+Lecture 6 keeps the wage-setting and price-setting structure from Lecture 5 but no longer assumes that expected and actual prices are the same at the moment wages are set.
+
+Assume the wage-setting function is linear:
+\[
+F(u,z)=1-\alpha u+z,
+\]
+so
+\[
+W=P^e(1-\alpha u+z).
+\]
+Combine this with firm pricing,
+\[
+P=(1+m)W,
+\]
+to obtain
+\[
+P=P^e(1+m)(1-\alpha u+z).
+\]
+
+\begin{keyformula}
+In inflation form, the core relation is
+\[
+\pi=\pi^e+(m+z)-\alpha u.
+\]
+With time subscripts:
+\[
+\pi_t=\pi_t^e+(m+z)-\alpha u_t.
+\]
+\end{keyformula}
+
+\paragraph{Interpretation.}
+\begin{itemize}[leftmargin=1.5em]
+\item Higher expected inflation raises actual inflation one-for-one.
+\item Higher markup $m$ raises inflation because firms set higher prices over wage costs.
+\item Higher wage-setting pressure $z$ raises inflation.
+\item Higher unemployment lowers inflation by weakening wage growth.
+\end{itemize}
+
+
+\newpage
+\subsection{The original Phillips curve}
+
+If expected inflation is anchored at a constant value $\bar{\pi}$, then
+\[
+\pi_t=\bar{\pi}+(m+z)-\alpha u_t.
+\]
+This is the original Phillips curve: a negative relation between unemployment and inflation.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.8cm]
+\draw[->] (0,0) -- (8.4,0) node[right] {Unemployment rate, $u$};
+\draw[->] (0,-0.5) -- (0,5.3) node[above] {Inflation, $\pi$};
+\draw[thick,blue!70!black] (0.8,4.5) -- (7.3,0.9);
+\node[blue!70!black] at (6.6,2) {PC};
+\draw[dashed] (4.9,0) -- (4.9,2.25);
+\draw[dashed] (0,2.25) -- (4.9,2.25);
+\fill (4.9,2.25) circle (2pt);
+\node[below] at (4.9,0) {$u_n$};
+\node[left] at (0,2.25) {$\pi^e$};
+\end{tikzpicture}
+\end{center}
+
+The early interpretation was seductive: policymakers seemed to face a stable trade-off between inflation and unemployment. But that interpretation failed once expectations changed.
+
+\subsection{Why the original Phillips curve vanished}
+
+\begin{definition}{Anchored versus de-anchored expectations}{}
+Inflation expectations are \textbf{anchored} when people expect inflation to remain around a stable reference value, such as the central bank's target. Expectations are \textbf{de-anchored} when recent inflation feeds strongly into future inflation expectations.
+\end{definition}
+
+Lecture 6 uses the expectation rule
+\[
+\pi_t^e=(1-\theta)\bar{\pi}+\theta \pi_{t-1}.
+\]
+Here $\theta$ measures how much last year's inflation affects expected inflation this year.
+
+\begin{itemize}[leftmargin=1.5em]
+\item If $\theta=0$, expectations are fully anchored and we are back to the original Phillips curve.
+\item If $\theta>0$, inflation depends partly on last year's inflation.
+\item If $\theta=1$, expected inflation is fully backward-looking.
+\end{itemize}
+
+Substituting expectations into the Phillips curve gives
+\[
+\pi_t=[(1-\theta)\bar{\pi}+(m+z)] + \theta \pi_{t-1}-\alpha u_t.
+\]
+
+\subsection{Accelerationist Phillips curve}
+
+When $\theta=1$,
+\[
+\pi_t-\pi_{t-1}=(m+z)-\alpha u_t.
+\]
+So unemployment affects \emph{changes in inflation}, not the level of inflation. Low unemployment then implies rising inflation over time rather than a one-off increase in the inflation rate.
+
+\newpage
+\begin{keyformula}[title={Key Formula: Accelerationist Phillips Curve}]
+\[
+\Delta \pi_t=(m+z)-\alpha u_t.
+\]
+When expectations are fully adaptive, unemployment below the natural rate leads to \emph{accelerating} inflation; unemployment above the natural rate leads to \emph{decelerating} inflation.
+\end{keyformula}
+
+\begin{commonmistake}
+Do not say ``low unemployment causes high inflation'' without qualifying the expectations regime. Under anchored expectations, low unemployment raises the \emph{level} of inflation relative to the anchor. Under the accelerationist Phillips curve, low unemployment raises the \emph{change} in inflation.
+\end{commonmistake}
+
+\subsection{Re-anchoring of expectations}
+
+From the early 1980s onward, many central banks emphasised low and stable inflation. By the mid-1990s, expectations in the United States were close to re-anchored around roughly 2\%. In the lecture's interpretation, the Phillips relation therefore returned to something closer to:
+\[
+\pi_t=\bar{\pi}+(m+z)-\alpha u_t.
+\]
+The estimated line shown in the slides for 1996--2018 is
+\[
+\pi_t=2.8\%-0.16u_t.
+\]
+
+\subsection{Phillips curve and the natural rate}
+
+By definition, the natural rate is the unemployment rate at which actual inflation equals expected inflation. Set $\pi_t=\pi_t^e$ in
+\[
+\pi_t=\pi_t^e+(m+z)-\alpha u_t
+\]
+to obtain
+\[
+u_n=\frac{m+z}{\alpha}.
+\]
+
+Substituting back gives the most useful form of the Phillips curve:
+\[
+\pi_t-\pi_t^e=-\alpha(u_t-u_n).
+\]
+
+\begin{theorem}{Phillips curve around the natural rate}{}
+\[
+\pi_t-\pi_t^e=-\alpha(u_t-u_n).
+\]
+Therefore:
+\begin{itemize}[leftmargin=1.5em]
+\item if $u_t=u_n$, inflation equals expected inflation;
+\item if $u_t<u_n$, inflation is higher than expected;
+\item if $u_t>u_n$, inflation is lower than expected.
+\end{itemize}
+\end{theorem}
+
+\begin{examplebox}[title={Worked Example: Rough estimate of the natural rate}]
+Suppose the fitted Phillips relation for 1996--2018 is
+\[
+\pi_t=2.8\%-0.16u_t
+\]
+and expected inflation is anchored at 2\%. The natural rate is the unemployment rate at which $\pi_t=2\%$:
+\[
+2 = 2.8 - 0.16u_n
+\]
+so
+\[
+0.16u_n=0.8
+\qquad\Rightarrow\qquad
+u_n=5.0\%.
+\]
+\end{examplebox}
+
+\subsection{Oil prices and the Phillips curve}
+
+If an oil-price increase raises markups, then $m$ rises. This:
+\begin{enumerate}[leftmargin=1.5em]
+\item shifts the Phillips curve upward;
+\item raises the natural rate of unemployment;
+\item later lowers potential output once we map unemployment into output.
+\end{enumerate}
+This is the bridge to the stagflation analysis in Lecture 7.
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+The most examinable analytical moves are:
+\begin{itemize}[leftmargin=1.5em]
+\item derive $\pi_t=\pi_t^e+(m+z)-\alpha u_t$ from wage and price setting;
+\item explain the role of expected inflation;
+\item distinguish anchored expectations, de-anchoring, and re-anchoring;
+\item move from $\pi_t=\pi_t^e+(m+z)-\alpha u_t$ to $\pi_t-\pi_t^e=-\alpha(u_t-u_n)$.
+\end{itemize}
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: Likely MCQ-style recognition}]
+Historically:
+\begin{itemize}[leftmargin=1.5em]
+\item 1960s: the original Phillips curve appeared stable;
+\item 1970s--1980s: expectations became de-anchored and the accelerationist view became more relevant;
+\item mid-1990s onward: expectations became more re-anchored around low inflation.
+\end{itemize}
+Know the logic, not every date.
+\end{examtip}
+
+\newpage
+
+
+\section{Lecture 7: From the Short to the Medium Run --- The IS--LM--PC Model}
+
+\subsection{Building the three blocks}
+
+Lecture 7 combines the demand side from IS--LM with the inflation side from the Phillips curve.
+
+\begin{keyformula}[title={Key Formula: IS relation used in Lecture 7}]
+\[
+Y=C(Y-T)+I(Y,r+x)+G.
+\]
+For given fiscal policy and risk premium, a lower real policy rate $r$ raises equilibrium output.
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Phillips curve in unemployment form}]
+\[
+\pi_t-\pi_t^e=-\alpha(u_t-u_n).
+\]
+\end{keyformula}
+
+The labour-market side is naturally expressed in unemployment, but the IS side is naturally expressed in output. We therefore need a bridge from unemployment to output.
+
+\subsection{Okun's law as the bridge}
+
+By definition,
+\[
+u=\frac{U}{L}=\frac{L-N}{L}=1-\frac{N}{L}.
+\]
+So
+\[
+N=L(1-u).
+\]
+With the lecture's simplifying assumption $Y=N$,
+\[
+Y=L(1-u).
+\]
+At the natural rate,
+\[
+Y_n=L(1-u_n).
+\]
+Subtracting gives
+\[
+Y-Y_n=-L(u-u_n).
+\]
+
+\begin{theorem}{Okun-type relation used in the course}{}
+\[
+Y-Y_n=-L(u-u_n).
+\]
+Hence:
+\begin{itemize}[leftmargin=1.5em]
+\item $u=u_n \iff Y=Y_n$;
+\item $u>u_n \iff Y<Y_n$ (negative output gap);
+\item $u<u_n \iff Y>Y_n$ (positive output gap).
+\end{itemize}
+\end{theorem}
+
+Substitute this into the Phillips curve:
+\[
+\pi-\pi^e=\frac{\alpha}{L}(Y-Y_n).
+\]
+If expectations are anchored at the central bank's target $\bar{\pi}$, then
+\[
+\pi-\bar{\pi}=\frac{\alpha}{L}(Y-Y_n).
+\]
+
+\subsection{Output and inflation in the short run}
+
+The Phillips curve is now upward sloping in output space: output above potential means inflation above target; output below potential means inflation below target.
+
+\begin{center}
+\begin{tikzpicture}[x=0.9cm,y=0.9cm]
+% Left panel IS-LM
+\begin{scope}[shift={(0,0)}]
+\draw[->] (0,0) -- (6.5,0) node[right] {Output};
+\draw[->] (0,0) -- (0,4.8) node[above] {Real rate, $r$};
+\draw[thick,blue!70!black] (0.7,4.2) .. controls (1.0,3.4) and (3.8,2.2) .. (5.8,1.2);
+\node[blue!70!black] at (5.6,1.7) {IS};
+\draw[thick,red!70!black] (0,2.2) -- (5.9,2.2);
+\node[red!70!black] at (5.5,2.45) {LM};
+\node[left] at (0,2.2) {r}
+\fill (3.7,2.2) circle (2pt);
+\node[above right] at (4,2.2) {$A$};
+\draw[dashed] (3.7,0) -- (3.7,2.2);
+\node[below] at (3.7,0) {$Y$};
+\end{scope}
+
+% Right panel PC
+\begin{scope}[shift={(8.5,0)}]
+\draw[->] (0,0) -- (6.5,0) node[right] {Output};
+\draw[->] (0,0) -- (0,4.8) node[above] {Inflation rate minus target};
+\draw[thick,blue!70!black] (0.9,0.8) .. controls (2.0,1.1) and (3.7,2.0) .. (5.5,4.0);
+\node[blue!70!black] at (5.6,4.1) {PC};
+\draw[thin,black!70!black] (0,1.45) -- (6.5,1.45);
+\node[left] at (0,2.45) {$\pi-\bar{\pi}$};
+\node[left] at (0,1.45) {0}
+\draw[dashed] (2.4,0) -- (2.4,1.45);
+\draw[dashed] (0,1.45) -- (2.4,1.45);
+\fill (3.9,2.45) circle (2pt);
+\node[above right] at (4.2,2.45) {$A$};
+\draw[dashed] (3.9,0) -- (3.9,2.45);
+\draw[dashed] (0,2.45) -- (3.9,2.45);
+\node[below] at (2.4,0) {$Y_n$};
+\node[below] at (3.9,0) {$Y$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+If the central bank chooses a low real rate, output rises above potential and inflation rises above target. That is the short-run overheating case highlighted in the lecture.
+
+\subsection{From the short run to the medium run}
+
+Suppose the economy starts with $Y>Y_n$ and $\pi>\bar{\pi}$. If the central bank keeps the real rate unchanged:
+\begin{itemize}[leftmargin=1.5em]
+\item inflation remains above target;
+\item expectations may eventually become de-anchored;
+\item the central bank therefore has a reason to react.
+\end{itemize}
+
+So the central bank raises the real policy rate. Output falls back toward potential, and inflation falls back toward target.
+
+\begin{definition}{Natural rate of interest}{}
+The \textbf{natural} or \textbf{neutral} real interest rate, denoted $r_n$, is the real rate consistent with
+\[
+Y=Y_n,\qquad u=u_n,\qquad \pi=\bar{\pi}.
+\]
+At this rate, the economy is at medium-run equilibrium with stable inflation.
+\end{definition}
+
+\newpage
+\begin{keyformula}[title={Key Formula: Medium-run equilibrium}]
+\[
+Y=Y_n,\qquad u=u_n,\qquad \pi=\bar{\pi},\qquad r=r_n.
+\]
+The real borrowing rate faced by firms is then $r_n+x$, and the nominal rate is
+\[
+i=r+\pi^e=r_n+\bar{\pi}.
+\]
+\end{keyformula}
+
+\begin{policynote}
+A boom does not stay costless in the medium run. If output is above potential, inflation pressure builds. To stabilise inflation, the central bank must eventually engineer slower activity, and in the lecture's phrasing the initial boom must be followed by a recession.
+\end{policynote}
+
+\subsection{Money neutrality in the medium run}
+
+In medium-run steady state, Lecture 7 writes money-market equilibrium as
+\[
+\frac{M}{P}=Y_nL(r+\bar{\pi}).
+\]
+If $Y_n$, $r_n$, and $\bar{\pi}$ are constant, real money demand is constant. Therefore real money supply must also be constant, which means the price level grows at the same rate as nominal money.
+
+If nominal money grows at rate $g_M$, then
+\[
+\pi=g_M,\qquad i=r_n+g_M.
+\]
+
+\begin{theorem}{Neutrality of money in the medium run}{}
+A change in money-growth changes inflation and nominal interest rates in the medium run, but it does not permanently change real output, unemployment, or the real interest rate.
+\end{theorem}
+
+\subsection{Complications: the zero lower bound and deflation spirals}
+
+The smooth adjustment story can fail. Suppose output is far below potential, so inflation is very low or even negative. The central bank would like to reduce the real rate sharply, but the nominal interest rate cannot easily go below zero.
+
+Since
+\[
+r=i-\pi,
+\]
+if $i=0$ and inflation is negative, then $r=-\pi>0$. Thus deflation \emph{raises} the real rate when the nominal rate is stuck at zero. Higher real rates depress output further, which produces more deflation. This is the logic of the deflation spiral.
+
+\begin{commonmistake}
+Do not say that a zero nominal rate implies easy monetary policy in all circumstances. If inflation is negative enough, the real rate can still be too high.
+\end{commonmistake}
+
+\subsection{Fiscal consolidation revisited}
+
+Suppose the economy starts at medium-run equilibrium and the government raises taxes to reduce its deficit.
+
+\paragraph{Short run.}
+Higher taxes reduce disposable income and shift IS left. At the initial real rate, output falls below potential and inflation falls below target. The economy enters recession.
+
+\paragraph{Medium run.}
+Because output is below potential and inflation is weak, the central bank lowers the real policy rate. The economy moves back to $Y_n$, but at a lower equilibrium real rate than before.
+
+\begin{examplebox}[title={Worked Example: Short-run versus medium-run effect of higher taxes}]
+Initially, the economy is at
+\[
+Y=Y_n,\qquad r=r_n,\qquad \pi=\bar{\pi}.
+\]
+Now let $T$ rise.
+\begin{enumerate}[leftmargin=1.5em]
+\item IS shifts left, so at the original $r_n$ output falls to $Y'<Y_n$.
+\item Because $Y'<Y_n$, inflation falls below target.
+\item The central bank lowers $r$ until output returns to $Y_n$.
+\end{enumerate}
+Result: output falls in the short run, but returns to potential in the medium run; the medium-run real interest rate is lower.
+\end{examplebox}
+
+\begin{policynote}
+The lecture's important composition result is that in the medium run fiscal consolidation lowers consumption but raises investment through the lower interest rate. Output returns to potential, but its composition changes.
+\end{policynote}
+
+\subsection{Oil-price increase and stagflation}
+
+An increase in the real price of oil works like an increase in the markup $m$.
+
+\begin{enumerate}[leftmargin=1.5em]
+\item In the labour market, PS shifts down, so the natural rate of unemployment rises.
+\item Since $u_n$ rises, potential output $Y_n$ falls.
+\item In output--inflation space, the PC shifts upward because for any given output level inflation pressure is now higher.
+\end{enumerate}
+
+If the central bank does nothing, the economy sits at the old output level but now with inflation above target. To prevent inflation from drifting upward and expectations from de-anchoring, the central bank raises the real rate. Output must then fall toward the new, lower potential level.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7.5,0) node[right] {Output};
+\draw[->] (0,0) -- (0,5.2) node[above] {$\pi-\bar{\pi}$};
+
+\draw[thick,blue!70!black] (0.7,0.8) .. controls (2.0,1.0) and (3.4,1.7) .. (6.0,3.5);
+\node[blue!70!black] at (5.6,3.8) {PC};
+
+\draw[thick,red!70!black] (0.7,1.6) .. controls (2.0,1.9) and (3.4,2.6) .. (6.0,4.4);
+\node[red!70!black] at (5.6,4.6) {PC$'$};
+
+\draw[dashed] (3.2,0) -- (3.2,1.69);
+\draw[dashed] (2.3,0) -- (2.3,1.19);
+\node[below] at (3.2,0) {$Y_n$};
+\node[below] at (2.3,0) {$Y_n'$};
+
+\fill (3.2,1.71) circle (2pt);
+\node[above right] at (3.2,2.15) {$A'$};
+\fill (2.3,1.25) circle (2pt);
+\node[above left] at (2.3,1.15) {$A''$};
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}{Stagflation}{}
+\textbf{Stagflation} is the combination of lower output and higher inflation. A permanent oil-price increase generates stagflation along the adjustment path: inflation jumps first, then policy tightening pushes output down toward a lower potential level.
+\end{definition}
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+For Lecture 7, you should be able to tell a complete story in words:
+\begin{enumerate}[leftmargin=1.5em]
+\item identify the shock;
+\item state which curve shifts;
+\item describe the short-run outcome at the original policy rate;
+\item explain why the central bank reacts;
+\item state the medium-run equilibrium.
+\end{enumerate}
+This applies especially to fiscal consolidation and oil-price shocks.
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: Likely conceptual / recognition}]
+Know the logic of:
+\begin{itemize}[leftmargin=1.5em]
+\item deflation traps;
+\item zero lower bound;
+\item money neutrality in the medium run.
+\end{itemize}
+These can appear as explanation-based MCQs even if the algebra is light.
+\end{examtip}
+
+\newpage
+
+
+\section{The Facts of Growth}
+
+\subsection{Why growth matters}
+
+Growth is the sustained increase in aggregate output over time. In long-run macroeconomics, what matters for living standards is not just the level of GDP, but how output per person and output per worker evolve over time.
+
+\begin{definition}{Standard of living}{}
+When comparing living standards across time or across countries, the relevant measure is \textbf{output per person}. When analysing production efficiency, the relevant measures are often \textbf{output per worker} or \textbf{output per hour worked}.
+\end{definition}
+
+Lecture 8 emphasises a simple but powerful point: the welfare effects of long-run growth dominate the welfare effects of short-run fluctuations.
+
+\subsection{PPP and international comparisons}
+
+Market exchange rates can give a misleading impression of relative living standards because prices differ systematically across countries. For cross-country comparisons, we therefore use \textbf{purchasing power parity (PPP)} numbers.
+
+\begin{definition}{Purchasing power parity (PPP)}{}
+PPP adjusts national income or expenditure data using a common set of prices, so that differences in measured income reflect differences in quantities rather than differences in local price levels.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Exchange-rate comparison versus PPP}]
+Suppose the average student in Japan buys 60 units of food at \yen 600 each and 80 transportation services at \yen 170 each. Monthly Japanese consumption is
+\[
+600\times 60 + 170\times 80 = 49{,}600 \text{ yen}.
+\]
+
+Suppose the average student in China buys 50 units of food at RMB15 each and 100 transportation services at RMB3 each. Monthly Chinese consumption is
+\[
+15\times 50 + 3\times 100 = 1{,}050 \text{ yuan}.
+\]
+
+If the market exchange rate is 1 yuan = 17 yen, Chinese consumption converted at market exchange rates is
+\[
+1{,}050\times 17 = 17{,}850 \text{ yen}.
+\]
+
+But if we value the Chinese consumption bundle at Japanese prices, PPP consumption is
+\[
+600\times 50 + 170\times 100 = 47{,}000 \text{ yen}.
+\]
+
+So relative living standards differ enormously depending on whether we use market exchange rates or PPP. This is why PPP is preferred for standard-of-living comparisons.
+\end{examplebox}
+
+\subsection{Stylised facts about long-run growth}
+
+Lecture 8 highlights several broad empirical patterns:
+
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{Sustained increases in output per person are historically recent.}
+For much of human history, especially during the Malthusian era, output per person was roughly stagnant.
+
+\item \textbf{Output per person rose strongly after 1950 in rich countries.}
+The U.S. series illustrates a dramatic long-run rise in GDP per person.
+
+\item \textbf{Convergence is more visible among rich countries than globally.}
+Among OECD economies, countries that started poorer in 1950 generally grew faster. Across a broader world sample, the pattern is weaker.
+
+\item \textbf{Growth experiences differ sharply across regions.}
+Some Asian economies displayed strong catch-up growth, while many poor countries, especially those facing conflict or weak institutions, did not converge.
+\end{enumerate}
+
+\begin{definition}{Convergence}{}
+\textbf{Convergence} means poorer economies tending to grow faster than richer ones, thereby catching up in levels of output per person.
+\end{definition}
+
+\begin{definition}{Malthusian trap}{}
+A \textbf{Malthusian trap} is a regime in which technological progress is too weak to generate sustained growth in output per person, so living standards remain broadly stagnant over long periods.
+\end{definition}
+
+\subsection{A primer on the production side of growth}
+
+Lecture 8 introduces the aggregate production function:
+\[
+Y=F(K,N).
+\]
+
+\begin{definition}{Constant returns to scale}{}
+The production function exhibits \textbf{constant returns to scale} if scaling all inputs by the same factor scales output by the same factor:
+\[
+xY=F(xK,xN).
+\]
+\end{definition}
+
+With constant returns to scale,
+\[
+\frac{Y}{N}=F\!\left(\frac{K}{N},1\right).
+\]
+So output per worker depends on capital per worker.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7.8,0) node[right] {Capital per worker, $K/N$};
+\draw[->] (0,0) -- (0,5.2) node[above] {Output per worker, $Y/N$};
+
+\draw[thick,blue!70!black] (0.5,0.6) .. controls (1.8,2.4) and (3.1,3.5) .. (7.0,4.5);
+\node[blue!70!black] at (6.5,3.7) {$f(K/N)$};
+
+\draw[thick,red!70!black,dashed] (0.5,1.2) .. controls (1.8,3.0) and (3.1,4.1) .. (7.0,5.0);
+\node[red!70!black] at (6.2,5.05) {$f'(K/N)$};
+\end{tikzpicture}
+\end{center}
+
+The lower curve represents the original production function; the dashed curve shows what an improvement in technology does. Growth in output per worker can come from:
+\begin{itemize}[leftmargin=1.5em]
+\item moving \emph{along} a given production function through higher capital per worker;
+\item shifting the entire production function upward through technological progress.
+\end{itemize}
+
+\begin{theorem}{Source-of-growth result in Lecture 8}{}
+Output per worker can rise because capital per worker rises or because technology improves. However, because of decreasing returns to capital, capital accumulation alone cannot sustain growth in output per worker forever. Sustained long-run growth requires technological progress.
+\end{theorem}
+
+\begin{commonmistake}
+Do not equate GDP growth with growth in living standards. Population growth can make GDP rise even when GDP per person changes little.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+Be ready to explain:
+\begin{itemize}[leftmargin=1.5em]
+\item why PPP is preferred to market exchange rates for cross-country living-standard comparisons;
+\item what convergence means and why it is not universal;
+\item why technological progress shifts the production function while capital accumulation moves the economy along it.
+\end{itemize}
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: Likely conceptual / recognition}]
+The historical facts --- the Malthusian era, post-1950 acceleration, OECD convergence, and divergent African growth experiences --- are often easier to test in conceptual or multiple-choice form than in long derivations.
+\end{examtip}
+
+\newpage
+
+
+\section{Saving, Capital Accumulation, and Output}
+
+\subsection{The core feedback loop}
+
+Lecture 9 formalises the circular relation:
+\[
+K \Rightarrow Y \Rightarrow S \Rightarrow I \Rightarrow \Delta K.
+\]
+Capital determines output, and output in turn determines saving and investment, which determine future capital.
+
+Assume no technological progress and a constant labour force $N$. Let
+\[
+y_t=\frac{Y_t}{N},\qquad k_t=\frac{K_t}{N}.
+\]
+Then
+\[
+y_t=f(k_t).
+\]
+
+\subsection{Saving and capital accumulation}
+
+The lecture makes three simplifying assumptions:
+\begin{enumerate}[leftmargin=1.5em]
+\item the economy is closed;
+\item public saving is zero, so $T-G=0$;
+\item private saving is proportional to income: $S=sY$.
+\end{enumerate}
+Thus
+\[
+I_t=sY_t.
+\]
+
+Capital evolves according to
+\[
+K_{t+1}=(1-\delta)K_t+I_t.
+\]
+Dividing by $N$ gives
+\[
+k_{t+1}-k_t=sy_t-\delta k_t.
+\]
+Since $y_t=f(k_t)$,
+\[
+k_{t+1}-k_t=sf(k_t)-\delta k_t.
+\]
+
+\begin{keyformula}
+\[
+k_{t+1}-k_t=sf(k_t)-\delta k_t.
+\]
+Capital per worker rises when investment per worker exceeds depreciation per worker, and falls when investment per worker is less than depreciation.
+\end{keyformula}
+
+\newpage
+\subsection{Steady state}
+
+\begin{definition}{Steady state without technological progress}{}
+The economy is in a \textbf{steady state} when capital per worker and output per worker are constant over time. In steady state,
+\[
+k_{t+1}=k_t=k^*,
+\]
+so
+\[
+sf(k^*)=\delta k^*.
+\]
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7.8,0) node[right] {Capital per worker, $k=K/N$};
+\draw[->] (0,0) -- (0,5.4) node[above] {Per worker};
+
+\draw[thick,blue!70!black] (0.4,0.6) .. controls (1.5,2.8) and (3.0,3.9) .. (7.0,4.7);
+\node[blue!70!black] at (6.7,4.95) {$f(k)$};
+
+\draw[thick,green!60!black] (0.4,0.5) .. controls (1.5,2) and (3.0,2.8) .. (7.0,3.1);
+\node[green!60!black] at (6.4,3.35) {$sf(k)$};
+
+\draw[thick,red!70!black] (0.2,0.2) -- (7.1,4.9);
+\node[red!70!black] at (6.8,4.35) {$\delta k$};
+
+\fill (3.7,2.6) circle (2pt);
+\draw[dashed] (3.7,0) -- (3.7,2.6);
+\node[below] at (3.7,0) {$k^*$};
+\end{tikzpicture}
+\end{center}
+
+When $sf(k)>\delta k$, capital per worker rises. When $sf(k)<\delta k$, it falls. At the intersection, the economy is at steady state.
+
+
+\subsection{Effects of a higher saving rate}
+
+A higher saving rate shifts the $sf(k)$ curve upward. The new steady state has higher capital per worker and higher output per worker.
+
+\begin{theorem}{Level effect of the saving rate}{}
+In the model without technological progress, a higher saving rate raises the \emph{steady-state level} of output per worker, but does not raise the \emph{steady-state growth rate} of output per worker. The long-run growth rate of output per worker remains zero.
+\end{theorem}
+
+This means an increase in saving produces a temporary period of higher growth during the transition, not permanently faster growth forever.
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+A classic Solow-style answer has four steps:
+\begin{enumerate}[leftmargin=1.5em]
+\item draw $sf(k)$ and $\delta k$;
+\item shift $sf(k)$ upward when $s$ rises;
+\item show the new higher steady-state $k^*$;
+\item explain that growth is temporarily higher during transition but returns to zero in steady state.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Golden-rule capital}
+
+People care about consumption, not output alone. In steady state,
+\[
+c^*=y^*-\delta k^*.
+\]
+The \textbf{golden-rule} level of capital is the capital stock that maximises steady-state consumption per worker.
+
+\begin{definition}{Golden-rule level of capital}{}
+The \textbf{golden-rule} level of capital is the steady-state capital stock associated with the saving rate that yields the highest level of steady-state consumption per worker.
+\end{definition}
+
+If the economy saves too little, raising $s$ increases both output and consumption in steady state. If it saves too much, raising $s$ still raises output, but it lowers steady-state consumption because too much output is diverted into maintaining an excessively large capital stock.
+
+\begin{commonmistake}
+The golden rule does \emph{not} mean the level of capital that maximises output per worker. It is the level that maximises \emph{consumption per worker in steady state}.
+\end{commonmistake}
+
+\subsection{Worked magnitudes under the square-root production function}
+
+Lecture 9 uses
+\[
+Y=K^{1/2}N^{1/2},
+\qquad\text{so}\qquad
+y=\sqrt{k}.
+\]
+Then the law of motion is
+\[
+k_{t+1}-k_t=s\sqrt{k_t}-\delta k_t.
+\]
+
+At steady state,
+\[
+s\sqrt{k^*}=\delta k^*.
+\]
+If $k^*>0$, divide by $\sqrt{k^*}$:
+\[
+s=\delta \sqrt{k^*}
+\qquad\Rightarrow\qquad
+\sqrt{k^*}=\frac{s}{\delta}
+\qquad\Rightarrow\qquad
+k^*=\left(\frac{s}{\delta}\right)^2.
+\]
+Therefore
+\[
+y^*=\sqrt{k^*}=\frac{s}{\delta}.
+\]
+
+\begin{examplebox}[title={Worked Example: Consumption and the golden rule in the square-root case}]
+Using $y^*=s/\delta$ and $k^*=(s/\delta)^2$,
+\[
+c^*=y^*-\delta k^*
+=\frac{s}{\delta}-\delta\left(\frac{s}{\delta}\right)^2
+=\frac{s(1-s)}{\delta}.
+\]
+This is maximised when $s=\tfrac12$. So in this special example, the golden-rule saving rate is 50\%.
+\end{examplebox}
+
+\subsection{Human capital}
+
+Lecture 9 also extends the model to include human capital $H$:
+\[
+\frac{Y}{N}=f\!\left(\frac{K}{N},\frac{H}{N}\right).
+\]
+Just as more physical capital can raise steady-state output per worker, more human capital --- through education and training --- can raise it too.
+
+\begin{policynote}
+The important conclusion is parallel for physical and human capital:
+\begin{itemize}[leftmargin=1.5em]
+\item higher saving or higher education spending can raise the \emph{level} of output per worker;
+\item but, given the rate of technological progress, they do not by themselves generate permanently higher long-run growth.
+\end{itemize}
+\end{policynote}
+
+\begin{examtip}[title={Exam Focus: Likely conceptual / recognition}]
+Know the logic behind post-war catch-up stories such as France after World War II: a country that starts with unusually low capital can experience rapid growth for a while as it rebuilds toward steady state.
+\end{examtip}
+
+\newpage
+
+
+\section{Technological Progress and Growth}
+
+\subsection{Why technological progress must enter the model}
+
+Lecture 9 showed that without technological progress, output per worker eventually stops growing. Lecture 10 therefore introduces technology explicitly.
+
+\begin{definition}{Extended production function}{}
+The state of technology is denoted by $A$. The general production function is
+\[
+Y=F(K,N,A).
+\]
+Lecture 10 uses the more convenient form
+\[
+Y=F(K,AN),
+\]
+where $AN$ is \textbf{effective labour}.
+\end{definition}
+
+\paragraph{Intuition of effective labour.}
+If technology doubles, a given number of workers becomes twice as productive. It is as if the economy had twice as many workers in efficiency terms. Thus output is produced using capital $K$ and effective labour $AN$.
+
+\subsection{Per effective worker variables}
+
+With constant returns to scale,
+\[
+\frac{Y}{AN}=f\!\left(\frac{K}{AN}\right).
+\]
+Define
+\[
+\tilde{y}=\frac{Y}{AN},\qquad \tilde{k}=\frac{K}{AN}.
+\]
+Then
+\[
+\tilde{y}=f(\tilde{k}).
+\]
+
+\begin{keyformula}
+\[
+\frac{Y}{AN}=f\!\left(\frac{K}{AN}\right).
+\]
+In the technology-augmented Solow model, the natural unit for steady-state analysis is ``per effective worker'', not merely ``per worker''.
+\end{keyformula}
+
+\subsection{Required investment with population growth and technological progress}
+
+Let technology grow at rate $g_A$ and labour grow at rate $g_N$:
+\[
+A_{t+1}=(1+g_A)A_t,
+\qquad
+N_{t+1}=(1+g_N)N_t.
+\]
+To keep capital per effective worker constant, capital must grow in line with effective labour and also replace depreciated capital.
+
+\begin{keyformula}[title={Key Formula: Required investment}]
+\[
+I_R=(\delta+g_A+g_N)K.
+\]
+Dividing by effective labour:
+\[
+\frac{I_R}{AN}=(\delta+g_A+g_N)\frac{K}{AN}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example: Required investment share}]
+Suppose $\delta=10\%$, $g_A=2\%$, and $g_N=1\%$. Then to keep capital per effective worker constant, required investment must equal
+\[
+(\delta+g_A+g_N)K=(0.10+0.02+0.01)K=0.13K.
+\]
+So 13\% of the capital stock must be invested each period just to keep $\tilde{k}=K/(AN)$ unchanged.
+\end{examplebox}
+
+\subsection{Steady state with technology}
+
+Since saving is still $I=sY$, investment per effective worker is
+\[
+\frac{I}{AN}=sf(\tilde{k}).
+\]
+Steady state therefore requires
+\[
+sf(\tilde{k}^*)=(\delta+g_A+g_N)\tilde{k}^*.
+\]
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7.8,0) node[right] {Capital per effective worker, $\tilde{k}=K/(AN)$};
+\draw[->] (0,0) -- (0,5.4) node[above] {Per effective worker};
+
+\draw[thick,blue!70!black] (0.4,0.7) .. controls (1.6,3.0) and (3.1,4.0) .. (7.0,4.8);
+\node[blue!70!black] at (6.45,5.02) {$f(\tilde{k})$};
+
+\draw[thick,green!60!black] (0.4,0.35) .. controls (1.6,2.0) and (3.1,2.8) .. (7.0,3.2);
+\node[green!60!black] at (6.2,3.45) {$sf(\tilde{k})$};
+
+\draw[thick,red!70!black] (0.2,0.25) -- (7.0,4.95);
+\node[red!70!black] at (7.4,4.2) {$(\delta+g_A+g_N)\tilde{k}$};
+
+\fill (3.5,2.56) circle (2pt);
+\draw[dashed] (3.5,0) -- (3.5,2.56);
+\node[below] at (3.45,0) {$\tilde{k}^*$};
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}{Balanced growth path}{}
+The steady state of the technology-augmented model is called a \textbf{balanced growth path}. On it, capital, output, and effective labour all grow at the same rate.
+\end{definition}
+
+\subsection{Growth rates on the balanced growth path}
+
+If $\tilde{k}$ and $\tilde{y}$ are constant in steady state, then $K$ and $Y$ must grow at the same rate as $AN$, namely
+\[
+g_K=g_Y=g_A+g_N.
+\]
+Output per worker grows at
+\[
+g_{Y/N}=g_Y-g_N=(g_A+g_N)-g_N=g_A.
+\]
+
+\begin{theorem}{Long-run growth result}{}
+On the balanced growth path:
+\begin{align*}
+g_K &= g_Y = g_A+g_N,\\
+g_{K/N} &= g_{Y/N} = g_A,\\
+g_{\tilde{k}} &= g_{\tilde{y}} = 0.
+\end{align*}
+Thus technological progress is the source of sustained growth in output per worker.
+\end{theorem}
+
+\subsection{What a higher saving rate can and cannot do}
+
+A higher saving rate shifts $sf(\tilde{k})$ upward and raises the steady-state \emph{level} of output per effective worker. It also raises the level of output per worker. But it does \emph{not} change the long-run growth rate:
+\[
+g_{Y/N}=g_A.
+\]
+
+\begin{commonmistake}
+Do not conclude that because saving raises output per worker, it must also raise the permanent growth rate of output per worker. In this model, it changes the \emph{level} and the transition path, not the steady-state growth rate.
+\end{commonmistake}
+
+\subsection{Determinants of technological progress}
+\label{sec:l10mcq}
+
+The lecture then turns to the sources of technological progress. These sections are more conceptual and, according to the exam guidance for this task, are best treated as likely MCQ-only.
+
+\begin{examtip}[title={Exam Focus: Likely MCQ-only}]
+Slides from Lecture 10 on \emph{The Determinants of Technological Progress} and \emph{Institutions, Technological Progress, and Growth} from Slide 24 onward are best revised as concept maps rather than full derivations.
+\end{examtip}
+
+\paragraph{Research and development (R\&D).}
+Most technological progress results from firms' R\&D activity. Two concepts matter:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Fertility of research:} how effectively R\&D spending generates ideas and innovations.
+\item \textbf{Appropriability of research:} how much firms can benefit from the innovations they create.
+\end{itemize}
+
+\paragraph{Patent laws.}
+Patents encourage innovation by giving temporary monopoly rights, but excessive protection can slow knowledge diffusion. Good patent design balances incentives with social dissemination of ideas.
+
+\paragraph{Management practices.}
+Even with the same technology, firms using better management practices can perform markedly better. Technology alone is not the whole story.
+
+\paragraph{Innovation versus imitation.}
+Countries near the world technology frontier must innovate to keep growing. Countries further behind can grow by imitating and adapting existing technology; this is the ``latecomer advantage'' or ``advantage of backwardness''.
+
+\paragraph{Institutions and property rights.}
+Good institutions protect property from expropriation, support contract enforcement, sustain patent and antitrust laws, and create an environment in which innovation and investment are worthwhile.
+
+\begin{policynote}
+The lecture's broad policy message is that long-run prosperity depends not only on saving and capital accumulation but also on legal, political, and institutional environments that make innovation worthwhile and diffusion feasible.
+\end{policynote}
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+For the analytical part of Lecture 10, prioritise:
+\begin{itemize}[leftmargin=1.5em]
+\item the meaning of effective labour;
+\item the required-investment line $(\delta+g_A+g_N)\tilde{k}$;
+\item the steady state in per-effective-worker terms;
+\item why output per worker grows at $g_A$ in steady state.
+\end{itemize}
+\end{examtip}
+
+\newpage
+
+
+\section{The Challenges of Growth}
+
+Lecture 11 is explicitly more qualitative. Under the final-exam guidance attached to this task, it is best treated as \textbf{likely MCQ-only}. The goal is therefore to build a clear concept map rather than a long derivation bank.
+
+\begin{examtip}[title={Exam Focus: Likely MCQ-only}]
+Lecture 11 material is most efficiently revised through contrasts and key takeaways:
+\begin{itemize}[leftmargin=1.5em]
+\item technology and unemployment;
+\item growth and inequality;
+\item climate change and carbon pricing.
+\end{itemize}
+\end{examtip}
+
+\subsection{Robots, AI, and unemployment}
+
+The crude claim that technological progress must inevitably raise unemployment is too strong. Historically, advanced economies have experienced both rising productivity and rising employment with no long-run upward trend in unemployment.
+
+The more serious question is distributional and transitional:
+\begin{itemize}[leftmargin=1.5em]
+\item some tasks can be automated, especially those performed by lower-skill workers;
+\item new technologies may also create new tasks and new jobs;
+\item the net effect depends on whether job creation offsets job destruction.
+\end{itemize}
+
+\begin{definition}{Tasks, not jobs}{}
+A useful way to think about automation is that technology replaces \emph{tasks}, not entire jobs. Jobs are bundles of tasks. Automation may eliminate some tasks while leaving others, and may also create entirely new tasks.
+\end{definition}
+
+The supplementary AI reading in the slides frames the labour-market effect of AI as a balance between:
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{automation effect:} machines replace tasks, reducing labour demand;
+\item \textbf{new-task effect:} new activities emerge, increasing labour demand.
+\end{enumerate}
+
+\begin{policynote}
+The lecture's cautious view is that robots and AI need not raise aggregate unemployment permanently, but they may reshape the composition of employment and wages, especially across skill groups.
+\end{policynote}
+
+\subsection{Creative destruction, churn, and inequality}
+
+Schumpeter's notion of \textbf{creative destruction} is central here: growth brings new products and production methods, but it also displaces old firms, old jobs, and old skills.
+
+Lecture 11 emphasises three dimensions of inequality:
+
+\paragraph{1. Skill inequality.}
+Relative wages of highly educated workers have risen, while those of less educated workers have fallen. One explanation is \textbf{skill-biased technological progress}: new technologies complement skilled labour more strongly than unskilled labour.
+
+\paragraph{2. Trade and market competition.}
+International trade may also depress low-skill wages when domestic firms employing low-skill workers face import competition from low-wage economies.
+
+\paragraph{3. Top-income inequality.}
+At the very top of the distribution, wage income is no longer the whole story. Capital income and capital gains matter heavily, which is why top-income inequality can rise even when median wage changes look moderate.
+
+\subsection{Lorenz curve and the Gini coefficient}
+
+\begin{definition}{Gini coefficient}{}
+The \textbf{Gini coefficient} is a summary measure of income inequality. It ranges from 0 (perfect equality) to 1 (perfect inequality).
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[x=5cm,y=5cm]
+\draw[->] (0,0) -- (1.08,0) node[right] {Cumulative population share};
+\draw[->] (0,0) -- (0,1.08) node[above] {Cumulative income share};
+
+\draw[thick,gray] (0,0) -- (1,1);
+\node[gray] at (0.58,0.86) {Equality line};
+
+\draw[thick,blue!70!black] (0,0) .. controls (0.25,0.03) and (0.62,0.36) .. (1,1);
+\node[blue!70!black] at (0.75,0.28) {Lorenz curve};
+
+\fill[red!15] (0,0) -- (1,1) .. controls (0.62,0.36) and (0.25,0.03) .. cycle;
+\node[red!70!black] at (0.32,0.44) {$A$};
+\node at (0.72,0.40) {$B$};
+\end{tikzpicture}
+\end{center}
+
+Using the Lorenz-curve geometry from the lecture,
+\[
+\text{Gini}=\frac{A}{A+B}.
+\]
+
+\begin{commonmistake}
+A higher Gini means \emph{more} inequality, not more equality. Also, the Gini is a summary statistic; it does not by itself tell you where in the income distribution the inequality is concentrated.
+\end{commonmistake}
+
+\subsection{Redistribution and inclusive growth}
+
+Governments can respond to inequality in two broad ways:
+\begin{itemize}[leftmargin=1.5em]
+\item reduce \textbf{market-income inequality} through education, minimum wages, or governance rules;
+\item reduce \textbf{disposable-income inequality} through progressive taxation and transfers.
+\end{itemize}
+
+The lecture's empirical comparison across OECD countries highlights that:
+\begin{itemize}[leftmargin=1.5em]
+\item market inequality differs widely across countries;
+\item redistribution differs widely too;
+\item disposable-income inequality is often much lower than market-income inequality because of taxes and transfers.
+\end{itemize}
+
+\subsection{Climate change as a growth externality}
+
+Markets work poorly when externalities are present. Climate change is a major example: fossil-fuel use increases greenhouse-gas emissions, and the resulting social damage is not fully priced by private markets.
+
+\begin{definition}{Externality}{}
+An \textbf{externality} occurs when the action of a household or firm affects others without that effect being fully reflected in market prices.
+\end{definition}
+
+The lecture's core climate message is straightforward:
+\begin{itemize}[leftmargin=1.5em]
+\item CO\(_2\) emissions have risen sharply since the Industrial Revolution;
+\item average global temperature has risen as well;
+\item economists broadly agree that the best policy is to \emph{put a price on carbon} so as to internalise the externality.
+\end{itemize}
+
+\begin{policynote}[title={Policy Application: Carbon pricing}]
+A carbon tax or emissions-pricing scheme makes private decision makers face more of the social cost of pollution. In macroeconomic terms, this is the cleanest way to internalise the environmental externality generated by growth.
+\end{policynote}
+
+\begin{examtip}[title={Exam Focus: Likely MCQ-only checklist}]
+Know the following pairings:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Automation} versus \textbf{new tasks};
+\item \textbf{Creative destruction} versus \textbf{stagnation};
+\item \textbf{Market income} versus \textbf{disposable income};
+\item \textbf{Lorenz curve} versus \textbf{Gini coefficient};
+\item \textbf{Externality} versus \textbf{carbon pricing}.
+\end{itemize}
+\end{examtip}
+
+\section{Midterm Review -- Summary for Lectures 1--4}
+
+The final examination does not centre on the basic IS--LM model by itself, but Lecture 7 repeatedly uses its logic. It is therefore worth keeping a compact reminder of the short-run framework in view before studying the labour market and inflation block.
+
+\begin{definition}{Background variables}{}
+In the short-run stabilisation framework:
+\begin{itemize}[leftmargin=1.5em]
+\item $Y$ is output (or income).
+\item $r$ is the real policy rate chosen or influenced by the central bank.
+\item $x$ is the risk premium, so the relevant real borrowing rate for firms is $r+x$.
+\item $T$ and $G$ are taxes and government spending.
+\item $P$ is the price level, so real money balances are $M/P$.
+\end{itemize}
+\end{definition}
+
+\subsection{Goods-market equilibrium and the IS relation}
+
+\begin{keyformula}
+\[
+Y = C(Y-T)+I(Y,r+x)+G.
+\]
+Consumption rises with disposable income, investment rises with output but falls with the real borrowing rate, and government spending is taken as exogenous in the short run.
+\end{keyformula}
+
+The IS curve is the set of combinations of output and the real policy rate that keep the goods market in equilibrium. It slopes downward because a lower policy rate lowers borrowing costs, stimulates investment, and therefore raises equilibrium demand and output.
+
+\begin{examtip}[title={Exam Focus: Background assumed from IS--LM}]
+For Lecture 7 questions, you are usually not asked to re-derive the full IS curve from scratch. What you \emph{must} know is the direction of movement:
+\begin{itemize}[leftmargin=1.5em]
+\item $G \uparrow$ or $T \downarrow \Rightarrow$ IS shifts right.
+\item $T \uparrow$ or $x \uparrow \Rightarrow$ IS shifts left.
+\item $r \downarrow \Rightarrow$ movement \emph{along} IS to higher output.
+\end{itemize}
+\end{examtip}
+
+\subsection{Money market, LM, and the role of the central bank}
+
+In the older IS--LM presentation, LM comes from money-market equilibrium:
+\[
+\frac{M}{P}=YL(i).
+\]
+In the way Lecture 7 uses the framework, the central bank effectively chooses the real policy rate. This makes the LM relation horizontal at the chosen value of $r$.
+
+\begin{examplebox}[title={Worked Example: Why a higher risk premium is contractionary}]
+Suppose banks become more cautious and lending spreads rise. Even if the policy rate $r$ is unchanged, firms face a higher borrowing cost $r+x$. Investment falls, so the IS curve shifts left. Output falls for any given policy rate. This is why financial disturbances can look like demand contractions in the IS block.
+\end{examplebox}
+
+
+\newpage
+% ==========================================================
+% HE2002 Macroeconomics II — Chapter 12: Chapters 5--11 Summary
+% (This is a chapter file intended to be \input into the main template.)
+% ==========================================================
+
+\section{Chapters 5--11 Summary}
+
+This chapter is a synthesis chapter rather than a lecture-by-lecture reconstruction. Its purpose is to compress Chapters 5--11 into the main frameworks, equations, diagrams, and comparison logics that recur most often in revision and exam questions.
+
+\subsection{Core frameworks and definitions}
+
+The material from Chapters 5--11 is most efficiently organised into four blocks:
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Labour market block (Chapters 5--6):} wage setting, price setting, natural unemployment, and inflation dynamics.
+    \item \textbf{Medium-run macro block (Chapter 7):} IS--LM--PC, the output gap, inflation adjustment, and central-bank stabilisation.
+    \item \textbf{Growth block (Chapters 8--10):} growth facts, production functions, Solow logic, steady states, and technological progress.
+    \item \textbf{Challenges / policy block (Chapter 11):} automation, inequality, institutions, externalities, and climate.
+\end{enumerate}
+
+\begin{definition}{Highest-yield variables across Chapters 5--11}{}
+The core variables to keep fixed in memory are:
+\begin{itemize}[leftmargin=1.5em]
+    \item $u$: unemployment rate,
+    \item $u_n$: natural rate of unemployment,
+    \item $Y$: output,
+    \item $Y_n$: natural or potential output,
+    \item $\pi$: inflation,
+    \item $\pi^e$: expected inflation,
+    \item $r$: real policy rate,
+    \item $m$: markup,
+    \item $z$: wage-setting / labour-market institutions term,
+    \item $k=K/N$: capital per worker,
+    \item $\tilde{k}=K/(AN)$: capital per effective worker,
+    \item $g_A$: growth rate of technology,
+    \item $g_N$: growth rate of labour.
+\end{itemize}
+\end{definition}
+
+\subsection{Core equations to know cold}
+
+\begin{keyformula}[title={Key Formula: Labour market and natural rate}]
+\[
+W=P^eF(u,z),
+\qquad
+P=(1+m)W,
+\qquad
+F(u_n,z)=\frac{1}{1+m}.
+\]
+With linear wage setting,
+\[
+F(u,z)=1-\alpha u+z,
+\qquad
+u_n=\frac{m+z}{\alpha}.
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Phillips curve forms}]
+\[
+\pi_t=\pi_t^e+(m+z)-\alpha u_t,
+\]
+\[
+\pi_t-\pi_t^e=-\alpha(u_t-u_n).
+\]
+Using the course's Okun-type bridge,
+\[
+Y-Y_n=-L(u-u_n),
+\]
+so
+\[
+\pi-\pi^e=\frac{\alpha}{L}(Y-Y_n).
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Medium-run IS--LM--PC equilibrium}]
+\[
+Y=Y_n,\qquad u=u_n,\qquad \pi=\bar{\pi},\qquad r=r_n.
+\]
+If the economy is away from $Y_n$, inflation pressure emerges and policy must eventually move the economy back.
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Solow without technology}]
+\[
+k_{t+1}-k_t=sf(k_t)-\delta k_t,
+\qquad
+sf(k^*)=\delta k^*.
+\]
+A higher saving rate raises the steady-state \emph{level} of output per worker, but not its permanent growth rate.
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Solow with technology}]
+\[
+\tilde{y}=f(\tilde{k}),
+\qquad
+\tilde{k}=\frac{K}{AN},
+\qquad
+sf(\tilde{k}^*)=(\delta+g_A+g_N)\tilde{k}^*.
+\]
+On the balanced growth path,
+\[
+g_Y=g_K=g_A+g_N,
+\qquad
+g_{Y/N}=g_A.
+\]
+\end{keyformula}
+
+\subsection{Key results and diagrams}
+
+\subsubsection*{1. WS--PS diagram}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item WS is downward sloping in $u$: higher unemployment weakens wage pressure.
+    \item PS is horizontal at
+    \[
+    \frac{W}{P}=\frac{1}{1+m}.
+    \]
+    \item Their intersection gives the natural rate $u_n$.
+\end{itemize}
+
+\begin{theorem}{WS--PS comparative statics}{}
+\begin{itemize}[leftmargin=1.5em]
+    \item $z\uparrow \Rightarrow$ WS shifts up $\Rightarrow u_n\uparrow$.
+    \item $m\uparrow \Rightarrow$ PS shifts down $\Rightarrow u_n\uparrow$.
+\end{itemize}
+Hence anything that strengthens wage pressure or worsens firm pricing conditions raises the natural rate of unemployment.
+\end{theorem}
+
+\subsubsection*{2. Phillips curve diagram}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item In unemployment space: inflation is lower when unemployment is higher.
+    \item In output space: inflation is higher when output is above potential.
+    \item The PC passes through $(u_n,\pi^e)$ or $(Y_n,\bar{\pi})$ depending on the representation.
+\end{itemize}
+
+\begin{theorem}{Natural-rate interpretation of the Phillips curve}{}
+\[
+u=u_n \iff \pi=\pi^e,
+\qquad
+Y=Y_n \iff \pi=\bar{\pi}
+\]
+under anchored expectations. So the natural rate is not ``zero unemployment''; it is the unemployment rate consistent with stable inflation.
+\end{theorem}
+
+\subsubsection*{3. IS--LM--PC logic}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item IS determines how the real interest rate affects output.
+    \item PC determines how the output gap affects inflation.
+    \item Medium-run macro is the interaction of demand management and inflation adjustment.
+\end{itemize}
+
+\begin{policynote}
+The medium-run message is: booms and recessions are not self-contained demand events. If output differs from potential, inflation moves away from target, and the central bank eventually reacts. This is why medium-run equilibrium returns to
+\[
+Y=Y_n,\qquad \pi=\bar{\pi}.
+\]
+\end{policynote}
+
+\subsubsection*{4. Solow diagrams}
+
+There are two diagrams that matter:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Without technology:} $sf(k)$ and $\delta k$.
+    \item \textbf{With technology and population growth:} $sf(\tilde{k})$ and $(\delta+g_A+g_N)\tilde{k}$.
+\end{itemize}
+
+\begin{theorem}{Level effect versus growth-rate effect}{}
+\begin{itemize}[leftmargin=1.5em]
+    \item A higher saving rate changes the \emph{steady-state level}.
+    \item Technological progress changes the \emph{long-run growth rate of output per worker}.
+\end{itemize}
+This distinction is one of the most important in the entire course.
+\end{theorem}
+
+\subsection{Cross-topic links}
+
+\subsubsection*{Markup channel: Chapters 5 \texorpdfstring{$\to$}{to} 7}
+
+\begin{theorem}{One shock, multiple chapters}{}
+A higher markup $m$ creates a chain of effects:
+\begin{enumerate}[leftmargin=1.5em]
+    \item PS shifts down in Chapter 5.
+    \item The natural rate of unemployment $u_n$ rises.
+    \item The Phillips curve shifts upward in Chapter 6.
+    \item Potential output $Y_n$ falls in Chapter 7.
+    \item If the central bank stabilises inflation, output must fall toward the new lower $Y_n$.
+\end{enumerate}
+This is the logic behind oil-shock stagflation.
+\end{theorem}
+
+\subsubsection*{Expectations channel: Chapters 6 \texorpdfstring{$\to$}{to} 7}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item If expectations are anchored, output above potential raises inflation relative to target.
+    \item If expectations de-anchor, inflation today feeds into expected inflation tomorrow.
+    \item This makes central-bank stabilisation more urgent.
+\end{itemize}
+
+\begin{commonmistake}
+Do not describe the Phillips curve as a permanent policy trade-off. That is precisely what the expectations logic overturns. Policymakers can temporarily move unemployment away from the natural rate, but not permanently without causing inflation dynamics.
+\end{commonmistake}
+
+\subsubsection*{Growth link: Chapters 8 \texorpdfstring{$\to$}{to} 10}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Chapter 8 gives the facts and measurement language.
+    \item Chapter 9 gives the capital-accumulation mechanism.
+    \item Chapter 10 explains why technology must enter if growth in output per worker is to persist.
+\end{itemize}
+
+\begin{theorem}{Growth synthesis}{}
+\begin{itemize}[leftmargin=1.5em]
+    \item Capital accumulation generates transitional growth and higher steady-state levels.
+    \item Technological progress generates sustained long-run growth in output per worker.
+    \item Institutions, R\&D incentives, diffusion, and innovation determine how fast technology advances.
+\end{itemize}
+\end{theorem}
+
+\subsubsection*{Growth and policy challenges: Chapters 10 \texorpdfstring{$\to$}{to} 11}
+
+The course ends by asking what growth \emph{does not automatically solve}:
+\begin{itemize}[leftmargin=1.5em]
+    \item automation may reallocate labour unevenly;
+    \item growth may widen inequality;
+    \item climate change is an externality that private markets do not price correctly.
+\end{itemize}
+
+\begin{policynote}
+The long-run policy message is not ``maximize growth at all costs.'' It is: support innovation and productivity growth, but pair them with institutions, redistribution where needed, and policies that internalise externalities such as carbon emissions.
+\end{policynote}
+
+\subsection{Standard problem types and derivation patterns}
+
+\subsubsection*{Type A: WS--PS natural-rate questions}
+
+Typical tasks:
+\begin{itemize}[leftmargin=1.5em]
+    \item derive $u_n$,
+    \item compare the effect of $z\uparrow$ versus $m\uparrow$,
+    \item explain why natural output falls when $u_n$ rises.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Standard script for WS--PS}]
+A clean answer usually does four things:
+\begin{enumerate}[leftmargin=1.5em]
+    \item write the wage-setting and price-setting equations;
+    \item identify which curve shifts;
+    \item state how $u_n$ changes;
+    \item connect $u_n$ to employment and output.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection*{Type B: Phillips-curve transformation questions}
+
+Typical tasks:
+\begin{itemize}[leftmargin=1.5em]
+    \item derive
+    \[
+    \pi_t=\pi_t^e+(m+z)-\alpha u_t;
+    \]
+    \item convert to
+    \[
+    \pi_t-\pi_t^e=-\alpha(u_t-u_n);
+    \]
+    \item explain anchored versus adaptive expectations.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: What the examiner often wants}]
+When asked about the Phillips curve, the highest-value move is often not the algebra itself but the interpretation:
+\begin{itemize}[leftmargin=1.5em]
+    \item what the natural rate means,
+    \item why the original Phillips curve failed,
+    \item why expectation formation changes the policy trade-off.
+\end{itemize}
+\end{examtip}
+
+\subsubsection*{Type C: Medium-run adjustment stories}
+
+Typical tasks:
+\begin{itemize}[leftmargin=1.5em]
+    \item fiscal consolidation,
+    \item oil-price shock / markup increase,
+    \item zero lower bound and deflation spiral.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Standard medium-run narrative}]
+For Chapter 7, a strong answer usually follows this sequence:
+\begin{enumerate}[leftmargin=1.5em]
+    \item identify the initial medium-run equilibrium;
+    \item explain the short-run deviation in output and inflation;
+    \item state why the central bank reacts;
+    \item describe the new medium-run position.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection*{Type D: Solow steady-state questions}
+
+Typical tasks:
+\begin{itemize}[leftmargin=1.5em]
+    \item derive the steady state,
+    \item shift the saving curve,
+    \item distinguish transition from long run,
+    \item compare the no-technology and technology-augmented cases.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Standard Solow script}]
+A compact Solow answer often looks like:
+\begin{enumerate}[leftmargin=1.5em]
+    \item write the law of motion,
+    \item define the steady-state condition,
+    \item show the relevant diagrammatic shift,
+    \item state whether the effect is on a level or on a growth rate.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Short-answer analytical material versus conceptual recognition material}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|p{2.2cm}|X|X|}
+\hline
+\textbf{Block} & \textbf{Short-answer analytical priority} & \textbf{More conceptual / recognition priority} \\
+\hline
+Chapter 5 & WS, PS, natural rate, shifts in $z$ and $m$ & labour-market categories, intuition of bargaining / efficiency wages \\
+\hline
+Chapter 6 & derivation of Phillips curve, natural-rate form, expectation cases & historical interpretation of 1960s / 1970s / re-anchoring \\
+\hline
+Chapter 7 & IS--LM--PC stories, fiscal consolidation, oil shocks, medium-run return to $Y_n$ & money neutrality, zero lower bound intuition, deflation spiral recognition \\
+\hline
+Chapter 8 & very limited algebra; mainly verbal explanation of production-function logic & PPP, convergence, Malthusian trap, stylised growth facts \\
+\hline
+Chapter 9 & law of motion, steady state, golden rule, saving shock & interpretation of human capital and broader capital concept \\
+\hline
+Chapter 10 & effective labour, required investment, balanced growth path & R\&D, patents, institutions, imitation vs innovation \\
+\hline
+Chapter 11 & usually little formal derivation & AI / automation, inequality, Lorenz curve / Gini, climate externalities, carbon pricing \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Common mistakes and exam traps}
+
+\begin{commonmistake}
+\textbf{Mistake 1:} Treating the natural rate as zero unemployment.  
+
+The natural rate is the unemployment rate consistent with stable inflation, not full employment in the literal sense.
+\end{commonmistake}
+
+\begin{commonmistake}
+\textbf{Mistake 2:} Saying that saving permanently raises growth in output per worker.  
+
+In the Solow model, a higher saving rate raises the steady-state \emph{level}, not the permanent growth rate of output per worker.
+\end{commonmistake}
+
+\begin{commonmistake}
+\textbf{Mistake 3:} Saying that higher output is always good in Chapter 7.  
+
+If $Y>Y_n$, inflation pressure builds. A boom above potential is not a free lunch.
+\end{commonmistake}
+
+\begin{commonmistake}
+\textbf{Mistake 4:} Treating an oil shock as a pure IS shock.  
+
+In the course treatment, the central channel is through a higher markup, which shifts WS--PS / Phillips-curve objects and lowers potential output.
+\end{commonmistake}
+
+\begin{commonmistake}
+\textbf{Mistake 5:} Confusing PPP with market exchange rates.  
+
+PPP is for real living-standard comparison; market exchange rates can misstate purchasing power across countries.
+\end{commonmistake}
+
+\begin{commonmistake}
+\textbf{Mistake 6:} Forgetting the unit of analysis in Chapter 10.  
+
+Once technology enters, the relevant steady-state variables are \emph{per effective worker}, not merely per worker.
+\end{commonmistake}
+
+\subsection{Integrated worked examples}
+
+\begin{examplebox}[title={Worked Example: Permanent oil-price increase across Chapters 5--7}]
+A permanent oil-price increase raises firms' production costs and acts like an increase in the markup $m$.
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Chapter 5: labour market.}  
+    Since
+    \[
+    \frac{W}{P}=\frac{1}{1+m},
+    \]
+    a higher markup lowers the real wage implied by price setting. PS shifts down.
+
+    \item \textbf{Natural unemployment.}  
+    The intersection of WS and PS now occurs at a higher unemployment rate:
+    \[
+    u_n\uparrow.
+    \]
+
+    \item \textbf{Chapter 6: inflation side.}  
+    Since
+    \[
+    \pi_t=\pi_t^e+(m+z)-\alpha u_t,
+    \]
+    a higher markup shifts the Phillips curve upward.
+
+    \item \textbf{Chapter 7: output and medium run.}  
+    Because $u_n$ rises, natural output falls:
+    \[
+    Y_n\downarrow.
+    \]
+    At the old output level, inflation is now too high relative to target.
+
+    \item \textbf{Policy reaction.}  
+    To prevent persistently above-target inflation, the central bank raises the real interest rate. Output must fall toward the new lower potential level.
+
+    \item \textbf{Final interpretation.}  
+    The economy experiences \textbf{stagflation}: higher inflation together with lower output.
+\end{enumerate}
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: Higher saving rate versus faster technological progress}]
+Compare two experiments.
+
+\paragraph{Case 1: Higher saving rate $s$.}
+In Chapter 9,
+\[
+k_{t+1}-k_t=sf(k_t)-\delta k_t.
+\]
+A higher $s$ shifts $sf(k)$ upward, raising the steady-state capital stock and output per worker. Growth is higher only during transition; in the long run, growth in output per worker returns to zero in the no-technology model.
+
+\paragraph{Case 2: Higher technological progress $g_A$.}
+In Chapter 10,
+\[
+sf(\tilde{k}^*)=(\delta+g_A+g_N)\tilde{k}^*.
+\]
+The long-run growth rate of output per worker is
+\[
+g_{Y/N}=g_A.
+\]
+So faster technological progress raises the permanent growth rate of output per worker.
+
+\paragraph{Synthesis.}
+\begin{itemize}[leftmargin=1.5em]
+    \item Higher saving $\Rightarrow$ higher \emph{level}.
+    \item Faster technological progress $\Rightarrow$ higher long-run \emph{growth rate}.
+\end{itemize}
+This is one of the cleanest cross-chapter distinctions in the entire course.
+\end{examplebox}
+
+\subsection{Chapters 5--11 revision checklist}
+
+\begin{examtip}[title={Exam Focus: Final checklist}]
+Before the exam, you should be able to do each of the following without hesitation:
+\begin{itemize}[leftmargin=1.5em]
+    \item state and interpret the WS and PS equations;
+    \item derive or explain the natural rate of unemployment;
+    \item move between the main Phillips-curve forms;
+    \item explain why $u=u_n$ corresponds to stable inflation;
+    \item tell a full short-run to medium-run adjustment story using IS--LM--PC;
+    \item explain why money is neutral in the medium run;
+    \item distinguish PPP from exchange-rate comparison;
+    \item explain convergence and why it is not universal;
+    \item write the Solow law of motion and steady-state condition;
+    \item distinguish golden-rule capital from ordinary steady state;
+    \item explain why technological progress is needed for sustained growth in output per worker;
+    \item state what effective labour means;
+    \item distinguish innovation from imitation and relate both to institutions;
+    \item define creative destruction, Gini coefficient, and externality;
+    \item explain why carbon pricing is the standard response to climate externalities.
+\end{itemize}
+\end{examtip}
+
+\subsection{Final synthesis}
+
+\begin{theorem}{One-sentence synthesis of Chapters 5--11}{}
+Chapters 5--11 tell a single macroeconomic story: labour-market institutions and markups determine the natural benchmark; deviations of output from that benchmark drive inflation dynamics; policy moves the economy back toward medium-run equilibrium; and long-run living standards ultimately depend on capital accumulation, technological progress, institutions, and how society manages inequality and externalities.
+\end{theorem}
+
+
+
+
+\newpage
+\appendix
+
+
+
+\section{Final Examination Strategy and Cross-Lecture Synthesis}
+
+\subsection{Priority map by lecture}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2.0cm}|p{5.7cm}|p{5.0cm}|p{2.6cm}|}
+\hline
+\textbf{Lecture} & \textbf{Core content} & \textbf{What to be able to do} & \textbf{Likely format} \\
+\hline
+5 & Labour market; WS--PS; natural unemployment & Draw WS--PS, explain shifts in WS or PS, derive effects on $u_n$ and natural output & Short-answer priority \\
+\hline
+6 & Expected inflation; Phillips curve; expectation formation & Move between inflation form and natural-rate form; explain anchored vs de-anchored expectations & Short-answer priority \\
+\hline
+7 & IS--LM--PC; medium-run convergence; fiscal consolidation; oil shocks & Tell full adjustment stories using equations and diagrams & Short-answer priority \\
+\hline
+8 & PPP; convergence; production-function primer & Explain stylised facts and growth concepts clearly & Mixed, often conceptual \\
+\hline
+9 & Saving; steady state; golden rule; human capital & Draw Solow diagram, solve for steady state, distinguish levels from growth rates & Short-answer priority \\
+\hline
+10 (analytical core) & Effective labour; balanced growth; required investment & Solve and explain technology-augmented Solow model & Short-answer priority \\
+\hline
+10 (Slide 24 onward) & R\&D, patents, institutions, imitation vs innovation & Recognise conceptual distinctions and policy trade-offs & Likely MCQ-only \\
+\hline
+11 & Growth challenges: AI, inequality, climate & Recognise definitions, contrasts, and policy logic & Likely MCQ-only \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Cross-lecture links that examiners like}
+
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{Markup channel across lectures 5--7.}
+A higher markup lowers the real wage in price setting, raises the natural rate of unemployment, shifts the Phillips curve, lowers potential output, and helps explain stagflation after an oil shock.
+
+\item \textbf{Expectations channel across lectures 6--7.}
+Inflation above target matters not only today but also because it can affect future inflation expectations. This is why central banks react to output gaps.
+
+\item \textbf{Level versus growth distinction across lectures 8--10.}
+Saving raises the level of output per worker. Technological progress determines the permanent growth rate of output per worker.
+
+\item \textbf{Distribution and externalities across lecture 11.}
+Growth is valuable, but it can create distributional tensions and environmental costs. The policy challenge is to preserve growth while internalising externalities and broadening gains.
+\end{enumerate}
+
+\begin{examtip}[title={Exam Focus: High priority for short-answer}]
+A strong short-answer script usually has this structure:
+\begin{enumerate}[leftmargin=1.5em]
+\item Write the relevant equation(s).
+\item State the sign of the shock.
+\item Identify which curve shifts and in which direction.
+\item Explain the new short-run equilibrium.
+\item Explain how the economy or policy authority moves toward medium run.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: Background assumed from IS--LM}]
+Even though the final is centred on Lectures 5--11, do not revise them in isolation. The lecture notes repeatedly assume you already know:
+\begin{itemize}[leftmargin=1.5em]
+\item what shifts IS;
+\item how a higher policy rate lowers output;
+\item why a risk premium acts like tighter financial conditions.
+\end{itemize}
+\end{examtip}
+
+\subsection{Last-day revision checklist}
+
+\begin{itemize}[leftmargin=1.5em]
+\item Can you derive the natural rate from WS and PS?
+\item Can you move from unemployment to output-gap form of the Phillips curve?
+\item Can you explain why the medium run returns to $Y_n$?
+\item Can you distinguish a \emph{level effect} from a \emph{growth-rate effect}?
+\item Can you state in one sentence why technological progress is necessary for sustained growth in $Y/N$?
+\item Can you explain why Lecture 10 institutions and Lecture 11 climate policy are conceptual rather than algebra-heavy?
+\end{itemize}
+
+\newpage
+
+
+
+%==================================================
+\section{Formula \& Key Results Reference}
+%==================================================
+
+\subsection*{Goods Market / IS foundations}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Goods-market equilibrium:}
+\[
+Y = C(Y-T)+I(Y,r+x)+G.
+\]
+\item \textbf{IS relation:} for given fiscal policy and risk premium, a lower real policy rate $r$ raises investment and equilibrium output $Y$.
+\item \textbf{Position of IS:} shifts right when $G$ rises, $T$ falls, or the risk premium $x$ falls; shifts left for the opposite changes.
+\end{itemize}
+
+\subsection*{Money \& Financial Market / LM foundations}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Real money demand:}
+\[
+\frac{M}{P}=YL(i)
+\]
+or, in the Lecture 7 medium-run notation,
+\[
+\frac{M}{P}=Y_nL(r+\bar{\pi}).
+\]
+\item \textbf{LM relation:} when the central bank sets the policy rate, LM is horizontal at the chosen real rate.
+\item \textbf{Real borrowing rate:}
+\[
+r+x
+\]
+where $x$ is the risk premium.
+\end{itemize}
+
+\subsection*{Labour Market}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Wage-setting relation:}
+\[
+W=P^eF(u,z), \qquad \frac{W}{P}=F(u,z)\ \text{if } P^e=P.
+\]
+\item \textbf{Price-setting relation:}
+\[
+P=(1+m)W, \qquad \frac{W}{P}=\frac{1}{1+m}.
+\]
+\item \textbf{Natural rate of unemployment:}
+\[
+F(u_n,z)=\frac{1}{1+m}.
+\]
+Under the linear wage-setting form $F(u,z)=1-\alpha u+z$,
+\[
+u_n=\frac{m+z}{\alpha}.
+\]
+\end{itemize}
+
+\subsection*{Inflation / Phillips Curve}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Expectations-augmented Phillips curve:}
+\[
+\pi_t=\pi_t^e+(m+z)-\alpha u_t.
+\]
+\item \textbf{Phillips curve around the natural rate:}
+\[
+\pi_t-\pi_t^e=-\alpha(u_t-u_n).
+\]
+\item \textbf{Original Phillips curve (anchored expectations):}
+\[
+\pi_t=\bar{\pi}+(m+z)-\alpha u_t.
+\]
+\item \textbf{Adaptive expectations:}
+\[
+\pi_t^e=(1-\theta)\bar{\pi}+\theta\pi_{t-1}.
+\]
+\item \textbf{Accelerationist case ($\theta=1$):}
+\[
+\pi_t-\pi_{t-1}=(m+z)-\alpha u_t.
+\]
+\end{itemize}
+
+\subsection*{IS--LM--PC (short to medium run)}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Okun-type link used in Lecture 7:}
+\[
+u=\frac{U}{L}=1-\frac{N}{L}, \qquad Y=N=L(1-u),
+\]
+so
+\[
+Y-Y_n=-L(u-u_n).
+\]
+\item \textbf{Phillips curve in output-gap form:}
+\[
+\pi-\pi^e=\frac{\alpha}{L}(Y-Y_n).
+\]
+With anchored inflation expectations at target $\bar{\pi}$,
+\[
+\pi-\bar{\pi}=\frac{\alpha}{L}(Y-Y_n).
+\]
+\item \textbf{Medium-run equilibrium:}
+\[
+Y=Y_n,\qquad u=u_n,\qquad \pi=\bar{\pi},\qquad r=r_n.
+\]
+\item \textbf{Money neutrality in the medium run:} if nominal money grows at rate $g_M$, then
+\[
+\pi=g_M,\qquad i=r_n+g_M.
+\]
+\end{itemize}
+
+\subsection*{Growth without technological progress}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Production per worker:}
+\[
+\frac{Y_t}{N}=f\!\left(\frac{K_t}{N}\right).
+\]
+\item \textbf{Capital accumulation per worker:}
+\[
+\frac{K_{t+1}}{N}-\frac{K_t}{N}=s\frac{Y_t}{N}-\delta \frac{K_t}{N}.
+\]
+\item \textbf{Dynamics in reduced form:}
+\[
+\frac{K_{t+1}}{N}-\frac{K_t}{N}=s f\!\left(\frac{K_t}{N}\right)-\delta \frac{K_t}{N}.
+\]
+\item \textbf{Steady state:}
+\[
+s f\!\left(\frac{K^*}{N}\right)=\delta \frac{K^*}{N}.
+\]
+\item \textbf{Golden-rule concept:} choose the saving rate that maximises steady-state consumption per worker.
+\end{itemize}
+
+\subsection*{Growth with technological progress}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Extended production function:}
+\[
+Y=F(K,AN).
+\]
+\item \textbf{Per effective worker form:}
+\[
+\frac{Y}{AN}=f\!\left(\frac{K}{AN}\right).
+\]
+\item \textbf{Required investment to keep $K/(AN)$ constant:}
+\[
+I_R=(\delta+g_A+g_N)K.
+\]
+Hence required investment per effective worker is
+\[
+\frac{I_R}{AN}=(\delta+g_A+g_N)\frac{K}{AN}.
+\]
+\item \textbf{Balanced growth path:}
+\[
+g_Y=g_K=g_A+g_N, \qquad g_{Y/N}=g_A.
+\]
+\item \textbf{Saving-rate result:} higher $s$ raises steady-state \emph{levels} of output per effective worker and per worker, but not the steady-state growth rate.
+\end{itemize}
+
+\subsection*{Lecture 10--11 conceptual results}
+\begin{itemize}[leftmargin=1.5em]
+\item R\&D depends on both the \emph{fertility} of research and the \emph{appropriability} of results.
+\item Patent policy must trade off incentives for innovation against diffusion of knowledge.
+\item Countries close to the technological frontier must innovate; countries far from the frontier can grow through imitation.
+\item Good institutions protect property rights, support contract enforcement, and improve long-run prosperity.
+\item Growth can coexist with creative destruction, skill-biased inequality, and environmental externalities; carbon pricing internalises the climate externality.
+\end{itemize}
+
+
+
+
+%==================================================
+\section{Notation}
+%==================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2.2cm}|p{7.8cm}|p{5.0cm}|}
+\hline
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Context} \\
+\hline
+$Y$ & Output / income & Goods market, IS--LM, growth \\
+\hline
+$Y_n$ & Natural level of output / potential output & IS--LM--PC \\
+\hline
+$C$ & Consumption & Goods market \\
+\hline
+$I$ & Investment & Goods market, growth \\
+\hline
+$G$ & Government spending & Fiscal policy \\
+\hline
+$T$ & Taxes (or net taxes in reduced-form statements) & Fiscal policy \\
+\hline
+$W$ & Nominal wage & Labour market \\
+\hline
+$P$ & Actual price level & Labour market, inflation \\
+\hline
+$P^e$ & Expected price level & Wage setting \\
+\hline
+$m$ & Markup of price over wage cost & Price setting, Phillips curve \\
+\hline
+$u$ & Unemployment rate & Labour market, Phillips curve \\
+\hline
+$u_n$ & Natural rate of unemployment & Labour market, Phillips curve \\
+\hline
+$U$ & Number of unemployed workers & Labour market \\
+\hline
+$N$ & Employment / number of workers employed & Labour market, growth \\
+\hline
+$L$ & Labour force & Labour market, Okun's law \\
+\hline
+$z$ & Catch-all wage-setting variable (benefits, protection, institutions) & Labour market \\
+\hline
+$\alpha$ & Sensitivity of wages / inflation to unemployment & Phillips curve \\
+\hline
+$\pi$ & Inflation rate & Inflation, Phillips curve \\
+\hline
+$\pi^e$ & Expected inflation rate & Inflation expectations \\
+\hline
+$\bar{\pi}$ & Inflation target / anchored expected inflation & Phillips curve, monetary policy \\
+\hline
+$\theta$ & Weight on last period's inflation in expectation formation & Phillips curve mutations \\
+\hline
+$r$ & Real policy interest rate & IS--LM, IS--LM--PC \\
+\hline
+$r_n$ & Natural / neutral real interest rate & Medium-run equilibrium \\
+\hline
+$i$ & Nominal interest rate & Money market \\
+\hline
+$x$ & Risk premium & IS relation, borrowing cost \\
+\hline
+$M$ & Nominal money supply & Financial market \\
+\hline
+$g_M$ & Growth rate of nominal money supply & Money neutrality \\
+\hline
+$K$ & Capital stock & Growth \\
+\hline
+$\delta$ & Depreciation rate of capital & Growth \\
+\hline
+$s$ & Saving rate & Growth \\
+\hline
+$A$ & State of technology / labour productivity index & Growth \\
+\hline
+$g_A$ & Growth rate of technology & Growth \\
+\hline
+$g_N$ & Population or labour-force growth rate & Growth \\
+\hline
+$f(\cdot)$ & Per-worker or per-effective-worker production function & Growth \\
+\hline
+$H$ & Human capital & Growth \\
+\hline
+$k$ & Capital per worker, $K/N$ & Lecture 9 growth model \\
+\hline
+$y$ & Output per worker, $Y/N$ & Lecture 8--9 growth \\
+\hline
+$\tilde{k}$ & Capital per effective worker, $K/(AN)$ & Lecture 10 growth \\
+\hline
+$\tilde{y}$ & Output per effective worker, $Y/(AN)$ & Lecture 10 growth \\
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================
+\section{Exam \& Admin Information}
+%==================================================
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Final examination format (course information provided with this task):}
+\begin{itemize}
+\item Closed-book examination.
+\item 20 MCQs worth $20\times 1.5 = 30$ marks.
+\item 4 short-answer questions with multiple parts worth 70 marks in total.
+\item Coverage: Lectures 5--11, with balanced coverage across these lectures.
+\end{itemize}
+
+\item \textbf{Important weighting within the final:}
+\begin{itemize}
+\item Lecture 10 material on \emph{The Determinants of Technological Progress} and \emph{Institutions, Technological Progress, and Growth} from Slide 24 onward is treated as \textbf{likely MCQ-only}.
+\item Lecture 11 (\emph{The Challenges of Growth}) is \textbf{likely MCQ-only}.
+\item The short-answer section places equal weight on the remaining covered lectures, including the analytical part of Lecture 10.
+\item Basic and extended IS--LM are treated as \textbf{background assumed knowledge}; they matter because Lecture 7 builds directly on them.
+\end{itemize}
+
+\item \textbf{Revision checklist for the final:}
+\begin{itemize}
+\item Be able to draw and explain the WS--PS diagram, the Phillips curve, the IS--LM--PC framework, the Solow steady-state diagram, and the technology-augmented steady-state diagram.
+\item Practise moving between words, equations, and graphs.
+\item Know which variables determine \emph{levels} and which determine \emph{growth rates}.
+\item For short answers, always state the shock, the curve that shifts, the new short-run outcome, and the medium-run adjustment.
+\item For MCQs, focus on conceptual distinctions: innovation versus imitation, anchored versus de-anchored expectations, market versus disposable inequality, and carbon pricing as internalisation of an externality.
+\end{itemize}
+
+\item \textbf{Administrative caution:}
+\begin{itemize}
+\item Use official NTULearn / course announcements for any dates, venues, or weightings beyond the explicit final-exam structure stated above.
+\end{itemize}
+\end{itemize}
+
+\end{document}

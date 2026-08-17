@@ -1,0 +1,409 @@
+\section{Consumer Theory Foundations}
+
+This chapter establishes the formal language used throughout \textsc{HE2001}. The lecture begins with minimal mathematical setup, then builds the consumption model, formalises preferences, and finally shows how observed choices can be used to recover information about welfare through revealed preference. Conceptually, the chapter answers three basic questions:
+\begin{enumerate}
+    \item What objects describe a consumer's choice problem?
+    \item What properties make a binary relation behave like a rational preference?
+    \item What restrictions must observed choices satisfy if they come from maximisation of an increasing preference?
+\end{enumerate}
+
+\subsection{Mathematical Setup}
+
+The course treats a consumer as choosing a vector of goods from a feasible set. That requires only a small amount of notation.
+
+\begin{definition}{Basic sets, vectors, and functions}{ch1-basic-math}
+For an integer $L \ge 2$:
+\begin{itemize}
+    \item $\mathbb{R}$ is the set of real numbers.
+    \item $\mathbb{R}_+ = \{x \in \mathbb{R} : x \ge 0\}$ and $\mathbb{R}_{++} = \{x \in \mathbb{R} : x > 0\}$.
+    \item $\mathbb{R}^L_+$ is the set of all $L$-dimensional nonnegative vectors.
+    \item $\mathbb{R}^L_{++}$ is the set of all $L$-dimensional strictly positive vectors.
+    \item A function $f : X \to Y$ maps each element of a set $X$ to an element of a set $Y$.
+\end{itemize}
+In this course, typical functions include utility functions, demand functions, and cost functions.
+\end{definition}
+
+A set records the objects under discussion; a vector records several quantities at once; a function translates one kind of economic object into another. These are the only preliminaries needed for Lecture 1.
+
+\begin{keyformula}[title={Key Formula: Dot Product and Expenditure}]
+If $p = (p_1,\dots,p_L) \in \mathbb{R}^L_{++}$ and $x = (x_1,\dots,x_L) \in \mathbb{R}^L_+$, then the dot product is
+\[
+p \cdot x = \sum_{\ell=1}^{L} p_\ell x_\ell.
+\]
+Economically, $p \cdot x$ is the total expenditure required to purchase bundle $x$ at prices $p$.
+\end{keyformula}
+
+\subsection{Consumption Bundles, Prices, and Budget Sets}
+
+The primitive objects of consumer theory are the consumption bundle, the price vector, and the consumer's expenditure level.
+
+\begin{definition}{Consumption bundle and price vector}{ch1-consumption-bundle}
+Suppose there are $L$ goods.
+\begin{itemize}
+    \item A \emph{consumption bundle} is a vector $x = (x_1,\dots,x_L) \in \mathbb{R}^L_+$, where $x_\ell$ is the amount of good $\ell$.
+    \item A \emph{price vector} is a vector $p = (p_1,\dots,p_L) \in \mathbb{R}^L_{++}$, where $p_\ell$ is the price of good $\ell$.
+\end{itemize}
+\end{definition}
+
+The restriction $x \in \mathbb{R}^L_+$ says negative consumption is excluded. The restriction $p \in \mathbb{R}^L_{++}$ says every good has a strictly positive price, which matters later when we convert unused expenditure into more of some good.
+
+\begin{definition}{Budget set and budget line}{ch1-budget-set}
+If the consumer has expenditure level $m > 0$ and faces prices $p \in \mathbb{R}^L_{++}$, the \emph{budget set} is
+\[
+B(p,m) = \{x \in \mathbb{R}^L_+ : p \cdot x \le m\}.
+\]
+In the two-good case, the \emph{budget line} is the boundary
+\[
+p_1 x_1 + p_2 x_2 = m.
+\]
+\end{definition}
+
+The budget set contains every affordable bundle. The budget line contains bundles that exactly exhaust expenditure. In two dimensions, the budget set is the region on or below the line in the nonnegative quadrant.
+
+\begin{keyformula}[title={Key Formula: Two-Good Budget Geometry}]
+For $L=2$, the budget line is
+\[
+p_1x_1 + p_2x_2 = m.
+\]
+Its intercepts are
+\[
+x_1 = \frac{m}{p_1} \quad \text{when } x_2=0,
+\qquad
+x_2 = \frac{m}{p_2} \quad \text{when } x_1=0.
+\]
+The slope is
+\[
+-\frac{p_1}{p_2}.
+\]
+Thus relative prices determine the steepness of the line, while $m$ shifts the feasible set outward or inward.
+\end{keyformula}
+
+\begin{theorem}{Why increasing preferences push choice to the boundary}{ch1-boundary-choice}
+Suppose preferences are increasing and the consumer chooses $x \in B(p,m)$. Then any optimal bundle must satisfy
+\[
+p \cdot x = m.
+\]
+\end{theorem}
+
+\begin{proof}
+If instead $p \cdot x < m$, then because each price is strictly positive, there exists some good $i$ and some $\varepsilon > 0$ such that $p_i\varepsilon \le m - p \cdot x$. The bundle $y = x + \varepsilon e_i$ is still affordable and satisfies $y > x$. Increasing preferences imply $y \succ x$, contradicting optimality of $x$.
+\end{proof}
+
+\begin{examplebox}
+\textbf{Budget affordability and the budget line.}
+
+Take two goods, expenditure $m=2$, and consider the two price vectors
+\[
+p^{(1)}=(1,2), \qquad p^{(2)}=(2,1).
+\]
+The corresponding budget lines are
+\[
+x_1 + 2x_2 = 2, \qquad 2x_1 + x_2 = 2.
+\]
+Now test the bundle $x=(1,1)$.
+\[
+p^{(1)} \cdot x = 1(1)+2(1)=3 > 2,
+\qquad
+p^{(2)} \cdot x = 2(1)+1(1)=3 > 2.
+\]
+Therefore $x=(1,1)$ is not affordable under either price system.
+
+This is the fastest algebraic way to check feasibility in an exam: compute $p \cdot x$ and compare it with $m$.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not confuse the \emph{budget set} with the \emph{budget line}. The line is only the boundary $p\cdot x = m$; the set is the full collection of affordable bundles $p\cdot x \le m$ together with nonnegativity.
+\end{commonmistake}
+
+\subsection{Preferences}
+
+A consumer theory model needs a way to rank bundles. Lecture 1 uses a binary relation to represent this ranking.
+
+\begin{definition}{Preference relation}{ch1-preference-relation}
+A binary relation $\succeq$ on $\mathbb{R}^L_+$ assigns to each pair $(x,x')$ a statement of whether $x$ is weakly preferred to $x'$. The notation means:
+\[
+x \succeq x' \quad \text{``$x$ is weakly preferred to $x'$.''}
+\]
+From $\succeq$ we derive:
+\begin{itemize}
+    \item \emph{strict preference}: $x \succ x'$ means $x \succeq x'$ and not $x' \succeq x$;
+    \item \emph{indifference}: $x \sim x'$ means $x \succeq x'$ and $x' \succeq x$.
+\end{itemize}
+A binary relation is called a \emph{preference} if it is complete and transitive.
+\end{definition}
+
+\begin{definition}{Completeness and transitivity}{ch1-complete-transitive}
+A binary relation $\succeq$ on $\mathbb{R}^L_+$ is:
+\begin{itemize}
+    \item \emph{complete} if for every $x,x'$, either $x \succeq x'$ or $x' \succeq x$ (or both);
+    \item \emph{transitive} if $x \succeq x'$ and $x' \succeq x''$ imply $x \succeq x''$.
+\end{itemize}
+\end{definition}
+
+Completeness says the consumer can compare any two bundles. Transitivity says the ranking is logically consistent across chains of comparisons. Without completeness, some bundles may be incomparable; without transitivity, circular rankings can arise.
+
+\begin{definition}{Increasing preferences}{ch1-increasing}
+For bundles $x,x' \in \mathbb{R}^L_+$:
+\begin{align*}
+x \ge x' &\iff x_\ell \ge x'_\ell \text{ for all } \ell, \\
+x > x' &\iff x \ge x' \text{ and } x_\ell > x'_\ell \text{ for some } \ell.
+\end{align*}
+A preference relation $\succeq$ is \emph{increasing} if
+\[
+x > x' \implies x \succ x'.
+\]
+\end{definition}
+
+Increasingness is the formal version of ``more is better.'' If bundle $x$ gives at least as much of every good and strictly more of at least one good, then it must be strictly preferred.
+
+\begin{examplebox}
+\textbf{Checking completeness, transitivity, and increasingness.}
+
+Consider the relation on $\mathbb{R}^2_+$ defined by
+\[
+(x_1,x_2) \succeq (y_1,y_2)
+\quad \Longleftrightarrow \quad
+\text{either } x_1 > y_1, \text{ or } x_1 = y_1 \text{ and } x_2 \ge y_2.
+\]
+This is a lexicographic-type ranking.
+
+\begin{itemize}
+    \item \textbf{Complete:} for any two bundles, either the first coordinate differs, or the first coordinates are equal and the second coordinate decides the comparison.
+    \item \textbf{Transitive:} if $x$ beats $y$ by the first coordinate, and $y$ beats $z$, then $x$ also beats $z$; if first coordinates tie, the second coordinate preserves the ordering.
+    \item \textbf{Increasing:} whenever $x \ge y$ and $x \ne y$, either $x_1 > y_1$, or $x_1 = y_1$ and $x_2 > y_2$, so $x \succ y$.
+\end{itemize}
+
+Hence this relation is complete, transitive, and increasing.
+\end{examplebox}
+
+\begin{commonmistake}
+Increasing does \emph{not} mean ``strictly more of every good.'' The condition $x > x'$ only requires weakly more of every good and strictly more of at least one good.
+\end{commonmistake}
+
+\subsection{Utility Representation}
+
+Economists often work with utility functions because optimisation and algebra are easier to express with numbers than with a raw binary relation.
+
+\begin{definition}{Utility representation}{ch1-utility-representation}
+A utility function is a map $U : \mathbb{R}^L_+ \to \mathbb{R}$. It \emph{represents} a preference relation $\succeq$ if
+\[
+x \succeq x' \quad \Longleftrightarrow \quad U(x) \ge U(x').
+\]
+If $U$ is increasing in the sense that $x > x'$ implies $U(x) > U(x')$, then the induced preference relation is increasing.
+\end{definition}
+
+Utility is therefore a numerical encoding of a ranking. In Lecture 1, the important point is representational: utility is useful because maximising $U(x)$ is equivalent to choosing the most preferred bundle whenever $U$ represents the underlying preference.
+
+\begin{examplebox}
+\textbf{A utility function that generates an increasing preference.}
+
+Let
+\[
+U(x_1,x_2)=\sqrt{x_1}+\sqrt{x_2}.
+\]
+Then for any two bundles $x$ and $y$,
+\[
+x \succeq y \quad \Longleftrightarrow \quad U(x) \ge U(y).
+\]
+Because the square-root function is increasing on $\mathbb{R}_+$, if $x > y$ then
+\[
+\sqrt{x_1} \ge \sqrt{y_1}, \qquad \sqrt{x_2} \ge \sqrt{y_2},
+\]
+with strict inequality in at least one coordinate. Hence
+\[
+U(x)=\sqrt{x_1}+\sqrt{x_2} > \sqrt{y_1}+\sqrt{y_2}=U(y).
+\]
+So the represented preference is increasing, complete, and transitive.
+\end{examplebox}
+
+\begin{examtip}
+When asked whether a utility function represents preferences, the core test is always the ranking statement
+\[
+x \succeq y \iff U(x) \ge U(y).
+\]
+Do not interpret utility levels cardinally unless the question explicitly introduces that structure. In this chapter, utility is used only as a ranking device.
+\end{examtip}
+
+\subsection{Revealed Preference}
+
+The lecture then asks a more empirical question: if we only observe prices and chosen bundles, what can we infer about preferences?
+
+\begin{examtip}[title={Core Principles Behind Revealed Preference}]
+Classic consumer theory in Lecture 1 relies on three connected ideas:
+\begin{enumerate}
+    \item What is chosen is preferred to what could have been chosen.
+    \item More is preferred.
+    \item What is preferred is best from the consumer's own point of view.
+\end{enumerate}
+Together, these principles allow observed choices to reveal welfare information.
+\end{examtip}
+
+Suppose an observation consists of prices $p^t \in \mathbb{R}^L_{++}$ and a chosen bundle $x^t \in \mathbb{R}^L_+$. Let expenditure in that observation be $m^t = p^t \cdot x^t$.
+
+\begin{definition}{Directly and strictly directly revealed preference}{ch1-revealed-pref}
+Given an observation $(p^t,x^t)$:
+\begin{itemize}
+    \item $x^t$ is \emph{directly revealed preferred} to $x$, written $x^t R x$, if
+    \[
+    p^t \cdot x \le p^t \cdot x^t.
+    \]
+    That is, bundle $x$ was affordable when $x^t$ was chosen.
+    \item $x^t$ is \emph{strictly directly revealed preferred} to $x$, written $x^t P x$, if
+    \[
+    p^t \cdot x < p^t \cdot x^t.
+    \]
+    That is, bundle $x$ was strictly cheaper than the chosen bundle.
+\end{itemize}
+\end{definition}
+
+Economically, $R$ is an observed revealed ranking and $P$ is its strict version. The distinction matters because strict affordability combined with increasingness is strong enough to generate strict welfare conclusions.
+
+\begin{theorem}{From revealed preference to actual preference}{ch1-rp-actual-pref}
+Suppose the consumer chooses each observed bundle by maximising an increasing preference relation $\succeq$.
+\begin{enumerate}
+    \item If $x R y$, then $x \succeq y$.
+    \item If $x P y$, then $x \succ y$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $x R y$, then $y$ was affordable when $x$ was chosen. By optimality of $x$, we must have $x \succeq y$.
+
+If $x P y$, then $y$ was strictly cheaper than $x$ at the prices where $x$ was chosen. Because prices are strictly positive, some bundle $z$ exists with $z > y$ and still affordable at those prices. Increasingness implies $z \succ y$. Since $x$ was chosen when $z$ was affordable, optimality gives $x \succeq z$. By transitivity, $x \succ y$.
+\end{proof}
+
+\begin{examplebox}
+\textbf{Comparing welfare across two periods.}
+
+Suppose a consumer chooses
+\[
+x^1=(2,2) \text{ at } p^1=(1,1),
+\qquad
+x^2=(0,3) \text{ at } p^2=(2,1).
+\]
+Compute expenditures:
+\[
+p^1 \cdot x^1 = 4,
+\qquad
+p^2 \cdot x^2 = 3.
+\]
+Now check whether period-2 bundle $x^2$ was affordable in period 1:
+\[
+p^1 \cdot x^2 = 1(0)+1(3)=3 \le 4.
+\]
+So $x^1 R x^2$, which implies
+\[
+x^1 \succeq x^2.
+\]
+Next check whether $x^1$ was affordable in period 2:
+\[
+p^2 \cdot x^1 = 2(2)+1(2)=6 > 3.
+\]
+So period 2 does \emph{not} reveal $x^2 \succeq x^1$.
+
+Hence the data support the welfare conclusion
+\[
+\boxed{x^1 \succeq x^2.}
+\]
+The consumer is weakly better off in period 1.
+\end{examplebox}
+
+\begin{policynote}
+Revealed preference gives a practical welfare test after policy changes. If an old bundle remains affordable after a tax or price change but the consumer switches away from it, the new choice reveals at least weak improvement relative to the old affordable alternatives. Conversely, if the new bundle was affordable before the change but the old bundle was chosen instead, the pre-change situation is revealed to be weakly better. This is the logic behind welfare comparisons from observed demand rather than from directly measured happiness.
+\end{policynote}
+
+\subsection{WARP}
+
+Revealed preference yields testable restrictions. The main one in Lecture 1 is WARP.
+
+\begin{definition}{Weak Axiom of Revealed Preference (WARP)}{ch1-warp-def}
+A dataset satisfies \emph{WARP} if
+\[
+x R y \implies \text{not } (y P x).
+\]
+Equivalently: once $x$ is chosen when $y$ is affordable, it cannot happen that $y$ is later chosen from a budget where $x$ is strictly cheaper.
+\end{definition}
+
+WARP is a consistency condition on observable choices. It does not require knowledge of the utility function itself. It only checks whether observed decisions could have come from maximisation of an increasing preference.
+
+\begin{theorem}{Increasing preference maximisation implies WARP}{ch1-warp-thm}
+If each observed choice maximises an increasing preference relation $\succeq$, then the resulting data satisfy WARP.
+\end{theorem}
+
+\begin{proof}
+Assume $x R y$. By Theorem \ref{thm:ch1-rp-actual-pref}, this implies $x \succeq y$.
+Suppose for contradiction that $y P x$ also holds. Then Theorem \ref{thm:ch1-rp-actual-pref} implies $y \succ x$. But $y \succ x$ means it is not true that $x \succeq y$, contradicting $x \succeq y$. Therefore $y P x$ cannot occur, so WARP must hold.
+\end{proof}
+
+\begin{examplebox}
+\textbf{A clean WARP violation.}
+
+Observation 1: prices are $p=(2,1)$ and the consumer chooses
+\[
+x=(1,0).
+\]
+Observation 2: prices are $p'=(1,2)$ and the consumer chooses
+\[
+x'=(0,1).
+\]
+Now compare costs crosswise:
+\[
+p \cdot x = 2,
+\qquad
+p \cdot x' = 1.
+\]
+So under prices $p$, bundle $x'$ is strictly cheaper than the chosen bundle $x$, hence
+\[
+x P x'.
+\]
+Similarly,
+\[
+p' \cdot x' = 2,
+\qquad
+p' \cdot x = 1,
+\]
+so under prices $p'$, bundle $x$ is strictly cheaper than the chosen bundle $x'$, hence
+\[
+x' P x.
+\]
+Thus both strict revealed rankings hold in opposite directions, which violates WARP.
+
+Conclusion: these two observations cannot be rationalised by maximisation of an increasing preference.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not say that $x R y$ and $y R x$ automatically violate WARP. Mutual \emph{weak} direct revealed preference can occur when each bundle is merely affordable at the other observation. WARP is violated only when the reverse comparison is \emph{strict}, i.e. when $y P x$ also holds.
+\end{commonmistake}
+
+\begin{examtip}
+For any revealed preference question, use the same checklist:
+\begin{enumerate}
+    \item Write down each observed expenditure $m^t = p^t \cdot x^t$.
+    \item For every pair of bundles, test affordability by computing cross-costs $p^t \cdot x^s$.
+    \item Convert affordability into $R$ or $P$ statements.
+    \item Use $R \Rightarrow \succeq$ and $P \Rightarrow \succ$ only when the choice is interpreted as maximisation of an increasing preference.
+    \item Check WARP by ruling out the pattern $x R y$ together with $y P x$.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Chapter 1 Summary}]
+\begin{align*}
+B(p,m) &= \{x \in \mathbb{R}^L_+ : p \cdot x \le m\}, \\
+x R y &\iff y \text{ was affordable when } x \text{ was chosen}, \\
+x P y &\iff y \text{ was strictly cheaper when } x \text{ was chosen}, \\
+\text{WARP:} \quad x R y &\implies \text{not } (y P x).
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+High-yield takeaways from Lecture 1:
+\begin{itemize}
+    \item Know the definitions of completeness, transitivity, increasingness, strict preference, and indifference precisely.
+    \item Be able to move fluently between verbal statements and formal notation.
+    \item Always interpret $p \cdot x$ as expenditure.
+    \item For welfare comparisons across periods, affordability is the central test.
+    \item WARP is the first observable implication of rational choice with increasing preferences.
+\end{itemize}
+\end{examtip}

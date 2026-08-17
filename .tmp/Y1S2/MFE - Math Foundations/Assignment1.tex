@@ -1,0 +1,891 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\textbf{Mathematical Foundations} \\
+MFE Spring 2026 \\
+Assignment 1 \\
+Due: Tuesday, January 6, \\
+9 am P.T.
+\end{center}
+
+\vspace{1em}
+
+%\noindent \textbf{Student name:} \hspace{5cm} \textbf{Student ID:}
+
+\noindent \textbf{Student name:} Yuhe Sui \hspace{3.54cm} \textbf{Student ID:} job@yuhesui.com
+
+\vspace{1em}
+
+\noindent \textbf{Solved in team with another student (please underline):} \hspace{1cm} Yes \hspace{1cm} \underline{No}
+
+\vspace{1em}
+
+\noindent \textbf{Name of team member:} \hspace{3cm} \textbf{ID of team member:}
+
+\vspace{1em}
+
+\noindent \textbf{Instructions:} You should submit this assignment electronically via bCourses, as a PDF file. The preferred format is to use a text editor or other program with formula handling capacity, e.g., Scientific Word, MikTex, or MS Word with installed equation package, to create a an electronic document, and then save as PDF. We also accept handwritten, scanned, solutions, but these must be extremely clear and well written, or they will receive point deductions (see available sample files on bCourses).
+
+\vspace{1em}
+
+\noindent Please contact us at \texttt{HAASMFE.MATH@gmail.com} if you have any questions about the submission format!
+
+\vspace{1em}
+
+\noindent You should receive a confirmation e-mail within 24 hours of sending your solution. Assignments received up to 24 hours late will get a point deduction of $50\%$ of the points. Assignments received more than 24 hours late get a $100\%$ point deduction.
+
+\vspace{1em}
+
+\noindent You can send questions to \texttt{HAASMFE.MATH@gmail.com} if you get stuck.
+
+\vspace{1em}
+
+\noindent All answers need to be justified!
+
+\newpage
+In this assignment you will practice solving finance related problems from the initial two classes, on calculus and linear algebra.
+\section{Bond pricing}
+In class, we have discussed the pricing of bonds with finite maturity, deriving the bond formula
+\[
+B=\frac{C}{r}\left[1-\frac{1}{(1+r)^{T}}\right]+\frac{P}{(1+r)^{T}}
+\]
+Here, $B$ is the current bond price, $T$ is the number of periods to maturity, $r>0$ is the per-period discount rate, $C$ is the coupon payment, and $P$ is the principal payment due at maturity. A variation of the bond is a perpetuity, which perpetually makes per-period coupon payments and thus never matures. It follows that the price of the perpetuity is
+\[
+B=\frac{C}{r}
+\]
+
+\begin{enumerate}
+\item[(a)] Consider a growing perpetuity, that makes the payment $C$ after one period, $C(1+g)$ after two periods, $C(1+g)^{2}$ after three periods, etc., where $0<g<r$ is a constant growth rate.
+
+\textbf{Derive a formula for the value of the growing perpetuity.}
+
+\item[(b)] A very innovative investment banker has decided to introduce a ``comet perpetuity,'' to please astronomers. The asset makes its first payment of USD 2061 at the end of the year 2061 A.D., followed by a payment of USD 2137 at the end of year 2137, and then repeated so that every 76 years a payment is made of the amount equal to the year of the payment (which is also the year that Halley's comet passes our planet). The discount rate is $r=1\%$ per year.
+
+\textbf{It is December 31, 2014. Calculate the value of the comet perpetuity.}
+\end{enumerate}
+\bigskip
+
+\subsection*{Solution}
+
+\subsection*{(a) Growing perpetuity}
+
+A growing perpetuity pays
+$$
+C,\; C(1+g),\; C(1+g)^2,\;\dots
+$$
+at the ends of periods $t=1,2,3,\dots$. Its present value is the discounted sum
+$$
+B=\sum_{t=1}^{\infty}\frac{C(1+g)^{t-1}}{(1+r)^t}.
+$$
+Factor out constants:
+$$
+B=\frac{C}{1+r}\sum_{t=1}^{\infty}\left(\frac{1+g}{1+r}\right)^{t-1}.
+$$
+The series is geometric with ratio
+$$
+q=\frac{1+g}{1+r},
+\qquad \text{and since } 0<g<r \text{ we have } 0<q<1,
+$$
+so it converges to
+$$
+\sum_{t=1}^{\infty} q^{t-1}=\frac{1}{1-q}.
+$$
+Therefore
+$$
+B=\frac{C}{1+r}\cdot \frac{1}{1-\frac{1+g}{1+r}}
+=\frac{C}{1+r}\cdot \frac{1+r}{r-g}
+=\boxed{\frac{C}{r-g}}.
+$$
+
+
+\subsection*{(b) Comet perpetuity}
+
+\textbf{Payments.} The first payment is USD $2061$ at the end of year 2061, then USD $2137$ at the end of year 2137, and so on every 76 years. Thus payment years are
+$$
+y_n = 2061 + 76n,\qquad n=0,1,2,\dots
+$$
+and the payment at year $y_n$ equals the year number:
+$$
+\text{Payment}_n = y_n = 2061+76n.
+$$
+
+\textbf{Discounting.} It is Dec 31, 2014, so the time (in years) until the end of year $y_n$ is
+$$
+t_n = y_n - 2014 = (2061-2014)+76n = 47+76n.
+$$
+With annual discount rate $r=1\%$, the present value is
+$$
+B=\sum_{n=0}^{\infty}\frac{2061+76n}{(1.01)^{47+76n}}.
+$$
+Let
+$$
+a = \frac{1}{(1.01)^{47}}, \qquad q=\frac{1}{(1.01)^{76}}.
+$$
+Then
+$$
+B = a\sum_{n=0}^{\infty}(2061+76n)q^n
+= a\left(2061\sum_{n=0}^{\infty}q^n + 76\sum_{n=0}^{\infty}nq^n\right).
+$$
+Using the standard sums (valid for $|q|<1$):
+$$
+\sum_{n=0}^{\infty}q^n=\frac{1}{1-q},
+\qquad
+\sum_{n=0}^{\infty}nq^n=\frac{q}{(1-q)^2},
+$$
+we obtain
+$$
+B
+= a\left(2061\cdot \frac{1}{1-q} + 76\cdot \frac{q}{(1-q)^2}\right).
+$$
+So the closed form is
+$$
+\boxed{
+B=\frac{1}{(1.01)^{47}}
+\left(
+\frac{2061}{1-(1.01)^{-76}}
++
+\frac{76(1.01)^{-76}}{\left(1-(1.01)^{-76}\right)^2}
+\right)}.
+$$
+
+Thus, the value on Dec 31, 2014 is
+$$
+\boxed{B = \$2{,}512.917752=\$2{,}512.92.}
+$$
+
+
+
+\newpage
+\section{Portfolio hedging}
+An important role of a portfolio manager is to control for risk. For example, a portfolio may contain a high number of shares in an individual firm and therefore be highly exposed to movements of the stock price, $S$, of that firm. One way of hedging the risk of $S$ changing is, of course, to sell some of the shares, but for various reasons this may not be feasible.
+
+Another approach is then to purchase another asset that increases in value if the stock price decreases. Mathematically, if the price of this hedging asset is $P$, this is expressed by requiring that $\frac{d P}{d S}<0 .^{1}$ Consider a portfolio manager who holds $h_{S}$ shares of the stock, and $h_{P}$ shares of the hedging asset, so the value of this part of the portfolio is $V(S)=h_{S} S+h_{P} P(S)$. A first
+
+\footnotetext[1]{In fact, as we shall see in the multivariate part of the course, the requirement is actually on the partial derivative, $\frac{\partial P}{\partial S}$. For now, we treat $P$ as a function solely of $S$ and any other dependency as a fixed parameter, in which case the two expressions are equivalent.} order Taylor expansion of the portfolio value around $S$ shows that if the stock price moves to $S+\Delta S$, then the portfolio value moves to approximately 
+\[
+V(S+\Delta S) \approx h_{S}(S+\Delta S)+ h_{P}\left(P(S)+\frac{\partial P}{\partial S} \Delta S\right),
+\]
+so the change in value is approximately $\left(h_{S}+h_{P} \frac{\partial P}{\partial S}\right) \Delta S$. Technically,
+\[
+\left|V(S+\Delta S)-V(S)-\left(h_{S}+h_{P} \frac{\partial P}{\partial S}\right) \Delta S\right| \leq C(\Delta S)^{2}
+\]
+for some constant $C>0$.
+
+We define the number $\Delta_{P}=\frac{\partial P}{\partial S}$, which is denoted by the ``delta'' of the hedging asset (with respect to stock price risk). A delta hedge is implemented by purchasing an amount of the hedging asset such that the portfolio is neutral to small movements of the stock price, i.e., such that $h_{S}+h_{P} \Delta_{P}=0$. We arrive at
+\[
+h_{P}=-\frac{h_{S}}{\Delta_{P}}>0
+\]
+for the delta hedge, where positivity follows from the assumption that $\Delta_{P}<0$, i.e., that the hedging asset's price increases when the stock price decreases. An equivalent formulation of this hedge is of course that $h_{P}$ is chosen such that $V^{\prime}(S)=0$.
+
+\begin{enumerate}
+\item[(a)] The classical Black-Scholes formula for the price, $P_{K}$, of a so-called put option on the stock with strike price $K$ is
+\[
+P_{K}(S)=K e^{-r T}[1-N(x-\sigma \sqrt{T})]-S[1-N(x)]
+\]
+where
+\[
+x=\frac{\ln (S / K)+\left(r+\sigma^{2} / 2\right) T}{\sigma \sqrt{T}}
+\]
+Here, $r$ is the instantaneous discount rate, $\sigma$ is the stock's return volatility, and $T$ is the time to maturity, all of which, together with $K$, are treated as constants so that $P_{K}$ is viewed as a function of a single variable, $S$. The function $N(x)$ is the so-called cumulative distribution function of the standard normal distribution, a strictly positive increasing function with range between zero and one, with the important property that
+\[
+N^{\prime}(x)=\frac{1}{\sqrt{2 \pi}} e^{-\frac{x^{2}}{2}}
+\]
+We will discuss options and the cumulative normal distribution in some further detail later in the course, but this is sufficient for the current exercise. Finally, $\ln (x)$ is the natural logarithm of $x, e^{\ln (x)}=x$.
+
+\textbf{Derive the following formula for the delta of the put option:} $\Delta_{P_{K}}=N(x)-1$.
+\end{enumerate}
+this principle is the use of a delta-gamma hedge. Technically, the holdings in the assets are chosen such that $V^{\prime}(S)=0$, and $V^{\prime \prime}(S)=0$, leading to an error of the order $(\Delta S)^{3}$ for small $\Delta S$.
+
+Define the gamma of an asset $\Gamma_{P}=\frac{\partial^{2} P}{\partial S^{2}}$ and note, of course, that the stock's gamma is $\Gamma_{S}=0$.
+
+Derive the following formula for the gamma of the put option: $\Gamma_{P_{K}}=\frac{N^{\prime}(x)}{S \sigma \sqrt{T}}$.
+
+(c) To create a delta-gamma hedge, two put options are needed. Consider a portfolio with $h_{S}$ shares, $h_{1}$ put options with strike price $K_{1}$, and $h_{2}$ options with strike price $K_{2}$ (and the same $r, \sigma$, and $T$ ).
+
+Use Taylor's formula to derive expressions for $h_{1}$ and $h_{2}$ in the delta-gamma neutral hedge, as a function of $\Delta_{P_{K_{1}}}, \Delta_{P_{K_{2}}}, \Gamma_{P_{K_{1}}}$, and $\Gamma_{P_{K_{2}}}$.
+\bigskip
+
+\subsection*{Solution}
+
+\subsection*{(a) Delta of a Black--Scholes put}
+
+The put price is
+\[
+P_K(S)
+=
+K e^{-rT}\bigl[1-N(x-\sigma\sqrt{T})\bigr]
+-
+S\bigl[1-N(x)\bigr],
+\qquad
+x=\frac{\ln(S/K)+(r+\sigma^2/2)T}{\sigma\sqrt{T}}.
+\]
+We treat \(K,r,\sigma,T\) as constants and differentiate with respect to \(S\).
+
+First compute \(x'(S)\):
+\[
+\frac{dx}{dS}
+=
+\frac{1}{\sigma\sqrt{T}}\frac{d}{dS}\ln(S/K)
+=
+\frac{1}{\sigma\sqrt{T}}\cdot\frac{1}{S}
+=
+\frac{1}{S\sigma\sqrt{T}}.
+\]
+
+Differentiate \(P_K(S)\). Using the chain rule and
+\(N'(u)=\frac{1}{\sqrt{2\pi}}e^{-u^2/2}\),
+\[
+\frac{d}{dS}\Bigl( K e^{-rT}[1-N(x-\sigma\sqrt{T})]\Bigr)
+=
+- K e^{-rT} N'(x-\sigma\sqrt{T}) \frac{dx}{dS}.
+\]
+For the second term,
+\[
+\frac{d}{dS}\Bigl(-S[1-N(x)]\Bigr)
+=
+-(1-N(x)) + S N'(x)\frac{dx}{dS}.
+\]
+Therefore
+\[
+\Delta_{P_K}:=\frac{dP_K}{dS}
+=
+- K e^{-rT} N'(x-\sigma\sqrt{T}) \frac{dx}{dS}
+-(1-N(x)) + S N'(x)\frac{dx}{dS}.
+\]
+Substituting \(\frac{dx}{dS}=\frac{1}{S\sigma\sqrt{T}}\),
+\[
+\Delta_{P_K}
+=
+-(1-N(x))
++\frac{N'(x)}{\sigma\sqrt{T}}
+-\frac{K e^{-rT}}{S\sigma\sqrt{T}}\,N'(x-\sigma\sqrt{T}).
+\]
+
+We now show the key identity
+\[
+N'(x)=\frac{K e^{-rT}}{S}\,N'(x-\sigma\sqrt{T}).
+\]
+Indeed,
+\[
+\frac{N'(x)}{N'(x-\sigma\sqrt{T})}
+=
+\exp\!\left(-\frac{x^2}{2}+\frac{(x-\sigma\sqrt{T})^2}{2}\right)
+=
+\exp\!\left(-x\sigma\sqrt{T}+\frac{\sigma^2T}{2}\right).
+\]
+Using the definition of \(x\),
+\[
+x\sigma\sqrt{T}
+=
+\ln(S/K)+(r+\sigma^2/2)T
+\quad\Longrightarrow\quad
+-x\sigma\sqrt{T}+\frac{\sigma^2T}{2}
+=
+-\ln(S/K)-rT.
+\]
+Hence
+\[
+\frac{N'(x)}{N'(x-\sigma\sqrt{T})}
+=
+e^{-\ln(S/K)-rT}
+=
+\frac{K}{S}e^{-rT},
+\]
+which proves the identity. The two terms involving \(N'\) cancel, and we obtain
+\[
+\boxed{\Delta_{P_K}=N(x)-1.}
+\]
+
+\subsection*{(b) Gamma of a Black--Scholes put}
+
+By definition,
+\[
+\Gamma_{P_K}:=\frac{d^2P_K}{dS^2}=\frac{d}{dS}\Delta_{P_K}.
+\]
+From part (a), \(\Delta_{P_K}=N(x)-1\), hence
+\[
+\Gamma_{P_K}
+=
+\frac{d}{dS}N(x)
+=
+N'(x)\frac{dx}{dS}.
+\]
+Using \(\frac{dx}{dS}=\frac{1}{S\sigma\sqrt{T}}\),
+\[
+\boxed{\Gamma_{P_K}=\frac{N'(x)}{S\sigma\sqrt{T}}.}
+\]
+
+\subsection*{(c) Delta--gamma neutral hedge with two puts}
+
+Consider the portfolio value
+\[
+V(S)=h_S S + h_1 P_{K_1}(S)+h_2 P_{K_2}(S).
+\]
+For a small move \(S\mapsto S+\Delta S\), Taylor expansion gives
+\[
+V(S+\Delta S)
+\approx
+V(S)+V'(S)\Delta S+\frac12 V''(S)(\Delta S)^2,
+\]
+so delta neutrality and gamma neutrality require
+\[
+V'(S)=0,
+\qquad
+V''(S)=0.
+\]
+Using \(\Delta_{P_{K_i}}=\frac{dP_{K_i}}{dS}\),
+\(\Gamma_{P_{K_i}}=\frac{d^2P_{K_i}}{dS^2}\), and \(\Gamma_S=0\),
+\[
+V'(S)=h_S + h_1 \Delta_{P_{K_1}} + h_2 \Delta_{P_{K_2}}=0,
+\]
+\[
+V''(S)=h_1 \Gamma_{P_{K_1}} + h_2 \Gamma_{P_{K_2}}=0.
+\]
+From gamma neutrality,
+\[
+h_2=-h_1\frac{\Gamma_{P_{K_1}}}{\Gamma_{P_{K_2}}}.
+\]
+Substituting into delta neutrality,
+\[
+h_S + h_1 \Delta_{P_{K_1}}
+- h_1\frac{\Gamma_{P_{K_1}}}{\Gamma_{P_{K_2}}}\Delta_{P_{K_2}}=0,
+\]
+so
+\[
+h_1
+=
+-\frac{h_S\,\Gamma_{P_{K_2}}}
+{\Delta_{P_{K_1}}\Gamma_{P_{K_2}}-\Delta_{P_{K_2}}\Gamma_{P_{K_1}}},
+\qquad
+h_2
+=
+\frac{h_S\,\Gamma_{P_{K_1}}}
+{\Delta_{P_{K_1}}\Gamma_{P_{K_2}}-\Delta_{P_{K_2}}\Gamma_{P_{K_1}}}.
+\]
+These holdings make the portfolio delta-neutral and gamma-neutral, provided
+\(\Delta_{P_{K_1}}\Gamma_{P_{K_2}}-\Delta_{P_{K_2}}\Gamma_{P_{K_1}}\neq 0\).
+
+\newpage
+\section{Trading model}
+As in class, consider a model of a financial market with $N$ assets and $M$ possible outcomes. The payoff of asset $n$ at time $t=1$ if outcome $m$ occurs is $\mathbf{D}_{n m}$, where $\mathbf{D} \in \mathbb{R}^{N \times M}$, and its price at time zero is $\mathbf{s}_{n}^{0}$, where $\mathbf{s}^{0} \in \mathbb{R}^{N}$. A portfolio of stocks is represented by a vector $\mathbf{h} \in \mathbb{R}^{N}$, where $\mathbf{h}_{n}$ represents the number of shares owned of asset $n$. We also define the augmented matrix, $\overline{\mathbf{D}}=\left[-\mathbf{s}^{0}, \mathbf{D}\right]$, the reachable payoff space $\mathcal{R}=\left\{\mathbf{D}^{T} \mathbf{h}: \mathbf{h} \in \mathbb{R}^{N}\right\}$, and the augmented payoff space $\overline{\mathcal{R}}=\left\{\overline{\mathbf{D}}^{T} \mathbf{h}: \mathbf{h} \in \mathbb{R}^{N}\right\}$. Consider the market with
+
+\[
+\overline{\mathbf{D}}=\left[\begin{array}{lll}
+-2 & 1 & 1 \\
+-3 & 1 & 2 \\
+-16 & 8 & 9
+\end{array}\right]
+\]
+
+\begin{enumerate}
+\item[(a)] What is the $t=0$ price of the portfolio $\mathbf{h}=(1,1,0)^{T}$ in this market?
+\item[(b)] Is this market complete?
+\item[(c)] Does the law of one price (LOOP) hold in this market?
+\end{enumerate}
+\bigskip
+
+\subsection*{Solution}
+
+We are given the augmented matrix
+\[
+\overline{\mathbf D}=[-\mathbf s^0,\ \mathbf D]
+=
+\begin{bmatrix}
+-2 & 1 & 1\\[4pt]
+-3 & 1 & 2\\[4pt]
+-16 & 8 & 9
+\end{bmatrix}.
+\]
+Thus the price vector and payoff matrix are
+\[
+-\mathbf s^0=\begin{bmatrix}-2\\-3\\-16\end{bmatrix}
+\quad\Longrightarrow\quad
+\mathbf s^0=\begin{bmatrix}2\\3\\16\end{bmatrix},
+\qquad
+\mathbf D=\begin{bmatrix}
+1 & 1\\[4pt]
+1 & 2\\[4pt]
+8 & 9
+\end{bmatrix},
+\]
+so \(N=3\) (assets) and \(M=2\) (outcomes).
+
+\subsection*{(a) Price at \(t=0\) of \(\mathbf h=(1,1,0)^T\)}
+The time-0 price of a portfolio \(\mathbf h\) is \((\mathbf s^0)^T\mathbf h\). Hence
+\[
+(\mathbf s^0)^T\mathbf h
+=
+\begin{bmatrix}2&3&16\end{bmatrix}
+\begin{bmatrix}1\\1\\0\end{bmatrix}
+=2+3+0=5.
+\]
+\[
+\boxed{\text{Price at }t=0 \;=\; 5.}
+\]
+
+\subsection*{(b) Completeness}
+A market is complete iff every payoff in \(\mathbb R^M\) can be replicated, i.e.
+\(\mathcal R=\{ \mathbf D^T\mathbf h:\mathbf h\in\mathbb R^N\}=\mathbb R^M\),
+equivalently \(\operatorname{rank}(\mathbf D)=M\).
+
+Here \(M=2\). To check \(\operatorname{rank}(\mathbf D)\) note the \(2\times2\) minor formed by the first two rows:
+\[
+\det\begin{bmatrix}1 & 1\\[2pt]1 & 2\end{bmatrix}=1\cdot2-1\cdot1=1\neq0,
+\]
+so \(\operatorname{rank}(\mathbf D)=2=M\). Therefore every \(y\in\mathbb R^2\) is reachable as \(y=\mathbf D^T\mathbf h\) for some \(\mathbf h\), and the market is complete.
+
+\[
+\boxed{\text{The market is complete.}}
+\]
+
+\subsection*{(c) Law of One Price (LOOP)}
+Recall the equivalent formulations:
+\begin{itemize}
+  \item LOOP holds \(\iff\) whenever \(\mathbf D^T\mathbf h=\mathbf 0\) we have \((\mathbf s^0)^T\mathbf h=0\).
+  \item Equivalently, LOOP holds \(\iff\) \(\mathbf s^0\) lies in the column space of \(\mathbf D\) (i.e.\ \(\mathbf s^0\in\operatorname{col}(\mathbf D)\)).
+  \item Equivalently, \(\operatorname{rank}(\overline{\mathbf D})=\operatorname{rank}(\mathbf D)\).
+\end{itemize}
+
+We show LOOP fails by two short, equivalent checks.
+
+\paragraph{(i) Existence of a zero payoff, nonzero cost portfolio.}
+Solve \(\mathbf D^T\mathbf h=\mathbf 0\). Writing \(\mathbf h=(h_1,h_2,h_3)^T\),
+\[
+\begin{cases}
+h_1+h_2+8h_3=0,\\[4pt]
+h_1+2h_2+9h_3=0.
+\end{cases}
+\]
+Subtracting the first from the second gives \(h_2+h_3=0\Rightarrow h_2=-h_3\). Substituting yields \(h_1=-7h_3\).
+Taking \(h_3=1\) gives a nonzero solution
+\[
+\mathbf h_0=\begin{bmatrix}-7\\-1\\1\end{bmatrix},\qquad \mathbf D^T\mathbf h_0=\mathbf 0.
+\]
+Compute its time-0 cost:
+\[
+(\mathbf s^0)^T\mathbf h_0
+=
+\begin{bmatrix}2&3&16\end{bmatrix}
+\begin{bmatrix}-7\\-1\\1\end{bmatrix}
+=-14-3+16=-1\neq0.
+\]
+Thus a zero-payoff portfolio has nonzero price, so LOOP fails.
+
+\paragraph{(ii) Direct check that \(\mathbf s^0\notin\operatorname{col}(\mathbf D)\).}
+Attempt to solve \(\mathbf D\mathbf y=\mathbf s^0\) for \(\mathbf y\in\mathbb R^2\):
+\[
+\begin{bmatrix}1 & 1\\[4pt]1 & 2\\[4pt]8 & 9\end{bmatrix}
+\begin{bmatrix}y_1\\y_2\end{bmatrix}
+=
+\begin{bmatrix}2\\3\\16\end{bmatrix}.
+\]
+From the first two rows: \(y_1+y_2=2,\ y_1+2y_2=3\) so \(y_2=1,\ y_1=1\). But the third row gives \(8y_1+9y_2=8+9=17\neq16\). Hence no solution exists and \(\mathbf s^0\notin\operatorname{col}(\mathbf D)\). Consequently \(\operatorname{rank}(\overline{\mathbf D})=\operatorname{rank}([\!-\mathbf s^0,\mathbf D\!])=3>\operatorname{rank}(\mathbf D)=2\), so LOOP fails.
+
+\[
+\boxed{\text{LOOP does \emph{not} hold.}}
+\]
+
+\newpage
+\section{Law of one price}
+In class, we have discussed the law of one price (LOOP), which formalizes the very intuitive "no free lunch" idea that two portfolios that generate the same payoffs should have the same price in a well functioning market. We have also discussed the relation between this rule and the existence of a state price vector. Recall that a state-price vector, $\psi \in \mathbb{R}^{M}$, where $M$ is the number of possible outcomes, is such that $\mathbf{h}^{T} \mathbf{s}^{0}=\mathbf{h}^{T} \mathbf{D} \psi$ for all $\mathbf{h} \in \mathbb{R}^{N}$. It follows that an equivalent formulation for $\psi$ to be a state price vector is that $\mathbf{h}^{T} \overline{\mathbf{D}}[1 ; \psi]=0$ for all $\mathbf{h} \in \mathbb{R}^{N}$.
+
+The relation between the LOOP and the existence of a state price vector is one version of what is known as the fundamental theorem of asset pricing, and has two parts:
+
+\begin{itemize}
+\item Part 1: The LOOP holds if and only if there exists a state price vector.
+\item Part 2: In a market in which the LOOP holds, the state price vector is unique if and only if the market is complete.
+\end{itemize}
+
+A mathematical way of stating that the LOOP holds is that for all $\mathbf{h} \in \mathbb{R}^{N}$ :
+
+\[
+\mathbf{h}^{T} \mathbf{D}=\mathbf{0} \Rightarrow \mathbf{h}^{T} \mathbf{s}^{0}=0
+\]
+
+\begin{enumerate}
+\item[(a)] Use your knowledge from linear algebra to prove part 1 of the theorem.
+\item[(b)] Use your knowledge from linear algebra to prove part 2 of the theorem.
+\end{enumerate}
+
+Note: You may wish to use the fact, which is easy to show, that the LOOP fails if and only if there is a portfolio, $\mathbf{h}$, such that $\mathbf{h}^{T} \overline{\mathbf{D}}=\delta_{0}=(1,0, \ldots, 0)$.
+
+
+\bigskip
+
+\subsection*{Solution}
+
+\subsection*{(a) Part 1: LOOP $\Leftrightarrow$ existence of a state price vector}
+
+\paragraph{LOOP.}
+A mathematical statement of the law of one price is:
+\[
+\forall\,\mathbf{h}\in\mathbb{R}^N:\quad
+\mathbf{h}^T\mathbf{D}=\mathbf{0}\ \Rightarrow\ \mathbf{h}^T\mathbf{s}^0=0.
+\]
+
+\paragraph{($\Rightarrow$) LOOP implies existence.}
+Assume LOOP holds. Define the subspaces
+\[
+\mathcal{N}:=\{\mathbf{h}\in\mathbb{R}^N:\mathbf{h}^T\mathbf{D}=\mathbf{0}\}
+=\ker(\mathbf{D}^T),
+\qquad
+\mathcal{K}:=\{\mathbf{h}\in\mathbb{R}^N:\mathbf{h}^T\mathbf{s}^0=0\}
+=\ker((\mathbf{s}^0)^T).
+\]
+Then LOOP is exactly $\mathcal{N}\subseteq\mathcal{K}$.
+
+Taking orthogonal complements (and using $U\subseteq V\iff V^\perp\subseteq U^\perp$) yields
+\[
+\mathcal{K}^\perp\subseteq\mathcal{N}^\perp.
+\]
+Now,
+\[
+\mathcal{K}^\perp=\operatorname{span}\{\mathbf{s}^0\},
+\qquad
+\mathcal{N}^\perp=(\ker(\mathbf{D}^T))^\perp=\operatorname{Im}(\mathbf{D}),
+\]
+so $\operatorname{span}\{\mathbf{s}^0\}\subseteq\operatorname{Im}(\mathbf{D})$, i.e.\ $\mathbf{s}^0\in\operatorname{Im}(\mathbf{D})$.
+Therefore there exists $\psi\in\mathbb{R}^M$ such that
+\[
+\mathbf{D}\psi=\mathbf{s}^0.
+\]
+For any $\mathbf{h}$,
+\[
+\mathbf{h}^T\mathbf{s}^0=\mathbf{h}^T(\mathbf{D}\psi)=(\mathbf{h}^T\mathbf{D})\psi,
+\]
+so $\psi$ is a state price vector.
+
+\paragraph{($\Leftarrow$) Existence implies LOOP.}
+Conversely, suppose there exists $\psi$ such that $\mathbf{D}\psi=\mathbf{s}^0$.
+If $\mathbf{h}^T\mathbf{D}=\mathbf{0}$, then
+\[
+\mathbf{h}^T\mathbf{s}^0
+=\mathbf{h}^T\mathbf{D}\psi
+=(\mathbf{h}^T\mathbf{D})\psi
+=0,
+\]
+which is exactly LOOP.
+
+\paragraph{Conclusion.}
+\[
+\boxed{\text{LOOP holds}\ \iff\ \exists\,\psi\in\mathbb{R}^M\ \text{s.t.}\ \mathbf{D}\psi=\mathbf{s}^0.}
+\]
+
+\paragraph{Connection to the note.}
+If $\mathbf{h}^T\overline{\mathbf{D}}=\delta_0=(1,0,\dots,0)$, then
+\[
+\mathbf{h}^T(-\mathbf{s}^0)=1
+\quad\text{and}\quad
+\mathbf{h}^T\mathbf{D}=\mathbf{0},
+\]
+so $\mathbf{h}$ has zero payoff but nonzero price, i.e.\ LOOP fails.
+
+\bigskip
+
+\subsection*{(b) Part 2: Uniqueness of $\psi$ $\Leftrightarrow$ completeness (assuming LOOP)}
+
+Assume LOOP holds. By part (a), the linear system
+\[
+\mathbf{D}\psi=\mathbf{s}^0
+\]
+has at least one solution.
+
+\paragraph{Completeness.}
+The market is \emph{complete} if every contingent claim $x\in\mathbb{R}^M$ can be replicated:
+\[
+\forall x\in\mathbb{R}^M\ \exists \mathbf{h}\in\mathbb{R}^N:\quad \mathbf{h}^T\mathbf{D}=x^T.
+\]
+Equivalently,
+\[
+\operatorname{Im}(\mathbf{D}^T)=\mathbb{R}^M
+\quad\iff\quad
+\operatorname{rank}(\mathbf{D})=M.
+\]
+
+\paragraph{All state price vectors.}
+If $\psi_1,\psi_2$ both satisfy $\mathbf{D}\psi=\mathbf{s}^0$, then
+\[
+\mathbf{D}(\psi_1-\psi_2)=\mathbf{0},
+\]
+so $\psi_1-\psi_2\in\ker(\mathbf{D})$. Thus the solution set is the affine space
+\[
+\{\psi:\mathbf{D}\psi=\mathbf{s}^0\}=\psi_0+\ker(\mathbf{D}),
+\]
+where $\psi_0$ is one particular solution. Hence
+\[
+\psi\ \text{is unique}\quad\iff\quad \ker(\mathbf{D})=\{\mathbf{0}\}.
+\]
+
+\paragraph{Link to completeness.}
+By rank--nullity,
+\[
+\dim(\ker(\mathbf{D}))+\operatorname{rank}(\mathbf{D})=M.
+\]
+Therefore
+\[
+\ker(\mathbf{D})=\{\mathbf{0}\}
+\quad\iff\quad
+\operatorname{rank}(\mathbf{D})=M
+\quad\iff\quad
+\operatorname{Im}(\mathbf{D}^T)=\mathbb{R}^M,
+\]
+which is exactly completeness.
+
+\paragraph{Conclusion.}
+\[
+\boxed{\text{Assuming LOOP, the state price vector is unique}\ \iff\ \text{the market is complete}.}
+\]
+
+
+\newpage
+\section{Eigenvector decomposition}
+Consider the matrix
+
+\[
+\mathbf{A}=\left[\begin{array}{ll}
+3 & 1 \\
+1 & 3
+\end{array}\right]
+\]
+
+\begin{enumerate}
+\item[(a)] What are $\mathbf{A}$ 's eigenvectors and eigenvalues?
+\item[(b)] What are the matrices $\mathbf{Q}$ and $\Lambda$ in the spectral decomposition $\mathbf{A}=\mathbf{Q} \Lambda \mathbf{Q}^{T}$.
+\item[(c)] Is $\mathbf{A}$ positive definite?
+\end{enumerate}
+
+
+\bigskip
+
+\subsection*{Solution}
+
+\subsection*{(a) Eigenvalues and eigenvectors}
+
+\paragraph{Eigenvalues.}
+Compute the characteristic polynomial:
+\[
+\det(\mathbf{A}-\lambda \mathbf{I})
+=
+\det\begin{bmatrix}
+3-\lambda & 1\\
+1 & 3-\lambda
+\end{bmatrix}
+=
+(3-\lambda)^2-1.
+\]
+Set it equal to zero:
+\[
+(3-\lambda)^2-1=0
+\quad\Longrightarrow\quad
+3-\lambda=\pm 1
+\quad\Longrightarrow\quad
+\boxed{\lambda_1=4,\ \lambda_2=2.}
+\]
+
+\paragraph{Eigenvectors.}
+For $\lambda_1=4$:
+\[
+(\mathbf{A}-4\mathbf{I})\mathbf{v}=\mathbf{0}
+\quad\Longrightarrow\quad
+\begin{bmatrix}
+-1 & 1\\
+1 & -1
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\0
+\end{bmatrix}
+\quad\Longrightarrow\quad
+y=x.
+\]
+An eigenvector is $\begin{bmatrix}1\\1\end{bmatrix}$, so a unit eigenvector is
+\[
+\boxed{
+\mathbf{q}_1=\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1\\[2pt] 1
+\end{bmatrix}.
+}
+\]
+
+For $\lambda_2=2$:
+\[
+(\mathbf{A}-2\mathbf{I})\mathbf{v}=\mathbf{0}
+\quad\Longrightarrow\quad
+\begin{bmatrix}
+1 & 1\\
+1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\0
+\end{bmatrix}
+\quad\Longrightarrow\quad
+y=-x.
+\]
+An eigenvector is $\begin{bmatrix}1\\-1\end{bmatrix}$, so a unit eigenvector is
+\[
+\boxed{
+\mathbf{q}_2=\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1\\[2pt] -1
+\end{bmatrix}.
+}
+\]
+
+\subsection*{(b) Spectral decomposition}
+
+Let $\mathbf{Q}$ contain orthonormal eigenvectors as columns, and let $\Lambda$ be the diagonal matrix
+of eigenvalues:
+\[
+\boxed{
+\mathbf{Q}
+=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\[6pt]
+\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+\end{bmatrix},
+\qquad
+\Lambda
+=
+\begin{bmatrix}
+4 & 0\\
+0 & 2
+\end{bmatrix}.
+}
+\]
+Then
+\[
+\boxed{\mathbf{A}=\mathbf{Q}\Lambda\mathbf{Q}^T.}
+\]
+
+\subsection*{(c) Positive definiteness}
+
+Since $\mathbf{A}$ is symmetric, it is positive definite if and only if all eigenvalues are positive.
+Here $\lambda_1=4>0$ and $\lambda_2=2>0$, hence
+\[
+\boxed{\mathbf{A}\ \text{is positive definite.}}
+\]
+
+% Optional (alternative check): Sylvester's criterion
+% Leading principal minors: 3>0 and det(A)=3\cdot 3 - 1\cdot 1 = 8>0.
+
+
+\newpage
+
+\section{Principal component analysis}
+You have 15 observations of elements in $\mathbb{R}^{2}, \mathbf{v}^{1}, \ldots, \mathbf{v}^{M}$, $M=15, \mathbf{v}^{m} \in \mathbb{R}^{2}$, which you represent in a $2 \times 15$ matrix, $\mathbf{X} \in \mathbb{R}^{2 \times 15}$. The observations are:
+\[
+\mathbf{X}=\scriptsize \left[\begin{array}{ccccccccccccccc}
+ -0.066 & -0.124 & 0.259 & 0.289 & -0.318 & -0.015 & -0.060 & 0.140 & 0.203 & 0.249 & -0.229 & 0.174 & 0.149 & -0.343 & -0.308 \\
+-0.204 & -0.079 & 0.565 & 0.607 & -0.425 & -0.135 & 0.011 & 0.411 & 0.350 & 0.535 & -0.668 & 0.128 & 0.317 & -0.543 & -0.870
+\end{array}\right]
+\]
+Note that $\sum_{m} \mathbf{X}_{n m}=0, n=1,2$. You wish to explore whether the dataset is well represented by elements in a subspace, $E \subset \mathbb{R}^{2}$. Specifically, you want to know how well you can represent $\mathbf{X}$ by $\mathbf{x c}^{T}$, where $\mathbf{x} \in \mathbb{R}^{2}$, and $\mathbf{c} \in \mathbb{R}^{15}$ (i.e., the subspace is $E=\operatorname{span}(\mathbf{x})$ ).
+
+Do a principal component analysis to explore how well such a sub-space representation works in this case.
+
+\begin{enumerate}
+\item[(a)] What is the optimal $\mathbf{x}$ ?
+\item[(b)] What is the error $e=\sqrt{\frac{1}{M} \sum_{m}\left\|\mathbf{v}^{m}-\mathbf{x c}_{m}\right\|_{2}^{2}}$ ?
+\item[(c)] In light of your previous results, is it possible to represent the $\mathbf{v}$ 's well in a 1-dimensional subspace, $E$ ?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\paragraph{PCA facts}
+Consider the (mean-zero) sample covariance matrix
+\[
+\mathbf S=\frac{1}{M}\mathbf X\mathbf X^T\in\mathbb R^{2\times 2}.
+\]
+Let $\lambda_1\ge \lambda_2\ge 0$ be the eigenvalues of $\mathbf S$ and let $\mathbf u_1,\mathbf u_2$ be corresponding
+orthonormal eigenvectors.  Then the optimal $1$-D PCA direction is $\mathbf u_1$, and the minimum mean squared
+reconstruction error equals $\lambda_2$ (so RMS error equals $\sqrt{\lambda_2}$).
+
+\paragraph{Compute $\mathbf S$}
+A direct calculation gives
+\[
+\mathbf S=\frac{1}{15}\mathbf X\mathbf X^T
+=
+\begin{bmatrix}
+0.0477016 & 0.0946683\\
+0.0946683 & 0.2084663
+\end{bmatrix}.
+\]
+(These numbers were computed in Python.) 
+
+\paragraph{Eigenvalues/eigenvectors of $\mathbf S$}
+The eigenvalues are
+\[
+\boxed{\lambda_1\approx 0.2522749,\qquad \lambda_2\approx 0.00389295.}
+\]
+A corresponding unit eigenvector for the largest eigenvalue is
+\[
+\boxed{
+\mathbf x^\star=\mathbf u_1\approx
+\begin{bmatrix}
+0.4199716\\
+0.9075373
+\end{bmatrix}
+}
+\]
+
+
+\subsection*{(a) Optimal $\mathbf x$}
+Therefore the optimal $1$-D direction is the first principal component:
+\[
+\boxed{\ \mathbf x^\star\approx
+\begin{bmatrix}
+0.4199716\\
+0.9075373
+\end{bmatrix}\ }
+\]
+
+\subsection*{(b) Error $e$}
+For a unit direction $\mathbf x^\star$, the optimal coefficients are projections
+\[
+c_m^\star=(\mathbf x^\star)^T\mathbf v^m,\qquad m=1,\dots,M,
+\]
+i.e.\ $\mathbf c^\star=\mathbf X^T\mathbf x^\star$.
+The requested RMS error is
+\[
+e=\sqrt{\frac{1}{M}\sum_{m=1}^M \left\|\mathbf v^m-\mathbf x^\star c_m^\star\right\|_2^2}.
+\]
+For the optimal rank--$1$ PCA approximation, this satisfies
+\[
+\boxed{\ e=\sqrt{\lambda_2}\approx \sqrt{0.00389295}\approx 0.06239\ }.
+\]
+A direct numerical check of the residual $\mathbf X-\mathbf x^\star(\mathbf c^\star)^T$ matches this value.
+
+\subsection*{(c) Is a 1-D subspace a good representation?}
+The fraction of variance explained by the first principal component is
+\[
+\frac{\lambda_1}{\lambda_1+\lambda_2}
+\approx \frac{0.2522749}{0.2522749+0.00389295}
+\approx 0.9848.
+\]
+Thus about $98.48\%$ of the variance is explained by a $1$-D subspace, so a $1$-D representation is very good:
+\[
+\boxed{\ \text{Yes, the data are well represented in a 1-D subspace (strongly dominant first PC).}\ }
+\]
+
+
+
+\end{document}

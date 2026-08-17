@@ -1,0 +1,297 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.35in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{atbegshi}
+
+% =========================
+% 2-page hard cap
+% =========================
+\AtBeginShipout{%
+  \ifnum\value{page}>2
+    \AtBeginShipoutDiscard
+  \fi
+}
+
+% =========================
+% Watermark (optional)
+% =========================
+\SetWatermarkText{QRS@NTU - qrsntu.org}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{12pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize\textbf{MH1101 Cheat Sheet (Midterm)}}
+\fancyhead[R]{\normalsize\textbf{QRS@NTU}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.15em}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.95}
+
+% =========================
+% Headings readability
+% =========================
+\titleformat{\section}
+  {\bfseries\normalsize}
+  {}
+  {0pt}
+  {\underline}
+\titleformat{\subsection}
+  {\bfseries\small}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
+
+% =========================
+% Quick macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\FS}{\textit{Formula Sheet}}
+\newcommand{\dx}{\,dx}
+\newcommand{\dy}{\,dy}
+
+\begin{document}
+
+% =========================
+% PAGE 1
+% =========================
+\begin{multicols}{3}
+\scriptsize
+\raggedcolumns
+
+\section*{Ch1: Definite integrals, FTC}
+\subsection*{Definite integral \& properties}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle \int_a^b f(x)\dx:=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\Delta x$, $\Delta x=\frac{b-a}{n}$.\\
+Linearity: $\int_a^b(\alpha f+\beta g)=\alpha\int_a^b f+\beta\int_a^b g$.\\
+Additivity: $\int_a^b f=\int_a^c f+\int_c^b f$;\quad $\int_a^a f=0$;\quad $\int_a^b f=-\int_b^a f$.\\
+Order: $f\ge g\Rightarrow \int_a^b f\ge \int_a^b g$;\quad $m\le f\le M\Rightarrow m(b-a)\le \int_a^b f\le M(b-a)$.\\
+$\left|\int_a^b f\right|\le \int_a^b |f|$;\quad odd $f$: $\int_{-a}^a f=0$;\quad even $f$: $\int_{-a}^a f=2\int_0^a f$.\\
+\end{tabular}
+
+\subsection*{FTC / Leibniz / average value}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+FTC I: $f\in C[a,b]$, \ $F(x):=\displaystyle\int_a^x f(t)\,dt \Rightarrow F'(x)=f(x)$.\\
+FTC II: $f\in C[a,b]$, \ $G'=f \Rightarrow \displaystyle\int_a^b f(x)\dx=G(b)-G(a)$.\\
+Leibniz: $\displaystyle \frac{d}{dx}\int_{u(x)}^{v(x)} f(t)\,dt
+=f(v(x))v'(x)-f(u(x))u'(x)$.\\
+Gen. Leibniz: $\! \frac{d}{dx}\!\int_{u(x)}^{v(x)}\!\!F(x,t)\!\,dt
+\!=\!F(x,v)v'\!-\!F(x,u)u'\!+\!\int_{u(x)}^{v(x)}\!\partial_xF(x,t)dt$.\\
+Average value: $\displaystyle f_{\text{avg}}=\frac{1}{b-a}\int_a^b f(x)\dx$.\\
+MVT for integrals: $f\in C[a,b]\Rightarrow \exists c\in(a,b):\ 
+\displaystyle \int_a^b f(x)\dx=f(c)(b-a)$.\\
+\end{tabular}
+
+
+\subsection*{$u$-substitution}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$u=g(x)$, $du=g'(x)\,dx$:\quad $\int f(g(x))g'(x)\dx=\int f(u)\,du$.\\
+Definite form: $\int_a^b f(g(x))g'(x)\dx=\int_{g(a)}^{g(b)} f(u)\,du$.\\
+Cue: inner function + derivative present (up to constant).\\
+\end{tabular}
+
+
+\subsection*{Improper integrals}
+\vspace{1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Type 1 (infinite): $\int_a^{\infty} f:=\lim_{t\to\infty}\int_a^t f$; $\int_{-\infty}^b f:=\lim_{t\to-\infty}\int_t^b f$.\\
+Type 2 (blow-up): if $f\to\infty$ at $a^+$, then $\int_a^b f:=\lim_{t\to a^+}\int_t^b f$ \\ 
+(split at interior singularities).\\
+$p$-tests: $\int_1^{\infty} x^{-p}dx$ conv $\Leftrightarrow p>1$;\ $\int_0^1 x^{-p}dx$ conv $\Leftrightarrow p<1$.\\
+Comparison: $0\le f\le g$, $\int g$ conv $\Rightarrow\int f$ conv;\\ 
+$\qquad \qquad\qquad 0\le g\le f$, $\int g$ div $\Rightarrow\int f$ div.\\
+Limit comparison: $f,g>0$, $\lim f/g=c\in(0,\infty)$ \\
+$\qquad \qquad \qquad \qquad \Rightarrow \int f,\int g$ \text{ same conv/div}.\\
+\end{tabular}
+
+\section*{Ch2: Applications of integration}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$f_{\text{avg}}=\displaystyle\frac{1}{b-a}\int_a^b f(x)\dx.$\\
+\end{tabular}
+
+\subsection*{Volumes}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+General slicing: $V=\displaystyle\int A(x)\dx \ \ \text{or}\ \ V=\int A(y)\dy$.\\
+Washers about $y=k$: $V=\displaystyle \pi\int_a^b\big(R_{\text{out}}^2-R_{\text{in}}^2\big)\dx,\quad R=|y-k|$.\\
+Washers about $x=k$: $V=\displaystyle \pi\int_c^d\big(R_{\text{out}}^2-R_{\text{in}}^2\big)\dy,\quad R=|x-k|$.\\
+Shells about $x=k$: $V=\displaystyle 2\pi\int_a^b |x-k|\,(y_{\text{top}}-y_{\text{bot}})\dx$.\\
+Shells about $y=k$: $V=\displaystyle 2\pi\int_c^d |y-k|\,(x_{\text{right}}-x_{\text{left}})\dy$.\\
+Rule: washers $(\perp\ \text{axis})$, shells $(\parallel\ \text{axis})$.\\
+\end{tabular}
+
+\subsection*{Arc length / surface area}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$L=\displaystyle\int_a^b \sqrt{1+(f'(x))^2}\dx,\qquad
+L=\int_c^d \sqrt{1+(g'(y))^2}\dy.$\\
+$S=\displaystyle 2\pi\int_a^b |f(x)-k|\sqrt{1+(f'(x))^2}\dx \qquad (\text{about }y=k).$\\
+$S=\displaystyle 2\pi\int_c^d |g(y)-k|\sqrt{1+(g'(y))^2}\dy \qquad (\text{about }x=k).$\\
+\end{tabular}
+
+\section*{Ch3: Integration Techniques}
+\subsection*{Integration by parts (IBP)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+IBP: $\displaystyle\int u\,dv=uv-\int v\,du$.\\
+Def IBP: $\displaystyle\int_a^b u\,dv=[uv]_a^b-\int_a^b v\,du$.\\
+Choose $u$: \textbf{L}og, \textbf{I}nv trig, \textbf{A}lgebraic, \textbf{T}rig, \textbf{E}xp (LIATE).\\
+Repeated-cycle: set $I=\int e^{ax}\sin bx\,dx$ or $\int e^{ax}\cos bx\,dx$, IBP twice $\Rightarrow$ solve for $I$.\\
+\end{tabular}
+\subsection*{Rules}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Let $\Delta x=\frac{b-a}{n}$, $x_i=a+i\Delta x$.\\
+$L_n=\displaystyle\sum_{i=1}^n f(x_{i-1})\Delta x,\qquad
+R_n=\sum_{i=1}^n f(x_i)\Delta x.$\\
+$M_n=\displaystyle\sum_{i=1}^n f\!\left(\frac{x_{i-1}+x_i}{2}\right)\Delta x.$\\
+$T_n=\displaystyle\frac{\Delta x}{2}\Big(f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\Big)=\frac{L_n+R_n}{2}.$\\
+$S_n=\displaystyle\frac{\Delta x}{3}\Big(f(x_0)+4\sum_{\text{odd }i}f(x_i)+2\sum_{\text{even }i\neq0,n}f(x_i)+f(x_n)\Big)\qquad (n\ \text{even}).$\\
+\end{tabular}
+
+\subsection*{Error / convexity cues}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$|E_T|\le \displaystyle\frac{K(b-a)^3}{12n^2},\qquad |E_M|\le \frac{K(b-a)^3}{24n^2}\qquad (|f''|\le K).$\\
+$|E_S|\le \displaystyle\frac{K(b-a)^5}{180n^4}\qquad (|f^{(4)}|\le K,\ n\ \text{even}).$\\
+$f''>0:\ T_n\ge \displaystyle\int_a^b f \ge M_n,\qquad f''<0:\ T_n\le \int_a^b f \le M_n.$\\
+$f\uparrow:\ L_n\le \displaystyle\int_a^b f\le R_n,\qquad f\downarrow:\ R_n\le \int_a^b f\le L_n.$\\
+\end{tabular}
+
+\section*{Ch4: Sequences and series}
+\subsection*{Sequences}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$a_n\to L\iff \forall\varepsilon>0\ \exists N:\ n\ge N\Rightarrow |a_n-L|<\varepsilon.$\\
+Limit laws: sums/products/quotients valid if denominator limit $\neq 0$.\\
+Monotone convergence: monotone + bounded $\Rightarrow$ convergent.\\
+\end{tabular}
+
+\subsection*{Series basics}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle\sum_{n=1}^\infty a_n$ converges $\iff S_n:=\sum_{k=1}^n a_k \to S\in\mathbb{R}$.\\
+$R_n=S-S_n=\displaystyle\sum_{k=n+1}^{\infty}a_k$.\\
+$\displaystyle\sum a_n$ conv $\Rightarrow a_n\to 0 \qquad (\text{not sufficient}).$\\
+$\displaystyle\sum_{n=0}^{\infty}ar^n=\frac{a}{1-r}\quad (|r|<1),\qquad \sum_{n=1}^{\infty}\frac1{n^p}\ \text{conv} \iff p>1.$\\
+\end{tabular}
+
+\subsection*{Manipulations}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Shift index to align powers/terms.\\
+Can add/remove finitely many terms without affecting convergence.\\
+Combine series only after matching starting index and variable/power.\\
+\end{tabular}
+
+\section*{Ch5: Convergence tests}
+\subsection*{Positive-term tests}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Comparison: $0\le a_n\le b_n$, $\sum b_n$ conv $\Rightarrow \sum a_n$ conv; \ $\sum a_n$ div $\Rightarrow \sum b_n$ div.\\
+Limit comparison: $a_n,b_n>0$, $\displaystyle\lim \frac{a_n}{b_n}=c\in(0,\infty)\Rightarrow \sum a_n,\sum b_n$ same conv/div.\\
+Integral test: $a_n=f(n)$, $f>0$, $f\downarrow$, $f$ cont on $[1,\infty)$ $\Rightarrow \sum a_n$ conv $\Leftrightarrow \displaystyle\int_1^\infty f(x)\dx$ conv.\\
+Integral remainder: $\displaystyle\int_{n+1}^\infty f(x)\dx\le R_n\le \int_n^\infty f(x)\dx.$\\
+\end{tabular}
+
+\subsection*{Alternating / absolute / ratio / root}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Alternating (Leibniz): $b_n\downarrow$, $b_n\to0 \Rightarrow \sum(-1)^n b_n$ conv, \quad $|R_n|\le b_{n+1}$.\\
+Absolute convergence: $\displaystyle\sum |a_n|$ conv $\Rightarrow \sum a_n$ conv.\\
+Conditional: $\displaystyle\sum a_n$ conv but $\sum|a_n|$ div.\\
+Ratio: $L=\displaystyle\limsup\left|\frac{a_{n+1}}{a_n}\right|$; \ $L<1\Rightarrow$ abs conv, \ $L>1\Rightarrow$ div, \ $L=1\Rightarrow$ inconclusive.\\
+Root: $L=\displaystyle\limsup \sqrt[n]{|a_n|}$; \ $L<1\Rightarrow$ abs conv, \ $L>1\Rightarrow$ div, \ $L=1\Rightarrow$ inconclusive.\\
+\end{tabular}
+\section*{Ch6: Power series and Taylor}
+
+\subsection*{Power series / IOC workflow}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle\sum_{n=0}^{\infty} c_n(x-a)^n \qquad (\text{center }a).$\\
+$|x-a|<R \Rightarrow$ converges,\qquad $|x-a|>R \Rightarrow$ diverges.\\
+Find $R$: usually ratio/root test on general term;\ then test $x=a\pm R$ separately.\\
+Radius stays same under termwise differentiation/integration; endpoints must be retested.\\
+\end{tabular}
+
+\subsection*{Termwise operations}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle \frac{d}{dx}\sum_{n=0}^{\infty} c_n(x-a)^n=\sum_{n=1}^{\infty} n\,c_n(x-a)^{n-1}.$\\
+$\displaystyle \int \sum_{n=0}^{\infty} c_n(x-a)^n\,dx
+=C+\sum_{n=0}^{\infty}\frac{c_n}{n+1}(x-a)^{n+1},
+\qquad (|x-a|<R).$\\
+\end{tabular}
+
+\subsection*{Taylor / Maclaurin}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle T_n(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k,\qquad \text{Maclaurin: }a=0.$\\
+$\displaystyle f(x)=T_n(x)+R_n(x),\qquad
+R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}\quad (\xi \text{ between }a,x).$\\
+$|f^{(n+1)}|\le M \Rightarrow |R_n(x)|\le \displaystyle\frac{M}{(n+1)!}|x-a|^{n+1}.$\\
+Common expansions / binomial series: see $\FS$.\\
+\end{tabular}
+\section*{Special techniques (summary)}
+\subsection*{Integration-technique selection}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Inner function + derivative $\Rightarrow u$-sub.\\
+Product of unlike types $\Rightarrow$ IBP.\\
+Rational $P/Q$ $\Rightarrow$ long division + PF.\\
+$\sqrt{a^2-x^2},\sqrt{a^2+x^2},\sqrt{x^2-a^2}$ $\Rightarrow$ trig sub.\\
+$\sin^m x\cos^n x$ or $\tan^m x\sec^n x$ $\Rightarrow$ parity pattern rules.\\
+Factorials / exponentials in series $\Rightarrow$ ratio test; $n$th powers $\Rightarrow$ root test.\\
+Power series $\Rightarrow$ ratio/root for $R$, then endpoint tests.\\
+\end{tabular}
+
+\subsection*{High-yield formulas}
+\begin{align*}
+&\int u\,dv=uv-\int v\,du,\qquad \int_a^b u\,dv=[uv]_a^b-\int_a^b v\,du.\\
+&\int e^{ax}\sin bx\dx=\frac{e^{ax}}{a^2+b^2}\big(a\sin bx-b\cos bx\big)+C.\\
+&\int e^{ax}\cos bx\dx=\frac{e^{ax}}{a^2+b^2}\big(a\cos bx+b\sin bx\big)+C.
+\end{align*}
+
+\subsection*{Trig-integral cues}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\int \sin^m x\cos^n x\dx$: $n$ odd $\Rightarrow$ save $\cos x\dx$, $u=\sin x$; $m$ odd $\Rightarrow$ save $\sin x\dx$, $u=\cos x$; both even $\Rightarrow$ see \FS.\\
+$\int \tan^m x\sec^n x\dx$: $n$ even $\Rightarrow$ save $\sec^2x\dx$, $u=\tan x$; $m$ odd $\Rightarrow$ save $\sec x\tan x\dx$, $u=\sec x$.\\
+Mixed trig arguments $\Rightarrow$ product-to-sum (\FS).\\
+\end{tabular}
+
+\subsection*{Trig substitution / partial fractions}
+\begin{align*}
+&\sqrt{a^2-x^2}\Rightarrow x=a\sin\theta,\qquad
+\sqrt{a^2+x^2}\Rightarrow x=a\tan\theta,\qquad
+\sqrt{x^2-a^2}\Rightarrow x=a\sec\theta.\\
+&\frac{P(x)}{\prod_i(a_ix+b_i)}=\sum_i\frac{A_i}{a_ix+b_i},\qquad
+(ax+b)^r\Rightarrow \sum_{k=1}^r \frac{A_k}{(ax+b)^k},\\
+&(ax^2+bx+c)^r\Rightarrow \sum_{k=1}^r \frac{A_kx+B_k}{(ax^2+bx+c)^k}\quad (ax^2+bx+c\ \text{irreducible}).
+\end{align*}
+
+\subsection*{Common traps}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Improper integral / series: write limit definition first.\\
+Area/volume: integrand must be nonnegative; split at intersections/order changes.\\
+Washers vs shells: choose slice orientation before radius/height.\\
+Ratio/root with limit $1$ is inconclusive. Power-series endpoints always checked separately.\\
+Alternating test needs decreasing magnitude and limit $0$.\\
+\end{tabular}
+
+\end{multicols}
+
+\end{document}

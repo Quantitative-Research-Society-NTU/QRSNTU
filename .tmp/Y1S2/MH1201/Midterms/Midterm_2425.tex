@@ -1,0 +1,2600 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Midterm Exam (Solutions)}
+\newcommand{\ExamMeta}{AY2024-25, Semester 2}
+\newcommand{\ExamMetaShort}{Midterm AY24-25}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\dimn}{\operatorname{dim}}
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{4}     % Ensures \subsubsection level shows in TOC
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item \textbf{Q1 (Subspaces \& spans):} subspace tests (recurrences, determinant counterexample, affine translates); span inclusion via definition; equality of spans under invertible change-of-generators.
+  \item \textbf{Q2 (Linear operator on $\R^{2,2}$):} linearity from transpose/multiplication; standard matrix representation; explicit bases for $\mathrm{Null}(T)$ and $\mathrm{Range}(T)$; direct-sum verification via explicit decomposition (no blind rank--nullity).
+  \item \textbf{Q3 (Polynomial identities \& idempotents):} explicit construction of $T$ with $T^4=-I$ over any field; projection operators and internal direct sum $\mathrm{Null}(P)\oplus\mathrm{Range}(P)$ without rank--nullity.
+  \item \textbf{Q4 (External direct sum):} verify all eight axioms for $V\times W$ with componentwise operations; construct basis and prove $\dim(V\oplus_{\mathrm{ext}}W)=\dim V+\dim W$.
+  \item \textbf{Method policy:} Each method is written as a standalone solution (no cross-references), with explicit theorem statements when invoked.
+\end{overview}
+
+\newpage
+
+
+
+\tableofcontents
+\newpage
+
+% ============================================================
+% Question 1
+% ============================================================
+\section{Question 1 \hfill (25 marks)}
+
+\subsection{(a)(i) Linear recurrence subspace in \(\R^\infty\)}
+\subsubsection{Problem}
+Let
+\[
+V \coloneqq \R^\infty,\qquad
+W \coloneqq \{(x_1,x_2,x_3,\ldots)\in \R^\infty \mid \forall n\in \N:\ x_{n+2}=4x_{n+1}-2x_n\}.
+\]
+Determine, with justification, whether or not \(W\) is a vector subspace of \(V\).
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Direct subspace test}
+We first verify that \(W\neq\varnothing\). The zero sequence
+\[
+(0,0,0,\ldots)
+\]
+belongs to \(W\), since for every \(n\in\N\),
+\[
+0=4\cdot 0-2\cdot 0.
+\]
+
+Now let \(x=(x_1,x_2,\ldots)\in W\), \(y=(y_1,y_2,\ldots)\in W\), and let \(\alpha,\beta\in\R\). For each \(n\in\N\),
+\[
+x_{n+2}=4x_{n+1}-2x_n,
+\qquad
+y_{n+2}=4y_{n+1}-2y_n.
+\]
+Hence
+\[
+(\alpha x+\beta y)_{n+2}
+=\alpha x_{n+2}+\beta y_{n+2}
+=\alpha(4x_{n+1}-2x_n)+\beta(4y_{n+1}-2y_n),
+\]
+so
+\[
+(\alpha x+\beta y)_{n+2}
+=4(\alpha x+\beta y)_{n+1}-2(\alpha x+\beta y)_n.
+\]
+Thus \(\alpha x+\beta y\in W\).
+
+Therefore \(W\) is nonempty and closed under linear combinations, so \(W\) is a vector subspace of \(\R^\infty\).
+\[
+\boxed{W\le \R^\infty.}
+\]
+
+\paragraph{Method 2: Kernel of a linear map}
+Again, \(W\neq\varnothing\), since the zero sequence lies in \(W\).
+
+Define a map
+\[
+L:\R^\infty\to \R^\infty
+\]
+by
+\[
+(Lx)_n \coloneqq x_{n+2}-4x_{n+1}+2x_n
+\qquad (n\in\N).
+\]
+This map is linear, since for \(x,y\in\R^\infty\) and \(\alpha,\beta\in\R\),
+\[
+L(\alpha x+\beta y)_n
+=(\alpha x+\beta y)_{n+2}-4(\alpha x+\beta y)_{n+1}+2(\alpha x+\beta y)_n
+=\alpha (Lx)_n+\beta (Ly)_n.
+\]
+Now
+\[
+x\in W
+\iff \forall n\in\N:\ x_{n+2}-4x_{n+1}+2x_n=0
+\iff Lx=0.
+\]
+Hence
+\[
+W=\ker(L).
+\]
+Since the kernel of a linear map is a subspace, \(W\) is a subspace of \(\R^\infty\). Therefore
+\[
+\boxed{W\le \R^\infty.}
+\]
+
+\paragraph{Method 3: Intersection of kernels of linear functionals}
+For each \(n\in\N\), define
+\[
+L_n:\R^\infty\to \R,\qquad
+L_n(x)\coloneqq x_{n+2}-4x_{n+1}+2x_n.
+\]
+Each \(L_n\) is linear, being a linear combination of coordinate projections.
+
+Then
+\[
+W=\{x\in\R^\infty:\forall n\in\N,\ L_n(x)=0\}
+=\bigcap_{n\in\N}\ker(L_n).
+\]
+Since each \(\ker(L_n)\) is a subspace of \(\R^\infty\), and an intersection of subspaces is again a subspace, it follows that \(W\) is a subspace of \(\R^\infty\). Also \(W\neq\varnothing\) because the zero sequence belongs to every \(\ker(L_n)\). Thus
+\[
+\boxed{W\le \R^\infty.}
+\]
+
+\paragraph{Method 4: The recurrence is determined by \(x_1\) and \(x_2\)}
+Again, \(W\neq\varnothing\) since the zero sequence belongs to \(W\).
+
+The defining relation
+\[
+x_{n+2}=4x_{n+1}-2x_n \qquad (\forall n\in\N)
+\]
+shows that once \(x_1\) and \(x_2\) are chosen, all later terms are determined recursively:
+\[
+x_3=4x_2-2x_1,\qquad
+x_4=4x_3-2x_2,\qquad \ldots
+\]
+Thus every sequence in \(W\) is uniquely determined by its first two entries.
+
+Define
+\[
+T:W\to \R^2,\qquad
+T(x_1,x_2,x_3,\ldots)=(x_1,x_2).
+\]
+This map is linear. Moreover, given any \((u,v)\in\R^2\), there is a unique sequence in \(W\) whose first two terms are \(u\) and \(v\), obtained by recursively defining
+\[
+x_1=u,\qquad x_2=v,\qquad x_{n+2}=4x_{n+1}-2x_n \ \ (n\in\N).
+\]
+So \(T\) is bijective.
+
+Hence \(W\) is naturally identified with \(\R^2\), with addition and scalar multiplication corresponding to those of initial-value pairs. In particular, \(W\) is closed under linear combinations, and therefore \(W\) is a subspace of \(\R^\infty\). Thus
+\[
+\boxed{W\le \R^\infty.}
+\]
+
+\bigskip
+
+\newpage
+\subsection{(a)(ii) Singular \(3\times 3\) matrices}
+\subsubsection{Problem}
+Let
+\[
+V \coloneqq \R^{3,3},\qquad
+W \coloneqq \{A\in \R^{3,3}\mid \det(A)=0\}.
+\]
+Determine, with justification, whether or not \(W\) is a vector subspace of \(V\).
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Counterexample to closure under addition}
+We first verify that \(W\neq\varnothing\). The zero matrix belongs to \(W\), since
+\[
+\det(0)=0.
+\]
+
+Now consider
+\[
+A=\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix},
+\qquad
+B=\begin{bmatrix}0&0&0\\0&1&0\\0&0&1\end{bmatrix}.
+\]
+Both matrices are singular, so
+\[
+\det(A)=0,\qquad \det(B)=0,
+\]
+hence \(A,B\in W\).
+
+However,
+\[
+A+B=
+\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{bmatrix}
+=I_3,
+\]
+and
+\[
+\det(I_3)=1\neq 0.
+\]
+Thus \(A+B\notin W\).
+
+So \(W\) is not closed under addition, hence \(W\) is not a vector subspace of \(\R^{3,3}\).
+\[
+\boxed{W\not\le \R^{3,3}.}
+\]
+
+\paragraph{Method 2: Counterexample to closure under scalar combinations}
+Again, \(W\neq\varnothing\) because \(0\in W\).
+
+To prove that \(W\) is not a subspace, it suffices to show that it is not closed under linear combinations. Consider the same matrices
+\[
+A=\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix},
+\qquad
+B=\begin{bmatrix}0&0&0\\0&1&0\\0&0&1\end{bmatrix}.
+\]
+Then \(A,B\in W\), but taking the linear combination with coefficients \(1\) and \(1\) gives
+\[
+1\cdot A+1\cdot B=I_3\notin W.
+\]
+Therefore \(W\) is not closed under linear combinations, so it is not a subspace. Hence
+\[
+\boxed{W\not\le \R^{3,3}.}
+\]
+
+\paragraph{Method 3: Determinant is not a linear condition}
+A vector subspace of \(M_{3\times 3}(\R)\) is typically defined by linear conditions on the entries. Here, however, the defining condition is
+\[
+\det(A)=0,
+\]
+and the determinant is not a linear map on \(\R^{3,3}\). Indeed,
+\[
+\det(A+B)\neq \det(A)+\det(B)
+\]
+in general. For example, with
+\[
+A=\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix},
+\qquad
+B=\begin{bmatrix}0&0&0\\0&1&0\\0&0&1\end{bmatrix},
+\]
+we have
+\[
+\det(A)=0,\qquad \det(B)=0,\qquad \det(A+B)=\det(I_3)=1.
+\]
+So matrices satisfying \(\det(A)=0\) are not preserved under addition. Therefore \(W\) is not a subspace:
+\[
+\boxed{W\not\le \R^{3,3}.}
+\]
+
+\bigskip
+
+\newpage
+\subsection{(a)(iii) Affine subset of \(\R^{2,2}\)}
+\subsubsection{Problem}
+Let
+\[
+V \coloneqq \R^{2,2},
+\]
+and let
+\[
+W \coloneqq
+\left\{
+a\begin{bmatrix}2&-3\\4&1\end{bmatrix}
++b\begin{bmatrix}0&5\\1&-2\end{bmatrix}
++\begin{bmatrix}6&-19\\10&7\end{bmatrix}
+\in \R^{2,2}
+\ \middle|\
+a,b\in\R
+\right\}.
+\]
+Determine, with justification, whether or not \(W\) is a vector subspace of \(V\).
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Rewrite as a span}
+Let
+\[
+M_1=\begin{bmatrix}2&-3\\4&1\end{bmatrix},\qquad
+M_2=\begin{bmatrix}0&5\\1&-2\end{bmatrix},\qquad
+C=\begin{bmatrix}6&-19\\10&7\end{bmatrix}.
+\]
+Then
+\[
+W=\{aM_1+bM_2+C:\ a,b\in\R\}.
+\]
+First, \(W\neq\varnothing\), since taking \(a=b=0\) gives \(C\in W\).
+
+We now check whether \(C\in \Span\{M_1,M_2\}\). Suppose
+\[
+aM_1+bM_2=C.
+\]
+Comparing entries gives
+\[
+2a=6,\qquad 4a+b=10.
+\]
+From \(2a=6\), we get \(a=3\). Then \(4a+b=10\) gives
+\[
+12+b=10 \quad\Rightarrow\quad b=-2.
+\]
+Check the remaining entries:
+\[
+-3a+5b=-9-10=-19,\qquad a-2b=3-2(-2)=7.
+\]
+Hence
+\[
+C=3M_1-2M_2\in \Span\{M_1,M_2\}.
+\]
+
+Therefore every element of \(W\) can be rewritten as
+\[
+aM_1+bM_2+C
+=aM_1+bM_2+3M_1-2M_2
+=(a+3)M_1+(b-2)M_2,
+\]
+so \(W\subseteq \Span\{M_1,M_2\}\).
+
+Conversely, if \(\alpha,\beta\in\R\), then
+\[
+\alpha M_1+\beta M_2
+=(\alpha-3)M_1+(\beta+2)M_2+C\in W.
+\]
+Hence
+\[
+\Span\{M_1,M_2\}\subseteq W.
+\]
+Thus
+\[
+W=\Span\{M_1,M_2\},
+\]
+which is a subspace of \(\R^{2,2}\). Therefore
+\[
+\boxed{W\le \R^{2,2}.}
+\]
+
+\paragraph{Method 2: Affine / translate criterion}
+With the same notation,
+\[
+W=C+\Span\{M_1,M_2\}.
+\]
+Now \(\Span\{M_1,M_2\}\) is a subspace of \(\R^{2,2}\). A translate \(x_0+S\) of a subspace \(S\) is itself a subspace if and only if \(x_0\in S\).
+
+So it suffices to determine whether
+\[
+C\in \Span\{M_1,M_2\}.
+\]
+As computed above,
+\[
+C=3M_1-2M_2,
+\]
+so indeed \(C\in \Span\{M_1,M_2\}\). Hence
+\[
+W=C+\Span\{M_1,M_2\}=\Span\{M_1,M_2\},
+\]
+which is a subspace of \(\R^{2,2}\). Therefore
+\[
+\boxed{W\le \R^{2,2}.}
+\]
+
+\paragraph{Method 3: Zero-matrix test}
+Again let
+\[
+M_1=\begin{bmatrix}2&-3\\4&1\end{bmatrix},\qquad
+M_2=\begin{bmatrix}0&5\\1&-2\end{bmatrix},\qquad
+C=\begin{bmatrix}6&-19\\10&7\end{bmatrix}.
+\]
+Certainly \(W\neq\varnothing\), since \(C\in W\).
+
+To check whether \(W\) is a subspace, a natural first test is whether \(0\in W\). We seek \(a,b\in\R\) such that
+\[
+aM_1+bM_2+C=0.
+\]
+Equivalently,
+\[
+aM_1+bM_2=-C.
+\]
+Comparing entries, we obtain
+\[
+2a=-6,\qquad 4a+b=-10.
+\]
+Thus
+\[
+a=-3,\qquad b=2.
+\]
+Checking the remaining entries gives
+\[
+-3a+5b=9+10=19,\qquad a-2b=-3-4=-7,
+\]
+which agrees with \(-C\). Hence
+\[
+(-3)M_1+2M_2+C=0,
+\]
+so \(0\in W\).
+
+Now let \(X,Y\in W\). Then for some \(a_1,b_1,a_2,b_2\in\R\),
+\[
+X=a_1M_1+b_1M_2+C,\qquad
+Y=a_2M_1+b_2M_2+C.
+\]
+Since \(0=(-3)M_1+2M_2+C\), we may write
+\[
+C=3M_1-2M_2.
+\]
+Substituting this into \(X\) and \(Y\), we see that each element of \(W\) is actually a linear combination of \(M_1\) and \(M_2\), so \(W=\Span\{M_1,M_2\}\). Therefore \(W\) is a subspace:
+\[
+\boxed{W\le \R^{2,2}.}
+\]
+
+\bigskip
+
+\subsection{(b)(i) Inclusion of spans}
+\subsubsection{Problem}
+Let \(V\) be a vector space over \(\R\), and let \(a_1,\ldots,a_n,b_1,\ldots,b_n\in V\). Suppose that there is a matrix
+\[
+M=[\lambda_{i,j}]_{i,j=1}^n\in \R^{n,n}
+\]
+such that
+\[
+b_i=\lambda_{i,1}a_1+\cdots+\lambda_{i,n}a_n
+\qquad (i=1,\ldots,n).
+\]
+Explain --- using the definition of \(\Span\) --- why
+\[
+\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Directly from the definition of span}
+By definition,
+\[
+\Span(\{b_1,\ldots,b_n\})
+=
+\left\{
+\sum_{i=1}^n \alpha_i b_i \;\middle|\; \alpha_1,\ldots,\alpha_n\in\R
+\right\}.
+\]
+Let
+\[
+v\in \Span(\{b_1,\ldots,b_n\}).
+\]
+Then there exist \(\alpha_1,\ldots,\alpha_n\in\R\) such that
+\[
+v=\sum_{i=1}^n \alpha_i b_i.
+\]
+Substituting
+\[
+b_i=\sum_{j=1}^n \lambda_{i,j}a_j,
+\]
+we obtain
+\[
+v=\sum_{i=1}^n \alpha_i\left(\sum_{j=1}^n \lambda_{i,j}a_j\right)
+=\sum_{j=1}^n\left(\sum_{i=1}^n \alpha_i\lambda_{i,j}\right)a_j.
+\]
+Thus \(v\) is a linear combination of \(a_1,\ldots,a_n\), so
+\[
+v\in \Span(\{a_1,\ldots,a_n\}).
+\]
+Therefore
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\paragraph{Method 2: Smallest-subspace property of span}
+For each \(i\in\{1,\ldots,n\}\), we are given that
+\[
+b_i=\lambda_{i,1}a_1+\cdots+\lambda_{i,n}a_n.
+\]
+Hence each \(b_i\) belongs to \(\Span(\{a_1,\ldots,a_n\})\). Therefore
+\[
+\{b_1,\ldots,b_n\}\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+
+Now \(\Span(\{a_1,\ldots,a_n\})\) is a subspace of \(V\) containing the set \(\{b_1,\ldots,b_n\}\). By the smallest-subspace property of span, \(\Span(\{b_1,\ldots,b_n\})\) is contained in every subspace containing \(\{b_1,\ldots,b_n\}\). In particular,
+\[
+\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+Thus
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\paragraph{Method 3: Span as the range of a linear map}
+Define linear maps
+\[
+A:\R^n\to V,\qquad A(e_j)=a_j,
+\]
+and
+\[
+B:\R^n\to V,\qquad B(e_i)=b_i,
+\]
+where \(e_1,\ldots,e_n\) is the standard basis of \(\R^n\).
+
+Then
+\[
+\Range(A)=\Span(\{a_1,\ldots,a_n\}),\qquad
+\Range(B)=\Span(\{b_1,\ldots,b_n\}).
+\]
+From
+\[
+b_i=\sum_{j=1}^n\lambda_{i,j}a_j,
+\]
+we get
+\[
+B(e_i)=\sum_{j=1}^n\lambda_{i,j}A(e_j)=A\!\left(\sum_{j=1}^n\lambda_{i,j}e_j\right)=A(Me_i).
+\]
+Since this holds for each basis vector \(e_i\), we have
+\[
+B=A\circ M.
+\]
+Therefore
+\[
+\Range(B)=\Range(A\circ M)\subseteq \Range(A),
+\]
+that is,
+\[
+\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+Hence
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\bigskip
+
+\newpage
+\subsection{(b)(ii) Equality of spans when \(M\) is invertible}
+\subsubsection{Problem}
+Under the assumptions of part (b)(i), show that if \(M\) is invertible, then
+\[
+\Span(\{b_1,\ldots,b_n\})=\Span(\{a_1,\ldots,a_n\}).
+\]
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Express each \(a_i\) as a linear combination of the \(b_j\)}
+From part (b)(i), we already know that
+\[
+\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+So it remains to prove the reverse inclusion.
+
+Assume \(M\) is invertible, and write
+\[
+M^{-1}=[\mu_{i,j}]_{i,j=1}^n.
+\]
+The relations
+\[
+b_i=\sum_{j=1}^n \lambda_{i,j}a_j
+\qquad (i=1,\ldots,n)
+\]
+can be inverted to solve for the \(a_i\)'s in terms of the \(b_j\)'s:
+\[
+a_i=\sum_{j=1}^n \mu_{i,j}b_j
+\qquad (i=1,\ldots,n).
+\]
+Hence each \(a_i\in \Span(\{b_1,\ldots,b_n\})\). Therefore
+\[
+\Span(\{a_1,\ldots,a_n\})\subseteq \Span(\{b_1,\ldots,b_n\}).
+\]
+Combining this with the inclusion from part (b)(i), we obtain
+\[
+\Span(\{a_1,\ldots,a_n\})=\Span(\{b_1,\ldots,b_n\}).
+\]
+Thus
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})=\Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\newpage
+\paragraph{Method 2: Smallest-subspace argument in both directions}
+By part (b)(i),
+\[
+\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\}).
+\]
+
+Now assume \(M\) is invertible. Then
+\[
+\begin{bmatrix}
+a_1\\ \vdots\\ a_n
+\end{bmatrix}
+=
+M^{-1}
+\begin{bmatrix}
+b_1\\ \vdots\\ b_n
+\end{bmatrix},
+\]
+so each \(a_i\) is a linear combination of \(b_1,\ldots,b_n\). Hence
+\[
+\{a_1,\ldots,a_n\}\subseteq \Span(\{b_1,\ldots,b_n\}).
+\]
+Since \(\Span(\{b_1,\ldots,b_n\})\) is a subspace containing \(\{a_1,\ldots,a_n\}\), the smallest-subspace property yields
+\[
+\Span(\{a_1,\ldots,a_n\})\subseteq \Span(\{b_1,\ldots,b_n\}).
+\]
+Together with the inclusion from part (b)(i), this gives
+\[
+\Span(\{a_1,\ldots,a_n\})=\Span(\{b_1,\ldots,b_n\}).
+\]
+Therefore
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})=\Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\paragraph{Method 3: Range equality via an invertible change of coordinates}
+Retain the linear maps
+\[
+A:\R^n\to V,\qquad A(e_j)=a_j,
+\]
+and
+\[
+B:\R^n\to V,\qquad B(e_i)=b_i.
+\]
+As in part (b)(i), we have
+\[
+B=A\circ M.
+\]
+Thus
+\[
+\Span(\{b_1,\ldots,b_n\})=\Range(B)=\Range(A\circ M).
+\]
+
+If \(M\) is invertible, then \(M:\R^n\to\R^n\) is surjective. Therefore every vector \(u\in\R^n\) can be written as \(u=Mv\) for some \(v\in\R^n\). Hence every element of \(\Range(A)\) has the form
+\[
+A(u)=A(Mv)=(A\circ M)(v),
+\]
+so
+\[
+\Range(A)\subseteq \Range(A\circ M).
+\]
+The reverse inclusion
+\[
+\Range(A\circ M)\subseteq \Range(A)
+\]
+always holds. Therefore
+\[
+\Range(A\circ M)=\Range(A).
+\]
+That is,
+\[
+\Span(\{b_1,\ldots,b_n\})=\Span(\{a_1,\ldots,a_n\}).
+\]
+Thus
+\[
+\boxed{\Span(\{b_1,\ldots,b_n\})=\Span(\{a_1,\ldots,a_n\}).}
+\]
+
+\newpage
+
+\subsection{Mark Scheme (25 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a)(i) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Verifies \(W\neq\varnothing\) (e.g.\ the zero sequence satisfies the recurrence).
+    \item (2) Correctly proves closure under linear combinations, or identifies \(W\) as a kernel / intersection of kernels of linear maps.
+    \item (1) States the relevant subspace criterion clearly.
+    \item (1) Concludes that \(W\) is a subspace of \(\R^\infty\).
+  \end{itemize}
+
+  \item \textbf{(a)(ii) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Verifies \(W\neq\varnothing\) (e.g.\ \(0\in W\)).
+    \item (1) Identifies a suitable subspace axiom to test, typically closure under addition.
+    \item (2) Gives explicit \(A,B\in W\) with \(\det(A)=\det(B)=0\) but \(\det(A+B)\neq 0\).
+    \item (1) Concludes that \(W\) is not a subspace.
+  \end{itemize}
+
+  \item \textbf{(a)(iii) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Verifies \(W\neq\varnothing\) (e.g.\ by taking \(a=b=0\)).
+    \item (2) Correctly checks that \(C\in \Span\{M_1,M_2\}\) (or equivalently that \(0\in W\)) by solving for coefficients.
+    \item (1) Deduces that \(W=\Span\{M_1,M_2\}\), or equivalently that the translate equals the underlying subspace.
+    \item (1) Concludes that \(W\) is a subspace of \(\R^{2,2}\).
+  \end{itemize}
+
+  \item \textbf{(b)(i) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Writes the definition of span as the set of all linear combinations.
+    \item (2) Substitutes each \(b_i=\sum_j\lambda_{i,j}a_j\) into a general element of \(\Span(\{b_1,\ldots,b_n\})\), or uses the smallest-subspace / range argument correctly.
+    \item (1) Concludes that \(\Span(\{b_1,\ldots,b_n\})\subseteq \Span(\{a_1,\ldots,a_n\})\).
+  \end{itemize}
+
+  \item \textbf{(b)(ii) (6 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Uses invertibility of \(M\) correctly to express each \(a_i\) as a linear combination of the \(b_j\), or proves range equality via surjectivity.
+    \item (2) Establishes the reverse inclusion \(\Span(\{a_1,\ldots,a_n\})\subseteq \Span(\{b_1,\ldots,b_n\})\).
+    \item (1) Combines with part (b)(i) to obtain equality.
+    \item (1) States the final equality clearly.
+  \end{itemize}
+\end{itemize}
+% ============================================================
+% Question 2
+% ============================================================
+\newpage
+\section{Question 2 \hfill (25 marks)}
+
+\subsection{Problem}
+Define a function $T:\R^{2,2}\to \R^{2,2}$ as follows:
+\[
+\forall A\in \R^{2,2}:\quad
+T(A)\ \mathrm{df}=\ A
+\begin{bmatrix}1&2\\2&1\end{bmatrix}
+-
+\begin{bmatrix}2&1\\1&2\end{bmatrix}
+A^{\mathsf T}.
+\]
+Note: The symbol ``$\mathsf T$'' denotes matrix transposition.
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[5 points]} Show that $T\in L(\R^{2,2})$.
+\item \textbf{[5 points]} Compute the standard matrix representation of $T$.
+\item \textbf{[5 points]} Derive a basis for $\mathrm{Null}(T)$.
+\item \textbf{[5 points]} Derive a basis for $\mathrm{Range}(T)$.
+\item \textbf{[5 points]} Determine (with justification) whether or not $\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T)$.
+\newline CAUTION: Your solution cannot be a blind application of the Rank-Nullity Theorem!
+\end{enumerate}
+
+\bigskip
+\bigskip
+\subsection{Solution}
+
+\subsubsection{Method 1: Full coordinate solution + hyperplane characterisation}
+Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$, $M=\begin{bmatrix}1&2\\2&1\end{bmatrix}$, $N=\begin{bmatrix}2&1\\1&2\end{bmatrix}$.
+Compute
+\[
+AM=\begin{bmatrix}a+2b&2a+b\\c+2d&2c+d\end{bmatrix},\qquad
+NA^{\mathsf T}=\begin{bmatrix}2a+b&2c+d\\a+2b&c+2d\end{bmatrix}.
+\]
+Hence
+\[
+T(A)=AM-NA^{\mathsf T}
+=\begin{bmatrix}
+b-a & 2a+b-2c-d\\
+-a-2b+c+2d & c-d
+\end{bmatrix}.
+\]
+Write $T(A)=\begin{bmatrix}x&y\\z&w\end{bmatrix}$, so
+\[
+x=b-a,\quad y=2a+b-2c-d,\quad z=-a-2b+c+2d,\quad w=c-d.
+\]
+\medskip
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+\textbf{Theorem.} The maps $A\mapsto AM$, $A\mapsto NA$, and $A\mapsto A^{\mathsf T}$ are linear (fixed-matrix multiplication and transposition are linear). Sums/differences of linear maps are linear.
+Thus $T(A)=AM-N(A^{\mathsf T})$ is linear, so $T\in L(\R^{2,2})$.
+\[
+\boxed{\,T\in L(\R^{2,2}).\,}
+\]
+
+\newpage
+\item \textbf{Standard matrix representation.}
+Use the standard basis $E_{11},E_{12},E_{21},E_{22}$ and identify $\R^{2,2}\cong\R^4$ via
+\[
+\begin{bmatrix}u&v\\s&t\end{bmatrix}\leftrightarrow (u,v,s,t).
+\]
+Compute (by substituting $(a,b,c,d)=(1,0,0,0)$, etc.) the columns:
+\[
+T(E_{11})=\begin{bmatrix}-1&2\\-1&0\end{bmatrix},\ 
+T(E_{12})=\begin{bmatrix}1&1\\-2&0\end{bmatrix},\ 
+T(E_{21})=\begin{bmatrix}0&-2\\1&1\end{bmatrix},\ 
+T(E_{22})=\begin{bmatrix}0&-1\\2&-1\end{bmatrix}.
+\]
+Hence
+\[
+[T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}.
+\]
+\[
+\boxed{\, [T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Null}(T)$.}
+Solve $T(A)=0$:
+\[
+b-a=0,\quad c-d=0,\quad 2a+b-2c-d=0,\quad -a-2b+c+2d=0.
+\]
+From $b=a$ and $c=d$, the third gives $2a+a-2c-c=0\Rightarrow 3a-3c=0\Rightarrow a=c$.
+Thus $a=b=c=d=t$, so
+\[
+\mathrm{Null}(T)=\left\{t\begin{bmatrix}1&1\\1&1\end{bmatrix}:t\in\R\right\}
+=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.
+\]
+\[
+\boxed{\,\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Range}(T)$.}
+
+\emph{Step 1: Range is contained in a hyperplane.}
+Let $\ell:\R^{2,2}\to\R$ be the linear functional ``sum of all entries'':
+\[
+\ell\!\left(\begin{bmatrix}x&y\\z&w\end{bmatrix}\right)=x+y+z+w.
+\]
+For $T(A)=\begin{bmatrix}x&y\\z&w\end{bmatrix}$ as above,
+\[
+x+y+z+w=(b-a)+(2a+b-2c-d)+(-a-2b+c+2d)+(c-d)=0.
+\]
+Hence $\mathrm{Range}(T)\subseteq H:=\ker(\ell)=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\}$.
+
+\emph{Step 2: Hyperplane is contained in the range (explicit preimage).}
+Take $Y=\begin{bmatrix}x&y\\z&w\end{bmatrix}\in H$, so $x+y+z+w=0$.
+Choose $d=0$, set $c=w$, and define
+\[
+a=\frac{y-x+2w}{3},\qquad b=x+a=\frac{2x+y+2w}{3}.
+\]
+Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$. Then
+\[
+b-a=x,\qquad c-d=w,\qquad 2a+b-2c-d=y,
+\]
+and
+\[
+-a-2b+c+2d=-a-2b+w=-(x+y+w)=z
+\]
+(using $x+y+z+w=0$). Thus $T(A)=Y$ and $H\subseteq\mathrm{Range}(T)$.
+Therefore $\mathrm{Range}(T)=H$.
+
+A basis of $H$ is, for example,
+\[
+R_1=\begin{bmatrix}1&0\\0&-1\end{bmatrix},\quad
+R_2=\begin{bmatrix}0&1\\0&-1\end{bmatrix},\quad
+R_3=\begin{bmatrix}0&0\\1&-1\end{bmatrix},
+\]
+which are linearly independent by entrywise coefficient comparison. Hence they form a basis of $\mathrm{Range}(T)$.
+\[
+\boxed{\,\text{A basis for }\mathrm{Range}(T)\text{ is }\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\0&-1\end{bmatrix},
+\begin{bmatrix}0&0\\1&-1\end{bmatrix}
+\right\}.\,}
+\]
+
+\item \textbf{Direct sum: $\R^{2,2}=\mathrm{Null}(T)\oplus\mathrm{Range}(T)$.}
+\textbf{Theorem (Internal direct sum criterion).} $V=U\oplus W$ iff $V=U+W$ and $U\cap W=\{0\}$.
+
+Let $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$. From (c), $\mathrm{Null}(T)=\mathrm{span}\{J\}$ and from (d), $\mathrm{Range}(T)=H=\ker(\ell)$.
+
+\emph{Intersection:} If $X\in \mathrm{Null}(T)\cap \mathrm{Range}(T)$ then $X=tJ$ and also $\ell(X)=0$.
+But $\ell(tJ)=4t$, so $4t=0\Rightarrow t=0\Rightarrow X=0$. Hence the intersection is $\{0\}$.
+
+\emph{Sum:} For any $B\in \R^{2,2}$, let $s=\ell(B)$ and set $t=\frac{s}{4}$.
+Then $\ell(B-tJ)=\ell(B)-4t=0$, so $B-tJ\in \mathrm{Range}(T)$, and $tJ\in \mathrm{Null}(T)$.
+Thus $B=(B-tJ)+tJ\in \mathrm{Range}(T)+\mathrm{Null}(T)$, so $\R^{2,2}=\mathrm{Range}(T)+\mathrm{Null}(T)$.
+Therefore $\R^{2,2}=\mathrm{Null}(T)\oplus\mathrm{Range}(T)$.
+\[
+\boxed{\,\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T).\,}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Standard matrix method + rank via constraint}
+
+\medskip
+
+\noindent\textbf{Theorem 1 (Basic matrix operations).}
+For fixed matrices $M,N$, the maps $A\mapsto AM$, $A\mapsto NA$, and
+$A\mapsto A^{\mathsf T}$ are linear. Sums, differences, and compositions of
+linear maps are linear.
+
+\medskip
+\noindent\textbf{Theorem 2 (Images span the range).}
+If $V=\operatorname{span}\{v_1,\dots,v_k\}$, then
+\[
+\range(T)=\operatorname{span}\{T(v_1),\dots,T(v_k)\}.
+\]
+
+\medskip
+\noindent\textbf{Theorem 3 (Internal direct sum criterion).}
+For subspaces $U,W\le V$,
+\[
+V=U\oplus W \iff (V=U+W)\ \text{and}\ (U\cap W=\{0\}).
+\]
+
+Let $M=\begin{bmatrix}1&2\\2&1\end{bmatrix}$ and $N=\begin{bmatrix}2&1\\1&2\end{bmatrix}$.
+\medskip
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+For $A,B\in\R^{2,2}$ and $\lambda\in\R$,
+\[
+T(A+\lambda B)=(A+\lambda B)M-N(A+\lambda B)^{\mathsf T}
+=AM+\lambda BM-NA^{\mathsf T}-\lambda NB^{\mathsf T}=T(A)+\lambda T(B),
+\]
+using Theorem 1. Hence $T\in L(\R^{2,2})$.
+\[
+\boxed{\,T\in L(\R^{2,2}).\,}
+\]
+
+\item \textbf{Standard matrix representation.}
+Use the standard basis $E_{11},E_{12},E_{21},E_{22}$ of $\R^{2,2}$ and the identification
+\[
+\begin{bmatrix}u&v\\s&t\end{bmatrix}\leftrightarrow (u,v,s,t)\in\R^4.
+\]
+Compute columns (each by direct substitution into $T(A)=AM-NA^{\mathsf T}$):
+\[
+T(E_{11})=\begin{bmatrix}-1&2\\-1&0\end{bmatrix},\quad
+T(E_{12})=\begin{bmatrix}1&1\\-2&0\end{bmatrix},\quad
+T(E_{21})=\begin{bmatrix}0&-2\\1&1\end{bmatrix},\quad
+T(E_{22})=\begin{bmatrix}0&-1\\2&-1\end{bmatrix}.
+\]
+Thus
+\[
+[T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}.
+\]
+\[
+\boxed{\, [T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Null}(T)$.}
+Solve $T(A)=0$ for $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ by using the coordinate formula derived from $AM-NA^{\mathsf T}$:
+\[
+T(A)=\begin{bmatrix}
+b-a & 2a+b-2c-d\\
+-a-2b+c+2d & c-d
+\end{bmatrix}.
+\]
+Setting this equal to $0$ gives
+\[
+b-a=0,\qquad c-d=0,\qquad 2a+b-2c-d=0,\qquad -a-2b+c+2d=0.
+\]
+From $b=a$ and $c=d$, the third equation becomes $3a-3c=0$, so $a=c$. Hence $a=b=c=d=t$.
+Therefore
+\[
+\mathrm{Null}(T)=\left\{t\begin{bmatrix}1&1\\1&1\end{bmatrix}:t\in\R\right\}
+=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.
+\]
+\[
+\boxed{\,\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Range}(T)$.}
+By Theorem 2,
+\[
+\mathrm{Range}(T)=\mathrm{span}\{T(E_{11}),T(E_{12}),T(E_{21}),T(E_{22})\}.
+\]
+Define the linear functional $\ell:\R^{2,2}\to\R$ by $\ell\!\left(\begin{bmatrix}x&y\\z&w\end{bmatrix}\right)=x+y+z+w$.
+From the coordinate expression for $T(A)$, one checks (by direct cancellation) that $\ell(T(A))=0$ for all $A$; hence
+\[
+\mathrm{Range}(T)\subseteq \ker(\ell)=:H=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\},
+\]
+and $\dim(H)=3$ (one independent linear constraint).
+
+Now exhibit three linearly independent elements of $\mathrm{Range}(T)$:
+\[
+R_1:=T(E_{11})=\begin{bmatrix}-1&2\\-1&0\end{bmatrix},\quad
+R_2:=T(E_{12})=\begin{bmatrix}1&1\\-2&0\end{bmatrix},\quad
+R_3:=T(E_{21})=\begin{bmatrix}0&-2\\1&1\end{bmatrix}.
+\]
+If $\alpha R_1+\beta R_2+\gamma R_3=0$, then comparing the $(2,2)$ entry gives $\gamma=0$; then comparing $(1,1)$ and $(2,1)$ gives $-\alpha+\beta=0$ and $-\alpha-2\beta=0$, hence $\alpha=\beta=0$.
+Thus $R_1,R_2,R_3$ are linearly independent, so $\dim\mathrm{Range}(T)\ge 3$.
+Since $\mathrm{Range}(T)\subseteq H$ and $\dim(H)=3$, it follows that $\mathrm{Range}(T)=H$ and $\{R_1,R_2,R_3\}$ is a basis of $\mathrm{Range}(T)$.
+\[
+\boxed{\,\text{A basis for }\mathrm{Range}(T)\text{ is }\left\{
+\begin{bmatrix}-1&2\\-1&0\end{bmatrix},
+\begin{bmatrix}1&1\\-2&0\end{bmatrix},
+\begin{bmatrix}0&-2\\1&1\end{bmatrix}
+\right\}.\,}
+\]
+
+\item \textbf{Determine whether $\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T)$.}
+Let $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$. From (c), $\mathrm{Null}(T)=\mathrm{span}\{J\}$, and from (d), $\mathrm{Range}(T)=H=\ker(\ell)$.
+
+\emph{Intersection:} If $X\in \mathrm{Null}(T)\cap \mathrm{Range}(T)$, then $X=tJ$ and also $\ell(X)=0$. But $\ell(tJ)=4t$, so $t=0$ and $X=0$. Thus $\mathrm{Null}(T)\cap \mathrm{Range}(T)=\{0\}$.
+
+\emph{Sum:} Let $B\in \R^{2,2}$ be arbitrary and set $t=\frac{\ell(B)}{4}$. Then $\ell(B-tJ)=0$, so $B-tJ\in H=\mathrm{Range}(T)$, and $tJ\in \mathrm{Null}(T)$. Hence
+\[
+B=(B-tJ)+tJ\in \mathrm{Range}(T)+\mathrm{Null}(T).
+\]
+Therefore $\R^{2,2}=\mathrm{Null}(T)+\mathrm{Range}(T)$.
+
+By Theorem 3, $\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T)$.
+\[
+\boxed{\,\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T).\,}
+\]
+\end{enumerate}
+
+% ------------------------------------------------------------
+
+\newpage
+
+\subsubsection{Method 3: Operator factorisation + invariant hyperplane}
+
+\begin{description}
+    \item[Theorem 1 (Linearity of basic matrix operations).] 
+    For fixed matrices $M,N$, the maps $A\mapsto AM$, $A\mapsto NA$, and $A\mapsto A^{\mathsf T}$ are linear.
+    \item[Theorem 2 (Internal direct sum criterion).] 
+    $V=U\oplus W$ iff $V=U+W$ and $U\cap W=\{0\}$.
+\end{description}
+\medskip
+
+
+Let $M=\begin{bmatrix}1&2\\2&1\end{bmatrix}$, $N=\begin{bmatrix}2&1\\1&2\end{bmatrix}$, and define $\ell:\R^{2,2}\to\R$ by
+\[
+\ell\!\left(\begin{bmatrix}x&y\\z&w\end{bmatrix}\right)=x+y+z+w.
+\]
+
+\medskip
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+By Theorem 1, $A\mapsto AM$ is linear, $A\mapsto A^{\mathsf T}$ is linear, and $A\mapsto N(A^{\mathsf T})$ is linear as a composition. Hence
+\[
+T(A)=AM-N(A^{\mathsf T})
+\]
+is linear and $T\in L(\R^{2,2})$.
+\[
+\boxed{\,T\in L(\R^{2,2}).\,}
+\]
+
+\item \textbf{Standard matrix representation.}
+Using the standard basis $E_{11},E_{12},E_{21},E_{22}$ and the identification $\R^{2,2}\cong\R^4$ via $(x_{11},x_{12},x_{21},x_{22})$, compute:
+\[
+T(E_{11})=\begin{bmatrix}-1&2\\-1&0\end{bmatrix},\ 
+T(E_{12})=\begin{bmatrix}1&1\\-2&0\end{bmatrix},\ 
+T(E_{21})=\begin{bmatrix}0&-2\\1&1\end{bmatrix},\ 
+T(E_{22})=\begin{bmatrix}0&-1\\2&-1\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{\, [T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Basis for $\mathrm{Null}(T)$.}
+Compute $T(A)$ explicitly for $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$:
+\[
+T(A)=\begin{bmatrix}
+b-a & 2a+b-2c-d\\
+-a-2b+c+2d & c-d
+\end{bmatrix}.
+\]
+Setting $T(A)=0$ yields $b=a$, $c=d$, and then $3a-3c=0$, so $a=b=c=d=t$. Hence
+\[
+\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.
+\]
+\[
+\boxed{\,\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Range}(T)$.}
+First show $\mathrm{Range}(T)\subseteq \ker(\ell)$. For $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ with $T(A)=\begin{bmatrix}x&y\\z&w\end{bmatrix}$ as above,
+\[
+\ell(T(A))=x+y+z+w=(b-a)+(2a+b-2c-d)+(-a-2b+c+2d)+(c-d)=0.
+\]
+Thus $\mathrm{Range}(T)\subseteq H:=\ker(\ell)$, where
+\[
+H=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\},\qquad \dim(H)=3.
+\]
+
+Next show $H\subseteq \mathrm{Range}(T)$ by explicitly solving $T(A)=Y$ for any $Y=\begin{bmatrix}x&y\\z&w\end{bmatrix}\in H$.
+Set $d=0$, $c=w$, and define
+\[
+a=\frac{y-x+2w}{3},\qquad b=x+a.
+\]
+Then $b-a=x$, $c-d=w$, $2a+b-2c-d=y$, and the remaining entry becomes
+\[
+-a-2b+c+2d=-a-2b+w=-(x+y+w)=z
+\]
+using $x+y+z+w=0$. Hence $T(A)=Y$ and $H\subseteq\mathrm{Range}(T)$.
+Therefore $\mathrm{Range}(T)=H$.
+
+A basis for $H$ is for example
+\[
+\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\0&-1\end{bmatrix},
+\begin{bmatrix}0&0\\1&-1\end{bmatrix}
+\right\},
+\]
+which is easily checked linearly independent by comparing entries.
+\[
+\boxed{\,\mathrm{Range}(T)=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\},\ \dim\mathrm{Range}(T)=3.\,}
+\]
+
+\item \textbf{Direct sum.}
+Let $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$. We have $\mathrm{Null}(T)=\mathrm{span}\{J\}$ and $\mathrm{Range}(T)=H=\ker(\ell)$.
+
+\emph{Intersection:} if $tJ\in H$, then $0=\ell(tJ)=4t$, so $t=0$. Hence $\mathrm{Null}(T)\cap \mathrm{Range}(T)=\{0\}$.
+
+\emph{Sum:} for any $B$, set $t=\frac{\ell(B)}{4}$. Then $\ell(B-tJ)=0$, so $B-tJ\in H=\mathrm{Range}(T)$ and $tJ\in\mathrm{Null}(T)$, giving $B\in \mathrm{Range}(T)+\mathrm{Null}(T)$.
+Thus $\R^{2,2}=\mathrm{Range}(T)+\mathrm{Null}(T)$.
+
+By Theorem 2,
+\[
+\boxed{\,\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T).\,}
+\]
+\end{enumerate}
+
+% ------------------------------------------------------------
+\newpage
+
+\subsubsection{Method 4: Codimension-1 decomposition theorem}
+\textbf{Theorem (Codimension-1 decomposition).}
+Let $V$ be a vector space and $\ell:V\to\R$ be a nonzero linear functional. Let $H=\ker(\ell)$.
+If $v_0\in V$ satisfies $\ell(v_0)=1$, then
+\[
+V=H\oplus \mathrm{span}\{v_0\}.
+\]
+\emph{Proof:} For any $v\in V$, write $v=(v-\ell(v)v_0)+\ell(v)v_0$ with $v-\ell(v)v_0\in H$ and $\ell(v)v_0\in\mathrm{span}\{v_0\}$.
+If $h\in H\cap \mathrm{span}\{v_0\}$ then $h=tv_0$ and $0=\ell(h)=t$, so $h=0$.
+
+\medskip
+
+Let $M=\begin{bmatrix}1&2\\2&1\end{bmatrix}$ and $N=\begin{bmatrix}2&1\\1&2\end{bmatrix}$, and $\ell$ be sum-of-entries.
+
+\medskip
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+As before,
+\[
+T(A)=AM-N(A^{\mathsf T})
+\]
+is a difference of linear maps, hence linear.
+\[
+\boxed{\,T\in L(\R^{2,2}).\,}
+\]
+
+\item \textbf{Standard matrix representation.}
+Compute $T(E_{11}),T(E_{12}),T(E_{21}),T(E_{22})$ to obtain
+\[
+\boxed{\, [T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Basis for $\mathrm{Null}(T)$.}
+Solve $T(A)=0$ to get $A=tJ$ where $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$. Hence
+\[
+\boxed{\,\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Range}(T)$.}
+Show $\mathrm{Range}(T)\subseteq \ker(\ell)$ by verifying $\ell(T(A))=0$ from the explicit formula for $T(A)$.
+Conversely, for any $Y\in\ker(\ell)$, the explicit construction (set $d=0$, $c=w$, $a=\frac{y-x+2w}{3}$, $b=x+a$) yields $A$ with $T(A)=Y$, so $\ker(\ell)\subseteq\mathrm{Range}(T)$.
+Thus $\mathrm{Range}(T)=\ker(\ell)$ and a basis is any basis of that hyperplane, e.g.\ the three matrices in Method 1.
+\[
+\boxed{\,\mathrm{Range}(T)=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\}.\,}
+\]
+
+\item \textbf{Direct sum.}
+Let $H=\ker(\ell)=\mathrm{Range}(T)$ and let $J$ be all-ones. Since $\ell(J)=4\neq 0$, set $v_0=\frac14 J$, so $\ell(v_0)=1$.
+By the codimension-1 decomposition theorem,
+\[
+\R^{2,2}=H\oplus \mathrm{span}\{v_0\}=\mathrm{Range}(T)\oplus \mathrm{Null}(T).
+\]
+\[
+\boxed{\,\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T).\,}
+\]
+\end{enumerate}
+
+% ------------------------------------------------------------
+\newpage
+\subsubsection{Method 5: Duality/annihilator dimension squeeze}
+\textbf{Theorem (Dimension squeeze via annihilator).}
+Let $V$ be finite-dimensional, $\ell\neq 0$ a linear functional, and $H=\ker(\ell)$ so $\dim(H)=\dim(V)-1$.
+If $\mathrm{Range}(T)\subseteq H$ and $\dim\mathrm{Range}(T)\ge \dim(H)$, then $\mathrm{Range}(T)=H$.
+
+Let $\ell$ be sum-of-entries and $H=\ker(\ell)$.
+
+\medskip
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+$T(A)=AM-N(A^{\mathsf T})$ is a difference of linear maps, hence linear.
+\[
+\boxed{\,T\in L(\R^{2,2}).\,}
+\]
+
+\item \textbf{Standard matrix representation.}
+Compute $T(E_{ij})$ to obtain
+\[
+\boxed{\, [T]=
+\begin{bmatrix}
+-1&1&0&0\\
+2&1&-2&-1\\
+-1&-2&1&2\\
+0&0&1&-1
+\end{bmatrix}\,}.
+\]
+
+\item \textbf{Basis for $\mathrm{Null}(T)$.}
+Solve $T(A)=0$ to get $A=tJ$ with $J$ all-ones, so
+\[
+\boxed{\,\mathrm{Null}(T)=\mathrm{span}\left\{\begin{bmatrix}1&1\\1&1\end{bmatrix}\right\}.\,}
+\]
+
+\item \textbf{Basis for $\mathrm{Range}(T)$.}
+First, $\ell(T(A))=0$ for all $A$ (direct cancellation), hence $\mathrm{Range}(T)\subseteq H=\ker(\ell)$.
+Since $\dim(\R^{2,2})=4$ and $\ell\neq 0$, we have $\dim(H)=3$.
+
+Now show $\dim\mathrm{Range}(T)\ge 3$ by producing three independent outputs:
+\[
+R_1=T(E_{11}),\quad R_2=T(E_{12}),\quad R_3=T(E_{21}),
+\]
+and check independence exactly as in Method 2(d) by comparing entries, yielding only the trivial combination.
+Thus $\dim\mathrm{Range}(T)\ge 3=\dim(H)$.
+By the squeeze theorem, $\mathrm{Range}(T)=H$.
+
+A basis of $H$ (hence of $\mathrm{Range}(T)$) can be taken as any three independent vectors in $H$, e.g.\ $\{R_1,R_2,R_3\}$.
+\[
+\boxed{\,\mathrm{Range}(T)=\left\{\begin{bmatrix}x&y\\z&w\end{bmatrix}:x+y+z+w=0\right\}.\,}
+\]
+
+\item \textbf{Direct sum.}
+With $\mathrm{Null}(T)=\mathrm{span}\{J\}$ and $\mathrm{Range}(T)=H=\ker(\ell)$:
+\[
+\mathrm{Null}(T)\cap \mathrm{Range}(T)=\{0\}
+\quad\text{since}\quad
+tJ\in H\Rightarrow 0=\ell(tJ)=4t\Rightarrow t=0,
+\]
+and every $B$ decomposes as $B=(B-\frac{\ell(B)}{4}J)+\frac{\ell(B)}{4}J$ with the first term in $H$ and second in $\mathrm{span}\{J\}$.
+Thus $\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T)$.
+\[
+\boxed{\,\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T).\,}
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (25 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) States and uses linearity of transpose and multiplication by fixed matrices.
+    \item (2) Shows $T(A+B)=T(A)+T(B)$ and $T(\lambda A)=\lambda T(A)$.
+    \item (1) Concludes $T\in L(\R^{2,2})$.
+  \end{itemize}
+
+  \item \textbf{(b) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly computes $T(E_{11}),T(E_{12}),T(E_{21}),T(E_{22})$.
+    \item (2) Converts each to $(x_{11},x_{12},x_{21},x_{22})$ coordinates (consistent ordering).
+    \item (1) Assembles the $4\times 4$ matrix $[T]$ with correct column order.
+  \end{itemize}
+
+  \item \textbf{(c) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Sets up $T(A)=0$ and derives the correct linear system in $a,b,c,d$.
+    \item (2) Solves to obtain $a=b=c=d$ and describes $\mathrm{Null}(T)$.
+    \item (1) States a correct basis for $\mathrm{Null}(T)$.
+  \end{itemize}
+
+  \item \textbf{(d) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Identifies a necessary constraint for outputs (e.g.\ sum of entries is $0$) so $\mathrm{Range}(T)\subseteq H$.
+    \item (2) Proves $H\subseteq \mathrm{Range}(T)$ (explicit preimage / solvability argument) or equivalently proves $\dim\mathrm{Range}(T)=3$ with basis.
+    \item (1) States a correct basis for $\mathrm{Range}(T)$.
+  \end{itemize}
+
+  \item \textbf{(e) (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Shows $\mathrm{Null}(T)\cap \mathrm{Range}(T)=\{0\}$ (e.g.\ via entry-sum invariant).
+    \item (2) Shows $\mathrm{Null}(T)+\mathrm{Range}(T)=\R^{2,2}$ by constructing a decomposition for arbitrary $B$.
+    \item (1) Concludes $\R^{2,2}=\mathrm{Null}(T)\oplus \mathrm{Range}(T)$ with the internal direct sum criterion.
+  \end{itemize}
+\end{itemize}
+
+\newpage
+
+% ============================================================
+% Question 3
+% ============================================================
+\section{Question 3 \hfill (25 marks)}
+
+\subsection{(a) Existence of \(T\in L(V)\) such that \(T^4=-I_V\)}
+\subsubsection{Problem}
+Let \(V\) be a \(4\)-dimensional vector space over an arbitrary field.
+
+\noindent \textbf{[10 points]} Show that there is a \(T\in L(V)\) such that \(T^4=-I_V\).
+\newline Note: \(T^4\ \mathrm{df}=\ T\circ T\circ T\circ T\).
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Explicit basis construction}
+Since \(\dim V=4\), we may choose a basis
+\[
+(v_1,v_2,v_3,v_4)
+\]
+of \(V\).
+
+Define \(T\in L(V)\) by prescribing its values on this basis:
+\[
+T(v_1)=v_2,\qquad
+T(v_2)=v_3,\qquad
+T(v_3)=v_4,\qquad
+T(v_4)=-v_1.
+\]
+By the theorem that a linear map is uniquely determined by its values on a basis, this defines a linear transformation \(T\in L(V)\).
+
+We now compute \(T^4\) on the basis vectors:
+\[
+T^4(v_1)=T^3(v_2)=T^2(v_3)=T(v_4)=-v_1,
+\]
+\[
+T^4(v_2)=T^3(v_3)=T^2(v_4)=T(-v_1)=-v_2,
+\]
+\[
+T^4(v_3)=T^3(v_4)=T^2(-v_1)=T(-v_2)=-v_3,
+\]
+\[
+T^4(v_4)=T^3(-v_1)=-T^3(v_1)=-v_4.
+\]
+Thus
+\[
+T^4(v_i)=-v_i\qquad (i=1,2,3,4).
+\]
+Since \((v_1,v_2,v_3,v_4)\) is a basis, two linear maps that agree on all basis vectors are equal. Therefore
+\[
+T^4=-I_V.
+\]
+Hence there exists \(T\in L(V)\) such that \(T^4=-I_V\), namely the one defined above.
+\[
+\boxed{\exists\,T\in L(V)\text{ such that }T^4=-I_V.}
+\]
+
+\newpage
+\paragraph{Method 2: Polynomial-module / quotient-space construction}
+Let \(\mathbb F\) denote the underlying field. Consider the quotient vector space
+\[
+U:=\mathbb F[t]/(t^4+1).
+\]
+Every class in \(U\) has a unique representative of degree at most \(3\), so
+\[
+\{[1],[t],[t^2],[t^3]\}
+\]
+is a basis of \(U\). In particular,
+\[
+\dim U=4.
+\]
+
+Define a linear map \(\widetilde T:U\to U\) by
+\[
+\widetilde T([p(t)])=[t\,p(t)].
+\]
+This is linear because multiplication by \(t\) distributes over addition and scalar multiplication.
+
+Now compute \(\widetilde T^4\):
+\[
+\widetilde T^4([p(t)])=[t^4p(t)].
+\]
+But in the quotient \(U=\mathbb F[t]/(t^4+1)\), we have
+\[
+t^4\equiv -1 \pmod{t^4+1},
+\]
+so
+\[
+[t^4p(t)]=[-p(t)]=-[p(t)].
+\]
+Hence
+\[
+\widetilde T^4=-I_U.
+\]
+
+Since \(\dim V=4=\dim U\), there exists a vector space isomorphism
+\[
+\Phi:V\to U.
+\]
+Define
+\[
+T:=\Phi^{-1}\circ \widetilde T\circ \Phi\in L(V).
+\]
+Then
+\[
+T^4
+=\Phi^{-1}\circ \widetilde T^4\circ \Phi
+=\Phi^{-1}\circ (-I_U)\circ \Phi
+=-I_V.
+\]
+Therefore there exists \(T\in L(V)\) such that \(T^4=-I_V\).
+\[
+\boxed{\exists\,T\in L(V)\text{ such that }T^4=-I_V.}
+\]
+
+\bigskip
+\subsection{(b) Idempotent maps and the decomposition \(V=\mathrm{Null}(P)\oplus \mathrm{Range}(P)\)}
+\subsubsection{Problem}
+Let \(V\) be a vector space over an arbitrary field, and let \(P\in L(V)\) be idempotent, i.e.
+\[
+P^2=P.
+\]
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{[4 points]} Show, for all \(v\in V\), that \(v-P(v)\in \mathrm{Null}(P)\).
+\item \textbf{[7 points]} Show that \(\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}\).
+\item \textbf{[4 points]} Hence, show that \(V=\mathrm{Null}(P)\oplus \mathrm{Range}(P)\).
+
+\textbf{CAUTION: }The Rank-Nullity Theorem cannot be applied here!
+\end{enumerate}
+\newpage
+\subsubsection{Solution}
+
+\paragraph{Method 1: Direct computation and internal direct sum criterion}
+
+\noindent \textbf{(i)} Let \(v\in V\). Then
+\[
+P(v-P(v))=P(v)-P^2(v).
+\]
+Since \(P^2=P\), this becomes
+\[
+P(v-P(v))=P(v)-P(v)=0_V.
+\]
+Therefore \(v-P(v)\in \mathrm{Null}(P)\). Hence
+\[
+\boxed{\forall v\in V:\ v-P(v)\in \mathrm{Null}(P).}
+\]
+
+\medskip
+
+\noindent \textbf{(ii)} Let
+\[
+x\in \mathrm{Null}(P)\cap \mathrm{Range}(P).
+\]
+Then \(x\in \mathrm{Range}(P)\), so there exists \(y\in V\) such that
+\[
+x=P(y).
+\]
+Also \(x\in \mathrm{Null}(P)\), so
+\[
+P(x)=0_V.
+\]
+But
+\[
+P(x)=P(P(y))=P^2(y)=P(y)=x,
+\]
+since \(P^2=P\). Therefore
+\[
+x=0_V.
+\]
+Thus every element of \(\mathrm{Null}(P)\cap \mathrm{Range}(P)\) is \(0_V\), so
+\[
+\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.
+\]
+Hence
+\[
+\boxed{\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.}
+\]
+
+\medskip
+
+\noindent \textbf{(iii)} Let \(v\in V\). Then
+\[
+v=(v-P(v))+P(v).
+\]
+By part (i),
+\[
+v-P(v)\in \mathrm{Null}(P),
+\]
+and by definition,
+\[
+P(v)\in \mathrm{Range}(P).
+\]
+Hence
+\[
+V=\mathrm{Null}(P)+\mathrm{Range}(P).
+\]
+Together with part (ii), we obtain
+\[
+V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).
+\]
+Therefore
+\[
+\boxed{V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).}
+\]
+
+\newpage
+\paragraph{Method 2: Complementary idempotent \(Q=I_V-P\)}
+
+Define
+\[
+Q:=I_V-P.
+\]
+We first compute
+\[
+Q^2=(I_V-P)^2=I_V-2P+P^2=I_V-P=Q,
+\]
+since \(P^2=P\). Thus \(Q\) is also idempotent.
+
+\noindent \textbf{(i)} For any \(v\in V\),
+\[
+Q(v)=v-P(v).
+\]
+Now
+\[
+P(Q(v))=P(v-P(v))=P(v)-P^2(v)=P(v)-P(v)=0_V,
+\]
+so
+\[
+Q(v)=v-P(v)\in \mathrm{Null}(P).
+\]
+Hence
+\[
+\boxed{\forall v\in V:\ v-P(v)\in \mathrm{Null}(P).}
+\]
+
+\medskip
+
+\noindent \textbf{(ii)} Let
+\[
+x\in \mathrm{Null}(P)\cap \mathrm{Range}(P).
+\]
+Then \(x=P(y)\) for some \(y\in V\), and also \(P(x)=0_V\). But
+\[
+P(x)=P(P(y))=P^2(y)=P(y)=x.
+\]
+So \(x=0_V\). Therefore
+\[
+\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.
+\]
+Hence
+\[
+\boxed{\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.}
+\]
+
+\medskip
+
+\noindent \textbf{(iii)} For every \(v\in V\),
+\[
+v=Q(v)+P(v)=(v-P(v))+P(v).
+\]
+By part (i),
+\[
+Q(v)=v-P(v)\in \mathrm{Null}(P),
+\]
+and clearly
+\[
+P(v)\in \mathrm{Range}(P).
+\]
+Thus
+\[
+V=\mathrm{Null}(P)+\mathrm{Range}(P).
+\]
+Together with part (ii), we obtain
+\[
+V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).
+\]
+Therefore
+\[
+\boxed{V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).}
+\]
+
+\paragraph{Method 3: Mutual inclusions \(\mathrm{Range}(I_V-P)=\mathrm{Null}(P)\) and \(\mathrm{Range}(P)=\mathrm{Null}(I_V-P)\)}
+
+Let
+\[
+Q:=I_V-P.
+\]
+
+We claim that
+\[
+\mathrm{Range}(Q)=\mathrm{Null}(P)
+\qquad\text{and}\qquad
+\mathrm{Range}(P)=\mathrm{Null}(Q).
+\]
+
+First, if \(x\in \mathrm{Range}(Q)\), say \(x=Q(v)=v-P(v)\), then
+\[
+P(x)=P(v-P(v))=P(v)-P^2(v)=0_V,
+\]
+so \(x\in \mathrm{Null}(P)\). Hence
+\[
+\mathrm{Range}(Q)\subseteq \mathrm{Null}(P).
+\]
+Conversely, if \(x\in \mathrm{Null}(P)\), then \(P(x)=0_V\), so
+\[
+Q(x)=x-P(x)=x.
+\]
+Thus \(x\in \mathrm{Range}(Q)\). Therefore
+\[
+\mathrm{Range}(Q)=\mathrm{Null}(P).
+\]
+
+Similarly, if \(x\in \mathrm{Range}(P)\), say \(x=P(v)\), then
+\[
+Q(x)=x-P(x)=P(v)-P^2(v)=0_V,
+\]
+so \(x\in \mathrm{Null}(Q)\). Hence
+\[
+\mathrm{Range}(P)\subseteq \mathrm{Null}(Q).
+\]
+Conversely, if \(x\in \mathrm{Null}(Q)\), then
+\[
+Q(x)=x-P(x)=0_V,
+\]
+so \(x=P(x)\in \mathrm{Range}(P)\). Therefore
+\[
+\mathrm{Range}(P)=\mathrm{Null}(Q).
+\]
+
+Now we prove the required parts.
+
+\noindent \textbf{(i)} For any \(v\in V\),
+\[
+v-P(v)=Q(v)\in \mathrm{Range}(Q)=\mathrm{Null}(P).
+\]
+Thus
+\[
+\boxed{\forall v\in V:\ v-P(v)\in \mathrm{Null}(P).}
+\]
+
+\medskip
+
+\noindent \textbf{(ii)} Let
+\[
+x\in \mathrm{Null}(P)\cap \mathrm{Range}(P).
+\]
+Then
+\[
+x\in \mathrm{Range}(Q)\cap \mathrm{Range}(P).
+\]
+Also, from \(x\in \mathrm{Null}(P)\), we get \(P(x)=0_V\), while from \(x\in \mathrm{Range}(P)\), we may write \(x=P(y)\), hence
+\[
+x=P(y)=P(x)=0_V.
+\]
+Therefore
+\[
+\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.
+\]
+So
+\[
+\boxed{\mathrm{Null}(P)\cap \mathrm{Range}(P)=\{0_V\}.}
+\]
+
+\medskip
+
+\noindent \textbf{(iii)} For every \(v\in V\),
+\[
+v=(I_V-P)(v)+P(v)=Q(v)+P(v).
+\]
+Now
+\[
+Q(v)\in \mathrm{Range}(Q)=\mathrm{Null}(P),
+\qquad
+P(v)\in \mathrm{Range}(P).
+\]
+Hence
+\[
+V=\mathrm{Null}(P)+\mathrm{Range}(P).
+\]
+Together with part (ii), this yields
+\[
+V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).
+\]
+Therefore
+\[
+\boxed{V=\mathrm{Null}(P)\oplus \mathrm{Range}(P).}
+\]
+
+\subsection{Mark Scheme (25 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (10 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Uses \(\dim V=4\) to choose a basis of \(V\) (or to identify a \(4\)-dimensional model space).
+    \item (3) Correctly defines a linear map \(T\) with the intended cyclic action.
+    \item (3) Verifies that \(T^4(v_i)=-v_i\) for basis vectors (or proves the equivalent identity in a model space).
+    \item (2) Concludes that \(T^4=-I_V\).
+  \end{itemize}
+
+  \item \textbf{(b)(i) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Computes \(P(v-P(v))=P(v)-P^2(v)\).
+    \item (1) Uses \(P^2=P\) to deduce \(P(v-P(v))=0_V\).
+    \item (1) Concludes that \(v-P(v)\in \mathrm{Null}(P)\).
+  \end{itemize}
+
+  \item \textbf{(b)(ii) (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Lets \(x\in \mathrm{Null}(P)\cap \mathrm{Range}(P)\) and writes \(x=P(y)\).
+    \item (2) Uses \(x\in \mathrm{Null}(P)\) to obtain \(P(x)=0_V\).
+    \item (2) Computes \(P(x)=P(P(y))=P^2(y)=P(y)=x\).
+    \item (1) Concludes \(x=0_V\), and hence the intersection is \(\{0_V\}\).
+  \end{itemize}
+
+  \item \textbf{(b)(iii) (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Shows \(v=(v-P(v))+P(v)\) with summands in \(\mathrm{Null}(P)\) and \(\mathrm{Range}(P)\).
+    \item (1) Uses part (ii) to establish trivial intersection.
+    \item (1) Concludes that \(V=\mathrm{Null}(P)\oplus \mathrm{Range}(P)\).
+  \end{itemize}
+\end{itemize}
+
+\newpage
+% ============================================================
+% Question 4
+% ============================================================
+\section{Question 4 \hfill (25 marks)}
+
+\subsection{(a) The external direct sum \(V\oplus_{\mathrm{ext}}W\) is a vector space}
+\subsubsection{Problem}
+Let \(V\) and \(W\) be vector spaces over a field \(\mathbb F\) (not necessarily \(\mathbb R\) or \(\mathbb C\)).
+
+\medskip
+Define a binary operation \(+:(V\times W)\times (V\times W)\to V\times W\) by
+\[
+(v,w)+(\tilde v,\tilde w)\coloneqq (v+_V \tilde v,\ w+_W \tilde w),
+\]
+for all \(v,\tilde v\in V\) and \(w,\tilde w\in W\).
+
+Define a scalar multiplication \(\cdot:\mathbb F\times (V\times W)\to V\times W\) by
+\[
+\lambda\cdot (v,w)\coloneqq (\lambda\cdot_V v,\ \lambda\cdot_W w),
+\]
+for all \(v\in V\), \(w\in W\), and \(\lambda\in\mathbb F\).
+
+\medskip
+Show that \(V\times W\) is a vector space over \(\mathbb F\) when equipped with these operations.
+
+\medskip
+\textbf{Note:} All eight axioms of a vector space must be verified.
+
+\vspace{2cm}
+\subsubsection{Solution}
+
+\paragraph{Method 1: Full verification of all eight axioms componentwise}
+Let
+\[
+x=(v,w),\qquad y=(\tilde v,\tilde w),\qquad z=(\hat v,\hat w)\in V\times W,
+\]
+and let \(\lambda,\mu\in\mathbb F\). We verify the eight vector space axioms one by one.
+
+\begin{enumerate}[label=\textbf{A\arabic*.}]
+\item \textbf{Associativity of addition.}  
+We compute
+\[
+(x+y)+z
+=
+(v+_V\tilde v,\ w+_W\tilde w)+(\hat v,\hat w)
+=
+((v+_V\tilde v)+_V\hat v,\ (w+_W\tilde w)+_W\hat w).
+\]
+Since addition in \(V\) and in \(W\) is associative,
+\[
+((v+_V\tilde v)+_V\hat v,\ (w+_W\tilde w)+_W\hat w)
+=
+(v+_V(\tilde v+_V\hat v),\ w+_W(\tilde w+_W\hat w)).
+\]
+But this is exactly
+\[
+(v,w)+(\tilde v+_V\hat v,\ \tilde w+_W\hat w)
+=
+(v,w)+\bigl((\tilde v,\tilde w)+(\hat v,\hat w)\bigr)
+=
+x+(y+z).
+\]
+Thus
+\[
+(x+y)+z=x+(y+z).
+\]
+
+\item \textbf{Commutativity of addition.}  
+We have
+\[
+x+y=(v+_V\tilde v,\ w+_W\tilde w).
+\]
+Since addition in \(V\) and in \(W\) is commutative,
+\[
+(v+_V\tilde v,\ w+_W\tilde w)
+=
+(\tilde v+_V v,\ \tilde w+_W w)
+=
+(\tilde v,\tilde w)+(v,w)
+=
+y+x.
+\]
+Hence
+\[
+x+y=y+x.
+\]
+
+\item \textbf{Existence of an additive identity.}  
+Let \(0_V\) and \(0_W\) denote the zero vectors of \(V\) and \(W\), respectively. Consider \((0_V,0_W)\in V\times W\). Then
+\[
+x+(0_V,0_W)
+=
+(v+_V 0_V,\ w+_W 0_W)
+=
+(v,w)
+=
+x,
+\]
+since \(0_V\) is the additive identity in \(V\) and \(0_W\) is the additive identity in \(W\). Similarly,
+\[
+(0_V,0_W)+x=x.
+\]
+Therefore \((0_V,0_W)\) is an additive identity in \(V\times W\).
+
+\item \textbf{Existence of additive inverses.}  
+Let
+\[
+-x\coloneqq (-_V v,\ -_W w),
+\]
+where \(-_V v\) is the additive inverse of \(v\) in \(V\), and \(-_W w\) is the additive inverse of \(w\) in \(W\). Then
+\[
+x+(-x)
+=
+(v+_V(-_V v),\ w+_W(-_W w))
+=
+(0_V,0_W).
+\]
+Similarly,
+\[
+(-x)+x=(0_V,0_W).
+\]
+Thus every element of \(V\times W\) has an additive inverse.
+
+\item \textbf{Associativity of scalar multiplication.}  
+We compute
+\[
+(\lambda\mu)\cdot x
+=
+((\lambda\mu)\cdot_V v,\ (\lambda\mu)\cdot_W w).
+\]
+Since scalar multiplication is associative in \(V\) and in \(W\),
+\[
+((\lambda\mu)\cdot_V v,\ (\lambda\mu)\cdot_W w)
+=
+\bigl(\lambda\cdot_V(\mu\cdot_V v),\ \lambda\cdot_W(\mu\cdot_W w)\bigr).
+\]
+By definition of scalar multiplication on \(V\times W\), this is
+\[
+\lambda\cdot (\mu\cdot v,\ \mu\cdot w)
+=
+\lambda\cdot(\mu\cdot x).
+\]
+Hence
+\[
+(\lambda\mu)\cdot x=\lambda\cdot(\mu\cdot x).
+\]
+
+\item \textbf{Identity element of scalar multiplication.}  
+Let \(1\in\mathbb F\) be the multiplicative identity. Then
+\[
+1\cdot x=(1\cdot_V v,\ 1\cdot_W w)=(v,w)=x,
+\]
+since \(1\cdot_V v=v\) in \(V\) and \(1\cdot_W w=w\) in \(W\). Thus
+\[
+1\cdot x=x.
+\]
+
+\newpage
+\item \textbf{Distributivity of scalar multiplication over vector addition.}  
+We have
+\[
+x+y=(v+_V\tilde v,\ w+_W\tilde w).
+\]
+Hence
+\[
+\lambda\cdot (x+y)
+=
+\bigl(\lambda\cdot_V(v+_V\tilde v),\ \lambda\cdot_W(w+_W\tilde w)\bigr).
+\]
+Since scalar multiplication distributes over vector addition in \(V\) and in \(W\),
+\[
+\bigl(\lambda\cdot_V(v+_V\tilde v),\ \lambda\cdot_W(w+_W\tilde w)\bigr)
+=
+(\lambda\cdot_V v+_V\lambda\cdot_V\tilde v,\ \lambda\cdot_W w+_W\lambda\cdot_W\tilde w).
+\]
+By definition of the operations on \(V\times W\), this is
+\[
+(\lambda\cdot_V v,\ \lambda\cdot_W w)+(\lambda\cdot_V\tilde v,\ \lambda\cdot_W\tilde w)
+=
+\lambda\cdot x+\lambda\cdot y.
+\]
+Therefore
+\[
+\lambda\cdot(x+y)=\lambda\cdot x+\lambda\cdot y.
+\]
+
+\item \textbf{Distributivity of scalar multiplication over scalar addition.}  
+We compute
+\[
+(\lambda+\mu)\cdot x
+=
+((\lambda+\mu)\cdot_V v,\ (\lambda+\mu)\cdot_W w).
+\]
+Since scalar multiplication distributes over scalar addition in \(V\) and in \(W\),
+\[
+((\lambda+\mu)\cdot_V v,\ (\lambda+\mu)\cdot_W w)
+=
+(\lambda\cdot_V v+_V\mu\cdot_V v,\ \lambda\cdot_W w+_W\mu\cdot_W w).
+\]
+By definition of the operations on \(V\times W\), this is
+\[
+(\lambda\cdot_V v,\ \lambda\cdot_W w)+(\mu\cdot_V v,\ \mu\cdot_W w)
+=
+\lambda\cdot x+\mu\cdot x.
+\]
+Hence
+\[
+(\lambda+\mu)\cdot x=\lambda\cdot x+\mu\cdot x.
+\]
+\end{enumerate}
+
+All eight vector space axioms hold. Therefore \(V\times W\), equipped with the above operations, is a vector space over \(\mathbb F\). This vector space is denoted by
+\[
+V\oplus_{\mathrm{ext}}W.
+\]
+Thus
+\[
+\boxed{V\oplus_{\mathrm{ext}}W\text{ is a vector space over }\mathbb F.}
+\]
+
+\newpage
+\paragraph{Method 2: Verification via coordinate projections}
+Define the coordinate projections
+\[
+\pi_V:V\times W\to V,\qquad \pi_V(v,w)=v,
+\]
+and
+\[
+\pi_W:V\times W\to W,\qquad \pi_W(v,w)=w.
+\]
+We use the elementary fact that for any \((v,w),(\tilde v,\tilde w)\in V\times W\),
+\[
+(v,w)=(\tilde v,\tilde w)
+\iff
+v=\tilde v\ \text{and}\ w=\tilde w.
+\]
+Thus, to prove two ordered pairs are equal, it suffices to prove equality of their first components and equality of their second components.
+
+Let
+\[
+x=(v,w),\qquad y=(\tilde v,\tilde w),\qquad z=(\hat v,\hat w)\in V\times W,
+\]
+and let \(\lambda,\mu\in\mathbb F\). We verify the eight axioms by checking both coordinate projections.
+
+\begin{enumerate}[label=\textbf{A\arabic*.}]
+\item \textbf{Associativity of addition.}  
+First components:
+\[
+\pi_V((x+y)+z)=(v+_V\tilde v)+_V\hat v=v+_V(\tilde v+_V\hat v)=\pi_V(x+(y+z)).
+\]
+Second components:
+\[
+\pi_W((x+y)+z)=(w+_W\tilde w)+_W\hat w=w+_W(\tilde w+_W\hat w)=\pi_W(x+(y+z)).
+\]
+Hence
+\[
+(x+y)+z=x+(y+z).
+\]
+
+\item \textbf{Commutativity of addition.}  
+First components:
+\[
+\pi_V(x+y)=v+_V\tilde v=\tilde v+_V v=\pi_V(y+x).
+\]
+Second components:
+\[
+\pi_W(x+y)=w+_W\tilde w=\tilde w+_W w=\pi_W(y+x).
+\]
+Thus
+\[
+x+y=y+x.
+\]
+
+\item \textbf{Existence of an additive identity.}  
+Take \((0_V,0_W)\in V\times W\). Then
+\[
+\pi_V(x+(0_V,0_W))=v+_V 0_V=v,
+\qquad
+\pi_W(x+(0_V,0_W))=w+_W 0_W=w.
+\]
+Therefore
+\[
+x+(0_V,0_W)=x.
+\]
+Similarly,
+\[
+(0_V,0_W)+x=x.
+\]
+So \((0_V,0_W)\) is an additive identity.
+
+\item \textbf{Existence of additive inverses.}  
+Let
+\[
+-x:=(-_V v,\ -_W w).
+\]
+Then
+\[
+\pi_V(x+(-x))=v+_V(-_V v)=0_V,
+\qquad
+\pi_W(x+(-x))=w+_W(-_W w)=0_W.
+\]
+Hence
+\[
+x+(-x)=(0_V,0_W).
+\]
+Similarly,
+\[
+(-x)+x=(0_V,0_W).
+\]
+Thus every element has an additive inverse.
+
+\item \textbf{Associativity of scalar multiplication.}  
+First components:
+\[
+\pi_V((\lambda\mu)\cdot x)=(\lambda\mu)\cdot_V v=\lambda\cdot_V(\mu\cdot_V v)=\pi_V(\lambda\cdot(\mu\cdot x)).
+\]
+Second components:
+\[
+\pi_W((\lambda\mu)\cdot x)=(\lambda\mu)\cdot_W w=\lambda\cdot_W(\mu\cdot_W w)=\pi_W(\lambda\cdot(\mu\cdot x)).
+\]
+Therefore
+\[
+(\lambda\mu)\cdot x=\lambda\cdot(\mu\cdot x).
+\]
+
+\item \textbf{Identity element of scalar multiplication.}  
+First components:
+\[
+\pi_V(1\cdot x)=1\cdot_V v=v.
+\]
+Second components:
+\[
+\pi_W(1\cdot x)=1\cdot_W w=w.
+\]
+Thus
+\[
+1\cdot x=x.
+\]
+
+\item \textbf{Distributivity over vector addition.}  
+First components:
+\[
+\pi_V(\lambda\cdot(x+y))
+=
+\lambda\cdot_V(v+_V\tilde v)
+=
+\lambda\cdot_V v+_V\lambda\cdot_V\tilde v
+=
+\pi_V(\lambda\cdot x+\lambda\cdot y).
+\]
+Second components:
+\[
+\pi_W(\lambda\cdot(x+y))
+=
+\lambda\cdot_W(w+_W\tilde w)
+=
+\lambda\cdot_W w+_W\lambda\cdot_W\tilde w
+=
+\pi_W(\lambda\cdot x+\lambda\cdot y).
+\]
+Hence
+\[
+\lambda\cdot(x+y)=\lambda\cdot x+\lambda\cdot y.
+\]
+
+\item \textbf{Distributivity over scalar addition.}  
+First components:
+\[
+\pi_V((\lambda+\mu)\cdot x)
+=
+(\lambda+\mu)\cdot_V v
+=
+\lambda\cdot_V v+_V\mu\cdot_V v
+=
+\pi_V(\lambda\cdot x+\mu\cdot x).
+\]
+Second components:
+\[
+\pi_W((\lambda+\mu)\cdot x)
+=
+(\lambda+\mu)\cdot_W w
+=
+\lambda\cdot_W w+_W\mu\cdot_W w
+=
+\pi_W(\lambda\cdot x+\mu\cdot x).
+\]
+Therefore
+\[
+(\lambda+\mu)\cdot x=\lambda\cdot x+\mu\cdot x.
+\]
+\end{enumerate}
+
+Thus all eight vector space axioms hold, so \(V\times W\) with the given operations is a vector space over \(\mathbb F\), denoted \(V\oplus_{\mathrm{ext}}W\). Hence
+\[
+\boxed{V\oplus_{\mathrm{ext}}W\text{ is a vector space over }\mathbb F.}
+\]
+
+\bigskip
+
+\newpage
+\subsection{(b) Basis and dimension of \(V\oplus_{\mathrm{ext}}W\)}
+\subsubsection{Problem}
+Suppose now that \(V\) and \(W\) are finite-dimensional, with
+\[
+\dim(V)=m,\qquad \dim(W)=n.
+\]
+Let
+\[
+B=\{b_1,\ldots,b_m\}
+\qquad\text{and}\qquad
+C=\{c_1,\ldots,c_n\}
+\]
+be bases of \(V\) and \(W\), respectively.
+
+\begin{enumerate}[label=(\roman*)]
+\item Construct a basis for \(V\oplus_{\mathrm{ext}}W\) using \(b_1,\ldots,b_m,c_1,\ldots,c_n\), and verify both spanning and linear independence.
+\item Determine, with justification, \(\dim(V\oplus_{\mathrm{ext}}W)\).
+\end{enumerate}
+
+\subsubsection{Solution}
+
+\paragraph{Method 1: Explicit basis construction with direct spanning and independence proofs}
+
+\noindent \textbf{(i)} Define
+\[
+\mathcal D
+:=
+\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}.
+\]
+We claim that \(\mathcal D\) is a basis of \(V\oplus_{\mathrm{ext}}W\).
+
+We first prove that \(\mathcal D\) spans \(V\oplus_{\mathrm{ext}}W\). Let \((v,w)\in V\oplus_{\mathrm{ext}}W\). Since \(B\) is a basis of \(V\), there exist scalars \(\alpha_1,\ldots,\alpha_m\in\mathbb F\) such that
+\[
+v=\sum_{i=1}^m \alpha_i b_i.
+\]
+Similarly, since \(C\) is a basis of \(W\), there exist scalars \(\beta_1,\ldots,\beta_n\in\mathbb F\) such that
+\[
+w=\sum_{j=1}^n \beta_j c_j.
+\]
+Using the decomposition
+\[
+(v,w)=(v,0_W)+(0_V,w),
+\]
+we obtain
+\[
+(v,0_W)=\left(\sum_{i=1}^m \alpha_i b_i,0_W\right)
+=\sum_{i=1}^m \alpha_i (b_i,0_W),
+\]
+and
+\[
+(0_V,w)=\left(0_V,\sum_{j=1}^n \beta_j c_j\right)
+=\sum_{j=1}^n \beta_j (0_V,c_j).
+\]
+Hence
+\[
+(v,w)=\sum_{i=1}^m \alpha_i (b_i,0_W)+\sum_{j=1}^n \beta_j (0_V,c_j).
+\]
+So every element of \(V\oplus_{\mathrm{ext}}W\) is a linear combination of vectors in \(\mathcal D\), and therefore \(\mathcal D\) spans \(V\oplus_{\mathrm{ext}}W\).
+
+Next we prove that \(\mathcal D\) is linearly independent. Suppose
+\[
+\sum_{i=1}^m \alpha_i (b_i,0_W)+\sum_{j=1}^n \beta_j (0_V,c_j)=(0_V,0_W).
+\]
+Then
+\[
+\left(\sum_{i=1}^m \alpha_i b_i,\ \sum_{j=1}^n \beta_j c_j\right)=(0_V,0_W),
+\]
+so
+\[
+\sum_{i=1}^m \alpha_i b_i=0_V
+\qquad\text{and}\qquad
+\sum_{j=1}^n \beta_j c_j=0_W.
+\]
+Since \(B\) is linearly independent, we obtain
+\[
+\alpha_1=\cdots=\alpha_m=0.
+\]
+Since \(C\) is linearly independent, we obtain
+\[
+\beta_1=\cdots=\beta_n=0.
+\]
+Thus all coefficients are zero, and \(\mathcal D\) is linearly independent.
+
+Therefore \(\mathcal D\) is a basis of \(V\oplus_{\mathrm{ext}}W\). Hence
+\[
+\boxed{\mathcal D=\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}\text{ is a basis of }V\oplus_{\mathrm{ext}}W.}
+\]
+
+\noindent \noindent \textbf{(ii)} Since the basis \(\mathcal D\) consists of \(m\) vectors of the form \((b_i,0_W)\) and \(n\) vectors of the form \((0_V,c_j)\), it contains exactly \(m+n\) vectors. Therefore
+\[
+\dim(V\oplus_{\mathrm{ext}}W)=m+n.
+\]
+Hence
+\[
+\boxed{\dim(V\oplus_{\mathrm{ext}}W)=m+n.}
+\]
+
+\newpage
+\paragraph{Method 2: Isomorphism from \(\mathbb F^{m+n}\)}
+
+\noindent \textbf{(i)} Define a map
+\[
+\Phi:\mathbb F^{m+n}\to V\oplus_{\mathrm{ext}}W
+\]
+by
+\[
+\Phi(\alpha_1,\ldots,\alpha_m,\beta_1,\ldots,\beta_n)
+=
+\left(\sum_{i=1}^m \alpha_i b_i,\ \sum_{j=1}^n \beta_j c_j\right).
+\]
+We prove that \(\Phi\) is a vector space isomorphism.
+
+First, \(\Phi\) is linear. Let
+\[
+u=(\alpha_1,\ldots,\alpha_m,\beta_1,\ldots,\beta_n),
+\qquad
+u'=(\alpha_1',\ldots,\alpha_m',\beta_1',\ldots,\beta_n'),
+\]
+and let \(\lambda\in\mathbb F\). Then
+\[
+\begin{aligned}
+\Phi(u+u')
+&=\Phi(\alpha_1+\alpha_1',\ldots,\alpha_m+\alpha_m',\\
+&\hspace{5em}\beta_1+\beta_1',\ldots,\beta_n+\beta_n')
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\Phi(u+u')
+&=\left(\sum_{i=1}^m (\alpha_i+\alpha_i')b_i,
+\sum_{j=1}^n (\beta_j+\beta_j')c_j\right)\\
+&=\left(\sum_{i=1}^m \alpha_i b_i,\sum_{j=1}^n \beta_j c_j\right)
++\left(\sum_{i=1}^m \alpha_i' b_i,\sum_{j=1}^n \beta_j' c_j\right)\\
+&=\Phi(u)+\Phi(u').
+\end{aligned}
+\]
+Also,
+\[
+\Phi(\lambda u)
+=
+\Phi(\lambda\alpha_1,\ldots,\lambda\alpha_m,\lambda\beta_1,\ldots,\lambda\beta_n)
+=
+\left(\sum_{i=1}^m \lambda\alpha_i b_i,\ \sum_{j=1}^n \lambda\beta_j c_j\right)
+=
+\lambda\Phi(u).
+\]
+Hence \(\Phi\) is linear.
+
+Next we show that \(\Phi\) is injective. Suppose
+\[
+\Phi(\alpha_1,\ldots,\alpha_m,\beta_1,\ldots,\beta_n)=(0_V,0_W).
+\]
+Then
+\[
+\left(\sum_{i=1}^m \alpha_i b_i,\ \sum_{j=1}^n \beta_j c_j\right)=(0_V,0_W),
+\]
+so
+\[
+\sum_{i=1}^m \alpha_i b_i=0_V
+\qquad\text{and}\qquad
+\sum_{j=1}^n \beta_j c_j=0_W.
+\]
+Since \(B\) and \(C\) are bases, they are linearly independent. Therefore
+\[
+\alpha_1=\cdots=\alpha_m=0
+\qquad\text{and}\qquad
+\beta_1=\cdots=\beta_n=0.
+\]
+Thus \(\Phi\) is injective.
+
+We now show that \(\Phi\) is surjective. Let \((v,w)\in V\oplus_{\mathrm{ext}}W\). Since \(B\) is a basis of \(V\), there exist \(\alpha_1,\ldots,\alpha_m\in\mathbb F\) such that
+\[
+v=\sum_{i=1}^m \alpha_i b_i.
+\]
+Since \(C\) is a basis of \(W\), there exist \(\beta_1,\ldots,\beta_n\in\mathbb F\) such that
+\[
+w=\sum_{j=1}^n \beta_j c_j.
+\]
+Therefore
+\[
+(v,w)=\left(\sum_{i=1}^m \alpha_i b_i,\ \sum_{j=1}^n \beta_j c_j\right)
+=\Phi(\alpha_1,\ldots,\alpha_m,\beta_1,\ldots,\beta_n).
+\]
+So \(\Phi\) is surjective.
+
+Hence \(\Phi\) is an isomorphism. Let \(e_1,\ldots,e_{m+n}\) be the standard basis of \(\mathbb F^{m+n}\). Then
+\[
+\Phi(e_1)=(b_1,0_W),\ \ldots,\ \Phi(e_m)=(b_m,0_W),
+\]
+and
+\[
+\Phi(e_{m+1})=(0_V,c_1),\ \ldots,\ \Phi(e_{m+n})=(0_V,c_n).
+\]
+Since the image of a basis under an isomorphism is again a basis, it follows that
+\[
+\mathcal D
+=
+\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}
+\]
+is a basis of \(V\oplus_{\mathrm{ext}}W\). Hence
+\[
+\boxed{\mathcal D=\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}\text{ is a basis of }V\oplus_{\mathrm{ext}}W.}
+\]
+
+\noindent \textbf{(ii)} Since \(\Phi:\mathbb F^{m+n}\to V\oplus_{\mathrm{ext}}W\) is an isomorphism, the two vector spaces have the same dimension. Therefore
+\[
+\dim(V\oplus_{\mathrm{ext}}W)=\dim(\mathbb F^{m+n})=m+n.
+\]
+Hence
+\[
+\boxed{\dim(V\oplus_{\mathrm{ext}}W)=m+n.}
+\]
+\newpage
+\paragraph{Method 3: Internal direct sum of the coordinate subspaces}
+
+\noindent \textbf{(i)} Define
+\[
+U:=\{(v,0_W):v\in V\},
+\qquad
+Z:=\{(0_V,w):w\in W\}.
+\]
+We first show that \(U\) and \(Z\) are subspaces of \(V\oplus_{\mathrm{ext}}W\).
+
+Let \((v,0_W),(\tilde v,0_W)\in U\) and let \(\lambda\in\mathbb F\). Then
+\[
+(v,0_W)+(\tilde v,0_W)=(v+_V\tilde v,\ 0_W+_W0_W)=(v+_V\tilde v,0_W)\in U,
+\]
+and
+\[
+\lambda\cdot(v,0_W)=(\lambda\cdot_V v,\ \lambda\cdot_W 0_W)=(\lambda\cdot_V v,0_W)\in U.
+\]
+Thus \(U\le V\oplus_{\mathrm{ext}}W\).
+
+Similarly, if \((0_V,w),(0_V,\tilde w)\in Z\) and \(\lambda\in\mathbb F\), then
+\[
+(0_V,w)+(0_V,\tilde w)=(0_V+_V0_V,\ w+_W\tilde w)=(0_V,w+_W\tilde w)\in Z,
+\]
+and
+\[
+\lambda\cdot(0_V,w)=(\lambda\cdot_V0_V,\ \lambda\cdot_W w)=(0_V,\lambda\cdot_W w)\in Z.
+\]
+Hence \(Z\le V\oplus_{\mathrm{ext}}W\).
+
+Now let \((v,w)\in V\oplus_{\mathrm{ext}}W\). Then
+\[
+(v,w)=(v,0_W)+(0_V,w),
+\]
+where \((v,0_W)\in U\) and \((0_V,w)\in Z\). Therefore
+\[
+V\oplus_{\mathrm{ext}}W=U+Z.
+\]
+
+Next we show that
+\[
+U\cap Z=\{(0_V,0_W)\}.
+\]
+Let \((x,y)\in U\cap Z\). Since \((x,y)\in U\), we must have \(y=0_W\). Since \((x,y)\in Z\), we must have \(x=0_V\). Hence
+\[
+(x,y)=(0_V,0_W).
+\]
+So
+\[
+U\cap Z=\{(0_V,0_W)\}.
+\]
+Therefore
+\[
+V\oplus_{\mathrm{ext}}W=U\oplus Z.
+\]
+
+We now determine bases for \(U\) and \(Z\). We claim that
+\[
+\{(b_1,0_W),\ldots,(b_m,0_W)\}
+\]
+is a basis of \(U\). Indeed, if \((v,0_W)\in U\), then since \(B\) is a basis of \(V\), we may write
+\[
+v=\sum_{i=1}^m \alpha_i b_i,
+\]
+and hence
+\[
+(v,0_W)=\sum_{i=1}^m \alpha_i (b_i,0_W).
+\]
+So these vectors span \(U\). If
+\[
+\sum_{i=1}^m \alpha_i (b_i,0_W)=(0_V,0_W),
+\]
+then
+\[
+\sum_{i=1}^m \alpha_i b_i=0_V.
+\]
+Since \(B\) is linearly independent, all \(\alpha_i=0\). Hence
+\[
+\{(b_1,0_W),\ldots,(b_m,0_W)\}
+\]
+is a basis of \(U\).
+
+Similarly,
+\[
+\{(0_V,c_1),\ldots,(0_V,c_n)\}
+\]
+is a basis of \(Z\).
+
+Since \(V\oplus_{\mathrm{ext}}W=U\oplus Z\), the union of a basis of \(U\) and a basis of \(Z\) is a basis of \(V\oplus_{\mathrm{ext}}W\). Therefore
+\[
+\mathcal D
+=
+\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}
+\]
+is a basis of \(V\oplus_{\mathrm{ext}}W\). Hence
+\[
+\boxed{\mathcal D=\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}\text{ is a basis of }V\oplus_{\mathrm{ext}}W.}
+\]
+
+\noindent \textbf{(ii)} Since
+\[
+V\oplus_{\mathrm{ext}}W=U\oplus Z,
+\]
+and since \(U\) has basis \(\{(b_1,0_W),\ldots,(b_m,0_W)\}\) while \(Z\) has basis \(\{(0_V,c_1),\ldots,(0_V,c_n)\}\), the direct sum \(U\oplus Z\) has a basis consisting of \(m+n\) vectors. Therefore
+\[
+\dim(V\oplus_{\mathrm{ext}}W)=m+n.
+\]
+Hence
+\[
+\boxed{\dim(V\oplus_{\mathrm{ext}}W)=m+n.}
+\]
+\newpage
+\subsection{Mark Scheme (25 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) (16 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Operations are correctly used on \(V\times W\).
+    \item (2) Additive associativity is verified.
+    \item (2) Additive commutativity is verified.
+    \item (2) An additive identity is exhibited and verified.
+    \item (2) Additive inverses are exhibited and verified.
+    \item (2) Scalar associativity \((\lambda\mu)x=\lambda(\mu x)\) is verified.
+    \item (2) Scalar identity \(1x=x\) is verified.
+    \item (2) Both distributive laws are verified:
+    \[
+    \lambda(x+y)=\lambda x+\lambda y,\qquad (\lambda+\mu)x=\lambda x+\mu x.
+    \]
+  \end{itemize}
+
+  \item \textbf{(b)(i) (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correctly constructs
+    \[
+    \mathcal D=\{(b_1,0_W),\ldots,(b_m,0_W),(0_V,c_1),\ldots,(0_V,c_n)\}
+    \]
+    and proves that it spans \(V\oplus_{\mathrm{ext}}W\).
+    \item (4) Proves linear independence of \(\mathcal D\).
+  \end{itemize}
+
+  \item \textbf{(b)(ii) (2 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Concludes that
+    \[
+    \dim(V\oplus_{\mathrm{ext}}W)=m+n
+    \]
+    because the constructed basis has \(m+n\) vectors.
+  \end{itemize}
+\end{itemize}
+
+\newpage
+\end{document}

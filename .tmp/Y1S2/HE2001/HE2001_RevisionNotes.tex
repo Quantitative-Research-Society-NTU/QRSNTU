@@ -1,0 +1,391 @@
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{draftwatermark}
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{HE2001}
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \AcademicYear
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+ breakable,
+ colback=green!5!white,        % light interior
+ colframe=green!40!black,      % border
+ colbacktitle=green!50!black,  % dark title band
+ coltitle=white,               % title text colour
+ fonttitle=\bfseries,
+ title filled,                 % puts title inside the band
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+ breakable,
+ colback=blue!3!white,
+ colframe=blue!40!black,
+ colbacktitle=blue!55!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{thm}
+
+% ---------- ENVIRONMENTS USING TCOLORBOXENVIRONMENT ----------
+\tcolorboxenvironment{identity}{
+  enhanced,
+  breakable,
+  colback=green!5!white,
+  colframe=green!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+  enhanced,
+  breakable,
+  colback=red!5!white,
+  colframe=red!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+% Optional argument [1][] lets you override the default title if needed:
+%   \begin{keyformula}[title={Key Formula: Demand Curve}] ... \end{keyformula}
+
+\newtcolorbox{keyformula}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Key Formula,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% *** CHANGED TO BROWN AS REQUESTED ***
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    breakable,
+    colback=brown!5!white,
+    colframe=brown!75!black,
+    title=Worked Example,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+    enhanced,
+    breakable,
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Common Mistake,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{policynote}[1][]{
+    enhanced,
+    breakable,
+    colback=yellow!10!white,
+    colframe=orange!75!black,
+    title=Policy Application,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examtip}[1][]{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    title=Exam Focus,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+%==================================================
+% HEADER / FOOTER / WATERMARK
+%==================================================
+
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+ This document is provided for educational purposes and does not constitute an 
+ official question paper, answer key, or any formally authorised academic 
+ material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+    hidelinks,
+    pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+    pdfauthor={Quantitative Research Society, NTU},
+    pdfsubject={\CourseName},
+    pdfkeywords={microeconomics, QRS@NTU, revision notes}
+}
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, covering consumer choice, Slutsky decomposition, endowments, intertemporal choice, uncertainty, welfare measurement, competitive equilibrium, social choice, and utilitarian welfare. The chapters combine core theory, key formulas, worked examples, and exam-focused synthesis.
+\end{abstract}
+
+\vspace{0.5cm}
+\tableofcontents
+\newpage
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+\section*{Course Overview \& Topic Map}
+\addcontentsline{toc}{section}{Course Overview \& Topic Map}
+%====================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{3.0cm}|p{2.0cm}|p{2.8cm}|p{2.0cm}|p{4.8cm}|}
+\hline
+\textbf{Topic Area} & \textbf{Course Part} & \textbf{Related Lectures} & \textbf{Tutorials} & \textbf{Role in Notes} \\
+\hline
+Chapter 1: Consumer Theory Foundations & Part I & Lecture 1 & Tutorial 1 & Full theory chapter on mathematical setup, consumption, preferences, utility, and revealed preference. \\
+\hline
+Chapter 2 & Part I & Lecture 2 & Tutorial 2 & Full theory chapter. \\
+\hline
+Chapter 3 & Part I & Lecture 3 & Tutorial 3 & Full theory chapter. \\
+\hline
+Chapter 4 & Part I & Lecture 4 & Tutorial 4 & Full theory chapter. \\
+\hline
+Chapter 5 & Part I & Lecture 5 & Tutorial 5 & Full theory chapter. \\
+\hline
+Chapter 6: Part I Summary & Part I & Lecture 6 & Tutorial 6 & Synthesis chapter summarising and connecting Part I material rather than introducing a normal new-content chapter. \\
+\hline
+Chapter 7 & Part II & Lecture 7 & Tutorial 7 & Full theory chapter. \\
+\hline
+Chapter 8 & Part II & Lecture 8 & Tutorial 8 & Full theory chapter. \\
+\hline
+Chapter 9 & Part II & Lecture 9 & Tutorial 9 & Full theory chapter. \\
+\hline
+Chapter 10 & Part II & Lecture 10 & Tutorial 10 & Full theory chapter. \\
+\hline
+Chapter 11 & Part II & Lecture 11 & --- & Lecture-only chapter. \\
+\hline
+Chapter 12: Part II Summary & Part II & Lectures 7--11 & Tutorials 7--10 & Synthesis chapter consolidating the second half of the course, including Lecture 11 as lecture-only material. \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+``This revision guide is organized into chapter notes plus part-level synthesis chapters, preserving lecture traceability while improving revision efficiency.''
+
+\newpage
+
+%====================================================================
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+Lectures provide the core theory, definitions, models, and examinable derivations. Tutorials are used selectively as worked examples only when they sharpen technique or clarify a central idea. The summary chapters are designed to compress, compare, and connect topics within each course part rather than to function as ordinary theory chapters.
+
+\subsection*{Box Legend}
+\begin{itemize}
+    \item \textbf{Definition / Theorem} boxes state formal concepts and results.
+    \item \textbf{Key Formula} boxes collect expressions, identities, and compact derivations worth memorising.
+    \item \textbf{Worked Example} boxes show representative tutorial-style applications.
+    \item \textbf{Common Mistake} boxes flag errors that often appear under exam pressure.
+    \item \textbf{Policy Application} boxes connect the theory to interpretation and welfare reasoning.
+    \item \textbf{Exam Focus} boxes identify the highest-yield revision targets.
+\end{itemize}
+
+\subsection*{Suggested Revision Flow}
+\begin{enumerate}
+    \item Read the chapter prose and Definition/Theorem boxes to fix the conceptual structure.
+    \item Memorise the Key Formula boxes and reconstruct the algebra without notes.
+    \item Attempt each Worked Example before reading the solution.
+    \item Use the summary chapters for cross-topic comparison and final consolidation.
+    \item Review Common Mistake and Exam Focus boxes immediately before quizzes and tests.
+\end{enumerate}
+
+\newpage
+%==================================================
+\part{Main Notes}
+%==================================================
+
+\input{HE2001/Chapters/ch01_consumer_theory_foundations}
+\newpage
+\input{HE2001/Chapters/ch02_slutsky_equation_and_demand_response}
+\newpage
+\input{HE2001/Chapters/ch03_hicksian_substitution_mrs_and_endowments}
+\newpage
+\input{HE2001/Chapters/ch04_intertemporal_consumption_and_asset_pricing}
+\newpage
+\input{HE2001/Chapters/ch05_risk_state_prices_and_expected_utility}
+\newpage
+\input{HE2001/Chapters/ch06_part1_summary}
+\newpage
+\input{HE2001/Chapters/ch07_measuring_welfare}
+\newpage
+\input{HE2001/Chapters/ch08_simple_welfare_analysis}
+\newpage
+\input{HE2001/Chapters/ch09_perfect_competition_and_welfare}
+\newpage
+\input{HE2001/Chapters/ch10_social_choice}
+\newpage
+\input{HE2001/Chapters/ch11_utilitarianism}
+\newpage
+\input{HE2001/Chapters/ch12_part2_summary}
+
+
+
+
+
+
+
+
+
+\appendix
+
+\section{Formula \& Key Results Reference}
+\begin{itemize}
+    \item Chapter 1: Budget sets, direct and strict revealed preference, WARP.
+    \item Part I: Slutsky decomposition, endowment-budget formulas, intertemporal constraints, asset-pricing identities, and uncertainty results.
+    \item Part II: Welfare measures, surplus formulas, Pareto efficiency criteria, and social choice results.
+\end{itemize}
+
+\section{Notation}
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+\begin{tabular}{|p{2.2cm}|p{5.0cm}|p{6.0cm}|}
+\hline
+\textbf{symbol} & \textbf{meaning} & \textbf{context} \\
+\hline
+$x \in \mathbb{R}^L_+$ & consumption bundle & Consumer theory chapters \\
+\hline
+$p \in \mathbb{R}^L_{++}$ & price vector & Consumer theory chapters \\
+\hline
+$m$ & expenditure / wealth level & Budget constraints \\
+\hline
+$B(p,m)$ & budget set & Choice under prices and expenditure \\
+\hline
+$\succeq, \succ, \sim$ & weak preference, strict preference, indifference & Preference theory \\
+\hline
+$R, P$ & directly revealed preference, strictly directly revealed preference & Revealed preference \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}

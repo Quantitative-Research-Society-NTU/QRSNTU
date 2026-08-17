@@ -1,0 +1,605 @@
+% :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2002 }
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Tutorial 2}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial develops core tools from the goods market and money market blocks of the IS--LM framework. Key themes:
+\begin{itemize}[leftmargin=*]
+  \item Equilibrium output when \emph{investment depends on output} and the resulting multiplier.
+  \item Comparative statics for shifts in ``business confidence'' (investment intercept) and implications for national saving.
+  \item Money demand as a function of income and the interest rate; scaling and elasticities.
+  \item Money market equilibrium and central bank policy to target a new interest rate.
+  \item Bond pricing and yields; inverse price--interest rate relation and present value.
+\end{itemize}
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section*{Question 1 (Chapter 3, Q8)}
+\subsection*{Problem}
+(This problem examines the implications of allowing investment to depend on output.)
+
+Suppose the economy is characterized by the following behavioral equations:
+\[
+C = c_0 + c_1Y_D,\qquad
+Y_D = Y - T,\qquad
+I = b_0 + b_1Y,
+\]
+where government spending \(G\) and taxes \(T\) are constant. Note that investment now increases with output.
+\begin{enumerate}[label=(\alph*)]
+  \item Solve for equilibrium output.
+  \item What is the value of the multiplier? How does the relation between investment and output affect the value of the multiplier? For the multiplier to be positive, what condition must \((c_1+b_1)\) satisfy?
+  \item Suppose that the parameter \(b_0\), sometimes called business confidence, increases. How will equilibrium output be affected? What will happen to national saving?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct substitution into goods-market equilibrium}
+We use the (closed-economy) goods-market equilibrium condition
+\[
+Y = C + I + G.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Equilibrium output.}
+First write consumption as a function of \(Y\):
+\[
+C = c_0 + c_1(Y_D)=c_0 + c_1(Y-T)=c_0 + c_1Y - c_1T.
+\]
+Investment is \(I=b_0+b_1Y\). Substituting into \(Y=C+I+G\) gives
+\begin{align*}
+Y &= (c_0 + c_1Y - c_1T) + (b_0 + b_1Y) + G \\
+  &= (c_0 + b_0 + G - c_1T) + (c_1+b_1)Y.
+\end{align*}
+Collect \(Y\)-terms on the left:
+\[
+Y - (c_1+b_1)Y = c_0 + b_0 + G - c_1T
+\quad\Longrightarrow\quad
+\bigl(1-c_1-b_1\bigr)Y = c_0 + b_0 + G - c_1T.
+\]
+Assuming \(1-c_1-b_1\neq 0\), the equilibrium output is
+\[
+\boxed{\,
+Y^*=\dfrac{c_0 + b_0 + G - c_1T}{1-c_1-b_1}
+\, }.
+\]
+
+\item \textbf{Multiplier and the condition for positivity.}
+Consider a one-unit increase in autonomous spending (any parameter entering the numerator with coefficient \(+1\)), e.g.\ \(G\) or \(b_0\) or \(c_0\).
+From the formula in (a),
+\[
+\frac{\partial Y^*}{\partial G}
+= \frac{\partial Y^*}{\partial b_0}
+= \frac{\partial Y^*}{\partial c_0}
+= \frac{1}{1-c_1-b_1}.
+\]
+Thus the multiplier is
+\[
+\boxed{\,\text{Multiplier}=\dfrac{1}{1-c_1-b_1}\, }.
+\]
+\emph{Effect of investment depending on output:} relative to the standard case \(b_1=0\), the denominator \(1-c_1-b_1\) is smaller (for \(b_1>0\)), so the multiplier is larger. Intuitively, higher output raises investment (\(b_1Y\)), which further raises demand and therefore amplifies output.
+
+For the multiplier to be positive, we require
+\[
+1-c_1-b_1>0
+\quad\Longleftrightarrow\quad
+c_1+b_1<1,
+\]
+so
+\[
+\boxed{\,c_1+b_1<1\, }.
+\]
+
+\item \textbf{Increase in \(b_0\) and national saving.}
+Let \(\Delta b_0>0\). Since
+\[
+Y^*=\frac{c_0+b_0+G-c_1T}{1-c_1-b_1},
+\]
+holding \(c_0,G,T,c_1,b_1\) fixed gives
+\[
+\Delta Y^*=\frac{1}{1-c_1-b_1}\,\Delta b_0
+\quad\Rightarrow\quad
+\boxed{\,\Delta Y^*=\dfrac{\Delta b_0}{1-c_1-b_1}\, }.
+\]
+
+National saving (in a closed economy) is
+\[
+S \equiv Y - C - G.
+\]
+Using \(C=c_0+c_1(Y-T)\),
+\begin{align*}
+S &= Y - \bigl(c_0+c_1(Y-T)\bigr) - G \\
+  &= Y - c_0 - c_1Y + c_1T - G \\
+  &= (1-c_1)Y - (c_0+G-c_1T).
+\end{align*}
+All terms except \(Y\) are constant when only \(b_0\) changes, so
+\[
+\Delta S = (1-c_1)\Delta Y^*
+= (1-c_1)\frac{\Delta b_0}{1-c_1-b_1}.
+\]
+Therefore,
+\[
+\boxed{\,\Delta S = \dfrac{(1-c_1)\Delta b_0}{1-c_1-b_1}\, }.
+\]
+Since \(0<c_1<1\) in the standard Keynesian setup and \(1-c_1-b_1>0\) for a positive multiplier, we have \(\Delta S>0\) when \(\Delta b_0>0\).
+\end{enumerate}
+
+\subsubsection*{Method 2: Keynesian-cross slope and fixed-point form}
+Define planned expenditure (total demand)
+\[
+Z(Y)\equiv C(Y)+I(Y)+G.
+\]
+Using the behavioral equations:
+\[
+C(Y)=c_0+c_1(Y-T)=(c_0-c_1T)+c_1Y,\qquad I(Y)=b_0+b_1Y.
+\]
+Hence
+\[
+Z(Y)=(c_0-c_1T+b_0+G) + (c_1+b_1)Y.
+\]
+Equilibrium in the Keynesian cross is the fixed point \(Y=Z(Y)\):
+\begin{align*}
+Y &= (c_0-c_1T+b_0+G) + (c_1+b_1)Y,\\
+(1-c_1-b_1)Y &= c_0+b_0+G-c_1T,\\
+Y^* &= \frac{c_0+b_0+G-c_1T}{1-c_1-b_1}.
+\end{align*}
+Thus
+\[
+\boxed{\,
+Y^*=\dfrac{c_0 + b_0 + G - c_1T}{1-c_1-b_1}
+\, }.
+\]
+
+The slope of the planned expenditure line is
+\[
+Z'(Y)=c_1+b_1.
+\]
+In the Keynesian-cross stability logic, a standard sufficient condition for convergence is \(|Z'(Y)|<1\); with \(c_1,b_1\ge 0\), this becomes
+\[
+c_1+b_1<1,
+\]
+which is exactly the condition for a positive and finite multiplier.
+
+Now consider a one-unit increase in the intercept of \(Z(Y)\), i.e.\ in \(c_0\) or \(b_0\) or \(G\). In a linear fixed-point equation \(Y=\alpha+\beta Y\) with \(|\beta|<1\), the solution is \(Y=\alpha/(1-\beta)\), so the multiplier is \(1/(1-\beta)\). Here \(\beta=c_1+b_1\), so
+\[
+\boxed{\,\text{Multiplier}=\dfrac{1}{1-(c_1+b_1)}=\dfrac{1}{1-c_1-b_1}\, }.
+\]
+
+For national saving, use the equilibrium identity (closed economy):
+\[
+Y=C+I+G \quad\Longrightarrow\quad Y-C-G=I.
+\]
+Therefore
+\[
+S \equiv Y-C-G = I.
+\]
+Since \(I(Y)=b_0+b_1Y\), a change \(\Delta b_0\) yields
+\[
+\Delta S = \Delta I = \Delta b_0 + b_1\Delta Y^*,
+\quad\text{with}\quad
+\Delta Y^*=\frac{\Delta b_0}{1-c_1-b_1}.
+\]
+Substitute:
+\begin{align*}
+\Delta S
+&= \Delta b_0 + b_1\frac{\Delta b_0}{1-c_1-b_1}
+= \Delta b_0\left(1+\frac{b_1}{1-c_1-b_1}\right) \\
+&= \Delta b_0\left(\frac{1-c_1-b_1+b_1}{1-c_1-b_1}\right)
+= \frac{(1-c_1)\Delta b_0}{1-c_1-b_1}.
+\end{align*}
+Hence
+\[
+\boxed{\,\Delta S = \dfrac{(1-c_1)\Delta b_0}{1-c_1-b_1}\, }.
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section*{Question 2 (Chapter 4, Q2)}
+\subsection*{Problem}
+Suppose that the household nominal income for a country is \(\$50{,}000\) billion. The money demand function is given by
+\[
+M^d = \$Y\,(0.2 - 0.8i).
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item What is the demand for money when the interest rate is \(1\%\)? \(5\%\)?
+  \item What is the relationship between money demand and income? Money demand and the interest rate?
+  \item Suppose the yearly income is reduced by \(20\%\). In percentage terms, what happens to the demand for money if the interest rate is \(1\%\)? If the interest rate is \(5\%\)?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct computation and partial-derivative interpretation}
+Let \(\$Y=50{,}000\) (in billions of dollars). Interpret \(i\) as a decimal interest rate: \(1\%=0.01\), \(5\%=0.05\).
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Compute \(M^d\) at \(i=1\%\) and \(i=5\%\).}
+
+For \(i=0.01\),
+\[
+0.2-0.8i = 0.2-0.8(0.01)=0.2-0.008=0.192,
+\]
+so
+\[
+M^d = 50{,}000\times 0.192 = 9{,}600 \quad (\text{billion dollars}).
+\]
+Thus
+\[
+\boxed{\,M^d(i=1\%) = \$9{,}600\ \text{billion}\, }.
+\]
+
+For \(i=0.05\),
+\[
+0.2-0.8i = 0.2-0.8(0.05)=0.2-0.04=0.16,
+\]
+so
+\[
+M^d = 50{,}000\times 0.16 = 8{,}000 \quad (\text{billion dollars}).
+\]
+Thus
+\[
+\boxed{\,M^d(i=5\%) = \$8{,}000\ \text{billion}\, }.
+\]
+
+\item \textbf{Relationship with income and interest rate.}
+Rewrite
+\[
+M^d = (0.2-0.8i)\,Y.
+\]
+Holding \(i\) fixed, money demand is proportional to income \(Y\):
+\[
+\frac{\partial M^d}{\partial Y} = 0.2-0.8i.
+\]
+For typical interest rates where \(0.2-0.8i>0\), this derivative is positive, so higher income raises money demand.
+
+Holding \(Y\) fixed, money demand decreases linearly with the interest rate:
+\[
+\frac{\partial M^d}{\partial i} = Y(-0.8) = -0.8Y < 0.
+\]
+So higher interest rates reduce money demand.
+
+\item \textbf{Income reduced by \(20\%\): percentage change in money demand.}
+A \(20\%\) income reduction means \(Y' = 0.8Y\). Then
+\[
+(M^d)' = Y'(0.2-0.8i) = 0.8Y(0.2-0.8i)=0.8\,M^d.
+\]
+Therefore the demand for money falls by exactly \(20\%\) for any fixed \(i\).
+
+To verify numerically:
+\begin{itemize}[leftmargin=*]
+  \item If \(i=1\%\): original \(M^d=9{,}600\). New \(M^d=0.8\times 9{,}600=7{,}680\). Percentage change \(=(7{,}680-9{,}600)/9{,}600=-20\%\).
+  \item If \(i=5\%\): original \(M^d=8{,}000\). New \(M^d=0.8\times 8{,}000=6{,}400\). Percentage change \(=(6{,}400-8{,}000)/8{,}000=-20\%\).
+\end{itemize}
+Hence
+\[
+\boxed{\,\text{Money demand decreases by }20\%\text{ at both }i=1\%\text{ and }i=5\%.\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Elasticity/scaling argument (no arithmetic shortcuts left unjustified)}
+The demand function is multiplicatively separable:
+\[
+M^d(Y,i)=Y\cdot f(i),
+\qquad\text{where}\qquad
+f(i)=0.2-0.8i.
+\]
+
+\paragraph{Part (b) via derivatives.}
+\[
+\frac{\partial M^d}{\partial Y}=f(i)=0.2-0.8i,
+\qquad
+\frac{\partial M^d}{\partial i}=Y f'(i)=Y(-0.8)=-0.8Y<0.
+\]
+Thus \(M^d\) is increasing in \(Y\) (when \(f(i)>0\)) and decreasing in \(i\).
+
+\paragraph{Part (c) via proportional scaling.}
+If income changes from \(Y\) to \(Y'=(1-\theta)Y\) for some \(\theta\in(0,1)\), then
+\[
+M^d(Y',i)=Y'f(i)=(1-\theta)Yf(i)=(1-\theta)M^d(Y,i).
+\]
+So the percentage change in \(M^d\) equals \(-\theta\times 100\%\), independent of \(i\). With \(\theta=0.2\),
+\[
+\boxed{\,\%\Delta M^d = -20\%\ \text{for any fixed interest rate }i.\,}
+\]
+Parts (a) are then obtained by substituting \(Y=50{,}000\) and \(i=0.01,0.05\) exactly as in Method 1, yielding \(\$9{,}600\) and \(\$8{,}000\) billion.
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section*{Question 3 (Chapter 4, Q4)}
+\subsection*{Problem}
+Suppose the money demand of an economy is given by
+\[
+M^d = \$Y\, (0.25 - i),
+\]
+where \(\$Y\) is \(\$40{,}000\). Also, suppose that the supply of money is \(\$8{,}000\).
+\begin{enumerate}[label=(\alph*)]
+  \item What is the equilibrium interest rate?
+  \item Suppose the central bank increases the value of equilibrium interest rate, \(i\), in part (a) to \(10\%\). Will there be excess money supply or excess money demand? What policy should the central bank consider to reach the new equilibrium interest rate?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Market-clearing equation and direct substitution}
+Money market equilibrium requires \(M^d=M^s\). Here \(Y=40{,}000\) (dollars; units consistent with \(M\)), \(M^s=8{,}000\), and \(i\) is a decimal rate.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Equilibrium interest rate.}
+Set demand equal to supply:
+\[
+40{,}000(0.25-i) = 8{,}000.
+\]
+Divide both sides by \(40{,}000\):
+\[
+0.25 - i = \frac{8{,}000}{40{,}000}=0.2.
+\]
+Therefore
+\[
+i = 0.25 - 0.2 = 0.05,
+\]
+so
+\[
+\boxed{\,i^* = 5\%\, }.
+\]
+
+\item \textbf{Target \(i=10\%\): excess supply or demand and policy.}
+If the central bank wants \(i=10\%\), set \(i=0.10\) and compute money demand:
+\[
+M^d(i=0.10)=40{,}000(0.25-0.10)=40{,}000(0.15)=6{,}000.
+\]
+With money supply still \(M^s=8{,}000\),
+\[
+M^s - M^d = 8{,}000-6{,}000=2{,}000>0,
+\]
+so there is \emph{excess money supply} of \(\$2{,}000\).
+
+To have equilibrium at \(i=10\%\) (with income fixed at \(40{,}000\)), the central bank must set money supply equal to the demand at that rate:
+\[
+M^{s,\text{new}} = 6{,}000.
+\]
+Thus it should \emph{reduce the money supply} by
+\[
+8{,}000-6{,}000=2{,}000.
+\]
+A standard implementation is a contractionary open market operation (sell bonds to the public to withdraw money), or other contractionary tools that reduce the monetary base.
+Hence
+\[
+\boxed{\,\text{At }i=10\%\text{ there is excess money supply; to reach }10\%\text{ reduce }M^s\text{ to }\$6{,}000.\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Inverse money-demand schedule and comparative statics}
+From
+\[
+M^d = Y(0.25-i),
+\]
+solve explicitly for \(i\) as a function of \((Y,M)\) by dividing by \(Y>0\):
+\[
+\frac{M^d}{Y}=0.25-i
+\quad\Longrightarrow\quad
+i = 0.25-\frac{M^d}{Y}.
+\]
+In equilibrium, \(M^d=M^s\), so the equilibrium interest rate is
+\[
+i^* = 0.25-\frac{M^s}{Y}.
+\]
+With \(M^s=8{,}000\) and \(Y=40{,}000\),
+\[
+i^* = 0.25 - \frac{8{,}000}{40{,}000}
+=0.25-0.2
+=0.05
+\quad\Rightarrow\quad
+\boxed{\,i^*=5\%\, }.
+\]
+
+Now impose the target \(i^{\text{target}}=10\%=0.10\). The equilibrium condition written in inverse form is
+\[
+0.10 = 0.25-\frac{M^{s,\text{new}}}{40{,}000}.
+\]
+Solve for \(M^{s,\text{new}}\):
+\[
+\frac{M^{s,\text{new}}}{40{,}000}=0.25-0.10=0.15
+\quad\Longrightarrow\quad
+M^{s,\text{new}}=40{,}000(0.15)=6{,}000.
+\]
+Thus the central bank must decrease money supply from \(8{,}000\) to \(6{,}000\), confirming the excess-supply diagnosis and contractionary policy recommendation:
+\[
+\boxed{\,M^{s,\text{new}}=\$6{,}000\ \text{to sustain }i=10\%\, }.
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section*{Question 4 (Chapter 4, Q3)}
+\subsection*{Problem}
+(Please read Slide 19, ``The Interest Rate on the Bond,'' from the Lecture 2 slides.)
+
+Consider a bond that promises to pay \(\$100\) in one year.
+\begin{enumerate}[label=(\alph*)]
+  \item What is the interest rate on the bond if its price today is \(\$75\)? \(\$85\)? \(\$95\)?
+  \item What is the relation between the price of the bond and the interest rate?
+  \item If the interest rate is \(8\%\), what is the price of the bond today?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: One-period return definition (yield from price)}
+Let \(P\) be today's bond price and \(F=100\) be the face value paid in one year. The (one-period) interest rate \(i\) is defined by equating the gross return:
+\[
+(1+i)P = F
+\quad\Longleftrightarrow\quad
+i = \frac{F}{P}-1=\frac{F-P}{P}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Compute \(i\) for each price.}
+\begin{itemize}[leftmargin=*]
+  \item If \(P=75\):
+  \[
+  i=\frac{100}{75}-1=\frac{4}{3}-1=\frac{1}{3}=0.333\overline{3}
+  \quad\Rightarrow\quad
+  \boxed{\,i=33.\overline{3}\%\, }.
+  \]
+  \item If \(P=85\):
+  \[
+  i=\frac{100}{85}-1=\frac{15}{85}=\frac{3}{17}\approx 0.1764706
+  \quad\Rightarrow\quad
+  \boxed{\,i\approx 17.65\%\, }.
+  \]
+  \item If \(P=95\):
+  \[
+  i=\frac{100}{95}-1=\frac{5}{95}=\frac{1}{19}\approx 0.0526316
+  \quad\Rightarrow\quad
+  \boxed{\,i\approx 5.26\%\, }.
+  \]
+\end{itemize}
+
+\item \textbf{Relation between \(P\) and \(i\).}
+From
+\[
+i(P)=\frac{100}{P}-1,
+\]
+differentiate with respect to \(P>0\):
+\[
+\frac{di}{dP} = -\frac{100}{P^2}<0.
+\]
+Thus the interest rate is strictly decreasing in the bond price: higher prices imply lower yields, and lower prices imply higher yields. Hence
+\[
+\boxed{\,\text{Bond price and interest rate are inversely related.}\,}
+\]
+
+\item \textbf{Price when \(i=8\%\).}
+Set \(i=0.08\) in \((1+i)P=100\):
+\[
+(1.08)P=100
+\quad\Longrightarrow\quad
+P=\frac{100}{1.08}=\frac{100}{108/100}=\frac{10000}{108}=\frac{2500}{27}\approx 92.5926.
+\]
+Therefore
+\[
+\boxed{\,P=\frac{2500}{27}\approx \$92.59\, }.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Present value (discounting) formulation}
+A one-year riskless discount factor for interest rate \(i\) is
+\[
+\text{PV factor}=\frac{1}{1+i}.
+\]
+Since the bond pays \(100\) in one year, its no-arbitrage price is the present value of the payoff:
+\[
+P=\frac{100}{1+i}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Recover \(i\) from the present value equation.}
+Starting from \(P=\frac{100}{1+i}\), solve for \(i\):
+\[
+P(1+i)=100
+\quad\Longrightarrow\quad
+1+i=\frac{100}{P}
+\quad\Longrightarrow\quad
+i=\frac{100}{P}-1.
+\]
+Substituting \(P=75,85,95\) reproduces exactly the values computed in Method 1:
+\[
+\boxed{\,P=75\Rightarrow i=\frac{1}{3}\,},\qquad
+\boxed{\,P=85\Rightarrow i=\frac{3}{17}\,},\qquad
+\boxed{\,P=95\Rightarrow i=\frac{1}{19}\,}.
+\]
+
+\item \textbf{Inverse relation.}
+Because \(P(i)=\frac{100}{1+i}\), we have
+\[
+\frac{dP}{di}=-\frac{100}{(1+i)^2}<0,
+\]
+so higher interest rates imply lower present values (lower bond prices). Hence
+\[
+\boxed{\,P \text{ decreases as } i \text{ increases.}\,}
+\]
+
+\item \textbf{Compute \(P\) at \(i=8\%\).}
+\[
+P=\frac{100}{1+0.08}=\frac{100}{1.08}=\frac{2500}{27}\approx 92.59,
+\]
+so
+\[
+\boxed{\,P=\frac{2500}{27}\approx \$92.59\, }.
+\]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,1056 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{titlesec}
+\pgfplotsset{compat=newest}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{HE2002 }
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Tutorial 8}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName \ --\ \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- SHORTCUTS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_+}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\dotp}{\cdot}
+
+%------------- STYLE -------------
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers:
+\begin{itemize}[leftmargin=*]
+  \item medium-run equilibrium in the IS--MP--PC framework;
+  \item the natural rate of interest, the natural level of output, and the central bank's policy response;
+  \item comparative statics for changes in risk premia, government spending, and taxes;
+  \item inflation dynamics after a positive demand shock under different assumptions about expected inflation;
+  \item the difference between adaptive and anchored expectations;
+  \item why an unchanged policy rate can be inconsistent with medium-run stabilisation.
+\end{itemize}
+
+\bigskip
+
+\newpage
+\tableofcontents
+
+\newpage
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1: Identifying Medium-Run Equilibrium and the Required Central Bank Response}
+
+\noindent
+Chapter 9, Q2. Identifying if an economy is in medium run equilibrium and the necessary central bank action to return the economy to medium run equilibrium
+
+\subsection{Problem}
+Here are values for a hypothetical economy
+\[
+Y_n=1000;\ u_n=5\%;\ r_n=2\%;\ x=1\%;\ \pi^e=2\%
+\]
+and a table describing this economy in various situations:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Situation} & \(Y_n\) & \(Y\) & \(C\) & \(I\) & \(G\) & \(i\) (\%) & \(\pi\) (\%) & \(u\) (\%) & \(x\) (\%) \\
+\hline
+A & 1000 & 1000 & 700 & 150 & 150 & 4 & 2 & 5 & 1 \\
+B & 1000 & 1050 & 730 & 170 & 150 & 2 & 3 & 3 & 1 \\
+C & 1000 & 950 & 670 & 130 & 150 & 4 & 1 & 8 & 3 \\
+D & 1000 & 950 & 670 & 150 & 130 & 4 & 1 & 8 & 1 \\
+E & 1000 & 1050 & 730 & 150 & 170 & 4 & 3 & 3 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+(Let’s assume that investment only depends on the borrowing rate and it is independent of the output. In fact, this assumption is supported by the investments in Situation A, D and E. )
+
+\begin{enumerate}[label=(\alph*)]
+    \item Explain why Situation A is a medium run equilibrium and Situation B, C, D and E are not a medium run equilibrium.
+    \item What is the action to be taken by the central bank to move from Situation B to medium run equilibrium?
+    \item What is the action to be taken by the central bank to move from Situation C to medium run equilibrium?
+    \item What is the action to be taken by the central bank to move from Situation D to medium run equilibrium?
+    \item What is the action to be taken by the central bank to move from Situation E to medium run equilibrium?
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct medium-run equilibrium checklist}
+A medium-run equilibrium requires all of the following:
+\begin{itemize}[leftmargin=*]
+    \item output equals potential output, \(Y=Y_n\);
+    \item unemployment equals the natural rate, \(u=u_n\);
+    \item actual inflation equals expected inflation, \(\pi=\pi^e\);
+    \item the real policy rate equals the natural rate, \(r=r_n\), where
+    \[
+    r=i-\pi^e.
+    \]
+\end{itemize}
+Since \(r_n=2\%\) and \(\pi^e=2\%\), the nominal policy rate consistent with medium-run equilibrium is
+\[
+i=r_n+\pi^e=2\%+2\%=4\%.
+\]
+Also, because investment depends on the borrowing rate \(r+x\), the natural borrowing rate is
+\[
+r_n+x=2\%+1\%=3\%.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \paragraph{Situation A.}
+    We have
+    \[
+    Y=1000=Y_n,\qquad u=5\%=u_n,\qquad \pi=2\%=\pi^e.
+    \]
+    Also,
+    \[
+    r=i-\pi^e=4\%-2\%=2\%=r_n.
+    \]
+    The borrowing rate is
+    \[
+    r+x=2\%+1\%=3\%,
+    \]
+    which is exactly the natural borrowing rate. Hence investment is at its equilibrium level \(I=150\), and demand is consistent with
+    \[
+    Y=C+I+G=700+150+150=1000.
+    \]
+    Therefore Situation A is a medium-run equilibrium:
+    \[
+    \boxed{\text{Situation A is a medium-run equilibrium.}}
+    \]
+
+    \paragraph{Situation B.}
+    Here,
+    \[
+    Y=1050>Y_n,\qquad u=3\%<u_n,\qquad \pi=3\%>\pi^e.
+    \]
+    The real policy rate is
+    \[
+    r=i-\pi^e=2\%-2\%=0\%<r_n.
+    \]
+    Hence the borrowing rate is too low:
+    \[
+    r+x=0\%+1\%=1\%<3\%.
+    \]
+    This makes investment too high \((I=170)\), and aggregate demand too strong. So B is not a medium-run equilibrium:
+    \[
+    \boxed{\text{Situation B is not a medium-run equilibrium.}}
+    \]
+
+    \paragraph{Situation C.}
+    Here,
+    \[
+    Y=950<Y_n,\qquad u=8\%>u_n,\qquad \pi=1\%<\pi^e.
+    \]
+    The real policy rate is still
+    \[
+    r=i-\pi^e=4\%-2\%=2\%=r_n,
+    \]
+    but the risk premium is now
+    \[
+    x=3\%.
+    \]
+    Therefore the borrowing rate is
+    \[
+    r+x=2\%+3\%=5\%>3\%.
+    \]
+    Investment is therefore too low \((I=130)\), and demand is insufficient. So C is not a medium-run equilibrium:
+    \[
+    \boxed{\text{Situation C is not a medium-run equilibrium.}}
+    \]
+
+    \paragraph{Situation D.}
+    Here,
+    \[
+    Y=950<Y_n,\qquad u=8\%>u_n,\qquad \pi=1\%<\pi^e.
+    \]
+    The real policy rate is
+    \[
+    r=i-\pi^e=4\%-2\%=2\%=r_n,
+    \]
+    and the risk premium is unchanged at \(x=1\%\), so the borrowing rate is still the natural one:
+    \[
+    r+x=2\%+1\%=3\%.
+    \]
+    This explains why investment remains \(I=150\), the same as in A. The problem is instead that government spending has fallen from 150 to 130, reducing aggregate demand. Thus D is not a medium-run equilibrium:
+    \[
+    \boxed{\text{Situation D is not a medium-run equilibrium.}}
+    \]
+
+    \paragraph{Situation E.}
+    Here,
+    \[
+    Y=1050>Y_n,\qquad u=3\%<u_n,\qquad \pi=3\%>\pi^e.
+    \]
+    Again,
+    \[
+    r=i-\pi^e=4\%-2\%=2\%=r_n,
+    \qquad
+    r+x=2\%+1\%=3\%.
+    \]
+    So investment is still at its equilibrium level \(I=150\). The problem is instead that government spending has risen from 150 to 170, pushing demand above potential output. Hence E is not a medium-run equilibrium:
+    \[
+    \boxed{\text{Situation E is not a medium-run equilibrium.}}
+    \]
+
+    \item
+    To move from B back to medium-run equilibrium, the central bank must reduce demand by raising the policy rate.
+
+    In B, the real policy rate is \(0\%\), but it must be \(2\%\). Therefore the central bank should raise the nominal policy rate from
+    \[
+    i=2\% \quad \text{to} \quad i=4\%.
+    \]
+    This raises the real rate from 0\% to 2\%, raises the borrowing rate from 1\% to 3\%, and lowers investment from 170 to 150.
+
+    Therefore the required action is
+    \[
+    \boxed{\text{Raise the nominal policy rate by 2 percentage points, from }2\%\text{ to }4\%.}
+    \]
+
+    \item
+    In C, the policy rate itself is not too low, but the spread \(x\) has increased by 2 percentage points. To offset that increase, the central bank must lower the real policy rate by 2 percentage points.
+
+    Since expected inflation is 2\%, the nominal rate must fall from
+    \[
+    i=4\% \quad \text{to} \quad i=2\%.
+    \]
+    Then
+    \[
+    r=i-\pi^e=2\%-2\%=0\%,
+    \]
+    so the borrowing rate becomes
+    \[
+    r+x=0\%+3\%=3\%,
+    \]
+    restoring investment to 150.
+
+    Thus the required action is
+    \[
+    \boxed{\text{Lower the nominal policy rate by 2 percentage points, from }4\%\text{ to }2\%.}
+    \]
+
+    \item
+    In D, the fall in government spending from 150 to 130 reduces demand by 20. To offset this, the central bank must stimulate private demand by lowering the policy rate so that investment rises from 150 to 170.
+
+    From the table, an investment level of 170 is achieved when the borrowing rate is 1\%. Since \(x=1\%\), this requires
+    \[
+    r=0\%.
+    \]
+    Because expected inflation is 2\%, the nominal policy rate must therefore be
+    \[
+    i=r+\pi^e=0\%+2\%=2\%.
+    \]
+
+    So the required action is
+    \[
+    \boxed{\text{Lower the nominal policy rate by 2 percentage points, from }4\%\text{ to }2\%.}
+    \]
+
+    \item
+    In E, government spending rises from 150 to 170, increasing demand by 20. To offset this, the central bank must contract private demand by raising the policy rate so that investment falls from 150 to 130.
+
+    From the table, an investment level of 130 is associated with a borrowing rate of 5\%. Since \(x=1\%\), the real policy rate must be
+    \[
+    r=4\%.
+    \]
+    With expected inflation 2\%, the nominal policy rate must be
+    \[
+    i=r+\pi^e=4\%+2\%=6\%.
+    \]
+
+    Therefore the required action is
+    \[
+    \boxed{\text{Raise the nominal policy rate by 2 percentage points, from }4\%\text{ to }6\%.}
+    \]
+\end{enumerate}
+
+\subsubsection{Method 2: Goods-market consistency and natural borrowing-rate analysis}
+The goods market can be read from
+\[
+Y=C+I+G.
+\]
+From the table, consumption moves with output:
+\[
+C=700 \text{ when } Y=1000,
+\quad
+C=730 \text{ when } Y=1050,
+\quad
+C=670 \text{ when } Y=950.
+\]
+The medium-run benchmark is therefore the configuration in which
+\[
+Y_n=1000,
+\quad
+C=700,
+\quad
+I=150,
+\quad
+G=150.
+\]
+The corresponding borrowing rate is the one that keeps investment at 150. Since
+\[
+r_n=2\%,\qquad x=1\%,
+\]
+that natural borrowing rate is
+\[
+(r+x)^*=3\%.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \paragraph{A.}
+    The table gives
+    \[
+    Y=1000,
+    \qquad
+    C+I+G=700+150+150=1000,
+    \]
+    together with
+    \[
+    u=5\%=u_n,
+    \qquad
+    \pi=2\%=\pi^e,
+    \qquad
+    i=4\%=r_n+\pi^e.
+    \]
+    Everything is exactly at its medium-run benchmark, so
+    \[
+    \boxed{A \text{ is the medium-run equilibrium.}}
+    \]
+
+    \paragraph{B.}
+    In B,
+    \[
+    Y=1050,
+    \qquad
+    C+I+G=730+170+150=1050,
+    \]
+    so demand is too high. Since \(I=170>150\), private expenditure is too strong. This is consistent with the very low nominal rate \(i=2\%\), which implies an excessively low borrowing rate. Hence
+    \[
+    \boxed{B \text{ is above medium-run equilibrium.}}
+    \]
+
+    \paragraph{C.}
+    In C,
+    \[
+    Y=950,
+    \qquad
+    C+I+G=670+130+150=950,
+    \]
+    so demand is too weak. Here the policy rate is unchanged, but the spread rises from 1\% to 3\%, so borrowing becomes more expensive and investment falls to 130. Thus
+    \[
+    \boxed{C \text{ is below medium-run equilibrium because credit conditions have tightened.}}
+    \]
+
+    \paragraph{D.}
+    In D,
+    \[
+    Y=950,
+    \qquad
+    C+I+G=670+150+130=950.
+    \]
+    Investment is still 150, so the borrowing rate is still at its normal level. The shortfall comes from public spending, which has fallen by 20. Hence
+    \[
+    \boxed{D \text{ is below medium-run equilibrium because } G \text{ is too low.}}
+    \]
+
+    \paragraph{E.}
+    In E,
+    \[
+    Y=1050,
+    \qquad
+    C+I+G=730+150+170=1050.
+    \]
+    Investment is still 150, so the private borrowing environment is unchanged. The excess demand comes from government spending, which is 20 too high. Thus
+    \[
+    \boxed{E \text{ is above medium-run equilibrium because } G \text{ is too high.}}
+    \]
+
+    \item
+    In B the problem is excessive investment. The central bank must restore the natural borrowing rate from 1\% back to 3\%. Since \(x=1\%\), that requires the real policy rate to rise from 0\% to 2\%, so the nominal rate must rise from 2\% to 4\%.
+    \[
+    \boxed{i: 2\% \to 4\%.}
+    \]
+
+    \item
+    In C the spread rises by 2 percentage points, from 1\% to 3\%. To keep the borrowing rate at the natural level 3\%, the policy rate must fall by 2 percentage points. Since expected inflation is unchanged at 2\%, the nominal rate must fall from 4\% to 2\%.
+    \[
+    \boxed{i: 4\% \to 2\%.}
+    \]
+
+    \item
+    In D the fall in \(G\) by 20 must be offset by an equal rise in \(I\) by 20. The table shows that raising investment from 150 to 170 requires the borrowing rate to fall from 3\% to 1\%. Since \(x=1\%\), this means the real policy rate must fall from 2\% to 0\%, so the nominal rate must fall from 4\% to 2\%.
+    \[
+    \boxed{i: 4\% \to 2\%.}
+    \]
+
+    \item
+    In E the rise in \(G\) by 20 must be offset by a fall in \(I\) by 20. The table shows that reducing investment from 150 to 130 requires the borrowing rate to rise from 3\% to 5\%. Since \(x=1\%\), the real policy rate must rise from 2\% to 4\%, so the nominal rate must rise from 4\% to 6\%.
+    \[
+    \boxed{i: 4\% \to 6\%.}
+    \]
+\end{enumerate}
+
+\newpage
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2: Medium-Run Equilibrium and the Natural Rate of Interest}
+
+\noindent
+Chapter 9, Q3
+
+\subsection{Problem}
+The medium-run equilibrium is characterized by four conditions: Output is equal to potential output \(Y=Y_n\) and the real policy rate \(r_n\) must be chosen by the central bank so: The unemployment rate is equal to the natural rate \(u=u_n\). The real policy interest rate is equal to the natural rate of interest \(r_n\) where \(r_n\) is defined as the policy rate where
+\[
+Y_n=C(Y_n-T)+I(Y_n,r_n+x)+G.
+\]
+The expected and actual rate of inflation \(\pi^e\) is equal to the anchored or target rate of inflation \(\bar{\pi}\). This implies the nominal policy rate \(i=r_n+\bar{\pi}\).
+
+\begin{enumerate}[label=(\alph*)]
+    \item If the level of expected inflation is formed so \(\pi^e\) equals \(\bar{\pi}\), characterize the behavior of inflation in a medium-run equilibrium.
+    \item Write the IS relation as \(Y=C(Y-T)+I(Y,r+x)+G\). Suppose \(r_n\) is 2\%. If \(x\) increases from 3 to 5\%, how must the central bank change \(r_n\) to maintain the existing medium run equilibrium. Explain in words.
+    \item Suppose \(G\) increases permanently. In what direction must the central bank change \(r\) to maintain the existing medium-run equilibrium? Explain in words.
+    \item Suppose \(T\) decreases permanently. In what direction must the central bank change \(r\) to maintain the existing medium run equilibrium? Explain in words.
+    \item Discuss: In the medium run, a fiscal expansion leads to an increase in the natural rate of interest.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct use of the medium-run definition}
+By the definition given in the question, medium-run equilibrium requires
+\[
+Y=Y_n,
+\qquad
+u=u_n,
+\qquad
+r=r_n,
+\qquad
+\pi=\pi^e=\bar{\pi}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    If expected inflation is formed so that
+    \[
+    \pi^e=\bar{\pi},
+    \]
+    then medium-run equilibrium implies
+    \[
+    \pi=\pi^e=\bar{\pi}.
+    \]
+    So inflation is stable, constant, and equal to the target (or anchored) rate. There is no upward or downward drift in inflation.
+
+    Therefore,
+    \[
+    \boxed{\pi=\bar{\pi}\text{ in medium-run equilibrium, so inflation is stable at the target rate.}}
+    \]
+
+    \item
+    Investment depends on the borrowing rate \(r+x\). To maintain the same medium-run equilibrium, the borrowing rate seen by firms must remain unchanged.
+
+    Initially,
+    \[
+    r_n=2\%,
+    \qquad
+    x=3\%,
+    \qquad
+    r_n+x=5\%.
+    \]
+    If \(x\) rises from 3\% to 5\%, then to keep the borrowing rate equal to 5\%, the central bank must lower \(r_n\) by 2 percentage points:
+    \[
+    r_n'=5\%-5\%=0\%.
+    \]
+    Hence
+    \[
+    \boxed{r_n \text{ must fall from }2\%\text{ to }0\%.}
+    \]
+
+    In words: a higher spread makes borrowing more expensive for firms. To offset that tighter financial condition and preserve demand at \(Y_n\), the central bank must cut the real policy rate.
+
+    \item
+    If \(G\) increases permanently, aggregate demand rises at any given interest rate. To keep output at potential \(Y_n\), the central bank must crowd out some private demand by raising the real policy rate. This reduces investment and restores equilibrium.
+
+    Therefore,
+    \[
+    \boxed{\text{The central bank must raise } r.}
+    \]
+
+    \item
+    If \(T\) decreases permanently, disposable income increases, so consumption rises at any given interest rate. This is again an expansionary fiscal shock. To keep output at \(Y_n\), the central bank must raise the real policy rate to dampen private demand.
+
+    Therefore,
+    \[
+    \boxed{\text{The central bank must raise } r.}
+    \]
+
+    \item
+    In this model, the statement is correct. A permanent fiscal expansion shifts the IS curve to the right:
+    \begin{itemize}[leftmargin=*]
+        \item a higher \(G\) directly raises demand;
+        \item a lower \(T\) raises disposable income and consumption.
+    \end{itemize}
+    At the original real interest rate, output would exceed \(Y_n\). Therefore the real rate consistent with keeping output at potential must be higher. That is precisely the natural rate of interest.
+
+    So, in the medium run,
+    \[
+    \boxed{\text{a persistent fiscal expansion increases the natural rate of interest.}}
+    \]
+    The key economic logic is that stronger fiscal demand requires tighter monetary conditions to keep output at potential.
+\end{enumerate}
+
+\subsubsection{Method 2: Comparative statics from the IS equation}
+The natural rate of interest is defined implicitly by
+\[
+Y_n=C(Y_n-T)+I(Y_n,r_n+x)+G.
+\]
+Since \(Y_n\) is fixed in the medium run, comparative statics can be read from how the right-hand side changes.
+
+Let
+\[
+I_r:=\frac{\partial I}{\partial (r+x)}<0,
+\qquad
+C' := \frac{\partial C}{\partial (Y-T)}>0.
+\]
+We use signs only; no specific functional form is needed.
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    When expected inflation is anchored,
+    \[
+    \pi^e=\bar{\pi}.
+    \]
+    Medium-run equilibrium also requires no inflation surprise. Hence
+    \[
+    \pi=\pi^e=\bar{\pi}.
+    \]
+    Thus inflation neither accelerates nor decelerates:
+    \[
+    \boxed{\pi \text{ is constant and equal to } \bar{\pi}.}
+    \]
+
+    \item
+    Holding \(Y_n\), \(T\), and \(G\) fixed, differentiate the equilibrium condition:
+    \[
+    0 = I_r\, d(r_n+x).
+    \]
+    Since \(I_r\neq 0\), we need
+    \[
+    d(r_n+x)=0.
+    \]
+    Therefore
+    \[
+    dr_n=-dx.
+    \]
+    If \(dx=+2\%\), then
+    \[
+    dr_n=-2\%.
+    \]
+    Starting from \(r_n=2\%\), the new natural rate is
+    \[
+    \boxed{r_n'=0\%.}
+    \]
+
+    \item
+    Now let \(G\) change permanently while keeping \(Y_n\) fixed. Differentiating gives
+    \[
+    0 = I_r\,dr + dG.
+    \]
+    Hence
+    \[
+    dr = -\frac{dG}{I_r}.
+    \]
+    Because \(I_r<0\) and \(dG>0\), it follows that
+    \[
+    dr>0.
+    \]
+    Therefore,
+    \[
+    \boxed{r \text{ must increase.}}
+    \]
+
+    \item
+    If taxes decrease, then \(dT<0\). Since consumption depends on \(Y_n-T\), the induced change in consumption is
+    \[
+    dC = -C'\,dT >0.
+    \]
+    Differentiating the IS condition yields
+    \[
+    0 = dC + I_r\,dr.
+    \]
+    Therefore
+    \[
+    dr = -\frac{dC}{I_r} >0,
+    \]
+    because \(dC>0\) and \(I_r<0\). Hence
+    \[
+    \boxed{r \text{ must increase.}}
+    \]
+
+    \item
+    The discussion in parts (c) and (d) implies that a persistent fiscal expansion raises the interest rate needed to keep output at potential. In symbols, the real rate satisfying
+    \[
+    Y_n=C(Y_n-T)+I(Y_n,r_n+x)+G
+    \]
+    must increase when fiscal policy raises autonomous demand. Thus the natural rate of interest rises.
+
+    Therefore,
+    \[
+    \boxed{\text{In the basic medium-run model, fiscal expansion raises the natural rate of interest.}}
+    \]
+\end{enumerate}
+
+\newpage
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3: Demand Shocks, Inflation Expectations, and Policy Sustainability}
+
+\noindent
+Chapter 9, Q4 (Answers provided)
+
+\subsection{Problem}
+Begin in medium-run equilibrium where actual and expected inflation equals 2\% in period \(t\). Suppose there is an increase in consumer confidence in period \((t+1)\).
+
+Parts (a), (b) and (c) assume expected inflation in each period equals lagged inflation from the previous period. For example, in period \((t+2)\), \(\pi^e_{t+2}=\pi_{t+1}\) and in period \((t+1)\), \(\pi^e_{t+1}=\pi_t\).
+
+\begin{enumerate}[label=(\alph*)]
+    \item How does the IS curve shift from period \(t\) to period \((t+1)\)? What is the value of expected inflation in period \(t\)? How does the short-run equilibrium output and inflation rate in period \((t+1)\) compare to the equilibrium output and inflation rate in period \(t\) if the central bank does not change the real policy rate from period to period \((t+1)\)?
+
+    Ans: IS curve shifts to the right in \((t+1)\) due to increase in consumer confidence. The value of expected inflation in \(t\) is \(\pi_{t-1}\). In \(t+1\), output will be higher than those in \(t\), which is potential output. \(\pi_{t+1}\) will also be higher than \(\pi_t\) since \(\pi_{t+1}-\pi^e_{t+1}>0\) as the actual output is higher than the potential output, and \(\pi^e_{t+1}=\pi_t\).
+
+    \item Now advance the economy to the period \((t+2)\) equilibrium under the assumption that \(\pi^e_{t+2}=\pi_{t+1}\) and consumer confidence remains high. If the central bank leaves the real policy rate unchanged will inflation be higher or lower in period \((t+2)\) than in period \((t+1)\)?
+
+    Ans: \(\pi_{t+2}-\pi^e_{t+2}\) is still positive due to positive output gap, and \(\pi^e_{t+2}=\pi_{t+1}\), and thus inflation in \(t+2\) is higher than that in \(t+1\).
+
+    \item What do you conclude about the central bank policy of keeping the real policy rate unchanged in period \((t+2)\)? Is it sustainable?
+
+    Ans: Inflation rate will keep rising over time, and thus not sustainable.
+\end{enumerate}
+
+Parts (d), (e) and (f) assume expected inflation remains equal to target inflation, so
+\[
+\pi^e=\bar{\pi}
+\]
+in all periods.
+
+\begin{enumerate}[label=(\alph*),start=4]
+    \item Consider the period \((t+1)\) equilibrium given the assumption that \(\pi^e=\bar{\pi}\). If the central bank leaves the real policy rate unchanged, how does inflation in period \((t+1)\) compare to inflation in period \(t\)? Is output higher or lower in period \((t+1)\) than in period \(t\)?
+
+    Ans: We still have \(\pi_{t+1}-\pi^e_{t+1}>0\), so \(\pi_{t+1}>\pi_t=\bar{\pi}\). Output in \(t+1\) is also higher than that in \(t\).
+
+    \item Consider the period \((t+2)\) equilibrium given the assumption that \(\pi^e_{t+2}=\bar{\pi}\). If the central bank leaves the real policy rate unchanged, how does actual inflation in period \((t+2)\) compare to inflation in period \((t+1)\)? Is output higher or lower in period \((t+2)\) than in period \((t+1)\)?
+
+    Ans: In period \(t+2\), actual inflation is still higher than target \((\pi_{t+2}>\bar{\pi})\) because output remains above the natural level. If the central bank leaves the real policy rate unchanged and consumer confidence stays high, output in \(t+2\) is likely to remain at the same elevated level as in \(t+1\). Therefore, inflation in \(t+2\) is likely to remain roughly unchanged relative to \(t+1\), rather than rise further.
+
+    \item Explain why the policy choice to maintain the real policy rate at the original level in period \((t+1)\) is not a sustainable policy?
+
+    Ans: When the actual inflation rate continues to be higher than the inflation target, which is the expected inflation, people start to revise their expectations.
+\end{enumerate}
+
+Comparing the economic outcomes in parts (a), (b), and (c) to the economic outcomes in (d), (e), and (f)
+
+\begin{enumerate}[label=(\alph*),start=7]
+    \item Compare the inflation, expected inflation and output outcomes in parts (a), (b), and (c) to that in parts (d), (e), and (f).
+
+    Ans: expected inflation in (a)(b)(c) is rising over time, while remains the same in (d)(e)(f). Output is higher than potential level in all scenarios, and the actual inflation is rising over time in all scenarios. (The actual inflation rate is rising in (a)(b)(c) and higher than the target inflation rate in (d)(e)(f)).
+
+    \item Which assumption about expected inflation, do you think is more realistic. Discuss.
+
+    Ans: Neither scenario seems completely realistic. In part (a), (b), (c), the central bank accepts a level of inflation that is always greater than its target. In part (d), (e), (f), expected inflation remains anchored at a target rate of inflation that is never achieved.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Period-by-period IS--PC reasoning}
+We begin in medium-run equilibrium at time \(t\), so
+\[
+Y_t=Y_n,
+\qquad
+\pi_t=\pi_t^e=2\%.
+\]
+An increase in consumer confidence shifts desired spending upward, so the IS curve shifts right in period \(t+1\). If the central bank keeps the real policy rate unchanged, aggregate demand rises and output moves above potential.
+
+To organise the inflation logic, it is useful to keep in mind a Phillips-curve-type relation of the form
+\[
+\pi_s-\pi_s^e = \phi\,(Y_s-Y_n),
+\qquad \phi>0.
+\]
+Thus whenever \(Y_s>Y_n\), we have \(\pi_s>\pi_s^e\).
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    The IS curve shifts to the right from period \(t\) to period \(t+1\) because consumer confidence increases demand at any given real policy rate.
+
+    Under the assumption in parts (a)--(c), expected inflation in period \(t\) is formed from the previous period:
+    \[
+    \pi_t^e=\pi_{t-1}.
+    \]
+    But since period \(t\) is initially a medium-run equilibrium and actual and expected inflation both equal 2\%, we also have
+    \[
+    \pi_t=2\%,
+    \qquad
+    \pi_t^e=2\%.
+    \]
+    Hence \(\pi_{t-1}=2\%\) as well under this expectations rule.
+
+    Because the central bank keeps the real rate unchanged when the IS curve shifts right, output rises above potential:
+    \[
+    Y_{t+1}>Y_n=Y_t.
+    \]
+    Since
+    \[
+    \pi_{t+1}^e=\pi_t=2\%,
+    \]
+    and \(Y_{t+1}>Y_n\), the Phillips curve implies
+    \[
+    \pi_{t+1}-\pi_{t+1}^e>0.
+    \]
+    Therefore
+    \[
+    \pi_{t+1}>\pi_{t+1}^e=\pi_t.
+    \]
+    So the conclusions are
+    \[
+    \boxed{\text{IS shifts right, }Y_{t+1}>Y_t=Y_n,\text{ and }\pi_{t+1}>\pi_t.}
+    \]
+
+    \item
+    In period \(t+2\), consumer confidence remains high and the real policy rate is still unchanged, so output remains above potential:
+    \[
+    Y_{t+2}>Y_n.
+    \]
+    Under the lagged-inflation rule,
+    \[
+    \pi_{t+2}^e=\pi_{t+1}.
+    \]
+    Since the output gap is still positive,
+    \[
+    \pi_{t+2}-\pi_{t+2}^e>0.
+    \]
+    Thus
+    \[
+    \pi_{t+2}>\pi_{t+2}^e=\pi_{t+1}.
+    \]
+    Hence
+    \[
+    \boxed{\pi_{t+2}>\pi_{t+1}.}
+    \]
+
+    \item
+    If the central bank keeps the real policy rate unchanged while the IS curve remains to the right and expectations adapt to past inflation, the economy continues to run a positive output gap and inflation rises every period. That means inflation keeps accelerating over time.
+
+    Therefore this policy is not sustainable:
+    \[
+    \boxed{\text{Keeping the real policy rate unchanged is not sustainable, because inflation keeps rising.}}
+    \]
+
+    \item
+    Now assume instead that expected inflation remains anchored:
+    \[
+    \pi_s^e=\bar{\pi}
+    \qquad \text{for all } s.
+    \]
+    Since period \(t\) begins in medium-run equilibrium,
+    \[
+    \pi_t=\bar{\pi}=2\%.
+    \]
+    In period \(t+1\), the IS curve still shifts right and the real policy rate is still unchanged, so output again rises above potential:
+    \[
+    Y_{t+1}>Y_n.
+    \]
+    Since expected inflation remains fixed at target,
+    \[
+    \pi_{t+1}^e=\bar{\pi}=\pi_t.
+    \]
+    The positive output gap implies
+    \[
+    \pi_{t+1}>\pi_{t+1}^e=\bar{\pi}=\pi_t.
+    \]
+    Therefore,
+    \[
+    \boxed{\pi_{t+1}>\pi_t\quad\text{and}\quad Y_{t+1}>Y_t.}
+    \]
+
+    \item
+    In period \(t+2\), if consumer confidence stays high and the real policy rate remains unchanged, the same right-shifted IS environment persists. With anchored expectations,
+    \[
+    \pi_{t+2}^e=\bar{\pi}.
+    \]
+    Output remains above potential, so inflation remains above target:
+    \[
+    \pi_{t+2}>\bar{\pi}.
+    \]
+    If the output gap in period \(t+2\) is approximately the same as in period \(t+1\), then the inflation deviation above target is also approximately the same. Hence output stays elevated and inflation stays elevated, rather than ratcheting upward through expectations.
+
+    Thus the appropriate conclusion is
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    $Y_{t+2}$ remains above $Y_n$ and is likely similar to $Y_{t+1}$; $\pi_{t+2}\gtrsim\pi_{t+1}$ and is likely roughly unchanged.
+    }}
+    \end{center}
+    In the standard qualitative reading of this question, the intended comparison is that inflation in \(t+2\) stays above target and is likely about the same as in \(t+1\).
+
+    \item
+    This policy is still not sustainable, even if expectations remain temporarily anchored, because actual inflation is repeatedly above target:
+    \[
+    \pi_s>\bar{\pi}
+    \qquad \text{for successive periods.}
+    \]
+    If the central bank keeps tolerating that outcome, private agents will eventually stop believing that inflation will remain anchored at the target. Once expectations begin to adjust upward, the economy moves toward the dynamics described in parts (a)--(c), where inflation keeps rising.
+
+    Therefore,
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    The policy is not sustainable because persistent inflation above target will eventually unanchor expectations.
+    }}
+    \end{center}
+
+    \item
+    Comparing the two cases:
+    \begin{itemize}[leftmargin=*]
+        \item In parts (a)--(c), expected inflation rises over time because it is tied to lagged actual inflation.
+        \item In parts (d)--(f), expected inflation stays fixed at the target \(\bar{\pi}\).
+        \item In both cases, keeping the real policy rate unchanged after a positive confidence shock leaves output above potential.
+        \item In parts (a)--(c), actual inflation rises period after period because higher actual inflation feeds into higher expected inflation.
+        \item In parts (d)--(f), actual inflation is above target, but with expectations anchored it is more natural to think of inflation as staying elevated rather than accelerating through the expectations channel.
+    \end{itemize}
+    Hence
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    Output is above potential in both cases; expected inflation rises in (a)--(c) but stays anchored in (d)--(f).
+    }}
+    \end{center}
+
+    \item
+    The most realistic assumption is usually somewhere between the two extremes. In the very short run, expected inflation may remain anchored if the central bank is credible. But if inflation remains above target for long enough, people begin to revise their expectations using realised inflation. Therefore:
+    \begin{itemize}[leftmargin=*]
+        \item the pure lagged-inflation rule in (a)--(c) may overstate how quickly expectations adjust;
+        \item the perfectly anchored rule in (d)--(f) may overstate how long expectations can remain fixed when target misses persist.
+    \end{itemize}
+    So the best assessment is
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    Neither extreme is fully realistic; expectations are usually partly anchored and partly backward-looking.
+    }}
+    \end{center}
+\end{enumerate}
+
+\subsubsection{Method 2: Expectation-rule comparison using recurrence logic}
+We again start from
+\[
+\pi_t=\pi_t^e=2\%,
+\qquad
+Y_t=Y_n.
+\]
+Let the positive demand shock created by higher consumer confidence generate, under an unchanged real policy rate, a persistent positive output gap:
+\[
+\widetilde Y_s := Y_s-Y_n >0
+\qquad \text{for } s=t+1,t+2,\dots
+\]
+Write the Phillips curve as
+\[
+\pi_s = \pi_s^e + \phi \widetilde Y_s,
+\qquad \phi>0.
+\]
+This makes it easy to compare the two expectation mechanisms.
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    Under adaptive expectations,
+    \[
+    \pi_{t+1}^e=\pi_t=2\%.
+    \]
+    The demand shock shifts IS right, so \(\widetilde Y_{t+1}>0\). Hence
+    \[
+    \pi_{t+1}=\pi_{t+1}^e+\phi\widetilde Y_{t+1}
+    =2\%+\phi\widetilde Y_{t+1}>2\%=\pi_t.
+    \]
+    Therefore,
+    \[
+    \boxed{Y_{t+1}>Y_t=Y_n,\qquad \pi_{t+1}>\pi_t.}
+    \]
+
+    \item
+    In period \(t+2\),
+    \[
+    \pi_{t+2}^e=\pi_{t+1}.
+    \]
+    Since the output gap is still positive,
+    \[
+    \pi_{t+2}=\pi_{t+1}+\phi\widetilde Y_{t+2}>\pi_{t+1}.
+    \]
+    Thus
+    \[
+    \boxed{\pi_{t+2}>\pi_{t+1}.}
+    \]
+
+    \item
+    Repeating the same logic forward yields
+    \[
+    \pi_{t+k} = \pi_{t+k-1}+\phi\widetilde Y_{t+k}
+    \qquad \text{for } k\ge 1.
+    \]
+    As long as the output gap stays positive, inflation keeps increasing. Hence
+    \[
+    \boxed{\text{The unchanged-rate policy is unsustainable under adaptive expectations.}}
+    \]
+
+    \item
+    Under anchored expectations,
+    \[
+    \pi_{t+1}^e=\bar{\pi}=2\%.
+    \]
+    Since \(\widetilde Y_{t+1}>0\),
+    \[
+    \pi_{t+1}=\bar{\pi}+\phi\widetilde Y_{t+1}>\bar{\pi}=\pi_t.
+    \]
+    So
+    \[
+    \boxed{Y_{t+1}>Y_t,\qquad \pi_{t+1}>\pi_t.}
+    \]
+
+    \item
+    In period \(t+2\), expectations remain anchored:
+    \[
+    \pi_{t+2}^e=\bar{\pi}.
+    \]
+    Therefore
+    \[
+    \pi_{t+2}=\bar{\pi}+\phi\widetilde Y_{t+2}.
+    \]
+    If the unchanged real policy rate and persistent confidence shock imply approximately the same output gap as in \(t+1\), then
+    \[
+    \widetilde Y_{t+2}\approx \widetilde Y_{t+1}
+    \quad\Longrightarrow\quad
+    \pi_{t+2}\approx \pi_{t+1}.
+    \]
+    Hence
+    \[
+    \boxed{\pi_{t+2}\text{ remains above target and is likely roughly unchanged relative to }\pi_{t+1}.}
+    \]
+    Output also remains above potential and is likely similar to its period-\(t+1\) level.
+
+    \item
+    Even in this anchored-expectations case, repeatedly choosing a real policy rate that leaves \(\widetilde Y_s>0\) forces actual inflation to stay above target. That cannot continue indefinitely without eventually affecting expectations. Hence
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    The policy is not sustainable because persistent target misses undermine the anchoring of expectations.
+    }}
+    \end{center}
+
+    \item
+    The central difference can be summarised as follows:
+    \begin{center}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|p{0.25\textwidth}|p{0.31\textwidth}|p{0.31\textwidth}|}
+    \hline
+    & \textbf{Parts (a)--(c): lagged inflation expectations} & \textbf{Parts (d)--(f): anchored expectations} \\
+    \hline
+    Expected inflation & rises over time & stays at \(\bar{\pi}\) \\
+    \hline
+    Output & above potential while policy is unchanged & above potential while policy is unchanged \\
+    \hline
+    Actual inflation & rises over time & remains above target; likely stays elevated rather than accelerating through expectations \\
+    \hline
+    \end{tabular}
+    \end{center}
+    Therefore,
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    The main difference is whether expected inflation rises, causing inflation to accelerate, or remains anchored while inflation stays elevated.
+    }}
+    \end{center}
+
+    \item
+    A realistic expectations process is usually hybrid: part anchored, part backward-looking. At first, agents may trust the central bank's target. But persistent inflation above target eventually causes revisions based on realised inflation. Therefore
+    \begin{center}
+    \fbox{\parbox{0.9\linewidth}{\centering
+    The most realistic assumption is neither extreme, but a mixture of anchored and adaptive expectations.
+    }}
+    \end{center}
+\end{enumerate}
+
+\end{document}

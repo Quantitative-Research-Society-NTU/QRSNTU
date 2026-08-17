@@ -1,0 +1,2299 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Midterm Practice 1 (Solutions)}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode - \DocType}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This mock exam focuses on core tools in microeconomic theory and asset-pricing foundations:
+\begin{itemize}[leftmargin=*]
+  \item revealed preference (direct revealed preference, WARP);
+  \item Marshallian/Hicksian demand and Slutsky decomposition;
+  \item labor--leisure choice and compensated labor supply;
+  \item present value and net present value calculations;
+  \item stochastic dominance and expected utility under risk;
+  \item state prices, contingent claims, and arbitrage pricing;
+  \item intertemporal choice with borrowing/saving.
+\end{itemize}
+
+\section*{Instructions}
+\begin{itemize}
+\item This exam consists of 6 short questions (8 marks each) and 3 long questions (20 marks each).
+\item Total marks: 108.
+\item Show all working clearly. Answers without justification may receive zero marks.
+\item The notation $(x_1, x_2)$ denotes a bundle of goods 1 and 2.
+\item The notation $(p_1, p_2)$ denotes prices of goods 1 and 2.
+\end{itemize}
+
+\bigskip
+
+%----------------------------
+
+\newpage
+
+\part{Short Questions}
+\section*{Question 1 (8 marks)}
+
+Alice maximizes a strictly increasing utility function. You observe the following purchasing behavior:
+\begin{itemize}
+\item At prices $p^1 = (2, 1)$, Alice buys $x^1 = (3, 6)$
+\item At prices $p^2 = (1, 2)$, Alice buys $x^2 = (5, 4)$
+\item At prices $p^3 = (3, 2)$, Alice buys $x^3 = (2, 5)$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Calculate how much money Alice spent in each period.
+\item (3 marks) Determine all direct revealed preference relations. That is, for each pair of bundles, determine if one is directly revealed preferred to the other.
+\item (3 marks) Does Alice's behavior satisfy WARP? If not, identify the violation. Does her behavior satisfy GARP? Justify your answer.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct affordability calculations}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Expenditures.} Let $m^t \coloneqq p^t\cdot x^t$.
+
+\begin{align*}
+m^1 &= (2,1)\cdot(3,6)=12,\\
+m^2 &= (1,2)\cdot(5,4)=13,\\
+m^3 &= (3,2)\cdot(2,5)=16.
+\end{align*}
+
+Hence
+\[
+\boxed{m^1=12,\quad m^2=13,\quad m^3=16.}
+\]
+
+\item \textbf{Direct revealed preference relations.}
+
+Recall:
+\[
+x^t R x^s \iff p^t\cdot x^s \le p^t\cdot x^t,\qquad
+x^t P x^s \iff p^t\cdot x^s < p^t\cdot x^t.
+\]
+
+Cross-costs:
+\begin{align*}
+p^1\cdot x^2 &= 14>12 \quad\Rightarrow\quad \neg(x^1 R x^2),\\
+p^1\cdot x^3 &= 9<12 \quad\Rightarrow\quad x^1 P x^3;\\[0.25em]
+p^2\cdot x^1 &= 15>13 \quad\Rightarrow\quad \neg(x^2 R x^1),\\
+p^2\cdot x^3 &= 12<13 \quad\Rightarrow\quad x^2 P x^3;\\[0.25em]
+p^3\cdot x^1 &= 21>16 \quad\Rightarrow\quad \neg(x^3 R x^1),\\
+p^3\cdot x^2 &= 23>16 \quad\Rightarrow\quad \neg(x^3 R x^2).
+\end{align*}
+
+Thus the only nontrivial direct revealed preference relations are
+\[
+\boxed{x^1 R x^3,\;x^2 R x^3}
+\]
+and in fact strictly,
+\[
+\boxed{x^1 P x^3,\;x^2 P x^3.}
+\]
+
+\item \textbf{WARP and GARP.}
+
+WARP violation requires $\exists\, t\neq s$ such that
+\[
+x^t R x^s \;\text{ and }\; x^s P x^t.
+\]
+No such pair exists, so
+\[
+\boxed{\text{WARP holds.}}
+\]
+
+Let $R^*$ be the transitive closure of $R$. The only nontrivial $R^*$ relations are
+\[
+x^1 R^* x^3,\qquad x^2 R^* x^3.
+\]
+GARP violation requires $\exists\, t,s$ such that
+\[
+x^t R^* x^s \;\text{ and }\; x^s P x^t.
+\]
+Check the only candidates ($s=3$):
+\[
+p^3\cdot x^1 = 21>16=p^3\cdot x^3,\qquad
+p^3\cdot x^2 = 23>16=p^3\cdot x^3.
+\]
+Hence no GARP violation:
+\[
+\boxed{\text{GARP holds.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Concise \(R,P,R^*\) test}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+m^1=p^1x^1=12,\qquad m^2=p^2x^2=13,\qquad m^3=p^3x^3=16.
+\]
+
+\item Define
+\[
+x^t R x^s \iff p^t x^s \le p^t x^t,\qquad
+x^t P x^s \iff p^t x^s < p^t x^t.
+\]
+
+Compute matrix \((p^t\cdot x^s)_{t,s}\):
+\[
+\begin{pmatrix}
+12 & 14 & 9\\
+15 & 13 & 12\\
+21 & 23 & 16
+\end{pmatrix}.
+\]
+Compare each row to its diagonal entry \((12,13,16)\):
+\[
+R=\{(1,1),(2,2),(3,3),(1,3),(2,3)\},
+\]
+\[
+P=\{(1,3),(2,3)\}.
+\]
+Hence (nontrivial):
+\[
+\boxed{x^1 R x^3,\;x^2 R x^3},\qquad
+\boxed{x^1 P x^3,\;x^2 P x^3}.
+\]
+
+\item \textbf{WARP:}
+\[
+\text{WARP violated } \iff \exists\, t\neq s:\ (t,s)\in R,\ (s,t)\in P.
+\]
+But \(P=\{(1,3),(2,3)\}\) and neither \((3,1)\) nor \((3,2)\) lies in \(R\). Therefore
+\[
+\boxed{\text{WARP holds.}}
+\]
+
+\textbf{GARP:} Let \(R^*\) be the transitive closure of \(R\). Since there is no chain creating new off-diagonal links,
+\[
+R^*=R.
+\]
+A GARP violation is
+\[
+\exists\, t,s:\ (t,s)\in R^* \ \text{and}\ p^s x^t < p^s x^s.
+\]
+Only off-diagonal candidates are \((1,3),(2,3)\). Check:
+\[
+p^3x^1=21>16=p^3x^3,\qquad p^3x^2=23>16=p^3x^3.
+\]
+So no violation:
+\[
+\boxed{\text{GARP holds.}}
+\]
+\end{enumerate}
+
+\newpage
+
+\subsubsection*{Marking scheme (8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(2 marks)} Expenditures
+\begin{itemize}
+\item 1 mark: correct computation of at least two expenditures / correct method \(m^t=p^t\cdot x^t\).
+\item 1 mark: all three correct values \(m^1=12,\ m^2=13,\ m^3=16\).
+\end{itemize}
+
+\item \textbf{(3 marks)} Direct revealed preference relations
+\begin{itemize}
+\item 1 mark: correct criterion \(x^t R x^s \iff p^t\cdot x^s \le p^t\cdot x^t\).
+\item 1 mark: correct cross-cost comparisons (or equivalent table/matrix).
+\item 1 mark: correct conclusion that only \(x^1 R x^3\) and \(x^2 R x^3\) hold (strictly).
+\end{itemize}
+
+\item \textbf{(3 marks)} WARP and GARP
+\begin{itemize}
+\item 1.5 marks: correct WARP conclusion with valid justification (no two-way contradiction).
+\item 1.5 marks: correct GARP conclusion with valid justification (no violating chain / affordability contradiction).
+\end{itemize}
+\end{enumerate}
+
+
+
+
+
+\newpage
+\section*{Question 2: Leontief demand and Slutsky decomposition}
+Consider a consumer with utility function $U(x_1, x_2) = \min\{3x_1, x_2\}$ who faces prices $(p_1, p_2) = (2, 3)$ and has income $m = 30$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Find the consumer's optimal consumption bundle. Show your working including the condition for optimality.
+\item (2 marks) The price of good 1 increases to $p_1' = 3$. Find the new optimal consumption bundle.
+\item (3 marks) Calculate the income and substitution effects for good 1 using the Slutsky method. Are the goods normal or inferior?
+\end{enumerate}
+
+\bigskip\bigskip
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item \textbf{Initial optimal bundle.} \\
+\noindent\textbf{Key idea.} For $U(x_1,x_2)=\min\{3x_1,x_2\}$, utility increases only when both components rise in the fixed ratio $x_2=3x_1$.
+
+Under $(p_1,p_2)=(2,3)$ and $m=30$, the budget set is $2x_1+3x_2\le 30$.
+Optimality for Leontief preferences requires the kink condition:
+$$3x_1=x_2$$
+Substitute $x_2=3x_1$ into the binding budget constraint $2x_1+3x_2=30$:
+$$2x_1+3(3x_1)=2x_1+9x_1=11x_1=30 \implies x_1^*=\frac{30}{11}, \quad x_2^*=3x_1^*=\frac{90}{11}$$
+$$\boxed{(x_1^*,x_2^*)=\left(\frac{30}{11},\frac{90}{11}\right)}$$
+
+\item \textbf{New optimal bundle.} \\
+New prices are $(p_1',p_2)=(3,3)$, income $m=30$, so the new budget constraint is $3x_1+3x_2 \le 30$.
+The optimality condition remains $x_2=3x_1$ at the optimum. Substituting this into the new budget constraint:
+$$3x_1+3(3x_1)=12x_1=30 \implies x_1'=\frac{5}{2}, \quad x_2'=3x_1'=\frac{15}{2}$$
+$$\boxed{(x_1',x_2')=\left(\frac{5}{2},\frac{15}{2}\right)}$$
+
+\newpage
+\item \textbf{Income and substitution effects.} 
+
+\subsubsection*{Method 1: Slutsky (Compensated) Decomposition}
+Let the original optimal bundle be $x=(x_1,x_2)=\left(\frac{30}{11},\frac{90}{11}\right)$.
+The Slutsky compensation (income that makes $x$ affordable at the new prices) is:
+$$m^s = p_1' x_1 + p_2 x_2 = 3\left(\frac{30}{11}\right) + 3\left(\frac{90}{11}\right) = \frac{360}{11}$$
+At prices $(3,3)$ and income $m^s$, the Leontief kink $x_2=3x_1$ and budget $3x_1+3x_2=m^s$ imply:
+$$12x_1^s = \frac{360}{11} \implies x_1^s=\frac{30}{11}$$
+Hence, the Slutsky substitution and income effects are:
+$$\Delta x_1^{s} = x_1^s-x_1^*=\frac{30}{11}-\frac{30}{11}=0$$
+$$\Delta x_1^{n} = x_1'-x_1^s=\frac{5}{2}-\frac{30}{11}=-\frac{5}{22}$$
+
+$$\boxed{\Delta x_1^s = 0, \qquad \Delta x_1^n = -\frac{5}{22}, \qquad \text{Good 1 is a Normal Good}}$$
+
+
+\subsubsection*{Method 2: Hicksian Demand (Expenditure Minimisation)}
+\noindent\textbf{Key idea.} For Leontief utility, Hicksian (compensated) demand is derived via expenditure minimisation. Because the optimal consumption bundle is strictly pinned to the vertex of the L-shaped indifference curves, relative price changes do not alter the compensated quantity ratio, resulting in a zero substitution effect.
+
+\textbf{Step 1: Formulate the Expenditure Minimisation Problem (EMP).}
+To achieve a target utility level $\bar{u}$, the consumer minimises total expenditure:
+$$\min_{x_1, x_2} p_1 x_1 + p_2 x_2 \quad \text{subject to} \quad \min\{3x_1, x_2\} \ge \bar{u}$$
+For Leontief preferences, any expenditure off the vertex is suboptimal. Therefore, the constraint must bind exactly at the kink:
+$$3x_1 = x_2 = \bar{u}$$
+
+\textbf{Step 2: Derive the Hicksian demands.}
+Solving the vertex condition yields Hicksian demand functions that are independent of prices:
+$$x_1^h(p_1, p_2, \bar{u}) = \frac{\bar{u}}{3}, \qquad x_2^h(p_1, p_2, \bar{u}) = \bar{u}$$
+
+\textbf{Step 3: Calculate the Substitution Effect (SE).}
+Find the initial utility level at the original optimal bundle $(x_1^*, x_2^*) = \left(\frac{30}{11}, \frac{90}{11}\right)$:
+$$\bar{u} = U\left(\frac{30}{11}, \frac{90}{11}\right) = \min\left\{3\left(\frac{30}{11}\right), \frac{90}{11}\right\} = \frac{90}{11}$$
+The compensated demand for good 1 at the new prices $p'$ and target utility $\bar{u}$ is:
+$$x_1^h(p_1', p_2, \bar{u}) = \frac{90/11}{3} = \frac{30}{11}$$
+The substitution effect is the change in Hicksian demand:
+$$\Delta x_1^s = x_1^h(p_1', p_2, \bar{u}) - x_1^* = \frac{30}{11} - \frac{30}{11} = 0$$
+
+\textbf{Step 4: Calculate the Income Effect (IE).}
+The income effect is the change from the compensated demand to the new uncompensated (Marshallian) demand $x_1' = \frac{5}{2}$:
+$$\Delta x_1^n = x_1' - x_1^h(p_1', p_2, \bar{u}) = \frac{5}{2} - \frac{30}{11} = \frac{55 - 60}{22} = -\frac{5}{22}$$
+
+\textbf{Step 5: Determine if the good is normal or inferior.}
+The price of good 1 increased, which reduces the consumer's real income. Since the income effect is negative ($\Delta x_1^n < 0$), the decrease in real income led to a decrease in the quantity demanded. Because consumption moves in the same direction as real income, good 1 is a \textbf{normal good}.
+
+\bigskip
+
+
+$$\boxed{\Delta x_1^s = 0, \qquad \Delta x_1^n = -\frac{5}{22}, \qquad \text{Good 1 is a Normal Good}}$$
+
+\end{enumerate}
+
+\newpage
+\subsubsection*{Marking scheme (8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(3 marks)} Initial optimal bundle
+\begin{itemize}
+\item 1 mark: Identifying the Leontief kink condition $x_2 = 3x_1$.
+\item 1 mark: Substituting the condition into the binding budget constraint $2x_1 + 3x_2 = 30$.
+\item 1 mark: Correct optimal bundle $(x_1^*, x_2^*) = \left(\frac{30}{11}, \frac{90}{11}\right)$.
+\end{itemize}
+
+\item \textbf{(2 marks)} New optimal bundle
+\begin{itemize}
+\item 1 mark: Setting up the new budget constraint $3x_1 + 3x_2 = 30$ and applying the kink condition.
+\item 1 mark: Correct new optimal bundle $(x_1', x_2') = \left(\frac{5}{2}, \frac{15}{2}\right)$.
+\end{itemize}
+
+\item \textbf{(3 marks)} Income and substitution effects
+\begin{itemize}
+\item 1 mark: Correct setup for finding the compensated demand (calculating Slutsky income $m^s = \frac{360}{11}$ OR Hicksian target utility $\bar{u} = \frac{90}{11}$).
+\item 1 mark: Correct computation of the substitution effect ($\Delta x_1^s = 0$) and income effect ($\Delta x_1^n = -\frac{5}{22}$).
+\item 1 mark: Correct conclusion that good 1 is a normal good, with valid justification (demand moves in the same direction as real income).
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\section*{Question 3: Labor supply, wage changes, and Slutsky effects}
+
+Consider a worker who maximizes utility from consumption $(c)$ and leisure $(\ell)$ given by $U(c, \ell) = c^{1/2} \ell^{1/2}$. The worker has 16 hours available per day. The wage rate is $w$ dollars per hour and she has no non-labor income.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write down the budget constraint and find the optimal labor supply function $L^*(w)$ where $L$ is hours worked.
+\item (2 marks) At wage $w = \$10$, how many hours does the worker supply? What is her consumption?
+\item (3 marks) The wage increases to $w' = \$20$. Calculate the income and substitution effects on labor supply. Does labor supply increase or decrease? Explain why.
+\end{enumerate}
+
+\bigskip
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct optimization in \(L\) (Marshallian + Hicksian decomposition)}
+
+Let total time be \(T=16\). If \(L\) is hours worked, then
+\[
+\ell = 16-L,\qquad c=wL,\qquad 0\le L\le 16.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Budget constraint and optimal labor supply.}
+
+Budget (equivalently):
+\[
+c=wL,\qquad \ell=16-L
+\]
+or in \((c,\ell)\)-form,
+\[
+\boxed{c+w\ell=16w.}
+\]
+
+Utility as a function of \(L\):
+\[
+U(L)=\sqrt{wL}\sqrt{16-L}.
+\]
+Since \(w>0\), maximize equivalently
+\[
+U(L)^2=wL(16-L)\ \Longleftrightarrow\ \max_{L\in[0,16]} f(L):=L(16-L).
+\]
+FOC/SOC:
+\[
+f'(L)=16-2L=0 \Rightarrow L=8,\qquad f''(L)=-2<0.
+\]
+Hence
+\[
+\boxed{L^*(w)=8\quad(\forall w>0).}
+\]
+
+\item \textbf{At \(w=10\).}
+
+\[
+L^*(10)=8,\qquad c= wL = 10\cdot 8=80.
+\]
+Thus
+\[
+\boxed{L=8,\qquad c=80.}
+\]
+
+\item \textbf{Wage rises to \(w'=20\): substitution and income effects on labor supply.}
+
+Marshallian labor supply:
+\[
+L^*(20)=8 \quad\Rightarrow\quad \Delta L = 8-8=0.
+\]
+
+To decompose, hold initial utility fixed. At \(w=10\), the chosen bundle is
+\[
+(c_0,\ell_0)=(80,8),\qquad u_0=U(c_0,\ell_0)=\sqrt{80\cdot 8}=8\sqrt{10}.
+\]
+
+Hicksian problem at wage \(w\):
+\[
+\min_{c,\ell\ge 0}\; c+w\ell \quad \text{s.t.}\quad \sqrt{c\ell}\ge u.
+\]
+At optimum (Cobb--Douglas tangency + binding constraint):
+\[
+c=w\ell,\qquad c\ell=u^2.
+\]
+Hence
+\[
+w\ell^2=u^2 \Rightarrow \ell^h(w,u)=\frac{u}{\sqrt w},
+\qquad
+L^h(w,u)=16-\frac{u}{\sqrt w}.
+\]
+
+So at \(w'=20\), holding \(u_0\) fixed:
+\[
+L^h(20,u_0)=16-\frac{8\sqrt{10}}{\sqrt{20}}
+=16-\frac{8\sqrt{10}}{2\sqrt5}
+=16-4\sqrt2.
+\]
+
+Therefore (labor supply version):
+\[
+\Delta L^s = L^h(20,u_0)-L^*(10)
+=(16-4\sqrt2)-8
+=\boxed{\,8-4\sqrt2\,},
+\]
+\[
+\Delta L^n = L^*(20)-L^h(20,u_0)
+=8-(16-4\sqrt2)
+=\boxed{\,-8+4\sqrt2\,}.
+\]
+
+Thus
+\[
+\Delta L=\Delta L^s+\Delta L^n=0.
+\]
+
+Interpretation: the substitution effect raises labor supply (\(\Delta L^s>0\)), while the income effect lowers labor supply by exactly the same amount (\(\Delta L^n<0\)); hence labor supply is unchanged.
+\[
+\boxed{\text{Labor supply does not change (stays at 8 hours).}}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Full-income Cobb--Douglas}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since \(c=wL\) and \(\ell=16-L\),
+\[
+c+w\ell = wL+w(16-L)=16w.
+\]
+So
+\[
+\max_{c,\ell\ge 0}\ c^{1/2}\ell^{1/2}\quad \text{s.t.}\quad c+w\ell=16w.
+\]
+
+For Cobb--Douglas with exponents \((1/2,1/2)\), budget shares are \(1/2,1/2\):
+\[
+c^*(w)=\frac12(16w)=8w,\qquad w\ell^*(w)=\frac12(16w)=8w
+\Rightarrow \ell^*(w)=8.
+\]
+Hence
+\[
+\boxed{L^*(w)=16-\ell^*(w)=8.}
+\]
+
+\item At \(w=10\):
+\[
+L^*=8,\qquad c^*=8w=80.
+\]
+So
+\[
+\boxed{L=8,\qquad c=80.}
+\]
+
+\item At \(w'=20\), Marshallian labor supply remains
+\[
+L^*(20)=8 \Rightarrow \Delta L=0.
+\]
+
+For Hicksian demands of \(u(c,\ell)=\sqrt{c\ell}\):
+\[
+\ell^h(w,u)=\frac{u}{\sqrt w}
+\quad\Rightarrow\quad
+L^h(w,u)=16-\frac{u}{\sqrt w}.
+\]
+Initial utility:
+\[
+u_0=\sqrt{80\cdot 8}=8\sqrt{10}.
+\]
+Thus
+\[
+L^h(20,u_0)=16-\frac{8\sqrt{10}}{\sqrt{20}}=16-4\sqrt2.
+\]
+So
+\[
+\Delta L^s=L^h(20,u_0)-L^*(10)=8-4\sqrt2,
+\]
+\[
+\Delta L^n=L^*(20)-L^h(20,u_0)=-8+4\sqrt2,
+\]
+\[
+\boxed{\Delta L^s+\Delta L^n=0,\ \ \Delta L=0.}
+\]
+Hence labor supply \emph{does not} increase/decrease overall.
+\end{enumerate}
+
+\subsubsection*{Method 3: Leisure-demand first, then convert to labor}
+
+\begin{enumerate}[label=(\alph*)]
+\item Solve in \((c,\ell)\) with
+\[
+c+w\ell=16w.
+\]
+Lagrangian:
+\[
+\mathcal L(c,\ell,\lambda)=c^{1/2}\ell^{1/2}+\lambda(16w-c-w\ell).
+\]
+FOCs:
+\[
+\frac{1}{2}c^{-1/2}\ell^{1/2}=\lambda,\qquad
+\frac{1}{2}c^{1/2}\ell^{-1/2}=\lambda w.
+\]
+Divide the first by the second:
+\[
+\frac{\ell}{c}=\frac1w \Rightarrow c=w\ell.
+\]
+Substitute into budget:
+\[
+w\ell+w\ell=16w \Rightarrow \ell^*=8.
+\]
+Therefore
+\[
+\boxed{L^*(w)=16-\ell^*=8.}
+\]
+
+\item At \(w=10\):
+\[
+L=8,\qquad c=10\cdot 8=80.
+\]
+So
+\[
+\boxed{L=8,\qquad c=80.}
+\]
+
+\item Wage increase \(10\to 20\):
+\[
+L^*(10)=L^*(20)=8 \Rightarrow \Delta L=0.
+\]
+Using Hicksian labor supply from Method 1/2,
+\[
+L^h(w,u)=16-\frac{u}{\sqrt w},
+\quad u_0=8\sqrt{10},
+\]
+gives
+\[
+L^h(20,u_0)=16-4\sqrt2.
+\]
+Hence
+\[
+\boxed{\Delta L^s=8-4\sqrt2>0,\qquad \Delta L^n=-8+4\sqrt2<0,\qquad \Delta L=0.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Marking scheme (suggested, 8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(3 marks)} Budget constraint and \(L^*(w)\)
+\begin{itemize}
+\item 1 mark: correct budget/time relations (\(c=wL,\ \ell=16-L\), or \(c+w\ell=16w\)).
+\item 1 mark: correct optimization setup and derivation.
+\item 1 mark: correct conclusion \(\boxed{L^*(w)=8}\).
+\end{itemize}
+
+\item \textbf{(2 marks)} Numerical values at \(w=10\)
+\begin{itemize}
+\item 1 mark: \(\boxed{L=8}\).
+\item 1 mark: \(\boxed{c=80}\).
+\end{itemize}
+
+\item \textbf{(3 marks)} Slutsky decomposition for labor supply (\(10\to 20\))
+\begin{itemize}
+\item 1 mark: correct total effect \(\Delta L=0\) and/or correct compensated setup.
+\item 1 mark: correct substitution effect \(\boxed{\Delta L^s=8-4\sqrt2}\).
+\item 1 mark: correct income effect \(\boxed{\Delta L^n=-8+4\sqrt2}\) and conclusion (offset exactly).
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\section*{Question 4 (8 marks)}
+
+Consider an economy with three time periods $(t = 0, 1, 2)$ and interest rate $r = 0.20$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) What is the present value of receiving \$100 in period 1 and \$144 in period 2?
+\item (3 marks) Asset $A$ pays $(10, 20, 30)$ in periods 0, 1, and 2. Asset $B$ pays $(5, 40, 20)$. Which asset has higher present value? Show your calculation.
+\item (3 marks) You can buy asset $C$ for \$80 today. It pays \$0 in period 1 and \$120 in period 2. Should you buy asset $C$ or save your money at the interest rate $r = 0.20$? Calculate the net present value of buying asset $C$.
+\end{enumerate}
+\bigskip
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Discounted present value and net present value}
+\noindent\textbf{Key idea.} Discount each future cash flow by $(1+r)^t$ and compare values at $t=0$.
+
+Here $r=0.20$, so $(1+r)=1.2$ and $(1+r)^2=1.44$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Present value:
+$$PV = \frac{100}{1.2} + \frac{144}{1.44} = \frac{250}{3} + 100 = \frac{550}{3}$$
+$$\boxed{PV = \frac{550}{3} \approx 183.33}$$
+
+\item Asset present values:
+$$PV_A = 10+\frac{20}{1.2}+\frac{30}{1.44} = 10+\frac{50}{3}+\frac{125}{6} = \frac{285}{6} = 47.5$$
+$$PV_B = 5+\frac{40}{1.2}+\frac{20}{1.44} = 5+\frac{100}{3}+\frac{125}{9} = \frac{470}{9} \approx 52.22$$
+Thus $PV_B > PV_A$, so asset $B$ has a higher present value.
+$$\boxed{PV_A = 47.5, \qquad PV_B = \frac{470}{9} \approx 52.22, \qquad \text{Asset } B \text{ is higher}}$$
+
+\item Asset $C$ costs $80$ today and pays $120$ in period 2.
+Its present value is $\frac{120}{1.44} = \frac{250}{3} \approx 83.33$, so the net present value is:
+$$NPV = \frac{120}{1.44} - 80 = \frac{250}{3} - 80 = \frac{10}{3} > 0$$
+$$\boxed{\text{Buy Asset } C \quad \left(NPV = \frac{10}{3} > 0\right)}$$
+\end{enumerate}
+
+\subsubsection*{Method 2: Use discount factors and compare replicated value}
+\noindent\textbf{Key idea.} Let discount factors be $d_1=\frac{1}{1.2}=\frac{5}{6}$ and $d_2=\frac{1}{1.44}=\frac{25}{36}$; then $PV=\sum_t d_t \cdot \text{cashflow}_t$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Present value:
+$$PV = 100d_1 + 144d_2 = 100\left(\frac{5}{6}\right) + 144\left(\frac{25}{36}\right) = \frac{250}{3} + 100 = \frac{550}{3}$$
+$$\boxed{PV = \frac{550}{3} \approx 183.33}$$
+
+\item Asset present values:
+$$PV_A = 10 + 20d_1 + 30d_2 = 10 + 20\left(\frac{5}{6}\right) + 30\left(\frac{25}{36}\right) = 10 + \frac{50}{3} + \frac{125}{6} = 47.5$$
+$$PV_B = 5 + 40d_1 + 20d_2 = 5 + 40\left(\frac{5}{6}\right) + 20\left(\frac{25}{36}\right) = 5 + \frac{100}{3} + \frac{125}{9} = \frac{470}{9} \approx 52.22$$
+$$\boxed{PV_A = 47.5, \qquad PV_B = \frac{470}{9} \approx 52.22, \qquad \text{Asset } B \text{ is higher}}$$
+
+\item Compare cost $80$ with the present value of cash flows:
+$$PV_C = 120d_2 = 120\left(\frac{25}{36}\right) = \frac{250}{3} \approx 83.33$$
+Since $80 < \frac{250}{3}$, buying $C$ dominates saving at rate $r$.
+$$NPV = \frac{250}{3} - 80 = \frac{10}{3} > 0$$
+$$\boxed{\text{Buy Asset } C \quad \left(NPV = \frac{10}{3} > 0\right)}$$
+\end{enumerate}
+
+\vspace{1.5cm}
+\newpage
+\subsubsection*{Marking scheme (8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(2 marks)} Present value calculation
+\begin{itemize}
+\item 1 mark: Correct setup of the present value calculation (discount formula or discount factors).
+\item 1 mark: Correct final present value of $\frac{550}{3}$ (or approx $183.33$).
+\end{itemize}
+
+\item \textbf{(3 marks)} Asset present values comparison
+\begin{itemize}
+\item 1 mark: Correct calculation of $PV_A = 47.5$.
+\item 1 mark: Correct calculation of $PV_B = \frac{470}{9}$ (or approx $52.22$).
+\item 1 mark: Correct conclusion that Asset $B$ has a higher present value.
+\end{itemize}
+
+\item \textbf{(3 marks)} Net present value and investment decision
+\begin{itemize}
+\item 1 mark: Correct calculation of the present value of Asset $C$'s payoff ($PV = \frac{250}{3}$ or approx $83.33$).
+\item 1 mark: Correct calculation of the Net Present Value ($NPV = \frac{10}{3}$ or approx $3.33$).
+\item 1 mark: Correct conclusion to buy Asset $C$, properly justified by a positive NPV or the PV being strictly greater than the cost.
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\section*{Question 5: Stochastic dominance and expected utility}
+
+There are three equally likely states of nature. Consider three contingent consumption bundles:
+\begin{itemize}
+\item $x = (9, 6, 3)$
+\item $y = (6, 6, 6)$
+\item $z = (5, 7, 6)$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Calculate the expected value of each bundle.
+\item (3 marks) Does bundle $x$ first-order stochastically dominate bundle $z$? Does bundle $z$ first-order stochastically dominate bundle $x$? Justify your answers.
+\item (3 marks) A risk-averse consumer with utility $u(c) = \sqrt{c}$ must choose between bundles $y$ and $z$. Which bundle will she choose? Show your calculation.
+\end{enumerate}
+
+\bigskip
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Discrete distribution table + CDF checks + expected utility}
+
+Let each state have probability \(1/3\). Treat each bundle as a discrete random variable.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Expected values.}
+
+\[
+\mathbb E[x]=\frac{9+6+3}{3}=6,\qquad
+\mathbb E[y]=\frac{6+6+6}{3}=6,\qquad
+\mathbb E[z]=\frac{5+7+6}{3}=6.
+\]
+
+Hence
+\[
+\boxed{\mathbb E[x]=\mathbb E[y]=\mathbb E[z]=6.}
+\]
+
+\item \textbf{FOSD using discrete CDF table (check at \(3,5,6,7,9\)).}
+
+Write the discrete distributions:
+
+\[
+X\in\{3,6,9\}\ \text{with prob. }1/3\text{ each},\qquad
+Z\in\{5,6,7\}\ \text{with prob. }1/3\text{ each}.
+\]
+
+Thus the CDFs \(F_x(t)=\Pr(X\le t)\), \(F_z(t)=\Pr(Z\le t)\) at the relevant support points are:
+
+\[
+\begin{array}{c|ccccc}
+t & 3 & 5 & 6 & 7 & 9\\ \hline
+F_x(t) & \frac13 & \frac13 & \frac23 & \frac23 & 1\\
+F_z(t) & 0 & \frac13 & \frac23 & 1 & 1
+\end{array}
+\]
+
+Recall:
+\[
+x \text{ FOSD } z \iff F_x(t)\le F_z(t)\ \forall t,
+\qquad
+z \text{ FOSD } x \iff F_z(t)\le F_x(t)\ \forall t.
+\]
+
+Now:
+\begin{itemize}
+\item At \(t=3\): \(\;F_x(3)=\frac13 > 0 = F_z(3)\), so \(x\) \emph{does not} FOSD \(z\).
+\item At \(t=7\): \(\;F_z(7)=1 > \frac23 = F_x(7)\), so \(z\) \emph{does not} FOSD \(x\).
+\end{itemize}
+
+Therefore
+\[
+\boxed{\text{Neither }x\text{ nor }z\text{ first-order stochastically dominates the other.}}
+\]
+
+\item \textbf{Choice between \(y\) and \(z\) for \(u(c)=\sqrt c\).}
+
+For \(y=(6,6,6)\),
+\[
+\mathbb E[u(y)]
+=\frac{1}{3}\big(\sqrt6+\sqrt6+\sqrt6\big)
+=\sqrt6.
+\]
+
+For \(z=(5,7,6)\),
+\[
+\mathbb E[u(z)]
+=\frac{1}{3}\big(\sqrt5+\sqrt7+\sqrt6\big).
+\]
+
+Numerically,
+\[
+\mathbb E[u(y)] = \sqrt6 \approx 2.44949,
+\]
+\[
+\mathbb E[u(z)] = \frac{\sqrt5+\sqrt7+\sqrt6}{3} \approx 2.44377.
+\]
+
+Hence
+\[
+\mathbb E[u(y)]>\mathbb E[u(z]).
+\]
+So the consumer chooses
+\[
+\boxed{y.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Concise stochastic-dominance test + Jensen for part (c)}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\mathbb E[x]=\mathbb E[y]=\mathbb E[z]=6.
+\]
+
+\item Let \(F_x,F_z\) be the CDFs. Using the discrete checks:
+\[
+F_x(3)=\tfrac13>0=F_z(3) \;\Rightarrow\; x \not\succeq_{\text{FOSD}} z,
+\]
+\[
+F_z(7)=1>\tfrac23=F_x(7) \;\Rightarrow\; z \not\succeq_{\text{FOSD}} x.
+\]
+Thus
+\[
+\boxed{\text{No FOSD relation between }x\text{ and }z.}
+\]
+
+\item Since \(y\equiv 6\) (certainty) and \(\mathbb E[z]=6\), and \(u(c)=\sqrt c\) is strictly concave,
+\[
+\mathbb E[u(z)]<u(\mathbb E[z])=u(6)=\sqrt6=\mathbb E[u(y]).
+\]
+Hence
+\[
+\boxed{y \succ z.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 3: Direct expected-utility comparison (fully computational)}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\boxed{\mathbb E[x]=\mathbb E[y]=\mathbb E[z]=6.}
+\]
+
+\item CDF crossing (using support points \(3,5,6,7,9\)):
+\[
+F_x(3)=\frac13>0=F_z(3),\qquad F_z(7)=1>\frac23=F_x(7).
+\]
+So neither FOSD holds.
+
+\item
+\[
+EU(y)=\sqrt6,
+\qquad
+EU(z)=\frac{\sqrt5+\sqrt7+\sqrt6}{3}.
+\]
+Difference:
+\[
+EU(y)-EU(z)=\frac{2\sqrt6-\sqrt5-\sqrt7}{3}>0.
+\]
+(Numerically \(\approx 0.00572\).) Therefore
+\[
+\boxed{\text{Choose }y.}
+\]
+\end{enumerate}
+\vspace{2cm}
+\subsubsection*{Marking scheme (suggested, 8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(2 marks)} Expected values
+\begin{itemize}
+\item 1 mark: correct method (average over 3 equally likely states)
+\item 1 mark: correct values \(\mathbb E[x]=\mathbb E[y]=\mathbb E[z]=6\)
+\end{itemize}
+
+\item \textbf{(3 marks)} FOSD comparison of \(x\) and \(z\)
+\begin{itemize}
+\item 1 mark: correct use of CDF definition / criterion
+\item 1 mark: correct discrete CDF comparisons (e.g. at \(t=3\) and \(t=7\))
+\item 1 mark: correct conclusion that neither FOSD the other
+\end{itemize}
+
+\item \textbf{(3 marks)} Expected utility under \(u(c)=\sqrt c\)
+\begin{itemize}
+\item 1 mark: correct \(EU(y)=\sqrt6\)
+\item 1 mark: correct \(EU(z)=\frac{\sqrt5+\sqrt7+\sqrt6}{3}\)
+\item 1 mark: correct comparison and conclusion (choose \(y\))
+\end{itemize}
+\end{enumerate}
+
+
+\newpage
+\section*{Question 6: State prices and arbitrage}
+
+Consider two states (Good and Bad) with probabilities $\pi_G = 0.3$ and $\pi_B = 0.7$. Two assets are available:
+\begin{itemize}
+\item Asset 1: pays \$2 in the Good state and \$1 in the Bad state, costs \$1.30
+\item Asset 2: pays \$1 in the Good state and \$2 in the Bad state, costs \$1.60
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Find the state price vector $(q_G, q_B)$ implied by these asset prices.
+\item (2 marks) What is the price of contingent consumption bundle $(5, 4)$?
+\item (3 marks) A new asset 3 is introduced that pays \$3 in both states. Using the state prices, what should asset 3 cost to prevent arbitrage? If it actually costs \$2.50, describe an arbitrage strategy.
+\end{enumerate}
+
+\bigskip\bigskip
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Solve state prices directly, then price claims}
+
+Let the state price vector be \(q=(q_G,q_B)\). For any payoff \(x=(x_G,x_B)\),
+\[
+p(x)=q_Gx_G+q_Bx_B.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Find \((q_G,q_B)\).}
+
+From assets 1 and 2:
+\[
+2q_G+q_B=1.30,\qquad q_G+2q_B=1.60.
+\]
+Solve:
+\[
+\begin{aligned}
+2(q_G+2q_B)-(2q_G+q_B)&=3.20-1.30\\
+3q_B&=1.90
+\end{aligned}
+\quad\Rightarrow\quad
+q_B=\frac{19}{30}.
+\]
+Then
+\[
+q_G=1.60-2q_B=\frac{8}{5}-\frac{19}{15}=\frac{1}{3}.
+\]
+Hence
+\[
+\boxed{(q_G,q_B)=\left(\frac13,\frac{19}{30}\right).}
+\]
+
+\item \textbf{Price of contingent bundle \((5,4)\).}
+
+\[
+p(5,4)=5q_G+4q_B
+=5\cdot \frac13+4\cdot \frac{19}{30}
+=\frac{5}{3}+\frac{76}{30}
+=\frac{126}{30}
+=\frac{21}{5}.
+\]
+Thus
+\[
+\boxed{p(5,4)=\frac{21}{5}=4.20.}
+\]
+
+\item \textbf{Asset 3 no-arbitrage price and arbitrage if priced at \$2.50.}
+
+Asset 3 payoff is \((3,3)\). Its no-arbitrage price is
+\[
+p_3^*=3q_G+3q_B=3(q_G+q_B)
+=3\left(\frac13+\frac{19}{30}\right)
+=\frac{29}{10}=2.90.
+\]
+So
+\[
+\boxed{p_3^*=2.90.}
+\]
+
+If actual price is \(p_3=2.50<2.90\), asset 3 is underpriced.
+
+Replicate \((3,3)\) using assets 1 and 2:
+\[
+\theta_1(2,1)+\theta_2(1,2)=(3,3).
+\]
+This gives
+\[
+2\theta_1+\theta_2=3,\qquad \theta_1+2\theta_2=3
+\;\Rightarrow\; \theta_1=\theta_2=1.
+\]
+Replicating cost:
+\[
+1.30+1.60=2.90.
+\]
+
+\textbf{Arbitrage strategy:}
+\begin{itemize}
+\item Buy 1 unit of asset 3 (pay \(2.50\)).
+\item Short 1 unit each of asset 1 and asset 2 (receive \(1.30+1.60=2.90\)).
+\end{itemize}
+Net cashflow today:
+\[
++2.90-2.50=\boxed{+0.40}.
+\]
+State-wise future payoff:
+\[
+(3,3)-[(2,1)+(1,2)]=(3,3)-(3,3)=(0,0).
+\]
+Thus this is an arbitrage.
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Matrix form}
+
+Let
+\[
+A=
+\begin{pmatrix}
+2&1\\
+1&2
+\end{pmatrix},\qquad
+q=
+\begin{pmatrix}
+q_G\\ q_B
+\end{pmatrix},\qquad
+p=
+\begin{pmatrix}
+1.30\\ 1.60
+\end{pmatrix}.
+\]
+Then
+\[
+Aq=p,\qquad
+A^{-1}=\frac1{3}
+\begin{pmatrix}
+2&-1\\
+-1&2
+\end{pmatrix}.
+\]
+Hence
+\[
+q=A^{-1}p
+=\frac1{3}
+\begin{pmatrix}
+2&-1\\
+-1&2
+\end{pmatrix}
+\begin{pmatrix}
+1.30\\1.60
+\end{pmatrix}
+=
+\begin{pmatrix}
+1/3\\19/30
+\end{pmatrix}.
+\]
+So
+\[
+\boxed{q=\left(\frac13,\frac{19}{30}\right).}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \[
+\boxed{(q_G,q_B)=\left(\frac13,\frac{19}{30}\right).}
+\]
+
+\item For \(x=(5,4)\),
+\[
+p(x)=q^\top x
+=
+\begin{pmatrix}
+1/3 & 19/30
+\end{pmatrix}
+\begin{pmatrix}
+5\\4
+\end{pmatrix}
+=\frac{21}{5}=4.20.
+\]
+Thus
+\[
+\boxed{p(5,4)=4.20.}
+\]
+
+\item For asset 3, \(x_3=(3,3)\):
+\[
+p_3^*=q^\top x_3=3(q_G+q_B)=\frac{29}{10}=2.90.
+\]
+If \(p_3=2.50\), then \(p_3<p_3^*\), so long \(x_3\), short its replicating portfolio. Since
+\[
+x_3=(2,1)+(1,2),
+\]
+arbitrage is:
+\[
+\text{Long asset 3,\ \ short asset 1,\ \ short asset 2}
+\]
+with initial profit
+\[
+2.90-2.50=\boxed{0.40},
+\]
+and zero terminal payoff in both states.
+\end{enumerate}
+
+\subsubsection*{Method 3: Risk-free discount factor + risk-neutral probabilities}
+
+Let
+\[
+q_f:=q_G+q_B=\frac13+\frac{19}{30}=\frac{29}{30}.
+\]
+Then \(q_f\) is the price of the risk-free payoff \((1,1)\). Define risk-neutral probabilities:
+\[
+\tilde\pi_G=\frac{q_G}{q_f},\qquad \tilde\pi_B=\frac{q_B}{q_f},
+\qquad \tilde\pi_G+\tilde\pi_B=1.
+\]
+Hence any payoff \(x=(x_G,x_B)\) has price
+\[
+p(x)=q_f\big(\tilde\pi_G x_G+\tilde\pi_B x_B\big).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Using Method 1/2 values,
+\[
+\boxed{(q_G,q_B)=\left(\frac13,\frac{19}{30}\right).}
+\]
+(Equivalently,
+\(
+q_f=\frac{29}{30}
+\)
+and
+\(
+\tilde\pi_G=\frac{10}{29},\ \tilde\pi_B=\frac{19}{29}.
+\))
+
+\item
+\[
+p(5,4)=q_G\cdot 5+q_B\cdot 4=\frac{21}{5}=4.20.
+\]
+So
+\[
+\boxed{p(5,4)=4.20.}
+\]
+
+\item Since asset 3 pays \((3,3)=3(1,1)\),
+\[
+p_3^*=3q_f=3\cdot \frac{29}{30}=\frac{29}{10}=2.90.
+\]
+If \(p_3=2.50\), it is underpriced. Buy asset 3 and short the replicating risk-equivalent payoff \((3,3)\) formed by shorting one unit each of assets 1 and 2. Initial gain:
+\[
+\boxed{0.40},
+\]
+future payoff \(=0\) in both states.
+\end{enumerate}
+\newpage
+\subsubsection*{Marking scheme (suggested, 8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(3 marks)} State prices
+\begin{itemize}
+\item 1 mark: correct pricing equations.
+\item 1 mark: correct algebra/solution method.
+\item 1 mark: correct state prices \(\boxed{q_G=\frac13,\ q_B=\frac{19}{30}}\).
+\end{itemize}
+
+\item \textbf{(2 marks)} Price of \((5,4)\)
+\begin{itemize}
+\item 1 mark: correct pricing formula \(p=q_Gx_G+q_Bx_B\).
+\item 1 mark: correct value \(\boxed{4.20}\).
+\end{itemize}
+
+\item \textbf{(3 marks)} Asset 3 and arbitrage
+\begin{itemize}
+\item 1 mark: correct no-arbitrage price \(\boxed{2.90}\).
+\item 1 mark: identify underpricing at \(2.50\).
+\item 1 mark: valid arbitrage strategy with state-wise cancellation and initial profit \(\boxed{0.40}\).
+\end{itemize}
+\end{enumerate}
+
+
+
+\newpage
+\part{Long Questions}
+
+\section*{Question 7: Log utility demand, endowments, and substitution effects}
+
+Consider a consumer with utility function:
+\[
+U(x_1, x_2) = 2\ln(x_1) + 3\ln(x_2)
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item (4 marks) Show that the marginal utilities are $MU_1 = \frac{2}{x_1}$ and $MU_2 = \frac{3}{x_2}$. Find the marginal rate of substitution $MRS_{1,2}$ and write down the condition for utility maximization when facing prices $(p_1, p_2)$.
+
+\item (6 marks) Derive the consumer's demand functions $x_1(p_1, p_2, m)$ and $x_2(p_1, p_2, m)$ where $m$ is income.
+
+\item (4 marks) The consumer has endowment $\omega = (10, 5)$ and faces prices $(p_1, p_2) = (3, 2)$. Calculate:
+\begin{itemize}
+\item The value of the endowment (income $m$)
+\item The optimal consumption bundle
+\item Whether the consumer is a net buyer or seller of each good
+\end{itemize}
+
+\item (3 marks) Verify that Walras' Law holds: $p \cdot x(p, p \cdot \omega) = p \cdot \omega$.
+
+\item (3 marks) At the prices in part (c), suppose the price of good 1 increases to $p_1' = 4$. Calculate the substitution effect $\Delta x_1^s$ for good 1. Is good 1 a normal good?
+\end{enumerate}
+
+\newpage
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Economic interpretation (MU, MRS, budget shares, Slutsky)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Marginal utilities and MRS.}
+
+\[
+MU_1=\frac{\partial U}{\partial x_1}=\frac{2}{x_1},\qquad
+MU_2=\frac{\partial U}{\partial x_2}=\frac{3}{x_2}.
+\]
+
+Thus the marginal rate of substitution (good 1 for good 2) is
+\[
+MRS_{1,2}=\frac{MU_1}{MU_2}
+=\frac{2/x_1}{3/x_2}
+=\frac{2x_2}{3x_1}.
+\]
+
+At an interior optimum, utility maximization requires
+\[
+\boxed{MRS_{1,2}=\frac{p_1}{p_2}}
+\quad\Longleftrightarrow\quad
+\boxed{\frac{2x_2}{3x_1}=\frac{p_1}{p_2}},
+\]
+together with the budget constraint
+\[
+\boxed{p_1x_1+p_2x_2=m.}
+\]
+
+\item \textbf{Marshallian demand functions.}
+
+For log/Cobb--Douglas utility \(2\ln x_1+3\ln x_2\), optimal expenditure shares are constant:
+\[
+\text{share on good 1}=\frac{2}{2+3}=\frac25,\qquad
+\text{share on good 2}=\frac{3}{2+3}=\frac35.
+\]
+Hence
+\[
+p_1x_1=\frac25 m,\qquad p_2x_2=\frac35 m,
+\]
+so
+\[
+\boxed{x_1(p_1,p_2,m)=\frac{2}{5}\frac{m}{p_1},\qquad
+x_2(p_1,p_2,m)=\frac{3}{5}\frac{m}{p_2}.}
+\]
+
+\item \textbf{Endowment income, optimal bundle, and net trade.}
+
+Given \(\omega=(10,5)\) and \(p=(3,2)\), income is the value of the endowment:
+\[
+m=p\cdot\omega=3(10)+2(5)=40.
+\]
+Optimal consumption:
+\[
+x_1^*=\frac{2}{5}\frac{40}{3}=\frac{16}{3},\qquad
+x_2^*=\frac{3}{5}\frac{40}{2}=12.
+\]
+Net trades:
+\[
+x_1^*-\omega_1=\frac{16}{3}-10=-\frac{14}{3}<0
+\quad\Rightarrow\quad \text{net seller of good 1},
+\]
+\[
+x_2^*-\omega_2=12-5=7>0
+\quad\Rightarrow\quad \text{net buyer of good 2}.
+\]
+Therefore
+\[
+\boxed{m=40,\quad x^*=\left(\frac{16}{3},12\right),\quad \text{sell good 1, buy good 2}.}
+\]
+
+\item \textbf{Walras' Law.}
+
+\[
+p\cdot x(p,p\cdot\omega)
+=3\cdot \frac{16}{3}+2\cdot 12
+=16+24=40
+=p\cdot\omega.
+\]
+Hence
+\[
+\boxed{p \cdot x(p,p\cdot \omega)=p\cdot \omega.}
+\]
+
+\item \textbf{Substitution effect for \(x_1\) and normality.}
+
+Initial bundle at \(p=(3,2)\), \(m=40\):
+\[
+x=\left(\frac{16}{3},12\right).
+\]
+New price vector \(p'=(4,2)\). Slutsky compensated income:
+\[
+m^s=p'\cdot x
+=4\cdot\frac{16}{3}+2\cdot 12
+=\frac{64}{3}+24
+=\frac{136}{3}.
+\]
+Compensated demand for good 1:
+\[
+x_1^s=\frac{2}{5}\frac{m^s}{4}
+=\frac{2}{5}\cdot \frac{136/3}{4}
+=\frac{68}{15}.
+\]
+Therefore
+\[
+\Delta x_1^s=x_1^s-x_1
+=\frac{68}{15}-\frac{16}{3}
+=\frac{68}{15}-\frac{80}{15}
+=-\frac{12}{15}
+=-\frac45.
+\]
+So
+\[
+\boxed{\Delta x_1^s=-\frac45.}
+\]
+
+Also,
+\[
+\frac{\partial x_1}{\partial m}=\frac{2}{5p_1}>0,
+\]
+so good 1 is normal.
+\[
+\boxed{\text{Good 1 is a normal good.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Lagrangian derivation}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+MU_1=\frac{2}{x_1},\qquad MU_2=\frac{3}{x_2},\qquad
+MRS_{1,2}=\frac{MU_1}{MU_2}=\frac{2x_2}{3x_1}.
+\]
+Interior optimum:
+\[
+\frac{2x_2}{3x_1}=\frac{p_1}{p_2},
+\qquad p_1x_1+p_2x_2=m.
+\]
+
+\item Let
+\[
+\mathcal L(x_1,x_2,\lambda)=2\ln x_1+3\ln x_2+\lambda(m-p_1x_1-p_2x_2).
+\]
+FOCs:
+\[
+\frac{2}{x_1}=\lambda p_1,\qquad \frac{3}{x_2}=\lambda p_2,\qquad p_1x_1+p_2x_2=m.
+\]
+Hence
+\[
+x_1=\frac{2}{\lambda p_1},\qquad x_2=\frac{3}{\lambda p_2}.
+\]
+Substitute into the budget:
+\[
+\frac{2}{\lambda}+\frac{3}{\lambda}=m
+\;\Rightarrow\;
+\lambda=\frac{5}{m}.
+\]
+Therefore
+\[
+\boxed{x_1=\frac{2m}{5p_1},\qquad x_2=\frac{3m}{5p_2}.}
+\]
+
+\item At \(p=(3,2)\), \(\omega=(10,5)\),
+\[
+m=p\cdot\omega=3(10)+2(5)=40.
+\]
+Thus
+\[
+x^*(p,m)=\left(\frac{2m}{5p_1},\frac{3m}{5p_2}\right)
+=\left(\frac{2\cdot 40}{5\cdot 3},\frac{3\cdot 40}{5\cdot 2}\right)
+=\left(\frac{16}{3},12\right).
+\]
+Net trade:
+\[
+z=x-\omega=\left(\frac{16}{3}-10,\ 12-5\right)=\left(-\frac{14}{3},7\right).
+\]
+Hence good 1 is sold, good 2 is bought.
+
+\item
+\[
+p\cdot x(p,p\cdot\omega)
+=p_1\frac{2}{5}\frac{p\cdot\omega}{p_1}+p_2\frac{3}{5}\frac{p\cdot\omega}{p_2}
+=\left(\frac25+\frac35\right)(p\cdot\omega)
+=p\cdot\omega.
+\]
+So Walras' Law holds.
+
+\item Let \(p=(3,2)\), \(p'=(4,2)\), \(m=40\), and \(x=(16/3,12)\). Slutsky compensated income:
+\[
+m^s=p'\cdot x=\frac{136}{3}.
+\]
+Compensated demand:
+\[
+x_1^s=\frac{2}{5}\frac{m^s}{4}=\frac{68}{15}.
+\]
+Hence
+\[
+\Delta x_1^s=x_1^s-x_1=\frac{68}{15}-\frac{16}{3}=-\frac45.
+\]
+And
+\[
+\frac{\partial x_1}{\partial m}=\frac{2}{5p_1}>0
+\]
+so good 1 is normal.
+\end{enumerate}
+\newpage
+\subsubsection*{Marking scheme (suggested, 20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(4 marks)} MU, MRS, utility-maximization condition
+\begin{itemize}
+\item 1 mark: correct \(MU_1=\frac{2}{x_1}\)
+\item 1 mark: correct \(MU_2=\frac{3}{x_2}\)
+\item 1 mark: correct \(MRS_{1,2}=\frac{2x_2}{3x_1}\)
+\item 1 mark: correct condition \(MRS=\frac{p_1}{p_2}\) with budget constraint
+\end{itemize}
+
+\item \textbf{(6 marks)} Demand derivation
+\begin{itemize}
+\item 2 marks: correct optimization setup / FOCs
+\item 2 marks: correct algebra to solve for \(\lambda\) or expenditure shares
+\item 2 marks: correct demands
+\[
+\boxed{x_1=\frac{2}{5}\frac{m}{p_1},\quad x_2=\frac{3}{5}\frac{m}{p_2}}
+\]
+\end{itemize}
+
+\item \textbf{(4 marks)} Endowment and net trades
+\begin{itemize}
+\item 1 mark: correct income \(m=40\)
+\item 1 mark: correct \(x_1^*=\frac{16}{3}\)
+\item 1 mark: correct \(x_2^*=12\)
+\item 1 mark: correct buyer/seller classification
+\end{itemize}
+
+\item \textbf{(3 marks)} Walras' Law
+\begin{itemize}
+\item 1 mark: correct substitution into \(p\cdot x(p,p\cdot\omega)\)
+\item 1 mark: correct calculation
+\item 1 mark: correct conclusion \(=p\cdot\omega\)
+\end{itemize}
+
+\item \textbf{(3 marks)} Substitution effect and normality
+\begin{itemize}
+\item 1 mark: correct Slutsky compensated income \(m^s=\frac{136}{3}\)
+\item 1 mark: correct \(\Delta x_1^s=\boxed{-\frac45}\)
+\item 1 mark: correct normality conclusion via \(\partial x_1/\partial m>0\)
+\end{itemize}
+\end{enumerate}
+
+
+\newpage
+\section*{Question 8: Intertemporal choice and Slutsky decomposition}
+
+Consider an intertemporal consumption problem with two periods (period 0 and period 1). A consumer has utility function:
+\[
+U(x_0, x_1) = x_0^{0.4} x_1^{0.6}
+\]
+
+The consumer can borrow and save at interest rate $r = 0.25$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write down the intertemporal budget constraint in present value form. Explain what each term represents.
+
+\item (5 marks) Derive the consumer's optimal consumption demands $x_0^*(r, m)$ and $x_1^*(r, m)$ where $m$ is the present value of lifetime income. Show that $x_1^*(r, m) = 1.5(1+r) x_0^*(r, m)$.
+
+\item (4 marks) The consumer has income stream $(y_0, y_1) = (20, 50)$. At $r = 0.25$:
+\begin{itemize}
+\item Calculate the present value of income $m$
+\item Find the optimal consumption in each period
+\item Determine whether the consumer is a net saver or borrower in period 0, and by how much
+\end{itemize}
+
+\item (4 marks) Verify that the budget constraint is satisfied at the optimal consumption bundle from part (c).
+
+\item (4 marks) Now suppose the interest rate changes to $r' = 0.50$. Using Slutsky decomposition, calculate:
+\begin{itemize}
+\item The Slutsky compensation $m^s$
+\item The substitution effect $\Delta x_0^s$
+\item The income effect $\Delta x_0^n$
+\item Is period-0 consumption a normal good?
+\end{itemize}
+\end{enumerate}
+
+\bigskip
+\newpage
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Saving/borrowing choice \(s\) (one-variable approach)}
+
+Let \(s\) denote period-0 saving (\(s<0\) means borrowing). Then
+\[
+x_0=y_0-s,\qquad x_1=y_1+(1+r)s.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Substituting \(s\) into the PV relation gives the same budget:
+\[
+x_0+\frac{x_1}{1+r}=y_0+\frac{y_1}{1+r}=m.
+\]
+
+\item The consumer solves
+\[
+\max_s\ (y_0-s)^{0.4}\big(y_1+(1+r)s\big)^{0.6}.
+\]
+Taking logs:
+\[
+\phi(s)=0.4\ln(y_0-s)+0.6\ln(y_1+(1+r)s).
+\]
+FOC:
+\[
+-\frac{0.4}{y_0-s}+\frac{0.6(1+r)}{y_1+(1+r)s}=0.
+\]
+Using \(x_0=y_0-s,\ x_1=y_1+(1+r)s\), this becomes
+\[
+-\frac{0.4}{x_0}+\frac{0.6(1+r)}{x_1}=0
+\;\Longrightarrow\;
+x_1=1.5(1+r)x_0.
+\]
+Together with \(x_0+\frac{x_1}{1+r}=m\), this yields
+\[
+\boxed{x_0^*=0.4m,\qquad x_1^*=0.6(1+r)m.}
+\]
+
+\item At \(r=0.25\):
+\[
+m=20+\frac{50}{1.25}=60,\qquad (x_0^*,x_1^*)=(24,45).
+\]
+Thus
+\[
+s=20-24=-4,
+\]
+so the consumer is a net borrower of 4.
+
+\item Budget check:
+\[
+24+\frac{45}{1.25}=60.
+\]
+
+\item At \(r'=0.50\), the Slutsky compensation and decomposition are identical to Methods 1--2:
+\[
+\boxed{m^s=54,\qquad \Delta x_0^s=-\frac{12}{5},\qquad \Delta x_0^n=-\frac{4}{15}.}
+\]
+Also \(\partial x_0^*/\partial m=0.4>0\), so period-0 consumption is normal.
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Present-value Lagrangian (economic interpretation + Slutsky decomposition)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Intertemporal budget constraint (present value form).}
+
+Let \(m\) denote present value (PV) lifetime income. Then the PV budget constraint is
+\[
+\boxed{x_0+\frac{x_1}{1+r}=m.}
+\]
+
+Interpretation:
+\begin{itemize}
+\item \(x_0\): period-0 consumption (already in present value)
+\item \(\dfrac{x_1}{1+r}\): present value of period-1 consumption
+\item \(m\): present value of lifetime resources (income/endowment stream)
+\end{itemize}
+
+If the income stream is \((y_0,y_1)\), then
+\[
+\boxed{m=y_0+\frac{y_1}{1+r}.}
+\]
+
+\item \textbf{Optimal demands \(x_0^*(r,m),x_1^*(r,m)\).}
+
+Solve
+\[
+\max_{x_0,x_1>0} \ x_0^{0.4}x_1^{0.6}
+\quad \text{s.t.}\quad
+x_0+\frac{x_1}{1+r}=m.
+\]
+Equivalently maximize \(0.4\ln x_0+0.6\ln x_1\). Lagrangian:
+\[
+\mathcal L=0.4\ln x_0+0.6\ln x_1+\lambda\!\left(m-x_0-\frac{x_1}{1+r}\right).
+\]
+FOCs:
+\[
+\frac{0.4}{x_0}=\lambda,\qquad
+\frac{0.6}{x_1}=\frac{\lambda}{1+r}.
+\]
+Substitute \(\lambda=\frac{0.4}{x_0}\) into the second FOC:
+\[
+\frac{0.6}{x_1}=\frac{0.4}{x_0(1+r)}
+\;\Longrightarrow\;
+x_1=\frac{0.6}{0.4}(1+r)x_0
+=1.5(1+r)x_0.
+\]
+Hence
+\[
+\boxed{x_1^*(r,m)=1.5(1+r)x_0^*(r,m).}
+\]
+
+Use the budget:
+\[
+x_0+\frac{1.5(1+r)x_0}{1+r}=x_0+1.5x_0=2.5x_0=m
+\]
+so
+\[
+x_0^*(r,m)=\frac{m}{2.5}=0.4m.
+\]
+Then
+\[
+x_1^*(r,m)=1.5(1+r)x_0^*=1.5(1+r)(0.4m)=0.6(1+r)m.
+\]
+
+Therefore,
+\[
+\boxed{x_0^*(r,m)=0.4m,\qquad x_1^*(r,m)=0.6(1+r)m,}
+\]
+and indeed
+\[
+\boxed{x_1^*(r,m)=1.5(1+r)x_0^*(r,m).}
+\]
+
+\item \textbf{Numerical solution for \((y_0,y_1)=(20,50)\), \(r=0.25\).}
+
+Present value of income:
+\[
+m=20+\frac{50}{1.25}=20+40=60.
+\]
+Optimal consumption:
+\[
+x_0^*=0.4m=24,\qquad
+x_1^*=0.6(1.25)m=0.75(60)=45.
+\]
+Saving in period 0:
+\[
+s=y_0-x_0^*=20-24=-4.
+\]
+Since \(s<0\), the consumer is a \emph{borrower} (borrows 4 units in period 0).
+
+Thus
+\[
+\boxed{m=60,\qquad (x_0^*,x_1^*)=(24,45),\qquad \text{net borrower of }4\text{ in period 0}.}
+\]
+
+\item \textbf{Verify the budget at the optimum.}
+
+\[
+x_0^*+\frac{x_1^*}{1+r}
+=24+\frac{45}{1.25}
+=24+36
+=60
+=m.
+\]
+Hence the optimal bundle satisfies the budget exactly:
+\[
+\boxed{x_0^*+\frac{x_1^*}{1+r}=m.}
+\]
+
+\item \textbf{Interest rate rises to \(r'=0.50\): Slutsky decomposition for \(x_0\).}
+
+Old optimum (at \(r=0.25\)) is \((x_0,x_1)=(24,45)\).
+
+\medskip
+\noindent\underline{Step 1: Slutsky compensation \(m^s\).}  
+At the new interest rate \(r'=0.50\), the PV price of period-1 consumption is \(1/(1+r')=1/1.5=2/3\).  
+Slutsky-compensated income (cost of old bundle at new prices):
+\[
+m^s=x_0+\frac{x_1}{1+r'}
+=24+\frac{45}{1.5}
+=24+30
+=54.
+\]
+So
+\[
+\boxed{m^s=54.}
+\]
+
+\medskip
+\noindent\underline{Step 2: Compensated (Slutsky) demand at \((r',m^s)\).}
+Since \(x_0^*(r,m)=0.4m\), at \((r',m^s)\):
+\[
+x_0^s=0.4m^s=0.4(54)=21.6=\frac{108}{5}.
+\]
+
+Substitution effect:
+\[
+\Delta x_0^s=x_0^s-x_0
+=\frac{108}{5}-24
+=\frac{108-120}{5}
+=-\frac{12}{5}.
+\]
+Hence
+\[
+\boxed{\Delta x_0^s=-\frac{12}{5}.}
+\]
+
+\medskip
+\noindent\underline{Step 3: New Marshallian demand and income effect.}
+
+New present-value income:
+\[
+m'=20+\frac{50}{1.5}=20+\frac{100}{3}=\frac{160}{3}.
+\]
+New Marshallian period-0 consumption:
+\[
+x_0' = 0.4m'=\frac{2}{5}\cdot\frac{160}{3}=\frac{64}{3}.
+\]
+Income effect:
+\[
+\Delta x_0^n=x_0'-x_0^s
+=\frac{64}{3}-\frac{108}{5}
+=\frac{320-324}{15}
+=-\frac{4}{15}.
+\]
+Thus
+\[
+\boxed{\Delta x_0^n=-\frac{4}{15}.}
+\]
+
+Check total change:
+\[
+\Delta x_0 = x_0'-x_0 = \frac{64}{3}-24=-\frac{8}{3}
+\]
+and
+\[
+\Delta x_0^s+\Delta x_0^n=-\frac{12}{5}-\frac{4}{15}
+=-\frac{36+4}{15}
+=-\frac{40}{15}
+=-\frac{8}{3}.
+\]
+
+\medskip
+\noindent\underline{Normality.}
+\[
+x_0^*(r,m)=0.4m
+\quad\Rightarrow\quad
+\frac{\partial x_0^*}{\partial m}=0.4>0.
+\]
+So period-0 consumption is a normal good (with respect to present-value income \(m\)):
+\[
+\boxed{\text{Period-0 consumption is normal.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: Pure Lagrangian derivation}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+x_0+\frac{x_1}{1+r}=m,\qquad
+m=y_0+\frac{y_1}{1+r}.
+\]
+
+\item
+\[
+\mathcal L=0.4\ln x_0+0.6\ln x_1+\lambda\!\left(m-x_0-\frac{x_1}{1+r}\right).
+\]
+FOCs:
+\[
+\frac{0.4}{x_0}=\lambda,\qquad
+\frac{0.6}{x_1}=\frac{\lambda}{1+r},\qquad
+x_0+\frac{x_1}{1+r}=m.
+\]
+Hence
+\[
+\frac{0.6}{x_1}=\frac{0.4}{x_0(1+r)}
+\;\Longrightarrow\;
+x_1=1.5(1+r)x_0.
+\]
+Substitute into the constraint:
+\[
+x_0+\frac{1.5(1+r)x_0}{1+r}=2.5x_0=m
+\Rightarrow x_0^*=0.4m.
+\]
+Therefore
+\[
+\boxed{x_0^*(r,m)=0.4m,\qquad x_1^*(r,m)=0.6(1+r)m,}
+\]
+and
+\[
+\boxed{x_1^*(r,m)=1.5(1+r)x_0^*(r,m).}
+\]
+
+\item With \((y_0,y_1)=(20,50)\), \(r=0.25\):
+\[
+m=20+\frac{50}{1.25}=60,
+\]
+\[
+x_0^*=0.4(60)=24,\qquad x_1^*=0.6(1.25)(60)=45.
+\]
+Saving:
+\[
+s=y_0-x_0^*=20-24=-4.
+\]
+So the consumer borrows \(4\) in period 0.
+
+\item
+\[
+x_0^*+\frac{x_1^*}{1+r}=24+\frac{45}{1.25}=60=m.
+\]
+
+\item Let \(r'=0.50\), old bundle \((24,45)\).
+\[
+m^s=24+\frac{45}{1.5}=54,
+\qquad
+x_0^s=0.4(54)=\frac{108}{5}.
+\]
+So
+\[
+\Delta x_0^s=\frac{108}{5}-24=-\frac{12}{5}.
+\]
+New PV income:
+\[
+m'=20+\frac{50}{1.5}=\frac{160}{3},
+\qquad
+x_0'=0.4m'=\frac{64}{3}.
+\]
+Hence
+\[
+\Delta x_0^n=x_0'-x_0^s=\frac{64}{3}-\frac{108}{5}=-\frac{4}{15}.
+\]
+And
+\[
+\frac{\partial x_0^*}{\partial m}=0.4>0
+\quad\Rightarrow\quad
+x_0 \text{ is normal.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Marking scheme (suggested, 20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(3 marks)} Intertemporal budget constraint (PV form)
+\begin{itemize}
+\item 1 mark: correct PV budget \(x_0+\frac{x_1}{1+r}=m\)
+\item 1 mark: correct identification of \(m\) as PV lifetime income/resources
+\item 1 mark: correct explanation of terms (especially \(\frac{x_1}{1+r}\))
+\end{itemize}
+
+\item \textbf{(5 marks)} Optimal demands and ratio condition
+\begin{itemize}
+\item 2 marks: correct optimization setup / FOCs
+\item 1 mark: correct derivation of \(x_1=1.5(1+r)x_0\)
+\item 1 mark: correct \(x_0^*(r,m)=0.4m\)
+\item 1 mark: correct \(x_1^*(r,m)=0.6(1+r)m\)
+\end{itemize}
+
+\item \textbf{(4 marks)} Numerical solution at \(r=0.25\)
+\begin{itemize}
+\item 1 mark: correct \(m=60\)
+\item 1 mark: correct \(x_0^*=24\)
+\item 1 mark: correct \(x_1^*=45\)
+\item 1 mark: correct borrower/saver classification and amount (borrow 4)
+\end{itemize}
+
+\item \textbf{(4 marks)} Budget verification
+\begin{itemize}
+\item 2 marks: correct substitution into budget
+\item 2 marks: correct equality \(=m\) and conclusion
+\end{itemize}
+
+\item \textbf{(4 marks)} Slutsky decomposition for \(r':0.25\to0.50\)
+\begin{itemize}
+\item 1 mark: correct Slutsky compensation \(\boxed{m^s=54}\)
+\item 1 mark: correct substitution effect \(\boxed{\Delta x_0^s=-\frac{12}{5}}\)
+\item 1 mark: correct income effect \(\boxed{\Delta x_0^n=-\frac{4}{15}}\)
+\item 1 mark: correct normality conclusion (\(\partial x_0/\partial m>0\))
+\end{itemize}
+\end{enumerate}
+
+
+\newpage
+\section*{Question 9: State prices, optimal contingent claims, and replication}
+
+Consider an economy with two states of nature (state 1 and state 2) with probabilities $\pi_1 = \frac{1}{3}$ and $\pi_2 = \frac{2}{3}$. There are two assets:
+\begin{itemize}
+\item Risk-free asset: pays \$1 in both states and costs $p_f$
+\item Risky asset: pays \$6 in state 1 and \$0 in state 2, and costs $p_r = \$1.50$
+\end{itemize}
+
+A consumer has expected utility preferences with $U(x_1, x_2) = \frac{1}{3}u(x_1) + \frac{2}{3}u(x_2)$ where $u(x) = \ln(x)$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (4 marks) The consumer is endowed with $(0, 9)$ across the two states. If she can trade the risky asset and contingent consumption can be purchased at state prices $(q_1, q_2) = (0.25, 0.50)$:
+\begin{itemize}
+\item What is the value of her endowment?
+\item What is the implied price $p_r^*$ of the risky asset using state prices?
+\item Is the actual price $p_r = \$1.50$ consistent with no arbitrage?
+\end{itemize}
+
+\item (6 marks) Using the state prices from part (a), find the consumer's optimal contingent consumption bundle $(x_1^*, x_2^*)$. [Hint: At optimum, $\frac{\pi_1 u'(x_1)}{\pi_2 u'(x_2)} = \frac{q_1}{q_2}$]
+
+\item (4 marks) The consumer wants to achieve the optimal bundle from part (b) using only the two assets (risk-free and risky). Set up and solve the system of equations to find the portfolio $(\theta_f, \theta_r)$ where $\theta_f$ is units of risk-free asset and $\theta_r$ is units of risky asset.
+
+\item (3 marks) Verify that the cost of the portfolio from part (c) equals the cost of the contingent consumption bundle from part (b) using state prices.
+
+\item (3 marks) Suppose a new asset becomes available that pays \$3 in state 1 and \$2 in state 2. What should this asset cost to prevent arbitrage opportunities? If it costs \$1.80, is there an arbitrage opportunity? Describe the strategy if yes.
+\end{enumerate}
+
+\newpage
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Arrow--Debreu pricing + expected utility + replication}
+
+Let the state prices be
+\[
+(q_1,q_2)=(0.25,0.50)=\left(\frac14,\frac12\right).
+\]
+For any contingent claim \(x=(x_1,x_2)\), its Arrow--Debreu price is
+\[
+p(x)=q_1x_1+q_2x_2.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Endowment value and risky asset pricing.}
+
+Endowment \(\omega=(0,9)\) has value
+\[
+m=q\cdot \omega = q_1\omega_1+q_2\omega_2
+=\frac14(0)+\frac12(9)=\frac92=4.5.
+\]
+So
+\[
+\boxed{m=4.5.}
+\]
+
+Risky asset payoff is \((6,0)\), so the implied no-arbitrage price is
+\[
+p_r^*=6q_1+0q_2=6\cdot \frac14=\frac32=1.50.
+\]
+Thus
+\[
+\boxed{p_r^*=1.50.}
+\]
+
+Since \(p_r=1.50=p_r^*\), the quoted risky-asset price is consistent with no arbitrage:
+\[
+\boxed{\text{Yes, }p_r=1.50\text{ is no-arbitrage consistent.}}
+\]
+
+\item \textbf{Optimal contingent consumption \((x_1^*,x_2^*)\).}
+
+The consumer solves
+\[
+\max_{x_1,x_2>0}\ \frac13\ln x_1+\frac23\ln x_2
+\quad \text{s.t.}\quad
+q_1x_1+q_2x_2=m.
+\]
+Here \(m=4.5\), \(q_1=\frac14\), \(q_2=\frac12\).
+
+Lagrangian:
+\[
+\mathcal L=\frac13\ln x_1+\frac23\ln x_2+\lambda(m-q_1x_1-q_2x_2).
+\]
+FOCs:
+\[
+\frac{1}{3x_1}=\lambda q_1,\qquad \frac{2}{3x_2}=\lambda q_2.
+\]
+Divide:
+\[
+\frac{\frac{1}{3x_1}}{\frac{2}{3x_2}}=\frac{q_1}{q_2}
+\;\Longrightarrow\;
+\frac{x_2}{2x_1}=\frac{q_1}{q_2}
+=\frac{1/4}{1/2}=\frac12
+\;\Longrightarrow\;
+x_2=x_1.
+\]
+Use the budget:
+\[
+\frac14 x_1+\frac12 x_2=4.5.
+\]
+Since \(x_2=x_1\),
+\[
+\left(\frac14+\frac12\right)x_1=\frac34x_1=4.5
+\;\Longrightarrow\;
+x_1=6.
+\]
+Hence \(x_2=6\). Therefore
+\[
+\boxed{(x_1^*,x_2^*)=(6,6).}
+\]
+
+\item \textbf{Replicate \((x_1^*,x_2^*)=(6,6)\) using the two assets.}
+
+Payoff vectors:
+\[
+a_f=(1,1),\qquad a_r=(6,0).
+\]
+Find \((\theta_f,\theta_r)\) such that
+\[
+\theta_f(1,1)+\theta_r(6,0)=(6,6).
+\]
+Equivalently,
+\[
+\begin{cases}
+\theta_f+6\theta_r=6,\\
+\theta_f=6.
+\end{cases}
+\]
+From the second equation, \(\theta_f=6\). Substituting into the first:
+\[
+6+6\theta_r=6 \Rightarrow \theta_r=0.
+\]
+Thus
+\[
+\boxed{(\theta_f,\theta_r)=(6,0).}
+\]
+
+\item \textbf{Verify portfolio cost = contingent-claim cost.}
+
+First compute risk-free price from state prices:
+\[
+p_f=q_1+q_2=\frac14+\frac12=\frac34=0.75.
+\]
+
+Portfolio cost:
+\[
+\theta_f p_f+\theta_r p_r = 6(0.75)+0(1.50)=4.5.
+\]
+
+Contingent-claim cost (state-price cost):
+\[
+q_1x_1^*+q_2x_2^*
+=\frac14(6)+\frac12(6)=1.5+3=4.5.
+\]
+
+Hence
+\[
+\boxed{\theta_f p_f+\theta_r p_r = q_1x_1^*+q_2x_2^*=4.5.}
+\]
+
+\item \textbf{Pricing a new asset with payoff \((3,2)\), and arbitrage if priced at 1.80.}
+
+No-arbitrage price from state prices:
+\[
+p_{\text{new}}^*=3q_1+2q_2=3\left(\frac14\right)+2\left(\frac12\right)=\frac34+1=\frac74=1.75.
+\]
+So
+\[
+\boxed{p_{\text{new}}^*=1.75.}
+\]
+
+If the market price is \(1.80>1.75\), the new asset is overpriced, so there is an arbitrage.
+
+Replicate \((3,2)\) using old assets:
+\[
+\theta_f(1,1)+\theta_r(6,0)=(3,2)
+\]
+i.e.
+\[
+\begin{cases}
+\theta_f+6\theta_r=3,\\
+\theta_f=2.
+\end{cases}
+\]
+Thus \(\theta_f=2\) and
+\[
+2+6\theta_r=3 \Rightarrow \theta_r=\frac16.
+\]
+Replicating portfolio cost:
+\[
+2p_f+\frac16 p_r = 2(0.75)+\frac16(1.50)=1.50+0.25=1.75.
+\]
+
+\textbf{Arbitrage strategy (since market price \(1.80\) is too high):}
+\begin{itemize}
+\item Short 1 unit of the new asset (receive \(1.80\) today),
+\item Buy the replicating portfolio \(\big(\theta_f,\theta_r\big)=\left(2,\frac16\right)\) (pay \(1.75\) today).
+\end{itemize}
+Net cashflow today:
+\[
+1.80-1.75=\boxed{0.05}.
+\]
+Future state payoffs cancel exactly, so this is arbitrage.
+
+\[
+\boxed{\text{Yes, arbitrage exists if price }=1.80\text{: short new asset, buy replica, profit }0.05\text{ today.}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: State-contingent Cobb--Douglas shares}
+
+\begin{enumerate}[label=(\alph*)]
+\item Endowment value:
+\[
+m=q_1\omega_1+q_2\omega_2=0.25(0)+0.50(9)=4.5.
+\]
+Risky asset implied price:
+\[
+p_r^*=6q_1=1.5.
+\]
+Hence \(p_r=1.50\) is no-arbitrage consistent.
+
+\item Since the objective is
+\[
+\frac13\ln x_1+\frac23\ln x_2=\ln\!\big(x_1^{1/3}x_2^{2/3}\big),
+\]
+this is Cobb--Douglas in state-contingent consumption with expenditure shares \(1/3\) and \(2/3\). Thus
+\[
+q_1x_1=\frac13 m,\qquad q_2x_2=\frac23 m.
+\]
+With \(m=4.5\), \(q_1=0.25\), \(q_2=0.50\):
+\[
+x_1=\frac{(1/3)4.5}{0.25}=6,\qquad
+x_2=\frac{(2/3)4.5}{0.50}=6.
+\]
+Hence
+\[
+\boxed{(x_1^*,x_2^*)=(6,6).}
+\]
+
+\item Replication of \((6,6)\):
+\[
+\theta_f(1,1)+\theta_r(6,0)=(6,6)
+\Rightarrow (\theta_f,\theta_r)=(6,0).
+\]
+
+\item Since \(p_f=q_1+q_2=0.75\),
+\[
+\theta_fp_f+\theta_rp_r=6(0.75)=4.5
+\]
+and
+\[
+q_1x_1^*+q_2x_2^*=0.25(6)+0.50(6)=4.5.
+\]
+So costs coincide.
+
+\item New asset payoff \((3,2)\) must cost
+\[
+p^*=3q_1+2q_2=1.75.
+\]
+If priced at \(1.80\), it is overpriced; short it and buy its replicating portfolio \(\left(2,\frac16\right)\), earning \(0.05\) today with zero future net payoff.
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: Lagrangian}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+m=q\cdot \omega=\frac14(0)+\frac12(9)=\frac92.
+\]
+Risky asset no-arbitrage price:
+\[
+p_r^*=q\cdot(6,0)=6\cdot\frac14=\frac32.
+\]
+Since \(p_r=\frac32\), no arbitrage violation.
+
+\item
+\[
+\max_{x_1,x_2>0}\ \frac13\ln x_1+\frac23\ln x_2
+\quad\text{s.t.}\quad
+\frac14x_1+\frac12x_2=\frac92.
+\]
+\[
+\mathcal L=\frac13\ln x_1+\frac23\ln x_2+\lambda\!\left(\frac92-\frac14x_1-\frac12x_2\right).
+\]
+FOCs:
+\[
+\frac{1}{3x_1}=\frac{\lambda}{4},\qquad
+\frac{2}{3x_2}=\frac{\lambda}{2}.
+\]
+Eliminate \(\lambda\):
+\[
+\frac{1}{3x_1}\Big/\frac{2}{3x_2}=\frac{1/4}{1/2}
+\Rightarrow \frac{x_2}{2x_1}=\frac12
+\Rightarrow x_2=x_1.
+\]
+Constraint:
+\[
+\frac34x_1=\frac92 \Rightarrow x_1=6,\ x_2=6.
+\]
+Thus
+\[
+\boxed{(x_1^*,x_2^*)=(6,6).}
+\]
+
+\item Replication system:
+\[
+\begin{pmatrix}
+1&6\\
+1&0
+\end{pmatrix}
+\begin{pmatrix}
+\theta_f\\ \theta_r
+\end{pmatrix}
+=
+\begin{pmatrix}
+6\\6
+\end{pmatrix}.
+\]
+From row 2, \(\theta_f=6\); then row 1 gives \(\theta_r=0\). Hence
+\[
+\boxed{(\theta_f,\theta_r)=(6,0).}
+\]
+
+\item
+\[
+p_f=q_1+q_2=\frac34.
+\]
+\[
+\theta_fp_f+\theta_rp_r=6\cdot\frac34+0\cdot\frac32=\frac92
+=q\cdot(6,6).
+\]
+
+\item New asset payoff \(a=(3,2)\):
+\[
+p^*=q\cdot a=3\cdot\frac14+2\cdot\frac12=\frac74.
+\]
+If market price is \(1.80=\frac95>\frac74\), asset is overpriced.  
+Short new asset; buy replica solving
+\[
+\theta_f(1,1)+\theta_r(6,0)=(3,2)
+\Rightarrow (\theta_f,\theta_r)=\left(2,\frac16\right).
+\]
+Initial arbitrage profit:
+\[
+\frac95-\frac74=\frac{36-35}{20}=\boxed{\frac1{20}=0.05}.
+\]
+\end{enumerate}
+
+%\newpage
+
+\subsubsection*{Marking scheme (suggested, 20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(4 marks)} Endowment value and risky-asset pricing
+\begin{itemize}
+\item 1 mark: correct endowment valuation \(m=q\cdot\omega\)
+\item 1 mark: correct \(m=4.5\)
+\item 1 mark: correct implied risky asset price \(p_r^*=1.50\)
+\item 1 mark: correct no-arbitrage conclusion (actual price consistent)
+\end{itemize}
+
+\item \textbf{(6 marks)} Optimal contingent consumption
+\begin{itemize}
+\item 2 marks: correct setup (EU maximization with state-price budget)
+\item 2 marks: correct FOCs / ratio condition and implication \(x_2=x_1\)
+\item 2 marks: correct solution \(\boxed{(x_1^*,x_2^*)=(6,6)}\)
+\end{itemize}
+
+\item \textbf{(4 marks)} Replicating portfolio
+\begin{itemize}
+\item 2 marks: correct system of equations
+\item 2 marks: correct solution \(\boxed{(\theta_f,\theta_r)=(6,0)}\)
+\end{itemize}
+
+\item \textbf{(3 marks)} Cost verification
+\begin{itemize}
+\item 1 mark: correct \(p_f=q_1+q_2=0.75\)
+\item 1 mark: correct portfolio cost
+\item 1 mark: correct state-price cost and equality
+\end{itemize}
+
+\item \textbf{(3 marks)} New asset pricing and arbitrage
+\begin{itemize}
+\item 1 mark: correct no-arbitrage price \(\boxed{1.75}\)
+\item 1 mark: identify overpricing at \(1.80\)
+\item 1 mark: correct arbitrage strategy and profit \(\boxed{0.05}\)
+\end{itemize}
+\end{enumerate}
+
+\end{document}

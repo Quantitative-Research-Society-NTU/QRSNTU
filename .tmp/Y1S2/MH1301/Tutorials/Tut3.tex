@@ -1,0 +1,937 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 3}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1.0}
+\SetWatermarkLightness{0.985}
+
+%------------- SHORTCUTS -------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%------------- Setttings -------------
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.82\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.82\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+Key skills in this tutorial:
+\begin{itemize}[leftmargin=*]
+  \item counting bit strings via combinations, complements, and symmetry;
+  \item team/committee selection under constraints;
+  \item structured strings with adjacency rules (block method, stars-and-bars viewpoint);
+  \item coefficients in binomial and multinomial-type expansions (binomial theorem, combinatorial reasoning);
+  \item inclusion--exclusion for unions of sets;
+  \item binomial identities proved algebraically and combinatorially.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Warm-ups: Ex.\ 6.3.3 (permutations/combinations), Ex.\ 6.3.27 (bit strings with lower bounds).
+  \item Week 4 discussion: Ex.\ 6.3.7, 6.3.16, 6.3.25, 6.4.2, 6.4.5, 8.5.16, 6.4.13, 6.4.20, 6.4.21.
+  \item Optional challenge: poker-hand counting (four-of-a-kind, full house, flush, two-pair).
+\end{itemize}
+
+\newpage
+%====================================================
+% Table of Contents
+%====================================================
+\tableofcontents
+\newpage
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Warm-up: Ex.\ 6.3.3)}
+\subsection{Problem}
+Given $S=\{a,b,c,d,e,f,g\}$:
+\begin{enumerate}[label=(\alph*)]
+\item How many $5$-permutations end with $a$?
+\item How many $5$-combinations contain $a$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct slot-filling (product rule / combination rule)}
+\begin{enumerate}[label=(\alph*)]
+\item A $5$-permutation is an ordered selection of $5$ distinct elements from $S$. If it must end with $a$, the last position is fixed as $a$. The remaining $4$ positions must be filled with $4$ distinct letters from $S\setminus\{a\}$, which has $6$ letters. Hence the count is the number of $4$-permutations of $6$ objects:
+\[
+{}_{6}P_{4}=6\cdot 5\cdot 4\cdot 3=\frac{6!}{(6-4)!}=\frac{6!}{2!}=360.
+\]
+\[
+\boxed{360}
+\]
+
+\item A $5$-combination is an unordered selection of $5$ distinct elements from $S$. If the selection must contain $a$, then we choose the remaining $4$ elements from $S\setminus\{a\}$ (which has $6$ elements). Thus
+\[
+\binom{6}{4}=15.
+\]
+\[
+\boxed{15}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Equivalent reformulations (remove/leave-out viewpoint)}
+\begin{enumerate}[label=(\alph*)]
+\item Ending with $a$ means: choose an ordered list of $4$ distinct letters from $\{b,c,d,e,f,g\}$ and then append $a$. Therefore the number equals the number of injective functions from $\{1,2,3,4\}$ into a $6$-set:
+\[
+6\cdot 5\cdot 4\cdot 3=360.
+\]
+\[
+\boxed{360}
+\]
+
+\item Choosing $5$ letters that contain $a$ is equivalent to choosing which \emph{two} letters are \emph{excluded} from $S\setminus\{a\}$ (since among the other $6$ letters, we include exactly $4$). Hence
+\[
+\binom{6}{2}=15.
+\]
+\[
+\boxed{15}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Warm-up: Ex.\ 6.3.27)}
+\subsection{Problem}
+How many bit strings of length $10$ contain at least three $1$'s and at least three $0$'s?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Count by number of $1$'s}
+Let a bit string of length $10$ have exactly $k$ ones. Then it has $10-k$ zeros. The condition
+\[
+\text{at least three $1$'s and at least three $0$'s}
+\]
+is equivalent to
+\[
+k\ge 3 \quad\text{and}\quad 10-k\ge 3 \iff 3\le k\le 7.
+\]
+For fixed $k$, the number of strings with exactly $k$ ones is $\binom{10}{k}$ (choose the positions of the ones). Therefore the desired number is
+\[
+\sum_{k=3}^{7} \binom{10}{k}.
+\]
+Compute using complements/symmetry:
+\[
+\sum_{k=0}^{10}\binom{10}{k}=2^{10}=1024,
+\]
+and by symmetry $\binom{10}{k}=\binom{10}{10-k}$, so
+\[
+\sum_{k=3}^{7}\binom{10}{k}
+=2^{10}-\Bigl(\binom{10}{0}+\binom{10}{1}+\binom{10}{2}+\binom{10}{8}+\binom{10}{9}+\binom{10}{10}\Bigr).
+\]
+Now
+\[
+\binom{10}{0}=1,\ \binom{10}{1}=10,\ \binom{10}{2}=45,\ \binom{10}{8}=45,\ \binom{10}{9}=10,\ \binom{10}{10}=1,
+\]
+so the excluded total is $1+10+45+45+10+1=112$. Hence
+\[
+\sum_{k=3}^{7}\binom{10}{k}=1024-112=912.
+\]
+\[
+\boxed{912}
+\]
+
+\subsubsection{Method 2: Complement principle (forbidden cases)}
+All bit strings of length $10$ total $2^{10}=1024$.
+
+A string fails the condition iff it has at most two $1$'s \emph{or} at most two $0$'s. Since having at most two $0$'s is equivalent to having at least eight $1$'s, the ``bad'' strings are exactly those with
+\[
+k\in\{0,1,2,8,9,10\}\quad\text{ones}.
+\]
+Thus the number of bad strings is
+\[
+\sum_{k\in\{0,1,2,8,9,10\}} \binom{10}{k}
+=2\Bigl(\binom{10}{0}+\binom{10}{1}+\binom{10}{2}\Bigr)
+=2(1+10+45)=112,
+\]
+and the good strings are $1024-112=912$.
+
+\[
+\boxed{912}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Ex.\ 6.3.7)}
+\subsection{Problem}
+How many bit strings of length $10$ contain
+\begin{enumerate}[label=(\alph*)]
+\item exactly four $1$'s?
+\item at most four $1$'s?
+\item at least four $1$'s?
+\item an equal number of $0$'s and $1$'s?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Choose positions of the $1$'s (combinations)}
+A bit string is determined by the set of positions at which a $1$ occurs.
+
+\begin{enumerate}[label=(\alph*)]
+\item Exactly four $1$'s: choose $4$ positions among $10$:
+\[
+\binom{10}{4}=210.
+\]
+\[
+\boxed{210}
+\]
+
+\item At most four $1$'s: sum over $k=0,1,2,3,4$:
+\[
+\sum_{k=0}^{4}\binom{10}{k}
+=\binom{10}{0}+\binom{10}{1}+\binom{10}{2}+\binom{10}{3}+\binom{10}{4}.
+\]
+Compute:
+\[
+1+10+45+120+210=386.
+\]
+\[
+\boxed{386}
+\]
+
+\item At least four $1$'s: sum over $k=4$ to $10$:
+\[
+\sum_{k=4}^{10}\binom{10}{k}
+=2^{10}-\sum_{k=0}^{3}\binom{10}{k}.
+\]
+Compute $\sum_{k=0}^{3}\binom{10}{k}=1+10+45+120=176$, hence
+\[
+2^{10}-176=1024-176=848.
+\]
+\[
+\boxed{848}
+\]
+
+\item Equal number of $0$'s and $1$'s: length $10$ implies $5$ ones and $5$ zeros, so
+\[
+\binom{10}{5}=252.
+\]
+\[
+\boxed{252}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Binomial theorem / generating function viewpoint}
+Consider $(x+1)^{10}=\sum_{k=0}^{10}\binom{10}{k}x^k$.
+
+\begin{enumerate}[label=(\alph*)]
+\item The coefficient of $x^4$ equals $\binom{10}{4}$, counting strings with $4$ ones:
+\[
+\boxed{\binom{10}{4}=210}.
+\]
+
+\item ``At most four ones'' is $\sum_{k=0}^{4}\binom{10}{k}$; evaluating gives $386$:
+\[
+\boxed{386}.
+\]
+
+\item ``At least four ones'' is $\sum_{k=4}^{10}\binom{10}{k}$, which equals $2^{10}-\sum_{k=0}^{3}\binom{10}{k}=848$:
+\[
+\boxed{848}.
+\]
+
+\item ``Equal numbers'' means $k=5$, so coefficient of $x^5$ is $\binom{10}{5}=252$:
+\[
+\boxed{252}.
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Ex.\ 6.3.16)}
+\subsection{Problem}
+Thirteen people on a softball team show up for a game.
+\begin{enumerate}[label=(\alph*)]
+\item How many ways are there to choose $10$ players to take the field?
+\item Of the $13$ people who show up, three are women. How many ways are there to choose $10$ players to take the field if at least one of these players must be a woman?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Combinations and complement counting}
+\begin{enumerate}[label=(\alph*)]
+\item Choosing $10$ out of $13$ without order gives
+\[
+\binom{13}{10}=\binom{13}{3}=286.
+\]
+\[
+\boxed{286}
+\]
+
+\item Let there be $3$ women and $10$ men. Total ways to choose $10$ players is $\binom{13}{10}=286$.
+Subtract the selections with \emph{no} women, i.e.\ all $10$ men:
+\[
+\binom{10}{10}=1.
+\]
+Hence the number with at least one woman is
+\[
+286-1=285.
+\]
+\[
+\boxed{285}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Casework on number of women selected}
+\begin{enumerate}[label=(\alph*)]
+\item A different viewpoint: choosing $10$ players is equivalent to choosing $3$ players to sit out:
+\[
+\binom{13}{3}=286.
+\]
+\[
+\boxed{286}
+\]
+
+\item Select exactly $r$ women, where $r\in\{1,2,3\}$. Then select $10-r$ men from $10$ men:
+\[
+\sum_{r=1}^{3}\binom{3}{r}\binom{10}{10-r}.
+\]
+Compute term-by-term:
+\[
+\binom{3}{1}\binom{10}{9}=3\cdot 10=30,\quad
+\binom{3}{2}\binom{10}{8}=3\cdot 45=135,\quad
+\binom{3}{3}\binom{10}{7}=1\cdot 120=120.
+\]
+Sum:
+\[
+30+135+120=285.
+\]
+\[
+\boxed{285}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Ex.\ 6.3.25)}
+\subsection{Problem}
+How many bit strings contain exactly eight $0$'s and $10$ $1$'s if every $0$ must be immediately followed by a $1$?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Block method (treat each $0$ as part of a mandatory ``01'' block)}
+Because every $0$ is immediately followed by a $1$, each $0$ must occur as the first character of a substring ``01''. Since there are $8$ zeros, we must have exactly $8$ blocks
+\[
+B := 01.
+\]
+These $8$ blocks consume $8$ ones, leaving
+\[
+10-8=2
+\]
+additional ones that are not forced to follow a $0$.
+
+Thus the entire string is formed by arranging:
+\begin{itemize}[leftmargin=*]
+\item $8$ identical blocks $B=01$,
+\item $2$ identical single symbols $1$.
+\end{itemize}
+There are $8+2=10$ objects total, with $2$ indistinguishable single $1$'s (equivalently, with $8$ indistinguishable blocks). Hence the number of distinct arrangements is
+\[
+\binom{10}{2}=45,
+\]
+by choosing which $2$ of the $10$ positions are occupied by the extra single $1$'s.
+
+\[
+\boxed{45}
+\]
+
+\subsubsection{Method 2: Stars-and-bars on gaps between mandatory blocks}
+First line up the $8$ mandatory blocks in order:
+\[
+B\,B\,B\,B\,B\,B\,B\,B.
+\]
+There are $9$ gaps where extra $1$'s can be inserted:
+\[
+\_\,B\,\_\,B\,\_\,B\,\_\,B\,\_\,B\,\_\,B\,\_\,B\,\_\,B\,\_,
+\]
+namely: before the first block, between consecutive blocks (7 gaps), and after the last block.
+
+We must distribute the $2$ extra identical $1$'s among these $9$ gaps. Let $x_1,\dots,x_9\in\N\cup\{0\}$ be the number of extra $1$'s placed in each gap. Then
+\[
+x_1+x_2+\cdots+x_9=2.
+\]
+The number of nonnegative integer solutions is
+\[
+\binom{2+9-1}{9-1}=\binom{10}{8}=\binom{10}{2}=45.
+\]
+Each solution corresponds bijectively to a unique valid string.
+
+\[
+\boxed{45}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex.\ 6.4.2 and Ex.\ 6.4.5)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Find the coefficient of $x^{5}y^{8}$ in $(x+y)^{13}$.
+\item Give a formula for the coefficient of $x^{k}$ in the expansion of $\left(x+\frac{1}{x}\right)^{100}$, where $k$ is an integer.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Binomial theorem (algebraic extraction)}
+\begin{enumerate}[label=(\alph*)]
+\item By the binomial theorem,
+\[
+(x+y)^{13}=\sum_{r=0}^{13}\binom{13}{r}x^{r}y^{13-r}.
+\]
+To obtain $x^{5}y^{8}$ we need $r=5$ (since then $13-r=8$). Hence the coefficient is
+\[
+\binom{13}{5}.
+\]
+Compute:
+\[
+\binom{13}{5}=\frac{13\cdot 12\cdot 11\cdot 10\cdot 9}{5\cdot 4\cdot 3\cdot 2\cdot 1}=1287.
+\]
+\[
+\boxed{1287}
+\]
+
+\item Expand:
+\[
+\left(x+\frac{1}{x}\right)^{100}
+=\sum_{r=0}^{100}\binom{100}{r}x^{r}\left(\frac{1}{x}\right)^{100-r}
+=\sum_{r=0}^{100}\binom{100}{r}x^{\,r-(100-r)}
+=\sum_{r=0}^{100}\binom{100}{r}x^{\,2r-100}.
+\]
+Thus the exponent of $x$ is $2r-100$. We get a contribution to $x^k$ exactly when
+\[
+2r-100=k \iff r=\frac{k+100}{2}.
+\]
+Therefore:
+\[
+[x^k]\left(x+\frac{1}{x}\right)^{100}
+=
+\begin{cases}
+\displaystyle \binom{100}{\frac{k+100}{2}}, & \text{if }k\text{ is even and }-100\le k\le 100,\\[1.0em]
+0, & \text{otherwise.}
+\end{cases}
+\]
+\[
+\boxed{
+[x^k]\left(x+\frac{1}{x}\right)^{100}
+=
+\begin{cases}
+\displaystyle \binom{100}{\frac{k+100}{2}}, & k\equiv 0\ (\mathrm{mod}\ 2),\ -100\le k\le 100,\\
+0, & \text{otherwise.}
+\end{cases}}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Combinatorial coefficient interpretation}
+\begin{enumerate}[label=(\alph*)]
+\item Write $(x+y)^{13}$ as a product of $13$ identical factors:
+\[
+(x+y)^{13}=\underbrace{(x+y)(x+y)\cdots(x+y)}_{13\text{ factors}}.
+\]
+To obtain a term $x^{5}y^{8}$, we must choose $x$ from exactly $5$ of the factors and choose $y$ from the remaining $8$ factors. The number of ways to choose which $5$ factors contribute $x$ is $\binom{13}{5}$. Each such choice contributes exactly one $x^{5}y^{8}$ term. Hence the coefficient is $\binom{13}{5}=1287$.
+\[
+\boxed{1287}
+\]
+
+\item Similarly,
+\[
+\left(x+\frac{1}{x}\right)^{100}=\prod_{i=1}^{100}\left(x+\frac{1}{x}\right).
+\]
+From each factor we choose either $x$ or $x^{-1}$. Suppose we choose $x$ from exactly $r$ factors and $x^{-1}$ from the remaining $100-r$ factors. Then the resulting exponent is
+\[
+x^{r}\cdot x^{-(100-r)}=x^{2r-100}.
+\]
+To obtain $x^{k}$ we need $2r-100=k$, i.e.\ $r=(k+100)/2$. The number of ways to choose which $r$ factors contribute $x$ is $\binom{100}{r}$. This yields the same coefficient formula:
+\[
+\boxed{
+[x^k]\left(x+\frac{1}{x}\right)^{100}
+=
+\begin{cases}
+\displaystyle \binom{100}{\frac{k+100}{2}}, & k\equiv 0\ (\mathrm{mod}\ 2),\ -100\le k\le 100,\\
+0, & \text{otherwise.}
+\end{cases}}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Ex.\ 8.5.16)}
+\subsection{Problem}
+How many elements are in the union of four sets if each set has $100$ elements, each pair of the sets shares $50$ elements, each three of the sets share $25$ elements, and there are $5$ elements in all four sets?
+
+\subsection{Solution}
+
+Let the sets be $A_1,A_2,A_3,A_4$.
+
+\subsubsection{Method 1: Inclusion--exclusion principle}
+The inclusion--exclusion formula for four sets is:
+\begin{align*}
+\left|A_1\cup A_2\cup A_3\cup A_4\right|
+&=\sum_{i=1}^{4}|A_i|
+ -\sum_{1\le i<j\le 4}|A_i\cap A_j|\\
+&\quad+\sum_{1\le i<j<k\le 4}|A_i\cap A_j\cap A_k|
+ -|A_1\cap A_2\cap A_3\cap A_4|.
+\end{align*}
+Plug in the data:
+\begin{itemize}[leftmargin=*]
+\item $\sum_{i=1}^{4}|A_i|=4\cdot 100=400$;
+\item there are $\binom{4}{2}=6$ pairs, each with intersection size $50$, so the pair-sum is $6\cdot 50=300$;
+\item there are $\binom{4}{3}=4$ triples, each with intersection size $25$, so the triple-sum is $4\cdot 25=100$;
+\item the 4-way intersection has size $5$.
+\end{itemize}
+Therefore
+\[
+|A_1\cup A_2\cup A_3\cup A_4|=400-300+100-5=195.
+\]
+\[
+\boxed{195}
+\]
+
+\subsubsection{Method 2: Count elements by membership multiplicity (exactly $r$ sets)}
+Let $x_r$ be the number of elements that belong to exactly $r$ of the four sets, for $r=1,2,3,4$.
+Then
+\[
+|A_1\cup A_2\cup A_3\cup A_4|=x_1+x_2+x_3+x_4.
+\]
+We are given $x_4=5$.
+
+Now write equations from the provided intersection totals.
+
+\medskip
+\noindent\textbf{(i) Sum of set sizes.}
+Each element counted in exactly $r$ sets contributes $r$ to the total $\sum|A_i|$. Hence
+\[
+\sum_{i=1}^{4}|A_i|=x_1+2x_2+3x_3+4x_4.
+\]
+Given $\sum|A_i|=400$ and $x_4=5$,
+\[
+x_1+2x_2+3x_3+20=400 \iff x_1+2x_2+3x_3=380.
+\]
+
+\medskip
+\noindent\textbf{(ii) Sum of pairwise intersections.}
+An element in exactly $r$ sets lies in exactly $\binom{r}{2}$ distinct pairwise intersections, so
+\[
+\sum_{1\le i<j\le 4}|A_i\cap A_j|=\binom{2}{2}x_2+\binom{3}{2}x_3+\binom{4}{2}x_4=x_2+3x_3+6x_4.
+\]
+Given the left side is $6\cdot 50=300$ and $x_4=5$,
+\[
+x_2+3x_3+30=300 \iff x_2+3x_3=270.
+\]
+
+\medskip
+\noindent\textbf{(iii) Sum of triple intersections.}
+An element in exactly $r$ sets lies in exactly $\binom{r}{3}$ triple intersections, so
+\[
+\sum_{1\le i<j<k\le 4}|A_i\cap A_j\cap A_k|=\binom{3}{3}x_3+\binom{4}{3}x_4=x_3+4x_4.
+\]
+Given the left side is $4\cdot 25=100$ and $x_4=5$,
+\[
+x_3+20=100 \iff x_3=80.
+\]
+Then from $x_2+3x_3=270$ we get
+\[
+x_2+3\cdot 80=270 \iff x_2=30.
+\]
+Finally from $x_1+2x_2+3x_3=380$ we get
+\[
+x_1+2\cdot 30+3\cdot 80=380 \iff x_1+60+240=380 \iff x_1=80.
+\]
+Therefore
+\[
+|A_1\cup A_2\cup A_3\cup A_4|=x_1+x_2+x_3+x_4=80+30+80+5=195.
+\]
+\[
+\boxed{195}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 8
+%====================================================
+\section{Question 8 (Ex.\ 6.4.13)}
+\subsection{Problem}
+Prove that if $n$ and $k$ are integers with $1\le k\le n$, then
+\[
+k\binom{n}{k}=n\binom{n-1}{k-1}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Give a combinatorial proof. \emph{Hint: Show that the two sides count the number of ways to select a subset with $k$ elements from a set with $n$ elements and then an element of this subset.}
+\item Give an algebraic proof based on the factorial formula for $\binom{n}{r}$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Combinatorial double counting}
+Let $X$ be an $n$-element set, say $X=\{1,2,\dots,n\}$. We count the number of ordered pairs $(S,\ell)$ where:
+\begin{itemize}[leftmargin=*]
+\item $S\subseteq X$ is a subset with $|S|=k$ (a committee of size $k$),
+\item $\ell\in S$ is a distinguished element of $S$ (a chosen leader from the committee).
+\end{itemize}
+
+\medskip
+\noindent\textbf{Way 1 (choose $S$ then choose $\ell$).}
+Choose the $k$-subset $S$ in $\binom{n}{k}$ ways, then choose $\ell$ from $S$ in $k$ ways. Total:
+\[
+\binom{n}{k}\cdot k.
+\]
+
+\medskip
+\noindent\textbf{Way 2 (choose $\ell$ then choose the rest of $S$).}
+First choose $\ell$ from $X$ in $n$ ways. After fixing $\ell$, we must choose the remaining $k-1$ elements of $S$ from $X\setminus\{\ell\}$, which has $n-1$ elements. That can be done in $\binom{n-1}{k-1}$ ways. Total:
+\[
+n\binom{n-1}{k-1}.
+\]
+
+Both expressions count the same set of ordered pairs $(S,\ell)$, hence they are equal:
+\[
+k\binom{n}{k}=n\binom{n-1}{k-1}.
+\]
+\[
+\boxed{k\binom{n}{k}=n\binom{n-1}{k-1}}
+\]
+
+\subsubsection{Method 2: Algebraic proof using factorial definitions}
+Using $\displaystyle \binom{n}{k}=\frac{n!}{k!(n-k)!}$, compute the left-hand side:
+\[
+k\binom{n}{k}
+=k\cdot \frac{n!}{k!(n-k)!}
+=\frac{n!}{(k-1)!(n-k)!},
+\]
+since $k/k!=1/(k-1)!$.
+
+Now compute the right-hand side:
+\[
+n\binom{n-1}{k-1}
+=n\cdot \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!}
+=n\cdot \frac{(n-1)!}{(k-1)!(n-k)!}
+=\frac{n!}{(k-1)!(n-k)!}.
+\]
+Thus both sides are identical:
+\[
+k\binom{n}{k}=n\binom{n-1}{k-1}.
+\]
+\[
+\boxed{k\binom{n}{k}=n\binom{n-1}{k-1}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 9
+%====================================================
+\section{Question 9 (Ex.\ 6.4.20)}
+\subsection{Problem}
+Show that if $n$ is a positive integer, then
+\[
+\binom{2n}{2}=2\binom{n}{2}+n^{2}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item by algebraic manipulation;
+\item using a combinatorial argument.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Algebraic manipulation (as requested in part (a))}
+We compute each side in closed form.
+
+Left-hand side:
+\[
+\binom{2n}{2}=\frac{(2n)(2n-1)}{2}=n(2n-1).
+\]
+Right-hand side:
+\[
+2\binom{n}{2}+n^2
+=2\cdot \frac{n(n-1)}{2}+n^2
+=n(n-1)+n^2
+=n(2n-1).
+\]
+Since both sides equal $n(2n-1)$, the identity holds.
+
+\[
+\boxed{\binom{2n}{2}=2\binom{n}{2}+n^{2}}
+\]
+
+\subsubsection{Method 2: Combinatorial proof (as requested in part (b))}
+Consider a set $X$ of $2n$ people split into two groups of size $n$, say
+\[
+X=G_1\sqcup G_2,\qquad |G_1|=|G_2|=n.
+\]
+We count the number of ways to choose a \emph{pair} of people from $X$.
+
+\medskip
+\noindent\textbf{Way 1.} Choose any $2$ from $2n$: $\binom{2n}{2}$.
+
+\medskip
+\noindent\textbf{Way 2.} Break into disjoint cases:
+\begin{itemize}[leftmargin=*]
+\item both chosen from $G_1$: $\binom{n}{2}$ ways;
+\item both chosen from $G_2$: $\binom{n}{2}$ ways;
+\item one chosen from $G_1$ and one from $G_2$: $n\cdot n=n^2$ ways.
+\end{itemize}
+Summing gives
+\[
+\binom{n}{2}+\binom{n}{2}+n^2=2\binom{n}{2}+n^2.
+\]
+Equating Way 1 and Way 2 yields the identity.
+
+\[
+\boxed{\binom{2n}{2}=2\binom{n}{2}+n^{2}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 10
+%====================================================
+\section{Question 10 (Ex.\ 6.4.21)}
+\subsection{Problem}
+Give a combinatorial proof that
+\[
+\sum_{k=1}^{n} k\binom{n}{k}=n2^{\,n-1}.
+\]
+\emph{Hint: Count in two ways the number of ways to select a committee and to then select a leader of the committee.}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Combinatorial double counting (hinted method)}
+Let $X$ be an $n$-element set (of people). Count the number of ordered pairs $(S,\ell)$ where:
+\begin{itemize}[leftmargin=*]
+\item $S\subseteq X$ is a \emph{nonempty} committee,
+\item $\ell\in S$ is the leader of the committee.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Way 1 (sum over committee size).}
+If $|S|=k$, then there are $\binom{n}{k}$ ways to choose $S$, and then $k$ ways to choose $\ell\in S$. Summing over $k=1,2,\dots,n$ gives
+\[
+\sum_{k=1}^{n} k\binom{n}{k}.
+\]
+
+\medskip
+\noindent\textbf{Way 2 (choose leader first).}
+Choose the leader $\ell$ first: $n$ choices. After fixing $\ell$, each of the remaining $n-1$ people can either be included in $S$ or not, independently. Hence there are $2^{n-1}$ choices for the rest of the committee. Total:
+\[
+n\cdot 2^{n-1}.
+\]
+
+Since both ways count the same set of ordered pairs $(S,\ell)$, we have
+\[
+\sum_{k=1}^{n} k\binom{n}{k}=n2^{n-1}.
+\]
+\[
+\boxed{\sum_{k=1}^{n} k\binom{n}{k}=n2^{\,n-1}}
+\]
+
+\subsubsection{Method 2: Algebraic verification via differentiation}
+Start from the binomial theorem:
+\[
+(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k.
+\]
+Differentiate both sides:
+\[
+n(1+x)^{n-1}=\sum_{k=1}^{n} k\binom{n}{k}x^{k-1}.
+\]
+Now set $x=1$:
+\[
+n(1+1)^{n-1}=\sum_{k=1}^{n} k\binom{n}{k}1^{k-1}
+\quad\Longrightarrow\quad
+n2^{n-1}=\sum_{k=1}^{n} k\binom{n}{k}.
+\]
+\[
+\boxed{\sum_{k=1}^{n} k\binom{n}{k}=n2^{\,n-1}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 11
+%====================================================
+\section{Question 11 (Optional: Additional Questions on Poker Cards)}
+\subsection{Problem}
+A standard deck has $52$ cards: $13$ face values ($2,3,4,5,6,7,8,9,10,J,Q,K,A$) and $4$ suits (clubs, diamonds, hearts, spades).
+A five-card poker hand is a \emph{set} of five different cards (order does not matter).
+\begin{enumerate}[label=(\alph*)]
+\item How many four-of-a-kind hands are there?
+\item How many full house hands are there?
+\item How many flush hands are there? (Include straight flushes and royal flushes in the flush count.)
+\item How many two-pair hands are there?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct construction (choose ranks, then suits)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Four-of-a-kind:} choose the rank of the quadruple ($13$ choices). For that rank, the four suits are forced (exactly $1$ way). The fifth card (the ``kicker'') can be any card of a different rank: choose its rank ($12$ choices) and its suit ($4$ choices), for $12\cdot 4=48$ choices. Hence
+\[
+13\cdot 48=624.
+\]
+\[
+\boxed{624}
+\]
+
+\item \textbf{Full house:} choose the rank of the triple ($13$ choices), then choose which $3$ suits out of $4$ for that rank:
+\[
+\binom{4}{3}=4.
+\]
+Choose the rank of the pair from the remaining $12$ ranks, and then choose $2$ suits out of $4$:
+\[
+\binom{4}{2}=6.
+\]
+Thus
+\[
+13\cdot \binom{4}{3}\cdot 12\cdot \binom{4}{2}
+=13\cdot 4\cdot 12\cdot 6
+=3744.
+\]
+\[
+\boxed{3744}
+\]
+
+\item \textbf{Flush:} choose the suit ($4$ choices), then choose any $5$ cards from the $13$ cards of that suit:
+\[
+\binom{13}{5}=1287.
+\]
+Total:
+\[
+4\binom{13}{5}=4\cdot 1287=5148.
+\]
+\[
+\boxed{5148}
+\]
+
+\item \textbf{Two-pair:} choose the two ranks that will form the pairs:
+\[
+\binom{13}{2}.
+\]
+For each chosen rank, choose $2$ suits out of $4$, giving $\binom{4}{2}^2=6^2=36$ ways.
+Choose the rank of the fifth card from the remaining $11$ ranks and its suit ($4$ choices), giving $11\cdot 4=44$ ways.
+Therefore,
+\[
+\binom{13}{2}\binom{4}{2}^2\cdot (11\cdot 4)
+=78\cdot 36\cdot 44
+=123552.
+\]
+\[
+\boxed{123552}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Rank-multiplicity patterns (partition-of-5 viewpoint)}
+A five-card hand can be described by the \emph{multiplicity pattern} of its ranks. We count each requested hand type by:
+\[
+\text{(choose ranks consistent with the pattern)}\times \text{(choose suits consistent with multiplicities)}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Pattern $(4,1)$ (four-of-a-kind).}
+Choose the rank occurring $4$ times: $13$ ways. The $4$ suits are forced: $1$ way.
+Choose the singleton rank: $12$ ways, and its suit: $4$ ways. Hence $13\cdot 12\cdot 4=624$.
+\[
+\boxed{624}
+\]
+
+\item \textbf{Pattern $(3,2)$ (full house).}
+Choose the triple rank: $13$ ways; choose its suits: $\binom{4}{3}$ ways.
+Choose the pair rank: $12$ ways; choose its suits: $\binom{4}{2}$ ways.
+Thus $13\binom{4}{3}\cdot 12\binom{4}{2}=3744$.
+\[
+\boxed{3744}
+\]
+
+\item \textbf{Pattern ``all in one suit'' (flush).}
+First choose the suit: $4$ ways. Then choose the set of $5$ ranks (since suits are fixed by the suit choice): $\binom{13}{5}$ ways.
+Thus $4\binom{13}{5}=5148$.
+\[
+\boxed{5148}
+\]
+
+\item \textbf{Pattern $(2,2,1)$ (two-pair).}
+Choose the two ranks to be doubled: $\binom{13}{2}$ ways. For each doubled rank, choose $2$ suits: $\binom{4}{2}^2$ ways.
+Choose the singleton rank from the remaining $11$ ranks and choose its suit: $11\cdot 4$ ways.
+Therefore the total is $\binom{13}{2}\binom{4}{2}^2(11\cdot 4)=123552$.
+\[
+\boxed{123552}
+\]
+\end{enumerate}
+
+\end{document}

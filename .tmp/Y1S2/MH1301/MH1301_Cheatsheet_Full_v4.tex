@@ -1,0 +1,283 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,landscape,margin=0.30in,includehead,headsep=3pt]{geometry}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{QRS@NTU \,|\, qrsntu.org}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{3pt} % tighten header-to-content gap
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize\textbf{MH1301 Discrete Mathematics - Cheat Sheet (Full Course)}}
+\fancyhead[R]{\normalsize\textbf{QRS@NTU \,|\, qrsntu.org}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.05em}
+\setlength{\columnsep}{8pt}
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{1pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+\linespread{0.96}
+
+% =========================
+% Headings
+% =========================
+\titleformat{\section}{\bfseries\normalsize}{}{0pt}{\underline}
+\titleformat{\subsection}{\bfseries\small}{}{0pt}{}
+\titlespacing*{\section}{0pt}{2pt}{0.35pt}
+\titlespacing*{\subsection}{0pt}{1pt}{0.15pt}
+
+% =========================
+% Macros
+% =========================
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\Surj}{\operatorname{Surj}}
+\newenvironment{cheatitems}{\par\vspace{-1pt}}{\par\vspace{-1pt}}
+\newcommand{\cheatrow}[2]{\par\noindent\textbf{#1:}\enspace #2\par}
+
+\begin{document}
+
+\begin{multicols}{3}
+\vspace*{-0.45em}
+\scriptsize
+\raggedcolumns
+
+% =====================================================
+\section*{Proof Toolkit}
+\begin{cheatitems}
+\cheatrow{Implication}{$P\Rightarrow Q$ is equivalent to contrapositive $\neg Q\Rightarrow\neg P$, not converse $Q\Rightarrow P$. For $P\Leftrightarrow Q$, prove both directions.}
+\cheatrow{Direct proof}{Unpack definitions; introduce arbitrary object; chain implications until target.}
+\cheatrow{Contradiction}{Assume target false and derive impossible statement, parity conflict, degree conflict, or violated extremal choice.}
+\cheatrow{Induction}{State $P(n)$; prove enough base cases; assume previous case(s); use recurrence/decomposition to prove next. Strong induction when proof needs many earlier cases.}
+\cheatrow{Bijection}{Define $f:X\to Y$; prove injective and surjective, or construct inverse $g:Y\to X$.}
+\cheatrow{Double count}{Choose one finite set of objects; count directly and by cases. If there is a sum, the index usually classifies by size, largest object, last step, component, or color.}
+\cheatrow{Extremal method}{Choose longest/shortest/largest/smallest object; show failure produces a more extreme object. Useful for paths, planar bounds, MST exchange, graph contradictions.}
+\cheatrow{Invariant}{Find quantity preserved or forced: parity, degree sum, component count, complement edge count, settled Dijkstra distance.}
+\cheatrow{Exact value}{Usually prove lower bound + upper bound. Construction gives lower/upper depending on minimization/maximization.}
+\cheatrow{Common templates}{Bijection: define/invert. Combinatorial identity: count same set two ways. Pigeonhole: choose boxes so avoiding target gives max capacity. IE: define bad sets. Graph non-iso: compare invariants. Bipartite: partition/2-color/no odd cycle. Euler: connected+degree parity. Hamilton: explicit order or obstruction. Coloring: coloring+lower bound. Tree: pick best equivalence.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Counting Principles}
+\subsection*{Objects and core rules}
+\begin{cheatitems}
+\cheatrow{Encodings}{Set = unordered/no repeats; sequence/string = ordered/repeats may occur; function $f:X\to Y$ = each $x$ chooses exactly one $y$. Subset $A\subseteq[n]$ $\Leftrightarrow$ binary characteristic string; hence $|\Pow(S)|=2^{|S|}$. Labelled simple graph on $n$ vertices $\Leftrightarrow$ subset of $\binom n2$ possible edges.}
+\cheatrow{Product rule}{Successive stages with $n_1,\ldots,n_k$ choices give $n_1\cdots n_k$. Use only when every earlier choice leaves stated number of later choices.}
+\cheatrow{Sum rule}{If $A_1,\ldots,A_k$ are pairwise disjoint, then $|A_1\cup\cdots\cup A_k|=\sum_i|A_i|$. Split into a genuine partition before adding.}
+\cheatrow{Bijection/division}{$X\cong Y\Rightarrow |X|=|Y|$. If each final object represented exactly $k$ times, final count $=|X|/k$.}
+\cheatrow{Complement}{Number good $=|U|-$ number bad. Always define the universe $U$ first.}
+\cheatrow{Inclusion--exclusion}{$|A\cup B|=|A|+|B|-|A\cap B|$; $|A\cup B\cup C|=|A|+|B|+|C|-|AB|-|AC|-|BC|+|ABC|$; in general $|\bigcup_{i=1}^n A_i|=\sum|A_i|-\sum|A_iA_j|+\sum|A_iA_jA_k|-\cdots+(-1)^{n-1}|A_1\cdots A_n|$.}
+\cheatrow{IE usage}{Use for overlapping bad events: surjections, upper bounds, divisibility, forbidden positions/strings. Element in exactly $r$ sets contributes $\binom r1-\binom r2+\cdots+(-1)^{r-1}\binom rr=1$.}
+\end{cheatitems}
+
+\subsection*{Pigeonhole and basic counts}
+\begin{cheatitems}
+\cheatrow{PHP}{If $N$ objects enter $k$ boxes, some box has at least $\lceil N/k\rceil$. Equiv.: if $N>rk$, some box has at least $r+1$.}
+\cheatrow{Common boxes}{Residues mod $m$, parity classes, complementary pairs, graph degree values, geometric cells, sorted gaps.}
+\cheatrow{Degree PHP}{In a simple graph on $n\ge2$ vertices, two vertices have same degree because possible degrees are $0,1,\ldots,n-1$, but $0$ and $n-1$ cannot coexist.}
+\cheatrow{Ramsey $R(3,3)=6$}{Fix a vertex. Among 5 incident edges, 3 same color; the 3 endpoints either contain same-color edge or give opposite-color triangle.}
+\cheatrow{Subsets/strings}{Subsets of $n$-set: $2^n$; $r$-subsets: $\binom nr$; binary strings length $n$: $2^n$; alphabet size $m$: $m^n$; even subsets = odd subsets $=2^{n-1}$ for $n\ge1$.}
+\cheatrow{Special selections}{Choose $r$ including $k$ fixed: $\binom{n-k}{r-k}$; excluding $k$ forbidden: $\binom{n-k}{r}$; at least one of $k$ marked: $\binom nr-\binom{n-k}{r}$.}
+\cheatrow{Lattice paths}{From $(0,0)$ to $(a,b)$ with right/up steps: $\binom{a+b}{a}=\binom{a+b}{b}$.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Permutations \& Combinations}
+\subsection*{Selections without repetition}
+\begin{cheatitems}
+\cheatrow{Permutations}{$n$ distinct objects: $n!$. $r$-permutations: $P(n,r)=n(n-1)\cdots(n-r+1)=n!/(n-r)!$.}
+\cheatrow{Combinations}{$r$-combinations: $\binom nr=n!/[r!(n-r)!]$. Choose then order: $P(n,r)=\binom nr r!$. Symmetry: $\binom nr=\binom n{n-r}$.}
+\cheatrow{Pascal / hockey}{$\binom{n+1}{r}=\binom nr+\binom n{r-1}$; $\sum_{k=r}^{n}\binom kr=\binom{n+1}{r+1}$; equivalently $\sum_{i=0}^{n}\binom{i+k}{k}=\binom{n+k+1}{k+1}$.}
+\cheatrow{Binomial sums}{$\sum_{k=0}^{n}\binom nk=2^n$; $\sum_{k=0}^{n}(-1)^k\binom nk=0$ for $n\ge1$; $\sum k\binom nk=n2^{n-1}$; $\sum k(k-1)\binom nk=n(n-1)2^{n-2}$; $\sum k^2\binom nk=n(n+1)2^{n-2}$.}
+\cheatrow{Vandermonde}{$\sum_k\binom mk\binom n{r-k}=\binom{m+n}{r}$. Special: $\sum_{k=0}^{n}\binom nk^2=\binom{2n}{n}$.}
+\end{cheatitems}
+
+\subsection*{Circular, blocks, gaps}
+\begin{cheatitems}
+\cheatrow{Circular}{Circular arrangements of $n$ distinct objects: $(n-1)!$. If reflections also identified: $(n-1)!/2$ for $n\ge3$. Fix one object to break rotation.}
+\cheatrow{Choose around circle}{Choose $r$ from $n$, arrange around cycle: $P(n,r)/r=n!/[r(n-r)!]$.}
+\cheatrow{Blocks}{Required together: merge into one block, arrange block internally. Required apart: total minus together, or use gap method. If block placements overlap, refine by positions or use IE.}
+\cheatrow{Nonadjacent positions}{Line: choose $r$ nonadjacent positions from $n$: $\binom{n-r+1}{r}$. Circle: $\frac{n}{n-r}\binom{n-r}{r}$ when valid.}
+\cheatrow{Burnside}{Group action count: number of orbits $=\frac1{|G|}\sum_{g\in G}|\Fix(g)|$. Ordinary division by $|G|$ valid only when every orbit has size $|G|$.}
+\end{cheatitems}
+
+\subsection*{Repetition, expansions, stars and bars}
+\begin{cheatitems}
+\cheatrow{Repeated objects}{Ordered selections with repetition: $n^r$. Unordered selections with repetition: $\binom{n+r-1}{r}=\binom{n+r-1}{n-1}$.}
+\cheatrow{Multiset permutations}{If multiplicities $n_1+\cdots+n_k=n$, count $=n!/(n_1!\cdots n_k!)$. Distinct objects into distinct boxes of sizes $n_i$: same formula. Identical objects into indistinguishable boxes: integer partitions, not stars-and-bars.}
+\cheatrow{Multinomial}{$(x_1+\cdots+x_m)^n=\sum_{n_1+\cdots+n_m=n}\frac{n!}{n_1!\cdots n_m!}x_1^{n_1}\cdots x_m^{n_m}$. Coefficient of $x_1^{n_1}\cdots x_m^{n_m}$ is $n!/(n_1!\cdots n_m!)$.}
+\cheatrow{Binomial theorem}{$(x+y)^n=\sum_{k=0}^{n}\binom nkx^{n-k}y^k$. Coeff. of $x^{n-k}y^k$ in $(ax+by)^n$ is $\binom nka^{n-k}b^k$. Also $[x^r](1+x)^n=\binom nr$.}
+\cheatrow{Stars and bars}{$x_1+\cdots+x_k=N$, $x_i\ge0$: $\binom{N+k-1}{k-1}$. If $x_i\ge1$: $\binom{N-1}{k-1}$. If $x_i\ge\ell_i$, set $x_i=\ell_i+y_i$, count $\binom{N-\sum\ell_i+k-1}{k-1}$.}
+\cheatrow{Inequality / upper bounds}{$x_1+\cdots+x_k\le N$: add slack $x_{k+1}\ge0$, count $\binom{N+k}{k}$. For $0\le x_i\le u_i$, use $\sum_{S\subseteq[k]}(-1)^{|S|}\binom{N-\sum_{i\in S}(u_i+1)+k-1}{k-1}$, treating impossible binomial terms as $0$.}
+\cheatrow{Monotone sequences}{$1\le a_1\le\cdots\le a_r\le n$: $\binom{n+r-1}{r}$. Strictly increasing $1\le a_1<\cdots<a_r\le n$: $\binom nr$.}
+\cheatrow{Generating functions}{Allowed values of $x_i$ become factors: $x_i\ge0\mapsto(1-x)^{-1}$; $0\le x_i\le b\mapsto1+x+\cdots+x^b$; $x_i\ge a\mapsto x^a/(1-x)$. Count $=[x^N]\prod_iF_i(x)$.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Functions and Counting}
+\begin{cheatitems}
+\cheatrow{All functions}{Let $|X|=m$, $|Y|=n$. All functions $X\to Y$: $n^m$.}
+\cheatrow{Injective}{Possible iff $m\le n$; count $P(n,m)=n!/(n-m)!$.}
+\cheatrow{Bijective}{Possible iff $m=n$; count $n!$.}
+\cheatrow{Surjective}{Possible iff $m\ge n$; count $\#\Surj(X,Y)=\sum_{j=0}^{n}(-1)^j\binom nj(n-j)^m$. IE interpretation: subtract functions missing at least one codomain element.}
+\cheatrow{Stirling viewpoint}{Distinct objects into $j$ indistinguishable nonempty boxes: $S(n,j)=\frac1{j!}\sum_{i=0}^{j}(-1)^i\binom ji(j-i)^n$. Distinct objects into $j$ distinguishable nonempty boxes: $j!S(n,j)$.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Recurrence Relations}
+\subsection*{Modelling and standard recurrences}
+\begin{cheatitems}
+\cheatrow{Setup}{Define $a_n$ precisely; split by first/last step, last symbol, final tile, or state; prove cases disjoint/exhaustive; state valid $n$-range and initial values; check small $n$.}
+\cheatrow{State refinement}{If one state loses information, introduce auxiliary states, derive coupled recurrences, then add/eliminate.}
+\cheatrow{Hanoi}{$H_1=1$, $H_n=2H_{n-1}+1$, so $H_n=2^n-1$.}
+\cheatrow{No consecutive zeros}{Binary strings: $a_1=2$, $a_2=3$, $a_n=a_{n-1}+a_{n-2}$ by endings $1$ or $01$. Ternary strings: $a_n=2a_{n-1}+2a_{n-2}$.}
+\cheatrow{Tiling}{Classify by last/first tile width. Empty tiling often $a_0=1$. Fibonacci tiling usually $a_n=a_{n-1}+a_{n-2}$.}
+\cheatrow{Even zeros}{Decimal strings with even number of zero digits: $a_0=1$, $a_n=8a_{n-1}+10^{n-1}$.}
+\end{cheatitems}
+
+\subsection*{Linear homogeneous recurrences}
+\begin{cheatitems}
+\cheatrow{Order 1}{$a_n=Aa_{n-1}$ gives $a_n=a_0A^n$.}
+\cheatrow{Order 2}{$a_n=Aa_{n-1}+Ba_{n-2}$, characteristic $r^2-Ar-B=0$. Distinct roots $r_1\ne r_2$: $a_n=C_1r_1^n+C_2r_2^n$. Repeated root $r$: $a_n=(C_1+C_2n)r^n$.}
+\cheatrow{General order}{$a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}$, $c_k\ne0$; characteristic $r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_k=0$.}
+\cheatrow{Repeated roots}{Root $r$ of multiplicity $m$ contributes $(C_0+C_1n+\cdots+C_{m-1}n^{m-1})r^n$.}
+\cheatrow{Complex roots}{Roots $\rho(\cos\theta\pm i\sin\theta)$ contribute $\rho^n(C_1\cos n\theta+C_2\sin n\theta)$.}
+\cheatrow{Constants}{Use initial conditions only after writing the general solution form. Need as many independent initial equations as constants.}
+\end{cheatitems}
+
+\subsection*{Non-homogeneous recurrences}
+\begin{cheatitems}
+\cheatrow{Structure}{$a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}+F(n)$. General solution $a_n=a_n^{(h)}+a_n^{(p)}$, where $a^{(h)}$ solves the associated homogeneous recurrence.}
+\cheatrow{Affine first-order}{$a_n=Aa_{n-1}+B$. If $A\ne1$, $a_n=CA^n+B/(1-A)$; if $A=1$, $a_n=a_0+nB$.}
+\cheatrow{Trial forms}{Forcing $c\mapsto A$; polynomial $P_t(n)\mapsto Q_t(n)$; $s^n\mapsto As^n$; $P_t(n)s^n\mapsto Q_t(n)s^n$; $\cos\theta n,\sin\theta n\mapsto A\cos\theta n+B\sin\theta n$; sums $\mapsto$ sum of trials.}
+\cheatrow{Resonance}{If natural trial overlaps a homogeneous term because $s$ is a homogeneous root of multiplicity $m$, multiply whole trial by $n^m$. For polynomial forcing, treat as $s=1$.}
+\cheatrow{Generating functions}{$A(x)=\sum_{n\ge0}a_nx^n$; multiply recurrence by $x^n$, sum over valid $n$, solve for $A(x)$, extract coefficients.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Graph Theory Basics}
+\subsection*{Definitions, notation, counts}
+\begin{cheatitems}
+\cheatrow{Graph notation}{Use $G=(V,E)$, $n=|V|$, $m=|E|$. Simple undirected graph: $E\subseteq\{\{u,v\}:u,v\in V,u\ne v\}$. Adjacent: $uv\in E$. Neighbourhood $N_G(v)=\{u:uv\in E\}$; degree $\deg_G(v)=|N_G(v)|$.}
+\cheatrow{Walk/trail/path}{Walk: $v_0e_1v_1\cdots e_kv_k$. Trail: no repeated edge. Path/simple path: no repeated vertex. Closed walk: $v_0=v_k$. Circuit: closed trail. Cycle $C_n$: closed path of length $n\ge3$.}
+\cheatrow{Subgraph/induced}{Subgraph $H=(W,F)$: $W\subseteq V$, $F\subseteq E$. Induced $G[W]$: vertex set $W$, edge set $\{uv\in E:u,v\in W\}$. Spanning subgraph: $W=V$.}
+\cheatrow{Standard graphs}{$K_n$: complete graph on $n$ vertices, $E=\binom{V}{2}$, $m=\binom n2$, $\deg=n-1$, $\chi=n$. $P_n$: path on $n$ vertices, $m=n-1$. $C_n$: cycle on $n$ vertices, $m=n$, $\deg=2$, $\chi(C_n)=2$ if $n$ even, $3$ if $n$ odd.}
+\cheatrow{Bipartite graphs}{$K_{p,q}$: complete bipartite graph with parts $A,B$, $|A|=p$, $|B|=q$, $E=A\times B$, $n=p+q$, $m=pq$, degrees $q$ on $A$, $p$ on $B$. $K_{1,n}$ is a star.}
+\cheatrow{Wheel}{Course wheel $W_n$: one hub plus rim $C_{n-1}$; $|V|=n$, $|E|=2(n-1)$, $\chi(W_n)=3$ if $n$ odd, $4$ if $n$ even.}
+\cheatrow{Counting graphs}{Labelled simple graphs on fixed $n$ vertices: $2^{\binom n2}$; with exactly $m$ edges: $\binom{\binom n2}{m}$. Copies of $K_r$ in $K_n$: $\binom nr$.}
+\cheatrow{Degree facts}{$\sum_{v\in V}\deg(v)=2m$; odd-degree vertices occur in even number. $k$-regular $\Rightarrow nk=2m$. Directed graph: $\sum\deg^+=\sum\deg^-=m$.}
+\cheatrow{Complement}{$\overline G=(V,\binom V2\setminus E)$; $m+\bar m=\binom n2$; $\deg_{\overline G}(v)=n-1-\deg_G(v)$; $G\cong H\Rightarrow\overline G\cong\overline H$. Self-complementary $\Rightarrow n\equiv0,1\pmod4$.}
+\end{cheatitems}
+
+\subsection*{Isomorphism and graphical sequences}
+\begin{cheatitems}
+\cheatrow{Isomorphism}{$G\cong H$ iff $\exists$ bijection $f:V(G)\to V(H)$ such that $uv\in E(G)\Leftrightarrow f(u)f(v)\in E(H)$.}
+\cheatrow{Non-isomorphism invariants}{Compare $n,m$, degree sequence, components, isolated/pendant vertices, triangles, $k$-cycles, cut vertices, bridges, complements, neighbourhood structure. Same degree sequence $\nRightarrow$ isomorphic.}
+\cheatrow{Constructing iso}{Map unique degrees first; preserve adjacency and non-adjacency. Check $uv\in E(G)\iff f(u)f(v)\in E(H)$, not just edge count.}
+\cheatrow{Havel--Hakimi}{Degree sequence graphical test: sort descending; remove largest $d$; subtract $1$ from next $d$ entries; resort. Graphical iff process reaches all zeros without negative/impossible entry. Even sum is necessary, not sufficient.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Connectivity / Traversal}
+\begin{cheatitems}
+\cheatrow{Connectivity}{$G$ connected iff $\forall u,v\in V$, there is a $u$--$v$ path. Components = maximal connected subgraphs. Directed: strongly connected iff directed paths both ways; weakly connected iff underlying graph connected.}
+\cheatrow{Component bounds}{Acyclic graph with $n$ vertices and $c$ components has $m=n-c$. Minimum edges for $c$ connected components: $n-c$. Maximum edges: $\binom{n-c+1}{2}$ by one large component plus $c-1$ isolated vertices.}
+\cheatrow{Euler definitions}{Euler trail/path: uses every edge exactly once. Euler circuit: closed Euler trail. Isolated vertices may be ignored for connectedness tests.}
+\cheatrow{Euler criteria}{For all non-isolated vertices in one connected component: Euler circuit $\iff$ every vertex has even degree. Euler path $\iff$ exactly $0$ or $2$ odd-degree vertices. Open Euler path endpoints are precisely the two odd vertices.}
+\cheatrow{Prove Eulerian}{(1) Check nonzero-edge part connected. (2) Count odd degrees. Circuit: $0$ odd. Path not circuit: $2$ odd. To disprove: disconnected nonzero-edge part or number of odd vertices $\notin\{0,2\}$.}
+\cheatrow{Hamilton definitions}{Hamilton path: visits every vertex exactly once. Hamilton cycle/circuit: closed Hamilton path; on $n$ vertices it uses $n$ edges. Hamiltonian graph = has Hamilton cycle.}
+\cheatrow{Prove Hamiltonian}{Exhibit explicit vertex order $v_1,\ldots,v_n$ with consecutive adjacencies; for cycle also $v_nv_1\in E$. For bipartite $A\cup B$, a Hamilton cycle must alternate $A,B$, so $|A|=|B|$; a Hamilton path needs $||A|-|B||\le1$.}
+\cheatrow{Disprove Hamiltonian}{Use bridge/cut obstruction: a graph with a bridge has no Hamilton cycle; a graph with a cut vertex has no Hamilton cycle. More generally, Hamilton cycle $\Rightarrow c(G-S)\le |S|$ for all nonempty $S$; Hamilton path $\Rightarrow c(G-S)\le |S|+1$. Degree-$1$ vertex forbids Hamilton cycle for $n\ge3$.}
+\cheatrow{Euler vs Hamilton}{Euler = all edges once; Hamilton = all vertices once. Degree parity is for Euler only. Explicit ordering is usually the fastest Hamilton proof.}
+\cheatrow{Longest paths}{In a connected graph, any two longest simple paths intersect; otherwise a shortest connector creates a longer path.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Coloring / Planarity}
+\subsection*{Coloring and bipartite graphs}
+\begin{cheatitems}
+\cheatrow{Coloring}{$k$-coloring: function $c:V\to\{1,\ldots,k\}$ with $uv\in E\Rightarrow c(u)\ne c(v)$. Chromatic number $\chi(G)=\min k$. Prove $\chi(G)=k$ by upper bound $k$-coloring + lower bound no $(k-1)$-coloring.}
+\cheatrow{Coloring bounds}{$\omega(G)\le\chi(G)\le\Delta(G)+1$, where $\omega$ = clique number and $\Delta$ = max degree. If $K_r\subseteq G$, then $\chi(G)\ge r$. Deleting vertex: $\chi(G)-1\le\chi(G-v)\le\chi(G)$.}
+\cheatrow{Bipartite definition}{$G$ bipartite iff $V=A\sqcup B$ and every edge has one endpoint in $A$ and one in $B$, equivalently $E\subseteq\{ab:a\in A,b\in B\}$.}
+\cheatrow{Bipartite criteria}{$G$ bipartite $\iff$ $2$-colorable $\iff$ no odd cycle. Connected test: choose root $r$; put vertices by parity of $\dist(r,v)$; valid iff no edge joins same parity.}
+\cheatrow{Prove bipartite}{Either exhibit partition $A,B$ and check all edges cross; or give a valid $2$-coloring; or prove no odd cycle. For trees, use distance parity from root.}
+\cheatrow{Disprove bipartite}{Find an odd cycle. For complete graphs, $K_n$ bipartite iff $n\le2$. For cycles, $C_n$ bipartite iff $n$ even.}
+\cheatrow{Special values}{$\chi(K_n)=n$; $\chi(C_n)=2$ if $n$ even, $3$ if odd; $\chi(K_{p,q})=2$ for $p,q\ge1$; trees with at least one edge have $\chi=2$.}
+\end{cheatitems}
+
+\subsection*{Planarity}
+\begin{cheatitems}
+\cheatrow{Euler formula}{Connected planar graph: $n-m+r=2$. With $c$ components: $n-m+r=1+c$. Region-degree sum: $\sum_R\deg(R)=2m$; bridges count twice on a face boundary.}
+\cheatrow{Planar bounds}{Connected simple planar, $n\ge3$: $m\le3n-6$. Triangle-free/bipartite planar: $m\le2n-4$. If girth $g\ge3$, then $m\le\frac{g}{g-2}(n-2)$.}
+\cheatrow{Standard nonplanar}{$K_5$ nonplanar since $10>3(5)-6=9$. $K_{3,3}$ nonplanar since bipartite and $9>2(6)-4=8$.}
+\cheatrow{Prove planar}{Give a crossing-free drawing/embedding, or build from known planar pieces while preserving embedding. Edge bounds alone cannot prove planar.}
+\cheatrow{Disprove planar}{Use bound violation, or find subdivision/minor of $K_5$ or $K_{3,3}$ (Kuratowski-type). For bipartite graphs, first try $m\le2n-4$.}
+\cheatrow{Warnings}{A bad drawing does not prove nonplanarity; one good drawing proves planarity. Regions sharing only a corner are not adjacent in map coloring. Simple planar graphs are $4$-colorable.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Trees}
+\begin{cheatitems}
+\cheatrow{Definitions}{Tree = connected acyclic graph. Forest = acyclic graph; components are trees. Spanning tree of connected $G$: tree subgraph with all vertices.}
+\cheatrow{Equivalences}{For finite simple $T$ with $n$ vertices, equivalent: connected+acyclic; connected and $m=n-1$; acyclic and $m=n-1$; unique simple path between every pair; connected and every edge is a bridge.}
+\cheatrow{Forest formula}{Forest with $n$ vertices and $c$ components has $m=n-c$. Tree has $m=n-1$. Every nontrivial tree has at least two leaves; removing a leaf leaves a smaller tree.}
+\cheatrow{Rooted tree terms}{Root, parent, child, siblings, ancestors, descendants, leaf, internal vertex, level, height.}
+\cheatrow{Full binary tree}{Every internal vertex has exactly two children. If $I$ internal vertices, leaves $L=I+1$, total vertices $2I+1$, edges $2I$.}
+\cheatrow{Perfect binary tree}{Height $h$: level $k$ has $2^k$ vertices, leaves $2^h$, total vertices $2^{h+1}-1$.}
+\cheatrow{$K_{p,q}$ tree criterion}{$K_{p,q}$ is a tree iff $p=1$ or $q=1$, since $pq=p+q-1\iff(p-1)(q-1)=0$.}
+\end{cheatitems}
+
+% =====================================================
+\section*{MST / Shortest Paths}
+\begin{cheatitems}
+\cheatrow{MST}{Weighted connected graph $G=(V,E,W)$. A spanning tree has all vertices and $n-1$ edges. MST minimizes total edge weight.}
+\cheatrow{Cut property}{A unique lightest edge crossing a cut belongs to every MST. Such an edge is safe.}
+\cheatrow{Cycle property}{A unique heaviest edge on a cycle belongs to no MST. Distinct edge weights imply unique MST; equal weights may give several MSTs.}
+\cheatrow{Kruskal}{Sort all edges by increasing weight; add next edge iff it does not create a cycle; stop after $n-1$ accepted edges. Accepted edges always form a forest.}
+\cheatrow{Prim}{Start with vertex set $S=\{s\}$; repeatedly add cheapest edge crossing $S,V\setminus S$ and add the new vertex. Selected edges form one growing tree.}
+\cheatrow{Dijkstra}{Requires nonnegative edge lengths. Initialize $d(s)=0$, $d(v)=\infty$. Repeatedly settle unsettled vertex $u$ with smallest $d(u)$; relax $d(v)\leftarrow\min\{d(v),d(u)+\ell(u,v)\}$. Settled distances are final. Store predecessor $\pi(v)$ to reconstruct path. Stop after target is settled.}
+\cheatrow{MST vs SPT}{MST minimizes total connection cost; shortest-path tree minimizes source distances. They may differ.}
+\cheatrow{MBST}{Minimum bottleneck spanning tree minimizes largest selected edge. Every MST is MBST, not conversely. Bottleneck $\le B$ iff subgraph of edges of weight $\le B$ is connected.}
+\end{cheatitems}
+
+% =====================================================
+\section*{Special Techniques / Exam Traps}
+\begin{cheatitems}
+\cheatrow{Counting traps}{Ordered vs unordered; distinct vs identical; labelled vs unlabelled boxes; repetition allowed? cases disjoint? complement universe fixed? symmetry counted equally before division? upper bounds included? leading zeros allowed?}
+\cheatrow{Identity traps}{Define counted set before algebra. For sums, identify what the summation index classifies. For coefficient extraction, match exponents; do not expand unless necessary.}
+\cheatrow{Recurrence traps}{Define state and initial conditions; state valid range; repeated roots need powers of $n$; non-homogeneous needs particular solution; resonance needs extra $n^m$; check first terms.}
+\cheatrow{Graph traps}{Read adjacency, not drawing. Degree sequence is only necessary. Euler criteria need connectedness. Hamilton is not Euler. Planar edge bounds are necessary only. Dijkstra requires nonnegative weights. MST is not shortest path.}
+\cheatrow{One-line triggers}{``At least one'' $\to$ complement/IE. ``Guaranteed'' $\to$ PHP. ``Prove identity'' $\to$ double count. ``No consecutive'' $\to$ last-symbol recurrence/gaps. ``All degrees'' $\to$ handshaking. ``Use every edge'' $\to$ Euler. ``Visit every vertex'' $\to$ Hamilton. ``Two colors'' $\to$ bipartite/no odd cycle. ``No crossings'' $\to$ Euler formula, planar bounds, Kuratowski. ``Minimum total connection'' $\to$ MST. ``Shortest route from source'' $\to$ Dijkstra.}
+\end{cheatitems}
+
+\end{multicols}
+\end{document}

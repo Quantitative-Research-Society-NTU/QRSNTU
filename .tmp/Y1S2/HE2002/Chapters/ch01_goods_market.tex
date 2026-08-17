@@ -1,0 +1,435 @@
+% ==========================================================
+% HE2002 Macroeconomics II — Chapter 1: The Goods Market
+% Source materials: :contentReference[oaicite:0]{index=0}
+% (This is a chapter file intended to be \input into the main template.)
+% ==========================================================
+
+\section{The Goods Market}
+
+\subsection{GDP and the Composition of Demand}
+
+\begin{definition}{GDP (expenditure approach) and demand components}{def:gdp_components}
+Gross Domestic Product (GDP) is commonly measured using the expenditure approach:
+\emph{total spending on domestically produced final goods and services}.
+Key components are:
+consumption $C$, investment $I$, government purchases $G$, exports $X$, and imports $IM$.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Total demand for goods}]
+\[
+Z \equiv C + I + G + X - IM,
+\qquad
+NX \equiv X-IM.
+\]
+\end{keyformula}
+
+\noindent
+In these notes we focus on a \textbf{closed economy} (the baseline for HE2002 short-run analysis), so $X=IM=0$ and
+\[
+Z \equiv C + I + G.
+\]
+We also \textbf{ignore inventory investment} in the model; nevertheless, inventory adjustments provide a useful
+economic mechanism for how output adjusts when production differs from desired spending (see below).
+
+\subsection{Model Setup: Behavioural Equations and Policy Variables}
+
+\begin{definition}{Disposable income and net taxes}{def:disposable_income}
+Disposable income is income available to households after taxes net of transfers:
+\[
+Y_D \equiv Y - T,
+\]
+where $Y$ is income/output and $T$ denotes taxes minus government transfers (net taxes).
+\end{definition}
+
+\begin{definition}{Consumption function (baseline Keynesian specification)}{def:consumption_function}
+Consumption is assumed to depend positively on disposable income:
+\[
+C = C(Y_D), \qquad \frac{dC}{dY_D} > 0.
+\]
+A standard linear specification is
+\[
+C = c_0 + c_1 Y_D,
+\quad 0 < c_1 < 1,
+\]
+where $c_1$ is the propensity to consume and $c_0$ is autonomous consumption.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Consumption written in terms of $Y$ and $T$}]
+Using $Y_D=Y-T$,
+\[
+C = c_0 + c_1(Y-T).
+\]
+\end{keyformula}
+
+\begin{definition}{Endogenous vs.\ exogenous variables}{def:endo_exo}
+\textbf{Endogenous} variables are determined within the model (e.g.\ equilibrium output $Y$).
+\textbf{Exogenous} variables are taken as given (e.g.\ policy instruments or parameters).
+A bar (e.g.\ $\bar I$) indicates an exogenous constant.
+\end{definition}
+
+\noindent
+For the baseline goods-market model:
+\begin{itemize}
+\item Investment is taken as exogenous: $I=\bar I$ (this assumption is later relaxed in IS--LM analysis).
+\item Fiscal policy variables $G$ and $T$ are taken as exogenous choices of the government.
+\item We ignore the interest-rate effect on consumption in this chapter.
+\end{itemize}
+
+\subsection{Goods-Market Equilibrium and Equilibrium Output}
+
+\begin{keyformula}[title={Key Formula: Planned expenditure in a closed economy}]
+With $I=\bar I$,
+\[
+Z = C + \bar I + G
+  = \bigl[c_0 + \bar I + G - c_1T\bigr] + c_1Y.
+\]
+\end{keyformula}
+
+\begin{theorem}{Equilibrium output in the baseline goods-market model}{equilibrium_output}
+Goods-market equilibrium requires output to equal demand:
+\[
+Y = Z.
+\]
+Under the linear consumption function and $I=\bar I$, equilibrium output is
+\[
+Y
+= \frac{1}{1-c_1}\Bigl[c_0 + \bar I + G - c_1T\Bigr],
+\qquad 0<c_1<1.
+\]
+\end{theorem}
+
+\noindent
+\textbf{Derivation.} Start from the equilibrium condition $Y=Z$ and substitute for $Z$:
+\[
+Y = c_0 + c_1(Y-T) + \bar I + G
+  = c_0 + c_1Y - c_1T + \bar I + G.
+\]
+Collect $Y$ terms on the left:
+\[
+(1-c_1)Y = c_0 + \bar I + G - c_1T.
+\]
+Divide by $(1-c_1)$ (positive since $0<c_1<1$) to obtain the stated expression.
+
+\begin{definition}{Autonomous spending}{def:autonomous_spending}
+In the baseline model, define \emph{autonomous spending} as the component of planned expenditure not
+depending on output:
+\[
+A \equiv c_0 + \bar I + G - c_1T.
+\]
+Then equilibrium output can be written compactly as $Y=\dfrac{1}{1-c_1}A$.
+\end{definition}
+
+\begin{commonmistake}
+Do not confuse:
+\begin{itemize}
+\item the \textbf{accounting identity} defining demand ($Z \equiv C+I+G$ in a closed economy), and
+\item the \textbf{equilibrium condition} ($Y=Z$), which pins down equilibrium output.
+\end{itemize}
+The identity holds by definition; the equilibrium condition is an economic restriction that holds when the goods market clears.
+\end{commonmistake}
+
+\subsection{Adjustment Mechanism and the Keynesian Cross Intuition}
+
+\noindent
+Even though we ignore inventory investment in the model, unintended inventories provide intuition for why output
+moves toward equilibrium:
+\begin{itemize}
+\item If $Y<Z$, desired spending exceeds production; inventories fall unexpectedly and firms raise production.
+\item If $Y>Z$, production exceeds desired spending; inventories accumulate unexpectedly and firms cut production.
+\end{itemize}
+
+\noindent
+Graphically, the Keynesian cross plots $Z$ against $Y$ together with the $45^\circ$ line (where $Z=Y$).
+The intersection determines equilibrium output.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+  \draw[->] (0,0) -- (8,0) node[below] {$Y$};
+  \draw[->] (0,0) -- (0,6) node[left] {$Z$};
+
+  % 45-degree line
+  \draw (0,0) -- (7.2,5.4) node[above right] {$Z=Y$};
+
+  % Demand line Z = A + c1 Y (illustrative)
+  \draw (0,1.2) -- (7.2,4.8) node[above right] {$Z = A + c_1Y$};
+
+  % Mark an equilibrium point (illustrative)
+  \draw[dashed] (4.8,0) -- (4.8,3.6);
+  \draw[dashed] (0,3.6) -- (4.8,3.6);
+  \fill (4.8,3.6) circle (2pt) node[above left] {$Y^\ast$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Fiscal Multipliers in the Baseline Model}
+
+\begin{keyformula}[title={Key Formula: Multipliers (holding other exogenous variables fixed)}]
+From
+\(
+Y=\dfrac{1}{1-c_1}\bigl[c_0+\bar I+G-c_1T\bigr],
+\)
+\[
+\frac{\partial Y}{\partial G} = \frac{1}{1-c_1},
+\qquad
+\frac{\partial Y}{\partial T} = -\frac{c_1}{1-c_1}.
+\]
+\end{keyformula}
+
+\noindent
+\textbf{Interpretation.}
+Government spending enters demand one-for-one, while taxes affect demand only through consumption.
+A one-unit increase in $T$ reduces disposable income by one unit, but consumption falls only by $c_1$ units.
+
+\begin{keyformula}[title={Key Formula: Geometric-series intuition for the multiplier}]
+If autonomous spending increases by $\Delta A$, then output rises in successive rounds:
+\[
+\Delta Y
+= \Delta A + c_1\Delta A + c_1^2\Delta A + \cdots
+= \frac{1}{1-c_1}\Delta A.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example (Tutorial 1, Question 1): Equilibrium GDP, disposable income, consumption}]
+\textbf{Given} (billions of euros):
+\[
+C = 480 + 0.5Y_D,\quad I=110,\quad T=70,\quad G=250.
+\]
+Solve for:
+\begin{enumerate}[label=(\alph*)]
+\item equilibrium output $Y$,
+\item disposable income $Y_D$,
+\item consumption $C$.
+\end{enumerate}
+
+\textbf{Solution.}
+Disposable income is
+\[
+Y_D = Y - T = Y - 70.
+\]
+Substitute into the consumption function:
+\[
+C = 480 + 0.5(Y-70)
+  = 480 + 0.5Y - 35
+  = 445 + 0.5Y.
+\]
+Total demand (closed economy) is
+\[
+Z = C + I + G
+  = (445 + 0.5Y) + 110 + 250
+  = 805 + 0.5Y.
+\]
+Equilibrium requires $Y=Z$:
+\[
+Y = 805 + 0.5Y
+\;\Rightarrow\;
+0.5Y = 805
+\;\Rightarrow\;
+Y = 1610.
+\]
+Then
+\[
+Y_D = Y - 70 = 1610 - 70 = 1540,
+\qquad
+C = 480 + 0.5\cdot 1540 = 480 + 770 = 1250.
+\]
+\end{examplebox}
+
+
+\newpage
+\subsection{Balanced Budget Multiplier}
+
+\begin{examplebox}[title={Worked Example (Tutorial 1, Question 3): Balanced budget multiplier}]
+Start from the equilibrium expression
+\[
+Y = \frac{1}{1-c_1}\bigl[c_0 + \bar I + G - c_1T\bigr],
+\qquad 0<c_1<1.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item By how much does $Y$ increase when $G$ increases by one unit?
+\item By how much does $Y$ change when $T$ increases by one unit?
+\item Why are the answers to (a) and (b) different?
+\item Suppose initially $G=T$ and policy changes keep the budget balanced: $\Delta G=\Delta T=1$.
+What is $\Delta Y$? Are balanced-budget changes neutral?
+\item How does the value of $c_1$ affect your answer to (d)?
+\end{enumerate}
+
+\textbf{Solution.}
+\begin{enumerate}[label=(\alph*)]
+\item Differentiate with respect to $G$:
+\[
+\frac{\partial Y}{\partial G} = \frac{1}{1-c_1}.
+\]
+So a one-unit increase in $G$ raises $Y$ by $\dfrac{1}{1-c_1}$.
+
+\item Differentiate with respect to $T$:
+\[
+\frac{\partial Y}{\partial T} = -\frac{c_1}{1-c_1}.
+\]
+So a one-unit increase in $T$ reduces $Y$ by $\dfrac{c_1}{1-c_1}$.
+
+\item A change in $G$ shifts demand directly (one-for-one).
+A change in $T$ affects demand only through consumption via disposable income, so only the fraction $c_1$ feeds into spending.
+
+\item With $\Delta G=\Delta T=1$,
+\[
+\Delta Y
+= \frac{1}{1-c_1}\Delta G - \frac{c_1}{1-c_1}\Delta T
+= \frac{1}{1-c_1} - \frac{c_1}{1-c_1}
+= 1.
+\]
+Thus a balanced-budget increase in $(G,T)$ is \textbf{not} neutral: output rises by one unit.
+
+\item The balanced-budget multiplier is
+\(
+\Delta Y = 1
+\)
+for any $0<c_1<1$.
+While $\dfrac{\partial Y}{\partial G}$ and $\dfrac{\partial Y}{\partial T}$ depend on $c_1$, their balanced-budget net effect does not.
+\end{enumerate}
+\end{examplebox}
+
+
+
+\newpage
+\subsection{Automatic Stabilizers: Income-Dependent Taxes}
+
+\begin{definition}{Automatic stabilizers (in the goods-market model)}{def:automatic_stabilizers}
+Taxes often increase with income. If net taxes follow
+\(
+T=t_0+t_1Y
+\)
+with $0<t_1<1$, then part of any increase in income is automatically taxed away,
+dampening fluctuations in disposable income, consumption, and output.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example (Tutorial 1, Question 4): Income-dependent taxes and the multiplier}]
+Consider:
+\[
+C = c_0 + c_1Y_D,\qquad
+T = t_0 + t_1Y,\qquad
+Y_D = Y - T,
+\]
+with constant $G$ and $I=\bar I$, and $0<t_1<1$.
+\begin{enumerate}[label=(\alph*)]
+\item Solve for equilibrium output $Y$.
+\item What is the multiplier on autonomous spending? Compare $t_1=0$ vs.\ $t_1>0$.
+\item Explain why this tax system acts as an automatic stabilizer.
+\end{enumerate}
+
+\textbf{Solution.}
+First compute disposable income:
+\[
+Y_D = Y - (t_0+t_1Y) = (1-t_1)Y - t_0.
+\]
+Then consumption is
+\[
+C = c_0 + c_1Y_D
+  = c_0 + c_1\bigl[(1-t_1)Y - t_0\bigr]
+  = (c_0 - c_1t_0) + c_1(1-t_1)Y.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Goods-market equilibrium $Y=C+\bar I+G$ implies
+\[
+Y = (c_0 - c_1t_0) + c_1(1-t_1)Y + \bar I + G.
+\]
+Move the $Y$ term to the left:
+\[
+\bigl[1-c_1(1-t_1)\bigr]Y = (c_0 - c_1t_0) + \bar I + G.
+\]
+Hence
+\[
+Y = \frac{(c_0 - c_1t_0) + \bar I + G}{1-c_1(1-t_1)}.
+\]
+
+\item The multiplier on autonomous spending (the numerator term) is
+\[
+\frac{1}{1-c_1(1-t_1)}.
+\]
+If $t_1=0$, it reduces to $\dfrac{1}{1-c_1}$.
+If $t_1>0$, then $1-c_1(1-t_1) > 1-c_1$, so the multiplier is smaller:
+income-dependent taxes dampen the response of $Y$ to shocks.
+
+\item When $Y$ rises, $T$ rises automatically, reducing $Y_D$ and hence moderating the increase in $C$.
+When $Y$ falls, $T$ falls automatically, cushioning $Y_D$ and $C$.
+This automatic offset stabilizes output without requiring discretionary policy changes.
+\end{enumerate}
+\end{examplebox}
+
+\begin{policynote}
+\textbf{Policy implication (short run).}
+In the baseline goods-market framework, discretionary fiscal expansions (higher $G$ or lower $T$) increase equilibrium output through the multiplier.
+With income-dependent taxes, the economy becomes less sensitive to shocks: automatic stabilizers reduce the effective multiplier, dampening both booms and recessions.
+\end{policynote}
+
+\subsection{Investment Equals Saving: An Equivalent Equilibrium Condition}
+
+\begin{definition}{Private, public, and national saving}{def:saving_definitions}
+Private saving is disposable income not consumed:
+\[
+S \equiv Y_D - C = Y - T - C.
+\]
+Public saving is the government budget surplus:
+\[
+T-G \quad \bigl(>0\ \text{surplus},\ <0\ \text{deficit}\bigr).
+\]
+National saving is the sum of private and public saving: $S + (T-G)$.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Investment equals national saving (closed economy)}]
+Starting from goods-market equilibrium $Y=C+I+G$,
+\[
+Y - T - C = I + G - T.
+\]
+Since $S \equiv Y-T-C$, this becomes
+\[
+S = I + G - T
+\quad\Longleftrightarrow\quad
+I = S + (T-G).
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+In a closed economy with a government, the correct saving--investment relation is
+\[
+I = S + (T-G),
+\]
+not $I=S$.
+Forgetting the public saving term $(T-G)$ leads to incorrect conclusions about how fiscal deficits relate to investment.
+\end{commonmistake}
+
+\noindent
+\textbf{Deriving the same equilibrium output via saving.}
+From $C=c_0+c_1(Y-T)$, private saving is
+\[
+S = Y - T - C
+  = Y - T - c_0 - c_1(Y-T)
+  = -c_0 + (1-c_1)(Y-T).
+\]
+Impose the equilibrium condition $I = S + (T-G)$ with $I=\bar I$:
+\[
+\bar I = \bigl[-c_0 + (1-c_1)(Y-T)\bigr] + (T-G).
+\]
+Expand and collect $Y$ terms:
+\[
+\bar I = -c_0 + (1-c_1)Y - (1-c_1)T + T - G
+      = -c_0 + (1-c_1)Y + c_1T - G.
+\]
+Move constants to the right:
+\[
+(1-c_1)Y = c_0 + \bar I + G - c_1T
+\quad\Rightarrow\quad
+Y = \frac{1}{1-c_1}\bigl[c_0+\bar I+G-c_1T\bigr],
+\]
+which matches Theorem~\ref{thm:equilibrium_output}.
+
+\begin{examtip}
+High-frequency exam tasks for the goods-market chapter:
+\begin{itemize}
+\item Write down the model primitives and classify variables as endogenous vs.\ exogenous.
+\item Derive equilibrium output algebraically from $Y=Z$; simplify carefully.
+\item Compute $\frac{\partial Y}{\partial G}$ and $\frac{\partial Y}{\partial T}$; explain intuitively why the tax multiplier differs.
+\item Solve for $Y$ under a balanced-budget change $\Delta G=\Delta T$ and interpret the result.
+\item Use the saving framework to show $I=S+(T-G)$ and derive equilibrium output as a consistency check.
+\item Explain (in words) how income-dependent taxes reduce the multiplier and why this is an automatic stabilizer.
+\end{itemize}
+\end{examtip}

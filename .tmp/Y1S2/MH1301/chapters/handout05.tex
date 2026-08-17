@@ -1,0 +1,717 @@
+% Source reference: :contentReference[oaicite:0]{index=0}
+\part{Recurrence Relations}
+\section{Handout 05: Linear Homogeneous Recurrence Relations}
+
+\subsection{Overview}
+
+This handout studies how to \emph{solve} linear homogeneous recurrence relations with constant coefficients. The main ideas are:
+\begin{itemize}[leftmargin=*]
+    \item the definition of a linear homogeneous recurrence relation of degree $k$;
+    \item uniqueness once $k$ initial conditions are specified;
+    \item the characteristic equation;
+    \item the solution form for degree-$2$ recurrences with distinct roots;
+    \item the modified solution form for repeated roots;
+    \item the extension to higher degree and, optionally, repeated multiplicities.
+\end{itemize}
+
+The main modelling principle is that a recurrence relation is converted into an algebraic equation by testing exponential trial solutions of the form
+\[
+a_n=r^n.
+\]
+
+\begin{examtip}[title={Main workflow for this handout}]
+To solve a linear homogeneous recurrence with constant coefficients:
+\begin{enumerate}[leftmargin=*]
+    \item write down the characteristic equation;
+    \item find its characteristic roots;
+    \item write the correct general solution form from the root structure;
+    \item use the initial conditions to determine the constants.
+\end{enumerate}
+\end{examtip}
+
+%==================================================
+\subsection{Linear Homogeneous Recurrence Relations}
+%==================================================
+
+\begin{definition}{Linear homogeneous recurrence relation}{linear-homogeneous}
+A \emph{linear homogeneous recurrence relation of degree $k$ with constant coefficients} is a recurrence relation of the form
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\]
+where $c_1,\dots,c_k$ are real constants and
+\[
+c_k\neq 0.
+\]
+\end{definition}
+
+The adjectives in the definition matter:
+\begin{itemize}[leftmargin=*]
+    \item \emph{linear}: the terms $a_{n-1},\dots,a_{n-k}$ appear only to the first power and are not multiplied together;
+    \item \emph{homogeneous}: there is no extra term independent of the sequence values;
+    \item \emph{constant coefficients}: the coefficients $c_1,\dots,c_k$ do not depend on $n$.
+\end{itemize}
+
+\begin{examplebox}[title={Examples and non-examples}]
+\[
+f_n=f_{n-1}+f_{n-2}
+\]
+is linear, homogeneous, degree $2$, with constant coefficients.
+
+\[
+a_n=a_{n-1}+a_{n-2}^2
+\]
+is not linear.
+
+\[
+H_n=H_{n-1}+2
+\]
+is not homogeneous.
+
+\[
+X_n=nX_{n-1}
+\]
+does not have constant coefficients.
+\end{examplebox}
+
+\begin{keyformula}[title={General form}]
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\qquad c_k\neq 0.
+\]
+\end{keyformula}
+
+\begin{commonmistake}[title={Checking only the shape of the left-hand side}]
+A recurrence can look similar to the standard form and still fail one of the required conditions. Always check linearity, homogeneity, and constancy of coefficients separately.
+\end{commonmistake}
+
+%==================================================
+\subsection{Uniqueness from Initial Conditions}
+%==================================================
+
+\begin{theorem}{Uniqueness of solutions}{uniqueness}
+Suppose
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k}
+\]
+is a linear homogeneous recurrence relation of degree $k$, and suppose the initial values
+\[
+a_0,a_1,\dots,a_{k-1}
+\]
+are given. Then the sequence $(a_n)$ is uniquely determined.
+\end{theorem}
+
+\begin{proof}
+The recurrence gives $a_k$ in terms of $a_0,\dots,a_{k-1}$. Once $a_k$ is determined, it gives $a_{k+1}$ in terms of $a_1,\dots,a_k$, and so on. By repeated application, every later term is determined uniquely from the recurrence and the initial data.
+\end{proof}
+
+\begin{examtip}[title={Why the number of initial conditions equals the degree}]
+A degree-$k$ recurrence refers back to the previous $k$ terms. Therefore one needs exactly $k$ starting values to determine the entire sequence.
+\end{examtip}
+
+%==================================================
+\subsection{Characteristic Equation}
+%==================================================
+
+The central idea is to test whether the recurrence admits solutions of exponential form.
+
+\begin{theorem}{Characteristic equation principle}{characteristic-principle}
+For the recurrence
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\]
+if we substitute a trial solution
+\[
+a_n=r^n,
+\]
+then $r$ must satisfy
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0.
+\]
+This polynomial equation is called the \emph{characteristic equation}.
+\end{theorem}
+
+\begin{proof}
+Substituting $a_n=r^n$ into the recurrence gives
+\[
+r^n=c_1r^{n-1}+c_2r^{n-2}+\cdots+c_kr^{n-k}.
+\]
+Assuming $r\neq 0$, divide by $r^{n-k}$ to obtain
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0.
+\]
+This is the required polynomial equation.
+\end{proof}
+
+\begin{keyformula}[title={Characteristic equation}]
+For
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\]
+the characteristic equation is
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Characteristic equations}]
+For
+\[
+f_n=f_{n-1}+f_{n-2},
+\]
+the characteristic equation is
+\[
+r^2-r-1=0.
+\]
+
+For
+\[
+a_n=a_{n-1}+3a_{n-2}-2a_{n-3},
+\]
+the characteristic equation is
+\[
+r^3-r^2-3r+2=0.
+\]
+\end{examplebox}
+
+\begin{extension}[title={Why exponential trial solutions are natural}]
+A linear homogeneous recurrence with constant coefficients treats every time step in exactly the same way. Exponential sequences are the discrete analogue of eigenfunctions for such translation-invariant operators, which is why the characteristic-equation method works so cleanly.
+\end{extension}
+
+%==================================================
+\subsection{Degree 2 with Distinct Roots}
+%==================================================
+
+We now focus on
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}.
+\]
+Its characteristic equation is
+\[
+r^2-c_1r-c_2=0.
+\]
+
+\begin{theorem}{Distinct-root case for degree 2}{distinct-root-degree-two}
+Suppose the characteristic equation
+\[
+r^2-c_1r-c_2=0
+\]
+has two distinct roots $r_1$ and $r_2$. Then a sequence $(a_n)$ satisfies
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}
+\]
+if and only if
+\[
+a_n=h_1r_1^n+h_2r_2^n
+\qquad (n=0,1,2,\dots),
+\]
+for some constants $h_1,h_2$.
+\end{theorem}
+
+\begin{proof}
+Since $r_1$ and $r_2$ are roots of the characteristic equation,
+\[
+r_1^2=c_1r_1+c_2,\qquad r_2^2=c_1r_2+c_2.
+\]
+Hence, if
+\[
+a_n=h_1r_1^n+h_2r_2^n,
+\]
+then
+\begin{align*}
+c_1a_{n-1}+c_2a_{n-2}
+&=c_1(h_1r_1^{n-1}+h_2r_2^{n-1})+c_2(h_1r_1^{n-2}+h_2r_2^{n-2})\\
+&=h_1r_1^{n-2}(c_1r_1+c_2)+h_2r_2^{n-2}(c_1r_2+c_2)\\
+&=h_1r_1^n+h_2r_2^n\\
+&=a_n.
+\end{align*}
+This proves the ``if'' direction. The converse follows from uniqueness: the initial conditions determine unique values of $h_1,h_2$, and any solution with the same initial conditions must coincide with this form.
+\end{proof}
+
+\subsubsection{Determining the constants}
+
+Given initial values $a_0$ and $a_1$, solve
+\[
+a_0=h_1+h_2,
+\qquad
+a_1=h_1r_1+h_2r_2.
+\]
+Since $r_1\neq r_2$, the constants are uniquely determined:
+\[
+h_1=\frac{a_1-a_0r_2}{r_1-r_2},
+\qquad
+h_2=\frac{a_0r_1-a_1}{r_1-r_2}.
+\]
+
+\begin{examplebox}[title={Example 3 from the handout}]
+Solve
+\[
+a_n=a_{n-1}+2a_{n-2},
+\qquad
+a_0=2,\ a_1=7.
+\]
+
+The characteristic equation is
+\[
+r^2-r-2=0=(r-2)(r+1),
+\]
+so the roots are
+\[
+r_1=2,\qquad r_2=-1.
+\]
+Hence
+\[
+a_n=h_1\,2^n+h_2(-1)^n.
+\]
+Use the initial conditions:
+\[
+2=h_1+h_2,
+\qquad
+7=2h_1-h_2.
+\]
+Solving gives
+\[
+h_1=3,\qquad h_2=-1.
+\]
+Therefore
+\[
+\boxed{a_n=3\cdot 2^n-(-1)^n.}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Fibonacci sequence}]
+Solve
+\[
+f_n=f_{n-1}+f_{n-2},
+\qquad
+f_0=0,\ f_1=1.
+\]
+
+The characteristic equation is
+\[
+r^2-r-1=0,
+\]
+whose roots are
+\[
+r_1=\frac{1+\sqrt5}{2},
+\qquad
+r_2=\frac{1-\sqrt5}{2}.
+\]
+Hence
+\[
+f_n=h_1r_1^n+h_2r_2^n.
+\]
+Using
+\[
+0=h_1+h_2,
+\qquad
+1=h_1r_1+h_2r_2,
+\]
+one obtains
+\[
+h_1=\frac{1}{\sqrt5},
+\qquad
+h_2=-\frac{1}{\sqrt5}.
+\]
+Therefore
+\[
+\boxed{
+f_n=
+\frac{1}{\sqrt5}\left(\frac{1+\sqrt5}{2}\right)^n
+-
+\frac{1}{\sqrt5}\left(\frac{1-\sqrt5}{2}\right)^n
+}.
+\]
+\end{examplebox}
+
+\begin{commonmistake}[title={Forgetting to use both initial conditions}]
+For a degree-$2$ recurrence, the general solution contains two constants. Both initial conditions are needed to determine them.
+\end{commonmistake}
+
+%==================================================
+\subsection{Repeated Root for Degree 2}
+%==================================================
+
+If the characteristic equation has only one root, the previous two-term form collapses and must be modified.
+
+\begin{theorem}{Repeated-root case for degree 2}{repeated-root-degree-two}
+Suppose the recurrence
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}
+\]
+has characteristic equation
+\[
+r^2-c_1r-c_2=0
+\]
+with a repeated root $r_0$. Then $(a_n)$ is a solution if and only if
+\[
+a_n=h_1r_0^n+h_2nr_0^n
+=(h_1+h_2n)r_0^n
+\qquad (n=0,1,2,\dots),
+\]
+for some constants $h_1,h_2$.
+\end{theorem}
+
+\begin{keyformula}[title={Repeated-root form}]
+If the characteristic equation has repeated root $r_0$, then
+\[
+a_n=(h_1+h_2n)r_0^n.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Plant model from the handout}]
+Each plant reproduces once during the first year of its life, then never again, and all plants live forever. Assume there is $1$ plant in year $1$. Let $p_n$ be the number of plants in year $n$.
+
+From the handout,
+\[
+p_0=0,\qquad p_1=1,
+\]
+and
+\[
+p_n=p_{n-1}+(p_{n-1}-p_{n-2})=2p_{n-1}-p_{n-2}.
+\]
+The characteristic equation is
+\[
+r^2-2r+1=0=(r-1)^2,
+\]
+so the repeated root is
+\[
+r_0=1.
+\]
+Hence
+\[
+p_n=(h_1+h_2n)1^n=h_1+h_2n.
+\]
+Using
+\[
+p_0=0,\qquad p_1=1,
+\]
+we get
+\[
+h_1=0,\qquad h_2=1.
+\]
+Therefore
+\[
+\boxed{p_n=n.}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Example 5 from the handout}]
+Solve
+\[
+a_n=6a_{n-1}-9a_{n-2},
+\qquad
+a_0=1,\ a_1=6.
+\]
+
+The characteristic equation is
+\[
+r^2-6r+9=0=(r-3)^2,
+\]
+so the repeated root is
+\[
+r_0=3.
+\]
+Hence
+\[
+a_n=(h_1+h_2n)3^n.
+\]
+Use the initial conditions:
+\[
+1=a_0=h_1,
+\]
+and
+\[
+6=a_1=(h_1+h_2)3=(1+h_2)3.
+\]
+Thus
+\[
+h_2=1.
+\]
+Therefore
+\[
+\boxed{a_n=(n+1)3^n.}
+\]
+\end{examplebox}
+
+\begin{extension}[title={Why the extra factor of $n$ appears}]
+When a root is repeated, the two naive solutions $r_0^n$ and $r_0^n$ are linearly dependent, so they do not provide enough freedom to satisfy arbitrary initial conditions. The extra factor $n$ creates a second independent solution.
+\end{extension}
+
+%==================================================
+\subsection{Higher Degree with Distinct Roots}
+%==================================================
+
+The degree-$2$ picture extends directly to higher degree.
+
+\begin{theorem}{Degree $k$ with distinct roots}{degree-k-distinct}
+Consider
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\]
+and suppose its characteristic equation
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0
+\]
+has $k$ distinct roots
+\[
+r_1,r_2,\dots,r_k.
+\]
+Then the general solution is
+\[
+a_n=h_1r_1^n+h_2r_2^n+\cdots+h_kr_k^n,
+\]
+where the constants $h_1,\dots,h_k$ are determined by the $k$ initial conditions.
+\end{theorem}
+
+\begin{examplebox}[title={Example 6 from the handout}]
+Solve
+\[
+a_n=6a_{n-1}-11a_{n-2}+6a_{n-3},
+\qquad
+a_0=2,\ a_1=5,\ a_2=15.
+\]
+
+The characteristic equation is
+\[
+r^3-6r^2+11r-6=0.
+\]
+It factors as
+\[
+(r-1)(r-2)(r-3)=0,
+\]
+so the roots are
+\[
+1,\ 2,\ 3.
+\]
+Hence
+\[
+a_n=h_1\cdot 1^n+h_2\cdot 2^n+h_3\cdot 3^n.
+\]
+Use the initial conditions:
+\[
+2=h_1+h_2+h_3,
+\]
+\[
+5=h_1+2h_2+3h_3,
+\]
+\[
+15=h_1+4h_2+9h_3.
+\]
+Solving gives
+\[
+h_1=1,\qquad h_2=-1,\qquad h_3=2.
+\]
+Therefore
+\[
+\boxed{a_n=1-2^n+2\cdot 3^n.}
+\]
+\end{examplebox}
+
+\begin{examtip}[title={Higher-degree structure}]
+For degree $k$, the number of arbitrary constants in the solution must match the number of initial conditions. Distinct characteristic roots supply exactly one independent exponential term each.
+\end{examtip}
+
+%==================================================
+\subsection{Multiplicity (Optional)}
+%==================================================
+
+\begin{definition}{Multiplicity of a root}{multiplicity-def}
+Suppose the characteristic polynomial factors as
+\[
+(r-r_1)^{m_1}(r-r_2)^{m_2}\cdots(r-r_t)^{m_t},
+\]
+where $r_1,\dots,r_t$ are distinct and
+\[
+m_1+m_2+\cdots+m_t=k.
+\]
+Then $r_i$ is said to be a root of multiplicity $m_i$.
+\end{definition}
+
+\begin{theorem}{General multiplicity form (optional)}{multiplicity-theorem}
+If the characteristic equation of a degree-$k$ linear homogeneous recurrence has distinct roots
+\[
+r_1,\dots,r_t
+\]
+with multiplicities
+\[
+m_1,\dots,m_t,
+\]
+then the general solution is
+\[
+a_n=
+(h_{1,0}+h_{1,1}n+\cdots+h_{1,m_1-1}n^{m_1-1})r_1^n
++\cdots+
+(h_{t,0}+h_{t,1}n+\cdots+h_{t,m_t-1}n^{m_t-1})r_t^n.
+\]
+\end{theorem}
+
+\begin{examplebox}[title={Optional repeated-root example}]
+Solve
+\[
+a_n=-3a_{n-1}-3a_{n-2}-a_{n-3},
+\qquad
+a_0=1,\ a_1=-2,\ a_2=-1.
+\]
+
+The characteristic equation is
+\[
+r^3+3r^2+3r+1=0=(r+1)^3.
+\]
+So the root $-1$ has multiplicity $3$. Hence
+\[
+a_n=(h_{1,0}+h_{1,1}n+h_{1,2}n^2)(-1)^n.
+\]
+Using the given initial conditions, one finds
+\[
+h_{1,0}=1,\qquad h_{1,1}=3,\qquad h_{1,2}=-2.
+\]
+Therefore
+\[
+\boxed{a_n=(1+3n-2n^2)(-1)^n.}
+\]
+\end{examplebox}
+
+\begin{extension}[title={Repeated roots produce polynomial factors}]
+Multiplicity $m$ of a root $r$ produces the family
+\[
+r^n,\ nr^n,\ n^2r^n,\ \dots,\ n^{m-1}r^n.
+\]
+These are the discrete recurrence analogues of repeated-root solution forms in linear differential equations.
+\end{extension}
+
+%==================================================
+\subsection{Simultaneous Recurrence Relations}
+%==================================================
+
+The handout also introduces systems such as
+\[
+a_n=a_{n-1}+b_{n-1},
+\qquad
+b_n=a_{n-1}-b_{n-1},
+\]
+with
+\[
+a_0=1,\qquad b_0=2.
+\]
+
+A standard approach is to eliminate one variable.
+
+\begin{examplebox}[title={Eliminating one variable in a system}]
+From
+\[
+a_n=a_{n-1}+b_{n-1},
+\qquad
+b_n=a_{n-1}-b_{n-1},
+\]
+we obtain
+\[
+a_{n+1}=a_n+b_n.
+\]
+But
+\[
+b_n=a_{n-1}-b_{n-1}=a_{n-1}-(a_n-a_{n-1})=2a_{n-1}-a_n.
+\]
+Hence
+\[
+a_{n+1}=a_n+(2a_{n-1}-a_n)=2a_{n-1}.
+\]
+So $a_n$ satisfies the second-order recurrence
+\[
+a_{n+1}=2a_{n-1}.
+\]
+Using
+\[
+a_0=1,\qquad a_1=a_0+b_0=3,
+\]
+one can continue or solve this reduced recurrence directly. Once $(a_n)$ is known, recover $(b_n)$ from
+\[
+b_n=a_n-a_{n-1}.
+\]
+\end{examplebox}
+
+\begin{examtip}[title={System strategy}]
+For simultaneous recurrences, try to reduce the system to one recurrence in one variable by substitution or elimination. After that, solve the reduced recurrence using the characteristic equation.
+\end{examtip}
+
+%==================================================
+\subsection{Special Techniques}
+%==================================================
+
+\subsubsection*{1. Trial solution \(a_n=r^n\)}
+For linear homogeneous recurrences with constant coefficients, this is the standard gateway to the characteristic equation.
+
+\subsubsection*{2. Distinguish root structure first}
+Before using initial conditions, decide whether the characteristic polynomial has:
+\begin{itemize}[leftmargin=*]
+    \item distinct roots,
+    \item repeated roots,
+    \item or several roots with multiplicities.
+\end{itemize}
+
+\subsubsection*{3. Match the number of constants to the degree}
+A degree-$k$ recurrence requires $k$ arbitrary constants in the general solution form.
+
+\subsubsection*{4. Solve the linear system cleanly}
+After finding the general form, substitute the initial conditions immediately and solve for the constants in an organized way.
+
+\subsubsection*{5. Eliminate variables in simultaneous systems}
+When two sequences are coupled, try to derive a single recurrence for one of them first.
+
+\subsubsection*{6. Check small values}
+After finding a closed form, verify the first few terms against the recurrence and the initial data.
+
+\begin{commonmistake}[title={Using the wrong repeated-root form}]
+If the characteristic polynomial has a repeated root, the form
+\[
+h_1r^n+h_2r^n
+\]
+is not correct, because the two terms are the same. The correct second independent term is
+\[
+nr^n.
+\]
+\end{commonmistake}
+
+%==================================================
+\subsection{Summary Table}
+%==================================================
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}p{0.33\textwidth}p{0.28\textwidth}p{0.28\textwidth}@{}}
+\toprule
+\textbf{Recurrence type} & \textbf{Characteristic data} & \textbf{General solution form} \\
+\midrule
+Degree $2$ & distinct roots $r_1,r_2$ &
+\[
+a_n=h_1r_1^n+h_2r_2^n
+\]
+\\[1.0em]
+Degree $2$ & repeated root $r_0$ &
+\[
+a_n=(h_1+h_2n)r_0^n
+\]
+\\[1.0em]
+Degree $k$ & distinct roots $r_1,\dots,r_k$ &
+\[
+a_n=h_1r_1^n+\cdots+h_kr_k^n
+\]
+\\[1.0em]
+Degree $k$ & root $r_i$ of multiplicity $m_i$ &
+\[
+(\text{polynomial in }n\text{ of degree }m_i-1)r_i^n
+\]
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}[title={Final checklist for Handout 05}]
+Before finalizing a solution, confirm:
+\begin{enumerate}[leftmargin=*]
+    \item the recurrence is linear, homogeneous, and has constant coefficients;
+    \item the characteristic equation is written correctly;
+    \item the root structure has been identified correctly;
+    \item the general solution form matches that root structure;
+    \item the initial conditions have been used to determine all constants.
+\end{enumerate}
+\end{examtip}

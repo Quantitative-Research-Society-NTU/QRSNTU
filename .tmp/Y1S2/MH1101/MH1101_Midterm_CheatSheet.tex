@@ -1,0 +1,264 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.35in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{atbegshi}
+
+% =========================
+% 2-page hard cap
+% =========================
+\AtBeginShipout{%
+  \ifnum\value{page}>2
+    \AtBeginShipoutDiscard
+  \fi
+}
+
+% =========================
+% Watermark (optional)
+% =========================
+\SetWatermarkText{QRS@NTU - qrsntu.org}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{12pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize\textbf{MH1101 Cheat Sheet (Midterm)}}
+\fancyhead[R]{\normalsize\textbf{QRS@NTU}}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.15em}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.95}
+
+% =========================
+% Headings readability
+% =========================
+\titleformat{\section}
+  {\bfseries\normalsize}
+  {}
+  {0pt}
+  {\underline}
+\titleformat{\subsection}
+  {\bfseries\small}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
+
+% =========================
+% Quick macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\FS}{\textit{Formula Sheet}}
+\newcommand{\dx}{\,dx}
+\newcommand{\dy}{\,dy}
+
+\begin{document}
+
+% =========================
+% PAGE 1
+% =========================
+\begin{multicols}{3}
+\footnotesize
+\raggedcolumns
+
+\section*{Definite integrals \& FTC (Ch1)}
+\subsection*{Riemann sum / net area}
+$\displaystyle \int_a^b f(x)\,dx:=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x$, $\Delta x=\frac{b-a}{n}$, $x_i^*\in[x_{i-1},x_i]$ (if limit exists, independent of $x_i^*$).\
+Net area: above $x$-axis minus below.
+
+\subsection*{Core properties (integrable on $[a,b]$)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Linearity: $\int_a^b(\alpha f+\beta g)=\alpha\int_a^b f+\beta\int_a^b g$;\quad $\int_a^a f=0$;\quad $\int_a^b f=-\int_b^a f$.\\
+Additivity: $\int_a^b f=\int_a^c f+\int_c^b f$.\\
+Order: $f\ge g\Rightarrow \int_a^b f\ge\int_a^b g$;\quad $m\le f\le M\Rightarrow m(b-a)\le\int_a^b f\le M(b-a)$.\\
+Symmetry: $f$ odd $\Rightarrow\int_{-a}^a f=0$; $f$ even $\Rightarrow\int_{-a}^a f=2\int_0^a f$.\\
+\end{tabular}
+
+\subsection*{FTC (conditions matter)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+FTC I: $f$ cont on $[a,b]$, $F(x)=\int_a^x f(t)dt\Rightarrow F'(x)=f(x)$ on $(a,b)$.\\
+Leibniz (upper limit): $\frac{d}{dx}\int_a^{g(x)} f(t)dt=f(g(x))g'(x)$ (\ $f$ cont, $g$ diff).\\
+FTC II: $f$ cont on $[a,b]$, $F'=f\Rightarrow\int_a^b f(x)dx=F(b)-F(a)$.\\
+Average value: $f_{\text{avg}}=\frac{1}{b-a}\int_a^b f(x)dx$ (cont).\\
+MVT (integrals): $f$ cont $\Rightarrow\exists c\in(a,b)$ s.t. $\int_a^b f=f(c)(b-a)$, so $f_{\text{avg}}=f(c)$.\\
+\end{tabular}
+
+\subsection*{$u$-substitution}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Indef: $u=g(x)$ diff $\Rightarrow\int f(g(x))g'(x)dx=\int f(u)du$.\\
+Def: $g\in C^1[a,b]$, $f$ cont on range$(g)$:\ $\int_a^b f(g(x))g'(x)dx=\int_{g(a)}^{g(b)} f(u)du$ (change limits).\\
+Heuristic: spot \textbf{inner} $g(x)$ + missing $g'(x)$.\\
+\end{tabular}
+
+\subsection*{Improper integrals}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Type 1 (infinite): $\int_a^{\infty} f:=\lim_{t\to\infty}\int_a^t f$; $\int_{-\infty}^b f:=\lim_{t\to-\infty}\int_t^b f$.\\
+Type 2 (blow-up): if $f\to\infty$ at $a^+$, then $\int_a^b f:=\lim_{t\to a^+}\int_t^b f$ (split at interior singularities).\\
+$p$-tests: $\int_1^{\infty} x^{-p}dx$ conv $\Leftrightarrow p>1$;\ $\int_0^1 x^{-p}dx$ conv $\Leftrightarrow p<1$.\\
+Comparison: $0\le f\le g$, $\int g$ conv $\Rightarrow\int f$ conv;\ $0\le g\le f$, $\int g$ div $\Rightarrow\int f$ div.\\
+Limit comparison: $f,g>0$, $\lim f/g=c\in(0,\infty)\Rightarrow$ same conv/div.\\
+\end{tabular}
+
+\section*{Techniques of integration (Ch3)}
+
+\subsection*{Integration by parts (IBP)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+IBP: $\displaystyle\int u\,dv=uv-\int v\,du$.\\
+Def IBP: $\displaystyle\int_a^b u\,dv=[uv]_a^b-\int_a^b v\,du$.\\
+Choose $u$: \textbf{L}og, \textbf{I}nv trig, \textbf{A}lgebraic, \textbf{T}rig, \textbf{E}xp (LIATE).\\
+Tabular (poly$\times$trig/exp): alternate signs, differentiate poly to $0$, integrate other factor repeatedly.\\
+Repeated-cycle: set $I=\int e^{ax}\sin bx\,dx$ or $\int e^{ax}\cos bx\,dx$, IBP twice $\Rightarrow$ solve for $I$.\\
+\end{tabular}
+
+\subsection*{High-yield closed forms (from repeated IBP)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\displaystyle\int e^{ax}\sin bx\,dx=\frac{e^{ax}}{a^2+b^2}\big(a\sin bx-b\cos bx\big)+C$ ($a,b\in\R$).\\
+$\displaystyle\int e^{ax}\cos bx\,dx=\frac{e^{ax}}{a^2+b^2}\big(a\cos bx+b\sin bx\big)+C$.\\
+\end{tabular}
+
+\subsection*{Trig integrals: pattern selection (no identities here)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\int\sin^m x\cos^n x\,dx$:\ \(n\) odd $\Rightarrow$ save $\cos x\,dx$, convert rest via \FS, $u=\sin x$.\quad \(m\) odd $\Rightarrow$ save $\sin x\,dx$, $u=\cos x$.\quad both even $\Rightarrow$ power-reduction (\FS).\\
+$\int\tan^m x\sec^n x\,dx$:\ \(n\) even $\Rightarrow$ save $\sec^2x\,dx$, $u=\tan x$ (convert rest via \FS).\quad \(m\) odd $\Rightarrow$ save $\sec x\tan x\,dx$, $u=\sec x$.\\
+Mixed arguments (e.g. $\sin kx\cos mx$): product-to-sum (\FS).\\
+\end{tabular}
+
+\subsection*{Trig substitution: radicals $\sqrt{\cdot}$}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$\sqrt{a^2-x^2}$: $x=a\sin\theta$, $dx=a\cos\theta\,d\theta$, $\sqrt{a^2-x^2}=a\cos\theta$.\\
+$\sqrt{a^2+x^2}$: $x=a\tan\theta$, $dx=a\sec^2\theta\,d\theta$, $\sqrt{a^2+x^2}=a\sec\theta$.\\
+$\sqrt{x^2-a^2}$: $x=a\sec\theta$, $dx=a\sec\theta\tan\theta\,d\theta$, $\sqrt{x^2-a^2}=a\tan\theta$.\\
+Back-sub: draw triangle (e.g. $x=a\sin\theta$) or use $\theta=\arcsin(x/a)$ etc (\FS has inv-trig info).\\
+Complete square first for quadratics under $\sqrt{\cdot}$.\\
+\end{tabular}
+
+\subsection*{Partial fractions (PF)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Pre-step: if $\deg P\ge\deg Q$ do long division. Factor $Q$ over $\R$.\\
+Templates:\ (i) $(ax+b)^r$: $\sum_{k=1}^r \frac{A_k}{(ax+b)^k}$.\quad (ii) $(ax^2+bx+c)^r$ irreducible: $\sum_{k=1}^r \frac{A_k x+B_k}{(ax^2+bx+c)^k}$.\\
+Fast solve: distinct linear factors $\Rightarrow$ cover-up (evaluate at roots) + solve leftovers.\\
+Quadratic term: write $Ax+B=\lambda(2ax+b)+\mu$ to get $\lambda\ln|ax^2+bx+c|$ + arctan after completing square (arctan integral: \FS).\\
+\end{tabular}
+
+\section*{Applications of integration (Ch2)}
+\subsection*{Area between curves}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+W.r.t. $x$ (vertical slices): $A=\int_{x=a}^{b}(\text{top}-\text{bottom})\,dx$ (split where curves cross).\\
+W.r.t. $y$ (horizontal slices): $A=\int_{y=c}^{d}(\text{right}-\text{left})\,dy$ (avoid splitting if possible).\\
+Bounds: solve intersections; ensure integrand $\ge 0$ on each piece.\\
+\end{tabular}
+
+\subsection*{Volumes: general slicing}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+General: $V=\int A(x)\,dx$ (slices $\perp x$-axis) or $V=\int A(y)\,dy$ (slices $\perp y$-axis).\\
+Units check: $A$ has (length)$^2$ $\Rightarrow$ $V$ has (length)$^3$.\\
+\end{tabular}
+
+\subsection*{Volumes: disks / washers (revolution)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+About horizontal axis $y=c$ using $dx$:\ $R_{out}(x)=|y_{top}(x)-c|$, $R_{in}(x)=|y_{bot}(x)-c|$,\\
+\hspace*{1.2em}$V=\pi\int_a^b\big(R_{out}^2-R_{in}^2\big)\,dx$.\\
+About vertical axis $x=c$ using $dy$:\ $R_{out}(y)=|x_{right}(y)-c|$, $R_{in}(y)=|x_{left}(y)-c|$,\\
+\hspace*{1.2em}$V=\pi\int_c^d\big(R_{out}^2-R_{in}^2\big)\,dy$.\\
+Rule: washers slice \textbf{perpendicular} to axis (avoid hard inverses; else use shells).\\
+\end{tabular}
+
+\subsection*{Volumes: cylindrical shells (revolution)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+About vertical axis $x=c$ using $dx$ (vertical strips):\\
+\hspace*{1.2em}$r(x)=|x-c|$, $h(x)=y_{top}-y_{bot}$,\quad $V=2\pi\int_a^b r(x)h(x)\,dx$.\\
+About horizontal axis $y=c$ using $dy$ (horizontal strips):\\
+\hspace*{1.2em}$r(y)=|y-c|$, $h(y)=x_{right}-x_{left}$,\quad $V=2\pi\int_c^d r(y)h(y)\,dy$.\\
+Rule: shells slice \textbf{parallel} to axis.\\
+\end{tabular}
+
+\subsection*{Arc length}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+If $y=f(x)$, $f'\in C[a,b]$: $\displaystyle L=\int_a^b\sqrt{1+(f'(x))^2}\,dx$.\\
+If $x=g(y)$, $g'\in C[c,d]$: $\displaystyle L=\int_c^d\sqrt{1+(g'(y))^2}\,dy$.\\
+(Parametric, if used): $L=\int_\alpha^\beta\sqrt{(x')^2+(y')^2}\,dt$.\\
+\end{tabular}
+
+\subsection*{Surface area of revolution}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+About $x$-axis ($y\ge 0$): $\displaystyle S=2\pi\int_a^b f(x)\sqrt{1+(f')^2}\,dx$.\\
+About $y=c$: $\displaystyle S=2\pi\int_a^b |f(x)-c|\sqrt{1+(f')^2}\,dx$.\\
+About $y$-axis with $x=g(y)\ge 0$: $\displaystyle S=2\pi\int_c^d g(y)\sqrt{1+(g')^2}\,dy$.\\
+Mnemonic: $S=\int 2\pi(\text{radius})\,ds$, where $ds=\sqrt{1+(f')^2}\,dx$ or $\sqrt{1+(g')^2}\,dy$.\\
+\end{tabular}
+
+\subsection*{Average value}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$f_{\text{avg}}=\dfrac{1}{b-a}\int_a^b f(x)\,dx$ (cont on $[a,b]$).\\
+\end{tabular}
+
+\subsection*{Work / pumping / hydrostatic force (templates)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Work (1D): $W=\int_a^b F(x)\,dx$ (force along line).\\
+Hooke spring: $F=kx$ (displacement $x$ from natural length) $\Rightarrow$ $W=\int_{x=a}^{b}kx\,dx$ (use \FS power rule).\\
+Pumping fluid: slice at height $y$: $dW=\rho g\,A(y)\,D(y)\,dy$,\quad $W=\int dW$ (\(\rho g\): weight density).\\
+Hydrostatic force on vertical plate: pressure $p(y)=\rho g\,h(y)$ (depth),\quad $dF=p(y)\,w(y)\,dy$,\quad $F=\int_{y=c}^{d}\rho g\,h(y)w(y)\,dy$.\\
+\end{tabular}
+
+\section*{Numerical integration (Ch3)}
+\subsection*{Rules}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Partition: $\Delta x=\frac{b-a}{n}$, $x_i=a+i\Delta x$.\\
+Left: $L_n=\sum_{i=1}^n f(x_{i-1})\Delta x$;\quad Right: $R_n=\sum_{i=1}^n f(x_i)\Delta x$.\\
+Midpoint: $M_n=\sum_{i=1}^n f\big(\frac{x_{i-1}+x_i}{2}\big)\Delta x$.\\
+Trapezoid: $T_n=\frac{\Delta x}{2}\big(f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\big)=\frac{L_n+R_n}{2}$.\\
+Simpson (\(n\) even): $S_n=\frac{\Delta x}{3}\big(f(x_0)+4\sum_{\text{odd }i}f(x_i)+2\sum_{\text{even }i\neq 0,n}f(x_i)+f(x_n)\big)$.\\
+\end{tabular}
+
+\subsection*{Error bounds (need smoothness)}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+If $f''$ cont on $[a,b]$, $|f''|\le K$:\quad $|E_T|\le\dfrac{K(b-a)^3}{12n^2}$,\ $|E_M|\le\dfrac{K(b-a)^3}{24n^2}$.\\
+If $f^{(4)}$ cont on $[a,b]$, $|f^{(4)}|\le K$ (\(n\) even):\quad $|E_S|\le\dfrac{K(b-a)^5}{180n^4}$.\\
+\end{tabular}
+
+\end{multicols}
+\end{document}

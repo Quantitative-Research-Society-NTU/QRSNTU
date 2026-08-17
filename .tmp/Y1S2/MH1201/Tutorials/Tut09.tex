@@ -1,0 +1,1157 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 9 (Week 11) -- Problems \& Solutions}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- COMMON MACROS -------------
+\newcommand{\df}{\coloneqq}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\cL}{\mathcal{L}}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Nullity}{nullity}
+\DeclareMathOperator{\tr}{trace}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\Id}{\mathrm{id}}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item eigenvalues of a linear operator $L_A(v)=Av$ and the determinant criterion $\det(A-\lambda I)=0$;
+  \item characteristic polynomial functions and basis-independence of $\det(A-\lambda I)$;
+  \item diagonalizability as similarity to a diagonal matrix;
+  \item inner products defined via Hermitian / symmetric positive definite matrices (direct axiom checks, Sylvester, and Cholesky viewpoints);
+  \item inner products on infinite-dimensional spaces of polynomials via point evaluation and energy integrals;
+  \item closure of inner products under addition, and diagnosing failure of positive definiteness;
+  \item the parallelogram identity in real/complex inner product spaces.
+\end{itemize}
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Eigenvalues and characteristic polynomial of $A$)}
+\subsection{Problem}
+Let (i) $\F$ be a field, (ii) $n \in \mathbb{N}$, and (iii) $A \in \F^{n,n}$, and define $L_A \in \cL(\F^{n,1})$ as follows:
+\[
+\forall v \in \F^{n,1}:\qquad L_A(v)\df Av.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\lambda \in \F$ is an eigenvalue of $L_A$ if and only if $\det(A-\lambda\cdot I_n)=0$.
+
+\smallskip
+\noindent\textit{Remark:} We shall call $\lambda \in \F$ an ``eigenvalue of $A$'' if and only if $\lambda$ is an eigenvalue of $L_A$.
+
+\item Show, for all $\lambda \in \F$, that $p_{L_A}(\lambda)=\det(A-\lambda\cdot I_n)$.
+
+\smallskip
+\noindent\textit{Remark:} We shall call $p_{L_A}$ the ``characteristic polynomial function of $A$''.
+
+\item Show that the following two statements are equivalent:
+\begin{enumerate}[label=(\arabic*)]
+\item $L_A$ is diagonalizable.
+\item There exist eigenvalues $\lambda_1,\dots,\lambda_n$ of $A$ --- not necessarily distinct --- such that
+\[
+A \sim
+\begin{bmatrix}
+\lambda_1 & \cdots & 0_{\F}\\
+\vdots & \ddots & \vdots\\
+0_{\F} & \cdots & \lambda_n
+\end{bmatrix}.
+\]
+\end{enumerate}
+
+\smallskip
+\noindent\textit{Remark:} We shall say that $A$ is diagonalizable if and only if $L_A$ is diagonalizable.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Definition-level proof}
+We use the following definitions.
+\begin{itemize}[leftmargin=*]
+  \item A scalar $\lambda\in\F$ is an eigenvalue of $L_A$ if there exists a nonzero vector $v\in\F^{n,1}$ such that $L_A(v)=\lambda v$.
+  \item For $T\in\cL(\F^{n,1})$, the characteristic polynomial function is
+  \[
+  p_T(\lambda)\df \det([T]_{\beta}^{\beta}-\lambda I_n),
+  \]
+  where $\beta$ is any ordered basis of $\F^{n,1}$. This is well-defined because matrices of the same operator in different bases are similar, and determinant is invariant under similarity.
+  \item $L_A$ is diagonalizable if there is an ordered basis of $\F^{n,1}$ consisting of eigenvectors of $L_A$.
+\end{itemize}
+
+Fix the standard ordered basis $\epsilon=(e_1,\dots,e_n)$ of $\F^{n,1}$. Since $L_A(e_j)=Ae_j$, the $j$th coordinate column of $[L_A]_{\epsilon}^{\epsilon}$ is the $j$th column of $A$. Hence
+\[
+[L_A]_{\epsilon}^{\epsilon}=A.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item By definition, $\lambda\in\F$ is an eigenvalue of $L_A$ iff there exists $v\neq 0$ such that
+\[
+L_A(v)=\lambda v.
+\]
+Using $L_A(v)=Av$, this is equivalent to
+\[
+Av=\lambda v
+\quad\Longleftrightarrow\quad
+(A-\lambda I_n)v=0.
+\]
+Thus $\lambda$ is an eigenvalue of $L_A$ iff the homogeneous system $(A-\lambda I_n)v=0$ has a nonzero solution. For a square matrix $B$, the homogeneous system $Bv=0$ has a nonzero solution iff $B$ is singular iff $\det(B)=0$. Applying this with $B=A-\lambda I_n$ gives
+\[
+\lambda\text{ is an eigenvalue of }L_A
+\quad\Longleftrightarrow\quad
+\det(A-\lambda I_n)=0.
+\]
+Therefore
+\[
+\boxed{\,\lambda \text{ is an eigenvalue of }L_A\ \Longleftrightarrow\ \det(A-\lambda I_n)=0\,}.
+\]
+
+\item By the definition of the characteristic polynomial function and by $[L_A]_{\epsilon}^{\epsilon}=A$,
+\[
+p_{L_A}(\lambda)
+=\det([L_A]_{\epsilon}^{\epsilon}-\lambda I_n)
+=\det(A-\lambda I_n).
+\]
+This holds for every $\lambda\in\F$. Therefore
+\[
+\boxed{\,\forall\lambda\in\F:\quad p_{L_A}(\lambda)=\det(A-\lambda I_n)\,}.
+\]
+
+\newpage
+\item First suppose $L_A$ is diagonalizable. Then there exists an ordered basis $\beta=(v_1,\dots,v_n)$ of $\F^{n,1}$ such that each $v_i$ is an eigenvector of $L_A$. Therefore, for each $i$, there exists $\lambda_i\in\F$ such that
+\[
+L_A(v_i)=\lambda_i v_i.
+\]
+Since $L_A(v_i)=Av_i$, each $\lambda_i$ is an eigenvalue of $A$ in the stated sense. In the basis $\beta$, the coordinate matrix of $L_A$ is
+\[
+[L_A]_{\beta}^{\beta}=\diag(\lambda_1,\dots,\lambda_n).
+\]
+Let $P=[\,v_1\ \cdots\ v_n\,]$. Since $\beta$ is a basis, $P$ is invertible. The change-of-basis formula gives
+\[
+[L_A]_{\beta}^{\beta}=P^{-1}[L_A]_{\epsilon}^{\epsilon}P=P^{-1}AP.
+\]
+Hence
+\[
+P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n),
+\]
+so $A\sim\diag(\lambda_1,\dots,\lambda_n)$.
+
+Conversely, suppose there exist eigenvalues $\lambda_1,\dots,\lambda_n$ of $A$ and an invertible matrix $P$ such that
+\[
+P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n).
+\]
+Let $P=[\,v_1\ \cdots\ v_n\,]$. Since $P$ is invertible, $v_1,\dots,v_n$ form a basis of $\F^{n,1}$. Multiplying by $P$ on the right gives
+\[
+AP=P\diag(\lambda_1,\dots,\lambda_n).
+\]
+Comparing the $i$th columns on both sides yields
+\[
+Av_i=\lambda_i v_i.
+\]
+Equivalently, $L_A(v_i)=\lambda_i v_i$ for each $i$. Hence $\beta=(v_1,\dots,v_n)$ is a basis of eigenvectors for $L_A$, so $L_A$ is diagonalizable.
+
+Therefore
+\[
+\boxed{\,L_A\text{ is diagonalizable}
+\Longleftrightarrow
+\exists\lambda_1,\dots,\lambda_n\text{ eigenvalues of }A\text{ such that }A\sim\diag(\lambda_1,\dots,\lambda_n)\,}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Kernel criterion and standard matrix of $L_A$}
+The theorem used in this method is the \textbf{invertibility criterion for square matrices}: for $B\in\F^{n,n}$, the following are equivalent:
+\[
+B\text{ is invertible}
+\quad\Longleftrightarrow\quad
+\ker(B)=\{0\}
+\quad\Longleftrightarrow\quad
+\det(B)\neq 0.
+\]
+Equivalently, $\ker(B)\neq\{0\}$ iff $\det(B)=0$.
+
+Fix again the standard ordered basis $\epsilon=(e_1,
+\dots,e_n)$ of $\F^{n,1}$. Then $[L_A]_{\epsilon}^{\epsilon}=A$.
+
+\begin{enumerate}[label=(\alph*)]
+\item By definition,
+\[
+\lambda\text{ eigenvalue of }L_A
+\Longleftrightarrow
+\exists v\neq 0:\ Av=\lambda v
+\Longleftrightarrow
+\exists v\neq 0:\ (A-\lambda I_n)v=0.
+\]
+This is equivalent to $\ker(A-\lambda I_n)\neq\{0\}$. By the invertibility criterion above, this is equivalent to
+\[
+\det(A-\lambda I_n)=0.
+\]
+Thus
+\[
+\boxed{\,\lambda\text{ eigenvalue of }L_A\ \Longleftrightarrow\ \det(A-\lambda I_n)=0\,}.
+\]
+
+\item Since $[L_A]_{\epsilon}^{\epsilon}=A$,
+\[
+p_{L_A}(\lambda)=\det([L_A]_{\epsilon}^{\epsilon}-\lambda I_n)=\det(A-\lambda I_n).
+\]
+Therefore
+\[
+\boxed{\,p_{L_A}(\lambda)=\det(A-\lambda I_n)\quad(\lambda\in\F)\,}.
+\]
+
+\item If $L_A$ is diagonalizable, then there is a basis $\beta=(v_1,\dots,v_n)$ and scalars $\lambda_i$ such that $L_A(v_i)=\lambda_i v_i$. Thus $Av_i=\lambda_i v_i$. With $P=[\,v_1\ \cdots\ v_n\,]$, the matrix $P$ is invertible and
+\[
+P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n).
+\]
+Hence $A$ is similar to the displayed diagonal matrix.
+
+Conversely, if $A\sim\diag(\lambda_1,\dots,\lambda_n)$, choose an invertible $P$ satisfying $P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n)$. If $P=[\,v_1\ \cdots\ v_n\,]$, then $Av_i=\lambda_i v_i$ for each $i$. Since the columns of $P$ form a basis, $L_A$ has an eigenbasis and is diagonalizable.
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Operator-first viewpoint (invertibility and conjugation)}
+The theorem used in this method is the \textbf{basis-change theorem for linear operators}: if $T\in\cL(V)$ and $\alpha,\beta$ are ordered bases of the same finite-dimensional vector space $V$, then
+\[
+[T]_{\beta}^{\beta}=P^{-1}[T]_{\alpha}^{\alpha}P
+\]
+for an invertible change-of-basis matrix $P$. Thus matrices representing the same operator in different bases are similar. Conversely, if a matrix is similar to a diagonal matrix, the columns of the similarity matrix give a basis in which the operator is diagonal.
+
+\begin{enumerate}[label=(\alph*)]
+\item Since
+\[
+L_A-\lambda\Id=L_{A-\lambda I_n},
+\]
+we have
+\[
+\lambda\text{ eigenvalue of }L_A
+\Longleftrightarrow
+L_A-\lambda\Id\text{ is not injective}
+\Longleftrightarrow
+L_{A-\lambda I_n}\text{ is not injective}.
+\]
+In finite dimension, this is equivalent to $A-\lambda I_n$ being singular, hence to $\det(A-\lambda I_n)=0$.
+
+\item The characteristic polynomial function of $L_A$ is computed from any representing matrix. In the standard basis, the representing matrix is $A$, so
+\[
+p_{L_A}(\lambda)=\det(A-\lambda I_n).
+\]
+
+\item The operator $L_A$ is diagonalizable iff it has a diagonal representing matrix in some basis. By the basis-change theorem, this is equivalent to the standard representing matrix $A$ being similar to that diagonal representing matrix. The diagonal entries must be the corresponding eigenvalues because a diagonal representing matrix satisfies
+\[
+[L_A]_{\beta}^{\beta}e_i^{\mathrm{coord}}=\lambda_i e_i^{\mathrm{coord}},
+\]
+which means $L_A(v_i)=\lambda_i v_i$ for the associated basis vector $v_i$. Therefore the required equivalence follows.
+\end{enumerate}
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Inner product on $\C^{2,1}$ via a Hermitian matrix)}
+\subsection{Problem}
+Define a function $\langle\cdot,\cdot\rangle : \C^{2,1}\times \C^{2,1}\to \C$ as follows:
+\[
+\forall x,y\in \C^{2,1}:\qquad
+\langle x,y\rangle \df x^{\dagger}
+\begin{bmatrix}
+1 & i\\
+-i & 2
+\end{bmatrix}
+y.
+\]
+\textit{Note:} The symbol ``${}^\dagger$'' denotes conjugate transposition.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\langle\cdot,\cdot\rangle$ is an inner product on $\C^{2,1}$.
+\item Compute
+\[
+\left\langle
+\begin{bmatrix}1-i\\ 2+3i\end{bmatrix},
+\begin{bmatrix}2+i\\ 3-2i\end{bmatrix}
+\right\rangle.
+\]
+\end{enumerate}
+
+\vspace{1cm}
+\subsection{Solution}
+Let
+\[
+H\df
+\begin{bmatrix}
+1 & i\\
+-i & 2
+\end{bmatrix}.
+\]
+Then $\langle x,y\rangle=x^\dagger H y$.
+
+\subsubsection{Method 1: Standard direct axiom check}
+For complex vector spaces, we use the convention that an inner product is conjugate-linear in the first slot, linear in the second slot, conjugate symmetric, and positive definite.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Sesquilinearity.}
+Let $a,b\in\C$ and $x_1,x_2,y\in\C^{2,1}$. Then
+\begin{align*}
+\langle ax_1+bx_2,y\rangle
+&=(ax_1+bx_2)^\dagger Hy\\
+&=(\overline{a}x_1^\dagger+\overline{b}x_2^\dagger)Hy\\
+&=\overline{a}x_1^\dagger Hy+\overline{b}x_2^\dagger Hy\\
+&=\overline{a}\langle x_1,y\rangle+\overline{b}\langle x_2,y\rangle.
+\end{align*}
+Thus the first slot is conjugate-linear. Similarly, for $y_1,y_2\in\C^{2,1}$,
+\begin{align*}
+\langle x,ay_1+by_2\rangle
+&=x^\dagger H(ay_1+by_2)\\
+&=a x^\dagger Hy_1+b x^\dagger Hy_2\\
+&=a\langle x,y_1\rangle+b\langle x,y_2\rangle.
+\end{align*}
+Thus the second slot is linear.
+
+\medskip
+\noindent\textbf{Conjugate symmetry.}
+First compute
+\[
+H^\dagger=\overline{H}^{\mathsf T}
+=
+\begin{bmatrix}
+1&i\\
+-i&2
+\end{bmatrix}
+=H.
+\]
+Hence, for all $x,y\in\C^{2,1}$,
+\[
+\overline{\langle y,x\rangle}
+=\overline{y^\dagger Hx}
+=x^\dagger H^\dagger y
+=x^\dagger Hy
+=\langle x,y\rangle.
+\]
+Therefore $\langle x,y\rangle=\overline{\langle y,x\rangle}$.
+
+\medskip
+\noindent\textbf{Positive semidefiniteness and definiteness.}
+Write
+\[
+x=\begin{bmatrix}z\\w\end{bmatrix},\qquad z,w\in\C.
+\]
+Then
+\begin{align*}
+\langle x,x\rangle
+&=\begin{bmatrix}\overline{z}&\overline{w}\end{bmatrix}
+\begin{bmatrix}1&i\\-i&2\end{bmatrix}
+\begin{bmatrix}z\\w\end{bmatrix}\\
+&=|z|^2+i\overline{z}w-i\overline{w}z+2|w|^2\\
+&=|z+iw|^2+|w|^2.
+\end{align*}
+Therefore $\langle x,x\rangle\ge 0$ for every $x\in\C^{2,1}$, and $\langle x,x\rangle$ is real. If $\langle x,x\rangle=0$, then
+\[
+|z+iw|^2+|w|^2=0.
+\]
+Both summands are nonnegative real numbers, so both must be zero. Hence $w=0$ and $z+iw=0$, which then gives $z=0$. Thus $x=0$. Therefore $\langle x,x\rangle>0$ whenever $x\neq 0$.
+
+Since sesquilinearity, conjugate symmetry, and positive definiteness all hold, $\langle\cdot,\cdot\rangle$ is an inner product on $\C^{2,1}$.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is an inner product on }\C^{2,1}.\,}
+\]
+
+\item Let
+\[
+x=\begin{bmatrix}1-i\\2+3i\end{bmatrix},\qquad
+ y=\begin{bmatrix}2+i\\3-2i\end{bmatrix}.
+\]
+First compute
+\[
+Hy=
+\begin{bmatrix}
+1&i\\
+-i&2
+\end{bmatrix}
+\begin{bmatrix}2+i\\3-2i\end{bmatrix}
+=
+\begin{bmatrix}
+(2+i)+i(3-2i)\\
+-i(2+i)+2(3-2i)
+\end{bmatrix}.
+\]
+The first entry is
+\[
+(2+i)+i(3-2i)=2+i+3i-2i^2=4+4i.
+\]
+The second entry is
+\[
+-i(2+i)+2(3-2i)=-2i-i^2+6-4i=7-6i.
+\]
+Thus
+\[
+Hy=\begin{bmatrix}4+4i\\7-6i\end{bmatrix}.
+\]
+Also
+\[
+x^\dagger=\begin{bmatrix}\overline{1-i}&\overline{2+3i}\end{bmatrix}
+=\begin{bmatrix}1+i&2-3i\end{bmatrix}.
+\]
+Therefore
+\begin{align*}
+\langle x,y\rangle
+&=x^\dagger Hy\\
+&=(1+i)(4+4i)+(2-3i)(7-6i).
+\end{align*}
+Now
+\[
+(1+i)(4+4i)=4+4i+4i+4i^2=8i,
+\]
+and
+\[
+(2-3i)(7-6i)=14-12i-21i+18i^2=-4-33i.
+\]
+Hence
+\[
+\langle x,y\rangle=8i+(-4-33i)=-4-25i.
+\]
+Therefore
+\[
+\boxed{\,\left\langle
+\begin{bmatrix}1-i\\ 2+3i\end{bmatrix},
+\begin{bmatrix}2+i\\ 3-2i\end{bmatrix}
+\right\rangle=-4-25i\,}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Hermitian positive definite matrix theorem and Sylvester's criterion}
+The theorems used in this method are the following.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Hermitian positive definite matrix theorem.} If $H\in\C^{n,n}$ is Hermitian positive definite, then
+  \[
+  \langle x,y\rangle\df x^\dagger Hy
+  \]
+  defines an inner product on $\C^{n,1}$ under the convention that the first slot is conjugate-linear and the second slot is linear.
+  \item \textbf{Sylvester's criterion for Hermitian matrices.} A Hermitian matrix $H\in\C^{n,n}$ is positive definite iff all its leading principal minors are positive real numbers.
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item First,
+\[
+H^\dagger=H,
+\]
+so $H$ is Hermitian. Its leading principal minors are
+\[
+\Delta_1=1>0,
+\qquad
+\Delta_2=\det(H)=1\cdot 2-i(-i)=2-1=1>0.
+\]
+By Sylvester's criterion, $H$ is positive definite. Hence, by the Hermitian positive definite matrix theorem, $x^\dagger Hy$ defines an inner product on $\C^{2,1}$.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is an inner product on }\C^{2,1}.\,}
+\]
+
+\item The numerical computation is the same as in Method 1:
+\[
+Hy=\begin{bmatrix}4+4i\\7-6i\end{bmatrix},
+\qquad
+x^\dagger=\begin{bmatrix}1+i&2-3i\end{bmatrix}.
+\]
+Thus
+\[
+\langle x,y\rangle=(1+i)(4+4i)+(2-3i)(7-6i)=-4-25i.
+\]
+Therefore
+\[
+\boxed{\,\langle x,y\rangle=-4-25i\,}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Cholesky factorization viewpoint}
+The theorem used in this method is the \textbf{Cholesky positive-definiteness theorem}: a Hermitian matrix $H\in\C^{n,n}$ is positive definite iff there exists an invertible lower-triangular matrix $L$ with positive real diagonal entries such that
+\[
+H=LL^\dagger.
+\]
+If $H=LL^\dagger$ with $L$ invertible, then for $x\neq 0$,
+\[
+x^\dagger Hx=x^\dagger LL^\dagger x=(L^\dagger x)^\dagger(L^\dagger x)=\|L^\dagger x\|_2^2>0.
+\]
+
+For the given matrix,
+\[
+L=
+\begin{bmatrix}
+1&0\\
+-i&1
+\end{bmatrix}
+\quad\Longrightarrow\quad
+LL^\dagger=
+\begin{bmatrix}
+1&0\\
+-i&1
+\end{bmatrix}
+\begin{bmatrix}
+1&i\\
+0&1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1&i\\
+-i&2
+\end{bmatrix}=H.
+\]
+Since $L$ is invertible, for every $x\neq 0$,
+\[
+\langle x,x\rangle=x^\dagger Hx=\|L^\dagger x\|_2^2>0.
+\]
+Sesquilinearity and conjugate symmetry follow from the matrix form $x^\dagger Hy$ and $H^\dagger=H$, as shown explicitly in Method 1. Therefore $\langle\cdot,\cdot\rangle$ is an inner product. The computation in part (b) remains
+\[
+\boxed{\,\langle x,y\rangle=-4-25i\,}.
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Inner product on $\R^{3,1}$ via a symmetric matrix)}
+\subsection{Problem}
+Define a function $\langle\cdot,\cdot\rangle : \R^{3,1}\times \R^{3,1}\to \R$ as follows:
+\[
+\forall x,y\in \R^{3,1}:\qquad
+\langle x,y\rangle \df x^{\mathsf T}
+\begin{bmatrix}
+3 & -1 & 1\\
+-1 & 3 & 1\\
+1 & 1 & 2
+\end{bmatrix}
+y.
+\]
+Show that $\langle\cdot,\cdot\rangle$ is an inner product on $\R^{3,1}$.
+
+\vspace{2cm}
+\subsection{Solution}
+Let
+\[
+M\df
+\begin{bmatrix}
+3 & -1 & 1\\
+-1 & 3 & 1\\
+1 & 1 & 2
+\end{bmatrix},
+\qquad
+\langle x,y\rangle=x^{\mathsf T}My.
+\]
+
+\subsubsection{Method 1: Standard direct axiom check}
+For real vector spaces, an inner product must be linear in each slot, symmetric, and positive definite.
+
+\medskip
+\noindent\textbf{Bilinearity.}
+Let $a,b\in\R$ and $x_1,x_2,y\in\R^{3,1}$. Then
+\begin{align*}
+\langle ax_1+bx_2,y\rangle
+&=(ax_1+bx_2)^{\mathsf T}My\\
+&=(a x_1^{\mathsf T}+b x_2^{\mathsf T})My\\
+&=a x_1^{\mathsf T}My+b x_2^{\mathsf T}My\\
+&=a\langle x_1,y\rangle+b\langle x_2,y\rangle.
+\end{align*}
+Similarly,
+\[
+\langle x,ay_1+by_2\rangle=a\langle x,y_1\rangle+b\langle x,y_2\rangle.
+\]
+Thus the form is bilinear.
+
+\medskip
+\noindent\textbf{Symmetry.}
+Since
+\[
+M^{\mathsf T}=M,
+\]
+we have, for all $x,y\in\R^{3,1}$,
+\[
+\langle x,y\rangle=x^{\mathsf T}My.
+\]
+The scalar $x^{\mathsf T}My$ equals its transpose, so
+\[
+x^{\mathsf T}My=(x^{\mathsf T}My)^{\mathsf T}=y^{\mathsf T}M^{\mathsf T}x=y^{\mathsf T}Mx=\langle y,x\rangle.
+\]
+Hence the form is symmetric.
+
+\medskip
+\noindent\textbf{Positive semidefiniteness and definiteness.}
+Let
+\[
+x=\begin{bmatrix}a\\b\\c\end{bmatrix}\in\R^{3,1}.
+\]
+Then
+\begin{align*}
+\langle x,x\rangle
+&=x^{\mathsf T}Mx\\
+&=3a^2+3b^2+2c^2-2ab+2ac+2bc.
+\end{align*}
+Complete squares:
+\begin{align*}
+3a^2+3b^2+2c^2-2ab+2ac+2bc
+&=3\left(a-\frac{b}{3}+\frac{c}{3}\right)^2+\frac{2}{3}(2b+c)^2+c^2.
+\end{align*}
+Therefore
+\[
+\langle x,x\rangle=3\left(a-\frac{b}{3}+\frac{c}{3}\right)^2+\frac{2}{3}(2b+c)^2+c^2\ge 0.
+\]
+If $\langle x,x\rangle=0$, then all three squares above must be zero. Hence
+\[
+c=0,
+\qquad
+2b+c=0,
+\qquad
+a-\frac{b}{3}+\frac{c}{3}=0.
+\]
+From $c=0$, the second equation gives $b=0$, and then the third equation gives $a=0$. Thus $x=0$. Therefore $\langle x,x\rangle>0$ for every nonzero $x$.
+
+Since bilinearity, symmetry, and positive definiteness all hold, $\langle\cdot,\cdot\rangle$ is an inner product on $\R^{3,1}$.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is an inner product on }\R^{3,1}.\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Symmetric positive definite matrix theorem and Sylvester's criterion}
+The theorems used in this method are the following.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Symmetric positive definite matrix theorem.} If $M\in\R^{n,n}$ is symmetric positive definite, then
+  \[
+  \langle x,y\rangle\df x^{\mathsf T}My
+  \]
+  defines an inner product on $\R^{n,1}$.
+  \item \textbf{Sylvester's criterion for real symmetric matrices.} A real symmetric matrix $M\in\R^{n,n}$ is positive definite iff all its leading principal minors are positive.
+\end{itemize}
+
+First, $M^{\mathsf T}=M$, so $M$ is symmetric. Its leading principal minors are
+\[
+\Delta_1=3>0,
+\]
+\[
+\Delta_2=
+\det\begin{bmatrix}3&-1\\-1&3\end{bmatrix}
+=9-1=8>0,
+\]
+and
+\begin{align*}
+\Delta_3
+&=\det(M)\\
+&=3\det\begin{bmatrix}3&1\\1&2\end{bmatrix}
+-(-1)\det\begin{bmatrix}-1&1\\1&2\end{bmatrix}
++1\det\begin{bmatrix}-1&3\\1&1\end{bmatrix}\\
+&=3(6-1)+((-2)-1)+((-1)-3)\\
+&=15-3-4=8>0.
+\end{align*}
+Therefore all leading principal minors are positive. By Sylvester's criterion, $M$ is positive definite. By the symmetric positive definite matrix theorem, $x^{\mathsf T}My$ defines an inner product.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is an inner product on }\R^{3,1}.\,}
+\]
+
+\newpage
+\subsubsection{Method 3: Cholesky decomposition (sum of squares)}
+The theorem used in this method is the \textbf{Cholesky positive-definiteness theorem}: a real symmetric matrix $M\in\R^{n,n}$ is positive definite iff there exists an invertible lower-triangular matrix $L$ with positive diagonal entries such that
+\[
+M=LL^{\mathsf T}.
+\]
+If $M=LL^{\mathsf T}$ with $L$ invertible, then for every $x\neq 0$,
+\[
+x^{\mathsf T}Mx=x^{\mathsf T}LL^{\mathsf T}x=\|L^{\mathsf T}x\|_2^2>0.
+\]
+
+A valid Cholesky factorization is
+\[
+L=
+\begin{bmatrix}
+\sqrt{3} & 0 & 0\\
+-\frac{\sqrt{3}}{3} & \frac{2\sqrt{6}}{3} & 0\\
+\frac{\sqrt{3}}{3} & \frac{\sqrt{6}}{3} & 1
+\end{bmatrix}.
+\]
+Indeed,
+\[
+LL^{\mathsf T}
+=
+\begin{bmatrix}
+3 & -1 & 1\\
+-1 & 3 & 1\\
+1 & 1 & 2
+\end{bmatrix}=M.
+\]
+Since $L$ is invertible, for every $x\neq 0$,
+\[
+\langle x,x\rangle=x^{\mathsf T}Mx=\|L^{\mathsf T}x\|_2^2>0.
+\]
+Bilinearity follows from the matrix formula $x^{\mathsf T}My$, and symmetry follows from $M^{\mathsf T}=M$. Hence $\langle\cdot,\cdot\rangle$ is an inner product.
+
+\[
+\boxed{\,M=LL^{\mathsf T}\text{ with }L\text{ invertible}\ \Rightarrow\ \langle x,x\rangle>0\text{ for all }x\neq 0.\,}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Inner product on $\mathcal{P}(\R)$)}
+\subsection{Problem}
+Define a function $\langle\cdot,\cdot\rangle : \mathcal{P}(\R)\times \mathcal{P}(\R)\to \R$ as follows:
+\[
+\forall P,Q\in \mathcal{P}(\R):\qquad
+\langle P,Q\rangle \df P(0)Q(0)+\int_{-1}^{1} P'(x)\,Q'(x)\,dx.
+\]
+Show that $\langle\cdot,\cdot\rangle$ is an inner product on $\mathcal{P}(\R)$.
+
+\smallskip
+\noindent\textit{Note:} $\mathcal{P}(\R)$ is an infinite-dimensional vector space, which you must take into account.
+
+
+\vspace{2cm}
+\subsection{Solution}
+
+\subsubsection{Method 1: Standard direct axiom check}
+For real vector spaces, an inner product must be bilinear, symmetric, and positive definite. These axioms make sense in arbitrary vector spaces, including infinite-dimensional vector spaces; finite-dimensionality is not required.
+
+\medskip
+\noindent\textbf{Bilinearity.}
+Let $a,b\in\R$ and $P_1,P_2,Q\in\mathcal{P}(\R)$. Using linearity of evaluation, differentiation, and integration,
+\begin{align*}
+\langle aP_1+bP_2,Q\rangle
+&=(aP_1+bP_2)(0)Q(0)+\int_{-1}^{1}(aP_1+bP_2)'(x)Q'(x)\,dx\\
+&=(aP_1(0)+bP_2(0))Q(0)+\int_{-1}^{1}(aP_1'(x)+bP_2'(x))Q'(x)\,dx\\
+&=aP_1(0)Q(0)+bP_2(0)Q(0)
++a\int_{-1}^{1}P_1'(x)Q'(x)\,dx
++b\int_{-1}^{1}P_2'(x)Q'(x)\,dx\\
+&=a\langle P_1,Q\rangle+b\langle P_2,Q\rangle.
+\end{align*}
+Similarly, for $Q_1,Q_2\in\mathcal{P}(\R)$,
+\[
+\langle P,aQ_1+bQ_2\rangle=a\langle P,Q_1\rangle+b\langle P,Q_2\rangle.
+\]
+Thus the form is bilinear.
+
+\medskip
+\noindent\textbf{Symmetry.}
+For $P,Q\in\mathcal{P}(\R)$,
+\[
+P(0)Q(0)=Q(0)P(0)
+\]
+and
+\[
+P'(x)Q'(x)=Q'(x)P'(x)
+\qquad(-1\le x\le 1).
+\]
+Therefore
+\[
+\langle P,Q\rangle
+=P(0)Q(0)+\int_{-1}^{1}P'(x)Q'(x)\,dx
+=Q(0)P(0)+\int_{-1}^{1}Q'(x)P'(x)\,dx
+=\langle Q,P\rangle.
+\]
+
+\medskip
+\noindent\textbf{Positive semidefiniteness and definiteness.}
+For any $P\in\mathcal{P}(\R)$,
+\[
+\langle P,P\rangle=P(0)^2+\int_{-1}^{1}(P'(x))^2\,dx\ge 0.
+\]
+Suppose $\langle P,P\rangle=0$. Since both terms are nonnegative, we have
+\[
+P(0)^2=0,
+\qquad
+\int_{-1}^{1}(P'(x))^2\,dx=0.
+\]
+Thus $P(0)=0$. Also, $(P')^2$ is a continuous nonnegative function on $[-1,1]$. If it were positive at some point $x_0\in[-1,1]$, continuity would imply that it is positive on a small interval around $x_0$, forcing the integral to be strictly positive. Therefore
+\[
+(P'(x))^2=0\quad\text{for every }x\in[-1,1],
+\]
+so $P'(x)=0$ for every $x\in[-1,1]$. Since $P'$ is a polynomial and vanishes on infinitely many points, it is the zero polynomial. Hence $P$ is constant on $\R$. Since $P(0)=0$, this constant is $0$, so $P$ is the zero polynomial.
+
+Therefore $\langle P,P\rangle=0$ implies $P=0$, and hence $\langle P,P\rangle>0$ for every nonzero polynomial $P$.
+
+All inner product axioms hold. Hence
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is an inner product on }\mathcal{P}(\R).\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Evaluation-plus-energy kernel argument}
+The theorem used in this method is the following \textbf{sum criterion for positive semidefinite symmetric bilinear forms}: if $B_0$ and $B_1$ are symmetric bilinear forms satisfying $B_j(P,P)\ge 0$ for every $P$, and
+\[
+B_0(P,P)+B_1(P,P)=0\quad\Longrightarrow\quad P=0,
+\]
+then $B\df B_0+B_1$ is positive definite. If $B_0$ and $B_1$ are also bilinear and symmetric, then $B$ is bilinear and symmetric.
+
+Define
+\[
+B_0(P,Q)\df P(0)Q(0),
+\qquad
+B_1(P,Q)\df \int_{-1}^{1}P'(x)Q'(x)\,dx.
+\]
+Both $B_0$ and $B_1$ are symmetric bilinear forms. Moreover,
+\[
+B_0(P,P)=P(0)^2\ge 0,
+\qquad
+B_1(P,P)=\int_{-1}^{1}(P'(x))^2\,dx\ge 0.
+\]
+If
+\[
+B_0(P,P)+B_1(P,P)=0,
+\]
+then both nonnegative terms are zero. Hence $P(0)=0$ and $\int_{-1}^{1}(P')^2=0$. As proved in Method 1, this implies $P'\equiv 0$ and therefore $P$ is constant; together with $P(0)=0$, this gives $P\equiv 0$.
+
+Therefore $B_0+B_1$ is positive definite, and since it is also symmetric bilinear, it is an inner product on $\mathcal{P}(\R)$.
+
+\[
+\boxed{\,P(0)Q(0)+\int_{-1}^{1}P'Q'\text{ is an inner product on }\mathcal{P}(\R).\,}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Sum of inner products is an inner product)}
+\subsection{Problem}
+Let $V$ be a vector space over a field $\F$, where $\F$ is either $\R$ or $\C$.
+Let $\langle\cdot,\cdot\rangle_1$ and $\langle\cdot,\cdot\rangle_2$ be inner products on $V$.
+Define $\langle\cdot,\cdot\rangle : V\times V\to \F$ by
+\[
+\forall u,v\in V:\qquad
+\langle u,v\rangle \df \langle u,v\rangle_1+\langle u,v\rangle_2.
+\]
+Show that $\langle\cdot,\cdot\rangle$ is an inner product on $V$ as well.
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Standard direct axiom check}
+Assume the standard convention: over $\C$, an inner product is conjugate-linear in the first slot and linear in the second; over $\R$, conjugate-linearity reduces to ordinary linearity because $\overline{a}=a$ for $a\in\R$.
+
+\medskip
+\noindent\textbf{Sesquilinearity.}
+Let $a,b\in\F$ and $u_1,u_2,v\in V$. Then
+\begin{align*}
+\langle au_1+bu_2,v\rangle
+&=\langle au_1+bu_2,v\rangle_1+\langle au_1+bu_2,v\rangle_2\\
+&=\overline{a}\langle u_1,v\rangle_1+
+\overline{b}\langle u_2,v\rangle_1+
+\overline{a}\langle u_1,v\rangle_2+
+\overline{b}\langle u_2,v\rangle_2\\
+&=\overline{a}(\langle u_1,v\rangle_1+\langle u_1,v\rangle_2)
++\overline{b}(\langle u_2,v\rangle_1+\langle u_2,v\rangle_2)\\
+&=\overline{a}\langle u_1,v\rangle+\overline{b}\langle u_2,v\rangle.
+\end{align*}
+Similarly, for $v_1,v_2\in V$,
+\[
+\langle u,av_1+bv_2\rangle=a\langle u,v_1\rangle+b\langle u,v_2\rangle.
+\]
+Thus the new form has the correct sesquilinearity.
+
+\medskip
+\noindent\textbf{Conjugate symmetry.}
+For all $u,v\in V$,
+\begin{align*}
+\langle u,v\rangle
+&=\langle u,v\rangle_1+\langle u,v\rangle_2\\
+&=\overline{\langle v,u\rangle_1}+\overline{\langle v,u\rangle_2}\\
+&=\overline{\langle v,u\rangle_1+\langle v,u\rangle_2}\\
+&=\overline{\langle v,u\rangle}.
+\end{align*}
+
+\medskip
+\noindent\textbf{Positive semidefiniteness and definiteness.}
+For every $u\in V$,
+\[
+\langle u,u\rangle=\langle u,u\rangle_1+\langle u,u\rangle_2.
+\]
+Each term is a nonnegative real number, so $\langle u,u\rangle\ge 0$. If $u\neq 0$, then because each $\langle\cdot,\cdot\rangle_j$ is an inner product,
+\[
+\langle u,u\rangle_1>0,
+\qquad
+\langle u,u\rangle_2>0.
+\]
+Therefore
+\[
+\langle u,u\rangle=\langle u,u\rangle_1+\langle u,u\rangle_2>0.
+\]
+Thus the new form is positive definite.
+
+Since all inner product axioms hold, $\langle\cdot,\cdot\rangle$ is an inner product on $V$.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle_1+\langle\cdot,\cdot\rangle_2\text{ is an inner product on }V.\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Norm viewpoint}
+The theorem used in this method is the \textbf{norm induced by an inner product}: if $\langle\cdot,\cdot\rangle_j$ is an inner product on $V$, then
+\[
+\|u\|_j\df \sqrt{\langle u,u\rangle_j}
+\]
+defines a norm, and in particular $\|u\|_j=0$ iff $u=0$.
+
+Let $\|\cdot\|_j$ be the norm induced by $\langle\cdot,\cdot\rangle_j$. For any $u\in V$,
+\[
+\langle u,u\rangle=\langle u,u\rangle_1+\langle u,u\rangle_2=\|u\|_1^2+\|u\|_2^2.
+\]
+Thus $\langle u,u\rangle\ge 0$. Moreover,
+\[
+\langle u,u\rangle=0
+\quad\Longleftrightarrow\quad
+\|u\|_1^2+\|u\|_2^2=0
+\quad\Longleftrightarrow\quad
+\|u\|_1=\|u\|_2=0
+\quad\Longleftrightarrow\quad
+u=0.
+\]
+So the new form is positive definite. The sesquilinearity and conjugate symmetry follow immediately from the corresponding properties of the two summands, as checked explicitly in Method 1. Therefore the sum is an inner product.
+
+\[
+\boxed{\,\langle u,v\rangle=\langle u,v\rangle_1+\langle u,v\rangle_2\text{ defines an inner product.}\,}
+\]
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (A bilinear form that is not an inner product)}
+\subsection{Problem}
+Define a function $\langle\cdot,\cdot\rangle : \R^3\times \R^3\to \R$ as follows:
+\[
+\forall a,b,c,x,y,z\in \R:\qquad
+\langle (a,b,c),(x,y,z)\rangle \df ax+cz.
+\]
+Show that $\langle\cdot,\cdot\rangle$ is not an inner product on $\R^3$.
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Standard direct axiom check and failure of positive definiteness}
+For real vector spaces, an inner product must be bilinear, symmetric, and positive definite. We check the structure directly and identify the failed axiom.
+
+\medskip
+\noindent\textbf{Bilinearity.}
+Let $u_1=(a_1,b_1,c_1)$, $u_2=(a_2,b_2,c_2)$, $v=(x,y,z)$, and $\alpha,\beta\in\R$. Then
+\begin{align*}
+\langle \alpha u_1+\beta u_2,v\rangle
+&=\langle (\alpha a_1+\beta a_2,\alpha b_1+\beta b_2,\alpha c_1+\beta c_2),(x,y,z)\rangle\\
+&=(\alpha a_1+\beta a_2)x+(\alpha c_1+\beta c_2)z\\
+&=\alpha(a_1x+c_1z)+\beta(a_2x+c_2z)\\
+&=\alpha\langle u_1,v\rangle+
+\beta\langle u_2,v\rangle.
+\end{align*}
+Similarly, the function is linear in the second slot. Hence it is bilinear.
+
+\medskip
+\noindent\textbf{Symmetry.}
+For $u=(a,b,c)$ and $v=(x,y,z)$,
+\[
+\langle u,v\rangle=ax+cz,
+\qquad
+\langle v,u\rangle=xa+zc.
+\]
+Since multiplication in $\R$ is commutative,
+\[
+ax+cz=xa+zc,
+\]
+so $\langle u,v\rangle=\langle v,u\rangle$.
+
+\medskip
+\noindent\textbf{Positive semidefiniteness but not positive definiteness.}
+For $u=(a,b,c)$,
+\[
+\langle u,u\rangle=a^2+c^2\ge 0.
+\]
+However, take the nonzero vector
+\[
+v=(0,1,0)\neq (0,0,0).
+\]
+Then
+\[
+\langle v,v\rangle=0^2+0^2=0.
+\]
+Positive definiteness would require $\langle v,v\rangle>0$ for every nonzero $v$. This condition fails.
+
+Therefore the function is not an inner product on $\R^3$.
+
+\[
+\boxed{\,\langle\cdot,\cdot\rangle \text{ is not an inner product on }\R^3\text{ because positive definiteness fails.}\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Degenerate induced length}
+The theorem used in this method is the \textbf{positive-definiteness requirement for norms induced by inner products}: if $\langle\cdot,\cdot\rangle$ is an inner product, then
+\[
+\|u\|\df \sqrt{\langle u,u\rangle}
+\]
+satisfies
+\[
+\|u\|=0\quad\Longleftrightarrow\quad u=0.
+\]
+
+For the given form,
+\[
+\langle (a,b,c),(a,b,c)\rangle=a^2+c^2.
+\]
+In particular, for every $t\in\R$,
+\[
+\langle (0,t,0),(0,t,0)\rangle=0.
+\]
+Thus every vector in the nontrivial subspace
+\[
+\Span\{(0,1,0)\}
+\]
+has induced length zero. Since this subspace contains nonzero vectors, the induced length is degenerate. Therefore the form cannot be an inner product.
+
+\begin{center}
+\fbox{\parbox{0.9\linewidth}{\centering
+$\Span\{(0,1,0)\}\setminus\{0\}$ consists of nonzero vectors of zero length, so the form is not an inner product.
+}}
+\end{center}
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Parallelogram Identity)}
+\subsection{Problem}
+Let $(V,\langle\cdot,\cdot\rangle)$ be an inner product space (either real or complex).
+Prove the Parallelogram Identity:
+\[
+\forall u,v\in V:\qquad
+\|u+v\|^2+\|u-v\|^2=2\|u\|^2+2\|v\|^2,
+\]
+where $\|w\|\df \sqrt{\langle w,w\rangle}$.
+
+\vspace{2cm}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Expand using inner product axioms}
+Let $u,v\in V$. We use the convention that in the complex case, the first slot is conjugate-linear and the second slot is linear. Then
+\begin{align*}
+\|u+v\|^2
+&=\langle u+v,u+v\rangle\\
+&=\langle u,u\rangle+\langle u,v\rangle+\langle v,u\rangle+\langle v,v\rangle,
+\end{align*}
+and
+\begin{align*}
+\|u-v\|^2
+&=\langle u-v,u-v\rangle\\
+&=\langle u,u\rangle-\langle u,v\rangle-\langle v,u\rangle+\langle v,v\rangle.
+\end{align*}
+Adding these two identities gives
+\begin{align*}
+\|u+v\|^2+\|u-v\|^2
+&=2\langle u,u\rangle+2\langle v,v\rangle\\
+&=2\|u\|^2+2\|v\|^2.
+\end{align*}
+The cross terms cancel exactly, so no separate real/complex case split is needed.
+
+\[
+\boxed{\,\|u+v\|^2+\|u-v\|^2=2\|u\|^2+2\|v\|^2\quad\forall u,v\in V.\,}
+\]
+
+\newpage
+\subsubsection{Method 2: Real-part expansion / polarization viewpoint}
+The theorem used in this method is the \textbf{real-part norm expansion in an inner product space}: for any real or complex inner product space,
+\[
+\|u+v\|^2=\|u\|^2+\|v\|^2+2\operatorname{Re}\langle u,v\rangle,
+\]
+and
+\[
+\|u-v\|^2=\|u\|^2+\|v\|^2-2\operatorname{Re}\langle u,v\rangle.
+\]
+These formulas follow by expanding the inner products and using $\langle v,u\rangle=\overline{\langle u,v\rangle}$, so
+\[
+\langle u,v\rangle+\langle v,u\rangle=2\operatorname{Re}\langle u,v\rangle.
+\]
+
+Using these expansions,
+\begin{align*}
+\|u+v\|^2+\|u-v\|^2
+&=\left(\|u\|^2+\|v\|^2+2\operatorname{Re}\langle u,v\rangle\right)
++\left(\|u\|^2+\|v\|^2-2\operatorname{Re}\langle u,v\rangle\right)\\
+&=2\|u\|^2+2\|v\|^2.
+\end{align*}
+Therefore the parallelogram identity holds.
+
+\[
+\boxed{\,\|u+v\|^2+\|u-v\|^2=2\|u\|^2+2\|v\|^2.\,}
+\]
+
+\end{document}

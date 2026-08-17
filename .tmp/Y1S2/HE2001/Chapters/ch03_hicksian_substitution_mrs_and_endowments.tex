@@ -1,0 +1,804 @@
+
+% chapters/ch03_hicksian_substitution_mrs_and_endowments.tex
+
+\section{Hicksian Substitution, MRS, and Endowments}
+
+Chapter 2 decomposed a Marshallian price effect using Slutsky compensation: adjust income just enough so that the original bundle remains affordable at the new prices. Lecture 3 introduces a second compensation concept, Hicksian compensation, which instead keeps utility constant. The chapter then develops marginal utility and the marginal rate of substitution, and finally studies consumer choice when expenditure comes from an endowment rather than exogenous income.
+
+\subsection{Hicksian Substitution}
+
+Let the initial price vector be $p=(p_1,p_2)$, expenditure be $m$, and initial demand be
+\[
+x^0 := x(p,m).
+\]
+Suppose the price of good 1 rises to
+\[
+p'=(p_1',p_2), \qquad p_1' > p_1.
+\]
+
+\begin{definition}{Slutsky and Hicksian compensation}{ch3-compensation}
+Let $u_0 := U(x^0)$ denote the utility level at the original optimum.
+
+\begin{itemize}
+    \item The \emph{Slutsky compensated expenditure} is
+    \[
+    m^s := p' \cdot x^0.
+    \]
+    This is the income needed at the new prices to still afford the original bundle.
+    \item The \emph{Hicksian compensated expenditure} is
+    \[
+    m^h := \min \left\{\, p' \cdot y : y \in \mathbb{R}_+^2,\ U(y) \ge u_0 \,\right\}.
+    \]
+    This is the minimum expenditure needed at the new prices to reach the original utility level.
+\end{itemize}
+\end{definition}
+
+The difference is conceptual:
+\begin{itemize}
+    \item Slutsky compensation keeps the \emph{old bundle} feasible.
+    \item Hicksian compensation keeps the \emph{old utility level} feasible at minimum cost.
+\end{itemize}
+
+\begin{theorem}{Hicksian compensation is weakly below Slutsky compensation}{ch3-ms-mh}
+For a price increase from $p$ to $p'$, the compensation levels satisfy
+\[
+m^h \le m^s.
+\]
+Equivalently, Slutsky compensation is weakly larger than Hicksian compensation.
+\end{theorem}
+
+\begin{proof}
+The original bundle $x^0$ delivers utility $u_0$, so it is feasible in the expenditure-minimization problem defining $m^h$. Therefore
+\[
+m^h \le p' \cdot x^0 = m^s.
+\]
+\end{proof}
+
+\begin{examtip}
+The intuition is simple: the old bundle is one way to attain the old utility level at the new prices, but it need not be the \emph{cheapest} way. Hence Hicksian compensation is weakly smaller.
+\end{examtip}
+
+To isolate substitution under constant utility, let $h(p',u_0)$ denote Hicksian demand at the new prices and old utility. In the lecture's notation, this is often written as $x(p',m^h)$.
+
+\begin{definition}{Hicksian substitution and income effects}{ch3-hicks-effects}
+For a price increase in good 1, define
+\[
+\Delta x_1 := x_1(p',m) - x_1(p,m)
+\]
+as the total Marshallian change in demand for good 1. The Hicksian decomposition is
+\[
+\Delta x_1 = \Delta x_1^h + \Delta x_1^q,
+\]
+where
+\[
+\Delta x_1^h := h_1(p',u_0) - x_1(p,m)
+\]
+is the \emph{Hicksian substitution effect}, and
+\[
+\Delta x_1^q := x_1(p',m) - h_1(p',u_0)
+\]
+is the \emph{Hicksian income effect}.
+
+\end{definition}
+
+\begin{theorem}{Hicksian compensated demand for the good whose price rises is nonincreasing}{ch3-hicks-negative}
+If the price of good 1 rises from $p_1$ to $p_1' > p_1$, then
+\[
+\Delta x_1^h = h_1(p',u_0) - x_1(p,m) \le 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+x^h := h(p',u_0).
+\]
+Because $x^0$ and $x^h$ both deliver utility level $u_0$, each solves an expenditure-minimization problem at its own price vector:
+\[
+p \cdot x^0 \le p \cdot x^h,
+\qquad
+p' \cdot x^h \le p' \cdot x^0.
+\]
+Subtracting the first inequality from the second gives
+\[
+(p'-p)\cdot(x^h-x^0)\le 0.
+\]
+Only the price of good 1 changes, so
+\[
+(p_1'-p_1)\bigl(x_1^h-x_1^0\bigr)\le 0.
+\]
+Since $p_1'-p_1>0$, it follows that
+\[
+x_1^h-x_1^0\le 0.
+\]
+Hence
+\[
+\Delta x_1^h\le 0.
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: Slutsky versus Hicksian compensation}]
+Suppose the original choice is $x^0=x(p,m)$ and utility is $u_0=U(x^0)$. Let new prices be $p'=(p_1',p_2)$ with $p_1'>p_1$.
+
+The two compensation levels are:
+\[
+m^s = p' \cdot x^0,
+\qquad
+m^h = \min\{\,p' \cdot y : U(y)\ge u_0\,\}.
+\]
+Since $U(x^0)=u_0$, the original bundle $x^0$ is feasible for the Hicksian minimization problem. Therefore
+\[
+m^h \le p' \cdot x^0 = m^s.
+\]
+
+So the correct ranking is
+\[
+\boxed{m^h \le m^s.}
+\]
+
+Interpretation:
+\begin{itemize}
+    \item Slutsky gives enough money to buy the old bundle.
+    \item Hicks only gives enough money to reach the old utility level as cheaply as possible.
+\end{itemize}
+Hence Hicksian compensation is more economical.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not reverse the inequality. After a price increase, Slutsky compensation is \emph{not} smaller than Hicksian compensation. Keeping the exact old bundle affordable is generally more expensive than keeping only the old utility level attainable.
+\end{commonmistake}
+
+\subsection{Marginal Utility and the Marginal Rate of Substitution}
+
+Lecture 3 then formalizes local trade-offs using derivatives.
+
+\begin{definition}{Derivative and partial derivatives}{ch3-derivatives}
+If $f:\mathbb{R}\to\mathbb{R}$, the derivative of $f$ at $x$ is
+\[
+f'(x)=\lim_{\alpha\to 0}\frac{f(x+\alpha)-f(x)}{\alpha},
+\]
+when the limit exists.
+
+If $f:\mathbb{R}_+^2\to\mathbb{R}$, the partial derivative with respect to the first input is
+\[
+\frac{\partial f(x_1,x_2)}{\partial x_1}
+=
+\lim_{\alpha\to 0}
+\frac{f(x_1+\alpha,x_2)-f(x_1,x_2)}{\alpha},
+\]
+and similarly for $\partial f/\partial x_2$.
+\end{definition}
+
+In consumer theory, the function of interest is utility.
+
+\begin{definition}{Marginal utility}{ch3-mu}
+For a differentiable utility function $U(x_1,\dots,x_L)$, the marginal utility of good $k$ is
+\[
+MU_k := \frac{\partial U(x_1,\dots,x_L)}{\partial x_k}.
+\]
+It measures the rate at which utility changes when the quantity of good $k$ increases by a small amount, holding other goods fixed.
+\end{definition}
+
+\begin{definition}{Marginal rate of substitution}{ch3-mrs}
+In the two-good case, fix a utility level $u$ and write the indifference curve locally as
+\[
+x_2 = f(x_1,u)
+\quad \text{so that} \quad
+U(x_1,f(x_1,u))=u.
+\]
+The \emph{marginal rate of substitution of good 1 for good 2} is
+\[
+MRS_{12} := -\frac{\partial f(x_1,u)}{\partial x_1}.
+\]
+It is the amount of good 2 the consumer is willing to give up for a small increase in good 1 while holding utility constant.
+\end{definition}
+
+\begin{theorem}{MRS equals the ratio of marginal utilities}{ch3-mrs-mu}
+Suppose $U$ is differentiable and $MU_2>0$. Then along an indifference curve,
+\[
+MRS_{12}=\frac{MU_1}{MU_2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Since utility is constant along the indifference curve,
+\[
+U(x_1,f(x_1,u))=u.
+\]
+Differentiate both sides with respect to $x_1$:
+\[
+\frac{\partial U}{\partial x_1}
++
+\frac{\partial U}{\partial x_2}\cdot \frac{\partial f(x_1,u)}{\partial x_1}
+=0.
+\]
+Rearranging gives
+\[
+-\frac{\partial f(x_1,u)}{\partial x_1}
+=
+\frac{\frac{\partial U}{\partial x_1}}{\frac{\partial U}{\partial x_2}}
+=
+\frac{MU_1}{MU_2}.
+\]
+By definition of $MRS_{12}$, this proves the result.
+\end{proof}
+
+\begin{theorem}{Interior tangency condition}{ch3-tangency}
+If utility is differentiable and the consumer chooses an interior optimum from the budget set
+\[
+p_1x_1+p_2x_2=m,
+\]
+then
+\[
+MRS_{12}=\frac{MU_1}{MU_2}=\frac{p_1}{p_2}.
+\]
+\end{theorem}
+
+\begin{proof}
+At an interior optimum, the indifference curve is tangent to the budget line. The slope of the budget line is $-p_1/p_2$, while the slope of the indifference curve is $-MRS_{12}$. Equality of slopes gives
+\[
+MRS_{12}=\frac{p_1}{p_2}.
+\]
+Combining with Theorem \ref{thm:ch3-mrs-mu} yields
+\[
+\frac{MU_1}{MU_2}=\frac{p_1}{p_2}.
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: Cobb--Douglas utility}]
+Let
+\[
+U(x_1,x_2)=x_1x_2.
+\]
+Then
+\[
+MU_1=\frac{\partial U}{\partial x_1}=x_2,
+\qquad
+MU_2=\frac{\partial U}{\partial x_2}=x_1.
+\]
+Hence
+\[
+MRS_{12}=\frac{MU_1}{MU_2}=\frac{x_2}{x_1}.
+\]
+
+At an interior optimum,
+\[
+\frac{x_2}{x_1}=\frac{p_1}{p_2}
+\quad \Longrightarrow \quad
+x_2=\frac{p_1}{p_2}x_1.
+\]
+Substitute into the budget constraint:
+\[
+p_1x_1+p_2x_2
+=
+p_1x_1+p_2\left(\frac{p_1}{p_2}x_1\right)
+=
+2p_1x_1
+=
+m.
+\]
+So
+\[
+x_1=\frac{m}{2p_1},
+\qquad
+x_2=\frac{m}{2p_2}.
+\]
+Therefore the Marshallian demand is
+\[
+\boxed{
+x(p_1,p_2,m)
+=
+\left(
+\frac{m}{2p_1},
+\frac{m}{2p_2}
+\right).
+}
+\]
+
+If the endowment is $\omega=(3,1)$ and prices are $(p_1,p_2)=(1,3)$, then
+\[
+m=p\cdot \omega = 1\cdot 3 + 3\cdot 1 = 6,
+\]
+so
+\[
+x(1,3,6)=\left(\frac{6}{2},\frac{6}{6}\right)=(3,1).
+\]
+Thus the consumer chooses exactly the endowment.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: quasilinear utility and corner logic}]
+Let
+\[
+U(x_1,x_2)=x_1+2\sqrt{x_2}.
+\]
+Then
+\[
+MU_1=1,
+\qquad
+MU_2=\frac{1}{\sqrt{x_2}},
+\qquad
+MRS_{12}=\frac{MU_1}{MU_2}=\sqrt{x_2}.
+\]
+
+Consider prices $(p_1,p_2)=(2,1)$ and expenditure $m=1$. An interior tangency would require
+\[
+\sqrt{x_2}=\frac{p_1}{p_2}=2
+\quad \Longrightarrow \quad
+x_2=4,
+\]
+but this is impossible because the budget set satisfies
+\[
+2x_1+x_2\le 1.
+\]
+So the tangency candidate is infeasible, and the optimum must be a corner.
+
+Because utility is increasing in both goods, the budget binds:
+\[
+2x_1+x_2=1
+\quad \Longrightarrow \quad
+x_1=\frac{1-x_2}{2}.
+\]
+Hence maximize
+\[
+f(x_2)=\frac{1-x_2}{2}+2\sqrt{x_2},
+\qquad x_2\in[0,1].
+\]
+Then
+\[
+f'(x_2)=-\frac12+\frac{1}{\sqrt{x_2}}>0
+\quad \text{for } x_2\in(0,1].
+\]
+So $f$ is increasing on $[0,1]$, and the optimum is
+\[
+x_2^*=1,\qquad x_1^*=0.
+\]
+
+Thus
+\[
+\boxed{x(2,1,1)=(0,1).}
+\]
+
+This is a standard exam pattern: the tangency condition gives a candidate, but feasibility and corner checks still matter.
+\end{examplebox}
+
+\begin{commonmistake}
+The tangency condition
+\[
+\frac{MU_1}{MU_2}=\frac{p_1}{p_2}
+\]
+applies only at an \emph{interior} optimum. If the tangency candidate is infeasible or gives a negative quantity, the true optimum is a corner and must be checked separately.
+\end{commonmistake}
+
+\subsection{Endowments and Net Demand}
+
+Up to this point, expenditure $m$ was taken as given. Lecture 3 now studies the case where expenditure comes from selling an initial endowment.
+
+\begin{definition}{Endowment economy budget set}{ch3-endowment}
+Let the consumer's endowment be
+\[
+\omega=(\omega_1,\dots,\omega_L)\in \mathbb{R}_+^L.
+\]
+At prices $p$, the value of the endowment is
+\[
+m=p\cdot \omega.
+\]
+The consumer solves
+\[
+\max_{x\in \mathbb{R}_+^L} U(x)
+\quad \text{subject to} \quad
+p\cdot x \le p\cdot \omega.
+\]
+If preferences are increasing, the budget binds:
+\[
+p\cdot x(p,p\cdot \omega)=p\cdot \omega.
+\]
+\end{definition}
+
+\begin{definition}{Net demand}{ch3-net-demand}
+Given endowment $\omega$ and Marshallian demand $x(p,m)$, the \emph{net demand function} is
+\[
+z(p):=x(p,p\cdot \omega)-\omega.
+\]
+For each good $\ell$,
+\[
+z_\ell(p)=x_\ell(p,p\cdot \omega)-\omega_\ell.
+\]
+Interpretation:
+\begin{itemize}
+    \item $z_\ell(p)>0$: the consumer is a net buyer of good $\ell$;
+    \item $z_\ell(p)<0$: the consumer is a net seller of good $\ell$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Walras' law for net demand}{ch3-walras}
+For any endowment $\omega$ and increasing utility,
+\[
+p\cdot z(p)=0.
+\]
+\end{theorem}
+
+\begin{proof}
+By definition,
+\[
+z(p)=x(p,p\cdot \omega)-\omega.
+\]
+Taking the dot product with $p$ gives
+\[
+p\cdot z(p)
+=
+p\cdot x(p,p\cdot \omega)-p\cdot \omega.
+\]
+Because the chosen bundle exhausts the budget,
+\[
+p\cdot x(p,p\cdot \omega)=p\cdot \omega.
+\]
+Hence
+\[
+p\cdot z(p)=0.
+\]
+\end{proof}
+
+In the two-good case, positive prices imply the two net demands must have opposite signs whenever one is nonzero. Thus a consumer cannot be a net buyer of both goods simultaneously.
+
+\begin{examplebox}[title={Worked Example: net demand and Walras' law}]
+Suppose
+\[
+U(x_1,x_2)=\sqrt{x_1}+\sqrt{x_2},
+\]
+which generates the Marshallian demand
+\[
+x(p_1,p_2,m)
+=
+\frac{m}{p_1+p_2}
+\left(
+\frac{p_2}{p_1},
+\frac{p_1}{p_2}
+\right).
+\]
+Let the endowment be $\omega=(3,1)$.
+
+At prices $p=(1,1)$, endowment income is
+\[
+m=p\cdot \omega = 1\cdot 3 + 1\cdot 1 = 4.
+\]
+So
+\[
+x(1,1,4)=\frac{4}{2}(1,1)=(2,2).
+\]
+Hence net demand is
+\[
+z(1,1)=(2,2)-(3,1)=(-1,1).
+\]
+Therefore:
+\begin{itemize}
+    \item the consumer is a net seller of good 1;
+    \item the consumer is a net buyer of good 2.
+\end{itemize}
+
+Walras' law holds:
+\[
+(1,1)\cdot(-1,1)=0.
+\]
+So
+\[
+\boxed{z(1,1)=(-1,1),\qquad p\cdot z(p)=0.}
+\]
+\end{examplebox}
+
+\subsection{Price Changes with Endowments}
+
+Price changes have a new feature when wealth depends on prices: the consumer's budget changes not only because the slope of the budget line changes, but also because the value of the endowment changes.
+
+Suppose the price of good 1 rises from $p_1$ to $p_1' > p_1$, with $p_2$ unchanged. Let
+\[
+\tilde x := x(p,p\cdot \omega)
+\]
+denote the original chosen bundle, and define the Slutsky compensation relative to that bundle as
+\[
+m^s := p'\cdot \tilde x.
+\]
+
+\begin{definition}{Slutsky decomposition with endowments}{ch3-endowment-slutsky}
+Define
+\[
+\Delta x_1 := x_1(p',p'\cdot \omega)-x_1(p,p\cdot \omega),
+\]
+\[
+\Delta x_1^s := x_1(p',m^s)-x_1(p,p\cdot \omega),
+\]
+\[
+\Delta x_1^n := x_1(p',p'\cdot \omega)-x_1(p',m^s).
+\]
+Then
+\[
+\Delta x_1 = \Delta x_1^s + \Delta x_1^n.
+\]
+\end{definition}
+
+As in Chapter 2, the substitution effect $\Delta x_1^s$ is always nonpositive when the price of good 1 rises. The new issue is the sign of the income effect $\Delta x_1^n$.
+
+\begin{theorem}{Endowment-value identity}{ch3-income-identity}
+Let $z_1(p)=x_1(p,p\cdot \omega)-\omega_1$ denote net demand for good 1 at the original prices. Then
+\[
+p'\cdot \omega = m^s - (p_1'-p_1)z_1(p).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $\tilde x = x(p,p\cdot \omega)$. Since the original bundle exhausts the original budget,
+\[
+p\cdot \tilde x = p\cdot \omega.
+\]
+Now
+\begin{align*}
+p'\cdot \omega
+&= p'\cdot \omega + (p\cdot \tilde x - p\cdot \omega) + (p'\cdot \tilde x - p'\cdot \tilde x) \\
+&= p'\cdot (\omega-\tilde x) + p\cdot (\tilde x-\omega) + p'\cdot \tilde x \\
+&= p'\cdot \tilde x - (p'-p)\cdot(\tilde x-\omega).
+\end{align*}
+Only the price of good 1 changes, so
+\[
+(p'-p)\cdot(\tilde x-\omega)=(p_1'-p_1)(\tilde x_1-\omega_1)=(p_1'-p_1)z_1(p).
+\]
+Since $m^s=p'\cdot \tilde x$, the result follows:
+\[
+p'\cdot \omega = m^s-(p_1'-p_1)z_1(p).
+\]
+\end{proof}
+
+This identity immediately explains the sign of the income effect:
+
+\begin{itemize}
+    \item If $z_1(p)>0$ (the consumer is a net buyer of good 1), then
+    \[
+    p'\cdot \omega < m^s.
+    \]
+    So the consumer is poorer than under Slutsky compensation.
+    \item If $z_1(p)<0$ (the consumer is a net seller of good 1), then
+    \[
+    p'\cdot \omega > m^s.
+    \]
+    So the consumer is richer than under Slutsky compensation.
+\end{itemize}
+
+\begin{theorem}{Welfare and direction of the budget shift}{ch3-buyer-seller}
+Suppose the price of good 1 rises.
+
+\begin{enumerate}
+    \item If the consumer is a net buyer of good 1 at the original prices, then welfare falls.
+    \item If the consumer is a net seller of good 1 at the original prices, then welfare rises.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $\tilde x=x(p,p\cdot \omega)$.
+
+If the consumer is a net buyer of good 1, then $\tilde x_1>\omega_1$. Hence
+\[
+p'\cdot \tilde x - p'\cdot \omega = (p_1'-p_1)(\tilde x_1-\omega_1)>0.
+\]
+So the old bundle $\tilde x$ is no longer affordable at the new prices and new wealth. Therefore the consumer cannot attain the old optimum, so welfare falls.
+
+If the consumer is a net seller of good 1, then $\tilde x_1<\omega_1$. Hence
+\[
+p'\cdot \tilde x - p'\cdot \omega = (p_1'-p_1)(\tilde x_1-\omega_1)<0.
+\]
+So the old bundle is affordable at the new prices and new wealth, with money left over. Since preferences are increasing, the consumer can buy something strictly better. Therefore welfare rises.
+\end{proof}
+
+\begin{theorem}{A seller of the good whose price rises cannot become a buyer}{ch3-cannot-become-buyer}
+Suppose the consumer is a net seller of good 1 at the original prices:
+\[
+x_1(p,p\cdot \omega)<\omega_1.
+\]
+If the price of good 1 rises, then at the new prices the consumer cannot choose a bundle with
+\[
+x_1(p',p'\cdot \omega)>\omega_1.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $\tilde x=x(p,p\cdot \omega)$ and suppose for contradiction that the new choice $x'$ satisfies $x_1'>\omega_1$.
+
+Since $\tilde x_1<\omega_1$, at the new prices
+\[
+p'\cdot \tilde x < p'\cdot \omega = p'\cdot x'.
+\]
+So $x'$ is chosen when $\tilde x$ is strictly cheaper, hence
+\[
+x' P \tilde x.
+\]
+
+On the other hand, because $x_1'>\omega_1$,
+\[
+p\cdot x' = p'\cdot x' - (p_1'-p_1)x_1'
+< p'\cdot \omega - (p_1'-p_1)\omega_1
+= p\cdot \omega
+= p\cdot \tilde x.
+\]
+Thus under the original prices, $x'$ was strictly cheaper than the old chosen bundle, so
+\[
+\tilde x P x'.
+\]
+This violates WARP. Therefore the new choice cannot satisfy $x_1'>\omega_1$.
+\end{proof}
+
+\begin{theorem}{Law of demand with endowments for a normal good and a net buyer}{ch3-law-demand-endowment}
+Suppose good 1 is normal, and the consumer is a net buyer of good 1 at the original prices:
+\[
+z_1(p)\ge 0.
+\]
+If the price of good 1 rises from $p_1$ to $p_1' > p_1$, then
+\[
+x_1(p',p'\cdot \omega)\le x_1(p,p\cdot \omega).
+\]
+\end{theorem}
+
+\begin{proof}
+By Definition \ref{def:ch3-endowment-slutsky},
+\[
+\Delta x_1=\Delta x_1^s+\Delta x_1^n.
+\]
+The substitution effect satisfies
+\[
+\Delta x_1^s\le 0.
+\]
+By Theorem \ref{thm:ch3-income-identity},
+\[
+p'\cdot \omega = m^s-(p_1'-p_1)z_1(p)\le m^s
+\]
+because $z_1(p)\ge 0$. Since good 1 is normal, a lower income at fixed prices $p'$ weakly lowers its demand. Therefore
+\[
+\Delta x_1^n = x_1(p',p'\cdot \omega)-x_1(p',m^s)\le 0.
+\]
+So
+\[
+\Delta x_1=\Delta x_1^s+\Delta x_1^n\le 0.
+\]
+This is exactly
+\[
+x_1(p',p'\cdot \omega)\le x_1(p,p\cdot \omega).
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: seller of good 1 and the sign of the income effect}]
+Let
+\[
+U(x_1,x_2)=\sqrt{x_1}+\sqrt{x_2},
+\qquad
+x(p_1,p_2,m)=\frac{m}{p_1+p_2}\left(\frac{p_2}{p_1},\frac{p_1}{p_2}\right),
+\]
+and let the endowment be
+\[
+\omega=(3,1).
+\]
+
+\textbf{Step 1: original prices.}  
+At
+\[
+p=(1,1),
+\]
+income is
+\[
+m_0=(1,1)\cdot(3,1)=4.
+\]
+Hence
+\[
+x^0=x(1,1,4)=\frac{4}{2}(1,1)=(2,2).
+\]
+So
+\[
+z(1,1)=x^0-\omega=(2,2)-(3,1)=(-1,1).
+\]
+The consumer is a net seller of good 1.
+
+\textbf{Step 2: new prices.}  
+Let
+\[
+p'=(2,1).
+\]
+New endowment income is
+\[
+m_1=(2,1)\cdot(3,1)=7.
+\]
+So
+\[
+x^1=x(2,1,7)=\frac{7}{3}\left(\frac12,2\right)=\left(\frac76,\frac{14}{3}\right).
+\]
+
+\textbf{Step 3: Slutsky compensation.}  
+The compensated income needed to still afford the original bundle is
+\[
+m^s=p'\cdot x^0=(2,1)\cdot(2,2)=6.
+\]
+So the compensated demand is
+\[
+x^c=x(2,1,6)=\frac{6}{3}\left(\frac12,2\right)=(1,4).
+\]
+
+\textbf{Step 4: decomposition for good 1.}
+\[
+\Delta x_1^s=x_1^c-x_1^0=1-2=-1,
+\]
+\[
+\Delta x_1^n=x_1^1-x_1^c=\frac76-1=\frac16.
+\]
+Thus
+\[
+\Delta x_1=\Delta x_1^s+\Delta x_1^n=-1+\frac16=-\frac56.
+\]
+
+So
+\[
+\boxed{
+\Delta x_1^s=-1,
+\qquad
+\Delta x_1^n=\frac16.
+}
+\]
+
+Interpretation:
+\begin{itemize}
+    \item the substitution effect is negative, as usual;
+    \item because the consumer is a seller of good 1, the price increase raises wealth, so the income effect is positive;
+    \item the total change is still negative here because substitution dominates.
+\end{itemize}
+\end{examplebox}
+
+\begin{policynote}[title={Policy Application: wages and labour supply}]
+Lecture 3 interprets an endowment model as a labour-supply problem. Let good 1 be \emph{time/leisure} and let the endowment be
+\[
+\omega=(24,0),
+\]
+meaning the consumer begins each day with 24 hours of time and no composite consumption good. If the price vector is
+\[
+p=(w,1),
+\]
+then $w$ is the wage. A worker who supplies labour is a net seller of leisure/time, so a wage increase raises the value of the endowment.
+
+Two forces then conflict:
+\begin{itemize}
+    \item the substitution effect makes leisure more expensive, pushing the consumer toward less leisure and more labour;
+    \item the income effect from higher wages makes the consumer richer, which can increase demand for leisure if leisure is normal.
+\end{itemize}
+
+Hence a higher wage can increase or decrease labour supplied. This is the standard intuition behind backward-bending labour supply.
+\end{policynote}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 3 Summary}]
+\begin{align*}
+m^s &= p' \cdot x(p,m), \\
+m^h &= \min\{\, p' \cdot y : U(y)\ge U(x(p,m)) \,\}, \\
+m^h &\le m^s, \\
+\Delta x_1 &= \Delta x_1^h + \Delta x_1^q, \\
+MRS_{12} &= -\frac{\partial f(x_1,u)}{\partial x_1}
+= \frac{MU_1}{MU_2}, \\
+\text{interior optimum: } \quad \frac{MU_1}{MU_2} &= \frac{p_1}{p_2}, \\
+z(p) &= x(p,p\cdot \omega)-\omega, \\
+p\cdot z(p) &= 0, \\
+p'\cdot \omega &= m^s-(p_1'-p_1)z_1(p).
+\end{align*}
+If good 1 is normal and the consumer is a net buyer of good 1, then a rise in $p_1$ implies
+\[
+x_1(p',p'\cdot \omega)\le x_1(p,p\cdot \omega).
+\]
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield points from Lecture 3 are:
+\begin{itemize}
+    \item Slutsky and Hicksian compensation are different; Hicksian compensation is weakly smaller.
+    \item Hicksian substitution always reduces compensated demand for the good whose price rises.
+    \item Know how to compute $MU_1$, $MU_2$, $MRS_{12}$, and the tangency condition.
+    \item In endowment models, income changes with prices because wealth equals $p\cdot \omega$.
+    \item Use net demand
+    \[
+    z(p)=x(p,p\cdot \omega)-\omega
+    \]
+    to determine whether the consumer is a buyer or seller.
+    \item For a net buyer, a price increase hurts welfare; for a net seller, it helps.
+    \item Labour supply is ambiguous because the substitution and income effects work in opposite directions.
+\end{itemize}
+\end{examtip}

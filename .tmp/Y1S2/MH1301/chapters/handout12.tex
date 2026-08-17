@@ -1,0 +1,939 @@
+% Source reference: :contentReference[oaicite:0]{index=0}
+\part{Review}
+\section{Handout 12: Review}
+
+\subsection{Overview}
+
+This handout is a final review of the whole MH1301 syllabus. It does not introduce a new mathematical topic; instead, it consolidates the three major parts of the module:
+\[
+\text{Counting},
+\qquad
+\text{Recurrence Relations},
+\qquad
+\text{Graph Theory}.
+\]
+
+The final-exam emphasis described in the handout is approximately:
+\[
+\begin{array}{c|c}
+\text{Part} & \text{Approximate weight} \\ \hline
+\text{Counting} & 35\% \\
+\text{Recurrence Relations} & 30\% \\
+\text{Graph Theory} & 35\%
+\end{array}
+\]
+The question allocation is described as:
+\[
+\text{Questions 1--2: Counting},
+\qquad
+\text{Questions 3--4: Recurrence Relations},
+\qquad
+\text{Questions 5--6: Graph Theory}.
+\]
+
+\begin{examtip}[title={How to read this review chapter}]
+This chapter should be used as a synthesis checklist, not as a replacement for the earlier handout chapters. For each item below, you should be able to:
+\begin{enumerate}[leftmargin=*]
+    \item state the relevant definition or theorem accurately;
+    \item identify when it applies;
+    \item solve at least one tutorial-style problem using it;
+    \item explain one common mistake associated with it.
+\end{enumerate}
+\end{examtip}
+
+%==================================================
+\subsection{Final Exam Structure and Revision Priorities}
+%==================================================
+
+The final exam covers the full lecture syllabus except material explicitly marked optional. The structure is designed to contain a substantial number of accessible marks, together with more challenging questions that test problem-solving flexibility.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.28\textwidth}p{0.26\textwidth}p{0.36\textwidth}@{}}
+\toprule
+\textbf{Question type} & \textbf{Approximate marks} & \textbf{Expected revision response} \\
+\midrule
+Easy questions & \(50\) marks & secure definitions, direct formulas, standard algorithms \\
+Slightly more challenging questions & \(25\) marks & combine two or more ideas, handle cases carefully \\
+Challenging questions & \(25\) marks & structural reasoning, proof, obstruction, non-routine modelling \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}[title={Efficient exam-preparation order}]
+A practical final-review order is:
+\[
+\begin{aligned}
+\text{definitions}&\longrightarrow\text{standard formulas}
+\longrightarrow\text{worked tutorial problems}\\
+&\longrightarrow\text{mixed-topic practice}
+\longrightarrow\text{one-page reference sheet}.
+\end{aligned}
+\]
+Do not start by memorising formulas without first knowing which problem type each formula solves.
+\end{examtip}
+
+\begin{commonmistake}[title={Treating the reference sheet as a substitute for reasoning}]
+A one-page reference sheet can remind you of formulas, but it cannot decide whether order matters, whether cases are disjoint, whether a recurrence is homogeneous, or whether a graph problem is Eulerian or Hamiltonian. Those decisions must be practised before the exam.
+\end{commonmistake}
+
+%==================================================
+\subsection{Counting Review}
+%==================================================
+
+Counting questions require modelling discipline. Before applying a formula, decide what the objects are, whether order matters, whether repetition is allowed, and whether the cases overlap.
+
+\subsubsection{Sum Rule, Product Rule, Division Rule, and Bijection}
+
+\begin{theorem}{Sum Rule}{review-sum-rule}
+If \(A_1,A_2,\dots,A_n\) are pairwise disjoint finite sets, then
+\[
+|A_1\cup A_2\cup\cdots\cup A_n|
+=
+|A_1|+|A_2|+\cdots+|A_n|.
+\]
+\end{theorem}
+
+\begin{theorem}{Product Rule}{review-product-rule}
+If an object is constructed in \(k\) successive stages, with \(n_i\) choices at stage \(i\), then the total number of objects is
+\[
+n_1n_2\cdots n_k.
+\]
+\end{theorem}
+
+\begin{theorem}{Division Rule}{review-division-rule}
+If every object in a target set is represented exactly \(k\) times by a larger counted set, then
+\[
+\text{target count}
+=
+\frac{\text{larger count}}{k}.
+\]
+\end{theorem}
+
+\begin{theorem}{Bijection Principle}{review-bijection}
+If \(f:X\to Y\) is a bijection between finite sets, then
+\[
+|X|=|Y|.
+\]
+\end{theorem}
+
+\begin{examtip}[title={Which basic rule should be used?}]
+\[
+\begin{array}{c|c}
+\text{Situation} & \text{Rule} \\ \hline
+\text{disjoint cases} & \text{Sum Rule} \\
+\text{sequential choices} & \text{Product Rule} \\
+\text{uniform overcounting} & \text{Division Rule} \\
+\text{hard objects encoded as easier objects} & \text{Bijection Principle}
+\end{array}
+\]
+\end{examtip}
+
+\begin{commonmistake}[title={Adding before checking disjointness}]
+The Sum Rule applies only to disjoint cases. If an object can belong to two cases simultaneously, direct addition overcounts.
+\end{commonmistake}
+
+\subsubsection{Inclusion--Exclusion}
+
+\begin{keyformula}[title={Inclusion--exclusion}]
+For two sets,
+\[
+|A\cup B|=|A|+|B|-|A\cap B|.
+\]
+For three sets,
+\[
+|A\cup B\cup C|
+=
+|A|+|B|+|C|
+-|A\cap B|-|A\cap C|-|B\cap C|
++|A\cap B\cap C|.
+\]
+In general,
+\[
+\left|\bigcup_{i=1}^{n}A_i\right|
+=
+\sum_i |A_i|
+-
+\sum_{i<j}|A_i\cap A_j|
++
+\sum_{i<j<k}|A_i\cap A_j\cap A_k|
+-\cdots .
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Counting objects avoiding forbidden conditions}]
+Suppose \(U\) is a universal set and \(A,B,C\) are three bad events. The number of objects avoiding all three bad events is
+\[
+|U\setminus(A\cup B\cup C)|
+=
+|U|-|A|-|B|-|C|
++|A\cap B|+|A\cap C|+|B\cap C|
+-|A\cap B\cap C|.
+\]
+This form is especially useful for forbidden substrings, divisibility restrictions, and overlapping cases.
+\end{examplebox}
+
+\begin{extension}[title={Why the signs alternate}]
+An object lying in exactly \(r\) of the sets is counted
+\[
+\binom{r}{1}-\binom{r}{2}+\binom{r}{3}-\cdots+(-1)^{r-1}\binom{r}{r}=1
+\]
+time in the inclusion--exclusion sum. Thus every object in the union contributes exactly once.
+\end{extension}
+
+\subsubsection{Pigeonhole Principle}
+
+\begin{theorem}{Pigeonhole Principle}{review-php}
+If \(N\) objects are placed into \(k\) boxes, then at least one box contains at least
+\[
+\left\lceil \frac{N}{k}\right\rceil
+\]
+objects.
+\end{theorem}
+
+\begin{examtip}[title={Pigeonhole modelling}]
+A pigeonhole problem is solved by identifying:
+\[
+\text{objects}
+\quad\text{and}\quad
+\text{boxes/categories}.
+\]
+Common boxes include remainders modulo \(n\), first letters, parity classes, degree values, and possible values of a bounded quantity.
+\end{examtip}
+
+\subsubsection{Binomial Theorem and Combinatorial Proof}
+
+\begin{theorem}{Binomial Theorem}{review-binomial}
+For every nonnegative integer \(n\),
+\[
+(x+y)^n
+=
+\sum_{i=0}^{n}\binom{n}{i}x^{n-i}y^i.
+\]
+\end{theorem}
+
+\begin{definition}{Combinatorial proof}{review-comb-proof}
+A \emph{combinatorial proof} proves an identity by showing that both sides count the same family of objects in two different ways.
+\end{definition}
+
+\begin{examplebox}[title={Pascal identity by counting}]
+To prove
+\[
+\binom{n+1}{r}=\binom{n}{r}+\binom{n}{r-1},
+\]
+count \(r\)-element subsets of an \((n+1)\)-element set. Fix one distinguished element \(x\). The subset either excludes \(x\), giving \(\binom{n}{r}\) choices, or includes \(x\), giving \(\binom{n}{r-1}\) choices.
+\end{examplebox}
+
+\subsubsection{Permutations and Combinations}
+
+\begin{keyformula}[title={Core permutation and combination formulas}]
+\[
+P(n,r)=\frac{n!}{(n-r)!},
+\qquad
+C(n,r)=\binom{n}{r}=\frac{n!}{r!(n-r)!}.
+\]
+\[
+\text{ordered with repetition: }n^r,
+\qquad
+\text{unordered with repetition: }\binom{n+r-1}{r}.
+\]
+\[
+\text{indistinguishable objects: }
+\frac{n!}{n_1!n_2!\cdots n_k!},
+\qquad
+\text{around a cycle: }
+\frac{P(n,r)}{r}.
+\]
+\end{keyformula}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.30\textwidth}p{0.27\textwidth}p{0.27\textwidth}@{}}
+\toprule
+& \textbf{\(r\)-permutation} & \textbf{\(r\)-combination} \\
+\midrule
+without repetition &
+\[
+P(n,r)=\frac{n!}{(n-r)!}
+\]
+&
+\[
+\binom{n}{r}=\frac{n!}{r!(n-r)!}
+\]
+\\[1em]
+with repetition &
+\[
+n^r
+\]
+&
+\[
+\binom{n+r-1}{r}
+\]
+\\[1em]
+with indistinguishable objects &
+\[
+\frac{n!}{n_1!n_2!\cdots n_k!}
+\]
+&
+\[
+\text{multiset / stars--bars model}
+\]
+\\[1em]
+around a cycle &
+\[
+\frac{P(n,r)}{r}
+\]
+&
+\[
+\text{usually handled by symmetry}
+\]
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{commonmistake}[title={The most common counting error}]
+Do not choose a formula before deciding whether the selection is ordered or unordered. A committee is usually unordered; a ranking, password, string, or ordered seating is ordered.
+\end{commonmistake}
+
+%==================================================
+\subsection{Recurrence Relations Review}
+%==================================================
+
+A recurrence question usually has one of two tasks:
+\[
+\text{derive the recurrence}
+\qquad\text{or}\qquad
+\text{solve the recurrence}.
+\]
+The correct solution starts by identifying which task is being asked.
+
+\subsubsection{Setting Up Recurrences}
+
+\begin{definition}{Recurrence relation}{review-recurrence}
+A \emph{recurrence relation} for a sequence \((a_n)\) is a formula that expresses \(a_n\) in terms of earlier terms such as
+\[
+a_{n-1},a_{n-2},\dots,a_{n-k}.
+\]
+A recurrence model is incomplete unless the necessary initial values are specified.
+\end{definition}
+
+\begin{examtip}[title={Deriving a recurrence}]
+To derive a recurrence:
+\begin{enumerate}[leftmargin=*]
+    \item define \(a_n\) precisely;
+    \item identify the size parameter \(n\);
+    \item split the size-\(n\) objects into disjoint cases;
+    \item express each case using smaller values;
+    \item state the initial values.
+\end{enumerate}
+\end{examtip}
+
+\begin{examplebox}[title={Typical Fibonacci-type recurrence}]
+Let \(a_n\) count binary strings of length \(n\) with no consecutive zeros. Split by the ending:
+\begin{itemize}[leftmargin=*]
+    \item strings ending in \(1\): \(a_{n-1}\) choices;
+    \item strings ending in \(10\): \(a_{n-2}\) choices.
+\end{itemize}
+Thus
+\[
+a_n=a_{n-1}+a_{n-2},
+\]
+with suitable initial values such as \(a_1=2\), \(a_2=3\).
+\end{examplebox}
+
+\subsubsection{Linear Homogeneous Recurrences}
+
+\begin{definition}{Linear homogeneous recurrence}{review-linear-hom}
+A linear homogeneous recurrence relation of degree \(k\) with constant coefficients has the form
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\qquad c_k\neq 0.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Characteristic equation}]
+For
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\]
+the characteristic equation is
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0.
+\]
+\end{keyformula}
+
+\begin{theorem}{Solution forms for homogeneous recurrences}{review-hom-solution}
+For a linear homogeneous recurrence with constant coefficients:
+\begin{itemize}[leftmargin=*]
+    \item if the characteristic roots \(r_1,\dots,r_k\) are distinct, then
+    \[
+    a_n=h_1r_1^n+h_2r_2^n+\cdots+h_kr_k^n;
+    \]
+    \item if \(r\) is a repeated root of multiplicity \(m\), then its contribution is
+    \[
+    (h_0+h_1n+\cdots+h_{m-1}n^{m-1})r^n.
+    \]
+\end{itemize}
+\end{theorem}
+
+\begin{examplebox}[title={Distinct-root example}]
+Solve
+\[
+a_n=5a_{n-1}-6a_{n-2}.
+\]
+The characteristic equation is
+\[
+r^2-5r+6=0=(r-2)(r-3),
+\]
+so the general solution is
+\[
+a_n=h_1\,2^n+h_2\,3^n.
+\]
+Initial values determine \(h_1,h_2\).
+\end{examplebox}
+
+\begin{examplebox}[title={Repeated-root example}]
+Solve
+\[
+a_n=6a_{n-1}-9a_{n-2}.
+\]
+The characteristic equation is
+\[
+r^2-6r+9=0=(r-3)^2.
+\]
+Thus
+\[
+a_n=(h_1+h_2n)3^n.
+\]
+\end{examplebox}
+
+\subsubsection{Linear Non-Homogeneous Recurrences}
+
+\begin{definition}{Linear non-homogeneous recurrence}{review-nonhom}
+A linear non-homogeneous recurrence relation has the form
+\[
+a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}+F(n),
+\]
+where \(F(n)\) is a forcing term depending on \(n\).
+\end{definition}
+
+\begin{theorem}{Structure of non-homogeneous solutions}{review-nonhom-structure}
+If \(a_n^{(p)}\) is one particular solution of a non-homogeneous recurrence and \(b_n\) is the general solution of the associated homogeneous recurrence, then the general solution is
+\[
+a_n=a_n^{(p)}+b_n.
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Particular-solution trial forms}]
+\[
+\begin{array}{c|c|c}
+\text{Forcing term }F(n) & \text{No resonance} & \text{Resonance} \\ \hline
+\text{polynomial of degree }t & \text{degree-}t\text{ polynomial} &
+n\times\text{degree-}t\text{ polynomial} \\
+s^n & c\,s^n & c\,n\,s^n
+\end{array}
+\]
+For polynomial forcing, resonance means \(1\) is a characteristic root.
+For exponential forcing \(s^n\), resonance means \(s\) is a characteristic root.
+\end{keyformula}
+
+\begin{commonmistake}[title={Using initial conditions too early}]
+For non-homogeneous recurrences, first find the full form
+\[
+a_n=a_n^{(p)}+b_n.
+\]
+Only after that should the initial conditions be used to determine the constants.
+\end{commonmistake}
+
+%==================================================
+\subsection{Graph Theory Review}
+%==================================================
+
+Graph theory questions usually test precise definitions, theorem triggers, and structural reasoning. The first step is to identify which class of graph problem is being asked:
+\[
+\text{degree / isomorphism},
+\quad
+\text{traversal},
+\quad
+\text{coloring / planarity},
+\quad
+\text{trees / algorithms}.
+\]
+
+\subsubsection{Basic Graph Language}
+
+\begin{definition}{Graph terminology}{review-graph-terminology}
+A graph \(G=(V,E)\) consists of a vertex set \(V\) and an edge set \(E\). Key terms include:
+\begin{itemize}[leftmargin=*]
+    \item adjacent vertices and incident edges;
+    \item degree \(\deg(v)\);
+    \item directed and undirected graphs;
+    \item simple graphs;
+    \item subgraphs and induced subgraphs;
+    \item paths, circuits, connected components, and edge-weighted graphs.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Handshaking Lemma}{review-handshaking}
+For an undirected graph,
+\[
+\sum_{v\in V}\deg(v)=2|E|.
+\]
+For a directed graph,
+\[
+\sum_{v\in V}\deg^-(v)=\sum_{v\in V}\deg^+(v)=|E|.
+\]
+\end{theorem}
+
+\begin{examtip}[title={Fast graph invariant checks}]
+To disprove isomorphism quickly, compare:
+\[
+\begin{aligned}
+&|V|,\quad |E|,\quad \text{degree sequence},\\
+&\text{number of isolated vertices},\quad
+\text{adjacency patterns among equal-degree vertices}.
+\end{aligned}
+\]
+If any invariant differs, the graphs are not isomorphic.
+\end{examtip}
+
+\begin{keyformula}[title={Special graph data}]
+\[
+|E(K_n)|=\binom{n}{2},
+\qquad
+\deg_{K_n}(v)=n-1.
+\]
+\[
+|V(K_{m,n})|=m+n,
+\qquad
+|E(K_{m,n})|=mn.
+\]
+\[
+C_n\text{ has }n\text{ vertices, }n\text{ edges, and every vertex has degree }2.
+\]
+\end{keyformula}
+
+\subsubsection{Euler and Hamilton Traversals}
+
+\begin{definition}{Euler and Hamilton objects}{review-euler-hamilton}
+An \emph{Euler path/circuit} uses every edge exactly once.
+
+A \emph{Hamilton path/circuit} visits every vertex exactly once, with the starting vertex repeated at the end for a Hamilton circuit.
+\end{definition}
+
+\begin{keyformula}[title={Euler criteria for connected graphs}]
+For a connected graph:
+\[
+\begin{array}{c|c}
+\text{number of odd-degree vertices} & \text{Euler conclusion} \\ \hline
+0 & \text{Euler circuit exists} \\
+2 & \text{Euler path exists, but no Euler circuit} \\
+\text{otherwise} & \text{no Euler path}
+\end{array}
+\]
+\end{keyformula}
+
+\begin{commonmistake}[title={Euler versus Hamilton}]
+Euler problems are about using \emph{edges}. Hamilton problems are about visiting \emph{vertices}. Euler has simple degree tests in this course; Hamilton usually requires construction or obstruction.
+\end{commonmistake}
+
+\subsubsection{Coloring and Bipartite Graphs}
+
+\begin{definition}{Chromatic number and bipartite graph}{review-coloring-bipartite}
+A \(k\)-coloring assigns colors to vertices so that adjacent vertices receive different colors. The chromatic number \(\chi(G)\) is the smallest valid number of colors.
+
+A graph is \emph{bipartite} if its vertex set can be partitioned into two parts so that every edge crosses between the two parts.
+\end{definition}
+
+\begin{theorem}{Bipartite characterization}{review-bipartite}
+A graph is bipartite if and only if it contains no odd cycle. Equivalently,
+\[
+G\text{ bipartite}
+\quad\Longleftrightarrow\quad
+\chi(G)\le 2.
+\]
+\end{theorem}
+
+\begin{examplebox}[title={Standard chromatic numbers}]
+\[
+\chi(K_n)=n,
+\qquad
+\chi(C_n)=
+\begin{cases}
+2, & n\text{ even},\\
+3, & n\text{ odd}.
+\end{cases}
+\]
+\end{examplebox}
+
+\subsubsection{Planar Graphs}
+
+\begin{definition}{Planar graph}{review-planar}
+A graph is \emph{planar} if it can be drawn in the plane with no crossings between edges except at common endpoints.
+\end{definition}
+
+\begin{theorem}{Euler's Formula for connected planar graphs}{review-euler-formula}
+If \(G\) is a connected planar simple graph with \(n\) vertices, \(m\) edges, and \(r\) regions, then
+\[
+n-m+r=2.
+\]
+Equivalently,
+\[
+r=m-n+2.
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Planar edge bounds}]
+For a simple planar graph with \(n\ge 3\),
+\[
+m\le 3n-6.
+\]
+If the graph has no \(3\)-cycles, then
+\[
+m\le 2n-4.
+\]
+In particular,
+\[
+K_5\text{ and }K_{3,3}\text{ are non-planar}.
+\]
+\end{keyformula}
+
+\begin{theorem}{Four-Color Theorem}{review-four-color}
+Every simple planar graph is \(4\)-colorable:
+\[
+G\text{ simple and planar}
+\quad\Longrightarrow\quad
+\chi(G)\le 4.
+\]
+\end{theorem}
+
+\begin{commonmistake}[title={Bad drawing is not non-planarity}]
+A drawing with crossings does not prove non-planarity. To prove non-planarity, use an obstruction such as an edge-count bound, \(K_5\), \(K_{3,3}\), or a subdivision of one of them.
+\end{commonmistake}
+
+\subsubsection{Trees and Spanning Trees}
+
+\begin{definition}{Tree and spanning tree}{review-tree-spanning}
+A \emph{tree} is a connected graph with no cycles. A \emph{forest} is a graph whose connected components are trees.
+
+A \emph{spanning tree} of a connected graph \(G\) is a tree subgraph containing every vertex of \(G\).
+\end{definition}
+
+\begin{keyformula}[title={Tree formulas and rooted-tree terminology}]
+If \(T\) is a tree with \(n\) vertices and \(m\) edges, then
+\[
+m=n-1.
+\]
+A binary tree of height \(h\) has at most
+\[
+2^h
+\]
+leaves.
+Rooted-tree terminology includes root, parent, child, ancestor, descendant, level, height, and subtree.
+\end{keyformula}
+
+\begin{examtip}[title={Tree recognition}]
+Common tree tests:
+\[
+\text{connected and acyclic},
+\qquad
+\text{connected and }m=n-1,
+\qquad
+\text{acyclic and }m=n-1.
+\]
+Use the version matching the information given in the question.
+\end{examtip}
+
+\subsubsection{Minimum Spanning Trees and Shortest Paths}
+
+\begin{definition}{Minimum spanning tree and shortest path}{review-mst-sp}
+A \emph{minimum spanning tree} is a spanning tree with minimum total edge weight.
+
+A \emph{shortest path} between two vertices in a weighted graph is a path of minimum total edge length.
+\end{definition}
+
+\begin{keyformula}[title={Kruskal, Prim, and Dijkstra}]
+\[
+\begin{array}{c|p{0.62\textwidth}}
+\text{Algorithm} & \text{Core rule} \\ \hline
+\text{Kruskal} & process edges by increasing weight; add an edge if it creates no cycle \\
+\text{Prim} & grow one tree; repeatedly add the cheapest edge from the current tree to a new vertex \\
+\text{Dijkstra} & repeatedly settle the unsettled vertex with smallest tentative distance and relax its outgoing edges
+\end{array}
+\]
+For Dijkstra,
+\[
+d(v)\leftarrow \min\{d(v),\,d(u)+\ell(u,v)\}.
+\]
+\end{keyformula}
+
+\begin{commonmistake}[title={MST versus shortest path}]
+Kruskal and Prim minimize total weight needed to connect all vertices. Dijkstra minimizes distances from a chosen source. These are different objectives and generally produce different trees.
+\end{commonmistake}
+
+%==================================================
+\subsection{Reference-Sheet Planning}
+%==================================================
+
+The exam permits one double-sided A4 reference sheet. A good reference sheet should be organised by problem type, not merely by lecture order.
+
+\begin{examtip}[title={Suggested reference-sheet layout}]
+A high-value reference sheet may be organised as:
+\[
+\begin{array}{c|p{0.60\textwidth}}
+\text{Block} & \text{Contents} \\ \hline
+\text{Counting} & inclusion--exclusion, permutation/combination table, stars--bars, pigeonhole, binomial theorem \\
+\text{Recurrences} & characteristic equation, distinct/repeated root forms, non-homogeneous trial forms \\
+\text{Graph basics} & Handshaking Lemma, graph invariants, special graph data \\
+\text{Traversals} & Euler criteria, Hamilton distinction \\
+\text{Coloring/planarity} & bipartite tests, Euler's formula, planar edge bounds, Four-Color Theorem \\
+\text{Trees/algorithms} & tree tests, MST algorithms, Dijkstra update rule
+\end{array}
+\]
+\end{examtip}
+
+\begin{commonmistake}[title={Reference sheet too formula-heavy}]
+A useful reference sheet should include theorem triggers and common traps, not just formulas. For example, next to
+\[
+m\le 3n-6
+\]
+write ``simple planar, \(n\ge3\), one-way non-planarity test''.
+\end{commonmistake}
+
+%==================================================
+\subsection{Integrated Exam Strategy}
+%==================================================
+
+\subsubsection{Questions 1--2: Counting}
+
+For counting questions, first classify the object:
+\[
+\text{string},\quad
+\text{subset},\quad
+\text{function},\quad
+\text{arrangement},\quad
+\text{distribution},\quad
+\text{cycle},\quad
+\text{object avoiding bad events}.
+\]
+Then select the method.
+
+\begin{examtip}[title={Counting solution template}]
+A polished counting solution usually has the form:
+\begin{enumerate}[leftmargin=*]
+    \item define the set being counted;
+    \item split into cases or build in stages;
+    \item justify disjointness or correct overlap;
+    \item apply the relevant formula;
+    \item simplify only after the structure is correct.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection{Questions 3--4: Recurrences}
+
+For recurrence questions, decide whether the question asks for modelling or solving.
+
+\begin{examtip}[title={Recurrence solution template}]
+For a solving question:
+\begin{enumerate}[leftmargin=*]
+    \item identify homogeneous or non-homogeneous type;
+    \item write the characteristic equation of the associated homogeneous recurrence;
+    \item write the general homogeneous solution;
+    \item find a particular solution if needed;
+    \item impose initial conditions.
+\end{enumerate}
+For a modelling question, define the state and derive the recurrence by disjoint cases.
+\end{examtip}
+
+\subsubsection{Questions 5--6: Graph Theory}
+
+Graph theory questions should be handled by exact definitions first.
+
+\begin{examtip}[title={Graph-theory solution template}]
+A polished graph-theory solution usually begins by identifying the theorem class:
+\[
+\text{degree count},
+\quad
+\text{connectivity},
+\quad
+\text{Euler/Hamilton},
+\quad
+\text{coloring},
+\quad
+\text{planarity},
+\quad
+\text{tree},
+\quad
+\text{algorithm}.
+\]
+Then apply the relevant theorem with all hypotheses checked.
+\end{examtip}
+
+\begin{extension}[title={How to handle challenging questions}]
+The challenging questions are likely to require a structural observation rather than a long calculation. Typical useful moves include:
+\begin{itemize}[leftmargin=*]
+    \item count the same object in two ways;
+    \item use a complement or forbidden-event formulation;
+    \item reduce a recurrence to a known form;
+    \item use a graph invariant to disprove isomorphism;
+    \item use a parity or edge-count obstruction;
+    \item construct an explicit coloring, path, tree, or algorithm trace.
+\end{itemize}
+\end{extension}
+
+%==================================================
+\subsection{Special Techniques}
+%==================================================
+
+\subsubsection*{1. Classify before calculating}
+Most MH1301 problems are solved by choosing the correct model. Decide whether the task is counting, recurrence modelling, recurrence solving, or graph-structure analysis before applying formulas.
+
+\subsubsection*{2. Use disjoint partitions}
+Whenever the phrase ``either/or'' appears in a counting or recurrence problem, verify that the cases are disjoint. If not, refine the partition or apply inclusion--exclusion.
+
+\subsubsection*{3. Convert objects into strings, subsets, functions, or equations}
+Many counting problems become standard after recoding:
+\[
+\text{subsets}\leftrightarrow\text{binary strings},
+\qquad
+\text{multisets}\leftrightarrow\text{stars and bars},
+\qquad
+\text{assignments}\leftrightarrow\text{functions}.
+\]
+
+\subsubsection*{4. Use characteristic equations only for the right recurrence class}
+The characteristic-equation method applies to linear recurrences with constant coefficients. If the recurrence is non-homogeneous, first solve the associated homogeneous recurrence and then add a particular solution.
+
+\subsubsection*{5. Match graph problems to theorem triggers}
+Use:
+\[
+\begin{array}{c|c}
+\text{Clue} & \text{Likely theorem} \\ \hline
+\text{degrees and edges} & \text{Handshaking Lemma} \\
+\text{use every edge} & \text{Euler criteria} \\
+\text{visit every vertex} & \text{Hamilton construction/obstruction} \\
+\text{two-coloring} & \text{bipartite / odd-cycle test} \\
+\text{no crossings} & \text{planarity / Euler formula} \\
+\text{connected and acyclic} & \text{tree theory} \\
+\text{minimum connection cost} & \text{MST algorithms} \\
+\text{minimum route from source} & \text{Dijkstra}
+\end{array}
+\]
+
+\subsubsection*{6. Prove exact values by upper and lower bounds}
+For quantities such as chromatic number or minimum cost, an exact answer usually requires both:
+\[
+\text{construction giving an upper bound}
+\quad\text{and}\quad
+\text{obstruction giving a lower bound}.
+\]
+
+\subsubsection*{7. Check theorem hypotheses explicitly}
+Common hidden hypotheses include:
+\[
+\begin{aligned}
+&\text{connectedness for Euler criteria},\quad
+\text{simplicity for planar edge bounds},\\
+&\text{nonnegative weights for Dijkstra},\quad
+\text{constant coefficients for characteristic equations}.
+\end{aligned}
+\]
+
+%==================================================
+\subsection{Common Pitfalls Across the Course}
+%==================================================
+
+\begin{commonmistake}[title={Counting pitfalls}]
+Common counting errors:
+\begin{itemize}[leftmargin=*]
+    \item treating ordered and unordered objects as the same;
+    \item applying the Sum Rule to overlapping cases;
+    \item forgetting to divide out repeated descriptions;
+    \item using stars--bars when order matters;
+    \item failing to define the universe before complement counting.
+\end{itemize}
+\end{commonmistake}
+
+\begin{commonmistake}[title={Recurrence pitfalls}]
+Common recurrence errors:
+\begin{itemize}[leftmargin=*]
+    \item omitting initial conditions;
+    \item guessing a recurrence from numerical values without proof;
+    \item using the wrong characteristic equation sign convention;
+    \item forgetting the \(n\)-factor for repeated roots or resonance;
+    \item applying initial conditions before the full general solution is obtained.
+\end{itemize}
+\end{commonmistake}
+
+\begin{commonmistake}[title={Graph theory pitfalls}]
+Common graph errors:
+\begin{itemize}[leftmargin=*]
+    \item confusing graph drawings with graph structure;
+    \item confusing Euler and Hamilton problems;
+    \item using planar edge bounds as if they were sufficient for planarity;
+    \item forgetting connectedness assumptions;
+    \item treating an arbitrary tree subgraph as a spanning tree;
+    \item using Dijkstra with negative edge weights.
+\end{itemize}
+\end{commonmistake}
+
+%==================================================
+\subsection{Final Consolidation Table}
+%==================================================
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.23\textwidth}p{0.34\textwidth}p{0.33\textwidth}@{}}
+\toprule
+\textbf{Topic} & \textbf{Core formula / theorem} & \textbf{Main exam trigger} \\
+\midrule
+Sum Rule & add disjoint case counts & cases do not overlap \\
+Inclusion--exclusion & add singles, subtract overlaps, alternate & overlapping conditions \\
+Product Rule & multiply stage counts & sequential construction \\
+Pigeonhole & \(\lceil N/k\rceil\) guaranteed in some box & forced repetition/collision \\
+Binomial theorem & \((x+y)^n=\sum\binom{n}{i}x^{n-i}y^i\) & coefficient extraction \\
+Permutations & \(P(n,r)=n!/(n-r)!\) & ordered selections \\
+Combinations & \(\binom{n}{r}=n!/[r!(n-r)!]\) & unordered selections \\
+Stars--bars & \(\binom{n+r-1}{r}\) & repetition without order \\
+Homogeneous recurrence & characteristic equation & linear constant-coefficient recurrence \\
+Repeated root & \((h_0+\cdots+h_{m-1}n^{m-1})r^n\) & root multiplicity \(m\) \\
+Non-homogeneous recurrence & \(a_n=a_n^{(p)}+b_n\) & forcing term \(F(n)\) \\
+Handshaking & \(\sum\deg(v)=2|E|\) & degree/edge count \\
+Euler path/circuit & \(0\) or \(2\) odd vertices / all even & use every edge once \\
+Bipartite & no odd cycle & two-coloring \\
+Planar graph & \(n-m+r=2\), \(m\le 3n-6\) & no crossings \\
+Tree & connected and acyclic, \(m=n-1\) & sparse connected graph \\
+MST & Kruskal / Prim & minimum total connection cost \\
+Dijkstra & \(d(v)\leftarrow\min\{d(v),d(u)+\ell(u,v)\}\) & shortest path from source \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}[title={Final pre-exam checklist}]
+Before the exam, ensure you can do the following without referring to full notes:
+\begin{enumerate}[leftmargin=*]
+    \item decide whether a counting problem is ordered/unordered and with/without repetition;
+    \item apply inclusion--exclusion for two and three sets;
+    \item derive and solve a basic recurrence;
+    \item solve homogeneous recurrences with distinct and repeated roots;
+    \item find a particular solution for simple polynomial or exponential forcing;
+    \item compute graph degrees and apply the Handshaking Lemma;
+    \item test Euler paths/circuits using odd-degree counts;
+    \item test bipartiteness using odd cycles;
+    \item apply Euler's planar formula and edge bounds;
+    \item trace Kruskal, Prim, and Dijkstra carefully.
+\end{enumerate}
+\end{examtip}
+
+\begin{extension}[title={One unifying theme}]
+Across the course, many problems reduce to choosing the correct representation:
+\[
+\begin{aligned}
+&\text{counting objects as sets/functions/strings},\\
+&\text{recursive objects as previous states},\qquad
+\text{networks as graphs}.
+\end{aligned}
+\]
+The formula or theorem is usually short; the difficult step is recognizing the correct structure.
+\end{extension}

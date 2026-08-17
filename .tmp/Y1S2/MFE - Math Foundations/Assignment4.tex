@@ -1,0 +1,555 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\textbf{Mathematical Foundations} \\
+MFE Spring 2026 \\
+Assignment 4 \\
+Due: Tuesday, February 3, \\
+9 am P.T.
+\end{center}
+
+\vspace{1em}
+
+\noindent \textbf{Student name:} Yuhe Sui \hspace{3.54cm} \textbf{Student ID:} job@yuhesui.com
+
+\vspace{1em}
+
+\noindent \textbf{Solved in team with another student (please underline):} \hspace{1cm} Yes \hspace{1cm} \underline{No}
+
+\vspace{1em}
+
+\noindent \textbf{Name of team member:} \hspace{3cm} \textbf{ID of team member:}
+
+\vspace{1em}
+
+\noindent \textbf{Instructions:} You should submit this assignment electronically via bCourses, as a PDF file. The preferred format is to use a text editor or other program with formula handling capacity, e.g., Scientific Word, MikTex, or MS Word with installed equation package, to create a an electronic document, and then save as PDF. We also accept handwritten, scanned, solutions, but these must be extremely clear and well written, or they will receive point deductions (see available sample files on bCourses).
+
+\vspace{1em}
+
+\noindent Please contact us at \texttt{HAASMFE.MATH@gmail.com} if you have any questions about the submission format!
+
+\vspace{1em}
+
+\noindent You should receive a confirmation e-mail within 24 hours of sending your solution. Assignments received up to 24 hours late will get a point deduction of $50\%$ of the points. Assignments received more than 24 hours late get a $100\%$ point deduction.
+
+\vspace{1em}
+
+\noindent You can send questions to \texttt{HAASMFE.MATH@gmail.com} if you get stuck.
+
+\vspace{1em}
+
+\noindent All answers need to be justified!
+
+\newpage
+
+\section{Black Scholes PDE}
+
+In a market in which the Black Scholes assumptions are satisfied, an asset makes the terminal payoff
+\[
+f(S(T)) = S(T)^n,
+\qquad n>1,
+\]
+where $S(T)$ is the value of the underlying stock at time $T$. The asset's value if the stock price reaches zero is $P(0,t)=0$.
+
+\begin{enumerate}
+\item[(a)] Show that the price of this power asset at $0<t\le T$ is
+\[
+P(S(t),t)=\exp\!\left(\left((n-1)r+\frac{n(n-1)\sigma^2}{2}\right)(T-t)\right)\,S(t)^n.
+\]
+\end{enumerate}
+
+% Full correct LaTeX solution for the Black--Scholes PDE power payoff question. [file:1]
+
+\subsection*{Solution}
+In the Black--Scholes model (constant $r,\sigma$), the arbitrage-free price $P(S,t)$ of a sufficiently smooth claim
+satisfies the Black--Scholes PDE
+\[
+\frac{\partial P}{\partial t}
++\frac12\sigma^2 S^2\frac{\partial^2 P}{\partial S^2}
++rS\frac{\partial P}{\partial S}
+-rP
+=0,
+\qquad 0<t<T,\; S>0,
+\]
+with terminal condition
+\[
+P(S,T)=f(S)=S^n,\qquad n>1,
+\]
+and boundary condition (given) $P(0,t)=0$.
+
+
+
+\subsection*{(a) Price of the power asset}
+
+
+Because the payoff is homogeneous of degree $n$, we try a separated form
+\[
+P(S,t)=A(t)\,S^n,
+\]
+where $A(t)$ is deterministic.  This also satisfies the boundary condition since
+\[
+P(0,t)=A(t)\cdot 0^n=0 \qquad (n>1).
+\]
+
+For $P(S,t)=A(t)S^n$,
+\[
+P_t=A'(t)S^n,\qquad
+P_S=A(t)\,nS^{n-1},\qquad
+P_{SS}=A(t)\,n(n-1)S^{n-2}.
+\]
+
+Substitute into
+\(P_t+\frac12\sigma^2 S^2P_{SS}+rSP_S-rP=0\):
+\begin{align*}
+0
+&=A'(t)S^n
++\frac12\sigma^2 S^2\bigl(A(t)n(n-1)S^{n-2}\bigr)
++rS\bigl(A(t)nS^{n-1}\bigr)
+-r\bigl(A(t)S^n\bigr)\\
+&=S^n\left[
+A'(t)
++A(t)\left(\frac12\sigma^2 n(n-1)+rn-r\right)
+\right].
+\end{align*}
+Since $S^n>0$ for $S>0$, the bracket must be zero:
+\[
+A'(t)+A(t)\left((n-1)r+\frac{n(n-1)\sigma^2}{2}\right)=0.
+\]
+Define the constant
+\[
+k:=(n-1)r+\frac{n(n-1)\sigma^2}{2}.
+\]
+Then the ODE is
+\[
+A'(t)+kA(t)=0.
+\]
+
+
+The solution is
+\[
+A(t)=Ce^{-kt}.
+\]
+Using $P(S,T)=S^n$ gives $A(T)=1$, hence
+\[
+1=A(T)=Ce^{-kT}\quad\Longrightarrow\quad C=e^{kT}.
+\]
+Therefore
+\[
+A(t)=e^{k(T-t)}.
+\]
+
+Substitute back into $P(S,t)=A(t)S^n$:
+\[
+\boxed{
+P(S,t)=\exp\!\left(\left((n-1)r+\frac{n(n-1)\sigma^2}{2}\right)(T-t)\right)\,S^n,
+\qquad 0<t\le T.
+}
+\]
+
+% (Optional check: At t=T, the exponential term is 1 so P(S,T)=S^n; also P(0,t)=0 for n>1.)
+
+\newpage
+\section{Finite difference method for Black Scholes PDE (in reflected log coordinates)}
+
+Consider the double knock-out power option discussed in class. The underlying stock price at time $t$ is $S_t$. The initial stock price is $S_0\in(50,100)$, and the option's maturity date is $T=1$, measured in years. The risk-free rate is $r=0.05$ per year, and the stock's volatility is $\sigma=0.4$ per year.
+
+At expiration, if the stock price lies in the interval $S\in(50,100)$, and its price has never been outside of this interval between $t=0$ and $T$ the option pays out:
+\[
+P(S,T)=(S-50)(100-S).
+\]
+If the stock price has been outside of the interval, the payout is $P(S,T)=0$, i.e., the option is worthless. Since the price path of the stock is continuous (almost surely), this occurs if
+\[
+\min_{0\le t\le T} S_t > 50,
+\qquad
+\max_{0\le t\le T} S_t < 100.
+\]
+
+\begin{enumerate}
+\item[(a)] \textbf{PDE:} Write the PDE for the price of this option, $V(s,x)$, including boundary and initial conditions, in log space coordinates, $x=\ln(S)$, and reflected time coordinates, $s=T-t$.
+
+\item[(b)] \textbf{Solver:} Implement a finite difference solver for the PDE, using the finite difference method with operators $D_s^+$, $D_x^0$, and $D_x^+D_x^-$ for the different derivative estimates, as discussed in class.
+
+You may use your favorite programming language (Matlab, Python, etc.), or even Excel. Please include your source code (or in case of Excel, your spreadsheet) with your submission.
+
+\item[(c)] \textbf{Solution:} Using the ratio between time and space step-length
+\[
+k=\frac{\Delta t}{\Delta x^2}=2,
+\]
+calculate the approximate solution at $t=0$, with $\Delta x = 100$ points.
+\begin{itemize}
+\item Please include graphs of $V(x,0)$, $V(x,1)$, $P(S,1)$, and $P(S,0)$.
+\item Where does the value (in $S$ coordinates) reach its maximum?
+\item The maximum value of the payouts $P(S,T)$ is reached at $S=75$. Why do you think the maximum value of $P(S,0)$ is reached at a different value of $S$?
+\end{itemize}
+
+\item[(d)] \textbf{Stability:} Vary $k$. How large can $k$ be while keeping the approximation method stable? Does this bound on $k$ depend on $\Delta x$?
+
+\item[(e)] \textbf{Order of convergence:} Vary $\Delta x$, keeping $k=\frac{1}{4}$ constant. Estimate the order of convergence of the approximation method to the true solution.
+\end{enumerate}
+
+% Full (more rigorous) solution in LaTeX for:
+% Finite difference method for Black--Scholes PDE (reflected log coordinates). [file:1][code_file:10]
+
+\subsection*{Solution}
+
+\subsubsection*{Problem data}
+\[
+T=1,\qquad r=0.05,\qquad \sigma=0.4,\qquad S_0\in(50,100).
+\]
+The option is a \emph{double knock-out}: it is worthless if the continuous stock path exits the interval $(50,100)$ before maturity.
+At maturity,
+\[
+P(S,T)=
+\begin{cases}
+(S-50)(100-S), & 50<S<100 \text{ and the path stayed in }(50,100),\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+
+We use log-space and reflected time:
+\[
+x=\ln S,\qquad s=T-t\quad(\text{time-to-maturity}).
+\]
+Set the barrier endpoints in $x$-space as
+\[
+x_L=\ln 50,\qquad x_U=\ln 100.
+\]
+Define the price in these coordinates by
+\[
+V(s,x):=P(e^x,\,T-s).
+\]
+
+\begin{enumerate}
+%==========================================================
+\item[(a)] \textbf{PDE, boundary conditions, and initial condition in $(s,x)$.}
+
+Under the risk-neutral measure, the stock follows geometric Brownian motion
+\[
+dS_t=rS_t\,dt+\sigma S_t\,dW_t,
+\]
+and the no-arbitrage price $P(S,t)$ of a sufficiently smooth claim satisfies the Black--Scholes PDE
+\[
+P_t+\frac12\sigma^2S^2P_{SS}+rSP_S-rP=0,
+\qquad 0<t<T,\; S\in(50,100).
+\]
+
+\medskip
+\noindent\underline{\textbf{Step 1: derivative relations.}}
+With $s=T-t$ and $x=\ln S$ we have $S=e^x$ and
+\[
+\frac{\partial}{\partial t}=-\frac{\partial}{\partial s}.
+\]
+Also,
+\[
+\frac{\partial}{\partial S}=\frac{\partial x}{\partial S}\frac{\partial}{\partial x}
+=\frac{1}{S}\frac{\partial}{\partial x},
+\]
+and for the second derivative,
+\begin{align*}
+\frac{\partial^2}{\partial S^2}
+&=\frac{\partial}{\partial S}\left(\frac{1}{S}\frac{\partial}{\partial x}\right)
+=\left(-\frac{1}{S^2}\right)\frac{\partial}{\partial x}
++\frac{1}{S}\frac{\partial}{\partial S}\left(\frac{\partial}{\partial x}\right)
+\;=\;-\frac{1}{S^2}\frac{\partial}{\partial x}
++\frac{1}{S}\left(\frac{1}{S}\frac{\partial}{\partial x}\right)\frac{\partial}{\partial x} \\
+&=\frac{1}{S^2}\left(\frac{\partial^2}{\partial x^2}-\frac{\partial}{\partial x}\right).
+\end{align*}
+Therefore, using $P(S,t)=V(s,x)$,
+\[
+P_t=-V_s,\qquad SP_S=V_x,\qquad S^2P_{SS}=V_{xx}-V_x.
+\]
+
+\medskip
+\noindent\underline{\textbf{Step 2: substitute into Black--Scholes PDE.}}
+Substituting gives
+\begin{align*}
+0
+&= -V_s+\frac12\sigma^2\bigl(V_{xx}-V_x\bigr)+rV_x-rV \\
+&= -V_s+\frac12\sigma^2V_{xx}+\Bigl(r-\tfrac12\sigma^2\Bigr)V_x-rV.
+\end{align*}
+Hence the PDE in $(s,x)$ is
+\[
+\boxed{
+V_s=\frac12\sigma^2V_{xx}+\Bigl(r-\tfrac12\sigma^2\Bigr)V_x-rV,
+\qquad 0<s\le T,\; x_L<x<x_U.
+}
+\]
+
+\medskip
+\noindent\underline{\textbf{Initial condition (at $s=0$, i.e.\ $t=T$).}}
+At maturity, $S=e^x$, so on the computational domain $[x_L,x_U]$,
+\[
+\boxed{
+V(0,x)=(e^x-50)(100-e^x),\qquad x_L\le x\le x_U.
+}
+\]
+
+\medskip
+\noindent\underline{\textbf{Boundary conditions (absorbing/knock-out).}}
+If the stock hits a barrier, the option becomes worthless immediately; thus
+\[
+\boxed{
+V(s,x_L)=0,\qquad V(s,x_U)=0,\qquad 0\le s\le T.
+}
+\]
+
+%==========================================================
+\item[(b)] \textbf{Finite difference solver using $D_s^+$, $D_x^0$, $D_x^+D_x^-$.}
+
+Write the PDE as
+\[
+V_s=aV_{xx}+bV_x-rV,
+\qquad
+a:=\frac12\sigma^2,\quad b:=r-\frac12\sigma^2.
+\]
+
+\medskip
+\noindent\underline{\textbf{Step 1: define the grid.}}
+Let
+\[
+x_j=x_L+j\Delta x,\quad j=0,1,\dots,N,
+\qquad
+s_m=m\Delta s,\quad m=0,1,\dots,M,
+\]
+where $\Delta s=T/M$. Let $V_j^m\approx V(s_m,x_j)$.
+
+\medskip
+\noindent\underline{\textbf{Step 2: finite difference operators.}}
+\[
+D_s^+V_j^m:=\frac{V_j^{m+1}-V_j^m}{\Delta s},\qquad
+D_x^0V_j^m:=\frac{V_{j+1}^m-V_{j-1}^m}{2\Delta x},\qquad
+D_x^+D_x^-V_j^m:=\frac{V_{j+1}^m-2V_j^m+V_{j-1}^m}{\Delta x^2}.
+\]
+
+\medskip
+\noindent\underline{\textbf{Step 3: discretize the PDE at interior nodes.}}
+For $j=1,\dots,N-1$,
+\begin{align*}
+D_s^+V_j^m
+&=
+a\,D_x^+D_x^-V_j^m
++b\,D_x^0V_j^m
+-rV_j^m.
+\end{align*}
+Equivalently, the explicit update rule is
+\[
+\boxed{
+V_j^{m+1}
+=
+V_j^m+\Delta s\left[
+a\,\frac{V_{j+1}^m-2V_j^m+V_{j-1}^m}{\Delta x^2}
++b\,\frac{V_{j+1}^m-V_{j-1}^m}{2\Delta x}
+-rV_j^m
+\right].
+}
+\]
+
+\medskip
+\noindent\underline{\textbf{Step 4: enforce boundary and initial conditions.}}
+\[
+\boxed{V_0^m=0,\qquad V_N^m=0\quad\text{for all }m,}
+\qquad
+\boxed{V_j^0=(e^{x_j}-50)(100-e^{x_j}).}
+\]
+
+\medskip
+\noindent\underline{\textbf{Reference implementation (Python).}}
+(The code below produces all graphs requested in part (c) and reports the maximiser.)
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+T = 1.0
+r = 0.05
+sigma = 0.4
+a = 0.5 * sigma**2
+b = r - 0.5 * sigma**2
+
+xL, xU = np.log(50.0), np.log(100.0)
+
+# Space grid: 100 points including barriers
+Npts = 100
+x = np.linspace(xL, xU, Npts)
+dx = x[1] - x[0]
+S = np.exp(x)
+
+# Choose time step via k = ds/dx^2 = 2, then adjust to hit T exactly
+k_target = 2.0
+ds0 = k_target * dx**2
+M = int(round(T / ds0))
+ds = T / M
+k_eff = ds / dx**2
+
+# Initial condition at s=0 (t=T)
+V = (S - 50.0) * (100.0 - S)
+V[0] = 0.0
+V[-1] = 0.0
+
+alpha = ds * a / dx**2
+beta  = ds * b / (2.0 * dx)
+gamma = ds * r
+
+# Time-march forward in s from 0 to T (so from payoff back to t=0)
+for m in range(M):
+    Vnew = V.copy()
+    Vnew[1:-1] = (V[1:-1]
+                  + alpha*(V[2:] - 2*V[1:-1] + V[:-2])
+                  + beta*(V[2:] - V[:-2])
+                  - gamma*V[1:-1])
+    Vnew[0] = 0.0
+    Vnew[-1] = 0.0
+    V = Vnew
+
+V_t0 = V
+payoff = (S - 50.0) * (100.0 - S)
+
+# Plots requested (x-space and S-space)
+plt.figure(); plt.plot(x, payoff); plt.title("V(x,0)=Payoff"); plt.xlabel("x"); plt.ylabel("V")
+plt.figure(); plt.plot(x, V_t0);   plt.title("V(x,1)=Value at t=0"); plt.xlabel("x"); plt.ylabel("V")
+
+plt.figure(); plt.plot(S, payoff); plt.title("P(S,1)=Payoff"); plt.xlabel("S"); plt.ylabel("P")
+plt.figure(); plt.plot(S, V_t0);   plt.title("P(S,0)=Value at t=0"); plt.xlabel("S"); plt.ylabel("P")
+
+jmax = np.argmax(V_t0)
+print("k_eff =", k_eff)
+print("max value =", V_t0[jmax], "at S =", S[jmax])
+
+plt.show()
+\end{verbatim}
+
+%==========================================================
+\item[(c)] \textbf{Approximate solution at $t=0$ with $k=\Delta s/\Delta x^2=2$ and 100 $x$-points.}
+
+\underline{\textbf{Step 1: spatial step size.}}
+Interpreting ``100 points'' as $N_{\text{pts}}=100$ grid points including the barriers,
+\[
+\Delta x=\frac{x_U-x_L}{N_{\text{pts}}-1}
+=\frac{\ln 100-\ln 50}{99}
+=\frac{\ln 2}{99}\approx 0.00700149.
+\]
+
+\underline{\textbf{Step 2: time step from }$k=\Delta s/\Delta x^2=2$.}
+Choose $\Delta s\approx 2\Delta x^2$ and an integer $M$ so that $M\Delta s=T$ exactly (as in the code).
+A computed instance gives $M=10200$, $\Delta s\approx 9.8039\times 10^{-5}$, and $k_{\text{eff}}\approx 1.999951$.  % [code_file:10]
+
+\underline{\textbf{Step 3: numerical maximiser at $t=0$.}}
+Running the explicit scheme from part (b) yields the discrete maximiser (in $S$ coordinates)
+\[
+\boxed{
+S_{\max}\approx 71.4572,
+\qquad
+P(S_{\max},0)\approx 115.6897.
+}
+\]
+(These are grid-dependent approximations; refining the grid changes them slightly.)  % [code_file:10]
+
+\underline{\textbf{Requested graphs.}}
+The four graphs $V(x,0)$, $V(x,1)$, $P(S,1)$, and $P(S,0)$ are produced by the plotting section of the code above.
+
+\underline{\textbf{Why is the maximiser not at }$S=75$?}
+The terminal payoff $(S-50)(100-S)$ is symmetric about $S=75$ and is maximised there.
+However, the \emph{double knock-out} feature makes the time-$0$ value equal to a discounted expectation of the payoff
+\emph{multiplied by the survival indicator} that the path stays in $(50,100)$.
+Thus:
+\begin{itemize}
+\item Initial prices closer to a barrier have higher probability of knocking out early, reducing $P(S,0)$.
+\item In log-space the drift is $b=r-\frac12\sigma^2=0.05-0.08=-0.03<0$, which increases the tendency to move toward the lower barrier under the risk-neutral dynamics.
+\end{itemize}
+These effects break the terminal payoff symmetry and shift the value-maximising $S$ away from $75$.
+
+%==========================================================
+\item[(d)] \textbf{Stability as $k$ varies; dependence on $\Delta x$.}
+
+For the explicit method, write the interior update as
+\[
+V_j^{m+1}=A\,V_{j-1}^m+B\,V_j^m+C\,V_{j+1}^m,
+\]
+where (from the update rule)
+\[
+A=\alpha-\beta,\qquad
+B=1-2\alpha-\gamma,\qquad
+C=\alpha+\beta,
+\]
+with
+\[
+\alpha=\frac{a\Delta s}{\Delta x^2}=a k,
+\qquad
+\beta=\frac{b\Delta s}{2\Delta x}=\frac{b k\Delta x}{2},
+\qquad
+\gamma=r\Delta s=rk\Delta x^2.
+\]
+A standard sufficient condition for stability/monotonicity of such explicit convection--diffusion--reaction schemes is
+\[
+A\ge 0,\quad B\ge 0,\quad C\ge 0.
+\]
+This implies the two key constraints
+\[
+\alpha\ge |\beta|
+\qquad\text{and}\qquad
+2\alpha+\gamma\le 1.
+\]
+
+\medskip
+\noindent\underline{\textbf{Dominant diffusion restriction.}}
+Since $\gamma=rk\Delta x^2$ is very small for fine grids, the dominant bound comes from $2\alpha\le 1$:
+\[
+2ak\le 1
+\quad\Longrightarrow\quad
+k\le \frac{1}{2a}=\frac{1}{\sigma^2}.
+\]
+With $\sigma=0.4$ (\,$\sigma^2=0.16$\,),
+\[
+\boxed{k_{\max}\approx \frac{1}{\sigma^2}=\frac{1}{0.16}=6.25.}
+\]
+
+\medskip
+\noindent\underline{\textbf{Dependence on $\Delta x$.}}
+The bound on $k=\Delta s/\Delta x^2$ from diffusion is independent of $\Delta x$.
+Equivalently, the maximum stable time step scales as
+\[
+\boxed{\Delta s_{\max}\approx k_{\max}\Delta x^2,}
+\]
+so refining the spatial grid forces $\Delta s$ to decrease quadratically.
+
+%==========================================================
+\item[(e)] \textbf{Order of convergence when $k=\frac14$ is fixed.}
+
+The scheme uses
+\[
+D_s^+:\ \text{first-order in time }O(\Delta s),
+\qquad
+D_x^0,\ D_x^+D_x^-:\ \text{second-order in space }O(\Delta x^2).
+\]
+If $k=\Delta s/\Delta x^2$ is held fixed (here $k=\tfrac14$), then $\Delta s=k\Delta x^2=O(\Delta x^2)$.
+Hence the global time discretization error becomes $O(\Delta x^2)$, matching the spatial error, so the overall method is expected to satisfy
+\[
+\boxed{\|V_{\Delta x}-V\|=O(\Delta x^2)\quad\text{(second-order in }\Delta x\text{ for fixed }k).}
+\]
+
+The estimate is obtained from solutions on grids with $N,2N,4N$ points (same fixed $k$), via
+\[
+\boxed{
+p \approx \log_2\!\left(\frac{\|V_N - V_{2N}\|}{\|V_{2N} - V_{4N}\|}\right),
+}
+\]
+where $\|\cdot\|$ is a discrete norm (e.g.\ $\ell^\infty$ over interior nodes).
+If the scheme is second order, one expects $p\approx 2$.
+
+\end{enumerate}
+
+
+\end{document}

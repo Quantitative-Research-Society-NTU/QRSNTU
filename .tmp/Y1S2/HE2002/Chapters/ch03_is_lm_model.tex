@@ -1,0 +1,396 @@
+% ==========================================================
+% HE2002 Macroeconomics II — Chapter 3: IS--LM Model
+% (This is a chapter file intended to be \input into the main template.)
+% ==========================================================
+
+\section{IS--LM Model}
+
+\subsection{From goods-market equilibrium to the IS relation}
+
+Lecture 3 extends the basic goods-market model by allowing investment to depend on both output and the interest rate.
+
+\begin{definition}{Investment relation}{}
+Investment depends positively on output (or sales) and negatively on the nominal interest rate:
+\[
+I = I(Y,i),
+\qquad
+\frac{\partial I}{\partial Y}>0,
+\qquad
+\frac{\partial I}{\partial i}<0.
+\]
+Higher output raises desired investment because firms wish to expand capacity when sales are stronger. A higher interest rate raises the cost of borrowing and reduces investment.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Goods-market equilibrium with interest-sensitive investment}]
+\[
+Y = C(Y-T) + I(Y,i) + G.
+\]
+\end{keyformula}
+
+\noindent
+This equilibrium condition is the \textbf{IS relation}. It gives the combinations of output $Y$ and the interest rate $i$ for which the goods market is in equilibrium.
+
+\begin{theorem}{Why the IS curve is downward sloping}{}
+Holding fiscal policy and other exogenous demand shifters fixed, an increase in the interest rate reduces investment demand. Lower investment reduces total demand, so equilibrium output must fall. Therefore the IS curve is downward sloping in the $(Y,i)$ plane.
+\end{theorem}
+
+\noindent
+The logic is:
+\[
+i\uparrow \;\Rightarrow\; I\downarrow \;\Rightarrow\; Z\downarrow \;\Rightarrow\; Y\downarrow.
+\]
+
+\subsection{Linear IS equation and algebraic form}
+
+To obtain a closed-form expression, use the standard linear specifications
+\[
+C = c_0 + c_1(Y-T),
+\qquad
+I = b_0 + b_1Y - b_2 i,
+\]
+with
+\[
+0<c_1<1,\qquad b_1\ge 0,\qquad b_2>0,\qquad c_1+b_1<1.
+\]
+
+\begin{keyformula}[title={Key Formula: Linear IS relation}]
+Substituting into goods-market equilibrium gives
+\[
+Y = c_0 + c_1(Y-T) + b_0 + b_1Y - b_2 i + G.
+\]
+Hence
+\[
+(1-c_1-b_1)Y = c_0 + b_0 + G - c_1T - b_2 i,
+\]
+so
+\[
+Y
+=
+\frac{c_0+b_0+G-c_1T-b_2 i}{1-c_1-b_1}.
+\]
+\end{keyformula}
+
+\noindent
+For graphing in the $(Y,i)$ plane, it is often useful to write the IS relation in inverse form:
+\[
+i
+=
+\frac{c_0+b_0+G-c_1T}{b_2}
+-
+\frac{1-c_1-b_1}{b_2}Y.
+\]
+Thus
+\[
+\frac{di}{dY}
+=
+-\frac{1-c_1-b_1}{b_2}<0,
+\]
+confirming the downward slope.
+
+\begin{commonmistake}
+Do not say that a change in the interest rate \emph{shifts} the IS curve. A change in $i$ causes a \textbf{movement along} a given IS curve. The IS curve shifts only when some other exogenous component of demand changes, such as $G$, $T$, consumer confidence, or autonomous investment.
+\end{commonmistake}
+
+\subsection{Shifts of the IS curve}
+
+\begin{definition}{IS-curve shifts}{}
+Any change in exogenous variables that affects demand for goods at a given interest rate shifts the IS curve.
+\end{definition}
+
+\noindent
+Important cases:
+\begin{itemize}[leftmargin=1.5em]
+\item $G\uparrow \Rightarrow$ IS shifts right.
+\item $T\uparrow \Rightarrow$ disposable income falls $\Rightarrow$ consumption falls $\Rightarrow$ IS shifts left.
+\item $c_0\uparrow$ or $b_0\uparrow \Rightarrow$ IS shifts right.
+\item A fall in consumer confidence or autonomous investment shifts IS left.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Shift versus movement on IS}]
+In the IS relation:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Interest-rate change} $\Rightarrow$ movement along IS.
+\item \textbf{Fiscal or confidence change} $\Rightarrow$ shift of IS.
+\end{itemize}
+A common MCQ trap is to describe a fall in consumer confidence as an LM shift. It is an \textbf{IS shift to the left} because it lowers desired spending.
+\end{examtip}
+
+\subsection{Financial markets and the LM relation}
+
+Lecture 2 derived money-market equilibrium as
+\[
+M = \$Y\,L(i).
+\]
+Using $\$Y = PY$, divide through by the price level:
+\[
+\frac{M}{P}=Y\,L(i).
+\]
+
+\begin{definition}{Real money-market equilibrium}{}
+The money market is in equilibrium when real money supply equals real money demand:
+\[
+\frac{M}{P}=Y\,L(i),
+\qquad
+L'(i)<0.
+\]
+Real money demand rises with income and falls with the interest rate.
+\end{definition}
+
+\noindent
+In the modern presentation used in Lecture 3, the central bank does not primarily think of policy as choosing $M$. Instead, it chooses a target interest rate and adjusts money supply as needed to achieve that rate.
+
+\begin{keyformula}[title={Key Formula: LM relation under interest-rate targeting}]
+\[
+i=\bar{i}.
+\]
+\end{keyformula}
+
+\noindent
+So the LM curve is horizontal at the policy rate chosen by the central bank.
+
+\begin{policynote}
+A monetary expansion in this lecture means a \textbf{reduction in the policy interest rate}:
+\[
+\bar{i}\downarrow
+\quad\Longleftrightarrow\quad
+M\uparrow \text{ as needed to support the lower rate.}
+\]
+Similarly, a monetary contraction means
+\[
+\bar{i}\uparrow
+\quad\Longleftrightarrow\quad
+M\downarrow \text{ relative to what would be needed at a lower rate.}
+\]
+\end{policynote}
+
+\begin{commonmistake}
+Do not confuse the \emph{money-market equilibrium condition}
+\[
+\frac{M}{P}=Y\,L(i)
+\]
+with the \emph{LM relation used in this lecture}
+\[
+i=\bar{i}.
+\]
+The first is the underlying market-clearing condition. The second reflects the central bank's operating procedure: it chooses $i$ and supplies whatever money is necessary for the money market to clear at that rate.
+\end{commonmistake}
+
+\subsection{Joint equilibrium: the IS--LM model}
+
+\begin{theorem}{Joint equilibrium in goods and financial markets}{}
+The short-run equilibrium of the economy is determined by the intersection of:
+\begin{itemize}[leftmargin=1.5em]
+\item the \textbf{IS curve}, which gives goods-market equilibrium, and
+\item the \textbf{LM curve}, which gives financial-market equilibrium under the chosen policy rate.
+\end{itemize}
+At the intersection, both goods and financial markets are in equilibrium simultaneously.
+\end{theorem}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7,0) node[right] {Output, $Y$};
+\draw[->] (0,0) -- (0,5) node[above] {Interest rate, $i$};
+
+% IS
+\draw[thick,blue!70!black] (0.8,4.2) .. controls (1.4,3.5) and (3.6,2.3) .. (6.2,0.9);
+\node[blue!70!black] at (5.8,1.3) {IS};
+
+% LM
+\draw[thick,red!70!black] (0.4,2.4) -- (6.5,2.4);
+\node[red!70!black] at (6.25,2.65) {LM};
+
+% Equilibrium
+\fill (3.6,2.4) circle (2pt);
+\node[above right] at (3.7,2.4) {$A$};
+\draw[dashed] (3.6,0) -- (3.6,2.4);
+\node[below] at (3.6,0) {$Y^\ast$};
+\draw[dashed] (0,2.4) -- (3.6,2.4);
+\node[left] at (0,2.4) {$\bar{i}$};
+\end{tikzpicture}
+\end{center}
+
+\noindent
+The graph should be read carefully:
+\begin{itemize}[leftmargin=1.5em]
+\item any point on IS satisfies goods-market equilibrium only;
+\item any point on LM satisfies financial-market equilibrium only;
+\item only their intersection satisfies both.
+\end{itemize}
+
+\subsection{Algebraic solution of the IS--LM equilibrium}
+
+Since the LM relation is
+\[
+i=\bar{i},
+\]
+substitute directly into the IS equation.
+
+\begin{keyformula}[title={Key Formula: Equilibrium output under interest-rate targeting}]
+\[
+Y^\ast
+=
+\frac{c_0+b_0+G-c_1T-b_2\bar{i}}{1-c_1-b_1}.
+\]
+\end{keyformula}
+
+\noindent
+This expression gives several immediate comparative statics:
+\[
+\frac{\partial Y^\ast}{\partial G}=\frac{1}{1-c_1-b_1}>0,
+\qquad
+\frac{\partial Y^\ast}{\partial T}=-\frac{c_1}{1-c_1-b_1}<0,
+\qquad
+\frac{\partial Y^\ast}{\partial \bar{i}}=-\frac{b_2}{1-c_1-b_1}<0.
+\]
+
+\noindent
+Thus:
+\begin{itemize}[leftmargin=1.5em]
+\item higher government spending raises output;
+\item higher taxes reduce output;
+\item a higher policy interest rate reduces output.
+\end{itemize}
+
+\begin{examplebox}[title={Worked Example (Tutorial 3): Output, investment, and accommodating money supply}]
+Consider
+\[
+C = c_0 + c_1(Y-T),
+\qquad
+I = b_0 + b_1Y - b_2 i,
+\qquad
+i=\bar{i}.
+\]
+Then:
+\begin{enumerate}[leftmargin=1.5em,label=(\alph*)]
+\item Goods-market equilibrium gives
+\[
+Y^\ast
+=
+\frac{c_0+b_0+G-c_1T-b_2\bar{i}}{1-c_1-b_1}.
+\]
+\item Equilibrium investment is
+\[
+I^\ast
+=
+b_0+b_1Y^\ast-b_2\bar{i}.
+\]
+\item If money demand is
+\[
+\frac{M}{P}=d_1Y-d_2 i,
+\]
+then, at the chosen interest rate $\bar{i}$, equilibrium requires
+\[
+\frac{M^s}{P}=d_1Y^\ast-d_2\bar{i}.
+\]
+So when fiscal policy raises output while the central bank keeps $i=\bar{i}$ fixed, real money supply must increase to accommodate the higher money demand.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Fiscal policy in the IS--LM model}
+
+With the interest rate held fixed by the central bank, fiscal policy works through shifts in the IS curve.
+
+\begin{definition}{Fiscal expansion and fiscal contraction}{}
+A \textbf{fiscal expansion} is an increase in $G-T$.
+A \textbf{fiscal contraction} is a decrease in $G-T$.
+\end{definition}
+
+\noindent
+Under interest-rate targeting:
+\begin{itemize}[leftmargin=1.5em]
+\item $G\uparrow$ or $T\downarrow \Rightarrow$ IS shifts right $\Rightarrow Y^\ast\uparrow$.
+\item $G\downarrow$ or $T\uparrow \Rightarrow$ IS shifts left $\Rightarrow Y^\ast\downarrow$.
+\item The interest rate does \emph{not} change because the central bank keeps $i=\bar{i}$ fixed.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Fiscal policy when LM is horizontal}]
+In this version of IS--LM, fiscal expansion raises output without raising the interest rate, because the central bank accommodates the increase in money demand needed to maintain $i=\bar{i}$. So the usual crowding-out story through a higher interest rate is absent here.
+\end{examtip}
+
+\subsection{Monetary policy in the IS--LM model}
+
+Monetary policy operates by changing the target interest rate and hence shifting the LM curve.
+
+\begin{definition}{LM-curve shifts}{}
+Since the LM relation is
+\[
+i=\bar{i},
+\]
+a change in $\bar{i}$ shifts the entire LM curve:
+\begin{itemize}[leftmargin=1.5em]
+\item $\bar{i}\downarrow \Rightarrow$ LM shifts down.
+\item $\bar{i}\uparrow \Rightarrow$ LM shifts up.
+\end{itemize}
+\end{definition}
+
+\noindent
+The resulting effects are:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Monetary expansion:} $\bar{i}\downarrow \Rightarrow Y^\ast\uparrow$.
+\item \textbf{Monetary contraction:} $\bar{i}\uparrow \Rightarrow Y^\ast\downarrow$.
+\end{itemize}
+
+\noindent
+Graphically, a lower LM curve intersects the IS curve further to the right, so equilibrium output increases.
+
+\begin{commonmistake}
+A change in $\bar{i}$ does \textbf{not} shift the IS curve. It shifts LM. The economy then moves \emph{along} the existing IS curve to a new equilibrium.
+\end{commonmistake}
+
+\subsection{Policy mix and comparative-statics logic}
+
+A \textbf{policy mix} is the combination of fiscal and monetary policy.
+
+\begin{policynote}[title={Policy Application: Expansionary policy mix}]
+If the economy is in recession and output is too low, policymakers can use:
+\begin{itemize}[leftmargin=1.5em]
+\item a fiscal expansion (IS shifts right),
+\item a monetary expansion (LM shifts down),
+\item or both together.
+\end{itemize}
+A combined fiscal and monetary expansion unambiguously raises output.
+\end{policynote}
+
+\begin{policynote}[title={Policy Application: Fiscal consolidation with monetary expansion}]
+If the government wants to reduce the budget deficit without causing a recession, it may combine:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{fiscal consolidation} (IS shifts left), with
+\item \textbf{monetary expansion} (LM shifts down).
+\end{itemize}
+If the monetary expansion is large enough, output can be maintained even while the deficit is reduced.
+\end{policynote}
+
+\begin{examplebox}[title={Worked Example: Simultaneous fiscal expansion and monetary contraction}]
+Suppose there is a fiscal expansion and a monetary contraction at the same time.
+\begin{itemize}[leftmargin=1.5em]
+\item Fiscal expansion shifts IS right.
+\item Monetary contraction shifts LM up.
+\end{itemize}
+Then the equilibrium interest rate must rise, because the LM curve itself moves to a higher interest-rate level. However, the effect on output is \textbf{ambiguous}: the rightward IS shift raises output, while the upward LM shift lowers it. Without magnitudes, the direction of output cannot be determined with certainty.
+\end{examplebox}
+
+\subsection{How to analyse any IS--LM shock}
+
+\begin{examtip}[title={Exam Focus: Standard 4-step method}]
+For comparative-statics questions:
+\begin{enumerate}[leftmargin=1.5em]
+\item Identify whether the shock affects goods demand or monetary policy.
+\item Decide which curve shifts: IS, LM, or both.
+\item Determine the direction of the shift.
+\item Read off the new equilibrium effects on output and the interest rate.
+\end{enumerate}
+This is the safest way to answer both diagrammatic and conceptual MCQs.
+\end{examtip}
+
+\subsection{Short-run interpretation}
+
+The IS--LM model is the core short-run stabilisation framework:
+\begin{itemize}[leftmargin=1.5em]
+\item the \textbf{IS side} captures demand for goods;
+\item the \textbf{LM side} captures financial-market equilibrium under the central bank's chosen interest rate;
+\item the intersection determines short-run output.
+\end{itemize}
+
+\begin{theorem}{Short-run macroeconomic interpretation}{}
+In the short run, output is demand-determined. Fiscal policy affects output by shifting the IS curve. Monetary policy affects output by shifting the LM curve through changes in the policy interest rate. The IS--LM model therefore provides the benchmark framework for analysing stabilisation policy before moving to medium-run inflation and labour-market adjustments in later lectures.
+\end{theorem}

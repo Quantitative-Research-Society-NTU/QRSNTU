@@ -1,0 +1,750 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\textbf{Mathematical Foundations} \\
+MFE Spring 2026 \\
+Assignment 3 \\
+Due: Tuesday, January 27, \\
+9 am P.T.
+\end{center}
+
+\vspace{1em}
+
+\noindent \textbf{Student name:} Yuhe Sui \hspace{3.54cm} \textbf{Student ID:} job@yuhesui.com
+
+\vspace{1em}
+
+\noindent \textbf{Solved in team with another student (please underline):} \hspace{1cm} Yes \hspace{1cm} \underline{No}
+
+\vspace{1em}
+
+\noindent \textbf{Name of team member:} \hspace{3cm} \textbf{ID of team member:}
+
+\vspace{1em}
+
+\noindent \textbf{Instructions:} You should submit this assignment electronically via Canvas, as a PDF file. The preferred format is to use a text editor or other program with formula handling capacity, e.g., Scientific Word, MikTex, or MS Word with installed equation package, to create a an electronic document, and then save as PDF. We also accept handwritten, scanned, solutions, but these must be extremely clear and well written, or they will receive point deductions (see available sample files on study.net).
+
+\vspace{1em}
+
+\noindent Please contact us at \texttt{HAASMFE.MATH@gmail.com} if you have any questions about the submission format!
+
+\vspace{1em}
+
+\noindent You should receive a confirmation e-mail within 24 hours of sending your solution. Assignments received up to 24 hours late will get a point deduction of $50\%$ of the points. Assignments received more than 24 hours late get a $100\%$ point deduction.
+
+\vspace{1em}
+
+\noindent You can send questions to \texttt{HAASMFE.MATH@gmail.com} if you get stuck.
+
+\vspace{1em}
+
+\noindent All answers need to be justified!
+
+\newpage
+
+In this assignment you will practice Riemann and Stieltjes integration of non-smooth functions.
+You should be prepared that this assignment is the most challenging so far in the course and will
+most likely require substantial thinking.
+
+\section{Integration}
+
+We introduce a sequence of continuous functions, $f_J : [0,1]\to \mathbb{R}$, $J=1,2,3,\ldots$, that converges to a function $f$.
+In financial applications, these types of functions are usually defined over time, so we will use $t$ as the domain variable.
+
+For $J=1$, define
+\[
+f_1(t)=t.
+\]
+Also, let us associate with $f_1$ the ``dyadic'' points $t_0=0$, $t_1=1/2$, $t_2=1$, the set $X_1=\{t_0,t_1,t_2\}$ and the partition of the interval $[0,1)$ into $[t_0,t_1)$ and $[t_1,t_2)$.
+Note that $f_1$ is a linear function on each of the subintervals in the partition (being a linear function on the whole of $[0,1]$).
+
+More generally, for $J\ge 1$, we define $N=2^J$, the set
+\[
+X_J=\{t_0,t_1,\ldots,t_N\}=\{0,2^{-J},2\times 2^{-J},3\times 2^{-J},\ldots,1\},
+\]
+and the partition of the interval into subintervals,
+\[
+P_J=\{[t_0,t_1),[t_1,t_2),\ldots,[t_{N-1},t_N)\}.
+\]
+The set of dyadic points is $X=\bigcup_{J=1}^\infty X_J$, which is obviously dense in $[0,1]$.
+
+We will now use a clever approach to define the function $f_{J+1}$ from $f_J$ in a way such that
+\begin{itemize}
+\item $f_{J+1}(t)=f_J(t)$ for all $t\in X_J$, that is, the value of $f_{J'}(t)$ never changes in the dyadic points $t\in X_J$ as $J'$ grows.
+\item $f_J$ is continuous for all $J$ and linear on each of the subintervals in $P_J$.
+\item $f_J$ converges uniformly to a continuous function $f:[0,1]\to \mathbb{R}$ as $J$ tends to infinity.
+\end{itemize}
+
+We proceed as follows. To define $f_2$, we keep the values $f_2(t)=f_1(t)$ at the points $t\in X_1=\{0,1/2,1\}$, but we modify the values in $X_2\setminus X_1=\{1/4,3/4\}$ so that
+\[
+f_2(1/4)=f_1(1/4)-\frac{1}{\sqrt{8}}
+=\frac{f_1(0)+f_1(1/2)}{2}-\frac{1}{\sqrt{8}}
+=\frac14-\frac{1}{\sqrt{8}}\approx -0.1036,
+\]
+and
+\[
+f_2(3/4)=f_1(3/4)+\frac{1}{\sqrt{8}}
+=\frac{f_1(1/2)+f_1(1)}{2}+\frac{1}{\sqrt{8}}
+=\frac34+\frac{1}{\sqrt{8}}\approx 1.1036.
+\]
+Thus $f_2$ is now defined for all elements of $X_2$.
+To extend $f_2$ to the whole of $[0,1]$, we simply make it linear on each of the intervals in
+\[
+P_2=\{[0,0.25),[0.25,0.5),[0.5,0.75),[0.75,1)\},
+\]
+so that it is continuous on the whole of $[0,1]$, i.e., we ``connect the end-points with straight lines.''
+
+We repeat this procedure to define functions $f_J:[0,1]\to \mathbb{R}$ for $J>2$.
+Specifically, given the continuous function $f_J$ that is piecewise linear on each interval in $P_J$ (and therefore completely defined by its values in $X_J$), we first define $f_{J+1}(t)=f_J(t)$ for all $t\in X_J$.
+For
+\[
+t=(2k-1)2^{-(J+1)}\in X_{J+1}\setminus X_J,\qquad k=1,\ldots,2^J,
+\]
+we moreover define
+\[
+f_{J+1}(t)=f_J(t)+(-1)^{k+J+1}2^{-J/2-1}.
+\]
+Finally, we extend the definition of $f_{J+1}$ from $X_{J+1}$ to the whole of $[0,1]$ by ``connecting the end-points with straight lines,'' thus making it continuous and piecewise linear.
+
+You should take some time to make yourself comfortable with the properties of these functions and the methodology used to construct them. Specifically, convince yourself that each function is continuous and piecewise linear on $X_J$, and that $f_J(t)=f_{J'}(t)$ for all $t\in X_J$ and $J'>J$.
+Furthermore, note that as $J$ grows, $f_J$ converges to a function $f$ that ``wiggles'' a lot but looks like it is continuous.
+
+We analyze the smoothness properties of $f$. We begin by showing convergence of $f_J$ to $f$.
+Recall that the space of continuous functions from $[0,1]$ to $\mathbb{R}$, $C([0,1],\mathbb{R})$, is a Banach space under the sup-norm
+\[
+\|f\|=\sup_{t\in[0,1]}|f(t)|.
+\]
+Such convergence is also called uniform (see lecture), and the norm is consequently called the norm of uniform convergence.
+
+\begin{enumerate}
+\item[(a)] Prove that the sequence $f_1,f_2,\ldots$ converges uniformly to a continuous function $f:[0,1]\to \mathbb{R}$, by showing that it is a Cauchy sequence in the sup-norm.
+
+\medskip
+\noindent \textbf{Hint:} In proving (a), it may be useful to use the fact that if $\{x_n\}$ is a sequence in a normed space such that for some constants $c>0$ and $0<q<1$, and all $n>1$,
+\[
+\|x_n-x_{n-1}\|\le cq^n,
+\]
+then $\{x_n\}$ is a Cauchy sequence. This follows from the fact that
+\[
+x_m-x_n=(x_m-x_{m-1})+(x_{m-1}-x_{m-2})+\cdots+(x_{n+1}-x_n),
+\]
+and therefore by the triangle inequality
+\[
+\|x_m-x_n\|\le \sum_{j=n+1}^m \|x_j-x_{j-1}\|
+\le c\sum_{k=n+1}^m q^k
+= cq^{n+1}\sum_{k=0}^{m-n-1}q^k
+\le c\frac{q^{n+1}}{1-q},
+\]
+which tends to zero for large $n$. Here, we used the geometric summation formula to get the last inequality.
+
+\medskip
+The limit function is thus continuous, but as mentioned it ``wiggles'' a lot, so we do not expect it to be differentiable everywhere. In fact, it is far from differentiable as shown by our next result.
+
+First, recall the definition of H\"older continuity: $f\in C^\alpha([0,1],\mathbb{R})$ if
+\[
+\sup_{t,s\ne t}\frac{|f(t)-f(s)|}{|t-s|^\alpha}<\infty,
+\]
+for some constant $0<\alpha\le 1$.
+As discussed in class, the higher $\alpha$ is, the smoother is $f$. For a function to be differentiable at a point, it must be locally H\"older continuous of degree $\alpha=1$ at that point, since it must be that
+\[
+\frac{|f(t)-f(s)|}{|t-s|^1}\approx |f'(t)|,
+\]
+for $s$ close to $t$ or otherwise the derivative is not defined.
+Thus, at points where $f\notin C^\alpha([0,1],\mathbb{R})$ for some $\alpha<1$, $f$ is not differentiable.
+
+\item[(b)] Consider an arbitrary dyadic point, $t=k2^{-J}$ for some $J>0$ and $0\le k<2^J$. Show that for any such point,
+\[
+\left|f_{J'}(t+2^{-J'})-f_{J'}(t)\right|\ge \frac{2^{-J'/2}}{8},
+\]
+for some $J'\in\{J+1,J+2\}$.
+
+\item[(c)] Use your result in (b) to show that $f\notin C^\alpha([0,1],\mathbb{R})$ for any dyadic $t$, for any $\alpha>\frac12$.
+
+\medskip
+We next study integrals of $f$. First, note that since $f$ is continuous (as shown in (a)), it follows immediately that it is Riemann integrable, i.e., that $\int_0^1 f(t)\,dt$ exists.
+
+\item[(d)] Show that $f_J(t)=1-f_J(1-t)$ for all $J$ and $t$, and use this result to show that
+\[
+\int_0^1 f_J(t)\,dt=\frac12
+\qquad \text{for all } J\ge 1.
+\]
+
+\item[(e)] Use your result in (d) to show that
+\[
+\int_0^1 f(t)\,dt=\frac12.
+\]
+
+\medskip
+Although $f$'s nonsmoothness is not an issue for Riemann integration, it is for the Stieltjes integral. We shall now show that the Stieltjes integral $\int_0^t f(t)\,df$ is not defined for this function.
+
+First, recall that Young's (1936) result implies that if $f\in C^\alpha$ for $\alpha>\frac12$, then the integral $\int f\,df$ is defined (see the class discussion).
+Now, since $f$'s H\"older regularity in this case is just short of $\alpha=\frac12$, Young's result cannot be applied.
+
+Moreover, note that under the even stronger condition of $f$ being continuously differentiable, we would have
+\[
+\int_0^1 f(t)\,df = \left.\frac{f(t)^2}{2}\right|_{0}^{1}=\frac{1-0}{2}=\frac12.
+\]
+For the Stieltjes integral $\int f\,df$ to be defined, it must be that for any sequence of finer and finer partitions of $[0,1]$, the upper and lower sums converge to the same number. Now consider the two sums
+\begin{align}
+I_J^L
+&=
+\sum_{k=0}^{2^J-1}
+f(k2^{-J})\bigl(f((k+1)2^{-J})-f(k2^{-J})\bigr)
+=
+\sum_{k=0}^{2^J-1}
+f_J(k2^{-J})\bigl(f_J((k+1)2^{-J})-f_J(k2^{-J})\bigr),
+\tag{1}\\
+I_J^R
+&=
+\sum_{k=0}^{2^J-1}
+f((k+1)2^{-J})\bigl(f((k+1)2^{-J})-f(k2^{-J})\bigr)
+=
+\sum_{k=0}^{2^J-1}
+f_J((k+1)2^{-J})\bigl(f_J((k+1)2^{-J})-f_J(k2^{-J})\bigr).
+\tag{2}
+\end{align}
+A necessary condition for the Stieltjes integral $\int f\,df$ to exist is then that
+\[
+\lim_{J\to\infty} I_J^L = \lim_{J\to\infty} I_J^R,
+\]
+since $I_J^L$ corresponds to a Riemann--Stieltjes sum over the partition $X_J$ when the left end-point of each interval is chosen to evaluate $f$, and $I_J^R$ is the sum when the right end-point is chosen.
+
+Equivalently, defining $V_J=I_J^R-I_J^L$, the condition is that
+\[
+\lim_{J\to\infty} V_J=0.
+\]
+From (1) and (2), it follows that
+\[
+V_J=\sum_{k=0}^{2^J-1}\bigl(f_J((k+1)2^{-J})-f_J(k2^{-J})\bigr)^2.
+\]
+
+\item[(f)] For $t=k2^{-J}$, $0\le k<2^J$, assume that $f_J(t)=a$ and $f_J(t+2^{-J})=b$. It follows that
+\[
+(f_J(t+2^{-J})-f_J(t))^2=(b-a)^2.
+\]
+Show that
+\[
+\left(f_{J+1}(t+2^{-J-1})-f_{J+1}(t)\right)^2
++
+\left(f_{J+1}(t+2^{-J})-f_{J+1}(t+2^{-J-1})\right)^2
+=
+\frac{(b-a)^2}{2}+2^{-J-1}.
+\tag{3}
+\]
+
+\item[(g)] Use the result in (f) to show that
+\[
+V_{J+1}=\frac{V_J}{2}+\frac12
+\qquad \text{for all } J\ge 1,
+\]
+and that it therefore follows that
+\[
+V_J=1-2^{-J}.
+\]
+\end{enumerate}
+
+
+% Full correct solution for Question 1 (Integration / Weierstrass-type construction). [file:1]
+\subsection*{Solution}
+
+Throughout let $\|\cdot\|$ denote the sup-norm on $C([0,1],\mathbb{R})$,
+\[
+\|g\|=\sup_{t\in[0,1]}|g(t)|.
+\]
+Recall $X_J=\{k2^{-J}:k=0,1,\dots,2^J\}$ and the partition
+$P_J=\{[k2^{-J},(k+1)2^{-J}):k=0,\dots,2^J-1\}$.  By construction each $f_J$ is continuous and linear on each
+interval in $P_J$, and for $J'>J$,
+\[
+f_{J'}(t)=f_J(t)\qquad\text{for all }t\in X_J.
+\]
+For $t=(2k-1)2^{-(J+1)}\in X_{J+1}\setminus X_J$ we have
+\[
+f_{J+1}(t)=f_J(t)+(-1)^{k+J+1}2^{-J/2-1}.
+\]
+
+
+
+\begin{enumerate}
+\item[(a)] \textbf{Uniform convergence via the Cauchy criterion.}
+
+\medskip
+\noindent\emph{Step 1: bound $\|f_{J+1}-f_J\|$.}
+Fix $J\ge 1$ and a coarse interval
+\[
+I=[k2^{-J},(k+1)2^{-J}]\qquad(k=0,1,\dots,2^J-1).
+\]
+Let $t_L=k2^{-J}$, $t_R=(k+1)2^{-J}$, and midpoint $t_M=(2k+1)2^{-(J+1)}$.
+Set $a=f_J(t_L)$ and $b=f_J(t_R)$. Since $f_J$ is linear on $I$,
+\[
+f_J(t_M)=\frac{a+b}{2}.
+\]
+At level $J+1$, the midpoint is a new dyadic point, so
+\[
+f_{J+1}(t_M)=f_J(t_M)+\varepsilon,\qquad \varepsilon\in\{\pm 2^{-J/2-1}\},
+\]
+while $f_{J+1}(t_L)=f_J(t_L)=a$ and $f_{J+1}(t_R)=f_J(t_R)=b$.
+
+Define $g=f_{J+1}-f_J$. On $I$, the function $g$ is piecewise linear with
+\[
+g(t_L)=0,\qquad g(t_M)=\varepsilon,\qquad g(t_R)=0.
+\]
+Hence on each half-interval $[t_L,t_M]$ and $[t_M,t_R]$, $|g|$ is maximized at an endpoint, so
+\[
+\sup_{t\in I}|g(t)|=\max\{|g(t_L)|,|g(t_M)|,|g(t_R)|\}=|\varepsilon|=2^{-J/2-1}.
+\]
+Since the intervals $I$ cover $[0,1]$, we obtain
+\[
+\|f_{J+1}-f_J\|=\|g\|\le 2^{-J/2-1}.
+\tag{A1}
+\]
+
+\medskip
+\noindent\emph{Step 2: Cauchy in sup norm.}
+Let $m>n\ge 1$. By telescoping and the triangle inequality,
+\[
+\|f_m-f_n\|
+\le \sum_{j=n}^{m-1}\|f_{j+1}-f_j\|
+\le \sum_{j=n}^{m-1}2^{-j/2-1}
+\le \sum_{j=n}^{\infty}2^{-j/2-1}.
+\]
+The tail is a convergent geometric series since $2^{-j/2-1}=\frac12(2^{-1/2})^j$ and $2^{-1/2}\in(0,1)$.
+Therefore the tail tends to $0$ as $n\to\infty$, so $\{f_J\}$ is Cauchy in $(C([0,1],\mathbb{R}),\|\cdot\|)$.
+
+\medskip
+\noindent\emph{Step 3: existence of continuous limit.}
+Since $C([0,1],\mathbb{R})$ is complete under $\|\cdot\|$, there exists $f\in C([0,1],\mathbb{R})$ such that
+$\|f_J-f\|\to 0$, i.e.\ $f_J\to f$ uniformly.
+
+\[
+\boxed{\text{$f_J$ converges uniformly to a continuous function $f$.}}
+\]
+
+\item[(b)] \textbf{A lower bound on an increment near any dyadic point.}
+
+Fix a dyadic point $t=k2^{-J}$ with $J\ge 1$ and $0\le k<2^J$.
+Define for $J'\ge J+1$ the increment
+\[
+\Delta_{J'}:=f_{J'}(t+2^{-J'})-f_{J'}(t).
+\]
+We show that for some $J'\in\{J+1,J+2\}$,
+\[
+|\Delta_{J'}|\ge \frac{2^{-J'/2}}{8}.
+\]
+
+\medskip
+\noindent\underline{Case 1:} $|\Delta_{J+1}|\ge \dfrac{2^{-(J+1)/2}}{8}$. Then the claim holds with $J'=J+1$.
+
+\medskip
+\noindent\underline{Case 2:} $|\Delta_{J+1}|< \dfrac{2^{-(J+1)/2}}{8}$. Let $h=2^{-(J+1)}$ and consider the interval $[t,t+h]$.
+Since $f_{J+1}$ is linear on $[t,t+h]$, at its midpoint $t+h/2=t+2^{-(J+2)}$,
+\[
+f_{J+1}(t+2^{-(J+2)})=\frac{f_{J+1}(t)+f_{J+1}(t+h)}{2}
+=f_{J+1}(t)+\frac{\Delta_{J+1}}{2}.
+\]
+Passing from level $J+1$ to $J+2$, the point $t+2^{-(J+2)}$ is new (it lies in $X_{J+2}\setminus X_{J+1}$),
+so by the construction
+\[
+f_{J+2}(t+2^{-(J+2)})=f_{J+1}(t+2^{-(J+2)})+\sigma\,2^{-(J+1)/2-1},
+\qquad \sigma\in\{\pm 1\},
+\]
+while $f_{J+2}(t)=f_{J+1}(t)$ since $t\in X_{J+1}$.
+Therefore
+\[
+\Delta_{J+2}
+=f_{J+2}(t+2^{-(J+2)})-f_{J+2}(t)
+=\frac{\Delta_{J+1}}{2}+\sigma\,2^{-(J+1)/2-1}.
+\]
+By the reverse triangle inequality,
+\[
+|\Delta_{J+2}|
+\ge 2^{-(J+1)/2-1}-\frac{|\Delta_{J+1}|}{2}
+> 2^{-(J+1)/2-1}-\frac12\cdot\frac{2^{-(J+1)/2}}{8}
+= \frac{7}{16}\,2^{-(J+1)/2}.
+\]
+Since $\frac{7}{16}\,2^{-(J+1)/2}\ge \frac{1}{16}\,2^{-J/2}=\frac{2^{-(J+2)/2}}{8}$, we obtain
+\[
+|\Delta_{J+2}|\ge \frac{2^{-(J+2)/2}}{8}.
+\]
+Thus the claim holds with $J'=J+2$.
+
+\[
+\boxed{\text{For any dyadic $t=k2^{-J}$ there exists $J'\in\{J+1,J+2\}$ with }
+|f_{J'}(t+2^{-J'})-f_{J'}(t)|\ge \frac{2^{-J'/2}}{8}.}
+\]
+
+\item[(c)] \textbf{Failure of H\"older regularity above $\alpha=\tfrac12$ at dyadic points.}
+
+Fix a dyadic point $t$. For infinitely many integers $J$ we can write $t=k2^{-J}$.
+By part (b), for each such $J$ there exists $J'\in\{J+1,J+2\}$ with $h=2^{-J'}$ such that
+\[
+|f_{J'}(t+h)-f_{J'}(t)|\ge \frac{2^{-J'/2}}{8}.
+\]
+Since $t,t+h\in X_{J'}$, the values have stabilized at level $J'$, so
+\[
+f(t)=f_{J'}(t),\qquad f(t+h)=f_{J'}(t+h),
+\]
+and therefore
+\[
+|f(t+h)-f(t)|\ge \frac{2^{-J'/2}}{8}.
+\]
+Let $\alpha>\tfrac12$. Then
+\[
+\frac{|f(t+h)-f(t)|}{|h|^\alpha}
+\ge \frac{(2^{-J'/2}/8)}{(2^{-J'})^\alpha}
+=\frac{1}{8}\,2^{J'(\alpha-\frac12)}\xrightarrow[J'\to\infty]{}\infty.
+\]
+Hence the H\"older seminorm at $t$ is infinite for every $\alpha>\tfrac12$, so $f\notin C^\alpha$ at any dyadic point.
+
+\[
+\boxed{\text{If $t$ is dyadic and $\alpha>\tfrac12$, then $f\notin C^\alpha([0,1],\mathbb{R})$ at $t$.}}
+\]
+
+\item[(d)] \textbf{Symmetry $f_J(t)=1-f_J(1-t)$ and $\int_0^1 f_J=\tfrac12$.}
+
+\medskip
+\noindent\emph{Claim:} For all $J\ge 1$ and all $t\in[0,1]$,
+\[
+f_J(t)=1-f_J(1-t).
+\tag{D1}
+\]
+
+\medskip
+\noindent\emph{Proof by induction on $J$.}
+
+\underline{Base case $J=1$.} Since $f_1(t)=t$,
+\[
+1-f_1(1-t)=1-(1-t)=t=f_1(t).
+\]
+
+\underline{Inductive step.} Assume (D1) holds for some $J\ge 1$. We prove it for $J+1$.
+
+It suffices to check (D1) for $t\in X_{J+1}$, because both sides are continuous and piecewise linear on each interval in $P_{J+1}$.
+
+\begin{itemize}
+\item If $t\in X_J$, then $f_{J+1}(t)=f_J(t)$ and also $1-t\in X_J$, so
+\[
+1-f_{J+1}(1-t)=1-f_J(1-t)=f_J(t)=f_{J+1}(t).
+\]
+\item If $t\in X_{J+1}\setminus X_J$, write $t=(2k-1)2^{-(J+1)}$ for some $k\in\{1,\dots,2^J\}$.
+Then $1-t=(2k'-1)2^{-(J+1)}$ with $k'=2^J-k+1$.
+Let $\varepsilon_k:=(-1)^{k+J+1}2^{-J/2-1}$. Since $2^J$ is even for $J\ge 1$,
+\[
+(-1)^{k'+J+1}=-(-1)^{k+J+1},
+\qquad\text{so}\qquad
+\varepsilon_{k'}=-\varepsilon_k.
+\]
+By construction,
+\[
+f_{J+1}(t)=f_J(t)+\varepsilon_k,
+\qquad
+f_{J+1}(1-t)=f_J(1-t)+\varepsilon_{k'}=f_J(1-t)-\varepsilon_k.
+\]
+Using the inductive hypothesis $f_J(t)=1-f_J(1-t)$,
+\[
+1-f_{J+1}(1-t)
+=1-\bigl(f_J(1-t)-\varepsilon_k\bigr)
+=\bigl(1-f_J(1-t)\bigr)+\varepsilon_k
+=f_J(t)+\varepsilon_k
+=f_{J+1}(t).
+\]
+\end{itemize}
+Thus (D1) holds for $J+1$, completing the induction. \qed
+
+\medskip
+\noindent\emph{Integral.} Let $I_J=\int_0^1 f_J(t)\,dt$. Using (D1),
+\[
+I_J=\int_0^1 \bigl(1-f_J(1-t)\bigr)\,dt
+=1-\int_0^1 f_J(1-t)\,dt.
+\]
+With $u=1-t$ (so $dt=-du$),
+\[
+\int_0^1 f_J(1-t)\,dt=\int_1^0 f_J(u)(-du)=\int_0^1 f_J(u)\,du=I_J.
+\]
+Hence $I_J=1-I_J$, so $2I_J=1$ and therefore
+\[
+\boxed{\ \int_0^1 f_J(t)\,dt=\frac12\qquad\text{for all }J\ge 1.\ }
+\]
+
+\item[(e)] \textbf{Integral of the limit function.}
+
+Since $f_J\to f$ uniformly on $[0,1]$,
+\[
+\left|\int_0^1 f(t)\,dt-\int_0^1 f_J(t)\,dt\right|
+=\left|\int_0^1 (f(t)-f_J(t))\,dt\right|
+\le \int_0^1 |f(t)-f_J(t)|\,dt
+\le \|f-f_J\|\xrightarrow[J\to\infty]{}0.
+\]
+Therefore,
+\[
+\boxed{\ \int_0^1 f(t)\,dt=\lim_{J\to\infty}\int_0^1 f_J(t)\,dt=\frac12.\ }
+\]
+
+\item[(f)] \textbf{Identity (3) (splitting one increment into two).}
+
+Fix $J\ge 1$ and a dyadic $t=k2^{-J}$. Suppose $f_J(t)=a$ and $f_J(t+2^{-J})=b$.
+Let $m=t+2^{-J-1}$ be the midpoint. Since $f_J$ is linear on $[t,t+2^{-J}]$,
+\[
+f_J(m)=\frac{a+b}{2}.
+\]
+At level $J+1$ the midpoint value is shifted by $\varepsilon\in\{\pm 2^{-J/2-1}\}$:
+\[
+f_{J+1}(m)=\frac{a+b}{2}+\varepsilon,
+\qquad
+f_{J+1}(t)=a,\qquad f_{J+1}(t+2^{-J})=b.
+\]
+Hence
+\begin{align*}
+&\left(f_{J+1}(t+2^{-J-1})-f_{J+1}(t)\right)^2
++
+\left(f_{J+1}(t+2^{-J})-f_{J+1}(t+2^{-J-1})\right)^2 \\
+&\qquad=\left(\frac{b-a}{2}+\varepsilon\right)^2+\left(\frac{b-a}{2}-\varepsilon\right)^2
+=2\left(\frac{(b-a)^2}{4}+\varepsilon^2\right)
+=\frac{(b-a)^2}{2}+2\varepsilon^2.
+\end{align*}
+Since $\varepsilon^2=(2^{-J/2-1})^2=2^{-J-2}$, we have $2\varepsilon^2=2^{-J-1}$, so
+\[
+\boxed{\ 
+\left(f_{J+1}(t+2^{-J-1})-f_{J+1}(t)\right)^2
++
+\left(f_{J+1}(t+2^{-J})-f_{J+1}(t+2^{-J-1})\right)^2
+=
+\frac{(b-a)^2}{2}+2^{-J-1}.
+\ }
+\]
+
+\item[(g)] \textbf{Recursion for $V_J$ and closed form.}
+
+Recall
+\[
+V_J=\sum_{k=0}^{2^J-1}\left(f_J((k+1)2^{-J})-f_J(k2^{-J})\right)^2.
+\]
+At level $J$, each increment $\Delta_k:=f_J((k+1)2^{-J})-f_J(k2^{-J})$ corresponds to an interval
+$[k2^{-J},(k+1)2^{-J}]$ which splits into two half-intervals at level $J+1$.
+By part (f), the sum of squares of the \emph{two} new increments equals
+\[
+\frac{\Delta_k^2}{2}+2^{-J-1}.
+\]
+Summing over $k=0,\dots,2^J-1$ gives
+\begin{align*}
+V_{J+1}
+&=\sum_{k=0}^{2^J-1}\left(\frac{\Delta_k^2}{2}+2^{-J-1}\right)
+=\frac12\sum_{k=0}^{2^J-1}\Delta_k^2+\sum_{k=0}^{2^J-1}2^{-J-1}\\
+&=\frac{V_J}{2}+2^J\cdot 2^{-J-1}
+=\frac{V_J}{2}+\frac12.
+\end{align*}
+Thus
+\[
+\boxed{\ V_{J+1}=\frac{V_J}{2}+\frac12\qquad(J\ge 1). \ }
+\]
+
+To solve, set $W_J:=V_J-1$. Then $W_{J+1}=W_J/2$, so $W_J=W_1\,2^{-(J-1)}$.
+Compute $V_1$ from $f_1(t)=t$ on $X_1=\{0,\tfrac12,1\}$:
+\[
+V_1=\left(\tfrac12-0\right)^2+\left(1-\tfrac12\right)^2=\frac14+\frac14=\frac12,
+\]
+so $W_1=V_1-1=-\tfrac12$. Hence $W_J=-2^{-J}$ and therefore
+\[
+\boxed{\ V_J=1-2^{-J}. \ }
+\]
+
+In particular, $\lim_{J\to\infty}V_J=1\neq 0$, so the left and right Riemann--Stieltjes sums do not converge to
+the same limit and $\int_0^1 f\,df$ does not exist (as discussed in the problem statement).
+\end{enumerate}
+
+
+
+
+\newpage
+
+\section{ODEs}
+
+In a period of falling interest rates, the (continuously compounded) short interest rate as a function of $t$ is
+\[
+r(t)=\frac{1}{20+t^2}
+\qquad \text{per annum.}
+\]
+
+\begin{enumerate}
+\item[(a)] What is the value at $t=0$ of a contract that makes a payment at time $t=10$ of USD 1{,}000?
+
+\medskip
+An investor deposits USD 300 in a bank account at time 0, reinvests all interest payments and also additionally continuously invests USD 300 per annum, until the total value of the deposits reaches USD 3{,}312. At that point the investor stops making additional deposits, but still lets the interest payments accumulate in the account. From our discussion in class, the ODE for the value of deposits, $V$, over time is then
+\[
+\frac{dV}{dt}=r(t)V(t)+I(t),
+\]
+where $I(t)=300$ until $V(t)$ reaches $V=3{,}312$, at which point $I(t)$ instantaneously switches to $I(t)=0$.
+
+\item[(b)] Derive an expression for the value of the asset as a function of time, $V(t)$, $t\ge 0$.
+\end{enumerate}
+
+% Full correct LaTeX solution for the ODEs question. [file:1][code_file:7]
+\subsection*{Solution}
+
+
+The (deterministic) continuously compounded short rate is
+\[
+r(t)=\frac{1}{20+t^2},\qquad t\ge 0.
+\]
+Define the accumulated short rate and discount factor
+\[
+R(t):=\int_0^t r(u)\,du,
+\qquad
+D(t):=e^{-R(t)}.
+\]
+We compute $R(t)$ explicitly:
+\begin{align*}
+R(t)
+&=\int_0^t \frac{1}{20+u^2}\,du
+=\int_0^t \frac{1}{(\sqrt{20})^2+u^2}\,du
+=\left.\frac{1}{\sqrt{20}}\arctan\!\Bigl(\frac{u}{\sqrt{20}}\Bigr)\right|_0^t \\
+&=\frac{1}{\sqrt{20}}\arctan\!\Bigl(\frac{t}{\sqrt{20}}\Bigr).
+\end{align*}
+
+
+
+\begin{enumerate}
+\item[(a)] \textbf{Value at $t=0$ of a contract paying USD 1{,}000 at $t=10$.}
+
+With deterministic short rate and continuous compounding, the time-$0$ price is
+\[
+\text{PV}_0 = 1000\cdot \exp\!\left(-\int_0^{10} r(u)\,du\right)
+=1000\,e^{-R(10)}.
+\]
+Using the expression for $R$,
+\[
+R(10)=\frac{1}{\sqrt{20}}\arctan\!\Bigl(\frac{10}{\sqrt{20}}\Bigr),
+\]
+so
+\[
+\boxed{
+\text{PV}_0
+=
+1000\exp\!\left(
+-\frac{1}{\sqrt{20}}\arctan\!\Bigl(\frac{10}{\sqrt{20}}\Bigr)
+\right).
+}
+\]
+Numerically, $\text{PV}_0\approx 773.2086$.  % (verified in Python) [code_file:7]
+
+\item[(b)] \textbf{Expression for the deposit value $V(t)$ for $t\ge 0$.}
+
+The deposit value satisfies the linear ODE
+\[
+\frac{dV}{dt}=r(t)V(t)+I(t),\qquad V(0)=300,
+\]
+where
+\[
+I(t)=
+\begin{cases}
+300, & \text{until the first time $V(t)$ reaches }3312,\\
+0, & \text{thereafter.}
+\end{cases}
+\]
+Define the (first) switching time
+\[
+\tau:=\inf\{t\ge 0:\ V(t)=3312\}.
+\]
+
+\medskip
+\noindent\underline{\textbf{Phase 1: contributions active ($0\le t<\tau$).}}
+
+For $0\le t<\tau$, we have $I(t)=300$, so
+\[
+V'(t)-r(t)V(t)=300.
+\]
+Use integrating factor $D(t)=e^{-R(t)}$. Multiplying by $D(t)$ gives
+\[
+D(t)V'(t)-D(t)r(t)V(t)=300D(t).
+\]
+Since $D'(t)=-r(t)D(t)$, the left-hand side is
+\[
+\frac{d}{dt}\bigl(D(t)V(t)\bigr)=300D(t).
+\]
+Integrating from $0$ to $t<\tau$ yields
+\[
+D(t)V(t)-D(0)V(0)=300\int_0^t D(s)\,ds.
+\]
+Because $D(0)=1$ and $V(0)=300$,
+\[
+D(t)V(t)=300+300\int_0^t D(s)\,ds,
+\]
+hence
+\[
+\boxed{
+V(t)=\frac{300+300\int_0^t e^{-R(s)}\,ds}{e^{-R(t)}}
+=e^{R(t)}\left(300+300\int_0^t e^{-R(s)}\,ds\right),
+\qquad 0\le t<\tau.
+}
+\]
+
+\medskip
+\noindent\underline{\textbf{Characterization of $\tau$.}}
+
+By definition $V(\tau)=3312$, so $\tau$ is determined implicitly by
+\[
+\boxed{
+3312=e^{R(\tau)}\left(300+300\int_0^\tau e^{-R(s)}\,ds\right),
+\qquad
+R(t)=\frac{1}{\sqrt{20}}\arctan\!\Bigl(\frac{t}{\sqrt{20}}\Bigr).
+}
+\]
+(One may solve this equation numerically; a check gives $\tau\approx 8.8971413$ years.)
+
+\medskip
+\noindent\underline{\textbf{Phase 2: contributions stop ($t\ge\tau$).}}
+
+For $t\ge\tau$, we have $I(t)=0$, hence
+\[
+V'(t)=r(t)V(t).
+\]
+Separating variables,
+\[
+\frac{dV(t)}{V(t)}=r(t)\,dt,
+\]
+and integrating from $\tau$ to $t$ gives
+\[
+\ln\frac{V(t)}{V(\tau)}=\int_\tau^t r(u)\,du=R(t)-R(\tau).
+\]
+Using $V(\tau)=3312$,
+\[
+\boxed{
+V(t)=3312\,e^{R(t)-R(\tau)},
+\qquad t\ge \tau.
+}
+\]
+
+\medskip
+\noindent\textbf{Final piecewise form.}
+Let $R(t)=\frac{1}{\sqrt{20}}\arctan\!\bigl(\frac{t}{\sqrt{20}}\bigr)$ and
+$\tau=\inf\{t\ge 0:\ V(t)=3312\}$. Then
+\[
+\boxed{
+V(t)=
+\begin{cases}
+\displaystyle
+e^{R(t)}\left(300+300\int_0^t e^{-R(s)}\,ds\right),
+& 0\le t<\tau,\\[1.25em]
+\displaystyle
+3312\,e^{R(t)-R(\tau)},
+& t\ge\tau,
+\end{cases}
+}
+\]
+where $\tau$ is determined by the implicit equation above.
+\end{enumerate}
+
+
+\end{document}

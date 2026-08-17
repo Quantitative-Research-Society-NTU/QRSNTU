@@ -1,0 +1,714 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{tikz}
+\usepackage{titlesec}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Midterm Test (Solutions)}
+\newcommand{\ExamMeta}{AY 2021/2022, Semester 2}
+\newcommand{\ExamMetaShort}{Midterm AY21-22 Sem 2}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% Overview block
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Fundamental Theorem of Calculus and differentiation of definite integrals with variable limits.
+  \item Riemann sums and their interpretation as definite integrals.
+  \item Volumes of solids of revolution using the washer and cylindrical shell methods.
+  \item Techniques of integration, including substitution, trigonometric identities, and integration by parts.
+  \item Improper integrals and substitution-based symmetry arguments.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section[Question 1 (16 marks)]{Question 1 \hfill (16 marks)}
+
+\subsection{Solution}
+
+\subsubsection{(a) Derivative of an integral with variable limits \hfill (8 marks)}
+
+Calculate the derivative
+\[
+\frac{d}{dx}\int_{x}^{x^3+\pi x} \ee^{\sin t}\,\dd t.
+\]
+Express your final answer in terms of \(x\).
+
+\textbf{Solution}
+
+\paragraph{Method 1: Split at a fixed lower limit and apply the Fundamental Theorem of Calculus}
+Let
+\[
+F(x)=\int_{x}^{x^3+\pi x} \ee^{\sin t}\,\dd t.
+\]
+Write
+\[
+F(x)=\int_{0}^{x^3+\pi x} \ee^{\sin t}\,\dd t-\int_{0}^{x} \ee^{\sin t}\,\dd t.
+\]
+Differentiate both terms separately. By the Fundamental Theorem of Calculus and the chain rule,
+\[
+\frac{d}{dx}\left(\int_{0}^{x^3+\pi x} \ee^{\sin t}\,\dd t\right)
+=\ee^{\sin(x^3+\pi x)}\cdot \frac{d}{dx}(x^3+\pi x)
+=\ee^{\sin(x^3+\pi x)}(3x^2+\pi),
+\]
+and
+\[
+\frac{d}{dx}\left(\int_{0}^{x} \ee^{\sin t}\,\dd t\right)=\ee^{\sin x}.
+\]
+Hence
+\[
+F'(x)=\ee^{\sin(x^3+\pi x)}(3x^2+\pi)-\ee^{\sin x}.
+\]
+Therefore
+\[
+\boxed{\frac{d}{dx}\int_{x}^{x^3+\pi x} \ee^{\sin t}\,\dd t
+=\ee^{\sin(x^3+\pi x)}(3x^2+\pi)-\ee^{\sin x}.}
+\]
+
+\paragraph{Method 2: Leibniz rule for variable limits}
+Using
+\[
+\frac{d}{dx}\int_{u(x)}^{v(x)} f(t)\,\dd t=f(v(x))v'(x)-f(u(x))u'(x),
+\]
+with
+\[
+f(t)=\ee^{\sin t}, \qquad u(x)=x, \qquad v(x)=x^3+\pi x,
+\]
+we obtain
+\[
+\frac{d}{dx}\int_{x}^{x^3+\pi x} \ee^{\sin t}\,\dd t
+=\ee^{\sin(x^3+\pi x)}(3x^2+\pi)-\ee^{\sin x}(1).
+\]
+Thus again
+\[
+\boxed{\frac{d}{dx}\int_{x}^{x^3+\pi x} \ee^{\sin t}\,\dd t
+=\ee^{\sin(x^3+\pi x)}(3x^2+\pi)-\ee^{\sin x}.}
+\]
+
+\subsubsection{(b) Writing a limit as a definite integral \hfill (8 marks)}
+
+Write the following limit as a definite integral (do not evaluate it).
+\[
+\lim_{n\to\infty}\sum_{i=1}^{n} \frac{4i+n}{2i^2+n^2}.
+\]
+
+\textbf{Solution}
+
+\paragraph{Method 1: Direct recognition as a Riemann sum}
+We first rewrite the summand in terms of \(i/n\):
+\begin{align*}
+\frac{4i+n}{2i^2+n^2}
+&=\frac{n\left(4\frac{i}{n}+1\right)}{n^2\left(2\frac{i^2}{n^2}+1\right)} \\
+&=\frac{1}{n}\cdot \frac{4\frac{i}{n}+1}{2\left(\frac{i}{n}\right)^2+1}.
+\end{align*}
+Hence
+\[
+\sum_{i=1}^{n} \frac{4i+n}{2i^2+n^2}
+=\sum_{i=1}^{n} \frac{1}{n}\,f\!\left(\frac{i}{n}\right),
+\qquad
+f(x)=\frac{4x+1}{2x^2+1}.
+\]
+This is the right-endpoint Riemann sum for \(f\) on \([0,1]\). Therefore
+\[
+\lim_{n\to\infty}\sum_{i=1}^{n} \frac{4i+n}{2i^2+n^2}
+=\int_{0}^{1} \frac{4x+1}{2x^2+1}\,\dd x.
+\]
+Thus
+\[
+\boxed{\lim_{n\to\infty}\sum_{i=1}^{n} \frac{4i+n}{2i^2+n^2}
+=\int_{0}^{1} \frac{4x+1}{2x^2+1}\,\dd x.}
+\]
+
+\paragraph{Method 2: Introduce the partition explicitly}
+Let
+\[
+\Delta x=\frac{1}{n}, \qquad x_i=\frac{i}{n}, \qquad 0\le x\le 1.
+\]
+Then
+\[
+4i+n=n\left(4x_i+1\right),
+\qquad
+2i^2+n^2=n^2\left(2x_i^2+1\right).
+\]
+Therefore
+\[
+\frac{4i+n}{2i^2+n^2}
+=\frac{4x_i+1}{2x_i^2+1}\,\Delta x.
+\]
+So the given limit becomes
+\[
+\lim_{n\to\infty}\sum_{i=1}^{n}\frac{4x_i+1}{2x_i^2+1}\,\Delta x,
+\]
+which is precisely the definite integral
+\[
+\boxed{\int_{0}^{1} \frac{4x+1}{2x^2+1}\,\dd x.}
+\]
+
+\subsubsection{Marking scheme \hfill (16 marks)}
+\begin{itemize}
+  \item Part (a): 2 marks for a correct decomposition or correct statement of the Leibniz rule; 3 marks for correct use of the chain rule and sign from the lower limit; 2 marks for correct application of the Fundamental Theorem of Calculus; 1 mark for the correct boxed final answer.
+  \item Part (b): 4 marks for a compatible choice of \(\Delta x\) and \(x_i\); 2 marks for correct identification of the integrand; 2 marks for the correct limits of integration.
+\end{itemize}
+
+\newpage
+\section[Question 2 (14 marks)]{Question 2 \hfill (14 marks)}
+
+\subsection{Solution}
+
+\subsubsection{(a) Volume of a solid formed by revolving a planar region \hfill (9 marks)}
+
+Let \(R\) be the region bounded by the curves \(y^2=9x\), \(x+y=10\) and the \(y\)-axis. Compute the volume of the solid formed by revolving \(R\) about the line \(y=10\).
+
+\textbf{Solution}
+
+The curves intersect as follows:
+\begin{itemize}
+  \item The parabola \(y^2=9x\) meets the \(y\)-axis at \((0,0)\).
+  \item The line \(x+y=10\) meets the \(y\)-axis at \((0,10)\).
+  \item The line and parabola intersect when
+  \[
+  x=10-y=\frac{y^2}{9}.
+  \]
+  Thus
+  \[
+  \frac{y^2}{9}+y=10
+  \quad\Longleftrightarrow\quad
+  y^2+9y-90=0
+  \quad\Longleftrightarrow\quad
+  (y-6)(y+15)=0.
+  \]
+  Since the relevant intersection is in the first quadrant, \(y=6\), and hence \(x=4\).
+\end{itemize}
+
+\paragraph{Method 1: Washer method}
+For a vertical slice at position \(x\), the upper boundary of \(R\) is the line
+\[
+y=10-x,
+\]
+and the lower boundary is the upper branch of the parabola
+\[
+y=3\sqrt{x}.
+\]
+The variable \(x\) runs from \(0\) to \(4\).
+
+When revolving about \(y=10\):
+\[
+r_{\text{out}}(x)=10-3\sqrt{x},
+\qquad
+r_{\text{in}}(x)=10-(10-x)=x.
+\]
+Hence
+\[
+V=\pi\int_{0}^{4}\left(r_{\text{out}}(x)^2-r_{\text{in}}(x)^2\right)\,\dd x
+=\pi\int_{0}^{4}\left((10-3\sqrt{x})^2-x^2\right)\,\dd x.
+\]
+Expand the integrand:
+\[
+(10-3\sqrt{x})^2-x^2=100-60\sqrt{x}+9x-x^2.
+\]
+Therefore
+\begin{align*}
+V
+&=\pi\int_{0}^{4}\left(100-60\sqrt{x}+9x-x^2\right)\,\dd x \\
+&=\pi\left[100x-60\cdot \frac{2}{3}x^{3/2}+\frac{9}{2}x^2-\frac{x^3}{3}\right]_{0}^{4} \\
+&=\pi\left[100x-40x^{3/2}+\frac{9}{2}x^2-\frac{x^3}{3}\right]_{0}^{4} \\
+&=\pi\left(400-40\cdot 8+\frac{9}{2}\cdot 16-\frac{64}{3}\right) \\
+&=\pi\left(400-320+72-\frac{64}{3}\right) \\
+&=\pi\left(152-\frac{64}{3}\right)
+=\pi\cdot \frac{392}{3}.
+\end{align*}
+Thus
+\[
+\boxed{V=\frac{392\pi}{3}.}
+\]
+
+\paragraph{Method 2: Cylindrical shell method}
+Using horizontal slices, the radius of a shell at height \(y\) is
+\[
+10-y.
+\]
+The shell height is the horizontal distance from the \(y\)-axis to the right-hand boundary of the region.
+This right-hand boundary changes at \(y=6\):
+\[
+\text{for }0\le y\le 6,\quad x=\frac{y^2}{9},
+\qquad
+\text{for }6\le y\le 10,\quad x=10-y.
+\]
+Hence
+\[
+V=2\pi\left(\int_{0}^{6}(10-y)\frac{y^2}{9}\,\dd y+\int_{6}^{10}(10-y)^2\,\dd y\right).
+\]
+Now
+\begin{align*}
+\int_{0}^{6}(10-y)\frac{y^2}{9}\,\dd y
+&=\frac{1}{9}\int_{0}^{6}(10y^2-y^3)\,\dd y \\
+&=\frac{1}{9}\left[\frac{10}{3}y^3-\frac{y^4}{4}\right]_{0}^{6} \\
+&=\frac{1}{9}\left(\frac{10}{3}\cdot 216-\frac{1296}{4}\right)
+=\frac{1}{9}(720-324)=44,
+\end{align*}
+and
+\begin{align*}
+\int_{6}^{10}(10-y)^2\,\dd y
+&=\int_{0}^{4}u^2\,\dd u \qquad (u=10-y) \\
+&=\left[\frac{u^3}{3}\right]_{0}^{4}
+=\frac{64}{3}.
+\end{align*}
+Therefore
+\[
+V=2\pi\left(44+\frac{64}{3}\right)=2\pi\cdot \frac{196}{3}=\frac{392\pi}{3}.
+\]
+So again
+\[
+\boxed{V=\frac{392\pi}{3}.}
+\]
+
+\subsubsection{(b) Describing a solid of revolution from an integral \hfill (5 marks)}
+
+Describe a solid of revolution (by identifying the region on the \(xy\)-plane to be rotated, and the axis of rotation) whose volume is given by the definite integral
+\[
+\int_{0}^{5} 2\pi(5-y)^2\,\dd y.
+\]
+
+\textbf{Solution}
+
+\paragraph{Method 1: Interpret the integral as a shell-method formula}
+The cylindrical shell formula with respect to \(y\) is
+\[
+V=\int 2\pi(\text{radius})(\text{height})\,\dd y.
+\]
+Here the integrand is
+\[
+2\pi(5-y)^2=2\pi(5-y)(5-y),
+\]
+so a natural interpretation is:
+\[
+\text{radius}=5-y,
+\qquad
+\text{height}=5-y.
+\]
+Thus the shells are horizontal, so the axis of rotation is the horizontal line
+\[
+y=5.
+\]
+A region whose horizontal length is \(5-y\) for \(0\le y\le 5\) is the triangular region in the first quadrant bounded by
+\[
+x=0, \qquad y=0, \qquad x+y=5.
+\]
+Therefore one valid description is:
+\[
+\boxed{\text{Rotate the region bounded by }x=0,\ y=0,\ x+y=5\text{ about the line }y=5.}
+\]
+
+\paragraph{Method 2: Verification by recomputing the volume}
+Let
+\[
+R=\{(x,y)\in\R^2:0\le y\le 5,\ 0\le x\le 5-y\}.
+\]
+Rotating \(R\) about \(y=5\), a horizontal strip at height \(y\) produces a shell of radius \(5-y\) and height \(5-y\). Hence
+\[
+V=\int_{0}^{5}2\pi(5-y)(5-y)\,\dd y
+=\int_{0}^{5}2\pi(5-y)^2\,\dd y,
+\]
+which is exactly the given integral. This confirms that the description above is valid.
+
+\subsubsection{Marking scheme \hfill (14 marks)}
+\begin{itemize}
+  \item Part (a): 4 marks for correct inner and outer radii or correct shell radius and height, with the region correctly identified; 2 marks for correct limits of integration; 2 marks for correct calculations; 1 mark for the correct boxed final answer.
+  \item Part (b): 5 marks for a correct region and a correct axis of rotation.
+\end{itemize}
+
+\newpage
+\section[Question 3 (20 marks)]{Question 3 \hfill (20 marks)}
+
+\subsection{Solution}
+
+\subsubsection{(a) Evaluate the following integrals \hfill (15 marks)}
+
+Evaluate the following integrals:
+\begin{enumerate}[label=(\roman*)]
+  \item \(\displaystyle \int \tan^2(3x)\sec^6(3x)\,\dd x\)
+  \item \(\displaystyle \int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x\)
+  \item \(\displaystyle \int \sec^3 x\,\dd x\)
+\end{enumerate}
+
+\textbf{Solution}
+
+\paragraph{(i) \(\displaystyle \int \tan^2(3x)\sec^6(3x)\,\dd x\)}
+
+\paragraph{Method 1: Substitution after separating one factor of \(\sec^2(3x)\)}
+Use
+\[
+\sec^2(3x)=1+\tan^2(3x).
+\]
+Then
+\begin{align*}
+\int \tan^2(3x)\sec^6(3x)\,\dd x
+&=\int \tan^2(3x)\sec^4(3x)\sec^2(3x)\,\dd x \\
+&=\int \tan^2(3x)\bigl(1+\tan^2(3x)\bigr)^2\sec^2(3x)\,\dd x.
+\end{align*}
+Let
+\[
+u=\tan(3x).
+\]
+Then
+\[
+\dd u=3\sec^2(3x)\,\dd x,
+\qquad
+\sec^2(3x)\,\dd x=\frac{1}{3}\,\dd u.
+\]
+Therefore
+\begin{align*}
+\int \tan^2(3x)\sec^6(3x)\,\dd x
+&=\frac{1}{3}\int u^2(1+u^2)^2\,\dd u \\
+&=\frac{1}{3}\int (u^2+2u^4+u^6)\,\dd u \\
+&=\frac{1}{3}\left(\frac{u^3}{3}+\frac{2u^5}{5}+\frac{u^7}{7}\right)+C.
+\end{align*}
+Substituting back \(u=\tan(3x)\), we get
+\[
+\boxed{\int \tan^2(3x)\sec^6(3x)\,\dd x
+=\frac{\tan^3(3x)}{9}+\frac{2\tan^5(3x)}{15}+\frac{\tan^7(3x)}{21}+C.}
+\]
+
+\paragraph{Method 2: Verification by differentiation}
+Let
+\[
+F(x)=\frac{\tan^3(3x)}{9}+\frac{2\tan^5(3x)}{15}+\frac{\tan^7(3x)}{21}.
+\]
+Then
+\begin{align*}
+F'(x)
+&=\frac{1}{9}\cdot 3\tan^2(3x)\cdot 3\sec^2(3x)
++\frac{2}{15}\cdot 5\tan^4(3x)\cdot 3\sec^2(3x) \\
+&\qquad +\frac{1}{21}\cdot 7\tan^6(3x)\cdot 3\sec^2(3x) \\
+&=\tan^2(3x)\sec^2(3x)+2\tan^4(3x)\sec^2(3x)+\tan^6(3x)\sec^2(3x) \\
+&=\tan^2(3x)\bigl(1+2\tan^2(3x)+\tan^4(3x)\bigr)\sec^2(3x) \\
+&=\tan^2(3x)\bigl(1+\tan^2(3x)\bigr)^2\sec^2(3x) \\
+&=\tan^2(3x)\sec^4(3x)\sec^2(3x)
+=\tan^2(3x)\sec^6(3x).
+\end{align*}
+Hence the antiderivative is correct.
+
+\paragraph{(ii) \(\displaystyle \int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x\)}
+
+\paragraph{Method 1: Let \(t=\ee^x\)}
+Set
+\[
+t=\ee^x.
+\]
+Then
+\[
+\dd t=\ee^x\,\dd x=t\,\dd x,
+\qquad
+\dd x=\frac{\dd t}{t}.
+\]
+Therefore
+\begin{align*}
+\int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x
+&=\int t^2\sqrt{5+2t}\cdot \frac{\dd t}{t} \\
+&=\int t\sqrt{5+2t}\,\dd t.
+\end{align*}
+Now let
+\[
+u=5+2t,
+\qquad
+\dd u=2\,\dd t,
+\qquad
+t=\frac{u-5}{2},
+\qquad
+\dd t=\frac{1}{2}\,\dd u.
+\]
+Hence
+\begin{align*}
+\int t\sqrt{5+2t}\,\dd t
+&=\int \frac{u-5}{2}\cdot u^{1/2}\cdot \frac{1}{2}\,\dd u \\
+&=\frac{1}{4}\int (u^{3/2}-5u^{1/2})\,\dd u \\
+&=\frac{1}{4}\left(\frac{2}{5}u^{5/2}-5\cdot \frac{2}{3}u^{3/2}\right)+C \\
+&=\frac{1}{10}u^{5/2}-\frac{5}{6}u^{3/2}+C.
+\end{align*}
+Substituting back \(u=5+2\ee^x\),
+\[
+\boxed{\int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x
+=\frac{1}{10}(5+2\ee^x)^{5/2}-\frac{5}{6}(5+2\ee^x)^{3/2}+C.}
+\]
+
+\paragraph{Method 2: Let \(u=\sqrt{5+2\ee^x}\)}
+Set
+\[
+u=\sqrt{5+2\ee^x}.
+\]
+Then
+\[
+u^2=5+2\ee^x,
+\qquad
+2u\,\dd u=2\ee^x\,\dd x,
+\qquad
+u\,\dd u=\ee^x\,\dd x.
+\]
+Also,
+\[
+\ee^x=\frac{u^2-5}{2}.
+\]
+Therefore
+\begin{align*}
+\int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x
+&=\int \ee^x\bigl(\ee^x\sqrt{5+2\ee^x}\bigr)\,\dd x \\
+&=\int \ee^x\,u\,(\ee^x\,\dd x) \\
+&=\int \frac{u^2-5}{2}\,u\,(u\,\dd u) \\
+&=\frac{1}{2}\int (u^4-5u^2)\,\dd u \\
+&=\frac{u^5}{10}-\frac{5u^3}{6}+C.
+\end{align*}
+Substituting back gives the same result:
+\[
+\boxed{\int \ee^{2x}\sqrt{5+2\ee^x}\,\dd x
+=\frac{1}{10}(5+2\ee^x)^{5/2}-\frac{5}{6}(5+2\ee^x)^{3/2}+C.}
+\]
+
+\paragraph{(iii) \(\displaystyle \int \sec^3 x\,\dd x\)}
+
+\paragraph{Method 1: Integration by parts}
+Let
+\[
+I=\int \sec^3 x\,\dd x=\int \sec x\sec^2 x\,\dd x.
+\]
+Choose
+\[
+u=\sec x,
+\qquad
+\dd v=\sec^2 x\,\dd x.
+\]
+Then
+\[
+\dd u=\sec x\tan x\,\dd x,
+\qquad
+v=\tan x.
+\]
+By integration by parts,
+\begin{align*}
+I
+&=\sec x\tan x-\int \tan x\,\sec x\tan x\,\dd x \\
+&=\sec x\tan x-\int \sec x\tan^2 x\,\dd x.
+\end{align*}
+Using \(\tan^2 x=\sec^2 x-1\),
+\begin{align*}
+I
+&=\sec x\tan x-\int \sec x(\sec^2 x-1)\,\dd x \\
+&=\sec x\tan x-\int \sec^3 x\,\dd x+\int \sec x\,\dd x \\
+&=\sec x\tan x-I+\int \sec x\,\dd x.
+\end{align*}
+Hence
+\[
+2I=\sec x\tan x+\int \sec x\,\dd x.
+\]
+Since
+\[
+\int \sec x\,\dd x=\ln|\sec x+\tan x|+C,
+\]
+we obtain
+\[
+2I=\sec x\tan x+\ln|\sec x+\tan x|+C.
+\]
+Therefore
+\[
+\boxed{\int \sec^3 x\,\dd x
+=\frac{1}{2}\sec x\tan x+\frac{1}{2}\ln|\sec x+\tan x|+C.}
+\]
+
+\paragraph{Method 2: Verification by differentiation}
+Let
+\[
+F(x)=\frac{1}{2}\sec x\tan x+\frac{1}{2}\ln|\sec x+\tan x|.
+\]
+Then
+\begin{align*}
+F'(x)
+&=\frac{1}{2}\bigl(\sec x\tan^2 x+\sec^3 x\bigr)
++\frac{1}{2}\cdot \frac{\sec x\tan x+\sec^2 x}{\sec x+\tan x} \\
+&=\frac{1}{2}\bigl(\sec x\tan^2 x+\sec^3 x\bigr)+\frac{1}{2}\sec x \\
+&=\frac{1}{2}\sec x(\tan^2 x+1)+\frac{1}{2}\sec^3 x \\
+&=\frac{1}{2}\sec^3 x+\frac{1}{2}\sec^3 x
+=\sec^3 x.
+\end{align*}
+Hence the antiderivative is correct.
+
+\subsubsection{(b) Improper integral identity \hfill (5 marks)}
+
+Assume that the following integrals exist. Determine whether the statement/equation below is (always) true or false. Justify your answer. Hint: Use substitution.
+\[
+\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x
+=\frac{1}{2}\int_{0}^{\infty} \frac{x^2+1}{x^4+1}\,\dd x.
+\]
+
+\textbf{Solution}
+
+The statement is \textbf{true}.
+
+\paragraph{Method 1: Substitution \(x=1/u\)}
+Let
+\[
+I=\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x.
+\]
+Use the substitution
+\[
+x=\frac{1}{u}.
+\]
+Then
+\[
+\dd x=-\frac{1}{u^2}\,\dd u,
+\qquad
+x^2=\frac{1}{u^2},
+\qquad
+x^4+1=\frac{1}{u^4}+1=\frac{1+u^4}{u^4}.
+\]
+Therefore
+\begin{align*}
+I
+&=\int_{\infty}^{0} \frac{1/u^2}{(1+u^4)/u^4}\left(-\frac{1}{u^2}\right)\,\dd u \\
+&=\int_{\infty}^{0} -\frac{1}{1+u^4}\,\dd u \\
+&=\int_{0}^{\infty} \frac{1}{1+u^4}\,\dd u.
+\end{align*}
+Renaming the variable \(u\) back to \(x\), we obtain
+\[
+I=\int_{0}^{\infty} \frac{1}{x^4+1}\,\dd x.
+\]
+Hence
+\[
+I+I=\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x+\int_{0}^{\infty} \frac{1}{x^4+1}\,\dd x
+=\int_{0}^{\infty} \frac{x^2+1}{x^4+1}\,\dd x.
+\]
+Therefore
+\[
+2I=\int_{0}^{\infty} \frac{x^2+1}{x^4+1}\,\dd x,
+\]
+so
+\[
+\boxed{\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x
+=\frac{1}{2}\int_{0}^{\infty} \frac{x^2+1}{x^4+1}\,\dd x.}
+\]
+Thus the statement is always true, provided the integrals exist.
+
+\paragraph{Method 2: Symmetry observation}
+The substitution \(x\mapsto 1/x\) shows that
+\[
+\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x
+=\int_{0}^{\infty} \frac{1}{x^4+1}\,\dd x.
+\]
+So the left-hand side equals the integral obtained by replacing the numerator \(x^2\) with \(1\). Averaging these two equal quantities gives
+\[
+\int_{0}^{\infty} \frac{x^2}{x^4+1}\,\dd x
+=\frac{1}{2}\int_{0}^{\infty} \frac{x^2+1}{x^4+1}\,\dd x,
+\]
+which is exactly the required statement.
+
+\subsubsection{Marking scheme \hfill (20 marks)}
+\begin{itemize}
+  \item Part (a)(i): 2 marks for a correct substitution and accompanying identity, 2 marks for the algebraic expansion and integration, 1 mark for the correct boxed final answer.
+  \item Part (a)(ii): 2 marks for a correct substitution, 3 marks for correct algebra and the boxed final answer.
+  \item Part (a)(iii): 2 marks for the key manipulation reducing the power and setting up integration by parts, 2 marks for the integration-by-parts calculation, 1 mark for the correct boxed final answer.
+  \item Part (b): 5 marks for a correct substitution argument and a valid conclusion that the statement is true.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,454 @@
+\documentclass[12pt]{article}
+
+% Source: Tutorial-6.pdf
+% Style reference: MH5200_ProblemSheet2.tex
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 6 (Week 7) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers rational-function integration (partial fractions), and classical numerical integration rules with error bounds.
+
+\begin{itemize}[leftmargin=*]
+\item Partial fractions: factoring, splitting into log/arctan pieces, and handling repeated irreducible quadratics.
+\item Exponential rational integrals via the substitution \(u=e^x\) and algebraic factorisation.
+\item Trapezoidal and Midpoint rules for \(\int_0^1 \cos(x^2)\,dx\): computing \(T_8, M_8\), and estimating error using \(\max|f''|\).
+\item Simpson's rule for \(\int_1^5 \ln x\,dx\): computing \(S_8\) and choosing \(n\) for a prescribed error.
+\item Why Simpson's rule is exact for quadratic polynomials (two complementary proofs).
+\end{itemize}
+
+\bigskip
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\section*{Question 1 (Partial fractions and substitutions)}
+
+\subsection*{Problem}
+Evaluate the integral.
+\begin{enumerate}[label=(\alph*)]
+\item \(\displaystyle \int_{1}^{2}\frac{x^{3}+4x^{2}+x-1}{x^{3}+x^{2}}\,dx\).
+\item \(\displaystyle \int \frac{4x}{x^{3}+x^{2}+x+1}\,dx\).
+\item \(\displaystyle \int \frac{x+4}{x^{2}+2x+5}\,dx\).
+\item \(\displaystyle \int \frac{5x^{4}+7x^{2}+x+2}{x(x^{2}+1)^{2}}\,dx\).
+\item \(\displaystyle \int \frac{e^{2x}}{e^{2x}+3e^{x}+2}\,dx\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct algebra (factorisation, completing squares, partial fractions)}
+
+\begin{enumerate}[label=(\alph*)]
+\item First simplify:
+\[
+\frac{x^{3}+4x^{2}+x-1}{x^{3}+x^{2}}
+=\frac{x^{3}+4x^{2}+x-1}{x^{2}(x+1)}.
+\]
+A convenient partial fraction decomposition is
+\[
+\frac{x^{3}+4x^{2}+x-1}{x^{3}+x^{2}}
+=
+1+\frac{1}{x+1}+\frac{2}{x}-\frac{1}{x^{2}}.
+\]
+Therefore
+\begin{align*}
+\int_{1}^{2}\frac{x^{3}+4x^{2}+x-1}{x^{3}+x^{2}}\,dx
+&=\int_{1}^{2}\left(1+\frac{1}{x+1}+\frac{2}{x}-\frac{1}{x^{2}}\right)\,dx\\
+&=\left[x+\ln|x+1|+2\ln|x|+\frac{1}{x}\right]_{1}^{2}\\
+&=\left(2+\ln 3+2\ln 2+\frac{1}{2}\right)-\left(1+\ln 2+0+1\right)\\
+&=\frac{1}{2}+\ln 3+\ln 2\\
+&=\boxed{\frac{1}{2}+\ln 6.}
+\end{align*}
+
+\item Factor the denominator:
+\[
+x^{3}+x^{2}+x+1=(x+1)(x^{2}+1).
+\]
+Then
+\[
+\frac{4x}{(x+1)(x^{2}+1)}
+=\frac{2(x+1)}{x^{2}+1}-\frac{2}{x+1}.
+\]
+Integrate term-by-term:
+\begin{align*}
+\int \frac{4x}{x^{3}+x^{2}+x+1}\,dx
+&=\int \left(\frac{2(x+1)}{x^{2}+1}-\frac{2}{x+1}\right)\,dx\\
+&=\int \left(\frac{2x}{x^{2}+1}+\frac{2}{x^{2}+1}\right)\,dx - 2\ln|x+1| + C\\
+&=\ln(x^{2}+1)+2\tan^{-1}x - 2\ln|x+1| + C.
+\end{align*}
+\[
+\boxed{\int \frac{4x}{x^{3}+x^{2}+x+1}\,dx
+= -2\ln|x+1|+\ln|x^{2}+1|+2\tan^{-1}x+C.}
+\]
+
+\item Complete the square:
+\[
+x^{2}+2x+5=(x+1)^{2}+4.
+\]
+Split the numerator as a linear combination of the derivative of the denominator and a remainder:
+\[
+x+4=\frac{1}{2}(2x+2)+3.
+\]
+Hence
+\begin{align*}
+\int \frac{x+4}{x^{2}+2x+5}\,dx
+&=\frac{1}{2}\int \frac{2x+2}{x^{2}+2x+5}\,dx + 3\int \frac{1}{(x+1)^{2}+2^{2}}\,dx\\
+&=\frac{1}{2}\ln(x^{2}+2x+5)+\frac{3}{2}\tan^{-1}\!\left(\frac{x+1}{2}\right)+C.
+\end{align*}
+\[
+\boxed{\int \frac{x+4}{x^{2}+2x+5}\,dx
+=\frac{1}{2}\ln|x^{2}+2x+5|+\frac{3}{2}\tan^{-1}\!\left(\frac{x+1}{2}\right)+C.}
+\]
+
+\item Use partial fractions over \(x\), \((x^{2}+1)\), and \((x^{2}+1)^{2}\). One convenient decomposition is
+\[
+\frac{5x^{4}+7x^{2}+x+2}{x(x^{2}+1)^{2}}
+=\frac{2}{x}+\frac{3x}{x^{2}+1}+\frac{1}{(x^{2}+1)^{2}}.
+\]
+Thus
+\begin{align*}
+\int \frac{5x^{4}+7x^{2}+x+2}{x(x^{2}+1)^{2}}\,dx
+&=2\int \frac{1}{x}\,dx + 3\int \frac{x}{x^{2}+1}\,dx + \int \frac{1}{(x^{2}+1)^{2}}\,dx\\
+&=2\ln|x|+\frac{3}{2}\ln(x^{2}+1)+\int \frac{1}{(x^{2}+1)^{2}}\,dx + C.
+\end{align*}
+For the remaining standard integral,
+\[
+\int \frac{1}{(x^{2}+1)^{2}}\,dx = \frac{x}{2(x^{2}+1)}+\frac{1}{2}\tan^{-1}x + C.
+\]
+Therefore
+\[
+\boxed{\int \frac{5x^{4}+7x^{2}+x+2}{x(x^{2}+1)^{2}}\,dx
+=2\ln|x|+\frac{3}{2}\ln|x^{2}+1|+\frac{1}{2}\tan^{-1}x+\frac{x}{2(x^{2}+1)}+C.}
+\]
+
+\item Let \(u=e^{x}\) (so \(u>0\)), \(du=e^{x}dx\), and \(e^{2x}=u^{2}\). Then
+\[
+\int \frac{e^{2x}}{e^{2x}+3e^{x}+2}\,dx
+=\int \frac{u^{2}}{u^{2}+3u+2}\cdot \frac{1}{u}\,du
+=\int \frac{u}{u^{2}+3u+2}\,du.
+\]
+Factor \(u^{2}+3u+2=(u+1)(u+2)\), and decompose:
+\[
+\frac{u}{(u+1)(u+2)}=\frac{2}{u+2}-\frac{1}{u+1}.
+\]
+Hence
+\begin{align*}
+\int \frac{e^{2x}}{e^{2x}+3e^{x}+2}\,dx
+&=\int \left(\frac{2}{u+2}-\frac{1}{u+1}\right)\,du\\
+&=2\ln(u+2)-\ln(u+1)+C\\
+&=\ln\left(\frac{(u+2)^{2}}{u+1}\right)+C\\
+&=\boxed{\ln\left(\frac{(e^{x}+2)^{2}}{e^{x}+1}\right)+C.}
+\end{align*}
+\end{enumerate}
+
+\subsubsection*{Method 2: ``Recognise a derivative'' and smart substitutions (alternative viewpoints)}
+
+\begin{enumerate}[label=(\alph*)]
+\item For (a), note that
+\[
+\frac{x^{3}+4x^{2}+x-1}{x^{3}+x^{2}}
+=1+\frac{3x^{2}+x-1}{x^{2}(x+1)},
+\]
+and the remainder term is naturally handled by splitting into \(\frac{A}{x}+\frac{B}{x^{2}}+\frac{C}{x+1}\), producing the same antiderivative as in Method 1.
+
+\item For (b), after factoring \((x+1)(x^{2}+1)\), a good strategy is to aim for \(\frac{d}{dx}\ln(x^{2}+1)=\frac{2x}{x^{2}+1}\) and \(\frac{d}{dx}\tan^{-1}x=\frac{1}{x^{2}+1}\), which suggests rewriting the numerator to include a multiple of \(2x\) and a constant, leading to the same answer.
+
+\item For (c), the substitution \(u=x+1\) immediately yields
+\[
+\int \frac{x+4}{x^{2}+2x+5}\,dx
+=\int \frac{u+3}{u^{2}+4}\,du,
+\]
+which splits into a log part and an arctan part as in Method 1.
+
+\item For (d), one can also compute \(\int \frac{1}{(x^{2}+1)^{2}}dx\) by the trig substitution \(x=\tan\theta\), which gives \(\int \cos^{2}\theta\,d\theta\), leading again to \(\frac{x}{2(x^{2}+1)}+\frac{1}{2}\tan^{-1}x+C\).
+
+\item For (e), observing
+\[
+e^{2x}+3e^{x}+2=(e^{x}+1)(e^{x}+2)
+\]
+lets us rewrite the integrand quickly (after \(u=e^{x}\)) into simple logarithms, matching Method 1.
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\section*{Question 2 (Trapezoidal and Midpoint rules)}
+
+\subsection*{Problem}
+Let \(T_n\) and \(M_n\) be the approximations to the integral \(\displaystyle \int_{0}^{1}\cos(x^{2})\,dx\) using Trapezoidal Rule and Midpoint Rule respectively.
+\begin{enumerate}[label=(\alph*)]
+\item Find the approximation \(T_{8}\) and \(M_{8}\).
+\item Estimate the errors in the approximations of part (a).
+\item How large do we have to choose \(n\) so that the approximations \(T_n\) and \(M_n\) to the integral in part (a) are accurate to within \(0.0001\)?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Compute \(T_8\) and \(M_8\) directly from the definitions}
+
+Let \(f(x)=\cos(x^{2})\), \(a=0\), \(b=1\), and \(n=8\). Then \(h=\frac{b-a}{n}=\frac{1}{8}\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Trapezoidal rule:
+\[
+T_{8}=\frac{h}{2}\left[f(0)+2\sum_{k=1}^{7}f\!\left(\frac{k}{8}\right)+f(1)\right].
+\]
+Midpoint rule:
+\[
+M_{8}=h\sum_{k=0}^{7} f\!\left(\frac{k+\tfrac12}{8}\right).
+\]
+Evaluating these sums numerically gives
+\[
+\boxed{T_{8}\approx 0.902333,\qquad M_{8}\approx 0.905620.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Error bounds via \(\max|f''|\) (and choosing \(n\))}
+
+First compute derivatives:
+\[
+f'(x)=-2x\sin(x^{2}),\qquad
+f''(x)=-2\sin(x^{2})-4x^{2}\cos(x^{2}).
+\]
+On \([0,1]\),
+\[
+|f''(x)|\le 2|\sin(x^{2})|+4x^{2}|\cos(x^{2})|\le 2+4=6.
+\]
+Thus one may take \(K=6\) as a valid bound for \(\max_{[0,1]}|f''(x)|\).
+
+\begin{enumerate}[label=(\alph*)]
+\item[\textbf{(b)}] Trapezoidal error bound:
+\[
+|E_T|\le \frac{(b-a)^{3}}{12n^{2}}K=\frac{1}{12n^{2}}K.
+\]
+With \(n=8\) and \(K=6\),
+\[
+|E_T|\le \frac{6}{12\cdot 8^{2}}=\frac{6}{768}=\frac{1}{128}\approx 0.0078125.
+\]
+Midpoint error bound:
+\[
+|E_M|\le \frac{(b-a)^{3}}{24n^{2}}K=\frac{1}{24n^{2}}K.
+\]
+With \(n=8\),
+\[
+|E_M|\le \frac{6}{24\cdot 8^{2}}=\frac{6}{1536}=\frac{1}{256}\approx 0.00390625.
+\]
+So
+\[
+\boxed{|E_T|\le 0.0078125,\qquad |E_M|\le 0.00390625.}
+\]
+
+\item[\textbf{(c)}] To guarantee accuracy within \(10^{-4}\), impose the bounds
+\[
+\frac{K}{12n^{2}}\le 10^{-4}\quad\text{and}\quad \frac{K}{24n^{2}}\le 10^{-4},
+\]
+with \(K=6\). Then
+\[
+n\ge \sqrt{\frac{6}{12\cdot 10^{-4}}}=\sqrt{5000}\approx 70.71
+\quad\Rightarrow\quad
+\boxed{n=71 \text{ suffices for }T_n.}
+\]
+Similarly,
+\[
+n\ge \sqrt{\frac{6}{24\cdot 10^{-4}}}=\sqrt{2500}=50
+\quad\Rightarrow\quad
+\boxed{n=50 \text{ suffices for }M_n.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\section*{Question 3 (Simpson's rule for \(\int_1^5 \ln x\,dx\))}
+
+\subsection*{Problem}
+Let \(S_n\) be the approximation of the integral \(\displaystyle \int_{1}^{5}\ln x\,dx\) using Simpson's Rule.
+\begin{enumerate}[label=(\roman*)]
+\item Calculate \(S_8\).
+\item Find a value \(n\) such that \(S_n\) has error of at most \(10^{-6}\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Compute \(S_8\) from Simpson's formula}
+
+Let \(f(x)=\ln x\), \(a=1\), \(b=5\), \(n=8\) (even), so \(h=\frac{b-a}{n}=\frac{4}{8}=\frac{1}{2}\).
+The Simpson approximation is
+\[
+S_{8}=\frac{h}{3}\left[f(x_0)+4\sum_{k\ \text{odd}} f(x_k)+2\sum_{k\ \text{even},\,k\neq 0,8} f(x_k)+f(x_8)\right],
+\]
+where \(x_k=a+kh=1+\frac{k}{2}\). Numerically,
+\[
+\boxed{S_{8}\approx 4.046655.}
+\]
+
+\subsubsection*{Method 2: Error bound using \(f^{(4)}\) and choosing \(n\)}
+
+For \(f(x)=\ln x\),
+\[
+f'(x)=\frac{1}{x},\quad
+f''(x)=-\frac{1}{x^{2}},\quad
+f^{(3)}(x)=\frac{2}{x^{3}},\quad
+f^{(4)}(x)=-\frac{6}{x^{4}}.
+\]
+Hence on \([1,5]\),
+\[
+\max_{[1,5]}|f^{(4)}(x)|=\max_{[1,5]}\frac{6}{x^{4}}=6.
+\]
+The Simpson error bound is
+\[
+|E_S|\le \frac{(b-a)^{5}}{180\,n^{4}}\max_{[a,b]}|f^{(4)}(x)|
+= \frac{4^{5}}{180\,n^{4}}\cdot 6
+=\frac{6144}{180\,n^{4}}.
+\]
+To ensure \(|E_S|\le 10^{-6}\), it suffices that
+\[
+\frac{6144}{180\,n^{4}}\le 10^{-6}
+\quad\Longleftrightarrow\quad
+n^{4}\ge \frac{6144}{180}\cdot 10^{6}\approx 3.4133333\times 10^{7}.
+\]
+Taking fourth roots gives \(n\gtrsim 76.4\). Since Simpson requires even \(n\), one valid choice is
+\[
+\boxed{n=78.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\section*{Question 4 (Why Simpson is exact for quadratics)}
+
+\subsection*{Problem}
+Show that if \(f(x)=px^{2}+qx+r\) is a quadratic polynomial, then \(S_{2}=\displaystyle\int_{a}^{b}f(x)\,dx\), i.e. Simpson's Rule with \(n=2\) gives the exact value of \(\displaystyle\int_{a}^{b}f(x)\,dx\).
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Linearity + checking the basis \(1,x,x^{2}\)}
+
+Simpson's rule with \(n=2\) has \(h=\frac{b-a}{2}\) and midpoint \(m=\frac{a+b}{2}\), and reads
+\[
+S_{2}=\frac{h}{3}\big(f(a)+4f(m)+f(b)\big).
+\]
+Both the integral \(\int_a^b f(x)\,dx\) and the Simpson expression \(S_2\) are linear in \(f\). Therefore it suffices to verify exactness for the basis \(f(x)=1\), \(f(x)=x\), \(f(x)=x^{2}\).
+
+\begin{itemize}[leftmargin=*]
+\item If \(f(x)=1\), then \(\int_a^b 1\,dx=b-a\) and
+\[
+S_2=\frac{h}{3}(1+4\cdot 1+1)=\frac{h}{3}\cdot 6=2h=b-a.
+\]
+
+\item If \(f(x)=x\), then \(\int_a^b x\,dx=\frac{b^{2}-a^{2}}{2}=\frac{(b-a)(a+b)}{2}\).
+Also \(f(a)+4f(m)+f(b)=a+4\cdot\frac{a+b}{2}+b=3(a+b)\), so
+\[
+S_2=\frac{h}{3}\cdot 3(a+b)=h(a+b)=\frac{b-a}{2}(a+b)=\frac{(b-a)(a+b)}{2}.
+\]
+
+\item If \(f(x)=x^{2}\), then \(\int_a^b x^{2}\,dx=\frac{b^{3}-a^{3}}{3}\).
+Also
+\[
+f(a)+4f(m)+f(b)=a^{2}+4\left(\frac{a+b}{2}\right)^{2}+b^{2}
+=a^{2}+b^{2}+(a+b)^{2}=2(a^{2}+ab+b^{2}).
+\]
+Hence
+\[
+S_2=\frac{h}{3}\cdot 2(a^{2}+ab+b^{2})
+=\frac{b-a}{2}\cdot \frac{2}{3}(a^{2}+ab+b^{2})
+=\frac{b-a}{3}(a^{2}+ab+b^{2}).
+\]
+But \(b^{3}-a^{3}=(b-a)(a^{2}+ab+b^{2})\), so \(S_2=\frac{b^{3}-a^{3}}{3}=\int_a^b x^{2}\,dx\).
+\end{itemize}
+
+Therefore Simpson's rule with \(n=2\) is exact for any quadratic \(px^{2}+qx+r\):
+\[
+\boxed{S_2=\int_a^b f(x)\,dx \quad \text{for all } f(x)=px^{2}+qx+r.}
+\]
+
+\subsubsection*{Method 2: Simpson error term (vanishing fourth derivative)}
+
+A standard error representation for Simpson's rule states that, for sufficiently smooth \(f\),
+\[
+\int_{a}^{b} f(x)\,dx - S_2
+= -\frac{(b-a)^{5}}{2880}\,f^{(4)}(\xi)
+\quad\text{for some }\xi\in(a,b).
+\]
+If \(f(x)=px^{2}+qx+r\), then \(f^{(4)}(x)=0\) for all \(x\). Hence the right-hand side is \(0\), and therefore the Simpson approximation equals the exact integral:
+\[
+\boxed{\int_{a}^{b}f(x)\,dx=S_2.}
+\]
+
+\end{document}

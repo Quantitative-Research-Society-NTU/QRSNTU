@@ -1,0 +1,645 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\usepackage{titlesec}
+\pgfplotsset{compat=newest}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Tutorial 11}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName \ --\ \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial --- QRS@NTU --- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- SHORTCUTS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_+}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\dotp}{\cdot}
+
+%------------- STYLE REFINEMENTS -------------
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+\setlength{\headheight}{14.5pt}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers:
+\begin{itemize}[leftmargin=*]
+  \item Pareto efficiency in a one-good exchange setting;
+  \item utilitarian allocations and the role of marginal utility;
+  \item quasi-linear utility with balanced monetary transfers;
+  \item the relationship between Pareto efficiency and transferable utility;
+  \item the connection between utilitarian allocations and Pareto efficient policies.
+\end{itemize}
+
+\bigskip
+
+\newpage
+\tableofcontents
+
+%====================================================
+% Question 1
+%====================================================
+\newpage
+\section{Question 1: One-Good Economy with and without Monetary Transfers}
+
+\subsection{Problem}
+\begin{itemize}
+    \item Consider the following two-consumer economy with one good \(X\).
+
+    The total endowment of good \(X\) in the economy to be allocated between consumers A and B is \(100\).
+
+    Consumer A has utility from the good:
+    \[
+    U^A=X^A.
+    \]
+
+    Consumer B has utility from the good:
+    \[
+    U^B=\sqrt{X^B}.
+    \]
+
+    Suppose that we do not allow for monetary transfers.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item What allocation of good \(X\) is Pareto efficient?
+        \item What allocation of good \(X\) is utilitarian?
+    \end{enumerate}
+
+    Suppose that we now allow for monetary transfers \(t^A,t^B\) and that each of them has utility which is quasi-linear in monetary transfers:
+    \[
+    V^i=U^i+t^i.
+    \]
+    A policy is an allocation of good \(X\) together with some balanced monetary transfers \((t^A,t^B)\) where
+    \[
+    t^A+t^B=0.
+    \]
+
+    \begin{enumerate}[label=(\alph*),resume]
+        \item Consider the set of Pareto efficient policies. Discuss how the allocation of good \(X\) in such policies compares to that in part (a).
+        \item Give two examples of Pareto efficient policies.
+    \end{enumerate}
+\end{itemize}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct feasibility and total-welfare method}
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    Let consumer A receive \(X^A=x\). Then feasibility implies that consumer B receives
+    \[
+    X^B=100-x,
+    \qquad 0\le x\le 100.
+    \]
+
+    Consumer A's utility is
+    \[
+    U^A=x,
+    \]
+    and consumer B's utility is
+    \[
+    U^B=\sqrt{100-x}.
+    \]
+
+    We now determine which allocations are Pareto efficient when transfers are not allowed.
+
+    Suppose \((x,100-x)\) is a feasible allocation. If another feasible allocation \((x',100-x')\) makes A weakly better off, then
+    \[
+    x'\ge x.
+    \]
+    If it also makes B weakly better off, then
+    \[
+    \sqrt{100-x'}\ge \sqrt{100-x}.
+    \]
+    Since the square-root function is increasing, this implies
+    \[
+    100-x'\ge 100-x,
+    \]
+    so
+    \[
+    x'\le x.
+    \]
+    Hence we must have
+    \[
+    x'=x.
+    \]
+
+    Therefore no feasible reallocation can make one consumer strictly better off without making the other worse off. It follows that \emph{every feasible allocation} is Pareto efficient.
+
+    So the set of Pareto efficient allocations is
+    \[
+    \boxed{\{(X^A,X^B): X^A+X^B=100,\; X^A\ge 0,\; X^B\ge 0\}.}
+    \]
+
+    \item
+    A utilitarian allocation maximises the sum of utilities:
+    \[
+    W(x)=U^A+U^B=x+\sqrt{100-x},
+    \qquad 0\le x\le 100.
+    \]
+
+    Differentiate:
+    \[
+    W'(x)=1-\frac{1}{2\sqrt{100-x}}.
+    \]
+    Setting \(W'(x)=0\) gives
+    \[
+    1=\frac{1}{2\sqrt{100-x}}
+    \quad\Longrightarrow\quad
+    \sqrt{100-x}=\frac12.
+    \]
+    Therefore
+    \[
+    100-x=\frac14,
+    \]
+    so
+    \[
+    x=100-\frac14=\frac{399}{4}.
+    \]
+
+    Hence
+    \[
+    X^A=\frac{399}{4},
+    \qquad
+    X^B=\frac14.
+    \]
+
+    To check that this is indeed a maximum, note that
+    \[
+    W''(x)=-\frac{1}{4(100-x)^{3/2}}<0
+    \]
+    for all \(x\in[0,100)\). So \(W\) is strictly concave, and the critical point is the unique maximiser.
+
+    Thus the utilitarian allocation is
+    \[
+    \boxed{\left(X^A,X^B\right)=\left(\frac{399}{4},\frac14\right).}
+    \]
+
+    \item
+    Now suppose transfers are allowed and utilities become
+    \[
+    V^A=X^A+t^A,
+    \qquad
+    V^B=\sqrt{X^B}+t^B,
+    \qquad
+    t^A+t^B=0.
+    \]
+
+    Let A receive \(X^A=x\), so \(X^B=100-x\). For any policy \((x,t^A,t^B)\), the sum of utilities is
+    \[
+    V^A+V^B
+    =x+t^A+\sqrt{100-x}+t^B
+    =x+\sqrt{100-x},
+    \]
+    because balanced transfers satisfy \(t^A+t^B=0\).
+
+    Therefore transfers do not change total welfare; they only redistribute it. So the relevant total-welfare function is still
+    \[
+    W(x)=x+\sqrt{100-x}.
+    \]
+    From part (b), this is uniquely maximised at
+    \[
+    x^*=\frac{399}{4},
+    \qquad
+    X^{B*}=\frac14.
+    \]
+
+    We now show that the Pareto efficient policies are exactly those with this allocation of the good.
+
+    First, suppose \(x\neq x^*\). Then
+    \[
+    W(x)<W(x^*).
+    \]
+    Since utilities are quasi-linear in transfers, any pair of utilities summing to \(W(x^*)\) can be achieved by choosing suitable balanced transfers at the allocation \(x^*\). In particular, one can choose transfers so that both consumers receive strictly more utility than under the policy based on \(x\). Hence any policy with \(x\neq x^*\) is \emph{not} Pareto efficient.
+
+    Conversely, suppose the allocation of the good is
+    \[
+    \left(X^A,X^B\right)=\left(\frac{399}{4},\frac14\right).
+    \]
+    If another policy made both consumers weakly better off and one strictly better off, then summing the two utility inequalities would imply a strictly larger total utility than
+    \[
+    W\!\left(\frac{399}{4}\right),
+    \]
+    contradicting the fact that this is the maximum possible total welfare.
+
+    Therefore the set of Pareto efficient policies is exactly
+    \[
+    \boxed{
+    \left\{
+    \left(\frac{399}{4},\frac14,t^A,t^B\right):
+    t^A+t^B=0
+    \right\}.}
+    \]
+
+    Comparing with part (a):
+    \begin{itemize}[leftmargin=*]
+        \item without transfers, \emph{every} feasible allocation of the good is Pareto efficient;
+        \item with balanced transfers and quasi-linear utility, only the \emph{utilitarian allocation of the good} remains Pareto efficient.
+    \end{itemize}
+
+    \item
+    Since any balanced transfer pair works once the allocation of the good is
+    \[
+    \left(\frac{399}{4},\frac14\right),
+    \]
+    two examples of Pareto efficient policies are:
+
+    \[
+    \boxed{
+    \left(X^A,X^B,t^A,t^B\right)
+    =
+    \left(\frac{399}{4},\frac14,0,0\right)}
+    \]
+    and
+    \[
+    \boxed{
+    \left(X^A,X^B,t^A,t^B\right)
+    =
+    \left(\frac{399}{4},\frac14,-10,10\right).}
+    \]
+
+    In the first policy, utilities are
+    \[
+    V^A=\frac{399}{4},
+    \qquad
+    V^B=\frac12.
+    \]
+    In the second policy, utilities are
+    \[
+    V^A=\frac{399}{4}-10=\frac{359}{4},
+    \qquad
+    V^B=\frac12+10=\frac{21}{2}.
+    \]
+    Both policies are Pareto efficient because they use the utilitarian allocation of the good and only differ by a balanced redistribution.
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Utility-possibility frontier method}
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    Without transfers, the feasible set of utility pairs is
+    \[
+    \left\{(u^A,u^B): u^A=x,\; u^B=\sqrt{100-x},\; 0\le x\le 100\right\}.
+    \]
+    Equivalently, since \(u^A=x\),
+    \[
+    u^B=\sqrt{100-u^A},
+    \qquad 0\le u^A\le 100.
+    \]
+
+    This is a downward-sloping frontier in \((u^A,u^B)\)-space. Moving to the right increases A's utility and necessarily decreases B's utility. So every feasible point already lies on the Pareto frontier.
+
+    Hence every feasible allocation of the good is Pareto efficient:
+    \[
+    \boxed{\{(X^A,X^B): X^A+X^B=100,\; X^A\ge 0,\; X^B\ge 0\}.}
+    \]
+
+    \item
+    A utilitarian allocation maximises
+    \[
+    u^A+u^B=x+\sqrt{100-x}.
+    \]
+    So we again solve
+    \[
+    \max_{0\le x\le 100}\; x+\sqrt{100-x}.
+    \]
+
+    The first-order condition is
+    \[
+    1-\frac{1}{2\sqrt{100-x}}=0,
+    \]
+    which gives
+    \[
+    100-x=\frac14.
+    \]
+    Therefore
+    \[
+    X^A=\frac{399}{4},
+    \qquad
+    X^B=\frac14.
+    \]
+
+    So the utilitarian allocation is
+    \[
+    \boxed{\left(X^A,X^B\right)=\left(\frac{399}{4},\frac14\right).}
+    \]
+\newpage
+    \item
+    With balanced monetary transfers, each fixed allocation \(x\) of the good generates utilities
+    \[
+    V^A=x+t^A,
+    \qquad
+    V^B=\sqrt{100-x}+t^B,
+    \qquad
+    t^A+t^B=0.
+    \]
+    Hence the total utility at allocation \(x\) is
+    \[
+    V^A+V^B=x+\sqrt{100-x}=W(x).
+    \]
+
+    For a fixed \(x\), transfers let us move along the line
+    \[
+    V^A+V^B=W(x)
+    \]
+    in utility space. So allowing transfers enlarges the feasible utility set from a curve to the union of all these \(45^\circ\)-direction redistribution lines.
+
+    The Pareto frontier of this larger utility set is obtained by choosing the allocation \(x\) that makes the sum \(V^A+V^B\) as large as possible. Since
+    \[
+    W(x)=x+\sqrt{100-x}
+    \]
+    is uniquely maximised at
+    \[
+    x^*=\frac{399}{4},
+    \]
+    the Pareto efficient policies must all use the allocation
+    \[
+    \left(X^A,X^B\right)=\left(\frac{399}{4},\frac14\right).
+    \]
+
+    Thus, compared with part (a), the set of Pareto efficient allocations of the good becomes much smaller:
+    \begin{itemize}[leftmargin=*]
+        \item in part (a), every feasible allocation of the good is Pareto efficient;
+        \item with transfers, only the utilitarian allocation of the good is consistent with Pareto efficiency.
+    \end{itemize}
+
+    \item
+    Two examples of Pareto efficient policies are:
+    \[
+    \boxed{
+    \left(X^A,X^B,t^A,t^B\right)
+    =
+    \left(\frac{399}{4},\frac14,0,0\right)}
+    \]
+    and
+    \[
+    \boxed{
+    \left(X^A,X^B,t^A,t^B\right)
+    =
+    \left(\frac{399}{4},\frac14,5,-5\right).}
+    \]
+
+    Both policies lie on the same maximal-total-utility line
+    \[
+    V^A+V^B
+    =
+    \frac{399}{4}+\frac12
+    =
+    \frac{401}{4},
+    \]
+    and so both are Pareto efficient.
+\end{enumerate}
+
+\newpage
+\subsubsection{Marking scheme (20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{(4 marks)} Pareto efficient allocation without transfers
+    \begin{itemize}
+        \item 1 mark: Correct feasibility condition \(X^A+X^B=100\).
+        \item 2 marks: Correct argument that any increase in one consumer's allocation must reduce the other's allocation, and since both utilities are increasing, no feasible reallocation can make one strictly better off without hurting the other.
+        \item 1 mark: Correct conclusion that every feasible allocation is Pareto efficient.
+    \end{itemize}
+
+    \item \textbf{(4 marks)} Utilitarian allocation without transfers
+    \begin{itemize}
+        \item 1 mark: Correct utilitarian objective \(W(X^A)=X^A+\sqrt{100-X^A}\).
+        \item 1 mark: Correct first-order condition.
+        \item 1 mark: Correct solution \(X^A=\frac{399}{4}\), \(X^B=\frac14\).
+        \item 1 mark: Correct conclusion that this is the utilitarian allocation, with a valid maximum check or equivalent justification.
+    \end{itemize}
+
+    \item \textbf{(8 marks)} Pareto efficient policies with balanced transfers
+    \begin{itemize}
+        \item 2 marks: Correct observation that transfers cancel in aggregate, so total utility is still \(X^A+\sqrt{X^B}\).
+        \item 2 marks: Correct conclusion that Pareto efficient policies must maximise total utility and hence use the utilitarian allocation of the good.
+        \item 2 marks: Correct comparison with part (a): without transfers all feasible allocations are Pareto efficient, whereas with transfers only the utilitarian allocation of the good remains Pareto efficient.
+        \item 2 marks: Clear and logically complete explanation of why non-utilitarian allocations are not Pareto efficient once transfers are available, or why utilitarian allocations are Pareto efficient.
+    \end{itemize}
+
+    \item \textbf{(4 marks)} Examples of Pareto efficient policies
+    \begin{itemize}
+        \item 2 marks: One correct example with allocation \(\left(\frac{399}{4},\frac14\right)\) and balanced transfers.
+        \item 2 marks: A second correct example with the same allocation of the good and a different balanced transfer pair.
+    \end{itemize}
+\end{enumerate}
+
+%====================================================
+% Question 2
+%====================================================
+\newpage
+\section{Question 2: Utilitarian Allocations and Pareto Efficient Policies}
+
+\subsection{Problem}
+\begin{itemize}
+    \item Prove that if an allocation \(A\) is utilitarian, then policy \((A,t)\) is Pareto efficient for some transfer \(t\).
+\end{itemize}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct contradiction using zero transfers}
+
+\begin{itemize}
+    \item Let there be \(n\) consumers. For any allocation \(A\), let consumer \(i\)'s utility from the allocation of goods be \(U_i(A)\). Suppose monetary transfers are allowed and utilities are quasi-linear:
+    \[
+    V_i(A,t_i)=U_i(A)+t_i.
+    \]
+    Transfers are balanced, so
+    \[
+    \sum_{i=1}^n t_i=0.
+    \]
+
+    Assume that \(A\) is utilitarian. That means
+    \[
+    \sum_{i=1}^n U_i(A)\ge \sum_{i=1}^n U_i(B)
+    \]
+    for every feasible allocation \(B\).
+
+    We claim that the policy \((A,0)\), that is, the allocation \(A\) together with zero transfers for every consumer, is Pareto efficient.
+
+    Suppose not. Then there exists another feasible policy \((B,s)\), with balanced transfers
+    \[
+    \sum_{i=1}^n s_i=0,
+    \]
+    such that
+    \[
+    U_i(B)+s_i\ge U_i(A)+0
+    \qquad\text{for all }i,
+    \]
+    and for at least one consumer \(j\),
+    \[
+    U_j(B)+s_j>U_j(A).
+    \]
+
+    Summing these inequalities over all consumers gives
+    \[
+    \sum_{i=1}^n \bigl(U_i(B)+s_i\bigr)
+    >
+    \sum_{i=1}^n U_i(A).
+    \]
+    Since transfers are balanced,
+    \[
+    \sum_{i=1}^n s_i=0,
+    \]
+    so
+    \[
+    \sum_{i=1}^n U_i(B)
+    >
+    \sum_{i=1}^n U_i(A).
+    \]
+    But this contradicts the assumption that \(A\) is utilitarian.
+
+    Therefore no feasible policy can Pareto dominate \((A,0)\). Hence \((A,0)\) is Pareto efficient.
+
+    So there exists a transfer vector \(t\)---namely \(t=0\)---such that \((A,t)\) is Pareto efficient.
+\end{itemize}
+
+\newpage
+\subsubsection{Method 2: Stronger result using arbitrary balanced transfers}
+
+\begin{itemize}
+    \item We prove a stronger statement: if \(A\) is utilitarian, then \((A,t)\) is Pareto efficient for \emph{every} balanced transfer vector \(t\).
+
+    Let \(A\) be utilitarian, so that for every feasible allocation \(B\),
+    \[
+    \sum_{i=1}^n U_i(A)\ge \sum_{i=1}^n U_i(B).
+    \]
+
+    Fix any balanced transfer vector \(t=(t_1,\dots,t_n)\) such that
+    \[
+    \sum_{i=1}^n t_i=0.
+    \]
+    Consider the policy \((A,t)\).
+
+    Suppose \((A,t)\) were not Pareto efficient. Then there would exist another feasible policy \((B,s)\), with
+    \[
+    \sum_{i=1}^n s_i=0,
+    \]
+    such that
+    \[
+    U_i(B)+s_i\ge U_i(A)+t_i
+    \qquad\text{for all }i,
+    \]
+    and for at least one consumer \(j\),
+    \[
+    U_j(B)+s_j>U_j(A)+t_j.
+    \]
+
+    Summing across all consumers,
+    \[
+    \sum_{i=1}^n U_i(B)+\sum_{i=1}^n s_i
+    >
+    \sum_{i=1}^n U_i(A)+\sum_{i=1}^n t_i.
+    \]
+    Using balanced transfers on both sides,
+    \[
+    \sum_{i=1}^n s_i=\sum_{i=1}^n t_i=0,
+    \]
+    we obtain
+    \[
+    \sum_{i=1}^n U_i(B)>\sum_{i=1}^n U_i(A),
+    \]
+    which contradicts the utilitarianity of \(A\).
+
+    Hence \((A,t)\) is Pareto efficient for every balanced transfer vector \(t\). In particular, there certainly exists some transfer \(t\) such that \((A,t)\) is Pareto efficient.
+
+    This proves the claim.
+\end{itemize}
+
+\newpage
+\subsubsection{Marking scheme (10 marks)}
+
+\begin{itemize}
+    \item 2 marks: Correct statement of utilitarianity, namely that \(A\) maximises the sum of utilities over feasible allocations.
+    \item 2 marks: Correct choice of a transfer vector, for example \(t=0\), or a correct statement that any balanced transfer vector may be used.
+    \item 3 marks: Correct contradiction setup using a hypothetical Pareto-improving policy \((B,s)\).
+    \item 2 marks: Correct summation of inequalities together with the balanced-transfer condition to deduce
+    \[
+    \sum_i U_i(B)>\sum_i U_i(A).
+    \]
+    \item 1 mark: Correct final contradiction and conclusion that \((A,t)\) is Pareto efficient for some transfer \(t\).
+\end{itemize}
+
+\end{document}

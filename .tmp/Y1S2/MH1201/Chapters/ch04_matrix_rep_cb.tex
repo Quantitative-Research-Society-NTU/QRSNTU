@@ -1,0 +1,652 @@
+% Sources used: Study Week 7 Lecture Slides (Change of Coordinates); Study Week 8 Lecture Slides (Similarity of Square Matrices).
+% Also referenced for examples: Tutorial 7, Question 1 (single-column principle); Tutorial 7, Question 2 (upper-triangular from nested spans).
+
+\section{Matrix Representations and Change of Basis}
+
+\subsection{Ordered bases and coordinate vectors}
+
+Let $\mathbb{F}$ be a field, and let $V$ be a finite-dimensional $\mathbb{F}$-vector space with $\dim(V)=n$.
+
+\begin{definition}{Ordered basis and coordinate vector}{def:ordered-basis-coords}
+An \emph{ordered basis} of $V$ is an ordered $n$-tuple $\beta=(b_1,\dots,b_n)$ such that $\{b_1,\dots,b_n\}$ is a basis of $V$.
+
+Given an ordered basis $\beta=(b_1,\dots,b_n)$ and a vector $v\in V$, there exists a \emph{unique} column vector
+\[
+[v]_\beta=\begin{bmatrix}c_1\\ \vdots\\ c_n\end{bmatrix}\in \mathbb{F}^{n,1}
+\quad\text{such that}\quad
+v=\sum_{i=1}^n c_i\,b_i.
+\]
+We call $[v]_\beta$ the \emph{coordinate vector} of $v$ relative to $\beta$.
+\end{definition}
+
+Ordering matters: the same set of vectors $\{b_1,b_2\}$ produces \emph{different} coordinate maps depending on whether the ordered basis is $(b_1,b_2)$ or $(b_2,b_1)$.
+If $v=3b_1+5b_2$, then $[v]_{(b_1,b_2)}=\bigl(\begin{smallmatrix}3\\5\end{smallmatrix}\bigr)$ but $[v]_{(b_2,b_1)}=\bigl(\begin{smallmatrix}5\\3\end{smallmatrix}\bigr)$.
+This is why we always specify ``ordered basis'' rather than just ``basis'' when working with coordinates.
+
+\begin{theorem}{The coordinate map is a linear isomorphism}{thm:coord-map-iso}
+Fix an ordered basis $\beta=(b_1,\dots,b_n)$ for $V$ and define
+\[
+[\cdot]_\beta:V\to \mathbb{F}^{n,1},\qquad v\mapsto [v]_\beta.
+\]
+Then $[\cdot]_\beta$ is a linear isomorphism.
+\end{theorem}
+
+\begin{proof}
+Linearity follows from uniqueness of coordinates:
+if $v=\sum c_i b_i$ and $w=\sum d_i b_i$, then $v+w=\sum (c_i+d_i)b_i$ and $\lambda v=\sum (\lambda c_i)b_i$.
+Hence $[v+w]_\beta=[v]_\beta+[w]_\beta$ and $[\lambda v]_\beta=\lambda [v]_\beta$.
+
+Bijectivity: surjective since any column $(c_i)$ maps to $\sum c_i b_i$, and injective since $[v]_\beta=0$ implies $v=\sum 0\cdot b_i=0$.
+\end{proof}
+
+This theorem tells us that the abstract vector space $V$ is ``the same'' as $\mathbb{F}^{n,1}$ once we fix a basis---every linear-algebraic question about $V$ can be translated to a concrete column-vector question in $\mathbb{F}^{n,1}$.
+The coordinate map $[\cdot]_\beta$ is the translator: it preserves addition, scalar multiplication, and all subspace relationships.
+This is the engine behind representing linear maps as matrices (next subsection).
+
+\begin{commonmistake}[title={Common Mistake: vectors vs.\ coordinates}]
+$v\in V$ is \emph{not} the same object as $[v]_\beta\in\mathbb{F}^{n,1}$.
+Always write the basis when you mean coordinates, and check whether your computation lives in $V$ or in $\mathbb{F}^{n,1}$.
+\end{commonmistake}
+
+\subsection{Matrix representation of a linear map}
+
+Let $V,W$ be finite-dimensional $\mathbb{F}$-vector spaces with ordered bases $\beta=(b_1,\dots,b_n)$ for $V$ and $\gamma=(c_1,\dots,c_m)$ for $W$.
+
+\begin{definition}{Representation matrix $[T]_{\gamma\beta}$}{def:rep-matrix}
+Let $T:V\to W$ be linear. The \emph{matrix representation} of $T$ with respect to $(\beta,\gamma)$ is the matrix
+\[
+[T]_{\gamma\beta}\in \mathbb{F}^{m\times n}
+\quad\text{defined by}\quad
+\text{the $j$th column of }[T]_{\gamma\beta}\text{ is }[T(b_j)]_\gamma.
+\]
+Equivalently,
+\[
+[T]_{\gamma\beta}
+=
+\begin{bmatrix}
+\big| &  & \big|\\
+[T(b_1)]_\gamma & \cdots & [T(b_n)]_\gamma\\
+\big| &  & \big|
+\end{bmatrix}.
+\]
+\end{definition}
+
+Why this construction is natural: we want a matrix $A$ such that $A[v]_\beta = [T(v)]_\gamma$ for all $v$.
+By linearity, it suffices to pin down $A$'s action on each standard basis vector $e_j$ of $\mathbb{F}^{n,1}$ (which corresponds to $b_j\in V$).
+The $j$-th column of $A$ records $[T(b_j)]_\gamma$, i.e.\ what $T$ does to the $j$-th domain basis vector, expressed in the codomain basis.
+Everything else follows by linearity.
+
+\begin{examtip}[title={Exam Focus: size check for $[T]_{\gamma\beta}$}]
+The matrix $[T]_{\gamma\beta}$ has size $\dim(W)\times\dim(V)$, \emph{not} $\dim(V)\times\dim(W)$.
+The number of rows equals the dimension of the codomain, and the number of columns equals the dimension of the domain.
+Quick mnemonic: it multiplies a $\dim(V)$-vector on the right and produces a $\dim(W)$-vector on the left.
+\end{examtip}
+
+\begin{theorem}{Fundamental coordinate identity}{ch4-fundamental-coordinate-identity}
+For every $v\in V$,
+\[
+[T(v)]_\gamma \;=\; [T]_{\gamma\beta}\,[v]_\beta.
+\]
+\end{theorem}
+
+\begin{proof}
+Write $v=\sum_{j=1}^n x_j b_j$, so $[v]_\beta=(x_j)_{j=1}^n$. By linearity,
+\[
+T(v)=\sum_{j=1}^n x_j\,T(b_j).
+\]
+Applying $[\cdot]_\gamma$ and using linearity of the coordinate map,
+\[
+[T(v)]_\gamma=\sum_{j=1}^n x_j\,[T(b_j)]_\gamma.
+\]
+But the right-hand side is exactly the matrix-vector product $[T]_{\gamma\beta}[v]_\beta$ by the column definition of $[T]_{\gamma\beta}$.
+\end{proof}
+
+This identity is the single most important equation in the chapter.
+It says: ``to find the $\gamma$-coordinates of $T(v)$, multiply the representation matrix by the $\beta$-coordinates of $v$.''
+Every subsequent result (composition, change of basis, similarity) is built by chaining this identity.
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 1): one-dimensional domain $\Rightarrow$ one column}]
+Let $V$ be finite-dimensional over $\mathbb{F}$, fix $v\in V$, and define $T_v:\mathbb{F}\to V$ by $T_v(\lambda)=\lambda v$.
+Let $\beta$ be an ordered basis for $V$, and use the ordered basis $(1_\mathbb{F})$ for $\mathbb{F}$.
+
+Since $\dim(\mathbb{F})=1$, the matrix $[T_v]_{\beta,(1_\mathbb{F})}$ is $n\times 1$ and its unique column is
+\[
+[T_v(1_\mathbb{F})]_\beta=[v]_\beta.
+\]
+Hence
+\[
+[T_v]_{\beta,(1_\mathbb{F})}=[v]_\beta.
+\]
+\end{examplebox}
+
+This example illustrates a useful principle: the representation matrix of a map \emph{from} $\mathbb{F}$ is just a single column---the coordinate vector of the image of $1_\mathbb{F}$.
+Conversely, a map \emph{to} $\mathbb{F}$ (i.e.\ a linear functional) is represented by a single \emph{row}.
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 2): nested span condition $\Rightarrow$ upper-triangular}]
+Let $V,W$ be $n$-dimensional over $\mathbb{F}$, with ordered bases $\beta=(v_1,\dots,v_n)$ and $\gamma=(w_1,\dots,w_n)$.
+Suppose $T\in\mathcal{L}(V,W)$ satisfies
+\[
+\forall k\in\{1,\dots,n\}:\quad T(v_k)\in \operatorname{span}(w_1,\dots,w_k).
+\]
+Let $A=[T]_{\gamma\beta}=(a_{ik})$. By definition, the $k$th column is $[T(v_k)]_\gamma=(a_{1k},\dots,a_{nk})^{\mathsf T}$.
+
+The condition $T(v_k)\in\operatorname{span}(w_1,\dots,w_k)$ means the coefficients of $w_{k+1},\dots,w_n$ are $0$, i.e.
+\[
+a_{ik}=0\quad\text{for all }i>k.
+\]
+Thus all entries below the diagonal are $0$, so $A$ is upper-triangular.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: when does a matrix representation come out upper/lower-triangular?}]
+The key idea: the structure of $[T]_{\gamma\beta}$ depends entirely on how $T(b_j)$ relates to the \emph{initial segments} of $\gamma$.
+\begin{itemize}
+\item \textbf{Upper-triangular:} $T(v_k)\in\operatorname{span}(w_1,\dots,w_k)$ for each $k$ $\Longrightarrow$ $[T]_{\gamma\beta}$ upper-triangular.
+\item \textbf{Lower-triangular:} $T(v_k)\in\operatorname{span}(w_k,\dots,w_n)$ for each $k$ $\Longrightarrow$ $[T]_{\gamma\beta}$ lower-triangular.
+\item \textbf{Diagonal:} If $T(v_k)=\lambda_k w_k$ for each $k$ $\Longrightarrow$ $[T]_{\gamma\beta}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$.
+\end{itemize}
+This is why choosing a ``good basis'' (e.g.\ one that diagonalizes $T$) simplifies computations enormously.
+\end{examtip}
+
+\subsection{Change of coordinates and transition matrices}
+
+Now let $V$ be finite-dimensional with $\dim(V)=n$, and let $\beta=(b_1,\dots,b_n)$ and $\gamma=(c_1,\dots,c_n)$ be ordered bases for $V$.
+
+\begin{definition}{Change-of-coordinate matrix}{ch4-change-of-coordinates}
+The \emph{change-of-coordinate matrix from $\beta$ to $\gamma$} is the matrix
+\[
+[I_V]_{\gamma\beta}\in\mathbb{F}^{n\times n},
+\]
+i.e.\ the matrix representation of the identity map $I_V:V\to V$ with domain basis $\beta$ and codomain basis $\gamma$.
+\end{definition}
+
+Why use the identity map?  We want to translate coordinates without changing the underlying vector.
+The identity map $I_V$ does exactly that: $I_V(v)=v$, but the input is read in $\beta$-coordinates and the output is written in $\gamma$-coordinates.
+Hence $[I_V]_{\gamma\beta}$ converts $\beta$-coordinates to $\gamma$-coordinates, which is why it is called a ``change-of-coordinate'' matrix.
+The $j$-th column of $[I_V]_{\gamma\beta}$ is $[I_V(b_j)]_\gamma = [b_j]_\gamma$, i.e.\ the $\gamma$-coordinates of the $j$-th $\beta$-basis vector.
+
+\begin{keyformula}[title={Key Formula: coordinate conversion}]
+For every $v\in V$,
+\[
+[v]_\gamma = [I_V]_{\gamma\beta}\,[v]_\beta.
+\]
+In particular, $[I_V]_{\beta\gamma}=\bigl([I_V]_{\gamma\beta}\bigr)^{-1}$ and
+\[
+[I_V]_{\gamma\beta}\,[I_V]_{\beta\gamma}=I_n=[I_V]_{\beta\gamma}\,[I_V]_{\gamma\beta}.
+\]
+\end{keyformula}
+
+The inverse relation $[I_V]_{\beta\gamma}=([I_V]_{\gamma\beta})^{-1}$ is automatic: $[I_V]_{\gamma\beta}$ represents the identity from $(\beta\to\gamma)$, and composing the identity from $(\gamma\to\beta)$ and then $(\beta\to\gamma)$ gives the identity on $\gamma$-coordinates.
+Hence their product is $I_n$, and the two matrices are mutual inverses.
+
+\begin{examplebox}[title={Worked Example (Lecture Week 7): computing $[I_V]_{\alpha\beta}$ from basis relations}]
+Let $\alpha=(a_1,a_2,a_3)$ and $\beta=(b_1,b_2,b_3)$ be ordered bases for $V$ with
+\[
+b_1=2a_1-a_2+a_3,\qquad
+b_2=3a_2+a_3,\qquad
+b_3=-3a_1+2a_3.
+\]
+Then the columns of $[I_V]_{\alpha\beta}$ are $[b_j]_\alpha$. Hence
+\[
+[I_V]_{\alpha\beta}
+=
+\begin{bmatrix}
+\;[b_1]_\alpha\;&\;[b_2]_\alpha\;&\;[b_3]_\alpha\;
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 0 & -3\\
+-1 & 3 & 0\\
+1 & 1 & 2
+\end{bmatrix}.
+\]
+Also,
+\[
+[b_1-2b_2+2b_3]_\alpha=[b_1]_\alpha-2[b_2]_\alpha+2[b_3]_\alpha
+=
+\begin{bmatrix}-4\\-7\\3\end{bmatrix}.
+\]
+\end{examplebox}
+
+Note how the linearity of the coordinate map was used in the second part: we did \emph{not} need to expand $b_1-2b_2+2b_3$ in terms of $a_i$ from scratch.
+Instead, we simply took the linear combination of the already-computed columns.
+This is a time-saving technique on exams.
+
+\begin{keyformula}[title={Key Formula: computing $[I_V]_{\gamma\beta}$ via a standard basis}]
+Let $\sigma$ be a ``standard'' ordered basis for $V$ (when available, e.g.\ $\mathbb{F}^n$).
+Then
+\[
+[I_V]_{\sigma\beta}=\begin{bmatrix}[b_1]_\sigma&\cdots&[b_n]_\sigma\end{bmatrix},
+\qquad
+[I_V]_{\sigma\gamma}=\begin{bmatrix}[c_1]_\sigma&\cdots&[c_n]_\sigma\end{bmatrix},
+\]
+and
+\[
+[I_V]_{\gamma\beta}=\bigl([I_V]_{\sigma\gamma}\bigr)^{-1}[I_V]_{\sigma\beta}.
+\]
+\end{keyformula}
+
+The logic: we cannot directly convert from $\beta$ to $\gamma$ when neither is standard.
+Instead, we route through the standard basis $\sigma$: first express $\beta$-vectors in $\sigma$-coordinates (easy), then convert $\sigma$-coordinates to $\gamma$-coordinates by inverting $[I_V]_{\sigma\gamma}$.
+The composition gives $[I_V]_{\gamma\beta}=[I_V]_{\gamma\sigma}[I_V]_{\sigma\beta}=([I_V]_{\sigma\gamma})^{-1}[I_V]_{\sigma\beta}$.
+
+\begin{examplebox}[title={Worked Example (Lecture Week 7): change of basis in $\mathbb{R}^2$}]
+Let $\beta=\bigl((-9,1),(-5,-1)\bigr)$ and $\gamma=\bigl((1,-4),(3,-5)\bigr)$ be ordered bases of $\mathbb{R}^2$,
+and let $\sigma$ be the standard basis.
+
+Compute
+\[
+[I_{\mathbb{R}^2}]_{\sigma\beta}
+=
+\begin{bmatrix}
+-9 & -5\\
+1 & -1
+\end{bmatrix},
+\qquad
+[I_{\mathbb{R}^2}]_{\sigma\gamma}
+=
+\begin{bmatrix}
+1 & 3\\
+-4 & -5
+\end{bmatrix}.
+\]
+Then
+\[
+[I_{\mathbb{R}^2}]_{\gamma\beta}
+=
+\bigl([I_{\mathbb{R}^2}]_{\sigma\gamma}\bigr)^{-1}[I_{\mathbb{R}^2}]_{\sigma\beta}
+=
+\begin{bmatrix}
+6 & 4\\
+-5 & -3
+\end{bmatrix},
+\qquad
+[I_{\mathbb{R}^2}]_{\beta\gamma}
+=
+\bigl([I_{\mathbb{R}^2}]_{\gamma\beta}\bigr)^{-1}
+=
+\begin{bmatrix}
+-\tfrac{3}{2} & -2\\
+\tfrac{5}{2} & 3
+\end{bmatrix}.
+\]
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: fast row-reduction trick for $[I_V]_{\gamma\beta}$}]
+In $\mathbb{F}^n$ with standard basis $\sigma$, you can compute $[I_V]_{\gamma\beta}$ without explicitly inverting:
+row-reduce the augmented matrix
+\[
+\left[\; [I_V]_{\sigma\gamma}\ \middle|\ [I_V]_{\sigma\beta}\;\right]
+\ \longrightarrow\
+\left[\; I_n\ \middle|\ [I_V]_{\gamma\beta}\;\right].
+\]
+Similarly, swapping $\beta,\gamma$ gives $[I_V]_{\beta\gamma}$.
+\end{examtip}
+
+This trick works because row-reducing $[P_\gamma \mid P_\beta]$ to $[I_n \mid \cdot\;]$ is equivalent to left-multiplying both blocks by $P_\gamma^{-1}$, and the right block becomes $P_\gamma^{-1}P_\beta = [I_V]_{\gamma\beta}$.
+On exams this avoids a separate matrix inversion step, saving time and reducing errors.
+
+\begin{examplebox}[title={Worked micro-example: row-reduction approach in $\mathbb{R}^2$}]
+Using the bases from the previous example, form
+\[
+\left[\;[I]_{\sigma\gamma}\;\middle|\;[I]_{\sigma\beta}\;\right]
+=
+\left[\;\begin{array}{rr|rr}
+1 & 3 & -9 & -5\\
+-4 & -5 & 1 & -1
+\end{array}\;\right].
+\]
+$R_2\leftarrow R_2+4R_1$:
+\[
+\left[\;\begin{array}{rr|rr}
+1 & 3 & -9 & -5\\
+0 & 7 & -35 & -21
+\end{array}\;\right].
+\]
+$R_2\leftarrow \tfrac17 R_2$:
+\[
+\left[\;\begin{array}{rr|rr}
+1 & 3 & -9 & -5\\
+0 & 1 & -5 & -3
+\end{array}\;\right].
+\]
+$R_1\leftarrow R_1-3R_2$:
+\[
+\left[\;\begin{array}{rr|rr}
+1 & 0 & 6 & 4\\
+0 & 1 & -5 & -3
+\end{array}\;\right].
+\]
+Reading off the right block: $[I_V]_{\gamma\beta}=\begin{bmatrix}6&4\\-5&-3\end{bmatrix}$, matching the earlier result.
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: "from $\beta$ to $\gamma$" direction error}]
+By definition, $[I_V]_{\gamma\beta}$ is the matrix of $I_V$ with \emph{input coordinates in $\beta$} and \emph{output coordinates in $\gamma$}.
+So it satisfies $[v]_\gamma=[I_V]_{\gamma\beta}[v]_\beta$.
+A common error is to use the inverse direction unintentionally (especially when reading off columns).
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: ``read off columns'' rule for $[I_V]_{\gamma\beta}$}]
+The $j$-th column of $[I_V]_{\gamma\beta}$ is $[b_j]_\gamma$, i.e.\ the $\gamma$-coordinates of the $j$-th vector in $\beta$.
+\emph{Not} the other way around.
+If you are given the $\alpha$-coordinates of $\beta$-vectors directly (as in the Lecture Week~7 example), you can write down the columns immediately.
+Otherwise, route through a standard basis: columns of $[I_V]_{\sigma\beta}$ are $[b_j]_\sigma$ (easy to write down), then left-multiply by $([I_V]_{\sigma\gamma})^{-1}$.
+\end{examtip}
+
+\subsection{Representation matrices under basis change}
+
+Let $T\in\mathcal{L}(V)$ and let $\beta,\gamma$ be ordered bases for $V$.
+
+\begin{theorem}{Change-of-basis formula for matrix representations}{ch4-change-of-matrix-rep}
+\[
+[T]_{\gamma\gamma} = [I_V]_{\gamma\beta}\,[T]_{\beta\beta}\,[I_V]_{\beta\gamma}.
+\]
+Equivalently, if we set $Q\coloneqq [I_V]_{\beta\gamma}$ (so $Q^{-1}=[I_V]_{\gamma\beta}$), then
+\[
+[T]_{\gamma\gamma} = Q^{-1}\,[T]_{\beta\beta}\,Q.
+\]
+\end{theorem}
+
+\begin{proof}
+For any $v\in V$,
+\[
+[T(v)]_\gamma
+=
+[I_V]_{\gamma\beta}\,[T(v)]_\beta
+=
+[I_V]_{\gamma\beta}\,[T]_{\beta\beta}\,[v]_\beta
+=
+[I_V]_{\gamma\beta}\,[T]_{\beta\beta}\,[I_V]_{\beta\gamma}\,[v]_\gamma.
+\]
+Since this holds for all $[v]_\gamma\in\mathbb{F}^{n,1}$, the representing matrices must be equal:
+$[T]_{\gamma\gamma}=[I_V]_{\gamma\beta}[T]_{\beta\beta}[I_V]_{\beta\gamma}$.
+\end{proof}
+
+Read the sandwich formula right-to-left: (1)~convert $\gamma$-input to $\beta$-coordinates via $[I_V]_{\beta\gamma}$, (2)~apply $T$ in $\beta$-coordinates via $[T]_{\beta\beta}$, (3)~convert the $\beta$-output back to $\gamma$-coordinates via $[I_V]_{\gamma\beta}$.
+This explains \emph{why} the formula has the form $Q^{-1}AQ$: we ``wrap'' the $\beta$-representation with coordinate translators.
+
+\begin{examtip}[title={Exam Focus: which $Q$ to use in $Q^{-1}[T]_{\beta\beta}Q$}]
+In the formula $[T]_{\gamma\gamma}=Q^{-1}[T]_{\beta\beta}Q$, the matrix $Q=[I_V]_{\beta\gamma}$ has columns $[c_j]_\beta$ (the $\beta$-coordinates of the $\gamma$-basis vectors).
+If both bases are given in standard coordinates, then:
+\[
+Q = [I_V]_{\beta\gamma} = ([I_V]_{\sigma\beta})^{-1}[I_V]_{\sigma\gamma} = P_\beta^{-1}P_\gamma,
+\]
+where $P_\beta$ and $P_\gamma$ stack the respective basis vectors as columns in the standard basis.
+When $\beta$ happens to be the standard basis $\sigma$, this simplifies to $Q=P_\gamma$ (columns are $\gamma$-vectors in standard coordinates), and $[T]_{\gamma\gamma}=P_\gamma^{-1}[T]_{\sigma\sigma}P_\gamma$.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Tutorial 7, Question 7 style): similarity via $P^{-1}AP$ in $\mathbb{R}^3$}]
+Define $T\in\mathcal{L}(\mathbb{R}^3)$ by $T(v)=Av$ where
+$A=\begin{bmatrix}2&1&0\\1&1&3\\0&-1&0\end{bmatrix}$.
+Let $\gamma=(g_1,g_2,g_3)$ with
+$g_1=\begin{bmatrix}-1\\0\\0\end{bmatrix}$, $g_2=\begin{bmatrix}2\\1\\0\end{bmatrix}$, $g_3=\begin{bmatrix}1\\1\\1\end{bmatrix}$.
+
+Here $\beta=\sigma$ (standard basis), so $Q=[I_V]_{\sigma\gamma}=P_\gamma=[\,g_1\;g_2\;g_3\,]=\begin{bmatrix}-1&2&1\\0&1&1\\0&0&1\end{bmatrix}$.
+Then
+\[
+[T]_{\gamma\gamma}=P_\gamma^{-1}AP_\gamma.
+\]
+Since $P_\gamma$ is upper-triangular with diagonal $(-1,1,1)$, its inverse is easy to compute:
+\[
+P_\gamma^{-1}=\begin{bmatrix}-1&2&-1\\0&1&-1\\0&0&1\end{bmatrix}.
+\]
+Computing $AP_\gamma$ first, then left-multiplying by $P_\gamma^{-1}$:
+\[
+AP_\gamma=\begin{bmatrix}-2&5&3\\-1&3&5\\0&-1&-1\end{bmatrix},
+\qquad
+[T]_{\gamma\gamma}=P_\gamma^{-1}(AP_\gamma)=\begin{bmatrix}0&2&8\\-1&4&6\\0&-1&-1\end{bmatrix}.
+\]
+\textbf{Sanity check:} $\operatorname{tr}([T]_{\gamma\gamma})=0+4+(-1)=3=\operatorname{tr}(A)=2+1+0$ \checkmark\quad and $\det$ should also be preserved (both equal $-11$).
+\end{examplebox}
+
+\subsection{Composition, identity, and inverse maps}
+
+Let $U,V,W$ be finite-dimensional with ordered bases $\alpha,\beta,\gamma$ respectively.
+Let $S\in\mathcal{L}(U,V)$ and $T\in\mathcal{L}(V,W)$.
+
+\begin{keyformula}[title={Key Formula: composition corresponds to multiplication}]
+\[
+[T\circ S]_{\gamma\alpha} \;=\; [T]_{\gamma\beta}\,[S]_{\beta\alpha}.
+\]
+Also, $[I_V]_{\beta\beta}=I_n$ for any ordered basis $\beta$ of $V$.
+\end{keyformula}
+
+The formula requires the ``inner'' basis $\beta$ to match: $S$ outputs $\beta$-coordinates, and $T$ reads $\beta$-coordinates.
+If the intermediate bases disagree, the formula fails.
+This matching condition is analogous to matrix multiplication requiring compatible inner dimensions.
+
+\begin{theorem}{Inverse map $\leftrightarrow$ inverse matrix}{thm:inverse-matrix-rep}
+Let $T\in\mathcal{L}(V,W)$ with $\dim(V)=\dim(W)=n$, and let $\beta$ and $\gamma$ be ordered bases of $V$ and $W$.
+Then $T$ is invertible iff $[T]_{\gamma\beta}\in\mathbb{F}^{n\times n}$ is invertible, and in that case
+\[
+[T^{-1}]_{\beta\gamma}=\bigl([T]_{\gamma\beta}\bigr)^{-1}.
+\]
+\end{theorem}
+
+\begin{proof}
+If $T$ is invertible, then $T^{-1}\circ T=I_V$ and $T\circ T^{-1}=I_W$. Taking representation matrices,
+\[
+[I_V]_{\beta\beta}=[T^{-1}\circ T]_{\beta\beta}=[T^{-1}]_{\beta\gamma}[T]_{\gamma\beta},
+\qquad
+[I_W]_{\gamma\gamma}=[T\circ T^{-1}]_{\gamma\gamma}=[T]_{\gamma\beta}[T^{-1}]_{\beta\gamma}.
+\]
+Thus $[T]_{\gamma\beta}$ has a two-sided inverse $[T^{-1}]_{\beta\gamma}$ and is invertible, with
+$[T^{-1}]_{\beta\gamma}=([T]_{\gamma\beta})^{-1}$.
+
+Conversely, if $[T]_{\gamma\beta}$ is invertible, let $A=([T]_{\gamma\beta})^{-1}$ and define $S\in\mathcal{L}(W,V)$ by
+$[S]_{\beta\gamma}=A$ (existence/uniqueness of a linear map given its matrix). Then $[S\circ T]_{\beta\beta}=I_n$ and
+$[T\circ S]_{\gamma\gamma}=I_n$, hence $S\circ T=I_V$ and $T\circ S=I_W$, so $T$ is invertible and $S=T^{-1}$.
+\end{proof}
+
+Note the subscript swap: $[T^{-1}]_{\beta\gamma}$ has domain basis $\gamma$ (the codomain basis of $T$) and codomain basis $\beta$ (the domain basis of $T$).
+This makes sense because $T^{-1}$ maps $W\to V$, reversing the roles of domain and codomain.
+
+\begin{examplebox}[title={Worked Example (Lecture Week 7): using a "good basis" to simplify powers}]
+Let $T:\mathbb{R}^3\to\mathbb{R}^3$ be defined by
+\[
+T(x,y,z)=(2x+y,\ 5y+3z,\ 8z).
+\]
+Let $\beta=\bigl((1,0,0),(1,3,0),(1,6,6)\bigr)$.
+
+\textbf{Step 1: compute $[T]_{\beta\beta}$.}
+Compute $T$ on basis vectors and express in $\beta$-coordinates (equivalently, compute $[T]_{\beta\beta}=[I]_{\beta\sigma}[T]_{\sigma\sigma}[I]_{\sigma\beta}$).
+One finds
+\[
+[T]_{\beta\beta}=
+\begin{bmatrix}
+2&0&0\\
+0&5&0\\
+0&0&8
+\end{bmatrix}.
+\]
+
+\textbf{Step 2: compute $T^4(0,-3,6)$.}
+First solve for $[v]_\beta$ where $v=(0,-3,6)$:
+\[
+[v]_\beta=\begin{bmatrix}2\\-3\\1\end{bmatrix}.
+\]
+Then
+\[
+[T^4(v)]_\beta = \bigl([T]_{\beta\beta}\bigr)^4 [v]_\beta
+=
+\begin{bmatrix}
+2^4&0&0\\
+0&5^4&0\\
+0&0&8^4
+\end{bmatrix}
+\begin{bmatrix}2\\-3\\1\end{bmatrix}
+=
+\begin{bmatrix}32\\-1875\\4096\end{bmatrix}.
+\]
+Converting back to standard coordinates gives
+\[
+T^4(0,-3,6)=(2253,\ 18951,\ 24576).
+\]
+\end{examplebox}
+
+This example demonstrates the key advantage of a diagonalizing basis: powers of a diagonal matrix are trivial to compute ($D^k=\operatorname{diag}(\lambda_1^k,\dots,\lambda_n^k)$), whereas computing $A^4$ for a general matrix requires three matrix multiplications.
+The strategy is always: (1)~change to the good basis, (2)~do the easy computation, (3)~change back.
+
+\begin{extension}[title={Extension (Lecture Week 7): the Fundamental Theorem of Finite-Dimensional Vector Spaces}]
+\textbf{Syllabus link:} MH1201 Week 7 --- Matrix representations as isomorphisms.
+
+\textbf{Theorem.} Let $U,V,W$ be finite-dimensional over $\mathbb{F}$ with ordered bases $\alpha,\beta,\gamma$.
+Let $S\in\mathcal{L}(U,V)$ and $T\in\mathcal{L}(V,W)$.
+Then the ``matrix-of-a-map'' operators
+\[
+[\cdot]_{\beta\alpha}:\mathcal{L}(U,V)\to\mathbb{F}^{\dim V\times\dim U},\quad
+[\cdot]_{\gamma\beta}:\mathcal{L}(V,W)\to\mathbb{F}^{\dim W\times\dim V}
+\]
+are all \emph{linear isomorphisms}. In particular,
+\[
+\dim(\mathcal{L}(V,W))=\dim(V)\cdot\dim(W).
+\]
+Moreover, the diagram
+\[
+\mathcal{L}(U,V)\xrightarrow{T\circ(\cdot)}\mathcal{L}(U,W)
+\qquad\longleftrightarrow\qquad
+\mathbb{F}^{\dim V\times\dim U}\xrightarrow{[T]_{\gamma\beta}\cdot(\cdot)}\mathbb{F}^{\dim W\times\dim U}
+\]
+commutes: taking matrices turns composition into multiplication.
+
+\textbf{Proof sketch.}
+\emph{Linearity:} For $S_1,S_2\in\mathcal{L}(U,V)$ and $\lambda\in\mathbb{F}$, column $j$ of $[S_1+S_2]_{\beta\alpha}$ is $[(S_1+S_2)(a_j)]_\beta=[S_1(a_j)]_\beta+[S_2(a_j)]_\beta$, so $[S_1+S_2]_{\beta\alpha}=[S_1]_{\beta\alpha}+[S_2]_{\beta\alpha}$. Similarly for scalar multiplication.
+\emph{Injective:} $[S]_{\beta\alpha}=0$ implies $S(a_j)=0$ for all $j$, hence $S=0$.
+\emph{Surjective:} Given any $A\in\mathbb{F}^{m\times n}$, define $S$ on basis $\alpha$ by requiring $[S(a_j)]_\beta$ to be the $j$-th column of $A$, then extend by linearity. \qed
+\end{extension}
+
+\subsection{Similarity viewpoint and basis-independence statements}
+
+\begin{definition}{Similarity of square matrices}{ch4-similarity}
+Let $n\in\mathbb{N}$ and let $A,B\in\mathbb{F}^{n\times n}$.
+We say that $A$ is \emph{similar} to $B$, and write $A\sim B$, if there exists an invertible $Q\in\mathbb{F}^{n\times n}$ such that
+\[
+B=Q^{-1}AQ.
+\]
+\end{definition}
+
+Similarity is the matrix-level translation of ``same linear operator, different basis.''
+If $A=[T]_{\beta\beta}$ and $B=[T]_{\gamma\gamma}$ for the same $T\in\mathcal{L}(V)$, then $B=Q^{-1}AQ$ with $Q=[I_V]_{\beta\gamma}$.
+Thus the similarity class of a matrix captures all the basis-independent properties of the underlying operator.
+
+\begin{theorem}{Similarity is an equivalence relation}{ch4-similarity-equivalence}
+The relation $\sim$ on $\mathbb{F}^{n\times n}$ is reflexive, symmetric, and transitive.
+\end{theorem}
+
+\begin{proof}
+Reflexive: $A=I^{-1}AI$ so $A\sim A$.
+
+Symmetric: if $B=Q^{-1}AQ$ with $Q$ invertible, then $A=Q B Q^{-1}=(Q^{-1})^{-1} B (Q^{-1})$, so $B\sim A$.
+
+Transitive: if $B=Q^{-1}AQ$ and $C=R^{-1}BR$ with $Q,R$ invertible, then
+\[
+C=R^{-1}(Q^{-1}AQ)R=(QR)^{-1}A(QR),
+\]
+so $A\sim C$.
+\end{proof}
+
+\begin{theorem}{Similarity invariants: determinant and trace}{ch4-similarity-invariants}
+If $A\sim B$, then $\det(A)=\det(B)$ and $\operatorname{tr}(A)=\operatorname{tr}(B)$.
+\end{theorem}
+
+\begin{proof}
+Let $B=Q^{-1}AQ$ with $Q$ invertible. Then
+\[
+\det(B)=\det(Q^{-1})\det(A)\det(Q)=\det(A).
+\]
+For trace, use cyclicity $\operatorname{tr}(XY)=\operatorname{tr}(YX)$ (valid for square matrices of the same size):
+\[
+\operatorname{tr}(B)=\operatorname{tr}(Q^{-1}AQ)=\operatorname{tr}(AQQ^{-1})=\operatorname{tr}(A).
+\]
+\end{proof}
+
+Beyond determinant and trace, similarity also preserves: eigenvalues (with multiplicities), the characteristic polynomial, rank, and nullity.
+On exams, trace and determinant are the fastest invariants to check.
+If $\operatorname{tr}(A)\neq\operatorname{tr}(B)$ or $\det(A)\neq\det(B)$, you can immediately conclude $A\not\sim B$ without further work.
+
+\begin{examtip}[title={Exam Focus: proving two matrices are NOT similar}]
+To show $A\not\sim B$, it suffices to exhibit \emph{one} similarity invariant that differs.
+The two cheapest invariants to compute are:
+\begin{itemize}
+\item $\operatorname{tr}$: sum of diagonal entries (no computation beyond addition).
+\item $\det$: for $2\times 2$ matrices this is $ad-bc$.
+\end{itemize}
+If both match, try eigenvalues (roots of the characteristic polynomial).
+To show $A\sim B$, you typically must \emph{find} an explicit invertible $Q$ with $B=Q^{-1}AQ$, or show both represent the same operator.
+\end{examtip}
+
+\begin{theorem}{Matrix representations of one operator are similar}{thm:rep-matrices-similar}
+Let $V$ be finite-dimensional and $T\in\mathcal{L}(V)$. For any ordered bases $\beta,\gamma$ of $V$,
+\[
+[T]_{\beta\beta}\sim [T]_{\gamma\gamma}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:change-of-matrix-rep}, $[T]_{\gamma\gamma}=Q^{-1}[T]_{\beta\beta}Q$ with $Q=[I_V]_{\beta\gamma}$ invertible.
+Hence $[T]_{\beta\beta}\sim [T]_{\gamma\gamma}$.
+\end{proof}
+
+\begin{extension}[title={Extension (Tutorial 7, Question 3): infinite-dimensional phenomena}]
+\textbf{Syllabus link:} MH1201 Weeks 7--8 --- Eigenvalues and dimension-dependent results.
+
+\textbf{Observation.} The right-shift operator $\sigma_\to\in\mathcal{L}(\mathbb{R}^\infty)$, defined by $\sigma_\to(x_1,x_2,\dots)=(0,x_1,x_2,\dots)$, is injective but \emph{not} surjective.
+This does not contradict the finite-dimensional result ``injective $\Leftrightarrow$ surjective when $\dim(V)=\dim(W)$'' because $\mathbb{R}^\infty$ is \emph{infinite-dimensional}; rank--nullity (and hence the equal-dimension criterion) does not apply.
+
+Moreover, $\sigma_\to$ has \emph{no} real eigenvalues.
+If $\sigma_\to(x)=\lambda x$ for $x\neq 0$, comparing coordinates gives $0=\lambda x_1$ and $x_k=\lambda x_{k+1}$ for all $k\ge 1$.
+Whether $\lambda=0$ or $\lambda\neq 0$, an induction forces $x_k=0$ for all $k$, contradicting $x\neq 0$.
+
+\textbf{Takeaway:} Finite-dimensionality is an essential hypothesis for (i) the injective $\Leftrightarrow$ surjective equivalence, and (ii) the existence of eigenvalues guaranteed by the characteristic polynomial.
+\end{extension}
+
+\subsection{Common workflows (what to do on exams)}
+
+\begin{examtip}[title={Exam Focus: three high-frequency workflows}]
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Compute $[T]_{\gamma\beta}$ from $T(b_i)$.}
+Compute $T(b_i)\in W$, then write each as a $\gamma$-linear combination; those coefficient columns form $[T]_{\gamma\beta}$.
+
+\item \textbf{Compute a change-of-coordinate matrix.}
+To find $[I_V]_{\gamma\beta}$, write each $b_i$ as a $\gamma$-linear combination; columns are $[b_i]_\gamma$.
+If both are given in standard coordinates, use
+\[
+[I_V]_{\gamma\beta}=\bigl([I_V]_{\sigma\gamma}\bigr)^{-1}[I_V]_{\sigma\beta}
+\quad\text{or}\quad
+\left[\,[I_V]_{\sigma\gamma}\mid [I_V]_{\sigma\beta}\,\right]\to \left[\,I\mid [I_V]_{\gamma\beta}\,\right].
+\]
+
+\item \textbf{Fast evaluation of $T(v)$ using matrices.}
+Convert $v$ into coordinates in the domain basis ($[v]_\beta$), multiply by $[T]_{\gamma\beta}$ to get $[T(v)]_\gamma$,
+then (if needed) convert back to a concrete vector.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: computing $T^k(v)$ via a diagonalizing basis}]
+If you can find an ordered basis $\beta$ such that $[T]_{\beta\beta}$ is diagonal (or at least triangular), then:
+\begin{enumerate}[leftmargin=*]
+\item Compute $[v]_\beta$ by solving $P_\beta [v]_\beta = v$ (where $P_\beta$ stacks $\beta$-vectors as columns).
+\item Compute $[T^k(v)]_\beta = ([T]_{\beta\beta})^k [v]_\beta$ --- trivial for diagonal matrices.
+\item Convert back: $T^k(v) = P_\beta [T^k(v)]_\beta$.
+\end{enumerate}
+This is the strategy used in the ``good basis'' example ($T(x,y,z)=(2x+y,5y+3z,8z)$), and it generalizes to any diagonalizable operator.
+\end{examtip}
+
+\begin{commonmistake}[title={Common Mistake: mixing up domain/codomain bases in $[T]_{\gamma\beta}$}]
+$[T]_{\gamma\beta}$ means: \emph{input coordinates in $\beta$ (domain)} and \emph{output coordinates in $\gamma$ (codomain)}.
+A fast sanity check: the matrix size must be $(\dim W)\times(\dim V)$.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Common Mistake: forgetting the intermediate basis in composition}]
+When computing $[T\circ S]_{\gamma\alpha}=[T]_{\gamma\beta}[S]_{\beta\alpha}$, the intermediate basis $\beta$ must be the \emph{same} in both matrices.
+If $S$ is represented w.r.t.\ $\beta'$ and $T$ w.r.t.\ $\beta$, and $\beta'\neq\beta$, you cannot simply multiply the matrices.
+You must first insert a change-of-coordinate matrix: $[T]_{\gamma\beta}[I_V]_{\beta\beta'}[S]_{\beta'\alpha}$.
+\end{commonmistake}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% - (Write personal reminders, TODOs, or links here.)
+% - (E.g., "Re-derive the change-of-basis formula before midterm", "Memorize the row-reduction trick for [I_V]_{gamma,beta}", etc.)
+% - (Practice Tutorial 7, Q7 similarity computation P^{-1}AP.)
+% - (Review the right-shift operator example for infinite-dim intuition.)
+% - (Remember: the composition formula requires matching intermediate bases!)

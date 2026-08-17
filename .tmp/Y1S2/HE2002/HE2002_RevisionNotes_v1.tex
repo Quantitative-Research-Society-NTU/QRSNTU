@@ -1,0 +1,557 @@
+%===== FILE: HE2002_revision_notes.tex =====
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{draftwatermark}
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{HE2002}
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+breakable,
+colback=green!5!white,        % light interior
+colframe=green!40!black,      % border
+colbacktitle=green!50!black,  % dark title band
+coltitle=white,               % title text colour
+fonttitle=\bfseries,
+title filled,                 % puts title inside the band
+boxed title style={
+size=small,
+top=2pt, bottom=2pt,
+left=6pt, right=6pt,
+arc=1pt, outer arc=1pt
+},
+boxrule=0.9pt,
+arc=1pt,
+left=8pt, right=8pt, top=10pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+breakable,
+colback=blue!3!white,
+colframe=blue!40!black,
+colbacktitle=blue!55!black,
+coltitle=white,
+fonttitle=\bfseries,
+title filled,
+boxed title style={
+size=small,
+top=2pt, bottom=2pt,
+left=6pt, right=6pt,
+arc=1pt, outer arc=1pt
+},
+boxrule=0.9pt,
+arc=1pt,
+left=8pt, right=8pt, top=10pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}{thm}
+
+% ---------- ENVIRONMENTS USING TCOLORBOXENVIRONMENT ----------
+\tcolorboxenvironment{identity}{
+enhanced,
+breakable,
+colback=green!5!white,
+colframe=green!60!black,
+fonttitle=\bfseries,
+boxrule=1pt,
+arc=3pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+enhanced,
+breakable,
+colback=red!5!white,
+colframe=red!60!black,
+fonttitle=\bfseries,
+boxrule=1pt,
+arc=3pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+% Optional argument [1][] lets you override the default title if needed:
+%   \begin{keyformula}[title={Key Formula: Demand Curve}] ... \end{keyformula}
+
+\newtcolorbox{keyformula}[1][]{
+enhanced,
+breakable,
+colback=blue!5!white,
+colframe=blue!75!black,
+title=Key Formula,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+% *** CHANGED TO BROWN AS REQUESTED ***
+\newtcolorbox{examplebox}[1][]{
+enhanced,
+breakable,
+colback=brown!5!white,
+colframe=brown!75!black,
+title=Worked Example,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+enhanced,
+breakable,
+colback=red!5!white,
+colframe=red!75!black,
+title=Common Mistake,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{policynote}[1][]{
+enhanced,
+breakable,
+colback=yellow!10!white,
+colframe=orange!75!black,
+title=Policy Application,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+\newtcolorbox{examtip}[1][]{
+enhanced,
+breakable,
+colback=purple!5!white,
+colframe=purple!75!black,
+title=Exam Focus,
+fonttitle=\bfseries,
+boxrule=0.9pt,
+arc=2pt,
+left=8pt, right=8pt, top=8pt, bottom=8pt,
+#1
+}
+
+%==================================================
+% TITLE / HEADER / FOOTER / WATERMARK
+%==================================================
+
+\title{%
+\vspace{-0.5cm}
+{\Large\bfseries \CourseCode\ \CourseName{} -- \DocType}
+}
+
+\author{Quantitative Research Society @ NTU}
+\date{\AcademicYear}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+This document is provided for educational purposes and does not constitute an
+official question paper, answer key, or any formally authorised academic
+material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+pdfauthor={Quantitative Research Society, NTU},
+pdfsubject={\CourseName},
+pdfkeywords={microeconomics, QRS@NTU, revision notes}
+}
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, integrating theoretical concepts, key formulas, worked examples, and exam-focused applications.
+\end{abstract}
+
+\vspace{0.5cm}
+\tableofcontents
+\newpage
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+\section*{Course Overview \& Topic Map}
+\addcontentsline{toc}{section}{Course Overview & Topic Map}
+%====================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{6pt}
+
+\begin{tabularx}{\textwidth}{
+|>{\raggedright\arraybackslash}p{3.2cm}
+|>{\raggedright\arraybackslash}p{1.6cm}
+|>{\raggedright\arraybackslash}X
+|>{\raggedright\arraybackslash}p{1.8cm}|
+}
+\hline
+\textbf{Topic Area} & \textbf{Study Weeks} & \textbf{Key Concepts} & \textbf{ILOs} \\
+\hline
+Goods Market (closed economy) &
+Week 1 (13 Jan) &
+Equilibrium output and demand components; consumption/saving behaviour; government spending and taxes; multiplier intuition (placeholder). &
+1,2 \\
+\hline
+Financial Market &
+Week 2 (20 Jan) &
+Money vs bonds; interest rate determination; money demand and money supply (placeholder). &
+1,2 \\
+\hline
+IS--LM Model &
+Week 3 (27 Jan) &
+Joint equilibrium in goods and financial markets; IS relation; LM relation; policy shifts and comparative statics (placeholder). &
+1,2,4 \\
+\hline
+Extended IS--LM &
+Week 4 (3 Feb) &
+Extensions to baseline IS--LM (e.g., risk, expectations, constraints); richer policy transmission channels (placeholder). &
+1,2,4 \\
+\hline
+Labour Market &
+Week 5 (10 Feb) &
+Wage setting and price setting; natural unemployment; markups; labour market equilibrium (placeholder). &
+1,2 \\
+\hline
+Inflation and Phillips Curve &
+Week 6 (17 Feb) &
+Phillips curve logic; inflation dynamics; expectations; short-run trade-offs and policy implications (placeholder). &
+2,4 \\
+\hline
+Assessment checkpoint &
+Week 7 (24 Feb) &
+Quiz 1 (Weeks 1--5); consolidation and error analysis (placeholder). &
+1,2 \\
+\hline
+Recess Week &
+Recess &
+Catch-up, problem sets, and model integration across the short-run block (placeholder). &
+1,2 \\
+\hline
+IS--LM--PC Framework &
+Week 8 (10 Mar) &
+Short-run to medium-run adjustment; interaction of output, unemployment, and inflation (placeholder). &
+1,2,4 \\
+\hline
+Facts of Growth &
+Week 9 (17 Mar) &
+Stylised facts; growth accounting; capital and productivity (placeholder). &
+3 \\
+\hline
+Economic Growth (I) &
+Week 10 (24 Mar) &
+Baseline growth model; capital accumulation; saving and steady state (placeholder). &
+3 \\
+\hline
+Economic Growth (II) &
+Week 11 (31 Mar) &
+Technological progress; long-run growth; transitional dynamics (placeholder). &
+3 \\
+\hline
+Economic Growth (III) \& Challenges &
+Week 12 (7 Apr) &
+Modern growth topics; policy debates; interpretation of evidence (placeholder). &
+3,4 \\
+\hline
+Revision \& exam preparation &
+Week 13 (14 Apr) &
+Integration across business cycle and growth blocks; exam strategy and synthesis (placeholder). &
+1,2,3,4 \\
+\hline
+\end{tabularx}
+
+
+\end{center}
+
+\noindent
+“This revision guide covers all study weeks organized by economic models and policy questions rather than chronological order, ensuring comprehensive coverage while highlighting conceptual connections.”
+
+\newpage
+
+%====================================================================
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+\subsection*{Structure of the Notes}
+
+These notes are designed to be used together with your lectures and tutorials. Each chapter is organised into:
+
+\begin{enumerate}
+\item \textbf{Core Theory} — formal definitions, results and economic intuition.
+\item \textbf{Mathematical Framework} — formulas, algebra and derivations.
+\item \textbf{Worked Examples} — tutorial-style questions with full solutions.
+\item \textbf{Applications} — policy or real-world interpretations where relevant.
+\item \textbf{Exam Focus} — high-yield concepts, typical traps and checklist items.
+\end{enumerate}
+
+A good way to revise:
+\begin{itemize}
+\item First pass: read Core Theory + Definition/Theorem + Key Formula boxes.
+\item Second pass: attempt Worked Examples yourself \emph{before} checking solutions.
+\item Final pass: review Exam Focus and Common Mistake boxes in the week before the exam.
+\end{itemize}
+
+\subsection*{Colour and Box System (Legend)}
+
+The document uses a colour-coded system. Each box has a \textbf{name} at the top so you can quickly recognise its purpose:
+
+\begin{center}
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Colour} & \textbf{Box Name} & \textbf{Use This For} \\
+\hline
+\colorbox{green!5}{Green} & \textbf{Definition} & Precise concepts, variables, and model primitives to be used consistently throughout the course. \\
+\hline
+\colorbox{blue!3}{Blue} & \textbf{Theorem} & Core results and formal statements that structure the model logic (state assumptions and conclusions). \\
+\hline
+\colorbox{blue!5}{Blue} & \textbf{Key Formula} & Core equations and identities that you should memorise or be able to derive quickly. \\
+\hline
+\colorbox{brown!5}{Brown} & \textbf{Worked Example} & Fully worked questions. Try on your own before reading the solution. \\
+\hline
+\colorbox{red!5}{Red} & \textbf{Common Mistake} & Typical errors, misleading shortcuts and conceptual traps to avoid in exams. \\
+\hline
+\colorbox{yellow!10}{Yellow} & \textbf{Policy Application} & Real-world or policy-related interpretations to help build intuition and essay points. \\
+\hline
+\colorbox{purple!5}{Purple} & \textbf{Exam Focus} & High-yield checklists, ``must-know'' results and exam strategy tips. \\
+\hline
+\end{tabular}
+
+\end{center}
+
+\noindent
+When you print in black and white, you can still identify boxes by their \textbf{title text}:
+\begin{itemize}
+\item Look for the name at the top: \textit{Definition}, \textit{Theorem}, \textit{Key Formula}, \textit{Worked Example}, \textit{Common Mistake}, \textit{Policy Application}, \textit{Exam Focus}.
+\item In digital version, use the colour + name; in printed version, rely mainly on the name.
+\end{itemize}
+
+
+%==================================================
+\part{Main Notes}
+%==================================================
+
+\input{HE2002/Chapters/ch01_goods_market}
+
+\appendix
+
+%==================================================
+\section{Formula & Key Results Reference}
+%==================================================
+
+\noindent\textbf{Scaffold only (to be filled).} Organise key equations/results by topic:
+
+\begin{itemize}
+\item \textbf{Goods Market / IS foundations}
+\begin{itemize}
+\item Equilibrium condition (placeholder): \textit{planned spending} $=$ \textit{output}.
+\item Multiplier and comparative statics (placeholder bullets).
+\item IS relation statement (placeholder).
+\end{itemize}
+
+
+\item \textbf{Money \& Financial Market / LM foundations}
+\begin{itemize}
+    \item Money demand function and real balances (placeholder).
+    \item LM relation and shifts (placeholder).
+\end{itemize}
+
+\item \textbf{IS--LM equilibrium and policy}
+\begin{itemize}
+    \item Joint equilibrium system (placeholder).
+    \item Fiscal vs monetary policy shifts (placeholder).
+    \item Extended IS--LM elements (placeholder).
+\end{itemize}
+
+\item \textbf{Labour Market}
+\begin{itemize}
+    \item Wage-setting and price-setting relations (placeholder).
+    \item Natural rate and markups (placeholder).
+\end{itemize}
+
+\item \textbf{Inflation / Phillips Curve}
+\begin{itemize}
+    \item Phillips curve (expectations-augmented) (placeholder).
+    \item Disinflation and sacrifice ratio intuition (placeholder).
+\end{itemize}
+
+\item \textbf{IS--LM--PC (short to medium run)}
+\begin{itemize}
+    \item Dynamic adjustment logic (placeholder).
+    \item Medium-run equilibrium (placeholder).
+\end{itemize}
+
+\item \textbf{Growth}
+\begin{itemize}
+    \item Growth accounting identity (placeholder).
+    \item Solow model steady state and transitional dynamics (placeholder).
+    \item Technology and long-run growth mechanism (placeholder).
+\end{itemize}
+
+
+\end{itemize}
+
+%==================================================
+\section{Notation}
+%==================================================
+
+\noindent\textbf{Scaffold only (to be filled).}
+
+\begin{center}
+\begin{tabular}{|p{2.2cm}|p{7.8cm}|p{5.0cm}|}
+\hline
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Context} \
+\hline
+$Y$ & Output / income (placeholder) & Goods market, IS--LM \
+\hline
+$C$ & Consumption (placeholder) & Goods market \
+\hline
+$I$ & Investment (placeholder) & Goods market, IS relation \
+\hline
+$G$ & Government spending (placeholder) & Fiscal policy \
+\hline
+$T$ & Taxes / net taxes (placeholder) & Fiscal policy \
+\hline
+$i$ or $r$ & Nominal / real interest rate (placeholder) & Financial market, LM \
+\hline
+$M$ & Nominal money supply (placeholder) & Financial market \
+\hline
+$P$ & Price level (placeholder) & Inflation, real balances \
+\hline
+$u$ & Unemployment rate (placeholder) & Labour market, Phillips curve \
+\hline
+$\pi$ & Inflation rate (placeholder) & Phillips curve, policy \
+\hline
+$A$ & Technology / productivity (placeholder) & Growth \
+\hline
+$K$ & Capital stock (placeholder) & Growth \
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================
+\section{Exam & Admin Information}
+%==================================================
+
+\noindent\textbf{Scaffold only (to be filled).} Keep factual items short.
+
+\begin{itemize}
+\item \textbf{Assessment breakdown (placeholder for policy details):}
+\begin{itemize}
+\item Quiz 1: 40%
+\item Course Participation: 10%
+\item Final Examination: 50%
+\end{itemize}
+
+```
+\item \textbf{Key dates (placeholders; verify on NTULearn / course announcements):}
+\begin{itemize}
+    \item Quiz 1: Tuesday, 24 Feb, 9:30--11:00 (venue per course outline).
+    \item Final Examination: Wednesday, 29 Apr, 5:00--7:00.
+\end{itemize}
+
+\item \textbf{Tutorials (placeholder):}
+\begin{itemize}
+    \item Tutorials commence in Week 2; participation recorded each tutorial (details to be inserted).
+\end{itemize}
+
+\item \textbf{Make-up quiz/test (placeholder summary):}
+\begin{itemize}
+    \item Eligibility and documentation requirements (placeholder).
+    \item Request timeline and scheduling window (placeholder).
+\end{itemize}
+
+\item \textbf{Exam checklist (placeholder):}
+\begin{itemize}
+    \item Know each model: assumptions, equilibrium conditions, graphs, and policy transmission.
+    \item Drill: comparative statics, diagram shifts, and short explanations in words.
+    \item Maintain an error log from tutorials/quizzes and revisit weekly.
+\end{itemize}
+
+
+\end{itemize}
+
+\end{document}
+===== END FILE: 

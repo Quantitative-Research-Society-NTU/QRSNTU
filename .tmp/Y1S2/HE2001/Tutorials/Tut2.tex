@@ -1,0 +1,552 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Tutorial 2}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- SHORTCUTS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_+}
+\newcommand{\dotp}{\cdot}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers:
+\begin{itemize}[leftmargin=*]
+  \item revealed preference axioms (WARP, GARP, SARP) and their relationships;
+  \item strict concavity and uniqueness of utility maximisers on budget sets;
+  \item implications of price changes under GARP;
+  \item comparative statics and Slutsky decomposition for a given Marshallian demand;
+  \item perfect complements: indifference curves, Marshallian demand, and Slutsky effects.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% PART 1
+%====================================================
+\newpage
+\section{GARP}
+
+Bob makes purchases to maximize an increasing utility function and therefore his choices
+must satisfy GARP. We observe Bob buy \(x=(x_1,x_2)\) when prices are \(p=(p_1,p_2)\) where
+\(x_1>0\) and \(x_2>0\) and he spends \(m=p\dotp x\).
+
+\subsection{WARP but not GARP with three goods}
+I told you that GARP and WARP are equivalent when there are only two goods.
+Suppose there are three goods and the consumer buys \(x^{1}=(1,0,0)\), \(x^{2}=(0,1,0)\), and
+\(x^{3}=(0,0,1)\) at prices \(p^{1}\), \(p^{2}\), and \(p^{3}\).
+Can you come up with price vectors \(p^{1}\), \(p^{2}\), and \(p^{3}\) so that the consumer’s behavior satisfies WARP but not GARP?
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Explicit construction and verification by dot products}
+Take
+\[
+p^{1}=(2,4,1),\qquad p^{2}=(1,2,4),\qquad p^{3}=(4,1,2).
+\]
+Since each \(x^{t}\) is a unit vector, the expenditures are
+\[
+m^{1}=p^{1}\dotp x^{1}=2,\qquad m^{2}=p^{2}\dotp x^{2}=2,\qquad m^{3}=p^{3}\dotp x^{3}=2.
+\]
+Compute revealed preference relations:
+\[
+p^{1}\dotp x^{3}=1\le 2=m^{1}\ \Rightarrow\ x^{1}R x^{3},
+\]
+\[
+p^{3}\dotp x^{2}=1\le 2=m^{3}\ \Rightarrow\ x^{3}R x^{2},
+\]
+\[
+p^{2}\dotp x^{1}=1\le 2=m^{2}\ \Rightarrow\ x^{2}R x^{1}.
+\]
+Thus \(x^{1}R x^{3}R x^{2}R x^{1}\). Moreover the last step is strict because
+\[
+p^{2}\dotp x^{1}=1<2=p^{2}\dotp x^{2}\ \Rightarrow\ x^{2}P x^{1},
+\]
+so GARP is violated.
+
+Check WARP (no strict 2-cycle):
+\[
+x^{1}R x^{3}\ \text{but}\ p^{3}\dotp x^{1}=4>2=p^{3}\dotp x^{3}\ \Rightarrow\ x^{3}R x^{1}\text{ fails},
+\]
+\[
+x^{3}R x^{2}\ \text{but}\ p^{2}\dotp x^{3}=4>2=p^{2}\dotp x^{2}\ \Rightarrow\ x^{2}R x^{3}\text{ fails},
+\]
+\[
+x^{2}R x^{1}\ \text{but}\ p^{1}\dotp x^{2}=4>2=p^{1}\dotp x^{1}\ \Rightarrow\ x^{1}R x^{2}\text{ fails}.
+\]
+Hence WARP holds but GARP fails.
+\[
+\boxed{p^{1}=(2,4,1),\ p^{2}=(1,2,4),\ p^{3}=(4,1,2)\ \text{satisfy WARP but not GARP.}}
+\]
+
+\subsubsection*{Method 2: Design inequalities first (a strict 3-cycle without any 2-cycle)}
+To force \(x^{1}R x^{3}\), \(x^{3}R x^{2}\), \(x^{2}R x^{1}\), it suffices to impose
+\[
+p_3^{1}<p_1^{1},\qquad p_2^{3}<p_3^{3},\qquad p_1^{2}<p_2^{2}.
+\]
+To avoid any reverse affordability that could create WARP violations, impose
+\[
+p_1^{3}>p_3^{3},\qquad p_3^{2}>p_2^{2},\qquad p_2^{1}>p_1^{1}.
+\]
+Choosing prices consistent with these inequalities yields WARP but not GARP; the numerical choice in Method 1 is one such instance.
+\[
+\boxed{\text{Construct a strict 3-cycle without any strict 2-cycle: WARP holds but GARP fails.}}
+\]
+
+\subsection{Strict concavity implies uniqueness of the maximiser}
+A utility function \(U:\R^{L}\to\R\) is strictly concave if
+\begin{equation}\tag{1}
+U\bigl(\alpha x+(1-\alpha)x'\bigr)>\alpha U(x)+(1-\alpha)U(x')
+\end{equation}
+for all \(x'\neq x\) and all \(\alpha\) taking values strictly between \(0\) and \(1\).
+Show that if \(U\) is strictly concave then each budget set \(B(p,m)\) can have at most one consumption
+bundle which maximizes the utility function. In other words, there is some \(x\in B(p,m)\)
+so that \(U(x)>U(x')\) for all \(x'\in B(p,m)\) so that \(x\neq x'\).
+\emph{Hint:} suppose there are two bundles \(x\) and \(x'\) which maximize utility \(U\) over all bundles in \(B(p,m)\) and show that this contradicts (1).
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Midpoint contradiction using strict concavity}
+Assume for contradiction that there are two distinct maximisers \(x\neq x'\) in \(B(p,m)\) such that
+\[
+U(x)=U(x')=\max\{U(y):y\in B(p,m)\}.
+\]
+Since \(B(p,m)=\{y\in\Rp^{L}:p\dotp y\le m\}\) is convex, the midpoint
+\[
+\bar x=\frac12 x+\frac12 x'
+\]
+satisfies \(\bar x\in B(p,m)\) because
+\[
+p\dotp \bar x=\frac12(p\dotp x)+\frac12(p\dotp x')\le \frac12 m+\frac12 m=m.
+\]
+By strict concavity (take \(\alpha=\frac12\) in (1)) and \(x\neq x'\),
+\[
+U(\bar x)>\frac12 U(x)+\frac12 U(x')=U(x),
+\]
+contradicting maximality of \(x\). Hence there is at most one maximiser.
+\[
+\boxed{\text{If }U\text{ is strictly concave, }B(p,m)\text{ has at most one utility maximiser.}}
+\]
+
+\subsubsection*{Method 2: General \(\alpha\)-combination contradiction}
+Assume \(x\neq x'\) both maximise \(U\) on \(B(p,m)\). For any \(\alpha\in(0,1)\), define
+\[
+x_\alpha=\alpha x+(1-\alpha)x'.
+\]
+Convexity of \(B(p,m)\) implies \(x_\alpha\in B(p,m)\). Strict concavity (1) gives
+\[
+U(x_\alpha)>\alpha U(x)+(1-\alpha)U(x')=U(x),
+\]
+contradicting maximality. Thus \(x=x'\).
+\[
+\boxed{\text{Strict concavity prevents multiple maximisers on a convex budget set.}}
+\]
+
+\subsection{Strict concavity and revealed-preference cycles}
+A consumer satisfies the Strong Axiom of Revealed Preferences (SARP) if \(x\,R^{*}\,x'\) and
+\(x'\,R\,x\) then \(x=x'\).
+Suppose that a consumer maximizes a strictly concave utility function (that is, for each \(t\) we have
+\(U(x^{t})\ge U(x)\) for all \(x\in B(p^{t},\,p^{t}\dotp x^{t})\)) and that
+\[
+x^{1}R x^{2}R x^{3}R x^{4}R \cdots R x^{T}R x^{1}.
+\]
+Show that \(x^{1}=x^{2}=x^{3}=\cdots=x^{T}\).
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Utility chain forces equalities; uniqueness forces equal bundles}
+For each \(t\), \(x^{t}R x^{t+1}\) means \(x^{t+1}\in B(p^{t},\,p^{t}\dotp x^{t})\).
+Since \(x^{t}\) maximises \(U\) on that budget,
+\[
+U(x^{t})\ge U(x^{t+1})\quad (t=1,\dots,T),
+\]
+where \(x^{T+1}=x^{1}\). Hence
+\[
+U(x^{1})\ge U(x^{2})\ge\cdots\ge U(x^{T})\ge U(x^{1}),
+\]
+so
+\[
+U(x^{1})=U(x^{2})=\cdots=U(x^{T}).
+\]
+Fix \(t\). Because \(x^{t+1}\) is feasible in period \(t\) and attains the same utility as the chosen maximiser \(x^{t}\),
+it must also be a maximiser on the same budget set. By the uniqueness result above, \(x^{t+1}=x^{t}\).
+Thus all bundles are equal.
+\[
+\boxed{x^{1}=x^{2}=\cdots=x^{T}.}
+\]
+
+\subsubsection*{Method 2: Strict concavity implies SARP; apply it to the cycle}
+Under strict concavity, the maximiser on each budget set is unique. If \(x^{t}R x^{s}\) and \(x^{s}R x^{t}\),
+then each is feasible on the other's budget, and optimality implies \(U(x^{t})\ge U(x^{s})\) and \(U(x^{s})\ge U(x^{t})\),
+hence equality. Uniqueness forces \(x^{t}=x^{s}\), which is SARP.
+
+In the cycle \(x^{1}R x^{2}R\cdots R x^{T}R x^{1}\), for each \(t\) we have both \(x^{1}R x^{t}\) and \(x^{t}R x^{1}\).
+By SARP, \(x^{t}=x^{1}\) for all \(t\).
+\[
+\boxed{\text{The revealed-preference cycle collapses: }x^{1}=x^{2}=\cdots=x^{T}.}
+\]
+
+\subsection{Price increase of good 1 with fixed expenditure implies GARP}
+When prices are \(p=(p_1,p_2)\) Bob purchases \(x=(x_1,x_2)\) where \(x_1>0\).
+Let \(m=p\dotp x\). Prices change to \(p'=(p_1',p_2)\) with \(p_1'>p_1\) (note the price of good 2 is unchanged).
+Bob buys some bundle \(x'\) which satisfies \(p'\dotp x'=m\).
+Show that his behavior satisfies GARP.
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Show the old bundle is not affordable under the new prices}
+Compute:
+\begin{align*}
+p'\dotp x
+&=p_1' x_1+p_2 x_2\\
+&=(p_1 x_1+p_2 x_2)+(p_1'-p_1)x_1\\
+&=m+(p_1'-p_1)x_1\\
+&>m,
+\end{align*}
+since \(p_1'>p_1\) and \(x_1>0\). Thus \(x\notin B(p',m)\), so \(x'R x\) is impossible.
+
+But since \(p'\dotp x'=m\),
+\[
+p\dotp x'
+=(p_1 x_1'+p_2 x_2')
+=(p_1' x_1'+p_2 x_2')-(p_1'-p_1)x_1'
+=m-(p_1'-p_1)x_1'\le m,
+\]
+so \(x'\in B(p,m)\), hence \(xR x'\). Therefore no strict 2-cycle can occur and GARP holds.
+\[
+\boxed{\text{His behaviour satisfies GARP.}}
+\]
+
+\subsubsection*{Method 2: Two-observation GARP reduces to ``no strict 2-cycle''}
+With only \((p,x)\) and \((p',x')\), GARP is violated iff \(xR x'\) and \(x'P x\), or \(x'R x\) and \(xP x'\).
+But \(x'R x\) is impossible because \(p'\dotp x>m=p'\dotp x'\). Hence no violation is possible.
+\[
+\boxed{\text{GARP holds because a strict 2-cycle cannot form.}}
+\]
+
+\newpage
+\subsection{Compensated expenditure and a GARP implication}
+As in the previous question suppose that prices change to \(p'=(p_1',p_2)\) with \(p_1'>p_1\)
+but suppose that expenditure changes to \(m'=p'\dotp x\).
+Suppose the consumer satisfies GARP.
+Show that his demand \(x'\) at the new price \(p'\) must satisfy \(p\dotp x'\ge p\dotp x\).
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Contradiction via a strict revealed-preference cycle}
+Here \(m'=p'\dotp x\) and \(p'\dotp x'=m'\), so \(x\) is feasible at \((p',m')\). Hence \(x'R x\).
+
+Assume for contradiction that \(p\dotp x'<p\dotp x\). Since \(x\) is chosen at prices \(p\) with expenditure \(p\dotp x\),
+this implies \(xP x'\). Thus we have \(xP x'\) and \(x'R x\), violating GARP. Contradiction.
+\[
+\boxed{p\dotp x'\ge p\dotp x.}
+\]
+
+\subsubsection*{Method 2: Once \(x'R x\) holds, GARP forbids \(xP x'\)}
+Since \(x'R x\) holds automatically (because \(x\) is affordable at \((p',m')\)), GARP implies not \(xP x'\).
+But \(xP x'\iff p\dotp x'<p\dotp x\). Therefore \(p\dotp x'\ge p\dotp x\).
+\[
+\boxed{p\dotp x'\ge p\dotp x.}
+\]
+
+%====================================================
+% PART 2
+%====================================================
+\newpage
+\section{Demand example}
+
+Consider the utility function
+\[
+U(x)=\sqrt{x_1}+\sqrt{x_2}.
+\]
+This \(U\) generates the demand function
+\[
+x(p_1,p_2,m)=\frac{m}{p_1+p_2}\left(\frac{p_2}{p_1},\ \frac{p_1}{p_2}\right).
+\]
+
+\subsection{Demand at \(p=(1,1)\), \(m=1\)}
+What consumption bundle does the consumer demand when \(p=(1,1)\) and \(m=1\)?
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Plug into the given demand function}
+With \(p_1=p_2=1\) and \(m=1\),
+\[
+x(1,1,1)=\frac{1}{2}(1,1)=\left(\frac12,\frac12\right).
+\]
+\[
+\boxed{x(1,1,1)=\left(\tfrac12,\tfrac12\right).}
+\]
+
+\subsubsection*{Method 2: Lagrangian derivation}
+Maximise \(\sqrt{x_1}+\sqrt{x_2}\) subject to \(p_1x_1+p_2x_2=m\), \(x_1,x_2\ge 0\).
+Lagrangian:
+\[
+\mathcal{L}=\sqrt{x_1}+\sqrt{x_2}+\lambda(m-p_1x_1-p_2x_2).
+\]
+FOCs (interior):
+\[
+\frac{1}{2\sqrt{x_1}}=\lambda p_1,\qquad \frac{1}{2\sqrt{x_2}}=\lambda p_2
+\ \Rightarrow\ 
+\sqrt{x_2}=\frac{p_1}{p_2}\sqrt{x_1}.
+\]
+So \(x_2=(p_1^2/p_2^2)x_1\). Substitute into the budget and solve to obtain the stated demand, hence \((1/2,1/2)\) at \((1,1,1)\).
+\[
+\boxed{x(1,1,1)=\left(\tfrac12,\tfrac12\right).}
+\]
+
+\newpage
+\subsection{Cross-price effect on \(x_2\) when \(p_1\) rises}
+Suppose the price of good 1 rises. Does the quantity demanded for good 2 rise / fall or cannot say?
+\emph{Hint:} you can write the demand for good 2 as
+\[
+x_2(p_1,p_2,m)=\frac{p_1}{p_1+p_2}\cdot\frac{m}{p_2}.
+\]
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Differentiate the hinted expression}
+Holding \(m,p_2>0\) fixed,
+\[
+\frac{\partial x_2}{\partial p_1}
+=\frac{m}{p_2}\cdot \frac{(p_1+p_2)-p_1}{(p_1+p_2)^2}
+=\frac{m}{(p_1+p_2)^2}>0.
+\]
+\[
+\boxed{\text{The quantity demanded of good 2 rises when the price of good 1 rises.}}
+\]
+
+\subsubsection*{Method 2: Monotonicity of the fraction \(p_1/(p_1+p_2)\)}
+If \(p_1'>p_1\), then
+\[
+\frac{p_1'}{p_1'+p_2}-\frac{p_1}{p_1+p_2}
+=\frac{p_2(p_1'-p_1)}{(p_1'+p_2)(p_1+p_2)}>0,
+\]
+so \(x_2(p_1',p_2,m)>x_2(p_1,p_2,m)\).
+\[
+\boxed{\text{The quantity demanded of good 2 rises when the price of good 1 rises.}}
+\]
+
+\subsection{Normal vs inferior goods}
+Are the goods normal, inferior, or neither?
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Income derivatives}
+\[
+x_1(p_1,p_2,m)=m\cdot\frac{p_2}{p_1(p_1+p_2)},\qquad
+x_2(p_1,p_2,m)=m\cdot\frac{p_1}{p_2(p_1+p_2)}.
+\]
+Thus
+\[
+\frac{\partial x_1}{\partial m}=\frac{p_2}{p_1(p_1+p_2)}>0,\qquad
+\frac{\partial x_2}{\partial m}=\frac{p_1}{p_2(p_1+p_2)}>0,
+\]
+so both goods are normal.
+\[
+\boxed{\text{Both goods are normal.}}
+\]
+
+\subsubsection*{Method 2: Homothetic scaling in income}
+For fixed prices, \(x(p,m)=m\,a(p)\) for some \(a(p)\in\R^2_{++}\). Hence \(x(p,tm)=t\,x(p,m)\) for all \(t>0\), so both components increase with \(m\).
+\[
+\boxed{\text{Both goods are normal.}}
+\]
+
+\subsection{Slutsky substitution and income effects for good 1}
+The original price and expenditure is \(p=(p_1,p_2)\) and \(m\). Suppose the price of good 1 rises to \(p_1'>p_1\) and so prices are \(p'=(p_1',p_2)\).
+Calculate the Slutsky substitution and income effects. That is, calculate \(\Delta x_1^{s}\) and \(\Delta x_1^{m}\).
+What can you say about the sign of these terms?
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Compute Slutsky effects and sign them}
+Marshallian demand for good 1 is
+\[
+x_1(p_1,p_2,m)=\frac{m p_2}{p_1(p_1+p_2)}.
+\]
+Let \(x^0=x(p,m)\) and \(m^{s}=p'\dotp x^0\). Define
+\[
+\Delta x_1^{s}=x_1(p_1',p_2,m^{s})-x_1(p_1,p_2,m),\qquad
+\Delta x_1^{m}=x_1(p_1',p_2,m)-x_1(p_1',p_2,m^{s}).
+\]
+A direct calculation shows \(x_1(p_1',p_2,m^{s})<x_1(p_1,p_2,m)\), hence \(\Delta x_1^{s}<0\).
+Also \(m^{s}=p'\dotp x^0=m+(p_1'-p_1)x_1(p,m)>m\), so \(m-m^{s}<0\), implying \(\Delta x_1^{m}<0\).
+\[
+\boxed{\Delta x_1^{s}<0,\qquad \Delta x_1^{m}<0\ \text{when }p_1'>p_1.}
+\]
+
+\subsubsection*{Method 2: Sign logic + a numerical verification}
+An own-price increase implies a non-positive substitution effect; here it is strictly negative. Since good 1 is normal, the income effect is negative as well.
+As a check, if \(p=(1,1)\), \(m=2\), \(p'=(2,1)\), then \(\Delta x_1^{s}=-\tfrac12\) and \(\Delta x_1^{m}=-\tfrac16\), confirming both are negative.
+\[
+\boxed{\Delta x_1^{s}<0,\qquad \Delta x_1^{m}<0.}
+\]
+
+%====================================================
+% PART 3
+%====================================================
+\newpage
+\section{Perfect Complements}
+
+Consider the utility function
+\[
+U(x_1,x_2)=\min\{x_1,x_2\}.
+\]
+So, \(U(2,3)=2\), \(U(6,1)=1\), \(U(100,3)=3\) and so on.
+
+\subsection{Indifference curves}
+Draw some indifference curves for this utility function.
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Characterise indifference sets}
+Fix \(\bar u\ge 0\). Then
+\[
+U(x_1,x_2)=\bar u
+\iff \min\{x_1,x_2\}=\bar u
+\iff (x_1\ge \bar u,\ x_2\ge \bar u)\ \text{and at least one equals }\bar u.
+\]
+So the indifference curve is the L-shaped boundary with kink at \((\bar u,\bar u)\):
+\[
+\{(\bar u,x_2):x_2\ge \bar u\}\ \cup\ \{(x_1,\bar u):x_1\ge \bar u\}.
+\]
+\[
+\boxed{\text{Indifference curves are L-shaped with kink at }(\bar u,\bar u)\text{ on the 45° line.}}
+\]
+
+\subsubsection*{Method 2: Fixed-proportions interpretation}
+Utility counts complete pairs; extra of one good beyond the minimum does not help, yielding L-shaped curves.
+\[
+\boxed{\text{Perfect complements imply L-shaped indifference curves.}}
+\]
+
+\newpage
+\subsection{Marshallian demand}
+Find the demand function for this utility function. \emph{Hint:} demand ought to satisfy
+\(p\dotp x(p,m)=m\) and \(x_1(p,m)=x_2(p,m)\).
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Use the hint \(x_1=x_2\) at optimum}
+Set \(x_1=x_2=q\). Then \(p_1q+p_2q=m\Rightarrow q=m/(p_1+p_2)\), so
+\[
+\boxed{x(p_1,p_2,m)=\left(\dfrac{m}{p_1+p_2},\ \dfrac{m}{p_1+p_2}\right).}
+\]
+
+\subsubsection*{Method 2: Maximise pairs subject to affordability}
+To achieve utility \(u\) at minimum cost choose \((u,u)\), costing \((p_1+p_2)u\). Maximise \(u\) subject to \((p_1+p_2)u\le m\), giving \(u^*=m/(p_1+p_2)\) and \(x^*=(u^*,u^*)\).
+\[
+\boxed{x(p_1,p_2,m)=\left(\dfrac{m}{p_1+p_2},\ \dfrac{m}{p_1+p_2}\right).}
+\]
+
+\subsection{Normal vs inferior goods}
+Are the goods normal, inferior, or neither?
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Income derivatives}
+\[
+x_1(p,m)=x_2(p,m)=\frac{m}{p_1+p_2}
+\ \Rightarrow\
+\frac{\partial x_1}{\partial m}=\frac{\partial x_2}{\partial m}=\frac{1}{p_1+p_2}>0.
+\]
+\[
+\boxed{\text{Both goods are normal.}}
+\]
+
+\subsubsection*{Method 2: Linear scaling in income}
+Since \(x(p,tm)=t\,x(p,m)\), both components increase with income.
+\[
+\boxed{\text{Both goods are normal.}}
+\]
+
+\newpage
+\subsection{Slutsky substitution and income effects}
+The original price and expenditure is \(p=(1,1)\) and \(m=2\).
+Suppose the price of good 1 rises to \(2\) and so prices are \(p'=(2,1)\).
+Calculate the Slutsky substitution and income effects. That is, calculate \(\Delta x_1^{s}\) and \(\Delta x_1^{m}\).
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Direct computation using the demand function}
+Initial:
+\[
+x(p,m)=\left(\frac{2}{2},\frac{2}{2}\right)=(1,1)\ \Rightarrow\ x_1^0=1.
+\]
+New Marshallian:
+\[
+x(p',m)=\left(\frac{2}{3},\frac{2}{3}\right)\ \Rightarrow\ x_1^1=\frac{2}{3}.
+\]
+Slutsky income and compensated bundle:
+\[
+m^s=p'\dotp x(p,m)=(2,1)\dotp(1,1)=3,\qquad
+x(p',m^s)=\left(\frac{3}{3},\frac{3}{3}\right)=(1,1)\Rightarrow x_1^c=1.
+\]
+Hence
+\[
+\Delta x_1^{s}=x_1^c-x_1^0=0,\qquad
+\Delta x_1^{m}=x_1^1-x_1^c=\frac{2}{3}-1=-\frac{1}{3}.
+\]
+\[
+\boxed{\Delta x_1^{s}=0,\qquad \Delta x_1^{m}=-\tfrac13.}
+\]
+
+\subsubsection*{Method 2: Zero substitution effect under Leontief}
+Perfect complements pin the compensated choice at the kink, so \(\Delta x_1^{s}=0\); all change comes from the income effect, \(\Delta x_1^{m}=-1/3\).
+\[
+\boxed{\Delta x_1^{s}=0,\qquad \Delta x_1^{m}=-\tfrac13.}
+\]
+
+\end{document}

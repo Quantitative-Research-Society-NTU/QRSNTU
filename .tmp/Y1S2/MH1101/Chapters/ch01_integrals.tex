@@ -1,0 +1,739 @@
+%==================================================
+% MH1101 Chapter 1: Integrals
+%==================================================
+
+\section{Integrals}
+
+\subsection{Antiderivatives and Indefinite Integrals}
+
+\begin{definition}{Antiderivative and indefinite integral}{def:antiderivative}
+Let $f$ be defined on an interval $I$. A function $F$ is an \textbf{antiderivative} of $f$ on $I$ if
+\[
+F'(x)=f(x)\quad \text{for all }x\in I.
+\]
+The \textbf{indefinite integral} denotes the family of all antiderivatives:
+\[
+\int f(x)\,dx = F(x)+C.
+\]
+\end{definition}
+
+\begin{theorem}{All antiderivatives differ by a constant}{thm:antiderivatives-constant}
+If $F$ and $G$ are antiderivatives of $f$ on an interval $I$, then $F(x)-G(x)$ is constant on $I$.
+\end{theorem}
+
+\begin{proof}
+Since $F'(x)=f(x)=G'(x)$ on $I$, we have $(F-G)'(x)=0$ on $I$. Hence $F-G$ is constant on $I$.
+\end{proof}
+
+\begin{keyformula}[title={Key Formula: Basic antiderivative library}]
+For constants $a\neq -1$ and $k\neq 0$:
+\[
+\int x^{a}\,dx=\frac{x^{a+1}}{a+1}+C,\qquad
+\int e^{kx}\,dx=\frac{1}{k}e^{kx}+C,\qquad
+\int \cos(kx)\,dx=\frac{1}{k}\sin(kx)+C,\qquad
+\int \frac{1}{x}\,dx=\ln|x|+C.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example: General antiderivative (power simplification)}]
+Find the most general antiderivative of $\displaystyle \frac{5-4x^3+2x^6}{x^6}$ for $x\neq 0$.
+
+\textbf{Solution.}
+Rewrite using powers:
+\[
+\frac{5-4x^3+2x^6}{x^6}=5x^{-6}-4x^{-3}+2.
+\]
+Integrate term-by-term:
+\[
+\int 5x^{-6}\,dx = 5\cdot \frac{x^{-5}}{-5}=-x^{-5},\qquad
+\int (-4x^{-3})\,dx=-4\cdot \frac{x^{-2}}{-2}=2x^{-2},\qquad
+\int 2\,dx=2x.
+\]
+Hence
+\[
+\int \frac{5-4x^3+2x^6}{x^6}\,dx = -\frac{1}{x^5}+\frac{2}{x^2}+2x+C.
+\]
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: Dropping $+C$ (and losing solutions)}]
+Indefinite integrals represent \emph{families} of functions. Omitting $+C$ can remove valid solutions, especially when applying an initial condition later.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: Solving for $f$ given $f'$ (and initial data)}]
+Workflow:
+\begin{enumerate}[label=(\arabic*)]
+\item Integrate: $f(x)=\int f'(x)\,dx = F(x)+C$.
+\item Apply the condition (e.g.\ $f(x_0)=y_0$) to solve for $C$.
+\item If $f''$ is given, integrate twice: $f'(x)=\int f''(x)\,dx + C_1$, then $f(x)=\int f'(x)\,dx + C_2$.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Area Problem and Riemann Sums}
+
+A key motivation for definite integrals is \textbf{area/accumulation}. For $f(x)\ge 0$ on $[a,b]$, the area under $y=f(x)$ from $a$ to $b$ can be approximated by rectangles.
+
+Let $[a,b]$ be partitioned into $n$ equal subintervals with
+\[
+\Delta x = \frac{b-a}{n},\qquad x_i=a+i\Delta x\quad (i=0,1,\dots,n).
+\]
+Choosing sample points $x_i^\ast\in[x_{i-1},x_i]$, the associated \textbf{Riemann sum} is
+\[
+S_n=\sum_{i=1}^n f(x_i^\ast)\,\Delta x.
+\]
+
+% Figure description (fallback): A schematic curve y=f(x) above the x-axis on [a,b], with 4 right-endpoint rectangles whose heights are f(x_i). This illustrates a Riemann-sum approximation of area.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\draw[->] (0,0) -- (6,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,3.4) node[above] {$y$};
+% Interval [a,b] mapped to x in [1,5]
+\draw (1,0) node[below] {$a$};
+\draw (5,0) node[below] {$b$};
+% A smooth schematic curve
+\draw[thick,domain=1:5,samples=120,smooth]
+plot (\x,{0.22*(\x-1)*(5-\x)+0.55});
+% Right-endpoint rectangles for n=4, Delta x = 1 on [1,5]
+\foreach \k in {1,2,3,4}{
+\pgfmathsetmacro{\xl}{1+(\k-1)}
+\pgfmathsetmacro{\xr}{1+\k}
+\pgfmathsetmacro{\h}{0.22*(\xr-1)*(5-\xr)+0.55}
+\draw[thin] (\xl,0) rectangle (\xr,\h);
+}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Definite Integrals and Basic Properties}
+
+\begin{definition}{Definite integral}{def:definite-integral}
+Suppose $f$ is defined on $[a,b]$. Using the equal-width partition with $\Delta x=(b-a)/n$ and sample points $x_i^\ast\in[x_{i-1},x_i]$, the \textbf{definite integral} of $f$ on $[a,b]$ is
+\[
+\int_a^b f(x)\,dx := \lim_{n\to\infty}\sum_{i=1}^n f(x_i^\ast)\,\Delta x,
+\]
+provided the limit exists and is independent of the choice of sample points. In that case, $f$ is \textbf{integrable} on $[a,b]$.
+\end{definition}
+
+If $f$ changes sign, $\int_a^b f(x)\,dx$ is interpreted as \textbf{net area}: (area above $x$-axis) minus (area below $x$-axis).
+
+\begin{keyformula}[title={Key Formula: Core properties of definite integrals}]
+Assume $f,g$ are integrable on $[a,b]$ and $c$ is constant.
+\begin{enumerate}[label=(P\arabic*), leftmargin=*]
+\item $\displaystyle \int_a^b c\,dx = c(b-a)$.
+\item $\displaystyle \int_a^b (f(x)\pm g(x))\,dx = \int_a^b f(x)\,dx \pm \int_a^b g(x)\,dx$.
+\item $\displaystyle \int_a^b c f(x)\,dx = c\int_a^b f(x)\,dx$.
+\item (Additivity) If $a<c<b$, then $\displaystyle \int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx$.
+\item (Comparison) If $f(x)\ge 0$ on $[a,b]$, then $\displaystyle \int_a^b f(x)\,dx \ge 0$.
+\item (Comparison) If $f(x)\ge g(x)$ on $[a,b]$, then $\displaystyle \int_a^b f(x)\,dx \ge \int_a^b g(x)\,dx$.
+\item (Bounds) If $m\le f(x)\le M$ on $[a,b]$, then $\displaystyle m(b-a)\le \int_a^b f(x)\,dx \le M(b-a)$.
+\end{enumerate}
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example: Average value satisfies its own bounds}]
+Show that if $f$ is continuous on $[a,b]$ with $m\le f(x)\le M$, then the average value $\displaystyle f_{\mathrm{ave}}=\frac{1}{b-a}\int_a^b f(x)\,dx$ satisfies $m\le f_{\mathrm{ave}}\le M$.
+
+\textbf{Solution.}
+By Property P7,
+\[
+m(b-a)\le \int_a^b f(x)\,dx \le M(b-a).
+\]
+Divide by $b-a>0$ to obtain
+\[
+m \le \frac{1}{b-a}\int_a^b f(x)\,dx \le M,
+\]
+i.e.\ $m\le f_{\mathrm{ave}}\le M$.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Fast integral comparisons}]
+If you can compare integrands pointwise (e.g.\ $f\ge g\ge 0$), then you can compare integrals \emph{without computing antiderivatives}. This is often faster and avoids algebra mistakes.
+\end{examtip}
+
+\subsection{The Fundamental Theorem of Calculus}
+
+\textbf{Motivation: Why do we need the FTC?}
+
+At this point in the course, you know two distinct operations:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Differentiation:} Given a function $f$, compute its instantaneous rate of change $f'(x)$.
+\item \textbf{Integration (as area):} Given a function $f$ on $[a,b]$, compute the accumulated area $\int_a^b f(x)\,dx$ by taking the limit of Riemann sums.
+\end{itemize}
+
+These look completely unrelated---one is about \emph{rates}, the other is about \emph{totals}. Computing $\int_0^1 x^2\,dx$ from the definition means evaluating $\displaystyle \lim_{n\to\infty}\sum_{i=1}^n \left(\frac{i}{n}\right)^2\cdot\frac{1}{n}$, which requires summation formulas and careful limit-taking.
+
+The Fundamental Theorem of Calculus reveals that differentiation and integration are \textbf{inverse processes}. This has two immediate practical consequences:
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+\item If you \emph{integrate then differentiate}, you recover the original function (FTC Part~I).
+\item If you know an \emph{antiderivative}, you can compute a definite integral instantly without Riemann sums (FTC Part~II).
+\end{enumerate}
+
+In effect, the FTC transforms integration from a \emph{limit-of-sums calculation} (slow, algebraically tedious) into an \emph{antiderivative evaluation} (fast, routine). This is why we can evaluate $\int_0^1 x^2\,dx$ by writing $\left[\tfrac{x^3}{3}\right]_0^1 = \tfrac{1}{3}$ instead of summing rectangles.
+
+\vspace{0.5em}
+
+We now state and prove both parts of the theorem carefully, emphasizing \emph{why} each formula takes the form it does.
+
+\begin{theorem}{Fundamental Theorem of Calculus (Part I)}{thm:ftc1}
+If $f$ is continuous on $[a,b]$ and
+\[
+F(x)=\int_a^x f(t)\,dt \qquad (a\le x\le b),
+\]
+then $F$ is differentiable on $(a,b)$ and
+\[
+F'(x)=f(x)\qquad (a<x<b).
+\]
+\end{theorem}
+
+\textbf{Intuition behind Part I: Why does the derivative of an integral give back the original function?}
+
+Think of $F(x)=\int_a^x f(t)\,dt$ as the \textbf{accumulated area} under $y=f(t)$ from $a$ up to $x$. When you increase $x$ by a small amount $h$, the new area is approximately the area of a thin rectangle of width $h$ and height $f(x)$, so
+\[
+F(x+h)-F(x) \approx f(x)\cdot h.
+\]
+Dividing by $h$ and taking $h\to 0$ gives $F'(x)=f(x)$. The proof below makes this intuition rigorous using the Mean Value Theorem for Integrals.
+
+\begin{proof}
+\textbf{Strategy:} Use the definition of the derivative and then apply the Mean Value Theorem for Integrals to evaluate the resulting integral increment.
+
+\textbf{Step 1: Expand $F'(x)$ using the definition.}
+
+Let $x\in(a,b)$. By definition,
+\[
+F'(x)=\lim_{h\to 0}\frac{F(x+h)-F(x)}{h}.
+\]
+Since $F(x)=\int_a^x f(t)\,dt$ and $F(x+h)=\int_a^{x+h} f(t)\,dt$, we have
+\[
+F(x+h)-F(x) = \int_a^{x+h} f(t)\,dt - \int_a^x f(t)\,dt.
+\]
+By the additivity property (P4), the interval $[a,x+h]$ splits as $[a,x]\cup[x,x+h]$, giving
+\[
+F(x+h)-F(x)=\int_x^{x+h} f(t)\,dt.
+\]
+Therefore
+\[
+F'(x)=\lim_{h\to 0}\frac{1}{h}\int_x^{x+h} f(t)\,dt.
+\]
+
+\textbf{Step 2: Apply the Mean Value Theorem for Integrals.}
+
+Since $f$ is continuous on $[x,x+h]$ (for small $h>0$), the Mean Value Theorem for Integrals guarantees a point $c\in[x,x+h]$ such that
+\[
+\int_x^{x+h} f(t)\,dt = f(c)\cdot h.
+\]
+Substituting into our expression for $F'(x)$,
+\[
+F'(x)=\lim_{h\to 0}\frac{f(c)\cdot h}{h}=\lim_{h\to 0}f(c).
+\]
+
+\textbf{Step 3: Take the limit as $h\to 0$.}
+
+Because $c\in[x,x+h]$, as $h\to 0$ we have $c\to x$ (the point $c$ is squeezed between $x$ and $x+h$). Since $f$ is continuous at $x$,
+\[
+\lim_{h\to 0}f(c)=f(x).
+\]
+Hence $F'(x)=f(x)$, as desired.
+\end{proof}
+
+\textbf{Why is continuity of $f$ required?}
+
+The proof relies on two facts:
+\begin{itemize}[leftmargin=*]
+\item The Mean Value Theorem for Integrals, which requires $f$ to be continuous.
+\item The limit $\lim_{c\to x}f(c)=f(x)$, which is the definition of continuity at $x$.
+\end{itemize}
+If $f$ has a jump discontinuity, the accumulated area function $F(x)$ may still be continuous, but it will fail to be differentiable at the jump.
+
+\vspace{0.5em}
+
+\textbf{Summary of Part I in words:} If $F(x)$ accumulates the values of $f$ from $a$ to $x$, then the \emph{rate of change} of this accumulation at $x$ is precisely $f(x)$ itself.
+
+\begin{examplebox}[title={Worked Example: FTC Part I (direct application)}]
+Find $\displaystyle \frac{d}{dx}\int_1^x \frac{1}{1+t^2}\,dt$.
+
+\textbf{Solution.}
+The integrand $f(t)=\frac{1}{1+t^2}$ is continuous on $\mathbb{R}$. By FTC Part I, with $a=1$,
+\[
+\frac{d}{dx}\int_1^x \frac{1}{1+t^2}\,dt = f(x)=\frac{1}{1+x^2}.
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: FTC Part I with Chain Rule}]
+Find $\displaystyle \frac{d}{dx}\int_1^{x^4} \sec t\,dt$.
+
+\textbf{Solution.}
+Let $u=x^4$. Then
+\[
+\frac{d}{dx}\int_1^{x^4} \sec t\,dt = \frac{d}{dx}\int_1^u \sec t\,dt = \frac{d}{du}\left(\int_1^u \sec t\,dt\right)\cdot \frac{du}{dx}.
+\]
+By FTC Part I, $\displaystyle \frac{d}{du}\int_1^u \sec t\,dt = \sec u$. Since $\frac{du}{dx}=4x^3$, we obtain
+\[
+\frac{d}{dx}\int_1^{x^4} \sec t\,dt = \sec(x^4)\cdot 4x^3 = 4x^3\sec(x^4).
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: FTC Part I with two variable limits (Leibniz rule)}]
+Find $\displaystyle \frac{d}{dx}\int_{x}^{x^2} \sin t\,dt$.
+
+\textbf{Solution.}
+\textbf{Method:} Split the integral at a fixed point (say, $0$) and apply FTC Part I to each piece.
+
+Write
+\[
+\int_x^{x^2} \sin t\,dt = \int_x^0 \sin t\,dt + \int_0^{x^2} \sin t\,dt = -\int_0^x \sin t\,dt + \int_0^{x^2} \sin t\,dt.
+\]
+Differentiate term-by-term using FTC Part I and the Chain Rule:
+\[
+\frac{d}{dx}\left(-\int_0^x \sin t\,dt\right)=-\sin x,
+\]
+\[
+\frac{d}{dx}\int_0^{x^2} \sin t\,dt = \sin(x^2)\cdot 2x.
+\]
+Hence
+\[
+\frac{d}{dx}\int_x^{x^2} \sin t\,dt = -\sin x + 2x\sin(x^2).
+\]
+
+\textbf{General form (Leibniz rule):}
+\[
+\frac{d}{dx}\int_{a(x)}^{b(x)} f(t)\,dt = f(b(x))\cdot b'(x) - f(a(x))\cdot a'(x).
+\]
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Variable limits and Chain Rule}]
+When the upper limit is not just $x$ but a composite function $g(x)$, you \emph{must} apply the Chain Rule:
+\[
+\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = f(g(x))\cdot g'(x).
+\]
+When both limits are variable, split at a convenient constant and differentiate each piece separately.
+\end{examtip}
+
+\vspace{1em}
+
+\begin{theorem}{Fundamental Theorem of Calculus (Part II)}{thm:ftc2}
+If $f$ is continuous on $[a,b]$ and $F$ is \emph{any} antiderivative of $f$ (i.e., $F'(x)=f(x)$ on $[a,b]$), then
+\[
+\int_a^b f(x)\,dx = F(b)-F(a).
+\]
+\end{theorem}
+
+\textbf{Intuition behind Part II: Why does an antiderivative let us evaluate definite integrals?}
+
+Part I showed that the accumulation function $G(x)=\int_a^x f(t)\,dt$ is an antiderivative of $f$. If $F$ is \emph{any other} antiderivative of $f$, then $F$ and $G$ differ by a constant (Theorem~\ref{thm:antiderivatives-constant}):
+\[
+F(x)=G(x)+C.
+\]
+Evaluating at $x=b$,
+\[
+F(b)=G(b)+C=\int_a^b f(t)\,dt + C.
+\]
+Evaluating at $x=a$,
+\[
+F(a)=G(a)+C=\int_a^a f(t)\,dt + C = 0+C=C.
+\]
+Subtracting,
+\[
+F(b)-F(a)=\int_a^b f(t)\,dt.
+\]
+The constant $C$ cancels in the subtraction, which is why you can use \emph{any} antiderivative $F$ (with or without $+C$) to compute the definite integral.
+
+\begin{proof}
+\textbf{Strategy:} Define $G(x)=\int_a^x f(t)\,dt$. Both $G$ and $F$ are antiderivatives of $f$, so they differ by a constant. Exploit this to relate $\int_a^b f$ to $F(b)-F(a)$.
+
+By FTC Part I, $G'(x)=f(x)$ on $(a,b)$. Since $F$ is also an antiderivative of $f$, we have $F'(x)=f(x)=G'(x)$ on $(a,b)$. By Theorem~\ref{thm:antiderivatives-constant}, there exists a constant $C$ such that
+\[
+F(x)=G(x)+C \qquad \text{for all }x\in[a,b].
+\]
+
+Evaluate at $x=b$:
+\[
+F(b)=G(b)+C=\int_a^b f(t)\,dt + C.
+\]
+Evaluate at $x=a$:
+\[
+F(a)=G(a)+C=\int_a^a f(t)\,dt + C = 0+C=C.
+\]
+Subtract the second equation from the first:
+\[
+F(b)-F(a)=\int_a^b f(t)\,dt.
+\]
+\end{proof}
+
+\textbf{Why is the dummy variable irrelevant?}
+
+In the statement of the theorem, we wrote $\int_a^b f(x)\,dx$ instead of $\int_a^b f(t)\,dt$. The choice of variable inside the integral doesn't matter:
+\[
+\int_a^b f(x)\,dx = \int_a^b f(t)\,dt = \int_a^b f(u)\,du.
+\]
+All represent the same number (the accumulated area from $a$ to $b$). The variable is a \textbf{dummy variable}---it is local to the integral and does not appear in the final answer $F(b)-F(a)$.
+
+\vspace{0.5em}
+
+\textbf{Notation:} We often write $F(b)-F(a)$ as $\left[F(x)\right]_a^b$ or $F(x)\Big|_a^b$.
+
+\begin{examplebox}[title={Worked Example: FTC Part II (direct evaluation)}]
+Evaluate $\displaystyle \int_{-1}^{2} x^3\,dx$.
+
+\textbf{Solution.}
+An antiderivative of $f(x)=x^3$ is $F(x)=\frac{x^4}{4}$ (we omit $+C$ because it will cancel). By FTC Part II,
+\[
+\int_{-1}^{2} x^3\,dx = \left[\frac{x^4}{4}\right]_{-1}^{2} = \frac{2^4}{4}-\frac{(-1)^4}{4}=\frac{16}{4}-\frac{1}{4}=\frac{15}{4}.
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: FTC Part II with endpoint checks}]
+Evaluate $\displaystyle \int_0^\pi \cos x\,dx$.
+
+\textbf{Solution.}
+An antiderivative of $\cos x$ is $\sin x$. Hence
+\[
+\int_0^\pi \cos x\,dx = \left[\sin x\right]_0^\pi = \sin\pi - \sin 0 = 0-0=0.
+\]
+
+\textbf{Interpretation:} The area above the $x$-axis on $[0,\tfrac{\pi}{2}]$ exactly cancels the area below the $x$-axis on $[\tfrac{\pi}{2},\pi]$, giving net area zero.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: FTC Part II with absolute value (sign change)}]
+Evaluate $\displaystyle \int_{-2}^2 |x|\,dx$.
+
+\textbf{Solution.}
+The function $|x|$ is not differentiable at $x=0$, so we must split the integral at the point where the formula changes:
+\[
+\int_{-2}^2 |x|\,dx = \int_{-2}^0 (-x)\,dx + \int_0^2 x\,dx.
+\]
+Compute each piece:
+\[
+\int_{-2}^0 (-x)\,dx = \left[-\frac{x^2}{2}\right]_{-2}^0 = 0-\left(-\frac{4}{2}\right)=2,
+\]
+\[
+\int_0^2 x\,dx = \left[\frac{x^2}{2}\right]_0^2 = 2-0=2.
+\]
+Hence $\displaystyle \int_{-2}^2 |x|\,dx = 2+2=4$.
+
+\textbf{Sanity check:} By symmetry, the two halves contribute equally; each is a triangle of base~2 and height~2, so area $\tfrac{1}{2}(2)(2)=2$.
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: Ignoring sign changes in the integrand}]
+If $f$ changes sign or formula on $[a,b]$, you \emph{cannot} apply FTC Part II blindly to $\int_a^b f(x)\,dx$. You must:
+\begin{enumerate}[label=(\arabic*)]
+\item Identify points $c$ where $f$ changes sign or formula.
+\item Split the integral: $\int_a^b f = \int_a^c f + \int_c^b f$.
+\item Evaluate each piece separately using the correct formula for $f$ on each subinterval.
+\end{enumerate}
+Example: $\int_{-1}^1 \frac{1}{x}\,dx$ is \textbf{not} $\ln|x|\big|_{-1}^1 = 0$. The integrand has a singularity at $x=0$; the integral is improper and divergent.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: FTC Part II workflow}]
+When evaluating $\int_a^b f(x)\,dx$:
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+\item Find \emph{any} antiderivative $F(x)$ of $f(x)$ (omit $+C$).
+\item Compute $F(b)-F(a)$.
+\item Sanity check:
+\begin{itemize}[leftmargin=2em]
+\item If $f\ge 0$ on $[a,b]$, the answer should be $\ge 0$.
+\item If $f$ is odd and the interval is symmetric, the answer may be zero.
+\item If $f$ changes sign, check that you've split correctly.
+\end{itemize}
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Exam Focus: When to use Part I vs.\ Part II}]
+\textbf{Use FTC Part I when:}
+\begin{itemize}[leftmargin=*]
+\item You see $\displaystyle \frac{d}{dx}\int_a^{g(x)} f(t)\,dt$ (differentiate an integral).
+\item The question asks for the derivative of an accumulation function.
+\end{itemize}
+\textbf{Use FTC Part II when:}
+\begin{itemize}[leftmargin=*]
+\item You need to evaluate $\int_a^b f(x)\,dx$ numerically.
+\item You are asked to compute a definite integral using an antiderivative.
+\end{itemize}
+\end{examtip}
+
+\subsection{The Substitution Rule}
+
+Integration by substitution (also called $u$-substitution) is the reverse of the Chain Rule for differentiation. It allows us to evaluate integrals by transforming them into simpler integrals in a new variable.
+
+\begin{theorem}{Substitution Rule (Indefinite Integrals)}{thm:substitution-indefinite}
+If $u=g(x)$ is differentiable and $F$ is an antiderivative of $f$, then
+\[
+\int f(g(x))\,g'(x)\,dx = F(g(x))+C.
+\]
+Equivalently, writing $du=g'(x)\,dx$,
+\[
+\int f(u)\,du = F(u)+C.
+\]
+\end{theorem}
+
+\textbf{Practical recipe:}
+\begin{enumerate}[label=(\arabic*)]
+\item Choose a substitution $u=g(x)$.
+\item Compute $du=g'(x)\,dx$.
+\item Rewrite the integrand and differential in terms of $u$ and $du$.
+\item Integrate with respect to $u$.
+\item Substitute back $u=g(x)$ to express the answer in terms of $x$.
+\end{enumerate}
+
+\begin{examplebox}[title={Worked Example: $u$-substitution for indefinite integrals}]
+Evaluate $\displaystyle \int x\cos(x^2)\,dx$.
+
+\textbf{Solution.}
+Let $u=x^2$. Then $du=2x\,dx$, so $x\,dx=\frac{1}{2}du$. Substitute:
+\[
+\int x\cos(x^2)\,dx = \int \cos u\cdot \frac{1}{2}\,du = \frac{1}{2}\sin u + C = \frac{1}{2}\sin(x^2)+C.
+\]
+\end{examplebox}
+
+\begin{theorem}{Substitution Rule (Definite Integrals)}{thm:substitution-definite}
+If $g$ is continuously differentiable on $[a,b]$ and $f$ is continuous on the range of $g$, then
+\[
+\int_a^b f(g(x))\,g'(x)\,dx = \int_{g(a)}^{g(b)} f(u)\,du.
+\]
+\end{theorem}
+
+\textbf{Key observation:} When you substitute $u=g(x)$ in a definite integral, you must also transform the limits of integration: $x=a$ becomes $u=g(a)$, and $x=b$ becomes $u=g(b)$.
+
+\begin{examplebox}[title={Worked Example: $u$-substitution for definite integrals}]
+Evaluate $\displaystyle \int_2^5 \frac{1}{3-5x}\,dx$.
+
+\textbf{Solution.}
+Let $u=3-5x$. Then $du=-5\,dx$, so $dx=-\frac{1}{5}du$.
+
+Transform the limits:
+\[
+x=2 \Rightarrow u=3-5(2)=-7,\qquad x=5 \Rightarrow u=3-5(5)=-22.
+\]
+Substitute:
+\[
+\int_2^5 \frac{1}{3-5x}\,dx = \int_{-7}^{-22} \frac{1}{u}\cdot \left(-\frac{1}{5}\right)\,du = -\frac{1}{5}\int_{-7}^{-22} \frac{1}{u}\,du.
+\]
+Reverse the limits (introduces a minus sign):
+\[
+= \frac{1}{5}\int_{-22}^{-7} \frac{1}{u}\,du = \frac{1}{5}\left[\ln|u|\right]_{-22}^{-7} = \frac{1}{5}\bigl(\ln 7 - \ln 22\bigr)=\frac{1}{5}\ln\left(\frac{7}{22}\right).
+\]
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Substitution workflow for definite integrals}]
+When using substitution on $\int_a^b f(x)\,dx$:
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+\item Choose $u=g(x)$ and compute $du=g'(x)\,dx$.
+\item Transform limits: $u_1=g(a)$, $u_2=g(b)$.
+\item Rewrite the integral entirely in terms of $u$ (no $x$ should remain).
+\item Integrate with respect to $u$ from $u_1$ to $u_2$.
+\item \textbf{Do not} substitute back to $x$---evaluate directly in $u$.
+\end{enumerate}
+\end{examtip}
+
+\newpage
+\subsection{Improper Integrals}
+
+So far, we have defined $\int_a^b f(x)\,dx$ only when $[a,b]$ is a finite interval and $f$ is continuous (or at least bounded and integrable) on $[a,b]$. An \textbf{improper integral} extends the concept of integration to:
+\begin{itemize}
+\item \textbf{Type 1:} Infinite intervals (e.g., $\int_1^\infty \frac{1}{x^2}\,dx$).
+\item \textbf{Type 2:} Unbounded integrands (e.g., $\int_0^1 \frac{1}{\sqrt{x}}\,dx$, where $f(x)\to\infty$ as $x\to 0^+$).
+\end{itemize}
+
+\begin{definition}{Improper Integral of Type 1 (Infinite Interval)}{def:improper-type1}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item If $\int_a^t f(x)\,dx$ exists for all $t\ge a$, then
+\[
+\int_a^\infty f(x)\,dx := \lim_{t\to\infty}\int_a^t f(x)\,dx.
+\]
+\item If $\int_t^b f(x)\,dx$ exists for all $t\le b$, then
+\[
+\int_{-\infty}^b f(x)\,dx := \lim_{t\to-\infty}\int_t^b f(x)\,dx.
+\]
+\item If both $\int_{-\infty}^a f$ and $\int_a^\infty f$ converge, then
+\[
+\int_{-\infty}^\infty f(x)\,dx := \int_{-\infty}^a f(x)\,dx + \int_a^\infty f(x)\,dx.
+\]
+\end{enumerate}
+In each case, the integral \textbf{converges} if the limit exists (and is finite); otherwise it \textbf{diverges}.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: $p$-integrals (Type 1 and Type 2)}]
+\[
+\int_1^\infty \frac{1}{x^p}\,dx \text{ converges } \iff p>1,
+\qquad
+\int_0^1 \frac{1}{x^p}\,dx \text{ converges } \iff p<1.
+\]
+\end{keyformula}
+
+% Figure description (fallback): Plot of y=1/x^2 for x>=1, decreasing to 0; the "tail area" from 1 to infinity is finite, illustrating a convergent improper integral.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\draw[->] (0.5,0) -- (6.2,0) node[right] {$x$};
+\draw[->] (1,0) -- (1,3.3) node[above] {$y$};
+\draw (1,0) node[below] {$1$};
+\draw[thick,domain=1:6,samples=120,smooth]
+plot (\x,{2/(\x*\x)});
+\draw[dashed] (1,2) -- (1,0);
+\node at (4.9,2.7) {$y=\frac{1}{x^2}$ (schematic)};
+\end{tikzpicture}
+\end{center}
+
+\begin{examplebox}[title={Worked Example: Type 1 divergence}]
+Determine whether $\displaystyle \int_1^\infty \frac{1}{x}\,dx$ converges.
+
+\textbf{Solution.}
+Write the definition:
+\[
+\int_1^\infty \frac{1}{x}\,dx=\lim_{t\to\infty}\int_1^t \frac{1}{x}\,dx
+=\lim_{t\to\infty}\bigl[\ln|x|\bigr]_{1}^{t}
+=\lim_{t\to\infty}\ln t=\infty.
+\]
+Hence the improper integral \textbf{diverges}.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: Type 1 evaluation (split correctly)}]
+Evaluate $\displaystyle \int_{-\infty}^{\infty}\frac{1}{1+x^2}\,dx$.
+
+\textbf{Solution.}
+Split at $0$ and take one-sided limits:
+\[
+\int_{-\infty}^{\infty}\frac{1}{1+x^2}\,dx
+=\int_{-\infty}^{0}\frac{1}{1+x^2}\,dx+\int_{0}^{\infty}\frac{1}{1+x^2}\,dx,
+\]
+provided both sides converge.
+
+Since $\int \frac{1}{1+x^2}\,dx=\tan^{-1}x+C$,
+\[
+\int_{0}^{\infty}\frac{1}{1+x^2}\,dx=\lim_{t\to\infty}\bigl[\tan^{-1}x\bigr]_0^t
+=\frac{\pi}{2},
+\qquad
+\int_{-\infty}^{0}\frac{1}{1+x^2}\,dx=\lim_{t\to-\infty}\bigl[\tan^{-1}x\bigr]_t^0
+=\frac{\pi}{2}.
+\]
+Therefore $\displaystyle \int_{-\infty}^{\infty}\frac{1}{1+x^2}\,dx=\pi$.
+\end{examplebox}
+
+\begin{definition}{Improper Integral of Type 2 (Unbounded Integrand)}{def:improper-type2}
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item If $f$ is continuous on $[a,b)$ and $\lim_{x\to b^-}f(x)=\pm\infty$, then
+\[
+\int_a^b f(x)\,dx := \lim_{t\uparrow b}\int_a^t f(x)\,dx.
+\]
+\item If $f$ is continuous on $(a,b]$ and $\lim_{x\to a^+}f(x)=\pm\infty$, then
+\[
+\int_a^b f(x)\,dx := \lim_{t\downarrow a}\int_t^b f(x)\,dx.
+\]
+\item If $f$ has a discontinuity at $c\in(a,b)$ and both $\int_a^c f$ and $\int_c^b f$ (as improper integrals) converge, then
+\[
+\int_a^b f(x)\,dx := \int_a^c f(x)\,dx + \int_c^b f(x)\,dx.
+\]
+\end{enumerate}
+The integral converges if the limit(s) exist and are finite; otherwise it diverges.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Type 2 at an endpoint}]
+Evaluate $\displaystyle \int_{2}^{5}\frac{1}{\sqrt{x-2}}\,dx$.
+
+\textbf{Solution.}
+This is improper at $x=2$. By definition,
+\[
+\int_{2}^{5}\frac{1}{\sqrt{x-2}}\,dx=\lim_{t\downarrow 2}\int_{t}^{5}\frac{1}{\sqrt{x-2}}\,dx.
+\]
+Let $u=x-2$ so $du=dx$. Then $\int u^{-1/2}\,du = 2u^{1/2}$, hence
+\[
+\int_{t}^{5}\frac{1}{\sqrt{x-2}}\,dx
+= \left[2\sqrt{x-2}\right]_{t}^{5}
+=2\sqrt{3}-2\sqrt{t-2}.
+\]
+Taking $t\downarrow 2$ gives $2\sqrt{t-2}\to 0$, so the integral converges and equals $2\sqrt{3}$.
+\end{examplebox}
+
+\begin{commonmistake}[title={Common Mistake: Treating $\int_{-\infty}^{\infty}$ as a symmetric single limit}]
+The definition is \emph{not} $\lim_{A\to\infty}\int_{-A}^{A} f(x)\,dx$.
+
+A two-sided improper integral converges only if \textbf{both} one-sided integrals converge:
+\[
+\int_{-\infty}^{\infty} f := \int_{-\infty}^{a} f + \int_a^{\infty} f,
+\quad \text{with both terms finite.}
+\]
+Symmetric cancellation can produce a finite number even when the improper integral diverges (see extension below).
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: Improper integrals (non-negotiable workflow)}]
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+\item Identify why it is improper (infinite interval / unbounded integrand / interior singularity).
+\item Rewrite using the correct one-sided limit(s) \emph{before} manipulating.
+\item Decide convergence; only then compute the finite value (if it converges).
+\end{enumerate}
+\end{examtip}
+
+\begin{extension}[title={Extension (Tutorial 3, Question 2, Method 1)}]
+\textbf{Syllabus link:} Chapter 1 — \emph{§1.6 Improper Integrals}.\\
+\textbf{Proposition (independence of split point).}
+
+Assume that for every real $c$, both $\int_{-\infty}^{c} f(x)\,dx$ and $\int_{c}^{\infty} f(x)\,dx$ converge.
+Then for any real $a,b$,
+\[
+\int_{-\infty}^{a} f(x)\,dx+\int_{a}^{\infty} f(x)\,dx
+=
+\int_{-\infty}^{b} f(x)\,dx+\int_{b}^{\infty} f(x)\,dx.
+\]
+
+\textbf{Proof.} WLOG let $a<b$. For $M>0$, finite additivity gives
+\[
+\int_{-M}^{b} f=\int_{-M}^{a} f+\int_{a}^{b} f.
+\]
+Take $M\to\infty$ (the limits exist by hypothesis) to obtain
+\[
+\int_{-\infty}^{b} f=\int_{-\infty}^{a} f+\int_{a}^{b} f. \tag{1}
+\]
+Similarly, for $N>0$, finite additivity gives $\int_{a}^{N} f=\int_{a}^{b} f+\int_{b}^{N} f$; letting $N\to\infty$ yields
+\[
+\int_{a}^{\infty} f=\int_{a}^{b} f+\int_{b}^{\infty} f. \tag{2}
+\]
+Rearrange (2) as $\int_{b}^{\infty} f=\int_{a}^{\infty} f-\int_{a}^{b} f$ and add to (1):
+\[
+\int_{-\infty}^{b} f+\int_{b}^{\infty} f
+=\left(\int_{-\infty}^{a} f+\int_{a}^{b} f\right)+\left(\int_{a}^{\infty} f-\int_{a}^{b} f\right)
+=\int_{-\infty}^{a} f+\int_{a}^{\infty} f.
+\]
+\end{extension}
+
+\begin{extension}[title={Extension (Beyond Syllabus: Cauchy principal value vs.\ improper integral)}]
+\textbf{Syllabus link:} Chapter 1 — \emph{§1.6 Improper Integrals}.\\
+\textbf{Definition.} For integrable $f$ on every finite interval, the \emph{Cauchy principal value} is
+\[
+\operatorname{PV}\!\int_{-\infty}^{\infty} f(x)\,dx := \lim_{A\to\infty}\int_{-A}^{A} f(x)\,dx
+\quad\text{(if the limit exists).}
+\]
+This is \emph{not} the same as the improper integral, which requires both $\int_{-\infty}^{0} f$ and $\int_{0}^{\infty} f$ to converge (finite).\\
+\textbf{Example (odd integrand with finite PV but divergent improper integral).}
+
+Let $f(x)=\frac{x}{1+x^2}$ (odd, continuous on $\mathbb{R}$).
+Compute one-sided integrals:
+\[
+\int_{0}^{A}\frac{x}{1+x^2}\,dx=\left[\frac12\ln(1+x^2)\right]_{0}^{A}=\frac12\ln(1+A^2)\xrightarrow[A\to\infty]{}\infty,
+\]
+\[
+\int_{-A}^{0}\frac{x}{1+x^2}\,dx=\left[\frac12\ln(1+x^2)\right]_{-A}^{0}= -\frac12\ln(1+A^2)\xrightarrow[A\to\infty]{}-\infty.
+\]
+Hence the improper integral $\int_{-\infty}^{\infty} f$ \emph{does not converge} (one-sided integrals are not both finite).
+
+But for every $A>0$, oddness gives $\int_{-A}^{A} f(x)\,dx=0$, so
+\[
+\operatorname{PV}\!\int_{-\infty}^{\infty}\frac{x}{1+x^2}\,dx=\lim_{A\to\infty}0=0.
+\]
+\end{extension}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% The FTC section has been enhanced with:
+% - A motivational paragraph explaining *why* the FTC is needed (bridging rates and totals).
+% - Intuition paragraphs *before* each part, explaining the geometric/physical reasoning.
+% - Detailed proof annotations with step-by-step strategy and "why this works" commentary.
+% - Explicit discussion of continuity hypothesis and dummy-variable conventions.
+% - Additional worked examples with FTC Part I (Chain Rule, Leibniz rule) and Part II (absolute value, sign-change splitting).
+% - Common mistakes and exam tips focusing on when to use Part I vs Part II, and how to handle variable limits.
+% - All existing content preserved; only explanatory material and examples added.
+%
+% User request: "add explanation to the FTC part especially, avoid giving the definitions directly without any explanation on why are they like that"
+% This has been addressed by:
+%   1. Adding a "Motivation" subsection before the FTC theorems.
+%   2. Including "Intuition behind Part I" and "Intuition behind Part II" paragraphs that explain the geometric/physical meaning *before* the formal statements.
+%   3. Annotating the proofs with strategy comments and step-by-step reasoning.
+%   4. Adding "Why is X required?" discussions after each theorem.
+%   5. Including multiple worked examples demonstrating Chain Rule, Leibniz rule, absolute values, and sanity checks.
+%==================================================

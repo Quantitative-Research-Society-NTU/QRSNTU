@@ -1,0 +1,985 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Midterm Practice 2 (Solutions)}
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+
+
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode - \DocType}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This practice paper covers core tools from consumer theory and asset pricing:
+\begin{itemize}[leftmargin=*]
+  \item revealed preference ($R$, $P$, $R^*$), WARP and GARP;
+  \item labour--leisure choice and Slutsky decomposition under a wage change;
+  \item present value, NPV, perpetuities, and arbitrage logic;
+  \item FOSD/SSD for discrete contingent consumption bundles;
+  \item state prices, no-arbitrage pricing, and replication;
+  \item Marshallian demand and Slutsky decomposition for Cobb--Douglas-type preferences;
+  \item intertemporal choice with borrowing/saving;
+  \item optimal state-contingent consumption under expected utility.
+\end{itemize}
+
+\section*{Instructions}
+\begin{itemize}
+\item This exam consists of 5 short questions (8 marks each) and 3 long questions (20 marks each).
+\item Total marks: 100.
+\item Show all working clearly. Answers without justification may receive zero marks.
+\item The notation $(x_1, x_2)$ denotes a bundle of goods 1 and 2.
+\item The notation $(p_1, p_2)$ denotes prices of goods 1 and 2.
+\end{itemize}
+
+\bigskip
+
+\newpage
+\part{Short Questions}
+
+\section*{Question 1 (8 marks)}
+
+Alice maximizes a strictly increasing utility function. You observe the following choices:
+\begin{itemize}
+\item At prices $p^1=(2,1)$, she buys $x^1=(4,2)$
+\item At prices $p^2=(1,2)$, she buys $x^2=(2,4)$
+\item At prices $p^3=(1,1)$, she buys $x^3=(3,3)$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Compute expenditure in each observation.
+\item (3 marks) Determine all nontrivial direct revealed preference relations and strict direct revealed preference relations among $x^1,x^2,x^3$.
+\item (3 marks) Does the data satisfy WARP? Does it satisfy GARP? Clearly justify using $R$, $P$, and (if needed) $R^*$.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $m^t=p^t\cdot x^t$.
+\[
+\begin{aligned}
+m^1&=(2,1)\cdot(4,2)=10,\\
+m^2&=(1,2)\cdot(2,4)=10,\\
+m^3&=(1,1)\cdot(3,3)=6.
+\end{aligned}
+\]
+Hence
+\[
+\boxed{m^1=10,\quad m^2=10,\quad m^3=6.}
+\]
+
+\item Recall
+\[
+x^t R x^s \iff p^t\cdot x^s\le p^t\cdot x^t,
+\qquad
+x^t P x^s \iff p^t\cdot x^s< p^t\cdot x^t.
+\]
+Compute cross-costs:
+\[
+\begin{array}{c|ccc}
+ & x^1 & x^2 & x^3 \\
+\hline
+p^1\cdot(\cdot) & 10 & 8 & 9 \\
+p^2\cdot(\cdot) & 8 & 10 & 9 \\
+p^3\cdot(\cdot) & 6 & 6 & 6
+\end{array}
+\]
+Therefore the nontrivial direct revealed preference relations are
+\[
+\boxed{x^1 R x^2,\; x^1 R x^3,\; x^2 R x^1,\; x^2 R x^3,\; x^3 R x^1,\; x^3 R x^2.}
+\]
+The strict direct revealed preference relations are those with strict inequality:
+\[
+\boxed{x^1 P x^2,\; x^1 P x^3,\; x^2 P x^1,\; x^2 P x^3.}
+\]
+At observation 3, $x^1$ and $x^2$ are only weakly affordable (equal cost), so $x^3Rx^1$ and $x^3Rx^2$ but not strict.
+
+\item \textbf{WARP:} WARP is violated if there exist $t\ne s$ such that $x^tRx^s$ and $x^sP x^t$.
+Here,
+\[
+x^1Rx^2 \quad\text{and}\quad x^2Px^1,
+\]
+so WARP fails. (Equivalently, $x^2Rx^1$ and $x^1Px^2$ also violates WARP.)
+Thus
+\[
+\boxed{\text{WARP is violated.}}
+\]
+
+\medskip
+\noindent
+\textbf{GARP:} Since WARP fails, GARP also fails (a WARP violation is a special case of a GARP violation). Explicitly, because $x^1Rx^2$ (hence $x^1R^*x^2$) and
+\[
+p^2\cdot x^1 = 8 < 10 = p^2\cdot x^2,
+\]
+GARP is violated.
+Hence
+\[
+\boxed{\text{GARP is violated.}}
+\]
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 2 (8 marks)}
+
+A worker has utility
+\[
+U(c,\ell)=c^{1/2}\ell^{1/2},
+\]
+where $c$ is consumption and $\ell$ is leisure (hours). The worker has 16 hours per day, wage $w>0$, and non-labour income $y=40$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write the budget constraint and derive the optimal labour supply function $L^*(w)$ (hours worked), assuming an interior solution.
+\item (2 marks) Compute optimal labour supply and consumption when $w=10$.
+\item (3 marks) The wage rises to $w'=20$. Using the Slutsky method (compensating non-labour income so the original bundle remains affordable), compute the substitution effect and income effect on labour supply.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Let total time be $T=16$, labour hours be $L$, and leisure be $\ell=T-L=16-L$.
+Consumption is
+\[
+c=wL+y=w(16-\ell)+40.
+\]
+Equivalently, the budget in $(c,\ell)$-space is
+\[
+c+w\ell = 16w+40.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since $U(c,\ell)=c^{1/2}\ell^{1/2}$ is Cobb--Douglas, an interior optimum spends half of ``full income'' on each good in value terms:
+\[
+c^* = \frac{16w+40}{2},
+\qquad
+w\ell^* = \frac{16w+40}{2}.
+\]
+Hence
+\[
+\ell^* = \frac{16w+40}{2w}=8+\frac{20}{w}.
+\]
+Therefore labour supply is
+\[
+L^*(w)=16-\ell^*=16-\left(8+\frac{20}{w}\right)=8-\frac{20}{w}.
+\]
+So (for an interior solution) 
+\[
+\boxed{L^*(w)=8-\frac{20}{w}.}
+\]
+(Interior requires $0<L^*(w)<16$, which holds in particular for $w=10,20$.)
+
+\item At $w=10$,
+\[
+L^*(10)=8-\frac{20}{10}=6.
+\]
+Then leisure is $\ell^*=10$, and consumption is
+\[
+c^*=10\cdot 6+40=100.
+\]
+Hence
+\[
+\boxed{L^*=6,\quad c^*=100.}
+\]
+
+\item Original optimum at $w=10$ is $(L^0,c^0)=(6,100)$, equivalently $\ell^0=10$.
+When wage rises to $w'=20$, choose compensated non-labour income $y^s$ so that the \emph{original bundle} remains affordable:
+\[
+c^0 = w' L^0 + y^s.
+\]
+Thus
+\[
+100 = 20\cdot 6 + y^s \Rightarrow y^s=-20.
+\]
+So the compensated labour supply at $w'=20$ is
+\[
+L^s = 8 - \frac{y^s}{2w'} = 8 - \frac{-20}{40} = 8.5,
+\]
+using the general formula $L^*(w,y)=8-\frac{y}{2w}$.
+(Equivalently, from $L^*(w)=8-20/w$ after replacing $40$ by $y$.)
+
+The actual post-change labour supply (with actual non-labour income $y=40$) is
+\[
+L^1 = 8-\frac{20}{20}=7.
+\]
+Therefore:
+\[
+\Delta L^{\,s}=L^s-L^0 = 8.5-6 = 2.5,
+\qquad
+\Delta L^{\,n}=L^1-L^s = 7-8.5 = -1.5.
+\]
+Hence
+\[
+\boxed{\Delta L^{\,s}=+2.5,\qquad \Delta L^{\,n}=-1.5.}
+\]
+The substitution effect increases labour supply; the income effect reduces labour supply.
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 3 (8 marks)}
+
+Consider a three-period economy $(t=0,1,2)$ with interest rate $r=0.25$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Find the present value at $t=0$ of the cashflow stream $(0,125,156.25)$.
+\item (3 marks) A project costs $210$ today and pays $(0,50,250)$ in periods $(0,1,2)$ respectively (so the $t=0$ component is the cost). Compute its NPV and state whether it should be accepted.
+\item (3 marks) A perpetuity pays $30$ every period starting from $t=1$. If its market price is $130$, determine whether an arbitrage opportunity exists (assume short selling is allowed) and describe a valid arbitrage strategy.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Present value:
+\[
+PV = \frac{125}{1.25}+\frac{156.25}{(1.25)^2}=100+100=200.
+\]
+So
+\[
+\boxed{PV=200.}
+\]
+
+\item The project has cashflow $(-210,50,250)$. Its present value of payoffs (excluding the initial cost) is
+\[
+\frac{50}{1.25}+\frac{250}{(1.25)^2}=40+160=200.
+\]
+Thus
+\[
+NPV = -210+200 = -10.
+\]
+Hence
+\[
+\boxed{NPV=-10,\ \text{so the project should be rejected.}}
+\]
+
+\item The no-arbitrage price of a perpetuity paying $30$ from $t=1$ onward is
+\[
+P^* = \frac{30}{r}=\frac{30}{0.25}=120.
+\]
+The market price is $130>120$, so the perpetuity is overpriced.
+
+An arbitrage strategy is:
+\begin{itemize}[leftmargin=*]
+\item short 1 unit of the perpetuity (receive $130$ today);
+\item use $120$ to buy a self-financing risk-free fund that generates $30$ each period forever (equivalently, invest $120$ at 25\% and pay interest only);
+\item pocket the remaining $10$ today.
+\end{itemize}
+The future liability from the short perpetuity is exactly covered by the $30$ cashflow each period from the fund.
+Thus
+\[
+\boxed{\text{Yes, arbitrage exists: short the perpetuity and lock in }10\text{ today.}}
+\]
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 4 (8 marks)}
+
+There are four equally likely states. Consider two contingent consumption bundles (written in ascending order of states):
+\[
+x=(2,4,8,10),\qquad y=(1,5,7,11).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) Compute $\mathbb E[x]$ and $\mathbb E[y]$.
+\item (3 marks) Does $x$ first-order stochastically dominate $y$? Does $y$ first-order stochastically dominate $x$? Justify using CDF comparisons at the relevant support points.
+\item (3 marks) Determine whether $x$ second-order stochastically dominates $y$ (or vice versa). Use an appropriate discrete SSD test.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since all states are equally likely,
+\[
+\mathbb E[x]=\frac{2+4+8+10}{4}=\frac{24}{4}=6,
+\qquad
+\mathbb E[y]=\frac{1+5+7+11}{4}=\frac{24}{4}=6.
+\]
+Hence
+\[
+\boxed{\mathbb E[x]=\mathbb E[y]=6.}
+\]
+
+\item \textbf{FOSD test via CDFs.}
+Let $F_x$ and $F_y$ be the CDFs of the equally weighted lotteries induced by $x$ and $y$.
+For FOSD, we need one CDF to be everywhere weakly below the other.
+
+Check a few support points where ordering can change:
+\begin{itemize}[leftmargin=*]
+\item At $c=4.5$,
+\[
+F_x(4.5)=\Pr(x\le 4.5)=\frac{2}{4}=\frac12,
+\qquad
+F_y(4.5)=\Pr(y\le 4.5)=\frac{1}{4}.
+\]
+So $F_x(4.5)>F_y(4.5)$.
+
+\item At $c=7.5$,
+\[
+F_x(7.5)=\Pr(x\le 7.5)=\frac{2}{4}=\frac12,
+\qquad
+F_y(7.5)=\Pr(y\le 7.5)=\frac{3}{4}.
+\]
+So $F_x(7.5)<F_y(7.5)$.
+\end{itemize}
+The CDFs cross, so neither lottery FOSD-dominates the other.
+Thus
+\[
+\boxed{\text{Neither }x\text{ FOSD } y\text{ nor }y\text{ FOSD } x.}
+\]
+
+\item \textbf{SSD test (equal probabilities, sorted outcomes).}
+For equally likely outcomes sorted in ascending order, $x$ SSD-dominates $y$ iff the cumulative sums of the ordered outcomes satisfy
+\[
+\sum_{i=1}^k x_{(i)} \ge \sum_{i=1}^k y_{(i)}\quad (k=1,2,3),
+\]
+and total sums are equal.
+Here the outcomes are already sorted:
+\[
+\begin{aligned}
+&\text{For }x: &&2,\ 2+4=6,\ 2+4+8=14,\ 24,\\
+&\text{For }y: &&1,\ 1+5=6,\ 1+5+7=13,\ 24.
+\end{aligned}
+\]
+Hence
+\[
+2\ge 1,\qquad 6=6,\qquad 14\ge 13,
+\]
+and the totals are equal ($24=24$). Therefore
+\[
+\boxed{x\ \text{second-order stochastically dominates}\ y.}
+\]
+(Equivalently, all risk-averse expected-utility consumers weakly prefer $x$ to $y$.)
+\end{enumerate}
+
+\bigskip
+
+\section*{Question 5 (8 marks)}
+
+There are two states of nature, state 1 and state 2. Two assets are traded:
+\begin{itemize}
+\item Asset A pays $(4,0)$ and costs $1.00$
+\item Asset B pays $(1,2)$ and costs $1.25$
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Find the state price vector $(q_1,q_2)$. Also find the price and gross return of a risk-free asset paying $(1,1)$.
+\item (2 marks) What is the no-arbitrage price of the contingent claim paying $(3,5)$?
+\item (3 marks) A new asset pays $(2,1)$. What is its no-arbitrage price? If its market price is $0.90$, describe an arbitrage strategy.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Let $q=(q_1,q_2)$ denote the state price vector. No-arbitrage implies each asset price equals $q$ dot payoff.
+
+\begin{enumerate}[label=(\alph*)]
+\item From Asset A:
+\[
+4q_1+0q_2=1.00 \Rightarrow q_1=0.25.
+\]
+From Asset B:
+\[
+q_1+2q_2=1.25 \Rightarrow 0.25+2q_2=1.25 \Rightarrow q_2=0.50.
+\]
+Therefore
+\[
+\boxed{(q_1,q_2)=(0.25,0.50).}
+\]
+A risk-free payoff $(1,1)$ has price
+\[
+p_f=q_1+q_2=0.75.
+\]
+Hence the gross risk-free return is
+\[
+R_f=\frac{1}{p_f}=\frac{1}{0.75}=\frac43.
+\]
+So
+\[
+\boxed{p_f=0.75,\qquad R_f=\frac43.}
+\]
+
+\item Price of claim $(3,5)$:
+\[
+p=3q_1+5q_2=3(0.25)+5(0.50)=0.75+2.5=3.25.
+\]
+Hence
+\[
+\boxed{p=3.25.}
+\]
+
+\item No-arbitrage price of payoff $(2,1)$ is
+\[
+p^*=2q_1+q_2=2(0.25)+0.50=1.00.
+\]
+So
+\[
+\boxed{p^*=1.00.}
+\]
+If the market price is $0.90$, the asset is underpriced.
+A valid arbitrage strategy is:
+\begin{itemize}[leftmargin=*]
+\item buy 1 unit of the new asset for $0.90$;
+\item short the replicating portfolio for payoff $(2,1)$ (which costs $1.00$).
+\end{itemize}
+One replication of $(2,1)$ using A and B is obtained by solving
+\[
+\theta_A(4,0)+\theta_B(1,2)=(2,1).
+\]
+From state 2: $2\theta_B=1\Rightarrow \theta_B=\frac12$.
+From state 1: $4\theta_A+\frac12=2\Rightarrow \theta_A=\frac38$.
+Thus the replica costs
+\[
+\frac38(1.00)+\frac12(1.25)=0.375+0.625=1.00.
+\]
+Shorting this replica generates $1.00$ today; buying the underpriced new asset costs $0.90$; future payoffs cancel exactly.
+Initial arbitrage profit:
+\[
+1.00-0.90=\boxed{0.10}.
+\]
+\end{enumerate}
+
+\newpage
+\part{Long Questions}
+
+\section*{Question 6 (20 marks)}
+
+Consider a consumer with utility function
+\[
+U(x_1,x_2)=\ln x_1+2\ln x_2,
+\]
+with $x_1>0$ and $x_2>0$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (4 marks) Compute $MU_1$, $MU_2$, and the marginal rate of substitution $MRS_{1,2}$. State the interior first-order condition for utility maximization at prices $(p_1,p_2)$.
+\item (5 marks) Derive the Marshallian demand functions $x_1(p_1,p_2,m)$ and $x_2(p_1,p_2,m)$.
+\item (4 marks) The consumer has endowment $\omega=(9,6)$ and faces prices $(p_1,p_2)=(2,3)$. Compute the value of the endowment, the optimal consumption bundle, and whether the consumer is a net buyer or seller of each good.
+\item (3 marks) Verify Walras' Law at the bundle obtained in part (c).
+\item (4 marks) Holding nominal income fixed at the value from part (c), suppose the price of good 1 rises from $p_1=2$ to $p_1'=3$ (with $p_2=3$ unchanged). Using the Slutsky decomposition for good 1, compute the substitution effect and income effect, and state whether good 1 is normal.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Marginal utilities:
+\[
+MU_1=\frac{\partial U}{\partial x_1}=\frac{1}{x_1},
+\qquad
+MU_2=\frac{\partial U}{\partial x_2}=\frac{2}{x_2}.
+\]
+Hence the marginal rate of substitution of good 1 for good 2 is
+\[
+MRS_{1,2}=\frac{MU_1}{MU_2} = \frac{1/x_1}{2/x_2}=\frac{x_2}{2x_1}.
+\]
+At an interior optimum,
+\[
+MRS_{1,2}=\frac{p_1}{p_2}
+\qquad\Longleftrightarrow\qquad
+\frac{x_2}{2x_1}=\frac{p_1}{p_2}.
+\]
+So
+\[
+\boxed{MU_1=\frac1{x_1},\ \ MU_2=\frac2{x_2},\ \ MRS_{1,2}=\frac{x_2}{2x_1},\ \text{and } \frac{x_2}{2x_1}=\frac{p_1}{p_2}.}
+\]
+
+\item Solve
+\[
+\max_{x_1,x_2>0} \ln x_1+2\ln x_2
+\quad\text{s.t.}\quad p_1x_1+p_2x_2=m.
+\]
+Using a Lagrangian,
+\[
+\mathcal L=\ln x_1+2\ln x_2+\lambda(m-p_1x_1-p_2x_2).
+\]
+FOCs:
+\[
+\frac1{x_1}=\lambda p_1,
+\qquad
+\frac2{x_2}=\lambda p_2.
+\]
+Thus
+\[
+x_1=\frac{1}{\lambda p_1},
+\qquad
+x_2=\frac{2}{\lambda p_2}.
+\]
+Substitute into the budget:
+\[
+p_1\left(\frac{1}{\lambda p_1}\right)+p_2\left(\frac{2}{\lambda p_2}\right)=m
+\Rightarrow \frac{3}{\lambda}=m
+\Rightarrow \lambda=\frac{3}{m}.
+\]
+Therefore
+\[
+\boxed{x_1(p_1,p_2,m)=\frac{m}{3p_1},\qquad x_2(p_1,p_2,m)=\frac{2m}{3p_2}.}
+\]
+
+\item Endowment value at prices $(2,3)$:
+\[
+m=p\cdot\omega = 2\cdot 9 + 3\cdot 6 = 18+18=36.
+\]
+Using the demands,
+\[
+x_1^*=\frac{36}{3\cdot 2}=6,
+\qquad
+x_2^*=\frac{2\cdot 36}{3\cdot 3}=8.
+\]
+Hence
+\[
+\boxed{m=36,\qquad x^*=(6,8).}
+\]
+Net trades relative to endowment $\omega=(9,6)$:
+\[
+x^*-\omega = (6-9,8-6)=(-3,2).
+\]
+So the consumer is a net \textbf{seller} of good 1 (sells 3 units) and a net \textbf{buyer} of good 2 (buys 2 units).
+
+\item Walras' Law requires
+\[
+p\cdot x(p,m)=m.
+\]
+At the bundle from part (c),
+\[
+p\cdot x^*=2\cdot 6 + 3\cdot 8 = 12+24=36 = m.
+\]
+Thus
+\[
+\boxed{p\cdot x^*=p\cdot\omega=36.}
+\]
+Walras' Law holds.
+
+\item Original prices: $p=(2,3)$, income $m=36$.
+Old Marshallian demand for good 1:
+\[
+x_1^0=\frac{36}{3\cdot 2}=6.
+\]
+New prices: $p'=(3,3)$ with income still fixed at $m=36$.
+New Marshallian demand:
+\[
+x_1^1=\frac{36}{3\cdot 3}=4.
+\]
+Total change:
+\[
+\Delta x_1 = x_1^1-x_1^0 = 4-6=-2.
+\]
+
+\medskip
+\noindent
+For the Slutsky decomposition, compensate income so that the original bundle $x^0=(6,8)$ is affordable at new prices:
+\[
+m^s = p'\cdot x^0 = 3\cdot 6 + 3\cdot 8 = 42.
+\]
+Compensated (Slutsky) demand for good 1 at $(p',m^s)$ is
+\[
+x_1^s = \frac{42}{3\cdot 3}=\frac{42}{9}=\frac{14}{3}.
+\]
+Hence
+\[
+\Delta x_1^{\,s}=x_1^s-x_1^0 = \frac{14}{3}-6 = -\frac{4}{3},
+\]
+and
+\[
+\Delta x_1^{\,n}=x_1^1-x_1^s = 4-\frac{14}{3}= -\frac{2}{3}.
+\]
+So
+\[
+\boxed{\Delta x_1^{\,s}=-\frac{4}{3},\qquad \Delta x_1^{\,n}=-\frac{2}{3}.}
+\]
+Because $x_1=\dfrac{m}{3p_1}$ increases with income $m$, good 1 is normal. Equivalently, the income effect above has the normal-good sign (a fall in real income reduces demand for good 1).
+\end{enumerate}
+
+\medskip
+
+\newpage
+\section*{Question 7 (20 marks)}
+
+Consider a two-period intertemporal consumption problem with utility
+\[
+U(x_0,x_1)=\ln x_0+\ln x_1,
+\]
+where $x_0$ is period-0 consumption and $x_1$ is period-1 consumption. The consumer can borrow or save at interest rate $r$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (3 marks) Write the intertemporal budget constraint in present-value form and in future-value form.
+\item (5 marks) Let $m$ denote the present value of lifetime income. Derive the optimal demands $x_0^*(r,m)$ and $x_1^*(r,m)$.
+\item (4 marks) Suppose the income stream is $(y_0,y_1)=(18,30)$ and $r=0.25$. Compute the present value of income, the optimal consumption bundle, and whether the consumer is a net borrower or net saver in period 0 (and by how much).
+\item (4 marks) Verify that the optimal bundle from part (c) satisfies the budget constraint exactly.
+\item (4 marks) Now suppose the interest rate rises to $r'=0.50$. Using Slutsky decomposition for period-0 consumption $x_0$, compute the Slutsky compensated present value $m^s$, the substitution effect, and the income effect. Is period-0 consumption normal?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let lifetime income be $(y_0,y_1)$. The present-value budget constraint is
+\[
+x_0+\frac{x_1}{1+r}=y_0+\frac{y_1}{1+r}.
+\]
+If we define present value income
+\[
+m\coloneqq y_0+\frac{y_1}{1+r},
+\]
+then the PV budget is simply
+\[
+\boxed{x_0+\frac{x_1}{1+r}=m.}
+\]
+Multiplying by $(1+r)$ gives the future-value form:
+\[
+\boxed{(1+r)x_0+x_1=(1+r)y_0+y_1.}
+\]
+
+\item Solve
+\[
+\max_{x_0,x_1>0} \ln x_0+\ln x_1
+\quad\text{s.t.}\quad x_0+\frac{x_1}{1+r}=m.
+\]
+Lagrangian:
+\[
+\mathcal L = \ln x_0+\ln x_1+\lambda\left(m-x_0-\frac{x_1}{1+r}\right).
+\]
+FOCs:
+\[
+\frac{1}{x_0}=\lambda,
+\qquad
+\frac{1}{x_1}=\frac{\lambda}{1+r}.
+\]
+Hence
+\[
+x_1=(1+r)x_0.
+\]
+Substitute into the budget:
+\[
+x_0+\frac{(1+r)x_0}{1+r}=2x_0=m
+\Rightarrow x_0^*=\frac{m}{2}.
+\]
+Then
+\[
+x_1^*=(1+r)x_0^*=\frac{(1+r)m}{2}.
+\]
+Therefore
+\[
+\boxed{x_0^*(r,m)=\frac{m}{2},\qquad x_1^*(r,m)=\frac{(1+r)m}{2}.}
+\]
+
+\item With $(y_0,y_1)=(18,30)$ and $r=0.25$,
+\[
+m=18+\frac{30}{1.25}=18+24=42.
+\]
+Thus optimal consumption is
+\[
+x_0^*=\frac{42}{2}=21,
+\qquad
+x_1^*=\frac{1.25\cdot 42}{2}=26.25=\frac{105}{4}.
+\]
+Hence
+\[
+\boxed{m=42,\qquad (x_0^*,x_1^*)=(21,26.25).}
+\]
+Since $x_0^*=21>y_0=18$, the consumer consumes more than current income in period 0 and therefore \textbf{borrows}:
+\[
+\boxed{\text{Borrowing in period 0 }=x_0^*-y_0=21-18=3.}
+\]
+
+\item Verify the PV budget:
+\[
+x_0^*+\frac{x_1^*}{1+r}=21+\frac{26.25}{1.25}=21+21=42=m.
+\]
+So the constraint holds exactly.
+Equivalently, in FV form:
+\[
+1.25(21)+26.25 = 26.25+26.25 = 52.5,
+\]
+while
+\[
+1.25(18)+30 = 22.5+30 = 52.5.
+\]
+Hence
+\[
+\boxed{\text{Budget constraint satisfied exactly.}}
+\]
+
+\item Old optimum (from part (c)) at $r=0.25$ is
+\[
+(x_0^0,x_1^0)=\left(21,\frac{105}{4}\right).
+\]
+When the interest rate rises to $r'=0.50$, the \emph{actual} present value of income becomes
+\[
+m' = 18+\frac{30}{1.5}=18+20=38.
+\]
+Thus actual new period-0 demand is
+\[
+x_0^1 = \frac{m'}{2}=19.
+\]
+
+For the Slutsky decomposition, choose compensated present value $m^s$ so that the old bundle remains affordable at the new interest rate:
+\[
+m^s = x_0^0 + \frac{x_1^0}{1+r'} = 21 + \frac{105/4}{1.5}
+=21+\frac{105}{6}=21+17.5=38.5=\frac{77}{2}.
+\]
+So the compensated demand is
+\[
+x_0^s = \frac{m^s}{2} = \frac{77}{4}=19.25.
+\]
+Therefore
+\[
+\Delta x_0^{\,s}=x_0^s-x_0^0 = \frac{77}{4}-21 = -\frac{7}{4}=-1.75,
+\]
+and
+\[
+\Delta x_0^{\,n}=x_0^1-x_0^s = 19-19.25 = -\frac14=-0.25.
+\]
+Hence
+\[
+\boxed{m^s=38.5,\qquad \Delta x_0^{\,s}=-1.75,\qquad \Delta x_0^{\,n}=-0.25.}
+\]
+Since $x_0^*(r,m)=m/2$ is increasing in $m$, period-0 consumption is normal.
+\end{enumerate}
+
+\bigskip
+
+\newpage
+\section*{Question 8 (20 marks)}
+
+There are three states of nature $s=1,2,3$. Three traded assets have the following state payoffs and prices:
+\[
+\begin{array}{c|ccc|c}
+\text{Asset} & s=1 & s=2 & s=3 & \text{Price} \\
+\hline
+1 & 2 & 0 & 0 & 0.40 \\
+2 & 1 & 1 & 0 & 0.50 \\
+3 & 1 & 1 & 1 & 0.90
+\end{array}
+\]
+
+A consumer has expected utility
+\[
+U(x_1,x_2,x_3)=\frac12\ln x_1+\frac13\ln x_2+\frac16\ln x_3,
+\]
+and endowment $\omega=(4,2,1)$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (5 marks) Find the state price vector $(q_1,q_2,q_3)$. Then compute the price and gross return of the risk-free payoff $(1,1,1)$.
+\item (3 marks) Compute the value of the endowment and the no-arbitrage price of the contingent claim $d=(3,1,2)$.
+\item (6 marks) Using the state-price budget constraint, solve for the consumer's optimal contingent consumption bundle $(x_1^*,x_2^*,x_3^*)$.
+\item (3 marks) Find a portfolio $(\theta_1,\theta_2,\theta_3)$ of the traded assets that replicates the optimal bundle from part (c), and verify that its cost equals the state-price cost of the bundle.
+\item (3 marks) Suppose the claim $d=(3,1,2)$ from part (b) is instead traded at price $1.80$. Is there an arbitrage opportunity? If yes, describe one and compute the initial arbitrage profit.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Let $q=(q_1,q_2,q_3)$ be the state price vector.
+
+\begin{enumerate}[label=(\alph*)]
+\item Use no-arbitrage pricing on the three traded assets:
+\[
+2q_1=0.40,\qquad q_1+q_2=0.50,\qquad q_1+q_2+q_3=0.90.
+\]
+Solve sequentially:
+\[
+q_1=0.20,
+\qquad q_2=0.50-0.20=0.30,
+\qquad q_3=0.90-0.50=0.40.
+\]
+Hence
+\[
+\boxed{(q_1,q_2,q_3)=(0.20,0.30,0.40).}
+\]
+The risk-free payoff $(1,1,1)$ has price
+\[
+p_f=q_1+q_2+q_3=0.90.
+\]
+Therefore its gross return is
+\[
+R_f=\frac{1}{p_f}=\frac{1}{0.90}=\frac{10}{9}.
+\]
+So
+\[
+\boxed{p_f=0.90,\qquad R_f=\frac{10}{9}.}
+\]
+
+\item Endowment value:
+\[
+m=q\cdot\omega = 0.20(4)+0.30(2)+0.40(1)=0.8+0.6+0.4=1.8.
+\]
+So
+\[
+\boxed{q\cdot\omega=1.8.}
+\]
+The contingent claim $d=(3,1,2)$ has no-arbitrage price
+\[
+p_d=q\cdot d = 0.20(3)+0.30(1)+0.40(2)=0.6+0.3+0.8=1.7.
+\]
+Thus
+\[
+\boxed{p_d^*=1.70.}
+\]
+
+\item The state-price budget constraint is
+\[
+0.20x_1+0.30x_2+0.40x_3 = m = 1.8.
+\]
+Maximize
+\[
+\frac12\ln x_1+\frac13\ln x_2+\frac16\ln x_3
+\]
+subject to that budget. Using a Lagrangian,
+\[
+\mathcal L = \frac12\ln x_1+\frac13\ln x_2+\frac16\ln x_3+\lambda\big(1.8-0.2x_1-0.3x_2-0.4x_3\big).
+\]
+FOCs:
+\[
+\frac{1/2}{x_1}=0.2\lambda,
+\qquad
+\frac{1/3}{x_2}=0.3\lambda,
+\qquad
+\frac{1/6}{x_3}=0.4\lambda.
+\]
+Equivalently, state expenditures follow the utility weights (which sum to 1):
+\[
+q_1x_1=\frac12 m,\qquad q_2x_2=\frac13 m,\qquad q_3x_3=\frac16 m.
+\]
+Since $m=1.8$,
+\[
+q_1x_1=0.9,\qquad q_2x_2=0.6,\qquad q_3x_3=0.3.
+\]
+Hence
+\[
+x_1^*=\frac{0.9}{0.2}=4.5,\qquad x_2^*=\frac{0.6}{0.3}=2,\qquad x_3^*=\frac{0.3}{0.4}=0.75.
+\]
+Therefore
+\[
+\boxed{(x_1^*,x_2^*,x_3^*)=\left(4.5,2,0.75\right)=\left(\frac92,2,\frac34\right).}
+\]
+
+\item Let asset holdings be $(\theta_1,\theta_2,\theta_3)$. Their state payoff is
+\[
+\theta_1(2,0,0)+\theta_2(1,1,0)+\theta_3(1,1,1).
+\]
+Set this equal to the target bundle $\left(\frac92,2,\frac34\right)$:
+\[
+\begin{cases}
+2\theta_1+\theta_2+\theta_3=\frac92,\\
+\theta_2+\theta_3=2,\\
+\theta_3=\frac34.
+\end{cases}
+\]
+From the third equation, $\theta_3=\frac34$.
+Then the second gives
+\[
+\theta_2=2-\frac34=\frac54.
+\]
+Then the first gives
+\[
+2\theta_1 + \frac54+\frac34 = \frac92
+\Rightarrow 2\theta_1+2=\frac92
+\Rightarrow 2\theta_1=\frac52
+\Rightarrow \theta_1=\frac54.
+\]
+Thus
+\[
+\boxed{(\theta_1,\theta_2,\theta_3)=\left(\frac54,\frac54,\frac34\right).}
+\]
+Portfolio cost:
+\[
+0.40\left(\frac54\right)+0.50\left(\frac54\right)+0.90\left(\frac34\right)
+=0.5+0.625+0.675=1.8.
+\]
+State-price cost of the bundle is also
+\[
+q\cdot x^*=1.8.
+\]
+Hence the costs match:
+\[
+\boxed{\text{portfolio cost }=\text{ state-price cost }=1.8.}
+\]
+
+\item From part (b), the no-arbitrage price of $d=(3,1,2)$ is $1.70$.
+If it trades at $1.80$, it is overpriced, so an arbitrage exists.
+
+One replicating portfolio for $d$ solves
+\[
+\theta_1(2,0,0)+\theta_2(1,1,0)+\theta_3(1,1,1)=(3,1,2).
+\]
+Thus
+\[
+\begin{cases}
+2\theta_1+\theta_2+\theta_3=3,\\
+\theta_2+\theta_3=1,\\
+\theta_3=2.
+\end{cases}
+\]
+So $\theta_3=2$, then $\theta_2=-1$, and then $2\theta_1-1+2=3\Rightarrow \theta_1=1$.
+Hence the replica is $(\theta_1,\theta_2,\theta_3)=(1,-1,2)$ and costs
+\[
+1(0.40)+(-1)(0.50)+2(0.90)=0.40-0.50+1.80=1.70.
+\]
+Arbitrage strategy:
+\begin{itemize}[leftmargin=*]
+\item short 1 unit of the overpriced claim $d$ (receive $1.80$),
+\item buy its replicating portfolio (pay $1.70$).
+\end{itemize}
+Initial riskless profit:
+\[
+1.80-1.70=\boxed{0.10}.
+\]
+Future state payoffs cancel exactly.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,454 @@
+\documentclass[12pt]{article}
+
+% Source: Tutorial-7.pdf
+% Style reference: MH5200_ProblemSheet2.tex
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 7 (Week 8) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on sequences and limits, with emphasis on rigorous \(\varepsilon\)-\(N\) proofs and key convergence tools.
+
+\begin{itemize}[leftmargin=*]
+\item Proving convergence using the formal definition of a limit of a sequence.
+\item Determining limits of sequences by algebraic simplification, bounding, and standard limit theorems.
+\item Odd/even subsequences and their relationship to convergence of the full sequence.
+\item True/false statements about operations on sequences, with counterexamples where needed.
+\item Using the Squeeze Theorem to prove \(\lim_{n\to\infty}\sqrt[n]{a}=1\) for \(a>0\).
+\end{itemize}
+
+\bigskip
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\section*{Question 1 (Formal \(\varepsilon\)-\(N\) proofs)}
+
+\subsection*{Problem}
+Using the formal definition of limit, prove that the following sequence converges.
+\begin{enumerate}[label=(\alph*)]
+\item \(\displaystyle a_n=\frac{1}{3n}\).
+\item \(\displaystyle a_n=\frac{2n^{2}+3}{n^{2}+1}\).
+\item \(\displaystyle \lim_{n\to\infty}\frac{2n^{2}-3n}{3n^{2}+1}=\frac{2}{3}.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct \(\varepsilon\)-\(N\) estimates}
+
+\begin{enumerate}[label=(\alph*)]
+\item Claim: \(a_n\to 0\).
+
+Let \(\varepsilon>0\). Choose \(N>\frac{1}{3\varepsilon}\), e.g.
+\[
+N=\left\lceil \frac{1}{3\varepsilon}\right\rceil.
+\]
+Then for all \(n\ge N\),
+\[
+|a_n-0|=\left|\frac{1}{3n}\right|=\frac{1}{3n}\le \frac{1}{3N}<\varepsilon.
+\]
+Hence \(\displaystyle \boxed{\lim_{n\to\infty}\frac{1}{3n}=0}\).
+
+\item Claim: \(a_n\to 2\).
+
+Let \(\varepsilon>0\). Compute
+\[
+\left|\frac{2n^{2}+3}{n^{2}+1}-2\right|
+=\left|\frac{2n^{2}+3-2n^{2}-2}{n^{2}+1}\right|
+=\frac{1}{n^{2}+1}.
+\]
+Choose \(N>\frac{1}{\sqrt{\varepsilon}}\), e.g.
+\[
+N=\left\lceil \frac{1}{\sqrt{\varepsilon}}\right\rceil.
+\]
+Then for \(n\ge N\),
+\[
+\left|\frac{2n^{2}+3}{n^{2}+1}-2\right|
+=\frac{1}{n^{2}+1}
+\le \frac{1}{n^{2}}
+\le \frac{1}{N^{2}}
+<\varepsilon.
+\]
+So \(\displaystyle \boxed{\lim_{n\to\infty}\frac{2n^{2}+3}{n^{2}+1}=2}\).
+
+\item Claim: \(\displaystyle \frac{2n^{2}-3n}{3n^{2}+1}\to \frac{2}{3}\).
+
+Let \(\varepsilon>0\). Then
+\begin{align*}
+\left|\frac{2n^{2}-3n}{3n^{2}+1}-\frac{2}{3}\right|
+&=\left|\frac{3(2n^{2}-3n)-2(3n^{2}+1)}{3(3n^{2}+1)}\right|\\
+&=\left|\frac{6n^{2}-9n-6n^{2}-2}{9n^{2}+3}\right|
+=\frac{9n+2}{9n^{2}+3}.
+\end{align*}
+For \(n\ge 1\),
+\[
+\frac{9n+2}{9n^{2}+3}\le \frac{9n+2}{9n^{2}}
+=\frac{1}{n}+\frac{2}{9n^{2}}
+\le \frac{1}{n}+\frac{2}{9n}
+=\frac{11}{9n}.
+\]
+Choose \(N>\frac{11}{9\varepsilon}\), e.g.
+\[
+N=\left\lceil \frac{11}{9\varepsilon}\right\rceil.
+\]
+Then for all \(n\ge N\),
+\[
+\left|\frac{2n^{2}-3n}{3n^{2}+1}-\frac{2}{3}\right|
+\le \frac{11}{9n}\le \frac{11}{9N}<\varepsilon.
+\]
+Hence
+\[
+\boxed{\lim_{n\to\infty}\frac{2n^{2}-3n}{3n^{2}+1}=\frac{2}{3}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Limit laws plus a final \(\varepsilon\)-\(N\) closure}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since \(\frac{1}{n}\to 0\) (provable by \(\varepsilon\)-\(N\)), multiplying by \(\frac{1}{3}\) gives \(\frac{1}{3n}\to 0\).
+
+\item Rewrite
+\[
+\frac{2n^{2}+3}{n^{2}+1}
+=\frac{2+\frac{3}{n^{2}}}{1+\frac{1}{n^{2}}}.
+\]
+Since \(\frac{1}{n^{2}}\to 0\), the quotient tends to \(\frac{2+0}{1+0}=2\).
+
+\item Divide by \(n^{2}\):
+\[
+\frac{2n^{2}-3n}{3n^{2}+1}
+=\frac{2-\frac{3}{n}}{3+\frac{1}{n^{2}}}
+\to \frac{2-0}{3+0}=\frac{2}{3}.
+\]
+If a fully formal conclusion is desired, one can bound the difference from \(\frac{2}{3}\) using the estimate in Method 1 and then apply the definition of the limit.
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\section*{Question 2 (Convergence/divergence and limits)}
+
+\subsection*{Problem}
+Determine whether the sequence converges or diverges. If it converges, find the limit. Justify your answer.
+\begin{enumerate}[label=(\roman*)]
+\item \(a_n = 3 + \dfrac{5n^{2}}{n+n^{2}}\).
+\item \(a_n = \dfrac{n^{4}}{n^{3}-2n}\).
+\item \(a_n = \sqrt{\dfrac{n+1}{9n+1}}\).
+\item \(a_n = \dfrac{\cos^{2}n}{2n}\).
+\item \(a_n = n\sqrt{21+3n}\).
+\item \(a_n = \dfrac{4n}{1+9n}\).
+\item \(a_n = \dfrac{(-1)^{n}n^{3}}{n^{3}+2n^{2}+1}\).
+\item \(a_n = \tan\!\left(\dfrac{2n\pi}{1+8n}\right)\).
+\item \(a_n = \dfrac{\tan^{-1}n}{n}\).
+\item \(a_n = n\sqrt{n}\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Algebraic simplification / comparison / squeeze}
+
+\begin{enumerate}[label=(\roman*)]
+\item
+\[
+a_n=3+\frac{5n^{2}}{n+n^{2}}=3+\frac{5n^{2}}{n(1+n)}=3+\frac{5n}{n+1}
+=3+5\left(1-\frac{1}{n+1}\right).
+\]
+Thus \(a_n\to 3+5=8\). Hence \(\boxed{\lim a_n=8}\).
+
+\item
+\[
+a_n=\frac{n^{4}}{n^{3}-2n}=\frac{n^{4}}{n(n^{2}-2)}=\frac{n^{3}}{n^{2}-2}
+=n\cdot \frac{n^{2}}{n^{2}-2}\to \infty.
+\]
+So \(\boxed{\text{diverges to }+\infty}\).
+
+\item
+\[
+a_n=\sqrt{\frac{n+1}{9n+1}}
+=\sqrt{\frac{1+\frac{1}{n}}{9+\frac{1}{n}}}\to \sqrt{\frac{1}{9}}=\frac{1}{3}.
+\]
+Hence \(\boxed{\lim a_n=\frac{1}{3}}\).
+
+\item Since \(0\le \cos^{2}n\le 1\),
+\[
+0\le \frac{\cos^{2}n}{2n}\le \frac{1}{2n}\to 0.
+\]
+By squeeze, \(\boxed{\lim a_n=0}\).
+
+\item Since \(\sqrt{21+3n}\sim \sqrt{3n}\), one has
+\[
+a_n=n\sqrt{21+3n}\ge n\sqrt{3n}= \sqrt{3}\,n^{3/2}\to \infty,
+\]
+so \(\boxed{\text{diverges to }+\infty}\).
+
+\item
+\[
+a_n=\frac{4n}{1+9n}=\frac{4}{\frac{1}{n}+9}\to \frac{4}{9}.
+\]
+Hence \(\boxed{\lim a_n=\frac{4}{9}}\).
+
+\item Consider odd/even subsequences. Write
+\[
+a_n=\frac{(-1)^{n}n^{3}}{n^{3}+2n^{2}+1}
+=(-1)^{n}\cdot \frac{1}{1+\frac{2}{n}+\frac{1}{n^{3}}}.
+\]
+Then for even \(n=2k\), \(a_{2k}\to 1\). For odd \(n=2k-1\), \(a_{2k-1}\to -1\). Since the even and odd subsequences have different limits, \(\boxed{\{a_n\}\text{ diverges}}\).
+
+\item Note
+\[
+\frac{2n\pi}{1+8n}=\frac{2\pi}{8+\frac{1}{n}}\to \frac{\pi}{4}.
+\]
+Since \(\tan\) is continuous at \(\pi/4\),
+\[
+a_n=\tan\!\left(\frac{2n\pi}{1+8n}\right)\to \tan\left(\frac{\pi}{4}\right)=1.
+\]
+Hence \(\boxed{\lim a_n=1}\).
+
+\item Since \(0<\tan^{-1}n<\frac{\pi}{2}\) for all \(n\),
+\[
+0\le \frac{\tan^{-1}n}{n}\le \frac{\pi/2}{n}\to 0,
+\]
+so \(\boxed{\lim a_n=0}\).
+
+\item \(a_n=n\sqrt{n}=n^{3/2}\to \infty\), hence \(\boxed{\text{diverges to }+\infty}\).
+\end{enumerate}
+
+\subsubsection*{Method 2: Standard limit laws and subsequence criterion}
+
+\begin{enumerate}[label=(\roman*)]
+\item Use \(\frac{n}{n+1}\to 1\) to get \(3+5\frac{n}{n+1}\to 8\).
+
+\item Compare degrees: numerator degree \(4\) vs denominator degree \(3\), hence magnitude grows like \(n\), so diverges to \(+\infty\).
+
+\item Factor out \(n\) under the square root: \(\sqrt{\frac{n(1+1/n)}{n(9+1/n)}}\to 1/3\).
+
+\item Use boundedness \(|\cos n|\le 1\) and \(1/n\to 0\) to squeeze to \(0\).
+
+\item Lower bound \(n\sqrt{21+3n}\ge n\sqrt{3n}\to\infty\).
+
+\item Divide by \(n\): \(\frac{4}{9+1/n}\to 4/9\).
+
+\item Apply: if a sequence converges, all subsequences converge to the same limit. Since the even subsequence tends to \(1\) and the odd tends to \(-1\), the sequence cannot converge.
+
+\item Use continuity of \(\tan\) at \(\pi/4\) and compute inside limit to be \(\pi/4\).
+
+\item Use boundedness \(\tan^{-1}n\le \pi/2\) and squeeze.
+
+\item Recognize power growth \(n^{3/2}\to\infty\).
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\section*{Question 3 (Odd/even subsequences imply convergence)}
+
+\subsection*{Problem}
+Given a sequence \(\{a_n\}_{n=1}^{\infty}\), prove (using the formal definition of limit) that if the odd subsequence \(a_1,a_3,\dots\) and the even subsequence \(a_2,a_4,\dots\) both converge to the same limit \(L\), then \(\{a_n\}\) converges to the limit \(L\).
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct \(\varepsilon\)-\(N\) proof}
+
+Assume \(a_{2k-1}\to L\) and \(a_{2k}\to L\) as \(k\to\infty\).
+
+Let \(\varepsilon>0\). Since \(a_{2k}\to L\), there exists \(N_e\in\mathbb{N}\) such that for all \(k\ge N_e\),
+\[
+|a_{2k}-L|<\varepsilon.
+\]
+Similarly, since \(a_{2k-1}\to L\), there exists \(N_o\in\mathbb{N}\) such that for all \(k\ge N_o\),
+\[
+|a_{2k-1}-L|<\varepsilon.
+\]
+Let \(N=\max\{2N_e,\,2N_o-1\}\). Now take any \(n\ge N\). Then either \(n\) is even or odd:
+
+\begin{itemize}[leftmargin=*]
+\item If \(n\) is even, \(n=2k\). Since \(n\ge 2N_e\), we have \(k\ge N_e\), hence \(|a_n-L|=|a_{2k}-L|<\varepsilon\).
+\item If \(n\) is odd, \(n=2k-1\). Since \(n\ge 2N_o-1\), we have \(k\ge N_o\), hence \(|a_n-L|=|a_{2k-1}-L|<\varepsilon\).
+\end{itemize}
+
+Thus for all \(n\ge N\), \(|a_n-L|<\varepsilon\). By definition, \(\boxed{a_n\to L}\).
+
+\subsubsection*{Method 2: Contrapositive-style reasoning with subsequences}
+
+Suppose \(\{a_n\}\) does not converge to \(L\). Then there exists \(\varepsilon_0>0\) such that for every \(N\in\mathbb{N}\), there exists \(n\ge N\) with
+\[
+|a_n-L|\ge \varepsilon_0.
+\]
+In particular, for each \(m\in\mathbb{N}\), pick \(n_m\ge m\) such that \(|a_{n_m}-L|\ge \varepsilon_0\). Among the integers \(\{n_m\}\), infinitely many are even or infinitely many are odd. If infinitely many are even, we obtain a subsequence \(a_{2k_j}\) that stays at least \(\varepsilon_0\) away from \(L\), contradicting \(a_{2k}\to L\). If infinitely many are odd, we similarly contradict \(a_{2k-1}\to L\). Hence \(\{a_n\}\) must converge to \(L\).
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\section*{Question 4 (True/false statements)}
+
+\subsection*{Problem}
+Determine whether the statement is true or false. If it is true, explain why it is true. If it is false, explain why it is false, or give an example to show that it is false.
+\begin{enumerate}[label=(\alph*)]
+\item If \(\{a_n\}_{n=1}^{\infty}\) and \(\{b_n\}_{n=1}^{\infty}\) are divergent, then \(\{a_n+b_n\}_{n=1}^{\infty}\) is divergent.
+\item If \(\{a_n\}\) is divergent, then \(\{|a_n|\}\) is divergent.
+\item If \(\{a_n\}\) converges to \(L\) (real number) and \(\{b_n\}\) converges to \(0\), then \(\{a_nb_n\}\) converges to \(0\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Counterexamples and standard limit theorems}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{False.} Example: let \(a_n=(-1)^n\) (divergent) and \(b_n=-(-1)^n\) (also divergent). Then \(a_n+b_n=0\) for all \(n\), which converges. Hence the statement is false.
+
+\item \textbf{False.} Example: \(a_n=(-1)^n\) diverges, but \(|a_n|=1\) for all \(n\), which converges to \(1\). Hence the statement is false.
+
+\item \textbf{True.} Since \(a_n\to L\), the sequence \(\{a_n\}\) is bounded: there exists \(M>0\) such that \(|a_n|\le M\) for all \(n\). Since \(b_n\to 0\), given \(\varepsilon>0\) choose \(N\) such that \(|b_n|<\varepsilon/M\) for \(n\ge N\). Then for \(n\ge N\),
+\[
+|a_nb_n-0|=|a_n||b_n|\le M|b_n|<\varepsilon.
+\]
+Thus \(\boxed{a_nb_n\to 0}\).
+\end{enumerate}
+
+\subsubsection*{Method 2: More structural reasoning}
+
+\begin{enumerate}[label=(\alph*)]
+\item If both were convergent, the sum would converge, but divergence does not behave well under addition; cancellation can occur, as shown by the explicit counterexample.
+
+\item The absolute value map can ``destroy oscillations'' (e.g. \((-1)^n\mapsto 1\)), so divergence of \(\{a_n\}\) does not imply divergence of \(\{|a_n|\}\).
+
+\item Use the limit law: if \(a_n\to L\) and \(b_n\to 0\), then (provided both converge) \(a_nb_n\to L\cdot 0=0\). A rigorous justification uses boundedness of convergent sequences (as in Method 1).
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+
+\section*{Question 5 (Squeeze theorem: \(\sqrt[n]{a}\to 1\))}
+
+\subsection*{Problem}
+Use Squeeze Theorem to prove that
+\[
+\lim_{n\to\infty}\sqrt[n]{a}=1,\qquad a>0.
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Squeeze via logarithms and the exponential function}
+
+Let \(a>0\). Write
+\[
+\sqrt[n]{a}=a^{1/n}=e^{\frac{1}{n}\ln a}.
+\]
+Since \(\ln a\) is a fixed real constant, \(\frac{1}{n}\ln a\to 0\) as \(n\to\infty\). By continuity of \(e^{x}\),
+\[
+\lim_{n\to\infty} e^{\frac{1}{n}\ln a}=e^{0}=1.
+\]
+Hence
+\[
+\boxed{\lim_{n\to\infty}\sqrt[n]{a}=1.}
+\]
+
+\subsubsection*{Method 2: A direct squeeze without logs (Bernoulli-style idea)}
+
+First suppose \(a>1\). Let \(b=a-1>0\). For \(n\ge 1\), consider
+\[
+(1+\tfrac{b}{n})^{n}
+=1+\binom{n}{1}\frac{b}{n}+\binom{n}{2}\left(\frac{b}{n}\right)^{2}+\cdots
+\ge 1+b=a.
+\]
+Thus \((1+\tfrac{b}{n})^{n}\ge a\), so
+\[
+1+\frac{b}{n}\ge a^{1/n}.
+\]
+Also \(a^{1/n}\ge 1\) since \(a>1\). Therefore
+\[
+1\le a^{1/n}\le 1+\frac{b}{n}.
+\]
+Since \(1+\frac{b}{n}\to 1\), the Squeeze Theorem gives \(a^{1/n}\to 1\).
+
+If \(0<a<1\), apply the already-proved case to \(1/a>1\):
+\[
+\left(\frac{1}{a}\right)^{1/n}\to 1
+\quad\Rightarrow\quad
+a^{1/n}=\frac{1}{(1/a)^{1/n}}\to \frac{1}{1}=1.
+\]
+Thus for all \(a>0\),
+\[
+\boxed{\lim_{n\to\infty}\sqrt[n]{a}=1.}
+\]
+
+\end{document}

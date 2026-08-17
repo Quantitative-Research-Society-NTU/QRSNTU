@@ -1,0 +1,384 @@
+\section{Formula \& Key Results Reference}
+%==================================================
+
+\subsection{Ch1: Definite integrals, FTC, substitution, improper integrals}
+
+\subsubsection{FTC / Leibniz / MVT}
+\begin{keyformula}[title={Fundamental Theorem of Calculus and Leibniz Rules}]
+\begin{align*}
+&\textbf{FTC I:}\quad f\in C[a,b],\quad F(x):=\int_a^x f(t)\,dt
+\quad\Rightarrow\quad F'(x)=f(x).\\
+&\textbf{FTC II:}\quad f\in C[a,b],\quad F'=f
+\quad\Rightarrow\quad \int_a^b f(x)\,dx=F(b)-F(a).\\
+&\textbf{Variable limits:}\quad
+\frac{d}{dx}\int_{g(x)}^{h(x)} f(t)\,dt
+=f(h(x))h'(x)-f(g(x))g'(x).\\
+&\textbf{Parameter-dependent integrand:}\quad
+\frac{d}{dx}\int_{g(x)}^{h(x)} F(x,t)\,dt
+=F(x,h(x))h'(x)-F(x,g(x))g'(x)+\int_{g(x)}^{h(x)}F_x(x,t)\,dt.
+\end{align*}
+\end{keyformula}
+
+\begin{keyformula}[title={Mean Value Theorem for Integrals and Average Value}]
+\[
+f\in C[a,b]\Rightarrow \exists c\in(a,b):\quad
+\int_a^b f(x)\,dx=f(c)(b-a),
+\qquad
+f_{\rm avg}=\frac{1}{b-a}\int_a^b f(x)\,dx.
+\]
+\end{keyformula}
+
+\begin{examtip}
+For a lower variable limit, the contribution is negative.  A quick check is
+\[
+\int_{g(x)}^{h(x)}f(t)\,dt=\int_a^{h(x)}f(t)\,dt-\int_a^{g(x)}f(t)\,dt.
+\]
+Always use a dummy variable inside the integral.
+\end{examtip}
+
+\subsubsection{$u$-substitution}
+\begin{keyformula}[title={Substitution, Indefinite and Definite Forms}]
+\begin{align*}
+&u=g(x),\quad du=g'(x)\,dx
+\quad\Rightarrow\quad
+\int f(g(x))g'(x)\,dx=\int f(u)\,du.\\
+&\int_a^b f(g(x))g'(x)\,dx=\int_{g(a)}^{g(b)} f(u)\,du.
+\end{align*}
+\end{keyformula}
+
+\begin{commonmistake}
+For a definite integral, either change the bounds and stay in the new variable,
+or keep the old bounds and back-substitute.  Do not do both.
+\end{commonmistake}
+
+\subsubsection{Improper integrals}
+\begin{keyformula}[title={Improper Integral Definitions}]
+\begin{align*}
+&\int_a^{\infty} f(x)\,dx:=\lim_{t\to\infty}\int_a^t f(x)\,dx,
+\qquad
+\int_{-\infty}^{b} f(x)\,dx:=\lim_{t\to-\infty}\int_t^b f(x)\,dx.\\
+&\int_a^b f(x)\,dx:=\lim_{t\to a^+}\int_t^b f(x)\,dx
+\quad\text{if }f\text{ is improper at }a,\quad
+\text{similarly at }b.\\
+&\text{If }f\text{ is improper at }c\in(a,b),\quad
+\int_a^b f=\int_a^c f+\int_c^b f,
+\quad\text{and both one-sided integrals must converge.}
+\end{align*}
+\end{keyformula}
+
+\begin{keyformula}[title={Improper Integral Comparison and $p$-Tests}]
+\begin{align*}
+&\int_1^{\infty}x^{-p}\,dx\text{ converges}\Longleftrightarrow p>1,
+\qquad
+\int_0^1x^{-p}\,dx\text{ converges}\Longleftrightarrow p<1.\\
+&0\le f\le g,
+\quad \int g\text{ converges}\Rightarrow \int f\text{ converges};
+\qquad
+0\le g\le f,
+\quad \int g\text{ diverges}\Rightarrow \int f\text{ diverges}.\\
+&f,g>0,
+\quad \lim_{x\to\alpha}\frac{f(x)}{g(x)}=c\in(0,\infty)
+\Rightarrow \int f\text{ and }\int g\text{ have the same convergence behaviour.}
+\end{align*}
+\end{keyformula}
+
+\begin{commonmistake}
+Do not use the antiderivative value across an infinite endpoint or vertical
+asymptote without first rewriting the integral as a limit.
+\end{commonmistake}
+
+\subsection{Ch2: Applications of integration}
+
+\subsubsection{General setup principle}
+\begin{examtip}
+Before computing, choose the variable, mark the interval, split at intersections
+or singularities, write the slice formula, and only then integrate.  Most errors
+in application questions occur in the setup, not the antiderivative.
+\end{examtip}
+
+\subsubsection{Area}
+\begin{keyformula}[title={Area Between Curves}]
+\[
+A=\int_a^b\bigl(y_{\rm top}(x)-y_{\rm bot}(x)\bigr)\,dx,
+\qquad
+A=\int_c^d\bigl(x_{\rm right}(y)-x_{\rm left}(y)\bigr)\,dy.
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+A signed integral is not automatically geometric area.  Split at crossing points
+or sign changes before taking area.
+\end{commonmistake}
+
+\subsubsection{Volumes}
+\begin{keyformula}[title={Slicing, Washers, and Shells}]
+\begin{align*}
+&\textbf{Slicing:}\quad V=\int A(x)\,dx\quad\text{or}\quad V=\int A(y)\,dy.\\
+&\textbf{Washers about }y=k:\quad
+V=\pi\int_a^b\left(R_{\rm out}(x)^2-R_{\rm in}(x)^2\right)\,dx.\\
+&\textbf{Washers about }x=k:\quad
+V=\pi\int_c^d\left(R_{\rm out}(y)^2-R_{\rm in}(y)^2\right)\,dy.\\
+&\textbf{Shells about }x=k:\quad
+V=2\pi\int_a^b |x-k|\bigl(y_{\rm top}(x)-y_{\rm bot}(x)\bigr)\,dx.\\
+&\textbf{Shells about }y=k:\quad
+V=2\pi\int_c^d |y-k|\bigl(x_{\rm right}(y)-x_{\rm left}(y)\bigr)\,dy.
+\end{align*}
+\end{keyformula}
+
+\subsubsection{Arc length and surface area}
+\begin{keyformula}[title={Arc Length and Surface Area of Revolution}]
+\begin{align*}
+&L=\int_a^b\sqrt{1+(f'(x))^2}\,dx\quad\text{for }y=f(x),
+\qquad
+L=\int_c^d\sqrt{1+(g'(y))^2}\,dy\quad\text{for }x=g(y).\\
+&S=2\pi\int_a^b |f(x)-k|\sqrt{1+(f'(x))^2}\,dx
+\quad\text{about }y=k.\\
+&S=2\pi\int_c^d |g(y)-k|\sqrt{1+(g'(y))^2}\,dy
+\quad\text{about }x=k.
+\end{align*}
+\end{keyformula}
+
+\subsubsection{Work and fluid force}
+\begin{keyformula}[title={Work, Pumping, and Hydrostatic Force}]
+\begin{align*}
+&\textbf{Work:}\quad W=\int_a^b F(x)\,dx,
+\qquad
+\textbf{Hooke's law:}\quad F=kx,\\[-0.2em]
+&\textbf{Pumping:}\quad dW=\rho g\,A(y)D(y)\,dy,
+\qquad W=\int dW.\\[-0.2em]
+&\textbf{Hydrostatic force:}\quad p(y)=\rho g h(y),
+\qquad dF=p(y)w(y)\,dy,
+\qquad F=\int dF.
+\end{align*}
+\end{keyformula}
+
+\subsection{Ch3: Techniques of integration and numerical integration}
+
+\subsubsection{Integration by parts}
+\begin{keyformula}[title={Integration by Parts}]
+\[
+\int u\,dv=uv-\int v\,du,
+\qquad
+\int_a^b u\,dv=\bigl[uv\bigr]_a^b-\int_a^b v\,du.
+\]
+\end{keyformula}
+
+\begin{examtip}
+Choose \(u\) so that differentiating simplifies it.  A useful priority is:
+logarithmic/inverse-trig, then algebraic, then trigonometric/exponential.
+After one step, check that the remaining integral is simpler.
+\end{examtip}
+
+\subsubsection{Trigonometric integrals and substitutions}
+\begin{keyformula}[title={Trigonometric Integral Decision Rules}]
+\begin{align*}
+&\int \sin^m x\cos^n x\,dx:
+\quad n\text{ odd}\Rightarrow\text{save one }\cos x,\ u=\sin x;\quad
+m\text{ odd}\Rightarrow\text{save one }\sin x,\ u=\cos x.\\
+&\text{If both powers are even, use}
+\quad \sin^2x=\frac{1-\cos2x}{2},\quad
+\cos^2x=\frac{1+\cos2x}{2},\quad
+\sin x\cos x=\frac12\sin2x.\\
+&\int \tan^m x\sec^n x\,dx:
+\quad n\text{ even}\Rightarrow\text{save }\sec^2x,\ u=\tan x;\quad
+m\text{ odd}\Rightarrow\text{save }\sec x\tan x,\ u=\sec x.
+\end{align*}
+\end{keyformula}
+
+\begin{keyformula}[title={Trigonometric Substitution Map}]
+\[
+\sqrt{a^2-x^2}\Rightarrow x=a\sin\theta,
+\qquad
+\sqrt{a^2+x^2}\Rightarrow x=a\tan\theta,
+\qquad
+\sqrt{x^2-a^2}\Rightarrow x=a\sec\theta.
+\]
+\end{keyformula}
+
+\subsubsection{Partial fractions}
+\begin{keyformula}[title={Partial Fraction Templates}]
+\begin{align*}
+&\text{Distinct linear factors:}\quad
+\frac{P(x)}{\prod_i(a_i x+b_i)}=\sum_i\frac{A_i}{a_i x+b_i}.\\
+&\text{Repeated linear factor }(ax+b)^r:\quad
+\sum_{k=1}^r\frac{A_k}{(ax+b)^k}.\\
+&\text{Irreducible quadratic factor }(ax^2+bx+c)^r:\quad
+\sum_{k=1}^r\frac{A_kx+B_k}{(ax^2+bx+c)^k}.\\
+&\text{Fast quadratic split:}\quad
+Ax+B=\lambda(2ax+b)+\mu.
+\end{align*}
+\end{keyformula}
+
+\begin{commonmistake}
+If \(\deg P\ge \deg Q\), perform polynomial long division before partial
+fractions.  An irreducible quadratic factor needs a linear numerator.
+\end{commonmistake}
+
+\subsubsection{Numerical integration}
+Let \(\Delta x=(b-a)/n\), \(x_i=a+i\Delta x\).
+\begin{keyformula}[title={Left, Right, Midpoint, Trapezoidal, Simpson Rules}]
+\begin{align*}
+&L_n=\sum_{i=1}^n f(x_{i-1})\Delta x,
+\qquad
+R_n=\sum_{i=1}^n f(x_i)\Delta x,
+\qquad
+M_n=\sum_{i=1}^n f\!\left(\frac{x_{i-1}+x_i}{2}\right)\Delta x.\\
+&T_n=\frac{\Delta x}{2}\left(f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\right)=\frac{L_n+R_n}{2}.\\
+&S_n=\frac{\Delta x}{3}\left(f(x_0)+4\sum_{\substack{1\le i\le n-1\\ i\text{ odd}}}f(x_i)+2\sum_{\substack{2\le i\le n-2\\ i\text{ even}}}f(x_i)+f(x_n)\right),
+\quad n\text{ even}.
+\end{align*}
+\end{keyformula}
+
+\begin{keyformula}[title={Numerical Error Bounds}]
+\[
+|E_T|\le \frac{K(b-a)^3}{12n^2},
+\qquad
+|E_M|\le \frac{K(b-a)^3}{24n^2}
+\quad (|f''|\le K),
+\]
+\[
+|E_S|\le \frac{K(b-a)^5}{180n^4}
+\quad (|f^{(4)}|\le K,\ n\text{ even}).
+\]
+\end{keyformula}
+
+\begin{examtip}
+If \(f\) is increasing, \(L_n\le \int_a^b f\le R_n\); reverse for decreasing.
+If \(f''>0\), trapezoidal overestimates and midpoint underestimates; reverse
+for \(f''<0\).
+\end{examtip}
+
+\subsection{Ch4: Sequences and series}
+
+\subsubsection{Sequences}
+\begin{keyformula}[title={Sequence Convergence and Monotone Convergence}]
+\[
+a_n\to L\iff \forall\varepsilon>0\ \exists N:\ n\ge N\Rightarrow |a_n-L|<\varepsilon,
+\qquad
+\text{monotone and bounded}\Rightarrow\text{convergent}.
+\]
+\end{keyformula}
+
+\subsubsection{Series basics}
+\begin{keyformula}[title={Partial Sums, Remainders, and the $n$th-Term Test}]
+\[
+\sum_{n=1}^{\infty}a_n\text{ converges}\iff
+S_n:=\sum_{k=1}^n a_k\to S\in\mathbb R,
+\qquad
+R_n:=S-S_n=\sum_{k=n+1}^{\infty}a_k.
+\]
+\[
+\sum a_n\text{ convergent}\Rightarrow a_n\to0,
+\qquad
+a_n\not\to0\Rightarrow \sum a_n\text{ diverges}.
+\]
+\end{keyformula}
+
+\subsubsection{Standard series and convergence tests}
+\begin{keyformula}[title={Geometric and $p$-Series}]
+\[
+\sum_{n=0}^{\infty}ar^n=\frac{a}{1-r}\quad(|r|<1),
+\qquad
+\sum_{n=1}^{\infty}\frac{1}{n^p}\text{ converges}\Longleftrightarrow p>1.
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Core Convergence Tests}]
+Assume \(a_n\ge0\) where required.
+\begin{align*}
+&0\le a_n\le b_n,
+\quad \sum b_n\text{ conv}\Rightarrow\sum a_n\text{ conv},
+\quad \sum a_n\text{ div}\Rightarrow\sum b_n\text{ div}.\\
+&a_n,b_n>0,
+\quad \lim\frac{a_n}{b_n}=c\in(0,\infty)
+\Rightarrow \sum a_n,\sum b_n\text{ have the same behaviour}.\\
+&a_n=f(n),\ f>0,\ f\downarrow:
+\quad \sum a_n\text{ conv}\Longleftrightarrow \int_1^\infty f(x)\,dx\text{ conv},
+\quad
+\int_{n+1}^\infty f\le R_n\le\int_n^\infty f.\\
+&b_n\downarrow0:
+\quad \sum (-1)^n b_n\text{ converges},
+\qquad |R_n|\le b_{n+1}.\\
+&\sum |a_n|\text{ conv}\Rightarrow\sum a_n\text{ conv absolutely};
+\qquad
+\sum a_n\text{ conv but }\sum|a_n|\text{ div}\Rightarrow\text{conditional}.\\
+&L=\limsup\left|\frac{a_{n+1}}{a_n}\right|:
+\quad L<1\Rightarrow\text{absolute convergence},
+\quad L>1\Rightarrow\text{divergence}.\\
+&L=\limsup\sqrt[n]{|a_n|}:
+\quad L<1\Rightarrow\text{absolute convergence},
+\quad L>1\Rightarrow\text{divergence}.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+Check \(a_n\to0\) first.  Then try geometric or \(p\)-series recognition,
+ratio for factorials/exponentials, root for \(n\)-th powers, and comparison for
+asymptotic matches.
+\end{examtip}
+
+\subsection{Ch5: Taylor / Maclaurin polynomials}
+
+\subsubsection{Taylor polynomial and error}
+\begin{keyformula}[title={Taylor Polynomial and Lagrange Remainder}]
+\[
+T_n(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k,
+\qquad
+f(x)=T_n(x)+R_n(x),
+\]
+\[
+R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1},
+\qquad
+|R_n(x)|\le \frac{M}{(n+1)!}|x-a|^{n+1}.
+\]
+\end{keyformula}
+
+\subsubsection{Common Maclaurin series}
+\begin{keyformula}[title={High-Frequency Maclaurin Series}]
+\begin{align*}
+&e^x=\sum_{n=0}^{\infty}\frac{x^n}{n!},
+\qquad
+\sin x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!},
+\qquad
+\cos x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}.\\
+&\frac{1}{1-x}=\sum_{n=0}^{\infty}x^n\quad(|x|<1),
+\qquad
+\ln(1+x)=\sum_{n=1}^{\infty}(-1)^{n+1}\frac{x^n}{n}\quad(-1<x\le1).\\
+&\arctan x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{2n+1}
+\quad(|x|\le1\text{ with endpoint care}).
+\end{align*}
+\end{keyformula}
+
+\subsection{Ch6: Power series}
+
+\subsubsection{Radius and interval of convergence}
+\begin{keyformula}[title={Power Series Radius and Endpoint Workflow}]
+\[
+\sum_{n=0}^{\infty}c_n(x-a)^n
+\quad\text{converges for }|x-a|<R\text{ and diverges for }|x-a|>R.
+\]
+\[
+L(x)=\limsup_{n\to\infty}\left|\frac{c_{n+1}(x-a)^{n+1}}{c_n(x-a)^n}\right|<1
+\quad\text{gives the open interval of convergence.}
+\]
+Endpoints \(x=a\pm R\) must be tested separately as numerical series.
+\end{keyformula}
+
+\subsubsection{Termwise operations}
+\begin{keyformula}[title={Term-by-Term Differentiation and Integration}]
+For \(|x-a|<R\),
+\[
+\frac{d}{dx}\sum_{n=0}^{\infty}c_n(x-a)^n
+=\sum_{n=1}^{\infty}n c_n(x-a)^{n-1},
+\]
+\[
+\int\sum_{n=0}^{\infty}c_n(x-a)^n\,dx
+=C+\sum_{n=0}^{\infty}\frac{c_n}{n+1}(x-a)^{n+1}.
+\]
+The radius is unchanged; endpoint behaviour may change.
+\end{keyformula}
+
+\begin{commonmistake}
+Do not use the radius test to decide endpoints.  Endpoint testing is a separate
+ordinary-series problem.
+\end{commonmistake}

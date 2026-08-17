@@ -1,0 +1,1784 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+% \usepackage{draftwatermark} % disabled for reliable compilation
+
+% =========================
+% Watermark
+% =========================
+% \SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+% \SetWatermarkScale{1}
+% \SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Final Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2022/2023, Semester 2}
+\newcommand{\ExamMetaShort}{Final AY22-23}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Ppoly}{\mathcal{P}}
+\newcommand{\Null}{\operatorname{null}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Id}{\operatorname{id}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\allowdisplaybreaks
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em}
+\setlist[itemize]{itemsep=0.25em, topsep=0.25em}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\setlength{\headheight}{14.5pt}
+\pagestyle{main}
+
+\begin{overview}
+  \item Topics: polynomial maps and even--odd decomposition, diagonalisation of block matrices, Gram--Schmidt and QR decomposition in $\R^4$, rank--nullity, and recursive block-matrix eigenvectors.
+  \item This rewrite keeps a direct computational method as Method 1 for each question and adds theorem-based or structural methods as Method 2 onward.
+  \item Every method is written as a standalone solution, with subparts separated using the original part labels. Mark schemes are unofficial and revision-oriented.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Question 1 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $d$ be a nonnegative integer. Consider the function
+\[
+T:\Ppoly_d(\R)\to\Ppoly_d(\R),
+\qquad
+T(f(x))=f(x)+f(-x).
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that $T$ is a linear map.
+  \item Fix $d=2$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Determine the standard matrix for $T$.
+    \item Determine a basis for $\Null(T)$.
+    \item Determine a basis for $\Range(T)$.
+  \end{enumerate}
+  \item Show that
+  \[
+  \dim\Null(T)=\left\lceil\frac d2\right\rceil,
+  \qquad
+  \dim\Range(T)=\left\lfloor\frac d2\right\rfloor+1
+  \]
+  for all $d$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Even--Odd Power Separation}
+\begin{enumerate}[label=(\alph*)]
+  \item Let $f,g\in\Ppoly_d(\R)$ and $c\in\R$. For every $x\in\R$,
+  \[
+  T(f+g)(x)=(f+g)(x)+(f+g)(-x)=f(x)+g(x)+f(-x)+g(-x)=T(f)(x)+T(g)(x),
+  \]
+  and
+  \[
+  T(cf)(x)=cf(x)+cf(-x)=c(f(x)+f(-x))=cT(f)(x).
+  \]
+  Hence $T$ is additive and homogeneous, so $T$ is linear.
+
+  \item Fix $d=2$ and use the ordered standard basis
+  \[
+  \mathcal E=(1,x,x^2)
+  \]
+  for $\Ppoly_2(\R)$. If
+  \[
+  f(x)=a_0+a_1x+a_2x^2,
+  \]
+  then
+  \[
+  f(-x)=a_0-a_1x+a_2x^2.
+  \]
+  Therefore
+  \[
+  T(f)(x)=f(x)+f(-x)=2a_0+2a_2x^2.
+  \]
+  Thus
+  \[
+  T(1)=2,
+  \qquad
+  T(x)=0,
+  \qquad
+  T(x^2)=2x^2.
+  \]
+  Hence the standard matrix relative to $(1,x,x^2)$ is
+  \[
+  \boxed{[T]_{\mathcal E}^{\mathcal E}=\begin{bmatrix}
+  2&0&0\\
+  0&0&0\\
+  0&0&2
+  \end{bmatrix}.}
+  \]
+  From $T(f)=2a_0+2a_2x^2$, we have $T(f)=0$ if and only if $a_0=a_2=0$. Therefore
+  \[
+  \Null(T)=\{a_1x:a_1\in\R\}=\Span\{x\},
+  \]
+  so
+  \[
+  \boxed{\{x\}\text{ is a basis for }\Null(T).}
+  \]
+  Also, every output is of the form $2a_0+2a_2x^2$, and conversely any polynomial $\alpha+\beta x^2$ is obtained by taking
+  \[
+  f(x)=\frac{\alpha}{2}+\frac{\beta}{2}x^2.
+  \]
+  Hence
+  \[
+  \Range(T)=\Span\{1,x^2\},
+  \]
+  so
+  \[
+  \boxed{\{1,x^2\}\text{ is a basis for }\Range(T).}
+  \]
+
+  \item For general $d$, write
+  \[
+  f(x)=a_0+a_1x+a_2x^2+\cdots+a_dx^d.
+  \]
+  Since
+  \[
+  f(-x)=a_0-a_1x+a_2x^2-a_3x^3+\cdots+(-1)^da_dx^d,
+  \]
+  we get
+  \[
+  T(f)(x)=2(a_0+a_2x^2+a_4x^4+\cdots).
+  \]
+  Therefore $T(f)=0$ if and only if every even coefficient of $f$ is zero. Hence
+  \[
+  \Null(T)=\Span\{x,x^3,x^5,\ldots,x^{2r-1}:2r-1\le d\}.
+  \]
+  The number of odd exponents in $\{0,1,\ldots,d\}$ is
+  \[
+  \left\lceil\frac d2\right\rceil.
+  \]
+  Thus
+  \[
+  \boxed{\dim\Null(T)=\left\lceil\frac d2\right\rceil.}
+  \]
+  Similarly, the range consists exactly of even polynomials of degree at most $d$:
+  \[
+  \Range(T)=\Span\{1,x^2,x^4,\ldots,x^{2r}:2r\le d\}.
+  \]
+  The number of even exponents in $\{0,1,\ldots,d\}$ is
+  \[
+  \left\lfloor\frac d2\right\rfloor+1.
+  \]
+  Therefore
+  \[
+  \boxed{\dim\Range(T)=\left\lfloor\frac d2\right\rfloor+1.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Projection Theorem onto the Even Polynomial Subspace}
+\begin{enumerate}[label=(\alph*)]
+  \item Define the even and odd parts of a polynomial $f\in\Ppoly_d(\R)$ by
+  \[
+  f_{\mathrm{even}}(x)=\frac{f(x)+f(-x)}2,
+  \qquad
+  f_{\mathrm{odd}}(x)=\frac{f(x)-f(-x)}2.
+  \]
+  Then
+  \[
+  f=f_{\mathrm{even}}+f_{\mathrm{odd}}.
+  \]
+  The map $f\mapsto f_{\mathrm{even}}$ is linear because it is a sum of linear operations. Since
+  \[
+  T(f)=f(x)+f(-x)=2f_{\mathrm{even}}(x),
+  \]
+  $T$ is twice a linear projection map. Therefore $T$ is linear.
+
+  \item For $d=2$, write
+  \[
+  \Ppoly_2(\R)=E_2\oplus O_2,
+  \]
+  where
+  \[
+  E_2=\Span\{1,x^2\},
+  \qquad
+  O_2=\Span\{x\}.
+  \]
+  Since
+  \[
+  T(f)=2f_{\mathrm{even}},
+  \]
+  the map $T$ acts as multiplication by $2$ on $E_2$ and as $0$ on $O_2$. Relative to the ordered standard basis $(1,x,x^2)$, this gives
+  \[
+  T(1)=2,
+  \qquad
+  T(x)=0,
+  \qquad
+  T(x^2)=2x^2,
+  \]
+  so
+  \[
+  \boxed{[T]=\begin{bmatrix}
+  2&0&0\\
+  0&0&0\\
+  0&0&2
+  \end{bmatrix}.}
+  \]
+  The nullspace is the odd subspace,
+  \[
+  \boxed{\Null(T)=O_2=\Span\{x\},}
+  \]
+  and the range is the even subspace,
+  \[
+  \boxed{\Range(T)=E_2=\Span\{1,x^2\}.}
+  \]
+
+  \item For general $d$, let
+  \[
+  E_d=\{f\in\Ppoly_d(\R):f(-x)=f(x)\},
+  \qquad
+  O_d=\{f\in\Ppoly_d(\R):f(-x)=-f(x)\}.
+  \]
+  Then
+  \[
+  \Ppoly_d(\R)=E_d\oplus O_d,
+  \qquad
+  T=2\operatorname{proj}_{E_d}.
+  \]
+  Hence
+  \[
+  \Null(T)=O_d,
+  \qquad
+  \Range(T)=E_d.
+  \]
+  A basis for $O_d$ is the set of odd powers $x,x^3,x^5,\ldots$ up to degree $d$, so
+  \[
+  \dim O_d=\left\lceil\frac d2\right\rceil.
+  \]
+  A basis for $E_d$ is the set of even powers $1,x^2,x^4,\ldots$ up to degree $d$, so
+  \[
+  \dim E_d=\left\lfloor\frac d2\right\rfloor+1.
+  \]
+  Therefore
+  \[
+  \boxed{\dim\Null(T)=\left\lceil\frac d2\right\rceil,
+  \qquad
+  \dim\Range(T)=\left\lfloor\frac d2\right\rfloor+1.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Reflection Involution and Eigenspace Decomposition}
+\begin{enumerate}[label=(\alph*)]
+  \item Define the reflection operator
+  \[
+  R:\Ppoly_d(\R)\to\Ppoly_d(\R),
+  \qquad
+  R(f)(x)=f(-x).
+  \]
+  For $f,g\in\Ppoly_d(\R)$ and $c\in\R$,
+  \[
+  R(f+g)(x)=f(-x)+g(-x)=R(f)(x)+R(g)(x),
+  \]
+  and
+  \[
+  R(cf)(x)=cf(-x)=cR(f)(x).
+  \]
+  Thus $R$ is linear. Since
+  \[
+  T=I+R,
+  \]
+  where $I$ is the identity map, $T$ is also linear.
+
+  \item For $d=2$, the monomial basis $(1,x,x^2)$ consists of eigenvectors of $R$:
+  \[
+  R(1)=1,
+  \qquad
+  R(x)=-x,
+  \qquad
+  R(x^2)=x^2.
+  \]
+  Therefore
+  \[
+  T(1)=(I+R)(1)=2,
+  \qquad
+  T(x)=(I+R)(x)=0,
+  \qquad
+  T(x^2)=(I+R)(x^2)=2x^2.
+  \]
+  Hence
+  \[
+  \boxed{[T]=\begin{bmatrix}
+  2&0&0\\
+  0&0&0\\
+  0&0&2
+  \end{bmatrix}.}
+  \]
+  The kernel consists of the $(-1)$-eigenspace of $R$, so
+  \[
+  \boxed{\Null(T)=\Span\{x\}.}
+  \]
+  The range is the $(+1)$-eigenspace of $R$, scaled by $2$, so
+  \[
+  \boxed{\Range(T)=\Span\{1,x^2\}.}
+  \]
+
+  \item Since
+  \[
+  R^2=I,
+  \]
+  the operator $R$ is an involution. Its only possible eigenvalues are $1$ and $-1$. The $+1$ eigenspace is the even-polynomial subspace, and the $-1$ eigenspace is the odd-polynomial subspace. Because
+  \[
+  T=I+R,
+  \]
+  $T$ has eigenvalue $2$ on the even subspace and eigenvalue $0$ on the odd subspace. Therefore
+  \[
+  \Null(T)=\ker(I+R)=E_{-1}(R)=O_d,
+  \]
+  and
+  \[
+  \Range(T)=E_{+1}(R)=E_d.
+  \]
+  Counting odd and even monomials gives
+  \[
+  \boxed{\dim\Null(T)=\left\lceil\frac d2\right\rceil,
+  \qquad
+  \dim\Range(T)=\left\lfloor\frac d2\right\rfloor+1.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Linearity (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correct additivity proof.
+    \item (1) Correct homogeneity proof.
+    \item (1) States that $T$ is linear.
+  \end{itemize}
+  \item \textbf{(b) Case $d=2$ (9 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correct standard matrix relative to $(1,x,x^2)$.
+    \item (3) Correct basis for $\Null(T)$.
+    \item (3) Correct basis for $\Range(T)$.
+  \end{itemize}
+  \item \textbf{(c) General dimensions (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correctly identifies the nullspace as the odd-polynomial subspace.
+    \item (3) Correctly identifies the range as the even-polynomial subspace.
+    \item (1) Correctly counts and states both dimension formulae.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 2 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $0<a\le1$ and $0<b\le1$, where $a$ and $b$ are real numbers. Consider
+\[
+A=\begin{bmatrix}
+2&0&0\\
+0&a&1-b\\
+0&1-a&b
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that the characteristic polynomial for $A$ is $(2-\lambda)(1-\lambda)(a+b-1-\lambda)$. Hence determine the eigenvalues of $A$ in terms of $a$ and $b$.
+  \item Show that $A$ is diagonalizable.
+  \item Fix $a=b$ and set $a<1$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Find a diagonal matrix $D$ and an invertible matrix $P$ such that $A=PDP^{-1}$.
+    \item Fix $0.25<a<0.75$. Approximate all entries in $A^{20}$ to the nearest one decimal place.
+  \end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Block-Determinant and Eigenvector Computation}
+\begin{enumerate}[label=(\alph*)]
+  \item The matrix $A$ is block diagonal with a $1\times1$ block $[2]$ and a lower block
+  \[
+  B=\begin{bmatrix}a&1-b\\1-a&b\end{bmatrix}.
+  \]
+  Hence
+  \[
+  \det(A-\lambda I)=(2-\lambda)\det(B-\lambda I_2).
+  \]
+  Now
+  \begin{align*}
+  \det(B-\lambda I_2)
+  &=(a-\lambda)(b-\lambda)-(1-b)(1-a)\\
+  &=ab-a\lambda-b\lambda+\lambda^2-(1-a-b+ab)\\
+  &=\lambda^2-(a+b)\lambda+(a+b-1)\\
+  &=(1-\lambda)(a+b-1-\lambda).
+  \end{align*}
+  Therefore
+  \[
+  \boxed{\det(A-\lambda I)=(2-\lambda)(1-\lambda)(a+b-1-\lambda).}
+  \]
+  The eigenvalues are
+  \[
+  \boxed{2,\quad 1,\quad a+b-1.}
+  \]
+
+  \item The eigenvalue $2$ belongs to the first coordinate vector $e_1=(1,0,0)^T$, since
+  \[
+  Ae_1=2e_1.
+  \]
+  It remains to analyse the lower block $B$. The eigenvalues of $B$ are $1$ and $a+b-1$.
+
+  If $1\ne a+b-1$, then the lower $2\times2$ block has two distinct eigenvalues and is diagonalizable. Hence $A$ is diagonalizable.
+
+  If
+  \[
+  1=a+b-1,
+  \]
+  then
+  \[
+  a+b=2.
+  \]
+  Since $0<a\le1$ and $0<b\le1$, this forces
+  \[
+  a=b=1.
+  \]
+  In this case
+  \[
+  B=\begin{bmatrix}1&0\\0&1\end{bmatrix}=I_2,
+  \]
+  which is diagonalizable. Therefore $A$ is diagonalizable in all allowed cases.
+  \[
+  \boxed{A\text{ is diagonalizable}.}
+  \]
+
+  \item Assume $a=b<1$. Then
+  \[
+  A=\begin{bmatrix}
+  2&0&0\\
+  0&a&1-a\\
+  0&1-a&a
+  \end{bmatrix}.
+  \]
+  For the lower block
+  \[
+  B=\begin{bmatrix}a&1-a\\1-a&a\end{bmatrix},
+  \]
+  we have
+  \[
+  B\begin{bmatrix}1\\1\end{bmatrix}=\begin{bmatrix}1\\1\end{bmatrix},
+  \qquad
+  B\begin{bmatrix}1\\-1\end{bmatrix}=(2a-1)\begin{bmatrix}1\\-1\end{bmatrix}.
+  \]
+  Therefore eigenvectors of $A$ are
+  \[
+  v_1=\begin{bmatrix}1\\0\\0\end{bmatrix},
+  \qquad
+  v_2=\begin{bmatrix}0\\1\\1\end{bmatrix},
+  \qquad
+  v_3=\begin{bmatrix}0\\1\\-1\end{bmatrix},
+  \]
+  with eigenvalues $2$, $1$, and $2a-1$, respectively. Thus we may take
+  \[
+  \boxed{
+  P=\begin{bmatrix}1&0&0\\0&1&1\\0&1&-1\end{bmatrix},
+  \qquad
+  D=\diag(2,1,2a-1),
+  \qquad
+  A=PDP^{-1}.}
+  \]
+  Then
+  \[
+  A^{20}=PD^{20}P^{-1}.
+  \]
+  Let
+  \[
+  r=(2a-1)^{20}.
+  \]
+  The lower $2\times2$ block of $A^{20}$ is
+  \[
+  \frac12\begin{bmatrix}1+r&1-r\\1-r&1+r\end{bmatrix}.
+  \]
+  Hence
+  \[
+  A^{20}=\begin{bmatrix}
+  2^{20}&0&0\\
+  0&\frac{1+r}{2}&\frac{1-r}{2}\\
+  0&\frac{1-r}{2}&\frac{1+r}{2}
+  \end{bmatrix}.
+  \]
+  If $0.25<a<0.75$, then
+  \[
+  |2a-1|<0.5,
+  \]
+  so
+  \[
+  |r|<0.5^{20}\approx 9.54\times10^{-7}.
+  \]
+  Thus $r$ is $0.0$ to one decimal place. Since
+  \[
+  2^{20}=1{,}048{,}576,
+  \]
+  we obtain
+  \[
+  \boxed{
+  A^{20}\approx
+  \begin{bmatrix}
+  1{,}048{,}576.0&0.0&0.0\\
+  0.0&0.5&0.5\\
+  0.0&0.5&0.5
+  \end{bmatrix}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Explicit Eigenbasis Theorem for the Lower Block}
+\begin{enumerate}[label=(\alph*)]
+  \item The matrix has the block form
+  \[
+  A=[2]\oplus B,
+  \qquad
+  B=\begin{bmatrix}a&1-b\\1-a&b\end{bmatrix}.
+  \]
+  Therefore
+  \[
+  \det(A-\lambda I)=(2-\lambda)\det(B-\lambda I_2).
+  \]
+  For a $2\times2$ matrix, the characteristic polynomial may also be read from trace and determinant:
+  \[
+  \det(B-\lambda I_2)=\lambda^2-\tr(B)\lambda+\det(B).
+  \]
+  Here
+  \[
+  \tr(B)=a+b,
+  \]
+  and
+  \[
+  \det(B)=ab-(1-b)(1-a)=a+b-1.
+  \]
+  Hence
+  \[
+  \det(B-\lambda I_2)=\lambda^2-(a+b)\lambda+(a+b-1)=(1-\lambda)(a+b-1-\lambda).
+  \]
+  Therefore
+  \[
+  \boxed{\det(A-\lambda I)=(2-\lambda)(1-\lambda)(a+b-1-\lambda),}
+  \]
+  and the eigenvalues are
+  \[
+  \boxed{2,\quad1,\quad a+b-1.}
+  \]
+
+  \item We explicitly construct enough eigenvectors. For the lower block $B$, an eigenvector for eigenvalue $1$ is
+  \[
+  w_1=\begin{bmatrix}1-b\\1-a\end{bmatrix},
+  \]
+  because
+  \[
+  B\begin{bmatrix}1-b\\1-a\end{bmatrix}
+  =\begin{bmatrix}a(1-b)+(1-b)(1-a)\\(1-a)(1-b)+b(1-a)\end{bmatrix}
+  =\begin{bmatrix}1-b\\1-a\end{bmatrix}.
+  \]
+  This vector is nonzero unless $a=b=1$. For the eigenvalue $a+b-1$, an eigenvector is
+  \[
+  w_2=\begin{bmatrix}1\\-1\end{bmatrix},
+  \]
+  since
+  \[
+  B\begin{bmatrix}1\\-1\end{bmatrix}
+  =\begin{bmatrix}a-(1-b)\\(1-a)-b\end{bmatrix}
+  =\begin{bmatrix}a+b-1\\-(a+b-1)\end{bmatrix}
+  =(a+b-1)\begin{bmatrix}1\\-1\end{bmatrix}.
+  \]
+  If the two eigenvalues are distinct, then $w_1,w_2$ are eigenvectors corresponding to distinct eigenvalues and are linearly independent. Together with $e_1=(1,0,0)^T$ for eigenvalue $2$, they give an eigenbasis of $\R^3$.
+
+  If the two lower-block eigenvalues coincide, then $a+b=2$. Since $0<a\le1$ and $0<b\le1$, this forces $a=b=1$. Then $B=I_2$, and every vector in the lower two coordinates is an eigenvector with eigenvalue $1$. Hence the lower block is still diagonalizable. Therefore
+  \[
+  \boxed{A\text{ is diagonalizable}.}
+  \]
+
+  \item Assume $a=b<1$. Then
+  \[
+  w_1=\begin{bmatrix}1-a\\1-a\end{bmatrix}
+  \]
+  is a nonzero scalar multiple of $(1,1)^T$, and
+  \[
+  w_2=\begin{bmatrix}1\\-1\end{bmatrix}.
+  \]
+  Hence take
+  \[
+  P=\begin{bmatrix}1&0&0\\0&1&1\\0&1&-1\end{bmatrix},
+  \qquad
+  D=\diag(2,1,2a-1).
+  \]
+  Then
+  \[
+  A=PDP^{-1}.
+  \]
+  Thus
+  \[
+  A^{20}=PD^{20}P^{-1}.
+  \]
+  With $r=(2a-1)^{20}$, direct multiplication gives
+  \[
+  A^{20}=\begin{bmatrix}
+  2^{20}&0&0\\
+  0&\frac{1+r}{2}&\frac{1-r}{2}\\
+  0&\frac{1-r}{2}&\frac{1+r}{2}
+  \end{bmatrix}.
+  \]
+  For $0.25<a<0.75$, we have $|2a-1|<0.5$, so $r$ is negligible to one decimal place. Therefore
+  \[
+  \boxed{
+  A^{20}\approx
+  \begin{bmatrix}
+  1{,}048{,}576.0&0.0&0.0\\
+  0.0&0.5&0.5\\
+  0.0&0.5&0.5
+  \end{bmatrix}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Spectral Projectors and Swap-Matrix Decomposition}
+\begin{enumerate}[label=(\alph*)]
+  \item Since $A=[2]\oplus B$, the characteristic polynomial is the product of the characteristic polynomials of the diagonal blocks:
+  \[
+  \det(A-\lambda I)=(2-\lambda)\det(B-\lambda I_2).
+  \]
+  For
+  \[
+  B=\begin{bmatrix}a&1-b\\1-a&b\end{bmatrix},
+  \]
+  the trace and determinant are
+  \[
+  \tr(B)=a+b,
+  \qquad
+  \det(B)=a+b-1.
+  \]
+  Hence
+  \[
+  \det(B-\lambda I_2)=\lambda^2-(a+b)\lambda+(a+b-1)=(1-\lambda)(a+b-1-\lambda).
+  \]
+  Therefore
+  \[
+  \boxed{\det(A-\lambda I)=(2-\lambda)(1-\lambda)(a+b-1-\lambda)}
+  \]
+  and
+  \[
+  \boxed{\lambda=2,\ 1,\ a+b-1.}
+  \]
+
+  \item The spectral-projector viewpoint says that a $2\times2$ matrix with two distinct eigenvalues is diagonalizable. The lower block $B$ has eigenvalues $1$ and $a+b-1$. If they are distinct, then $B$ is diagonalizable and hence $A=[2]\oplus B$ is diagonalizable. If they are not distinct, then $a+b=2$, which under $0<a\le1$ and $0<b\le1$ implies $a=b=1$. Then $B=I_2$, so $B$ is diagonalizable. Therefore
+  \[
+  \boxed{A\text{ is diagonalizable}.}
+  \]
+
+  \item When $a=b<1$, the lower block is
+  \[
+  B=\begin{bmatrix}a&1-a\\1-a&a\end{bmatrix}.
+  \]
+  Let
+  \[
+  J=\begin{bmatrix}0&1\\1&0\end{bmatrix}.
+  \]
+  Then
+  \[
+  B=aI_2+(1-a)J.
+  \]
+  The swap matrix $J$ has eigenvectors
+  \[
+  \begin{bmatrix}1\\1\end{bmatrix},\qquad \begin{bmatrix}1\\-1\end{bmatrix}
+  \]
+  with eigenvalues $1$ and $-1$, respectively. Therefore $B$ has eigenvalues
+  \[
+  a+(1-a)=1,
+  \qquad
+  a-(1-a)=2a-1.
+  \]
+  Thus
+  \[
+  P=\begin{bmatrix}1&0&0\\0&1&1\\0&1&-1\end{bmatrix},
+  \qquad
+  D=\diag(2,1,2a-1)
+  \]
+  gives
+  \[
+  A=PDP^{-1}.
+  \]
+  Moreover, the projectors onto the symmetric and antisymmetric lower-coordinate subspaces are
+  \[
+  P_+=\frac12\begin{bmatrix}1&1\\1&1\end{bmatrix},
+  \qquad
+  P_- =\frac12\begin{bmatrix}1&-1\\-1&1\end{bmatrix}.
+  \]
+  Hence
+  \[
+  B^{20}=1^{20}P_++(2a-1)^{20}P_-.
+  \]
+  Writing $r=(2a-1)^{20}$ gives
+  \[
+  B^{20}=\frac12\begin{bmatrix}1+r&1-r\\1-r&1+r\end{bmatrix}.
+  \]
+  Hence
+  \[
+  A^{20}=\begin{bmatrix}
+  2^{20}&0&0\\
+  0&\frac{1+r}{2}&\frac{1-r}{2}\\
+  0&\frac{1-r}{2}&\frac{1+r}{2}
+  \end{bmatrix}.
+  \]
+  Since $0.25<a<0.75$ implies $|2a-1|<0.5$, $r$ rounds to $0.0$ at one decimal place. Therefore
+  \[
+  \boxed{
+  A^{20}\approx
+  \begin{bmatrix}
+  1{,}048{,}576.0&0.0&0.0\\
+  0.0&0.5&0.5\\
+  0.0&0.5&0.5
+  \end{bmatrix}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Characteristic polynomial and eigenvalues (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correct block determinant setup.
+    \item (2) Correct expansion and factorisation.
+    \item (1) Correct eigenvalues.
+  \end{itemize}
+  \item \textbf{(b) Diagonalizability (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Analyses the lower $2\times2$ block and its eigenvalues.
+    \item (2) Handles the repeated case $a=b=1$ correctly.
+    \item (1) Concludes that $A$ is diagonalizable under the stated conditions.
+  \end{itemize}
+  \item \textbf{(c) Diagonalisation and power (10 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Finds correct eigenvectors for $a=b<1$.
+    \item (2) Gives valid $P$ and $D$.
+    \item (2) Derives the formula for $A^{20}$ using $PD^{20}P^{-1}$ or spectral projectors.
+    \item (2) Correctly uses $|2a-1|<0.5$ to approximate $r$ as $0.0$ to one decimal place.
+    \item (1) Gives all nine entries of the approximated matrix.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 3 \hfill (20 Marks)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+  \item Consider the following vectors in $\R^4$ with the usual Euclidean inner product:
+  \[
+  u_1=\begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \qquad
+  u_2=\begin{bmatrix}0\\1\\-1\\0\end{bmatrix},
+  \qquad
+  u_3=\begin{bmatrix}0\\0\\1\\-1\end{bmatrix}.
+  \]
+  Apply the Gram--Schmidt procedure to $\{u_1,u_2,u_3\}$ to obtain an orthogonal basis for $\Span\{u_1,u_2,u_3\}$.
+  \item Let
+  \[
+  A=\begin{bmatrix}
+  1&0&0&1\\
+  -1&1&0&1\\
+  0&-1&1&1\\
+  0&0&-1&1
+  \end{bmatrix}.
+  \]
+  Find the QR-decomposition for $A$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Gram--Schmidt Column Computation}
+\begin{enumerate}[label=(\alph*)]
+  \item We apply Gram--Schmidt directly. Let
+  \[
+  v_1=u_1=\begin{bmatrix}1\\-1\\0\\0\end{bmatrix}.
+  \]
+  Then
+  \[
+  v_2=u_2-\frac{u_2\cdot v_1}{v_1\cdot v_1}v_1.
+  \]
+  Since
+  \[
+  u_2\cdot v_1=-1,
+  \qquad
+  v_1\cdot v_1=2,
+  \]
+  we get
+  \[
+  v_2=\begin{bmatrix}0\\1\\-1\\0\end{bmatrix}+\frac12\begin{bmatrix}1\\-1\\0\\0\end{bmatrix}
+  =\begin{bmatrix}1/2\\1/2\\-1\\0\end{bmatrix}.
+  \]
+  Scaling by $2$, we may use
+  \[
+  v_2=\begin{bmatrix}1\\1\\-2\\0\end{bmatrix}.
+  \]
+  Next,
+  \[
+  v_3=u_3-\frac{u_3\cdot v_1}{v_1\cdot v_1}v_1-\frac{u_3\cdot v_2}{v_2\cdot v_2}v_2.
+  \]
+  Now
+  \[
+  u_3\cdot v_1=0,
+  \qquad
+  u_3\cdot v_2=-2,
+  \qquad
+  v_2\cdot v_2=6.
+  \]
+  Hence
+  \[
+  v_3=\begin{bmatrix}0\\0\\1\\-1\end{bmatrix}+\frac13\begin{bmatrix}1\\1\\-2\\0\end{bmatrix}
+  =\begin{bmatrix}1/3\\1/3\\1/3\\-1\end{bmatrix}.
+  \]
+  Scaling by $3$, we may take
+  \[
+  v_3=\begin{bmatrix}1\\1\\1\\-3\end{bmatrix}.
+  \]
+  Therefore an orthogonal basis is
+  \[
+  \boxed{
+  \left\{
+  \begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\-2\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\1\\-3\end{bmatrix}
+  \right\}.}
+  \]
+  Direct checking gives
+  \[
+  v_1\cdot v_2=0,
+  \qquad
+  v_1\cdot v_3=0,
+  \qquad
+  v_2\cdot v_3=0.
+  \]
+
+  \item The first three columns of $A$ are $u_1,u_2,u_3$, and the fourth column is
+  \[
+  u_4=\begin{bmatrix}1\\1\\1\\1\end{bmatrix}.
+  \]
+  From part (a), normalise
+  \[
+  e_1=\frac1{\sqrt2}\begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \qquad
+  e_2=\frac1{\sqrt6}\begin{bmatrix}1\\1\\-2\\0\end{bmatrix},
+  \qquad
+  e_3=\frac1{2\sqrt3}\begin{bmatrix}1\\1\\1\\-3\end{bmatrix}.
+  \]
+  The vector $u_4=(1,1,1,1)^T$ is orthogonal to $u_1,u_2,u_3$, and hence also to $e_1,e_2,e_3$. Its norm is $2$, so
+  \[
+  e_4=\frac12\begin{bmatrix}1\\1\\1\\1\end{bmatrix}.
+  \]
+  Define
+  \[
+  Q=[e_1\ e_2\ e_3\ e_4]
+  =
+  \begin{bmatrix}
+  \frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  -\frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&-\frac2{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&0&-\frac3{2\sqrt3}&\frac12
+  \end{bmatrix}.
+  \]
+  Since the columns of $Q$ are orthonormal,
+  \[
+  R=Q^TA.
+  \]
+  Computing $R_{ij}=e_i\cdot u_j$ gives
+  \[
+  R=\begin{bmatrix}
+  \sqrt2&-\frac1{\sqrt2}&0&0\\[0.3em]
+  0&\frac3{\sqrt6}&-\frac2{\sqrt6}&0\\[0.3em]
+  0&0&\frac2{\sqrt3}&0\\[0.3em]
+  0&0&0&2
+  \end{bmatrix}.
+  \]
+  Therefore
+  \[
+  \boxed{A=QR.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Helmert Contrast Basis Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item The given vectors are adjacent-difference vectors:
+  \[
+  u_1=e_1-e_2,
+  \qquad
+  u_2=e_2-e_3,
+  \qquad
+  u_3=e_3-e_4.
+  \]
+  Their span is the hyperplane
+  \[
+  W=\left\{x\in\R^4:x_1+x_2+x_3+x_4=0\right\}.
+  \]
+  The standard Helmert contrast vectors in this hyperplane are
+  \[
+  h_1=\begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \qquad
+  h_2=\begin{bmatrix}1\\1\\-2\\0\end{bmatrix},
+  \qquad
+  h_3=\begin{bmatrix}1\\1\\1\\-3\end{bmatrix}.
+  \]
+  They are mutually orthogonal because
+  \[
+  h_1\cdot h_2=1-1=0,
+  \qquad
+  h_1\cdot h_3=1-1=0,
+  \qquad
+  h_2\cdot h_3=1+1-2=0.
+  \]
+  Each $h_i$ lies in $W$, and there are three nonzero mutually orthogonal vectors in the three-dimensional space $W$. Hence they form an orthogonal basis for $W=\Span\{u_1,u_2,u_3\}$. Therefore
+  \[
+  \boxed{\left\{h_1,h_2,h_3\right\}
+  =
+  \left\{
+  \begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\-2\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\1\\-3\end{bmatrix}
+  \right\}}
+  \]
+  is an orthogonal basis for the required span.
+
+  \item To obtain the QR decomposition, normalize the Helmert basis and append the normalized all-ones vector:
+  \[
+  e_1=\frac{h_1}{\|h_1\|},
+  \qquad
+  e_2=\frac{h_2}{\|h_2\|},
+  \qquad
+  e_3=\frac{h_3}{\|h_3\|},
+  \qquad
+  e_4=\frac{1}{2}\begin{bmatrix}1\\1\\1\\1\end{bmatrix}.
+  \]
+  Since
+  \[
+  \|h_1\|=\sqrt2,
+  \qquad
+  \|h_2\|=\sqrt6,
+  \qquad
+  \|h_3\|=\sqrt{12}=2\sqrt3,
+  \]
+  this gives exactly
+  \[
+  Q=\begin{bmatrix}
+  \frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  -\frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&-\frac2{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&0&-\frac3{2\sqrt3}&\frac12
+  \end{bmatrix}.
+  \]
+  The matrix $R$ is determined by
+  \[
+  R=Q^TA.
+  \]
+  Evaluating the dot products of the orthonormal Helmert vectors with the columns of $A$ gives
+  \[
+  R=\begin{bmatrix}
+  \sqrt2&-\frac1{\sqrt2}&0&0\\[0.3em]
+  0&\frac3{\sqrt6}&-\frac2{\sqrt6}&0\\[0.3em]
+  0&0&\frac2{\sqrt3}&0\\[0.3em]
+  0&0&0&2
+  \end{bmatrix}.
+  \]
+  Therefore
+  \[
+  \boxed{A=QR.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Cholesky Factorisation of the Gram Matrix}
+\begin{enumerate}[label=(\alph*)]
+  \item Let
+  \[
+  U=[u_1\ u_2\ u_3].
+  \]
+  The Gram matrix is
+  \[
+  G=U^TU=
+  \begin{bmatrix}
+  u_1\cdot u_1&u_1\cdot u_2&u_1\cdot u_3\\
+  u_2\cdot u_1&u_2\cdot u_2&u_2\cdot u_3\\
+  u_3\cdot u_1&u_3\cdot u_2&u_3\cdot u_3
+  \end{bmatrix}
+  =\begin{bmatrix}
+  2&-1&0\\
+  -1&2&-1\\
+  0&-1&2
+  \end{bmatrix}.
+  \]
+  A Cholesky factorisation $G=R_3^TR_3$ corresponds to Gram--Schmidt. The resulting upper triangular factor is
+  \[
+  R_3=\begin{bmatrix}
+  \sqrt2&-\frac1{\sqrt2}&0\\[0.3em]
+  0&\frac3{\sqrt6}&-\frac2{\sqrt6}\\[0.3em]
+  0&0&\frac2{\sqrt3}
+  \end{bmatrix}.
+  \]
+  Then
+  \[
+  Q_3=UR_3^{-1}
+  \]
+  has orthonormal columns spanning $\Span\{u_1,u_2,u_3\}$. Multiplying out gives
+  \[
+  Q_3=\begin{bmatrix}
+  \frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}\\[0.3em]
+  -\frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}\\[0.3em]
+  0&-\frac2{\sqrt6}&\frac1{2\sqrt3}\\[0.3em]
+  0&0&-\frac3{2\sqrt3}
+  \end{bmatrix}.
+  \]
+  Hence the associated orthogonal basis before normalisation is
+  \[
+  \boxed{
+  \left\{
+  \begin{bmatrix}1\\-1\\0\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\-2\\0\end{bmatrix},
+  \begin{bmatrix}1\\1\\1\\-3\end{bmatrix}
+  \right\}.}
+  \]
+
+  \item For the full $4\times4$ matrix $A=[u_1\ u_2\ u_3\ u_4]$, where
+  \[
+  u_4=\begin{bmatrix}1\\1\\1\\1\end{bmatrix},
+  \]
+  we have $u_4\perp u_1,u_2,u_3$. Therefore the full Gram matrix is block diagonal in the fourth direction:
+  \[
+  A^TA=\begin{bmatrix}
+  2&-1&0&0\\
+  -1&2&-1&0\\
+  0&-1&2&0\\
+  0&0&0&4
+  \end{bmatrix}.
+  \]
+  Its Cholesky factor is
+  \[
+  R=\begin{bmatrix}
+  \sqrt2&-\frac1{\sqrt2}&0&0\\[0.3em]
+  0&\frac3{\sqrt6}&-\frac2{\sqrt6}&0\\[0.3em]
+  0&0&\frac2{\sqrt3}&0\\[0.3em]
+  0&0&0&2
+  \end{bmatrix}.
+  \]
+  Then
+  \[
+  Q=AR^{-1}
+  \]
+  has orthonormal columns and gives
+  \[
+  Q=\begin{bmatrix}
+  \frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  -\frac1{\sqrt2}&\frac1{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&-\frac2{\sqrt6}&\frac1{2\sqrt3}&\frac12\\[0.3em]
+  0&0&-\frac3{2\sqrt3}&\frac12
+  \end{bmatrix}.
+  \]
+  Hence
+  \[
+  \boxed{A=QR}
+  \]
+  with $Q$ and $R$ as above.
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Gram--Schmidt for an orthogonal basis (10 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly identifies $v_1=u_1$.
+    \item (3) Correctly computes the second orthogonal vector $v_2$.
+    \item (3) Correctly computes the third orthogonal vector $v_3$.
+    \item (2) Presents the final orthogonal basis clearly, without unnecessarily normalising it.
+  \end{itemize}
+
+  \item \textbf{(b) QR decomposition (10 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly normalises the orthogonal basis vectors from part (a).
+    \item (2) Identifies and normalises the fourth orthogonal column.
+    \item (2) Forms the correct orthogonal matrix $Q$.
+    \item (3) Computes the correct upper-triangular matrix $R$.
+    \item (1) States $A=QR$ with correct dimensions and triangular form.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 4 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $\V$ be a finite-dimensional vector space and consider a linear map $T:\V\to\R$. Suppose $\{u_1,u_2,\ldots,u_s\}$ is a basis for $\Null(T)$. Show that if $T(v)\neq0$, then
+\[
+\{u_1,u_2,\ldots,u_s,v\}
+\]
+is a basis for $\V$.
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Rank--Nullity and Linear Independence}
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Proof of the claim.}
+  Since $T(v)\ne0$, the map $T$ is not the zero map. Because the codomain is $\R$, the range is a nonzero subspace of $\R$. The only nonzero subspace of $\R$ is $\R$ itself, so
+  \[
+  \Range(T)=\R,
+  \qquad
+  \dim\Range(T)=1.
+  \]
+  Since $\{u_1,\ldots,u_s\}$ is a basis for $\Null(T)$,
+  \[
+  \dim\Null(T)=s.
+  \]
+  By the rank--nullity theorem,
+  \[
+  \dim\V=\dim\Null(T)+\dim\Range(T)=s+1.
+  \]
+  Now suppose
+  \[
+  a_1u_1+\cdots+a_su_s+bv=0.
+  \]
+  Apply $T$ to both sides. Since each $u_i\in\Null(T)$, we have $T(u_i)=0$. Thus
+  \[
+  0=a_1T(u_1)+\cdots+a_sT(u_s)+bT(v)=bT(v).
+  \]
+  Since $T(v)\ne0$, it follows that
+  \[
+  b=0.
+  \]
+  Then
+  \[
+  a_1u_1+\cdots+a_su_s=0.
+  \]
+  Since $u_1,
+  \ldots,u_s$ are linearly independent, all $a_i=0$. Therefore
+  \[
+  \{u_1,u_2,\ldots,u_s,v\}
+  \]
+  is linearly independent. It has $s+1=\dim\V$ vectors, so it is a basis for $\V$.
+  \[
+  \boxed{\{u_1,u_2,\ldots,u_s,v\}\text{ is a basis for }\V.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Direct Sum Decomposition by Reducing to the Kernel}
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Proof of the claim.}
+  We prove directly that every vector $x\in\V$ can be written uniquely as a vector in $\Null(T)$ plus a multiple of $v$.
+
+  Since $T(v)\ne0$, for any $x\in\V$ define
+  \[
+  y=x-\frac{T(x)}{T(v)}v.
+  \]
+  Applying $T$ gives
+  \[
+  T(y)=T(x)-\frac{T(x)}{T(v)}T(v)=0.
+  \]
+  Hence
+  \[
+  y\in\Null(T).
+  \]
+  Since $u_1,
+  \ldots,u_s$ span $\Null(T)$, there exist scalars $a_1,
+  \ldots,a_s$ such that
+  \[
+  y=a_1u_1+\cdots+a_su_s.
+  \]
+  Therefore
+  \[
+  x=a_1u_1+\cdots+a_su_s+\frac{T(x)}{T(v)}v.
+  \]
+  Thus $u_1,
+  \ldots,u_s,v$ span $\V$.
+
+  To prove linear independence, suppose
+  \[
+  a_1u_1+\cdots+a_su_s+bv=0.
+  \]
+  Applying $T$ gives
+  \[
+  bT(v)=0.
+  \]
+  Since $T(v)\ne0$, we get $b=0$. Then independence of $u_1,
+  \ldots,u_s$ gives all $a_i=0$. Hence the set is linearly independent and spanning, so it is a basis.
+  \[
+  \boxed{\{u_1,u_2,\ldots,u_s,v\}\text{ is a basis for }\V.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: First Isomorphism Theorem and Quotient-Space Lift}
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Proof of the claim.}
+  By the first isomorphism theorem,
+  \[
+  \V/\Null(T)\cong\Range(T).
+  \]
+  Since $T(v)\ne0$, the range is a nonzero subspace of $\R$, hence
+  \[
+  \Range(T)=\R
+  \]
+  and
+  \[
+  \dim(\V/\Null(T))=1.
+  \]
+  The coset
+  \[
+  v+\Null(T)
+  \]
+  is nonzero in the quotient because $v\notin\Null(T)$, as $T(v)\ne0$. Since the quotient is one-dimensional, the single nonzero coset $v+\Null(T)$ forms a basis of $\V/\Null(T)$.
+
+  The standard quotient-basis lifting principle says: if $u_1,
+  \ldots,u_s$ is a basis for $\Null(T)$ and $v+\Null(T)$ is a basis for $\V/\Null(T)$, then
+  \[
+  u_1,
+  \ldots,u_s,v
+  \]
+  is a basis for $\V$.
+
+  For completeness, we verify this principle directly. Since $v+\Null(T)$ spans the quotient, every $x+\Null(T)$ is a scalar multiple of $v+\Null(T)$. Hence for some scalar $c$,
+  \[
+  x-cv\in\Null(T).
+  \]
+  So
+  \[
+  x-cv=a_1u_1+\cdots+a_su_s,
+  \]
+  and therefore $x$ is in the span of $u_1,
+  \ldots,u_s,v$. Thus the set spans $\V$.
+
+  If
+  \[
+  a_1u_1+\cdots+a_su_s+bv=0,
+  \]
+  then in the quotient space,
+  \[
+  b(v+\Null(T))=0+\Null(T).
+  \]
+  Since $v+\Null(T)$ is nonzero and spans a one-dimensional quotient, it is linearly independent, so $b=0$. Then $a_1=\cdots=a_s=0$ by independence of the kernel basis. Hence the lifted set is independent.
+
+  Therefore
+  \[
+  \boxed{\{u_1,u_2,\ldots,u_s,v\}\text{ is a basis for }\V.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item (3) Correctly observes that $T(v)\neq0$ implies $\Range(T)=\R$ and hence $\dim\Range(T)=1$.
+  \item (3) Applies rank--nullity to obtain $\dim\V=s+1$.
+  \item (4) Sets up a general linear relation among $u_1,\ldots,u_s,v$.
+  \item (4) Applies $T$ to show the coefficient of $v$ is zero.
+  \item (3) Uses independence of the kernel basis to show all remaining coefficients are zero.
+  \item (2) Concludes that a linearly independent set with $\dim\V$ vectors is a basis.
+  \item (1) Presents the final conclusion clearly.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 5 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let
+\[
+H^{(1)}=\begin{bmatrix}2&-3\\1&-2\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Let $e_1^{(1)}=(1,1)^T$ and $e_2^{(1)}=(3,1)^T$. Explain why $e_1^{(1)}$ and $e_2^{(1)}$ are eigenvectors of $H^{(1)}$, and determine their eigenvalues.
+  \item Define
+  \[
+  H^{(2)}=\begin{bmatrix}2H^{(1)}&-3H^{(1)}\\H^{(1)}&-2H^{(1)}\end{bmatrix}.
+  \]
+  Set
+  \[
+  e_{11}^{(2)}=\begin{bmatrix}e_1^{(1)}\\e_1^{(1)}\end{bmatrix},
+  \quad
+  e_{12}^{(2)}=\begin{bmatrix}e_2^{(1)}\\e_2^{(1)}\end{bmatrix},
+  \quad
+  e_{21}^{(2)}=\begin{bmatrix}3e_1^{(1)}\\e_1^{(1)}\end{bmatrix},
+  \quad
+  e_{22}^{(2)}=\begin{bmatrix}3e_2^{(1)}\\e_2^{(1)}\end{bmatrix}.
+  \]
+  Explain why these four vectors are eigenvectors of $H^{(2)}$ and determine their eigenvalues.
+  \item Let $P^{(1)}=[e_1^{(1)}\ e_2^{(1)}]$ and $P^{(2)}=[e_{11}^{(2)}\ e_{12}^{(2)}\ e_{21}^{(2)}\ e_{22}^{(2)}]$. Show that
+  \[
+  P^{(2)}=\begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}.
+  \]
+  \item For $k\ge3$, recursively define
+  \[
+  H^{(k)}=\begin{bmatrix}2H^{(k-1)}&-3H^{(k-1)}\\H^{(k-1)}&-2H^{(k-1)}\end{bmatrix}.
+  \]
+  Show that $1$ and $-1$ are eigenvalues of $H^{(k)}$, and the multiplicities for both $1$ and $-1$ are $2^{k-1}$. You may assume that
+  \[
+  \begin{bmatrix}I_m&3I_m\\I_m&I_m\end{bmatrix}
+  \]
+  is invertible for every $m\ge1$.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Block Eigenvector Propagation}
+\begin{enumerate}[label=(\alph*)]
+  \item Directly compute
+  \[
+  H^{(1)}e_1^{(1)}=
+  \begin{bmatrix}2&-3\\1&-2\end{bmatrix}
+  \begin{bmatrix}1\\1\end{bmatrix}
+  =\begin{bmatrix}-1\\-1\end{bmatrix}
+  =-e_1^{(1)}.
+  \]
+  Hence $e_1^{(1)}$ is an eigenvector with eigenvalue $-1$.
+
+  Also,
+  \[
+  H^{(1)}e_2^{(1)}=
+  \begin{bmatrix}2&-3\\1&-2\end{bmatrix}
+  \begin{bmatrix}3\\1\end{bmatrix}
+  =\begin{bmatrix}3\\1\end{bmatrix}
+  =e_2^{(1)}.
+  \]
+  Hence $e_2^{(1)}$ is an eigenvector with eigenvalue $1$.
+  Therefore
+  \[
+  \boxed{e_1^{(1)}\text{ has eigenvalue }-1,
+  \qquad
+  e_2^{(1)}\text{ has eigenvalue }1.}
+  \]
+
+  \item Let $x$ be an eigenvector of $H^{(1)}$ with eigenvalue $\lambda$. For scalars $\alpha,\beta$, compute
+  \[
+  H^{(2)}\begin{bmatrix}\alpha x\\\beta x\end{bmatrix}
+  =\begin{bmatrix}
+  2H^{(1)}(\alpha x)-3H^{(1)}(\beta x)\\
+  H^{(1)}(\alpha x)-2H^{(1)}(\beta x)
+  \end{bmatrix}
+  =\lambda\begin{bmatrix}(2\alpha-3\beta)x\\(\alpha-2\beta)x\end{bmatrix}.
+  \]
+  If $(\alpha,\beta)^T$ is itself an eigenvector of $H^{(1)}$ with eigenvalue $\mu$, then
+  \[
+  \begin{bmatrix}2\alpha-3\beta\\\alpha-2\beta\end{bmatrix}
+  =\mu\begin{bmatrix}\alpha\\\beta\end{bmatrix}.
+  \]
+  Therefore
+  \[
+  H^{(2)}\begin{bmatrix}\alpha x\\\beta x\end{bmatrix}
+  =\lambda\mu\begin{bmatrix}\alpha x\\\beta x\end{bmatrix}.
+  \]
+  Thus the eigenvalue at level two is the product of the two eigenvalues involved.
+
+  Now
+  \[
+  e_{11}^{(2)}=\begin{bmatrix}e_1^{(1)}\\e_1^{(1)}\end{bmatrix}
+  \]
+  uses the coefficient vector $(1,1)^T=e_1^{(1)}$, whose eigenvalue is $-1$, and the inner vector $e_1^{(1)}$, whose eigenvalue is $-1$. Hence its eigenvalue is $(-1)(-1)=1$.
+
+  Similarly,
+  \[
+  e_{12}^{(2)}=\begin{bmatrix}e_2^{(1)}\\e_2^{(1)}\end{bmatrix}
+  \]
+  has eigenvalue $(-1)(1)=-1$,
+  \[
+  e_{21}^{(2)}=\begin{bmatrix}3e_1^{(1)}\\e_1^{(1)}\end{bmatrix}
+  \]
+  has eigenvalue $(1)(-1)=-1$, and
+  \[
+  e_{22}^{(2)}=\begin{bmatrix}3e_2^{(1)}\\e_2^{(1)}\end{bmatrix}
+  \]
+  has eigenvalue $(1)(1)=1$.
+  Therefore
+  \[
+  \boxed{
+  e_{11}^{(2)}:1,
+  \quad
+  e_{12}^{(2)}:-1,
+  \quad
+  e_{21}^{(2)}:-1,
+  \quad
+  e_{22}^{(2)}:1.}
+  \]
+
+  \item Multiplying the two block matrices gives
+  \[
+  \begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}
+  =
+  \begin{bmatrix}P^{(1)}&3P^{(1)}\\P^{(1)}&P^{(1)}\end{bmatrix}.
+  \]
+  Its first column is
+  \[
+  \begin{bmatrix}e_1^{(1)}\\e_1^{(1)}\end{bmatrix}=e_{11}^{(2)},
+  \]
+  its second column is
+  \[
+  \begin{bmatrix}e_2^{(1)}\\e_2^{(1)}\end{bmatrix}=e_{12}^{(2)},
+  \]
+  its third column is
+  \[
+  \begin{bmatrix}3e_1^{(1)}\\e_1^{(1)}\end{bmatrix}=e_{21}^{(2)},
+  \]
+  and its fourth column is
+  \[
+  \begin{bmatrix}3e_2^{(1)}\\e_2^{(1)}\end{bmatrix}=e_{22}^{(2)}.
+  \]
+  Hence
+  \[
+  \boxed{P^{(2)}=\begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}.}
+  \]
+
+  \item Suppose, inductively, that $x$ is an eigenvector of $H^{(k-1)}$ with eigenvalue $\lambda\in\{1,-1\}$. Then
+  \[
+  H^{(k)}\begin{bmatrix}x\\x\end{bmatrix}
+  =\begin{bmatrix}2H^{(k-1)}x-3H^{(k-1)}x\\H^{(k-1)}x-2H^{(k-1)}x\end{bmatrix}
+  =\begin{bmatrix}-H^{(k-1)}x\\-H^{(k-1)}x\end{bmatrix}
+  =-\lambda\begin{bmatrix}x\\x\end{bmatrix}.
+  \]
+  Also,
+  \[
+  H^{(k)}\begin{bmatrix}3x\\x\end{bmatrix}
+  =\begin{bmatrix}6H^{(k-1)}x-3H^{(k-1)}x\\3H^{(k-1)}x-2H^{(k-1)}x\end{bmatrix}
+  =\begin{bmatrix}3H^{(k-1)}x\\H^{(k-1)}x\end{bmatrix}
+  =\lambda\begin{bmatrix}3x\\x\end{bmatrix}.
+  \]
+  Thus each eigenvector at level $k-1$ produces one eigenvector with the opposite eigenvalue and one eigenvector with the same eigenvalue at level $k$.
+
+  Let $m=2^{k-1}$ and suppose $P^{(k-1)}$ is an eigenvector matrix for $H^{(k-1)}$. Define
+  \[
+  P^{(k)}=\begin{bmatrix}P^{(k-1)}&0\\0&P^{(k-1)}\end{bmatrix}
+  \begin{bmatrix}I_m&3I_m\\I_m&I_m\end{bmatrix}.
+  \]
+  By induction $P^{(k-1)}$ is invertible, and the second block matrix is invertible by assumption. Hence $P^{(k)}$ is invertible, so the constructed eigenvectors form a basis.
+
+  If level $k-1$ has $2^{k-2}$ eigenvectors for eigenvalue $1$ and $2^{k-2}$ eigenvectors for eigenvalue $-1$, then at level $k$ each old eigenvector contributes one eigenvector to each sign. Therefore level $k$ has
+  \[
+  2^{k-2}+2^{k-2}=2^{k-1}
+  \]
+  eigenvectors for eigenvalue $1$, and the same number for eigenvalue $-1$. Hence
+  \[
+  \boxed{\text{multiplicity of }1=2^{k-1},
+  \qquad
+  \text{multiplicity of }-1=2^{k-1}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Kronecker Product Eigenvalue Theorem}
+\begin{enumerate}[label=(\alph*)]
+  \item The base matrix is
+  \[
+  H^{(1)}=\begin{bmatrix}2&-3\\1&-2\end{bmatrix}.
+  \]
+  Direct multiplication gives
+  \[
+  H^{(1)}\begin{bmatrix}1\\1\end{bmatrix}=\begin{bmatrix}-1\\-1\end{bmatrix}
+  =-\begin{bmatrix}1\\1\end{bmatrix},
+  \]
+  and
+  \[
+  H^{(1)}\begin{bmatrix}3\\1\end{bmatrix}=\begin{bmatrix}3\\1\end{bmatrix}.
+  \]
+  Therefore $e_1^{(1)}$ and $e_2^{(1)}$ are eigenvectors with eigenvalues $-1$ and $1$, respectively.
+
+  \item The recursion gives
+  \[
+  H^{(2)}=
+  \begin{bmatrix}2H^{(1)}&-3H^{(1)}\\H^{(1)}&-2H^{(1)}\end{bmatrix}
+  =H^{(1)}\otimes H^{(1)},
+  \]
+  where $\otimes$ denotes the Kronecker product. The Kronecker eigenvalue theorem states that if
+  \[
+  H^{(1)}p=\lambda p,
+  \qquad
+  H^{(1)}q=\mu q,
+  \]
+  then
+  \[
+  (H^{(1)}\otimes H^{(1)})(p\otimes q)=\lambda\mu(p\otimes q).
+  \]
+  The four listed vectors are precisely
+  \[
+  e_1^{(1)}\otimes e_1^{(1)},
+  \quad
+  e_1^{(1)}\otimes e_2^{(1)},
+  \quad
+  e_2^{(1)}\otimes e_1^{(1)},
+  \quad
+  e_2^{(1)}\otimes e_2^{(1)},
+  \]
+  written in block form. Their eigenvalues are respectively
+  \[
+  (-1)(-1)=1,
+  \quad
+  (-1)(1)=-1,
+  \quad
+  (1)(-1)=-1,
+  \quad
+  (1)(1)=1.
+  \]
+  Hence
+  \[
+  \boxed{e_{11}^{(2)}:1,
+  \quad e_{12}^{(2)}:-1,
+  \quad e_{21}^{(2)}:-1,
+  \quad e_{22}^{(2)}:1.}
+  \]
+
+  \item Since
+  \[
+  P^{(1)}=[e_1^{(1)}\ e_2^{(1)}],
+  \]
+  the Kronecker product
+  \[
+  P^{(1)}\otimes P^{(1)}
+  \]
+  has columns
+  \[
+  e_1^{(1)}\otimes e_1^{(1)},
+  \quad
+  e_1^{(1)}\otimes e_2^{(1)},
+  \quad
+  e_2^{(1)}\otimes e_1^{(1)},
+  \quad
+  e_2^{(1)}\otimes e_2^{(1)},
+  \]
+  which are exactly the columns of $P^{(2)}$ in the stated ordering. Also, by block multiplication,
+  \[
+  P^{(1)}\otimes P^{(1)}
+  =\begin{bmatrix}P^{(1)}&3P^{(1)}\\P^{(1)}&P^{(1)}\end{bmatrix}
+  =\begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}.
+  \]
+  Therefore
+  \[
+  \boxed{P^{(2)}=\begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}.}
+  \]
+
+  \item By induction,
+  \[
+  H^{(k)}=\underbrace{H^{(1)}\otimes H^{(1)}\otimes\cdots\otimes H^{(1)}}_{k\text{ factors}}.
+  \]
+  A tensor product eigenvector is obtained by choosing each factor from $e_1^{(1)}$ and $e_2^{(1)}$:
+  \[
+  e_{i_1}^{(1)}\otimes e_{i_2}^{(1)}\otimes\cdots\otimes e_{i_k}^{(1)}.
+  \]
+  Its eigenvalue is the product of the corresponding base eigenvalues, each of which is either $-1$ or $1$. Thus every eigenvalue of the constructed eigenbasis is $1$ or $-1$.
+
+  There are $2^k$ such tensor-product eigenvectors, and they form a basis because $P^{(1)}$ is invertible and hence
+  \[
+  \underbrace{P^{(1)}\otimes\cdots\otimes P^{(1)}}_{k\text{ factors}}
+  \]
+  is invertible. The eigenvalue is $1$ when an even number of factors are $e_1^{(1)}$, and it is $-1$ when an odd number of factors are $e_1^{(1)}$. Among all $2^k$ sign choices, exactly half have even parity and half have odd parity. Hence
+  \[
+  \boxed{m_1=2^{k-1},
+  \qquad
+  m_{-1}=2^{k-1}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Involution, Trace, and Minimal Polynomial}
+\begin{enumerate}[label=(\alph*)]
+  \item Directly compute the base eigenvectors:
+  \[
+  H^{(1)}(1,1)^T=-(1,1)^T,
+  \qquad
+  H^{(1)}(3,1)^T=(3,1)^T.
+  \]
+  Thus the two eigenvalues at level one are $-1$ and $1$.
+
+  \item Since $H^{(1)}$ has eigenbasis $e_1^{(1)},e_2^{(1)}$, and
+  \[
+  H^{(2)}=H^{(1)}\otimes H^{(1)},
+  \]
+  the eigenvectors of $H^{(2)}$ are tensor products of the eigenvectors of $H^{(1)}$. The listed four vectors are exactly those tensor products in block notation. The eigenvalues multiply, giving
+  \[
+  \boxed{1,-1,-1,1}
+  \]
+  for
+  \[
+  e_{11}^{(2)},e_{12}^{(2)},e_{21}^{(2)},e_{22}^{(2)}
+  \]
+  respectively.
+
+  \item Multiplying the stated block factorisation gives
+  \[
+  \begin{bmatrix}P^{(1)}&0\\0&P^{(1)}\end{bmatrix}
+  \begin{bmatrix}I_2&3I_2\\I_2&I_2\end{bmatrix}
+  =\begin{bmatrix}P^{(1)}&3P^{(1)}\\P^{(1)}&P^{(1)}\end{bmatrix}.
+  \]
+  Its columns are precisely
+  \[
+  e_{11}^{(2)},e_{12}^{(2)},e_{21}^{(2)},e_{22}^{(2)}.
+  \]
+  Hence the required identity for $P^{(2)}$ holds.
+
+  \item First observe that
+  \[
+  (H^{(1)})^2=I_2.
+  \]
+  Since
+  \[
+  H^{(k)}=\underbrace{H^{(1)}\otimes\cdots\otimes H^{(1)}}_{k\text{ factors}},
+  \]
+  we get
+  \[
+  (H^{(k)})^2
+  =\underbrace{(H^{(1)})^2\otimes\cdots\otimes (H^{(1)})^2}_{k\text{ factors}}
+  =I_{2^k}.
+  \]
+  Hence the minimal polynomial of $H^{(k)}$ divides
+  \[
+  x^2-1=(x-1)(x+1),
+  \]
+  which has distinct roots. Therefore $H^{(k)}$ is diagonalizable and all its eigenvalues lie in $\{1,-1\}$.
+
+  Next,
+  \[
+  \tr(H^{(1)})=2+(-2)=0.
+  \]
+  The trace of a Kronecker product satisfies
+  \[
+  \tr(A\otimes B)=\tr(A)\tr(B).
+  \]
+  Therefore
+  \[
+  \tr(H^{(k)})=(\tr H^{(1)})^k=0.
+  \]
+  Let $m_+$ and $m_-$ be the algebraic multiplicities of eigenvalues $1$ and $-1$. Since $H^{(k)}$ is $2^k\times2^k$,
+  \[
+  m_++m_-=2^k.
+  \]
+  Since the trace is the sum of eigenvalues counted with algebraic multiplicity,
+  \[
+  m_+-m_-=0.
+  \]
+  Solving these two equations gives
+  \[
+  m_+=m_-=2^{k-1}.
+  \]
+  Hence
+  \[
+  \boxed{\text{multiplicity of }1=2^{k-1},
+  \qquad
+  \text{multiplicity of }-1=2^{k-1}.}
+  \]
+\end{enumerate}
+
+\newpage
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Base eigenvectors (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Verifies $e_1^{(1)}$ with eigenvalue $-1$.
+    \item (2) Verifies $e_2^{(1)}$ with eigenvalue $1$.
+  \end{itemize}
+  \item \textbf{(b) Level-two eigenvectors (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Establishes the block-vector product rule or Kronecker-product rule.
+    \item (2) Applies it correctly to the four listed vectors.
+    \item (1) States all four eigenvalues correctly.
+  \end{itemize}
+  \item \textbf{(c) Matrix factorisation (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly identifies how the first block matrix inserts $P^{(1)}$.
+    \item (2) Correctly verifies the columns of $P^{(2)}$.
+  \end{itemize}
+  \item \textbf{(d) General recursion and multiplicities (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Shows how the recursive block structure propagates eigenvectors.
+    \item (2) Constructs or describes an eigenbasis using the invertible block matrix or Kronecker products.
+    \item (2) Correctly counts $2^{k-1}$ eigenvectors for each eigenvalue.
+    \item (1) States the final multiplicity conclusion clearly.
+  \end{itemize}
+\end{itemize}
+
+\end{document}

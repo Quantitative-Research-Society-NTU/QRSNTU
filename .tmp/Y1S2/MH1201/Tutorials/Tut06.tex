@@ -1,0 +1,826 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 6 (Week 7) -- Problems \& Solutions}
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- COMMON MACROS -------------
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cPn}{\mathcal{P}_n}
+
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Nullity}{nullity}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\rref}{rref}
+\DeclareMathOperator{\tr}{trace}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item spanning sets and images under surjective linear maps ($V=\Span(S)\Rightarrow W=\Span(T[S])$);
+  \item RREF pivot criteria for injectivity and surjectivity of linear maps via matrix representations;
+  \item equal-dimension criterion: injective $\Leftrightarrow$ surjective for linear maps between finite-dimensional spaces;
+  \item invertibility under composition and sharp counterexamples for the converse;
+  \item polynomial-space linear operators and existence of polynomial solutions to a (polynomial) ODE constraint;
+  \item constructing explicit isomorphisms between matrix subspaces of equal dimension;
+  \item change-of-basis computation of a matrix representation $[T]_{\gamma}^{\gamma}$.
+\end{itemize}
+
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Spanning sets and images)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ and $W$ be vector spaces over the same field,
+\item $T\in\mathcal{L}(V,W)$ be surjective onto $W$, and
+\item $S\subseteq V$.
+\end{enumerate}
+Show that if $V=\operatorname{span}(S)$, then $W=\operatorname{span}(T[S])$.
+
+\medskip
+\noindent\textit{Remark:} Recall that $T[S]$ is the image of $S$ under $T$, i.e.\ $T[S]=\{T(v)\in W\mid v\in S\}$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Write an arbitrary element of $W$ as a linear combination}
+Assume $T$ is surjective and $V=\operatorname{span}(S)$.
+
+Let $w\in W$ be arbitrary. Since $T$ is surjective onto $W$, there exists $v\in V$ such that
+\[
+T(v)=w.
+\]
+Since $V=\operatorname{span}(S)$, we can write $v$ as a finite linear combination of elements of $S$:
+\[
+v=\sum_{i=1}^k a_i s_i,\qquad a_i\in\mathbb{F},\ s_i\in S.
+\]
+Apply linearity of $T$:
+\[
+w=T(v)=T\!\left(\sum_{i=1}^k a_i s_i\right)=\sum_{i=1}^k a_i\,T(s_i).
+\]
+Each $T(s_i)\in T[S]$, so $w$ is a linear combination of elements of $T[S]$. Hence $w\in\operatorname{span}(T[S])$.
+Since $w\in W$ was arbitrary, we have shown
+\[
+W\subseteq \operatorname{span}(T[S]).
+\]
+Conversely, $\operatorname{span}(T[S])\subseteq W$ is automatic because $T[S]\subseteq W$ and $\operatorname{span}(T[S])$ is a subspace of $W$.
+Therefore,
+\[
+W=\operatorname{span}(T[S]).
+\]
+\[
+\boxed{\,V=\operatorname{span}(S)\ \text{and $T$ surjective}\ \Longrightarrow\ W=\operatorname{span}(T[S])\,}.
+\]
+
+\subsubsection{Method 2: Use the identity $T(\operatorname{span}(S))=\operatorname{span}(T[S])$}
+We first prove the general identity: for any linear map $T:V\to W$ and any subset $S\subseteq V$,
+\[
+T(\operatorname{span}(S))=\operatorname{span}(T[S]).
+\]
+
+\emph{Proof of $\subseteq$:} Let $y\in T(\operatorname{span}(S))$. Then $y=T(v)$ for some $v\in\operatorname{span}(S)$, so
+\[
+v=\sum_{i=1}^k a_i s_i\qquad (a_i\in\mathbb{F},\ s_i\in S).
+\]
+Hence
+\[
+y=T(v)=\sum_{i=1}^k a_i\,T(s_i)\in \operatorname{span}(T[S]).
+\]
+Thus
+\[
+T(\operatorname{span}(S))\subseteq \operatorname{span}(T[S]).
+\]
+
+\emph{Proof of $\supseteq$:} Let $y\in\operatorname{span}(T[S])$. Then
+\[
+y=\sum_{i=1}^k a_i\,T(s_i)
+\]
+for some $a_i\in\mathbb{F}$ and $s_i\in S$. By linearity,
+\[
+y=T\!\left(\sum_{i=1}^k a_i s_i\right).
+\]
+Since $\sum_{i=1}^k a_i s_i\in\operatorname{span}(S)$, it follows that $y\in T(\operatorname{span}(S))$. Hence
+\[
+\operatorname{span}(T[S])\subseteq T(\operatorname{span}(S)).
+\]
+
+Therefore,
+\[
+T(\operatorname{span}(S))=\operatorname{span}(T[S]).
+\]
+
+Now use the assumptions $V=\operatorname{span}(S)$ and surjectivity of $T$:
+\[
+W=T(V)=T(\operatorname{span}(S))=\operatorname{span}(T[S]).
+\]
+Hence
+\[
+\boxed{\,W=\operatorname{span}(T[S])\,}.
+\]
+
+\subsubsection{Method 3: Use the universal property of generated subspaces}
+Since $V=\operatorname{span}(S)$, the set $S$ generates $V$. Hence every vector of $V$ is obtained from elements of $S$ by taking finite linear combinations.
+
+Because $T$ is linear, it preserves finite linear combinations. Therefore the image $T(V)$ is precisely the subspace generated by the images of elements of $S$, namely
+\[
+T(V)=\operatorname{span}(T[S]).
+\]
+Since $T$ is surjective, $T(V)=W$. Hence
+\[
+W=\operatorname{span}(T[S]).
+\]
+Therefore,
+\[
+\boxed{\,W=\operatorname{span}(T[S])\,}.
+\]
+
+\subsubsection{Method 4: Basis extraction from a spanning set}
+Since $V=\operatorname{span}(S)$, there exists a basis $B$ of $V$ such that $B\subseteq S$.
+
+Because $B$ is a basis of $V$, we have
+\[
+V=\operatorname{span}(B).
+\]
+Applying Method 2 to the set $B$, we get
+\[
+T(V)=T(\operatorname{span}(B))=\operatorname{span}(T[B]).
+\]
+Since $T$ is surjective,
+\[
+W=T(V)=\operatorname{span}(T[B]).
+\]
+Now $B\subseteq S$, so
+\[
+T[B]\subseteq T[S].
+\]
+Hence
+\[
+\operatorname{span}(T[B])\subseteq \operatorname{span}(T[S]).
+\]
+Thus
+\[
+W=\operatorname{span}(T[B])\subseteq \operatorname{span}(T[S])\subseteq W,
+\]
+because $T[S]\subseteq W$. Therefore,
+\[
+W=\operatorname{span}(T[S]).
+\]
+So again,
+\[
+\boxed{\,W=\operatorname{span}(T[S])\,}.
+\]
+
+
+\section{Question 2 (RREF pivots and injective/surjective criteria)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ and $W$ be finite-dimensional vector spaces over the same field,
+\item $\alpha$ and $\beta$ be ordered bases for $V$ and $W$, respectively, and
+\item $T\in\cL(V,W)$.
+\end{enumerate}
+Establish:
+\begin{enumerate}[label=(\arabic*)]
+\item $T$ is injective if and only if the RREF of $[T]_{\beta}^{\alpha}$ has a pivot in every column.
+\item $T$ is surjective onto $W$ if and only if the RREF of $[T]_{\beta}^{\alpha}$ has a pivot in every row.
+\end{enumerate}
+
+\subsection{Solution}
+Let $m=\dim(V)$ and $n=\dim(W)$. Then $[T]_{\beta}^{\alpha}$ is an $n\times m$ matrix over $\F$.
+
+\subsubsection{Method 1: Reduce to the standard matrix equation $[T(v)]_\beta=[T]_\beta^\alpha [v]_\alpha$}
+Let $A\coloneqq [T]_{\beta}^{\alpha}$. By definition of matrix representation,
+\[
+\forall v\in V:\qquad [T(v)]_{\beta}=A\,[v]_{\alpha}.
+\]
+The coordinate maps $C_\alpha:V\to \F^m$ and $C_\beta:W\to \F^n$ given by
+$C_\alpha(v)=[v]_\alpha$ and $C_\beta(w)=[w]_\beta$ are linear isomorphisms.
+Hence $T$ is injective/surjective if and only if the induced map
+\[
+\widetilde{T}:\F^m\to\F^n,\qquad \widetilde{T}(x)=Ax
+\]
+is injective/surjective.
+
+\begin{enumerate}[label=(\arabic*)]
+\item $T$ is injective $\Longleftrightarrow$ $\widetilde{T}$ is injective $\Longleftrightarrow$ $\ker(\widetilde{T})=\{0\}$.
+But $\ker(\widetilde{T})=\{x\in\F^m:Ax=0\}$, i.e.\ the solution space of $Ax=0$.
+In RREF, having a pivot in \emph{every column} means there are no free variables, hence the only solution to $Ax=0$ is $x=0$.
+Thus $\ker(\widetilde{T})=\{0\}$, i.e.\ $\widetilde{T}$ (and hence $T$) is injective.
+Conversely, if some column has no pivot, then there is a free variable and a nonzero solution to $Ax=0$, so $T$ is not injective.
+Therefore,
+\[
+\boxed{\,T\ \text{injective}\ \Longleftrightarrow\ \rref([T]_\beta^\alpha)\ \text{has a pivot in every column.}\,}
+\]
+
+\item $T$ is surjective onto $W$ $\Longleftrightarrow$ $\widetilde{T}$ is surjective onto $\F^n$.
+Surjectivity of $\widetilde{T}(x)=Ax$ means: for every $y\in\F^n$, the system $Ax=y$ is consistent.
+In RREF, this holds for all $y$ exactly when there is a pivot in \emph{every row}, i.e.\ there is no zero row that could create a contradiction
+$0=\text{(nonzero)}$ after augmentation.
+Equivalently, pivot in every row means $\Rank(A)=n$, so the column space of $A$ equals $\F^n$.
+Therefore,
+\[
+\boxed{\,T\ \text{surjective onto }W\ \Longleftrightarrow\ \rref([T]_\beta^\alpha)\ \text{has a pivot in every row.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Rank conditions ($\Rank(A)$) and RREF pivot counting}
+Let $A=[T]_\beta^\alpha\in\F^{n\times m}$. In RREF, the number of pivots equals $\Rank(A)$.
+
+\begin{enumerate}[label=(\arabic*)]
+\item $T$ injective $\Longleftrightarrow \Null(T)=\{0\}\Longleftrightarrow \Nullity(T)=0$.
+By rank--nullity (in finite dimensions),
+\[
+\dim(V)=\Rank(T)+\Nullity(T)\quad\Longrightarrow\quad m=\Rank(T).
+\]
+Moreover, $\Rank(T)=\Rank(A)$ (rank is invariant under change of bases), so $\Rank(A)=m$.
+But $\Rank(A)=m$ for an $n\times m$ matrix holds iff there is a pivot in every column (i.e.\ full column rank).
+Hence the desired equivalence.
+
+\item $T$ surjective onto $W$ $\Longleftrightarrow \Range(T)=W\Longleftrightarrow \Rank(T)=\dim(W)=n$.
+Again $\Rank(T)=\Rank(A)$, so $\Rank(A)=n$, which holds iff there is a pivot in every row (full row rank).
+\end{enumerate}
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Equal dimensions: injective $\Leftrightarrow$ surjective)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $V$ and $W$ be finite-dimensional vector spaces over the same field, and
+\item $T\in\cL(V,W)$.
+\end{enumerate}
+Show that if $\dim(V)=\dim(W)$, then $T$ is injective if and only if $T$ is surjective onto $W$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Rank--nullity and dimension inequalities}
+Let $\dim(V)=\dim(W)=n$.
+
+\medskip
+\noindent\textbf{Injective $\Rightarrow$ surjective.}
+If $T$ is injective, then $\Null(T)=\{0\}$, so $\Nullity(T)=0$.
+Rank--nullity gives
+\[
+\dim(V)=\Rank(T)+\Nullity(T)\quad\Rightarrow\quad n=\Rank(T)+0,
+\]
+so $\Rank(T)=n=\dim(W)$. Therefore $\Range(T)$ is an $n$-dimensional subspace of $W$, hence equals $W$.
+Thus $T$ is surjective onto $W$.
+
+\medskip
+\noindent\textbf{Surjective $\Rightarrow$ injective.}
+If $T$ is surjective, then $\Range(T)=W$ so $\Rank(T)=\dim(W)=n$.
+Rank--nullity gives
+\[
+n=\dim(V)=\Rank(T)+\Nullity(T)=n+\Nullity(T),
+\]
+so $\Nullity(T)=0$, i.e.\ $\Null(T)=\{0\}$ and $T$ is injective.
+
+\[
+\boxed{\,\dim(V)=\dim(W)\ \Longrightarrow\ (T\text{ injective})\ \Longleftrightarrow\ (T\text{ surjective onto }W)\,}.
+\]
+
+\subsubsection{Method 2: Matrix representation (square matrix) and invertibility}
+Choose bases $\alpha$ of $V$ and $\beta$ of $W$. Then $A=[T]_\beta^\alpha$ is an $n\times n$ matrix.
+
+\begin{itemize}[leftmargin=*]
+\item $T$ injective $\Longleftrightarrow$ the homogeneous system $Ax=0$ has only the trivial solution
+$\Longleftrightarrow$ columns of $A$ are linearly independent $\Longleftrightarrow$ $\det(A)\neq 0$.
+\item $\det(A)\neq 0$ $\Longleftrightarrow$ $A$ is invertible $\Longleftrightarrow$ for every $y\in\F^n$ there is an $x$ with $Ax=y$,
+i.e.\ $\widetilde{T}(x)=Ax$ is surjective $\Longleftrightarrow$ $T$ is surjective.
+\end{itemize}
+The reverse direction is symmetric (surjective for a square matrix implies invertible implies injective).
+
+\[
+\boxed{\,A\in\F^{n\times n}\text{ invertible}\ \Longleftrightarrow\ T\text{ injective}\ \Longleftrightarrow\ T\text{ surjective.}\,}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Invertibility under composition; converse?)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $U,V,W$ be vector spaces over the same field, and
+\item $S\in\cL(U,V)$ and $T\in\cL(V,W)$.
+\end{enumerate}
+\begin{enumerate}[label=(\alph*)]
+\item Suppose that $S$ is invertible from $U$ to $V$ and that $T$ is invertible from $V$ to $W$.
+Show that $T\circ S$ is invertible from $U$ to $W$ and that $(T\circ S)^{-1}=S^{-1}\circ T^{-1}$.
+\item Suppose that $T\circ S$ is invertible from $U$ to $W$.
+Is it necessarily true that $S$ is invertible from $U$ to $V$ and that $T$ is invertible from $V$ to $W$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Verify the inverse by direct composition}
+\begin{enumerate}[label=(\alph*)]
+\item Assume $S^{-1}:V\to U$ and $T^{-1}:W\to V$ exist, with
+\[
+S^{-1}\circ S=\mathrm{id}_U,\quad S\circ S^{-1}=\mathrm{id}_V,\quad
+T^{-1}\circ T=\mathrm{id}_V,\quad T\circ T^{-1}=\mathrm{id}_W.
+\]
+Consider $R\coloneqq S^{-1}\circ T^{-1}:W\to U$. Then
+\begin{align*}
+(T\circ S)\circ R
+&=(T\circ S)\circ (S^{-1}\circ T^{-1})\\
+&= T\circ (S\circ S^{-1})\circ T^{-1}\\
+&= T\circ \mathrm{id}_V \circ T^{-1}\\
+&= T\circ T^{-1}=\mathrm{id}_W,\\
+R\circ (T\circ S)
+&=(S^{-1}\circ T^{-1})\circ (T\circ S)\\
+&= S^{-1}\circ (T^{-1}\circ T)\circ S\\
+&= S^{-1}\circ \mathrm{id}_V \circ S\\
+&= S^{-1}\circ S=\mathrm{id}_U.
+\end{align*}
+Thus $R$ is the inverse of $T\circ S$.
+
+\[
+\boxed{\,T\circ S\ \text{invertible and}\ (T\circ S)^{-1}=S^{-1}\circ T^{-1}\,}.
+\]
+
+\item \textbf{Not necessarily.} Provide a counterexample.
+
+Take $U=\R$, $V=\R^2$, $W=\R$. Define
+\[
+S:\R\to\R^2,\quad S(t)=(t,0),\qquad
+T:\R^2\to\R,\quad T(x,y)=x.
+\]
+Then
+\[
+(T\circ S)(t)=T(t,0)=t,
+\]
+so $T\circ S=\mathrm{id}_{\R}$ is invertible from $U$ to $W$.
+
+However, $S$ is \emph{not} invertible from $\R$ to $\R^2$ because it is not surjective onto $\R^2$ (e.g.\ $(0,1)\notin S(\R)$).
+Also, $T$ is \emph{not} invertible from $\R^2$ to $\R$ because it is not injective (e.g.\ $T(0,1)=0=T(0,0)$ with $(0,1)\neq(0,0)$).
+
+\[
+\boxed{\,\text{(b) No: }T\circ S\text{ invertible does not force }S,T\text{ invertible.}\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Conceptual structure (what can and cannot be concluded)}
+\begin{enumerate}[label=(\alph*)]
+\item The composition of bijections is a bijection, and the inverse of a composition reverses order.
+More precisely: since $S$ is bijective $U\to V$ and $T$ is bijective $V\to W$, the composition $T\circ S$ is bijective $U\to W$.
+Moreover, for all $w\in W$, set $u=S^{-1}(T^{-1}(w))$; then $(T\circ S)(u)=w$, showing $S^{-1}\circ T^{-1}$ is the inverse.
+
+\item If $T\circ S$ is invertible, then it is injective and surjective. From injectivity of $T\circ S$ we can deduce $S$ is injective:
+if $S(u_1)=S(u_2)$ then $(T\circ S)(u_1)=(T\circ S)(u_2)$, hence $u_1=u_2$.
+From surjectivity of $T\circ S$ we can deduce $T$ is surjective:
+for any $w\in W$, there exists $u\in U$ with $T(S(u))=w$, hence $w\in T(V)$.
+
+However, injectivity of $S$ does not imply surjectivity onto $V$, and surjectivity of $T$ does not imply injectivity on $V$.
+Therefore invertibility of $T\circ S$ does \emph{not} force invertibility of $S$ or $T$.
+The counterexample in Method 1 exhibits exactly this phenomenon:
+\[
+S\ \text{injective but not surjective},\qquad
+T\ \text{surjective but not injective},\qquad
+T\circ S\ \text{invertible}.
+\]
+
+\[
+\boxed{\,T\circ S\text{ invertible }\Rightarrow S\text{ injective and }T\text{ surjective, but not necessarily invertible.}\,}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Polynomial existence for an ODE-type identity)}
+\subsection{Problem}
+Let
+\begin{enumerate}[label=(\roman*)]
+\item $n\in\mathbb{N}_0$, and
+\item $Q\in \cPn(\R)$.
+\end{enumerate}
+Show that there exists a $P\in \cPn(\R)$ such that
+\[
+Q=(X^2+X)\,P''+2X\,P'+P(3).
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Show a linear operator on $\cPn(\R)$ is invertible via a triangular matrix}
+Define a linear operator $L:\cPn(\R)\to \cPn(\R)$ by
+\[
+L(P)\coloneqq (X^2+X)P''+2X P' + P(3).
+\]
+(Indeed, $P(3)$ is a constant polynomial, so $L(P)$ is a polynomial; and degrees do not exceed $n$.)
+
+\medskip
+\noindent\textbf{Step 1: Compute $L(X^k)$ for $0\le k\le n$.}
+For $k=0$, $P(X)=1$ gives $P'=0$, $P''=0$, $P(3)=1$, hence
+\[
+L(1)=1.
+\]
+For $k\ge 1$, let $P(X)=X^k$. Then
+\[
+P'(X)=kX^{k-1},\qquad P''(X)=k(k-1)X^{k-2},\qquad P(3)=3^k.
+\]
+Thus
+\begin{align*}
+L(X^k)
+&=(X^2+X)\,k(k-1)X^{k-2}+2X\cdot kX^{k-1}+3^k\\
+&=k(k-1)(X^k+X^{k-1})+2kX^k+3^k\\
+&=\underbrace{k(k+1)}_{\neq 0}\,X^k + k(k-1)\,X^{k-1} + 3^k.
+\end{align*}
+
+\medskip
+\noindent\textbf{Step 2: Triangularity and nonzero diagonal.}
+With respect to the standard ordered basis $(1,X,X^2,\dots,X^n)$, the coordinate vector of $L(X^k)$ involves only degrees
+$\le k$ (namely $X^k$, $X^{k-1}$, and $1$). Hence the matrix of $L$ is \emph{lower triangular}.
+Its diagonal entry in the $X^k$ position is the coefficient of $X^k$ in $L(X^k)$:
+\[
+\lambda_0=1,\qquad \lambda_k=k(k+1)\quad (k=1,2,\dots,n).
+\]
+Each $\lambda_k\neq 0$ in $\R$, so the lower triangular matrix has nonzero diagonal and is invertible.
+Therefore $L$ is an isomorphism $\cPn(\R)\to \cPn(\R)$, hence in particular surjective.
+
+So for every $Q\in\cPn(\R)$, there exists $P\in\cPn(\R)$ such that $L(P)=Q$, i.e.
+\[
+Q=(X^2+X)P''+2XP'+P(3).
+\]
+\[
+\boxed{\,\forall Q\in\cPn(\R)\ \exists P\in\cPn(\R):\ Q=(X^2+X)P''+2XP'+P(3).\;}
+\]
+
+\subsubsection{Method 2: Trivial kernel + finite-dimensionality implies surjectivity}
+Define $L$ as above. Since $\cPn(\R)$ is finite-dimensional, it suffices to show $\ker(L)=\{0\}$, because then
+\[
+\Nullity(L)=0\quad\Longrightarrow\quad \Rank(L)=\dim(\cPn(\R))\quad\Longrightarrow\quad \Range(L)=\cPn(\R),
+\]
+so $L$ is surjective.
+
+Let $P\in\cPn(\R)$ and assume $L(P)=0$. If $P=0$ we are done, so suppose $P\neq 0$ and let $\deg(P)=m$ with leading term
+$P(X)=a_m X^m+\cdots$, where $a_m\neq 0$.
+
+Compute the leading term of $L(P)$.
+We have
+\[
+P'(X)=m a_m X^{m-1}+\cdots,\qquad P''(X)=m(m-1)a_m X^{m-2}+\cdots.
+\]
+Then
+\[
+(X^2+X)P'' = m(m-1)a_m X^m+\text{(terms of degree $\le m-1$)},
+\]
+\[
+2X P' = 2m a_m X^m+\text{(terms of degree $\le m-1$)}.
+\]
+Also $P(3)$ is a constant (degree $0$), so it does not affect the $X^m$ coefficient. Therefore the coefficient of $X^m$ in $L(P)$ is
+\[
+\bigl(m(m-1)+2m\bigr)a_m = m(m+1)a_m.
+\]
+If $m\ge 1$, then $m(m+1)\neq 0$, so $m(m+1)a_m\neq 0$, implying $L(P)$ has degree $m$ and cannot be identically $0$.
+If $m=0$, then $P(X)=a_0$ and $L(P)=P(3)=a_0$, so $L(P)=0$ implies $a_0=0$.
+
+Thus in all cases, $L(P)=0$ forces $P=0$. Hence $\ker(L)=\{0\}$ and $L$ is surjective. Therefore for each $Q$ there exists $P$ with $L(P)=Q$.
+
+\[
+\boxed{\,\ker(L)=\{0\}\ \Rightarrow\ L\text{ is onto }\cPn(\R)\ \Rightarrow\ \forall Q\ \exists P.\,}
+\]
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Isomorphism between upper-triangular and symmetric matrices)}
+\subsection{Problem}
+Let $n\in\mathbb{N}$. Define vector subspaces $V$ and $W$ of $\R^{n,n}$ by
+\[
+V\coloneqq \{M\in\R^{n,n}\mid M\text{ is upper triangular}\},\qquad
+W\coloneqq \{M\in\R^{n,n}\mid M\text{ is symmetric}\}.
+\]
+Construct an isomorphism from $V$ to $W$ (you may rely on past problems).
+
+\subsection{Solution}
+We construct an explicit linear bijection $\Phi:V\to W$ and exhibit its inverse.
+
+\subsubsection{Method 1: Copy the upper triangle to the lower triangle}
+For $U=(u_{ij})\in V$, define $\Phi(U)=(s_{ij})\in\R^{n,n}$ by
+\[
+s_{ij}\coloneqq
+\begin{cases}
+u_{ij}, & i\le j,\\
+u_{ji}, & i> j.
+\end{cases}
+\]
+\textbf{(i) Well-defined and lands in $W$.}
+By construction $s_{ij}=s_{ji}$ for all $i,j$, so $\Phi(U)$ is symmetric, i.e.\ $\Phi(U)\in W$.
+
+\textbf{(ii) Linearity.}
+Let $U,U'\in V$ and $a\in\R$. For each entry $(i,j)$, the definition of $s_{ij}$ is obtained by selecting either an entry
+of $U$ or its transpose-entry. Thus entrywise,
+\[
+\Phi(U+U')_{ij}=\Phi(U)_{ij}+\Phi(U')_{ij},\qquad \Phi(aU)_{ij}=a\,\Phi(U)_{ij},
+\]
+so $\Phi$ is linear.
+
+\textbf{(iii) Bijectivity via explicit inverse.}
+Define $\Psi:W\to V$ by ``take the upper-triangular part'':
+for $S=(s_{ij})\in W$, set $\Psi(S)=(u_{ij})$ with
+\[
+u_{ij}\coloneqq
+\begin{cases}
+s_{ij}, & i\le j,\\
+0, & i>j.
+\end{cases}
+\]
+Then $\Psi(S)$ is upper triangular, so $\Psi(S)\in V$, and $\Psi$ is linear.
+
+Now check compositions:
+\begin{itemize}[leftmargin=*]
+\item For $U\in V$, $(\Psi\circ \Phi)(U)$ retains the upper-triangular entries of $\Phi(U)$, which equal those of $U$.
+Hence $\Psi(\Phi(U))=U$.
+\item For $S\in W$, since $S$ is symmetric, $\Phi(\Psi(S))$ fills the lower triangle by reflection of the upper triangle,
+reconstructing $S$. Hence $\Phi(\Psi(S))=S$.
+\end{itemize}
+Thus $\Psi=\Phi^{-1}$ and $\Phi$ is an isomorphism.
+
+\[
+\boxed{\,\Phi:V\to W\ \text{given by reflection of the upper triangle is a linear isomorphism.}\,}
+\]
+
+\subsubsection{Method 2: Identify both spaces with $\R^{n(n+1)/2}$ via coordinates}
+Both $V$ and $W$ have dimension $\frac{n(n+1)}{2}$:
+\begin{itemize}[leftmargin=*]
+\item $V$ is determined by the entries $(i,j)$ with $i\le j$ (upper triangle including diagonal): $\frac{n(n+1)}{2}$ free parameters.
+\item $W$ is also determined uniquely by its upper triangle (since symmetry forces $s_{ji}=s_{ij}$): again $\frac{n(n+1)}{2}$ free parameters.
+\end{itemize}
+Define coordinate extraction maps
+\[
+\theta_V:V\to \R^{n(n+1)/2},\qquad \theta_W:W\to \R^{n(n+1)/2}
+\]
+that list the upper-triangular entries in row-major order.
+Both $\theta_V$ and $\theta_W$ are linear bijections (they are coordinate isomorphisms).
+
+Then
+\[
+\Phi \coloneqq \theta_W^{-1}\circ \theta_V:V\to W
+\]
+is a linear bijection, hence an isomorphism. Concretely, this $\Phi$ is exactly the ``copy upper triangle'' map of Method~1.
+
+\[
+\boxed{\,V\cong \R^{n(n+1)/2}\cong W\ \Rightarrow\ V\cong W.\,}
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Compute $[T]_{\gamma}^{\gamma}$ by change of basis)}
+\subsection{Problem}
+Define $T\in \cL(\R^{3,1})$ by
+\[
+\forall v\in \R^{3,1}:\qquad
+T(v)\coloneqq
+\begin{bmatrix}
+2&1&0\\
+1&1&3\\
+0&-1&0
+\end{bmatrix}v.
+\]
+Let $\gamma$ denote the ordered basis
+\[
+\gamma=\left(
+\begin{bmatrix}-1\\0\\0\end{bmatrix},
+\begin{bmatrix}2\\1\\0\end{bmatrix},
+\begin{bmatrix}1\\1\\1\end{bmatrix}
+\right)
+\quad\text{for }\R^{3,1}.
+\]
+Find $[T]_{\gamma}^{\gamma}$.
+
+\subsection{Solution}
+Let
+\[
+A\coloneqq
+\begin{bmatrix}
+2&1&0\\
+1&1&3\\
+0&-1&0
+\end{bmatrix},
+\quad
+g_1=\begin{bmatrix}-1\\0\\0\end{bmatrix},\ 
+g_2=\begin{bmatrix}2\\1\\0\end{bmatrix},\ 
+g_3=\begin{bmatrix}1\\1\\1\end{bmatrix}.
+\]
+
+\subsubsection{Method 1: Similarity transform $[T]_{\gamma}^{\gamma}=P^{-1}AP$}
+Let $P$ be the change-of-basis matrix from $\gamma$-coordinates to standard coordinates; its columns are the basis vectors:
+\[
+P\coloneqq [\,g_1\ g_2\ g_3\,]=
+\begin{bmatrix}
+-1&2&1\\
+0&1&1\\
+0&0&1
+\end{bmatrix}.
+\]
+Then for any coordinate vector $[v]_\gamma\in\R^3$, we have $v=P[v]_\gamma$.
+Applying $T$ gives
+\[
+T(v)=Av=A(P[v]_\gamma).
+\]
+On the other hand, by definition of $[T]_\gamma^\gamma$,
+\[
+[T(v)]_\gamma = [T]_\gamma^\gamma [v]_\gamma.
+\]
+But also $[T(v)]_\gamma = P^{-1}T(v)=P^{-1}A P [v]_\gamma$. Since this holds for all $[v]_\gamma$, we get
+\[
+[T]_{\gamma}^{\gamma}=P^{-1} A P.
+\]
+Compute $P^{-1}AP$ (by direct multiplication), yielding
+\[
+[T]_{\gamma}^{\gamma}=
+\begin{bmatrix}
+0&2&8\\
+-1&4&6\\
+0&-1&-1
+\end{bmatrix}.
+\]
+\[
+\boxed{\ [T]_{\gamma}^{\gamma}=
+\begin{bmatrix}
+0&2&8\\
+-1&4&6\\
+0&-1&-1
+\end{bmatrix}\ }.
+\]
+
+\subsubsection{Method 2: Compute $T(g_j)$ and solve for $\gamma$-coordinates (column-by-column)}
+By definition, the $j$th column of $[T]_\gamma^\gamma$ is $[T(g_j)]_\gamma$.
+
+Compute images in standard coordinates:
+\[
+T(g_1)=Ag_1=
+\begin{bmatrix}
+2&1&0\\
+1&1&3\\
+0&-1&0
+\end{bmatrix}
+\begin{bmatrix}-1\\0\\0\end{bmatrix}
+=
+\begin{bmatrix}-2\\-1\\0\end{bmatrix},
+\quad
+T(g_2)=Ag_2=
+\begin{bmatrix}5\\3\\-1\end{bmatrix},
+\quad
+T(g_3)=Ag_3=
+\begin{bmatrix}3\\5\\-1\end{bmatrix}.
+\]
+
+Now express each $T(g_j)$ as a linear combination of $(g_1,g_2,g_3)$.
+
+\medskip
+\noindent\textbf{Column 1.}
+Find $(a,b,c)$ such that $a g_1+b g_2+c g_3=T(g_1)$:
+\[
+a\!\begin{bmatrix}-1\\0\\0\end{bmatrix}
++b\!\begin{bmatrix}2\\1\\0\end{bmatrix}
++c\!\begin{bmatrix}1\\1\\1\end{bmatrix}
+=
+\begin{bmatrix}-2\\-1\\0\end{bmatrix}.
+\]
+Equating components gives the system
+\[
+\begin{cases}
+-a+2b+c=-2,\\
+b+c=-1,\\
+c=0.
+\end{cases}
+\]
+Thus $c=0$, $b=-1$, and then $-a+2(-1)+0=-2$ gives $a=0$. Hence
+\[
+[T(g_1)]_\gamma=\begin{bmatrix}0\\-1\\0\end{bmatrix}.
+\]
+
+\medskip
+\noindent\textbf{Column 2.}
+Solve $a g_1+b g_2+c g_3=T(g_2)=(5,3,-1)^{\mathsf T}$:
+\[
+\begin{cases}
+-a+2b+c=5,\\
+b+c=3,\\
+c=-1.
+\end{cases}
+\]
+So $c=-1$, $b=4$, and then $-a+8-1=5$ gives $a=2$. Hence
+\[
+[T(g_2)]_\gamma=\begin{bmatrix}2\\4\\-1\end{bmatrix}.
+\]
+
+\medskip
+\noindent\textbf{Column 3.}
+Solve $a g_1+b g_2+c g_3=T(g_3)=(3,5,-1)^{\mathsf T}$:
+\[
+\begin{cases}
+-a+2b+c=3,\\
+b+c=5,\\
+c=-1.
+\end{cases}
+\]
+So $c=-1$, $b=6$, and then $-a+12-1=3$ gives $a=8$. Hence
+\[
+[T(g_3)]_\gamma=\begin{bmatrix}8\\6\\-1\end{bmatrix}.
+\]
+
+Therefore, assembling these columns,
+\[
+[T]_\gamma^\gamma=
+\begin{bmatrix}
+0&2&8\\
+-1&4&6\\
+0&-1&-1
+\end{bmatrix}.
+\]
+\[
+\boxed{\ [T]_{\gamma}^{\gamma}=
+\begin{bmatrix}
+0&2&8\\
+-1&4&6\\
+0&-1&-1
+\end{bmatrix}\ }.
+\]
+
+\end{document}

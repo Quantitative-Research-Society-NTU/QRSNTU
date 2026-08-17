@@ -1,0 +1,471 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.25in,includehead,headsep=1pt]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage[hidelinks]{hyperref}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{10pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize\textbf{MH1101 Calculus - Full Cheat Sheet}}
+\fancyhead[R]{\normalsize\textbf{\href{https://qrsntu.org}{QRS@NTU}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.0em}
+\setlength{\tabcolsep}{0.9pt}
+\renewcommand{\arraystretch}{0.80}
+\setlength{\columnsep}{5.5pt}
+\setlength{\multicolsep}{0pt}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\extrarowheight}{0pt}
+\linespread{0.94}
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{1pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+
+% =========================
+% Headings
+% =========================
+\titleformat{\section}{\bfseries\normalsize}{}{0pt}{\underline}
+\titleformat{\subsection}{\bfseries\small}{}{0pt}{\underline}
+\titlespacing*{\section}{0pt}{0.8pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0.7pt}{0.1pt}
+
+% =========================
+% Quick macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,d}
+\newcommand{\dx}{\,dx}
+\newcommand{\dy}{\,dy}
+\newcommand{\dt}{\,dt}
+\newcommand{\du}{\,du}
+\newcommand{\dv}{\,dv}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\dom}{\operatorname{Dom}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newenvironment{cheatitems}{\par\vspace{-2pt}}{\par\vspace{-2pt}}
+\newcommand{\cheatrow}[2]{%
+  \par\noindent\textbf{#1:}\nobreak\hspace{0.25em}#2\par
+}
+\newcommand{\minihead}[1]{\par\noindent\textbf{#1}\par\vspace{-2pt}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{document}
+\begin{multicols}{3}
+\footnotesize
+\raggedright
+\raggedcolumns
+\abovedisplayskip=0pt \belowdisplayskip=0pt \abovedisplayshortskip=0pt \belowdisplayshortskip=0pt
+
+%==================================================
+
+
+\subsection*{Domains, functions, inverse}
+\begin{cheatitems}
+\cheatrow{Domain checklist}{Denominators $\ne0$; even roots require radicand $\ge0$; logs require argument $>0$; inverse trig inputs: $\arcsin,\arccos$ need $[-1,1]$.}
+\cheatrow{Composition}{$(f\circ g)(x)=f(g(x))$, domain requires $x\in\dom g$ and $g(x)\in\dom f$.}
+\cheatrow{Inverse test}{$f^{-1}$ exists on an interval if $f$ is one-to-one there, often shown by strict monotonicity. If $y=f(x)$, swap $x,y$ and solve.}
+\cheatrow{Useful logs}{$\ln(ab)=\ln a+\ln b$, $\ln(a/b)=\ln a-\ln b$, $\ln(a^r)=r\ln a$ for positive arguments.}
+\cheatrow{Exponential laws}{$a^x=\e^{x\ln a}$; differentiate/explain powers with variable exponent by rewriting with $\e^{\ln(\cdot)}$.}
+\end{cheatitems}
+
+\subsection*{Algebra patterns}
+\begin{cheatitems}
+\cheatrow{Factorisations}{$a^2-b^2=(a-b)(a+b)$; $a^3-b^3=(a-b)(a^2+ab+b^2)$; $a^3+b^3=(a+b)(a^2-ab+b^2)$.}
+\cheatrow{Rationalise}{$\sqrt A-\sqrt B=\dfrac{A-B}{\sqrt A+\sqrt B}$; also rationalise conjugates for cube roots using $a-b=(a^{1/3}-b^{1/3})(a^{2/3}+a^{1/3}b^{1/3}+b^{2/3})$.}
+\cheatrow{Complete square}{$ax^2+bx+c=a\left(x+\frac{b}{2a}\right)^2+c-\frac{b^2}{4a}$, useful for quadratics, trig substitution, and arctan integrals.}
+\cheatrow{Dominant term}{For polynomials/rational functions as $x\to\infty$, divide by the highest power present; for $n\to\infty$, compare growth: $\ln n\ll n^p\ll a^n\ll n!\ll n^n$.}
+\end{cheatitems}
+
+\subsection*{Trig identities}
+\begin{cheatitems}
+\cheatrow{Basic}{$\sin^2x+\cos^2x=1$, $1+\tan^2x=\sec^2x$, $1+\cot^2x=\csc^2x$.}
+\cheatrow{Parity/period}{$\sin(-x)=-\sin x$, $\cos(-x)=\cos x$, $\tan(-x)=-\tan x$; periods: $2\pi$ for $\sin,\cos,\sec,\csc$, $\pi$ for $\tan,\cot$.}
+\cheatrow{Angle sum}{$\sin(a\pm b)=\sin a\cos b\pm\cos a\sin b$; $\cos(a\pm b)=\cos a\cos b\mp\sin a\sin b$.}
+\cheatrow{Double/half}{$\sin2x=2\sin x\cos x$; $\cos2x=\cos^2x-\sin^2x=1-2\sin^2x=2\cos^2x-1$; $\sin^2x=\frac{1-\cos2x}{2}$, $\cos^2x=\frac{1+\cos2x}{2}$.}
+\cheatrow{Product-to-sum}{$\sin a\cos b=\frac12[\sin(a+b)+\sin(a-b)]$; $\cos a\cos b=\frac12[\cos(a+b)+\cos(a-b)]$; $\sin a\sin b=\frac12[\cos(a-b)-\cos(a+b)]$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Limits and Continuity}
+
+\subsection*{Limit laws and continuity}
+\begin{cheatitems}
+\cheatrow{Continuity at $a$}{$f$ continuous at $a$ iff $f(a)$ defined, $\lim_{x\to a}f(x)$ exists, and equals $f(a)$. Left/right limits must match.}
+\cheatrow{Operations}{Sums/products/quotients of continuous functions are continuous where defined. Polynomials continuous on $\R$; rational functions continuous on denominator $\ne0$; trig, exp, log continuous on domains.}
+\cheatrow{Composition}{If $g$ continuous at $a$ and $f$ continuous at $g(a)$, then $f\circ g$ continuous at $a$.}
+\cheatrow{IVT}{If $f$ continuous on $[a,b]$ and $N$ lies between $f(a)$ and $f(b)$, then $\exists c\in(a,b)$ with $f(c)=N$.}
+\cheatrow{Squeeze}{If $g(x)\le f(x)\le h(x)$ near $a$ and $\lim g=\lim h=L$, then $\lim f=L$.}
+\end{cheatitems}
+
+\subsection*{Standard limits}
+\begin{cheatitems}
+\cheatrow{Trig at $0$}{$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1$, $\lim_{x\to0}\frac{\tan x}{x}=1$, $\lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12$.}
+\cheatrow{Exp/log}{$\displaystyle\lim_{x\to0}\frac{\e^x-1}{x}=1$, $\lim_{x\to0}\frac{\ln(1+x)}{x}=1$, $\lim_{x\to0}(1+x)^{1/x}=\e$.}
+\cheatrow{Power comparison}{$\displaystyle\lim_{x\to\infty}\frac{\ln x}{x^p}=0$ $(p>0)$; $\lim_{x\to\infty}\frac{x^p}{a^x}=0$ $(a>1)$; $\lim_{n\to\infty}\frac{a^n}{n!}=0$.}
+\cheatrow{Small-angle transfer}{If $u(x)\to0$, then $\sin u\sim u$, $\tan u\sim u$, $1-\cos u\sim u^2/2$, $\ln(1+u)\sim u$, $\e^u-1\sim u$.}
+\end{cheatitems}
+
+\subsection*{Limit technique table}
+\begin{tabular}{@{}L{0.24\columnwidth}L{0.39\columnwidth}L{0.29\columnwidth}@{}}
+\toprule
+\textbf{Trigger} & \textbf{Method} & \textbf{Caution}\tabularnewline
+\midrule
+$0/0$ algebraic & factor, cancel, rationalise, or use standard limit & cancel only nonzero factors near point\tabularnewline
+$\infty/\infty$ rational & divide by dominant power & sign depends on leading terms\tabularnewline
+oscillatory bounded factor & squeeze by absolute value & need both bounds same limit\tabularnewline
+$1^\infty,0^0,\infty^0$ & set $y=f(x)^{g(x)}$, use $\ln y=g\ln f$ & require positive base\tabularnewline
+piecewise at breakpoint & compute one-sided limits and value & continuity needs all three equal\tabularnewline
+\bottomrule
+\end{tabular}
+
+\subsection*{L'Hopital's rule}
+\begin{cheatitems}
+\cheatrow{Rule}{For forms $0/0$ or $\infty/\infty$, if conditions hold, $\displaystyle \quad \lim\frac{f}{g}=\lim\frac{f'}{g'}$}
+\vspace{-5pt}
+\cheatrow{Convert forms}{$0\cdot\infty\to$ quotient; $\infty-\infty\to$ common denominator/rationalise; powers $\to$ logarithms.}
+\cheatrow{Trap}{Don't use on sums/products directly; convert to quotient form 1st}
+\end{cheatitems}
+
+%==================================================
+\section*{Differentiation}
+
+\subsection*{Definition and rules}
+\begin{cheatitems}
+\cheatrow{Derivative}{$f'(a)=\displaystyle\lim_{h\to0}\frac{f(a+h)-f(a)}{h}$; differentiable $\Rightarrow$ continuous}
+\vspace{-5pt}
+\cheatrow{Line/product/quotient}{$\left(\frac fg\right)'=\frac{f'g-fg'}{g^2}$.}
+\cheatrow{Chain rule}{$(f(g(x)))'=f'(g(x))g'(x)$; write outer derivative evaluated at inner, then multiply by inner derivative.}
+\end{cheatitems}
+
+\subsection*{Derivative table}
+\begin{tabular}{@{}L{0.34\columnwidth}L{0.58\columnwidth}@{}}
+\toprule
+\textbf{$f(x)$} & \textbf{$f'(x)$}\tabularnewline
+\midrule
+$x^n$ & $nx^{n-1}$\tabularnewline
+$\e^x$, $a^x$ & $\e^x$, $a^x\ln a$\tabularnewline
+$\ln x$, $\log_a x$ & $1/x$, $1/(x\ln a)$\tabularnewline
+$\sin x$, $\cos x$ & $\cos x$, $-\sin x$\tabularnewline
+$\tan x$, $\cot x$ & $\sec^2x$, $-\csc^2x$\tabularnewline
+$\sec x$, $\csc x$ & $\sec x\tan x$, $-\csc x\cot x$\tabularnewline
+$\arcsin x$ & $1/\sqrt{1-x^2}$\tabularnewline
+$\arccos x$ & $-1/\sqrt{1-x^2}$\tabularnewline
+$\arctan x$ & $1/(1+x^2)$\tabularnewline
+\bottomrule
+\end{tabular}
+
+\subsection*{Implicit, log, inverse derivatives}
+\begin{cheatitems}
+\cheatrow{Implicit differentiation}{Differentiate both sides w.r.t. $x$, treating $y=y(x)$; every $d(y\text{-term})/dx$ gains factor $y'$. Solve for $y'$.}
+\cheatrow{Log differentiation}{For products/quotients/powers, set $\ln y=\ln f(x)$, simplify with log laws, differentiate, then $y'=y(\ln y)'$.}
+\vspace{-5pt}
+\cheatrow{Variable power}{$\displaystyle \quad y=u(x)^{v(x)}>0 \quad \Rightarrow \quad y'/y=v'\ln u+v\frac{u'}u$.}
+\vspace{-2pt}
+\cheatrow{Inverse derivative}{If $f$ one-to-one and $f'(a)\ne0$, then $(f^{-1})'(f(a))=1/f'(a)$; equivalently $(f^{-1})'(x)=1/f'(f^{-1}(x))$.}
+\end{cheatitems}
+
+\subsection*{Tangent/normal and linearisation}
+\begin{cheatitems}
+\cheatrow{Tangent line}{At $x=a$: $y=f(a)+f'(a)(x-a)$. For implicit curve use slope from implicit $y'$.}
+\cheatrow{Normal line}{Slope $m_N=-1/f'(a)$ if tangent slope nonzero. If tangent horizontal, normal vertical; if tangent vertical, normal horizontal.}
+\cheatrow{Linear approximation}{$L(x)=f(a)+f'(a)(x-a)$; differential $dy=f'(x)\,dx$; error for small $\Delta x$: $\Delta y\approx dy$.}
+\cheatrow{Newton method}{$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}$; fails if $f'(x_n)$ small/zero or initial guess poor.}
+\end{cheatitems}
+
+%==================================================
+\section*{Applications of Differentiation}
+
+\subsection*{MVT, Rolle, extrema}
+\begin{cheatitems}
+\vspace{2pt}
+\cheatrow{EVT}{Conti on closed bounded $[a,b]$ $\Rightarrow$ absolute max/min exist. Check endpoints and critical points.}
+\cheatrow{Fermat}{If $f$ has local extremum at interior $c$ and $f'(c)$ exists, then $f'(c)=0$. Critical: $f'=0$ or DNE.}
+\cheatrow{Rolle}{Conti on $[a,b]$, difr on $(a,b)$, $f(a)=f(b)$ $\Rightarrow \exists c:f'(c)=0$.}
+\cheatrow{MVT}{Conti on $[a,b]$, difr on $(a,b)$ $\Rightarrow \exists c:f'(c)=\frac{f(b)-f(a)}{b-a}$.}
+\cheatrow{Monotonicity}{$f'>0$ on interval $\Rightarrow f$ increasing; $f'<0$ $\Rightarrow$ decreasing. First derivative sign change $+\to-$ max, $-\to+$ min.}
+\cheatrow{Second derivative test}{If $f'(c)=0$ and $f''(c)>0$ min; $f''(c)<0$ max; $f''(c)=0$ inconclusive.}
+\end{cheatitems}
+
+\subsection*{Concavity and curve sketching}
+\begin{cheatitems}
+\cheatrow{Concavity}{$f''>0$ concave up; $f''<0$ concave down. Inflection requires concavity changes sign, not merely $f''=0$.}
+\cheatrow{Asymptotes}{Vertical: denominator $0$ with blow-up or log boundary. Horizontal: $\lim_{x\to\pm\infty}f(x)=L$. Slant: if $f(x)-(mx+b)\to0$.}
+\cheatrow{Sketch workflow}{Domain $\to$ intercepts/symmetry $\to$ asymptotes $\to$ critical points/sign of $f'$ $\to$ concavity/inflection $\to$ endpoint behaviour.}
+\cheatrow{Graph traps}{Cusps/corners may be extrema with derivative DNE; vertical tangents have infinite slope; holes are not intercepts.}
+\end{cheatitems}
+
+\subsection*{Optimisation and related rates}
+\begin{tabular}{@{}L{0.26\columnwidth}L{0.39\columnwidth}L{0.29\columnwidth}@{}}
+\toprule
+\textbf{Problem} & \textbf{Method} & \textbf{Caution}\tabularnewline
+\midrule
+absolute extrema & list endpoints + all critical points & closed interval needed for EVT\tabularnewline
+optimisation & draw, define variables, constraint, objective in one variable, differentiate & check endpoints/domain and units\tabularnewline
+related rates & draw, equation linking variables, differentiate in $t$, substitute known values after differentiating & do not plug constants too early\tabularnewline
+curve sketch & sign charts for $f'$ and $f''$ & $f''=0$ alone not inflection\tabularnewline
+\bottomrule
+\end{tabular}
+
+\begin{cheatitems}
+\vspace{2pt}
+\cheatrow{Common geometry}{Circle $A=\pi r^2$, $C=2\pi r$; sphere $V=\frac43\pi r^3$, $S=4\pi r^2$; cone $V=\frac13\pi r^2h$; cylinder $V=\pi r^2h$.}
+\cheatrow{Endpoint rule}{For constrained optimisation over $[a,b]$, compare $f(a),f(b)$ and all interior critical values.}
+\end{cheatitems}
+
+%==================================================
+\section*{Integration Basics and FTC}
+
+\subsection*{Antiderivatives and standard integrals}
+\begin{tabular}{@{}L{0.42\columnwidth}L{0.50\columnwidth}@{}}
+\toprule
+\textbf{Integral} & \textbf{Value}\tabularnewline
+\midrule
+$\int x^n\dx$ $(n\ne-1)$ & $x^{n+1}/(n+1)+C$\tabularnewline
+$\int \frac1x\dx$ & $\ln|x|+C$\tabularnewline
+$\int \e^x\dx$, $\int a^x\dx$ & $\e^x+C$, $a^x/\ln a+C$\tabularnewline
+$\int\sin x\dx$, $\int\cos x\dx$ & $-\cos x+C$, $\sin x+C$\tabularnewline
+$\int\sec^2x\dx$, $\int\csc^2x\dx$ & $\tan x+C$, $-\cot x+C$\tabularnewline
+$\int\sec x\tan x\dx$, $\int\csc x\cot x\dx$ & $\sec x+C$, $-\csc x+C$\tabularnewline
+$\int\frac{1}{1+x^2}\dx$ & $\arctan x+C$\tabularnewline
+$\int\frac{1}{\sqrt{1-x^2}}\dx$ & $\arcsin x+C$\tabularnewline
+$\int\frac{1}{x^2+a^2}\dx$ & $\frac1a\arctan(x/a)+C$\tabularnewline
+$\int\frac{1}{\sqrt{a^2-x^2}}\dx$ & $\arcsin(x/a)+C$\tabularnewline
+\bottomrule
+\end{tabular}
+
+\newpage
+\subsection*{Definite integrals and FTC}
+\begin{cheatitems}
+\cheatrow{Riemann sum}{$\displaystyle \int_a^b f(x)\dx=\lim_{n\to\infty}\sum_{i=1}^{n}f(x_i^*)\Delta x$, $\Delta x=(b-a)/n$. Net signed area, not necessarily geometric area.}
+\cheatrow{Properties}{Linearity; additivity over intervals; $\int_a^a f=0$; $\int_a^b f=-\int_b^a f$; if $f\ge g$ then $\int f\ge\int g$; $|\int f|\le\int|f|$.}
+\cheatrow{Symmetry}{Odd $f$: $\int_{-a}^{a}f=0$; even $f$: $\int_{-a}^{a}f=2\int_0^af$.}
+\cheatrow{FTC I}{If $F(x)=\int_a^x f(t)\dt$ and $f$ continuous, then $F'(x)=f(x)$.}
+\cheatrow{FTC II}{If $F'=f$ on $[a,b]$, then $\int_a^b f(x)\dx=F(b)-F(a)$.}
+\cheatrow{Variable limits}{$\displaystyle\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)\dt=f(v)v'-f(u)u'$. Lower limit contributes negative sign.}
+\cheatrow{Average value}{$f_{\rm avg}=\frac{1}{b-a}\int_a^b f(x)\dx$; if $f$ continuous, $f(c)=f_{\rm avg}$ for some $c$.}
+\end{cheatitems}
+
+\subsection*{Substitution}
+\begin{cheatitems}
+\cheatrow{Indefinite}{$u=g(x)$, $\du=g'(x)\dx$: $\int f(g(x))g'(x)\dx=\int f(u)\du$.}
+\cheatrow{Definite}{$\displaystyle\int_a^b f(g(x))g'(x)\dx=\int_{g(a)}^{g(b)}f(u)\du$. Change bounds or back-substitute, not both.}
+
+\end{cheatitems}
+
+%==================================================
+\section*{Techniques of Integration}
+
+\subsection*{Integration by parts}
+\begin{cheatitems}
+\cheatrow{Formula}{$\displaystyle\int u\dv=uv-\int v\du$; definite: $\int_a^b u\dv=[uv]_a^b-\int_a^b v\du$.}
+\cheatrow{Choice of $u$}{LIATE: Log, inverse trig, algebraic, trig, exponential. Goal: $du$ simpler and $dv$ integrable.}
+\cheatrow{Tabular IBP}{For polynomial $\times$ exp/trig: differentiate polynomial to $0$, integrate other factor repeatedly, alternate signs.}
+\cheatrow{Cyclic IBP}{$\int\e^{ax}\sin bx\dx=\frac{\e^{ax}}{a^2+b^2}(a\sin bx-b\cos bx)+C$; $\int\e^{ax}\cos bx\dx=\frac{\e^{ax}}{a^2+b^2}(a\cos bx+b\sin bx)+C$.}
+\end{cheatitems}
+
+\subsection*{Trig integrals and trig substitution}
+\begin{cheatitems}
+\cheatrow{$\sin^m\cos^n$}{$n$ odd: save $\cos x\dx$, use $u=\sin x$; $m$ odd: save $\sin x\dx$, use $u=\cos x$; both even: use half-angle.}
+\cheatrow{$\tan^m\sec^n$}{$n$ even: save $\sec^2x\dx$, use $u=\tan x$; $m$ odd: save $\sec x\tan x\dx$, use $u=\sec x$.}
+\cheatrow{Radical map}{$\sqrt{a^2-x^2}$: $x=a\sin\theta$; $\sqrt{a^2+x^2}$: $x=a\tan\theta$; $\sqrt{x^2-a^2}$: $x=a\sec\theta$.}
+\cheatrow{Triangle back-sub}{After trig substitution, draw triangle from $\sin\theta=x/a$, $\tan\theta=x/a$, or $\sec\theta=x/a$ to recover trig functions in $x$.}
+\end{cheatitems}
+
+\subsection*{Partial fractions}
+\begin{cheatitems}
+\cheatrow{Pre-step}{If $\deg P\ge\deg Q$, do polynomial long division before decomposition. Factor $Q$ over $\R$.}
+\vspace{-5pt}
+\cheatrow{Linear factors}{$\displaystyle \qquad  \qquad \qquad  \qquad \qquad \frac{P(x)}{\prod_i(a_ix+b_i)}=\sum_i\frac{A_i}{a_ix+b_i}$; \\
+\vspace{-8pt}
+repeated $(ax+b)^r$: $\sum_{k=1}^r A_k/(ax+b)^k$.}
+
+\cheatrow{Irreducible quadratics}{For $(ax^2+bx+c)^r$, use $\sum_{k=1}^r\frac{A_kx+B_k}{(ax^2+bx+c)^k}$.}
+\cheatrow{Quadratic numerator split}{$Ax+B=\lambda(2ax+b)+\mu$: derivative part gives log; leftover after completing square gives arctan.}
+\end{cheatitems}
+
+\subsection*{Improper integrals}
+\begin{cheatitems}
+\cheatrow{$\displaystyle\int_\infty$}{$\displaystyle\int_a^{\infty}f=\lim_{t\to\infty}\int_a^t f;\ \int_{-\infty}^b f=\lim_{t\to-\infty}\int_t^b f;\ \int_{-\infty}^{\infty}$ must split}
+\cheatrow{Vertical asymptote}{If singular at endpoint/interior, replace by one-sided limit; interior singularity requires split \& both pieces converge.}
+\cheatrow{$p$-tests}{$\int_1^\infty x^{-p}\dx$ converges iff $p>1$; $\int_0^1x^{-p}\dx$ converges iff $p<1$.}
+\cheatrow{Comparison}{$0\le f\le g$ and $\int g$ converges $\Rightarrow\int f$ converges; $0\le g\le f$ and $\int g$ diverges $\Rightarrow\int f$ diverges.}
+\cheatrow{Limit comparison}{For positive functions near bad point, $\lim f/g=c\in(0,\infty)$ $\Rightarrow$ same convergence.}
+\cheatrow{Trap}{Never combine two divergent one-sided improper integrals by cancellation unless principal value is explicitly requested.}
+\end{cheatitems}
+
+\subsection*{Numerical integration}
+Let $\Delta x=(b-a)/n$, $x_i=a+i\Delta x$.
+\begin{cheatitems}
+\cheatrow{Rules}{$L_n=\sum f(x_{i-1})\Delta x$, $R_n=\sum f(x_i)\Delta x$, $M_n=\sum f(\frac{x_{i-1}+x_i}{2})\Delta x$.}
+\cheatrow{Trapezoid}{$T_n=\frac{\Delta x}{2}[f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)]=\frac{L_n+R_n}{2}$.}
+\cheatrow{Simpson}{$n$ even: $S_n=\frac{\Delta x}{3}[f(x_0)+4\sum_{i\text{ odd}}f(x_i)+2\sum_{i\text{ even},\ i\ne0,n}f(x_i)+f(x_n)]$.}
+\cheatrow{Error}{$|E_T|\le K(b-a)^3/(12n^2)$, $|E_M|\le K(b-a)^3/(24n^2)$ if $|f''|\le K$; $|E_S|\le K(b-a)^5/(180n^4)$ if $|f^{(4)}|\le K$.}
+\cheatrow{Over/under}{If $f''\ge0$, trapezoid overestimates and midpoint underestimates; reverse if $f''\le0$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Applications of Integration}
+\begin{cheatitems}
+\cheatrow{Area vertical}{$A=\int_a^b(y_{\rm top}-y_{\rm bot})\dx$; split when curves cross.}
+\cheatrow{Area horizontal}{$A=\int_c^d(x_{\rm right}-x_{\rm left})\dy$}
+\cheatrow{Slicing volume}{$V=\int A(x)\dx$ or $V=\int A(y)\dy$, where $A$ is cross-sectional area.}
+\cheatrow{Washers}{$V=\pi\int(R_{\rm out}^2-R_{\rm in}^2)\dd x$ or $\pi\int(R_{\rm out}^2-R_{\rm in}^2)\dd y$; slices $\perp$}
+\cheatrow{Shells}{$V=2\pi\int(\text{radius})(\text{height})\dd x$ or $\dd y$; slices $\parallel$ to axis.}
+\cheatrow{Arc}{$y=f(x)$: $L=\int_a^b\sqrt{1+(f')^2}\dx$; $x=g(y)$: $L=\int_c^d\sqrt{1+(g')^2}\dy$.}
+\cheatrow{Surface area}{$S=2\pi\int(\text{radius})(\text{arc-length factor})$: about $y=c$, radius $|f(x)-c|$; about $x=c$, radius $|g(y)-c|$.}
+\end{cheatitems}
+
+%==================================================
+\section*{Sequences, Series, Taylor}
+\begin{cheatitems}
+\vspace{-5pt}
+\cheatrow{Series}{$ \quad \sum_{n=1}^{\infty}a_n$ converges iff partial sums $\displaystyle S_N\!=\!\sum_{n=1}^Na_n$ converge}
+\vspace{-10pt}
+\cheatrow{Geo}{$\displaystyle \sum_{n=0}^{\infty}ar^n\!=\!\frac{a}{1-r}$ for $\displaystyle |r|<1$; diverges for $\displaystyle |r|\ge1$ except $a\!=\!0$.}
+\vspace{-3pt}
+\cheatrow{$p$-series}{$\quad \sum_{n=1}^{\infty}\frac1{n^p}$ converges iff $\displaystyle p>1$; diverges iff $\displaystyle p\le1$.}
+
+\cheatrow{Integral test}{If $a_n\!=\!f(n)$ with $f>0$, contin, decres on $[N,\infty)$,
+\\ then $\displaystyle\sum_{n=N}^\infty a_n$ and $\displaystyle\int_N^\infty f(x)dx$ have same conv/div}
+\
+\cheatrow{Compr}{For $\displaystyle a_n,b_n\ge0$: $\displaystyle 0\le a_n\le b_n$ and $ \sum b_n$ conv $\Rightarrow\sum a_n$ conv; $\displaystyle 0\le b_n\le a_n$ and $ \sum b_n$ div $\Rightarrow\sum a_n$ div.}
+
+
+\cheatrow{Limit comparison}{$a_n,b_n>0$, $\lim a_n/b_n=c\in(0,\infty)$ $\Rightarrow$ same convrg}
+\cheatrow{Ratio/root}{Ratio: $L=\lim|a_{n+1}/a_n|$; Root: $L=\lim\sqrt[n]{|a_n|}$. \\ $L<1$ abs conv, $L>1$ div, $L=1$ inconclusive.} \cheatrow{Alternating}{If $b_n\downarrow0$, then $\sum(-1)^nb_n$ converges and $|R_N|\le b_{N+1}$.} \end{cheatitems}
+
+
+\subsection*{Power series}
+\begin{cheatitems}
+\cheatrow{Form}{$\sum c_n(x-a)^n$ converges for $|x-a|<R$ and diverges for $|x-a|>R$. Find $R$ by ratio/root.}
+\cheatrow{Endpoints}{After finding $R$, test $x=a\pm R$ separately as ordinary series. Endpoint behaviour may differ.}
+\cheatrow{Termwise ops}{Inside radius: $\frac{d}{dx}\sum c_n(x-a)^n=\sum n c_n(x-a)^{n-1}$ and $\int\sum c_n(x-a)^n\dx=C+\sum\frac{c_n}{n+1}(x-a)^{n+1}$. Radius unchanged; endpoints recheck.}
+\end{cheatitems}
+
+\subsection*{Taylor / Maclaurin}
+\begin{cheatitems}
+\cheatrow{Taylor polynomial}{$T_n(x)\!=\!\sum_{k=0}^{n}\!\frac{f^{(k)}(a)}{k!}(x-a)^k$; Maclaurin is $a=0$.}
+\vspace{-2pt}
+\cheatrow{Remainder}{$f(x)=T_n(x)+R_n(x)$, $R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}$ for some $\xi$ between $x,a$; if $|f^{(n+1)}|\le M$, then $|R_n|\le\frac{M|x-a|^{n+1}}{(n+1)!}$.}
+\vspace{-2pt}
+\cheatrow{Core series}{$\e^x=\sum\frac{x^n}{n!}$; $\sin x=\sum(-1)^n\frac{x^{2n+1}}{(2n+1)!}$; $\cos x=\sum(-1)^n\frac{x^{2n}}{(2n)!}$; $\frac1{1-x}=\sum x^n$ $(|x|<1)$.}
+\vspace{-2pt}
+\cheatrow{More series}{$\ln(1+x)=\sum_{n=1}^{\infty}(-1)^{n+1}\frac{x^n}{n}$ $(-1<x\le1)$; $\arctan x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{2n+1}$ $(|x|\le1$, endpoint care).}
+\end{cheatitems}
+
+
+%==================================================
+\section*{Special Techniques / Enrichment Shortcuts}
+
+\subsection*{Limit and derivative shortcuts}
+\begin{cheatitems}
+\cheatrow{Dominant radical}{As $x\to\infty$, $\sqrt{x^2+ax+b}\!=\!x+\frac a2+O(1/x)$ for $x>0$; use conjugate when subtracting close terms.}
+\cheatrow{Power limit}{$u(x)^{v(x)}$: set $y\!=\!u^v$, compute $\ln y\!=\!v\ln u$, then exponentiate. Use for $1^\infty,0^0,\infty^0$.}
+\cheatrow{Squeeze forms}{$|\sin u|\le |u|$, $|\cos u|\le1$, $0\le1-\cos u\le u^2/2$; bounded factor $\times$ zero factor $\to0$.}
+\cheatrow{Inverse slope shortcut}{For inverse derivative at $b\!=\!f(a)$: $(f^{-1})'(b)\!=\!1/f'(a)$; no need to find $f^{-1}$ explicitly.}
+\end{cheatitems}
+
+\subsection*{Definite-integral transformations}
+\begin{cheatitems}
+\cheatrow{Reflection}{$\int_a^b f(x)\,dx\!=\!\int_a^b f(a+b-x)\,dx$; hence $I\!=\!\frac12\int_a^b[f(x)+f(a+b-x)]\,dx$}
+\cheatrow{Reciprocal}{$\int_0^\infty f(x)\,dx\!=\!\int_0^\infty f(1/x)\frac{dx}{x^2}$; useful for $x\leftrightarrow1/x$ and log}
+\cheatrow{Scale extraction}{$\int_0^a x^m(a-x)^n dx\!=\!a^{m+n+1}\int_0^1t^m(1-t)^n dt$; $\int_0^\infty\frac{x^{m-1}}{(a+x)^n}dx\!=\!a^{m-n}\int_0^\infty\frac{t^{m-1}}{(1+t)^n}dt$.}
+\end{cheatitems}
+
+\subsection*{Parameter and recurrence methods}
+\vspace{2pt}
+\begin{cheatitems}
+\cheatrow{Differentiate under integral}{If justified, $F(\lambda)\!=\!\int_a^b f(x,\lambda)dx\Rightarrow F'(\lambda)\!=\!\int_a^b\partial_\lambda f(x,\lambda)dx$; recover constant from $F(0),F(1)$ or a limit.}
+\cheatrow{Log integral generator}{$\partial_a^n x^a\!=\!x^a(\ln x)^n$; $\int_0^1 x^{a-1}(\ln x)^n dx\!=\!(-1)^n n!/a^{n+1}$ for $a>0$.}
+\cheatrow{Frullani}{If convrg \& limits ex, $\displaystyle\int_0^\infty\! \!\! \frac{f(ax)-f(bx)}{x}dx\!\!=\!\!(f(0)\!-\!f(\infty))\ln(\frac{b}{a})$, $a,b>0$.}
+\cheatrow{Wallis:} {$I_n\!=\!\int_0^{\pi/2}\sin^n xdx$, $I_n\!=\!\frac{n-1}{n}I_{n-2}$, $I_0\!=\!\pi/2$, $I_1\!=\!1$.}
+\end{cheatitems}
+%\newpage
+\subsection*{Special integral families}
+\begin{cheatitems}
+
+\cheatrow{$B(p,q)\!=$}{$\displaystyle \!\int_0^1x^{p-1}(1-x)^{q-1}dx\!=\!\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)};\; \Gamma(s)\!=\!\int_0^\infty t^{s-1}e^{-t}dt;$ \\
+\vspace{-2pt}
+$\displaystyle
+\int_0^\infty \!\!\!\!\frac{x^{p-1}}{(1+x)^{p+q}}dx
+\!=\!B(p,q)
+; $
+$\displaystyle\int_0^{\pi/2}\!\!\!\!\!\!\sin^{m-1}x\cos^{n-1}x\,dx\!=\!\frac12B(m/2,n/2)$}
+
+
+
+\cheatrow{Reflection formula}{$\Gamma(p)\Gamma(1-p)\!=\!\pi/\sin(\pi p)$; hence $\int_0^\infty\frac{x^{p-1}}{1+x}dx\!=\!\pi/\sin(\pi p)$ for $0<p<1$.}
+\cheatrow{Gaussian}{$\int_{-\infty}^\infty e^{-x^2}dx\!=\!\sqrt\pi$, $\int_0^\infty e^{-ax^2}dx\!=\!\frac12\sqrt{\pi/a}$; square trick uses polar coordinates.}
+\cheatrow{Weighted logs}{$\int\frac{(\ln x)^n}{x}dx\!=\!\frac{(\ln x)^{n+1}}{n+1}+C$; for $m\ne1$, repeated IBP handles $\int x^{-m}(\ln x)^n dx$.}
+\cheatrow{Pappus}{Region area $A$ revolved about external axis: $V\!=\!2\pi dA$; curve length $L$: $S\!=\!2\pi dL$. Torus: $V\!=\!2\pi^2Rr^2$, $S\!=\!4\pi^2Rr$.}
+
+
+%==================================================
+\end{cheatitems}
+\end{multicols}
+\end{document}
+%==================================================
+\section*{Common Exam Templates / Mistakes}
+
+\subsection*{Trigger $\to$ method $\to$ caution}
+\begin{tabular}{@{}L{0.23\columnwidth}L{0.40\columnwidth}L{0.30\columnwidth}@{}}
+\toprule
+\textbf{Trigger} & \textbf{Method} & \textbf{Caution}\tabularnewline
+\midrule
+geometric area & top-bottom or right-left & split at sign/order changes\tabularnewline
+moving integral limit & FTC I + chain rule & lower limit has minus sign\tabularnewline
+definite substitution & change bounds immediately & do not back-sub after changing bounds\tabularnewline
+improper integral & replace bad point by limit & each split must converge\tabularnewline
+absolute value in integral & split where inside $=0$ & $\int|f|\ne|\int f|$ usually\tabularnewline
+optimisation & objective + constraint + endpoints & domain restrictions decide candidates\tabularnewline
+related rates & differentiate relation in $t$ & substitute numerical values after differentiating\tabularnewline
+series convergence & $a_n\to0$ then choose test & ratio/root $L=1$ inconclusive\tabularnewline
+power series interval & radius then endpoints & endpoints tested separately\tabularnewline
+Taylor error & use next derivative bound & approximation without error bound may be incomplete\tabularnewline
+\bottomrule
+\end{tabular}
+
+\subsection*{High-frequency mistakes}
+\begin{cheatitems}
+\cheatrow{Limits}{Replacing $\sin x$ by $x$ only valid when argument $\to0$; for $\sin(3x)$ use $\sin(3x)\sim3x$.}
+\cheatrow{Differentiation}{For implicit equations, $\frac{d}{dx}y^n=ny^{n-1}y'$, not $ny^{n-1}$.}
+\cheatrow{Log differentiation}{Keep base positive; after differentiating $\ln y$, multiply by $y$ to get $y'$.}
+\cheatrow{Area/volume}{Washer radius is distance to axis, not simply the function value unless axis is coordinate axis.}
+\cheatrow{Surface area}{Use radius $\times$ arc-length factor; do not confuse with washer volume formula.}
+\cheatrow{Numerical integration}{Simpson requires even $n$; error bounds require derivative bound $K$ on the whole interval.}
+\cheatrow{Series}{Conditional convergence requires $\sum a_n$ convergent but $\sum|a_n|$ divergent.}
+\end{cheatitems}
+
+\end{multicols}
+\end{document}

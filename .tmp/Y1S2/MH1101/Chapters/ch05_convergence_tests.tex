@@ -1,0 +1,721 @@
+
+%##################################################
+%##################################################
+%  CHAPTER 5: CONVERGENCE TESTS
+%##################################################
+%##################################################
+
+\section{Convergence Tests}
+
+\textbf{Overview and purpose.}
+In Chapter~4 we defined what it means for a series $\sum a_n$ to converge: the partial sums $s_k=\sum_{n=1}^{k}a_n$ must tend to a finite limit.
+But computing partial sums explicitly is often impractical (e.g.\ try writing down $s_k$ for $\sum 1/n^2$).
+Convergence tests bypass this by translating the question into a simpler criterion---typically a comparison, an integral, or a ratio---that yields a yes/no answer \emph{without} finding the actual sum.
+
+\paragraph{Why so many tests?}
+No single test works for all series. Each test has its natural domain of applicability:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Integral Test}: series whose terms come from a ``nice'' (continuous, positive, decreasing) function $f(x)$.
+\item \textbf{Comparison / Limit Comparison}: series that are ``close to'' a known benchmark ($p$-series, geometric series).
+\item \textbf{Alternating Series Test}: series with terms that strictly alternate in sign.
+\item \textbf{Ratio Test}: series involving factorials, exponential terms, or products.
+\item \textbf{Root Test}: series where the $n$-th term is an $n$-th power.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Which test to try first (decision flowchart)}]
+Given a series $\sum a_n$:
+\begin{enumerate}[leftmargin=3em]
+\item \textbf{Step 0 (Term test):} Does $a_n\to 0$? If not, the series diverges immediately.
+\item \textbf{Step 1 (Recognise known forms):} Is it geometric? Telescoping? A $p$-series? If so, use the known result directly.
+\item \textbf{Step 2 (Factorials or $n$-th powers?):} If the term involves $n!$, $(n!)^2$, $a^n$, or $\left(\frac{\cdot}{\cdot}\right)^n$, try the \textbf{Ratio} or \textbf{Root} Test.
+\item \textbf{Step 3 (Rational/algebraic in $n$?):} If the term is a ratio of polynomials or roots, try \textbf{Limit Comparison} with a $p$-series.
+\item \textbf{Step 4 (Alternating sign?):} If $a_n=(-1)^n b_n$ with $b_n>0$ decreasing to $0$, use the \textbf{Alternating Series Test}.
+\item \textbf{Step 5 (Integrable terms?):} If $a_n=f(n)$ for a continuous, positive, decreasing $f$, use the \textbf{Integral Test}.
+\end{enumerate}
+\end{examtip}
+
+%--------------------------------------------------
+\subsection{The Integral Test}
+
+\paragraph{Why connect series to integrals?}
+The terms $a_n=f(n)$ are the heights of rectangles of width $1$.
+The area under $f(x)$ from $1$ to $\infty$ and the total area of these rectangles are closely related: one bounds the other.
+If the integral converges, the rectangles' total area is finite, so the series converges; if the integral diverges, so does the series.
+This is the geometric insight behind the Integral Test.
+
+\begin{theorem}{The Integral Test}{thm:integral-test}
+Suppose $f:[1,\infty)\to\mathbb{R}$ is continuous, positive, and decreasing, and let $a_n=f(n)$. Then:
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item If $\displaystyle\int_1^{\infty}f(x)\,dx$ converges, then $\displaystyle\sum_{n=1}^{\infty}a_n$ converges.
+\item If $\displaystyle\int_1^{\infty}f(x)\,dx$ diverges, then $\displaystyle\sum_{n=1}^{\infty}a_n$ diverges.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textbf{Why does this work? (Proof idea via bounding partial sums.)}
+Since $f$ is decreasing, for each integer $n\ge 1$:
+\[
+f(n+1)\le \int_n^{n+1}f(x)\,dx\le f(n).
+\]
+Summing from $n=1$ to $k-1$:
+\[
+\sum_{n=2}^{k}f(n)\le \int_1^{k}f(x)\,dx\le \sum_{n=1}^{k-1}f(n).
+\]
+\begin{itemize}[leftmargin=*]
+\item \textbf{(i) Integral converges $\Rightarrow$ series converges:}
+If $\int_1^{\infty}f(x)\,dx=I<\infty$, then $s_k=a_1+\sum_{n=2}^{k}a_n\le a_1+I$, so $\{s_k\}$ is bounded.
+Since $a_n>0$, $\{s_k\}$ is also increasing, so by the Monotone Sequence Theorem, $\{s_k\}$ converges.
+\item \textbf{(ii) Integral diverges $\Rightarrow$ series diverges:}
+If $\int_1^{\infty}f(x)\,dx=\infty$, then $s_{k-1}\ge \int_1^{k}f(x)\,dx\to\infty$.
+\end{itemize}
+
+\begin{commonmistake}[title={Common Mistake: The Integral Test does NOT give the sum}]
+The Integral Test tells you \emph{whether} a series converges, not \emph{what} it converges to.
+The value $\int_1^{\infty}f(x)\,dx$ is generally \emph{not} equal to $\sum_{n=1}^{\infty}a_n$.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: Integral Test checklist}]
+Before applying the Integral Test, you must verify \textbf{three} conditions on $f$:
+\begin{enumerate}[leftmargin=3em]
+\item \textbf{Continuous} on $[N,\infty)$ for some $N$.
+\item \textbf{Positive}: $f(x)>0$ on $[N,\infty)$.
+\item \textbf{Decreasing}: $f'(x)<0$ on $[N,\infty)$ (compute the derivative explicitly).
+\end{enumerate}
+It is \emph{not} necessary that $f$ is decreasing from $x=1$; it only needs to be \emph{ultimately decreasing} (i.e.\ for all $x\ge N$ for some $N$). Finitely many initial terms do not affect convergence.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.1): $\sum \frac{1}{1+n^2}$ converges}]
+Test $\displaystyle\sum_{n=1}^{\infty}\frac{1}{1+n^2}$ for convergence.
+
+\emph{Solution.}
+Let $f(x)=\frac{1}{1+x^2}$. This is continuous, positive, and decreasing on $[1,\infty)$ (since $f'(x)=\frac{-2x}{(1+x^2)^2}<0$ for $x>0$).
+\[
+\int_1^{\infty}\frac{1}{1+x^2}\,dx
+=\lim_{t\to\infty}\left[\tan^{-1}x\right]_1^{t}
+=\frac{\pi}{2}-\frac{\pi}{4}=\frac{\pi}{4}<\infty.
+\]
+By the Integral Test, the series $\displaystyle\boxed{\sum_{n=1}^{\infty}\frac{1}{1+n^2}\ \text{converges}}$.
+
+\textbf{Sanity check:} The integral evaluates to $\pi/4\approx 0.785$, but the actual sum $\sum_{n=1}^{\infty}\frac{1}{1+n^2}\approx 1.077$. These are \emph{not} equal---the integral is merely a tool for determining convergence.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.2): $\sum \frac{\ln n}{n}$ diverges}]
+Determine whether $\displaystyle\sum_{n=1}^{\infty}\frac{\ln n}{n}$ converges or diverges.
+
+\emph{Solution.}
+Let $f(x)=\frac{\ln x}{x}$. This is continuous and positive for $x\ge 1$.
+Compute the derivative:
+\[
+f'(x)=\frac{1-\ln x}{x^2}.
+\]
+So $f'(x)<0$ when $\ln x>1$, i.e.\ $x>e\approx 2.718$. Hence $f$ is decreasing on $[3,\infty)$.
+
+Now evaluate the integral from $3$ to $\infty$:
+\[
+\int_3^{\infty}\frac{\ln x}{x}\,dx
+=\lim_{t\to\infty}\left[\frac{(\ln x)^2}{2}\right]_3^{t}
+=\lim_{t\to\infty}\frac{(\ln t)^2}{2}-\frac{(\ln 3)^2}{2}=\infty.
+\]
+By the Integral Test, $\sum_{n=3}^{\infty}\frac{\ln n}{n}$ diverges. Since adding finitely many terms does not affect convergence, $\displaystyle\boxed{\sum_{n=1}^{\infty}\frac{\ln n}{n}\ \text{diverges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 9, Q1(c)): $\sum n e^{-n^2}$ converges}]
+Determine whether $\displaystyle\sum_{n=1}^{\infty}n e^{-n^2}$ converges or diverges.
+
+\emph{Solution.}
+Let $f(x)=xe^{-x^2}$. This is continuous and positive for $x\ge 1$.
+
+\textbf{Monotonicity:} $f'(x)=e^{-x^2}+x(-2x)e^{-x^2}=(1-2x^2)e^{-x^2}<0$ for $x\ge 1$ (since $2x^2\ge 2>1$).
+
+\textbf{Integral:} Let $u=x^2$, $du=2x\,dx$:
+\[
+\int_1^{\infty}xe^{-x^2}\,dx
+=\frac{1}{2}\int_1^{\infty}e^{-u}\,du
+=\frac{1}{2}\left[-e^{-u}\right]_1^{\infty}
+=\frac{1}{2e}<\infty.
+\]
+By the Integral Test, $\displaystyle\boxed{\sum_{n=1}^{\infty}ne^{-n^2}\ \text{converges}}$.
+\end{examplebox}
+
+\paragraph{The $p$-series: a fundamental benchmark.}
+
+The most important application of the Integral Test is classifying $p$-series.
+These serve as the ``benchmark'' series against which almost all other series are compared.
+
+\begin{theorem}{$p$-series convergence}{thm:p-series}
+The $p$-series $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^p}$ is:
+\begin{itemize}[leftmargin=*]
+\item \textbf{convergent} if $p>1$,
+\item \textbf{divergent} if $p\le 1$.
+\end{itemize}
+\end{theorem}
+
+\noindent
+\textbf{Why this threshold at $p=1$? (Full proof.)}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Case $p\le 0$:} Then $1/n^p=n^{|p|}\ge 1$ for all $n\ge 1$, so $\lim_{n\to\infty}a_n\ne 0$. Diverges by the $n$th-term test.
+\item \textbf{Case $p=1$:} This is the harmonic series $\sum 1/n$, which diverges (proved in Chapter~4).
+\item \textbf{Case $p>0$, $p\ne 1$:} Let $f(x)=x^{-p}$. Then $f'(x)=-px^{-p-1}<0$ for $x\ge 1$, so $f$ is decreasing. Compute:
+\[
+\int_1^{\infty}x^{-p}\,dx
+=\lim_{t\to\infty}\frac{x^{-p+1}}{-p+1}\bigg|_1^{t}
+=\lim_{t\to\infty}\frac{t^{1-p}-1}{1-p}.
+\]
+If $p>1$: the exponent $1-p<0$, so $t^{1-p}\to 0$. The integral equals $\frac{1}{p-1}<\infty$. Series converges.
+
+If $0<p<1$: the exponent $1-p>0$, so $t^{1-p}\to\infty$. The integral diverges. Series diverges.
+\end{itemize}
+
+\begin{keyformula}[title={$p$-series reference table (memorise for exams)}]
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l@{\hskip 2em}l@{\hskip 2em}l}
+\textbf{Series} & \textbf{$p$-value} & \textbf{Verdict} \\
+\hline
+$\sum 1/n^3$ & $p=3>1$ & converges \\
+$\sum 1/n^2$ & $p=2>1$ & converges \\
+$\sum 1/n^{3/2}$ & $p=3/2>1$ & converges \\
+$\sum 1/n$ & $p=1$ & \textbf{diverges} \\
+$\sum 1/\sqrt{n}$ & $p=1/2<1$ & diverges \\
+$\sum 1/n^{1/3}$ & $p=1/3<1$ & diverges \\
+\end{tabular}
+\end{center}
+\end{keyformula}
+
+\begin{examtip}
+The $p$-series is your most important ``test series'' for the Comparison and Limit Comparison Tests.
+When you see a rational expression in $n$, identify its dominant behaviour and compare with the appropriate $p$-series.
+
+For example, $\dfrac{n^2+3n}{n^5+7}\sim \dfrac{n^2}{n^5}=\dfrac{1}{n^3}$, so compare with $\sum 1/n^3$ (which converges).
+\end{examtip}
+
+%--------------------------------------------------
+\subsection{The Comparison Tests}
+
+\paragraph{Why comparison?}
+We often encounter series $\sum a_n$ that don't have a nice closed-form partial sum or a clean integral.
+The idea: if each term $a_n$ is ``smaller'' than a term $b_n$ of a known convergent series, then $\sum a_n$ converges too.
+Similarly, if $a_n$ is ``bigger'' than terms of a known divergent series, then $\sum a_n$ diverges.
+
+\begin{theorem}{The (Direct) Comparison Test}{thm:comparison}
+Suppose $\sum a_n$ and $\sum b_n$ are series with \textbf{positive} terms.
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item If $\sum b_n$ converges and $a_n\le b_n$ for all $n$, then $\sum a_n$ converges.
+\item If $\sum b_n$ diverges (to $\infty$) and $a_n\ge b_n$ for all $n$, then $\sum a_n$ diverges (to $\infty$).
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textbf{Why this works.}
+\begin{itemize}[leftmargin=*]
+\item \textbf{(i)} Both partial-sum sequences $s_k=\sum_{n=1}^k a_n$ and $t_k=\sum_{n=1}^k b_n$ are increasing (positive terms). Since $a_n\le b_n$, we have $s_k\le t_k$. Since $\sum b_n$ converges, $t_k\to t$ for some $t$, so $t_k\le t$. Thus $s_k\le t$ for all $k$, and $\{s_k\}$ is increasing and bounded $\Rightarrow$ convergent by the Monotone Sequence Theorem.
+\item \textbf{(ii)} Since $a_n\ge b_n$, $s_k\ge t_k$. Since $t_k\to\infty$, $s_k\to\infty$ as well.
+\end{itemize}
+
+\begin{commonmistake}[title={Common Mistake: Wrong direction of comparison}]
+To prove convergence, you need $a_n\le b_n$ where $\sum b_n$ \textbf{converges} (bound above by something convergent).
+
+To prove divergence, you need $a_n\ge b_n$ where $\sum b_n$ \textbf{diverges} (bound below by something divergent).
+
+The reverse inequalities give no information:
+\begin{itemize}[leftmargin=*]
+\item $a_n\ge b_n$ and $\sum b_n$ converges $\Rightarrow$ nothing (the larger series could converge or diverge).
+\item $a_n\le b_n$ and $\sum b_n$ diverges $\Rightarrow$ nothing.
+\end{itemize}
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.4): direct comparison}]
+Determine whether $\displaystyle\sum_{n=1}^{\infty}\frac{100}{2n^2+5n+4}$ converges.
+
+\emph{Solution.}
+For $n\ge 1$: $2n^2+5n+4>2n^2$, so
+\[
+0<\frac{100}{2n^2+5n+4}<\frac{100}{2n^2}=\frac{50}{n^2}.
+\]
+Since $\sum \frac{50}{n^2}=50\sum \frac{1}{n^2}$ converges ($p$-series with $p=2>1$), the Comparison Test gives $\displaystyle\boxed{\sum_{n=1}^{\infty}\frac{100}{2n^2+5n+4}\ \text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 9, Q2(e)): $\sum \sin(1/n)$ diverges}]
+Show that $\displaystyle\sum_{n=1}^{\infty}\sin\!\left(\frac{1}{n}\right)$ diverges.
+
+\emph{Solution.}
+Use the standard limit $\lim_{x\to 0}\frac{\sin x}{x}=1$. Setting $x=1/n$:
+\[
+\lim_{n\to\infty}\frac{\sin(1/n)}{1/n}=1>0.
+\]
+Since $\sum 1/n$ diverges (harmonic series), the Limit Comparison Test implies $\displaystyle\boxed{\sum \sin(1/n)\ \text{diverges}}$.
+
+\textbf{Alternative (direct comparison):} For $x\in[0,\pi/2]$, $\sin x\ge \frac{2}{\pi}x$. Thus $\sin(1/n)\ge \frac{2}{\pi n}$, and divergence follows by comparison with $\sum \frac{1}{n}$.
+\end{examplebox}
+
+\paragraph{The Limit Comparison Test: when direct comparison is fiddly.}
+
+Direct comparison requires an \emph{explicit} inequality $a_n\le b_n$ (or $\ge$), which can be tedious to establish.
+The Limit Comparison Test replaces this with an \emph{asymptotic} comparison: if $a_n$ and $b_n$ have the same ``growth rate'' (i.e.\ their ratio tends to a positive constant), they have the same convergence behaviour.
+
+\begin{theorem}{The Limit Comparison Test (LCT)}{thm:LCT}
+Suppose $\sum a_n$ and $\sum b_n$ are series with \textbf{positive} terms.
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item If $\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=c$ with $0<c<\infty$, then both series converge or both diverge.
+\item If $\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=0$ and $\sum b_n$ converges, then $\sum a_n$ converges.
+\item If $\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=\infty$ and $\sum b_n$ diverges, then $\sum a_n$ diverges.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textbf{Why (i) works (proof sketch).}
+If $a_n/b_n\to c>0$, then for large $n$:
+\[
+\frac{c}{2}\,b_n\le a_n\le \frac{3c}{2}\,b_n.
+\]
+The right inequality gives: if $\sum b_n$ converges, then $\sum a_n$ converges (by comparison with $\frac{3c}{2}\sum b_n$).
+The left inequality gives: if $\sum b_n$ diverges, then $\sum a_n$ diverges (by comparison with $\frac{c}{2}\sum b_n$).
+
+\begin{examtip}[title={Exam Focus: Choosing the comparison series $b_n$ for LCT}]
+When $a_n$ is a rational expression in $n$ (possibly with roots), identify the \textbf{dominant terms} in the numerator and denominator:
+\[
+a_n=\frac{\text{numerator}}{\text{denominator}}\sim \frac{\text{dominant numerator term}}{\text{dominant denominator term}}=b_n.
+\]
+Then $\lim a_n/b_n=1$ (or some nonzero constant), so $\sum a_n$ and $\sum b_n$ have the same behaviour.
+
+\textbf{Example:} $a_n=\frac{2n^2+3n}{\sqrt{5+n^5}}$. Dominant: $\frac{2n^2}{n^{5/2}}=\frac{2}{n^{1/2}}$. Compare with $b_n=\frac{1}{\sqrt{n}}$ ($p=1/2<1$, diverges).
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.6): LCT with geometric comparison}]
+Test $\displaystyle\sum_{n=1}^{\infty}\frac{1}{2^n-1}$ for convergence.
+
+\emph{Solution.}
+Compare with $b_n=\frac{1}{2^n}$ (convergent geometric series). Compute:
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=\lim_{n\to\infty}\frac{2^n}{2^n-1}=\lim_{n\to\infty}\frac{1}{1-1/2^n}=1>0.
+\]
+By the LCT, $\displaystyle\boxed{\sum_{n=1}^{\infty}\frac{1}{2^n-1}\ \text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.7): LCT with $p$-series}]
+Does $\displaystyle\sum_{n=1}^{\infty}\frac{2n^2+3n}{\sqrt{5+n^5}}$ converge?
+
+\emph{Solution.}
+The dominant behaviour is $\frac{2n^2}{n^{5/2}}=\frac{2}{n^{1/2}}$. Set $b_n=\frac{2}{n^{1/2}}$.
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}
+=\lim_{n\to\infty}\frac{2n^2+3n}{\sqrt{5+n^5}}\cdot\frac{n^{1/2}}{2}
+=\lim_{n\to\infty}\frac{2n^{5/2}+3n^{3/2}}{2\sqrt{5+n^5}}
+=\lim_{n\to\infty}\frac{2+3/n}{2\sqrt{5/n^5+1}}=\frac{2}{2}=1.
+\]
+Since $\sum b_n=2\sum \frac{1}{n^{1/2}}$ diverges ($p=1/2<1$), the LCT gives $\displaystyle\boxed{\sum\frac{2n^2+3n}{\sqrt{5+n^5}}\ \text{diverges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 9, Q2(d)): $\sum \frac{n^2+n+1}{n^4+n^2}$ converges}]
+Determine convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{n^2+n+1}{n^4+n^2}$.
+
+\emph{Solution.}
+Dominant behaviour: $\frac{n^2}{n^4}=\frac{1}{n^2}$. Set $b_n=\frac{1}{n^2}$.
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=\lim_{n\to\infty}\frac{n^2(n^2+n+1)}{n^4+n^2}=\lim_{n\to\infty}\frac{n^4+n^3+n^2}{n^4+n^2}=1>0.
+\]
+Since $\sum 1/n^2$ converges ($p=2>1$), the LCT gives $\displaystyle\boxed{\sum\frac{n^2+n+1}{n^4+n^2}\ \text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 9, Q2(f)): $\sum \frac{1}{n\ln n}$ diverges}]
+Determine convergence of $\displaystyle\sum_{n=2}^{\infty}\frac{1}{n\ln n}$.
+
+\emph{Solution.}
+Let $f(x)=\frac{1}{x\ln x}$ for $x\ge 2$. This is continuous and positive. Since $f'(x)=-\frac{1+\ln x}{(x\ln x)^2}<0$ for $x\ge 2$, $f$ is decreasing.
+
+Integral Test: use substitution $u=\ln x$, $du=dx/x$:
+\[
+\int_2^{\infty}\frac{1}{x\ln x}\,dx=\int_{\ln 2}^{\infty}\frac{1}{u}\,du=\left[\ln u\right]_{\ln 2}^{\infty}=\infty.
+\]
+By the Integral Test, $\displaystyle\boxed{\sum_{n=2}^{\infty}\frac{1}{n\ln n}\ \text{diverges}}$.
+
+\textbf{Exam note:} This is a ``borderline'' series---it diverges, but very slowly (slower than $\sum 1/n$).
+\end{examplebox}
+
+%--------------------------------------------------
+\subsection{Absolute and Conditional Convergence}
+
+\paragraph{Why do we need a new concept?}
+The Integral Test and Comparison Test only apply to series with \textbf{positive terms}.
+But many natural series have mixed signs, such as $\sum (-1)^n/n$.
+To handle these, we introduce \emph{absolute convergence}: strip the signs (take $|a_n|$) and test the resulting positive series.
+If $\sum |a_n|$ converges, then $\sum a_n$ converges too.
+
+\begin{definition}{Absolute convergence}{def:abs-conv}
+A series $\sum a_n$ is called \emph{absolutely convergent} if the series of absolute values $\sum |a_n|$ converges.
+\end{definition}
+
+\noindent
+\textbf{Why this definition is natural.}
+Absolute convergence means the series converges ``no matter what the signs are.'' It is the strongest form of convergence. Absolutely convergent series can be rearranged in any order without changing the sum---conditionally convergent series cannot (this is the Riemann rearrangement theorem).
+
+\begin{theorem}{Absolute convergence implies convergence}{thm:abs-implies-conv}
+If $\sum a_n$ is absolutely convergent, then $\sum a_n$ converges.
+\end{theorem}
+
+\noindent
+\textbf{Why this is true.}
+For each $n$, $0\le a_n+|a_n|\le 2|a_n|$. If $\sum|a_n|$ converges, then $\sum 2|a_n|$ converges, so by comparison $\sum(a_n+|a_n|)$ converges. But then
+\[
+\sum a_n=\sum(a_n+|a_n|)-\sum|a_n|
+\]
+is the difference of two convergent series, hence convergent.
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.9): $\sum \frac{\cos n}{n^2}$ converges absolutely}]
+Show that $\displaystyle\sum_{n=1}^{\infty}\frac{\cos n}{n^2}$ converges.
+
+\emph{Solution.}
+The signs change irregularly (not alternating), so we test absolute convergence.
+\[
+\left|\frac{\cos n}{n^2}\right|=\frac{|\cos n|}{n^2}\le \frac{1}{n^2}.
+\]
+Since $\sum 1/n^2$ converges ($p$-series, $p=2>1$), by comparison $\sum |\cos n|/n^2$ converges.
+
+Hence $\sum \cos n/n^2$ is absolutely convergent, and therefore $\displaystyle\boxed{\text{convergent}}$ by Theorem~\ref{thm:abs-implies-conv}.
+\end{examplebox}
+
+\begin{definition}{Conditional convergence}{def:cond-conv}
+A series $\sum a_n$ is called \emph{conditionally convergent} if $\sum a_n$ converges but $\sum |a_n|$ diverges.
+\end{definition}
+
+\noindent
+\textbf{Why this distinction matters.}
+Conditional convergence is ``fragile'': the positive and negative terms each diverge to $+\infty$ and $-\infty$ respectively, but they nearly cancel to give a finite sum. Rearranging terms can change the sum (or make it diverge).
+
+\paragraph{The Alternating Series Test.}
+
+If a series is not absolutely convergent, how do we check whether it is conditionally convergent?
+For \emph{alternating} series (signs strictly alternate: $+,-,+,-,\ldots$), the following test applies.
+
+\begin{theorem}{Alternating Series Test (AST)}{thm:AST}
+Let $\{a_n\}$ be a decreasing positive sequence converging to $0$:
+\[
+a_1\ge a_2\ge a_3\ge \cdots \ge 0,\quad \text{and}\quad \lim_{n\to\infty}a_n=0.
+\]
+Then the alternating series $\displaystyle\sum_{n=1}^{\infty}(-1)^{n-1}a_n=a_1-a_2+a_3-a_4+\cdots$ converges.
+\end{theorem}
+
+\noindent
+\textbf{Why the AST works (geometric intuition).}
+Consider the partial sums:
+\begin{itemize}[leftmargin=*]
+\item $s_1=a_1$ (overshoot),
+\item $s_2=a_1-a_2$ (undershoot below $s_1$, but still positive since $a_1\ge a_2$),
+\item $s_3=s_2+a_3$ (overshoot again, but less than $s_1$),
+\item $s_4=s_3-a_4$ (undershoot again, but more than $s_2$).
+\end{itemize}
+The even partial sums $s_2,s_4,s_6,\ldots$ form an increasing sequence; the odd partial sums $s_1,s_3,s_5,\ldots$ form a decreasing sequence. Both are bounded, so both converge. Since $s_{2k+1}-s_{2k}=a_{2k+1}\to 0$, they converge to the same limit.
+
+\begin{commonmistake}[title={Common Mistake: AST requires TWO conditions}]
+Both conditions are needed:
+\begin{enumerate}[leftmargin=3em]
+\item $\{a_n\}$ is \textbf{decreasing} (you must show $a_{n+1}\le a_n$ or show the corresponding function $f$ has $f'(x)<0$).
+\item $a_n\to 0$.
+\end{enumerate}
+If $a_n\to 0$ but $\{a_n\}$ is not eventually decreasing, the AST does not apply. (However, the converse rarely comes up in MH1101.)
+
+Also, the AST says the series \emph{converges}; it does \emph{not} say whether the convergence is absolute or conditional. To classify fully, you must also test $\sum |a_n|$ separately.
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.11): $\sum (-1)^{n-1}/\sqrt{n}$ is conditionally convergent}]
+Show that $S=\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{\sqrt{n}}$ is conditionally convergent.
+
+\emph{Solution.}
+
+\textbf{Step 1 (convergence):}
+Let $a_n=1/\sqrt{n}$. Then $\{a_n\}$ is decreasing and $a_n\to 0$.
+By the Alternating Series Test, $S$ converges.
+
+\textbf{Step 2 (not absolute):}
+$\sum|(-1)^{n-1}/\sqrt{n}|=\sum 1/\sqrt{n}$ diverges ($p$-series with $p=1/2<1$).
+
+Hence $S$ is $\boxed{\text{conditionally convergent}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.12): $\sum (-1)^{n+1}\frac{n^2}{n^3+1}$ converges by AST}]
+Is $\displaystyle\sum_{n=1}^{\infty}(-1)^{n+1}\frac{n^2}{n^3+1}$ convergent?
+
+\emph{Solution.}
+Let $a_n=\frac{n^2}{n^3+1}$.
+
+\textbf{Decreasing:}
+Consider $f(x)=\frac{x^2}{x^3+1}$. Compute:
+\[
+f'(x)=\frac{2x(x^3+1)-x^2(3x^2)}{(x^3+1)^2}=\frac{x(2-x^3)}{(x^3+1)^2}.
+\]
+For $x>2^{1/3}\approx 1.26$, we have $f'(x)<0$, so $f$ is decreasing on $(2^{1/3},\infty)$.
+Thus $a_{n+1}<a_n$ for all $n\ge 2$. We also check $a_2=4/9<1/2=a_1$ by direct computation, so $\{a_n\}$ is decreasing.
+
+\textbf{Limit:} $\lim_{n\to\infty}\frac{n^2}{n^3+1}=\lim_{n\to\infty}\frac{1/n}{1+1/n^3}=0$.
+
+By the AST, the series $\boxed{\text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Q1(a)): conditional convergence via AST + LCT}]
+Classify $\displaystyle\sum_{n=0}^{\infty}\frac{(-1)^n}{5n+1}$ as absolutely convergent, conditionally convergent, or divergent.
+
+\emph{Solution.}
+
+\textbf{Test for absolute convergence:}
+$\sum\left|\frac{(-1)^n}{5n+1}\right|=\sum\frac{1}{5n+1}$.
+By LCT with $b_n=1/n$: $\lim\frac{1/(5n+1)}{1/n}=\lim\frac{n}{5n+1}=1/5>0$.
+Since $\sum 1/n$ diverges, $\sum 1/(5n+1)$ diverges. So the series is \emph{not} absolutely convergent.
+
+\textbf{Test for conditional convergence:}
+Let $a_n=\frac{1}{5n+1}$. Then $a_{n+1}=\frac{1}{5n+6}<\frac{1}{5n+1}=a_n$ (since $5n+6>5n+1$), and $a_n\to 0$. By the AST, $\sum (-1)^n/(5n+1)$ converges.
+
+Hence the series is $\boxed{\text{conditionally convergent}}$.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Classification workflow (absolute / conditional / divergent)}]
+Given a series $\sum a_n$ with mixed signs:
+\begin{enumerate}[leftmargin=3em]
+\item \textbf{First}, test $\sum |a_n|$ for convergence (using any test for positive series).
+\item If $\sum |a_n|$ converges $\Rightarrow$ the series is \textbf{absolutely convergent} (done).
+\item If $\sum |a_n|$ diverges $\Rightarrow$ test the original $\sum a_n$ for convergence (typically AST).
+\begin{itemize}
+\item If $\sum a_n$ converges $\Rightarrow$ \textbf{conditionally convergent}.
+\item If $\sum a_n$ diverges $\Rightarrow$ \textbf{divergent}.
+\end{itemize}
+\end{enumerate}
+\end{examtip}
+
+%--------------------------------------------------
+\subsection{The Ratio and Root Tests}
+
+\paragraph{Why these tests?}
+The tests developed so far (Integral, Comparison) work well for algebraic and rational expressions in $n$, but struggle with:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Factorials}: $n!$, $(n!)^2$, $(2n)!$ --- you cannot integrate these.
+\item \textbf{Exponential terms}: $a^n$ --- comparison with $p$-series is awkward.
+\item \textbf{$n$-th powers}: $\left(\frac{n}{2n+3}\right)^n$ --- the exponent depends on $n$.
+\end{itemize}
+The Ratio Test and Root Test handle these naturally by comparing with a geometric series.
+
+\begin{theorem}{The Ratio Test}{thm:ratio}
+Let $\{a_n\}$ be a sequence with $a_n\ne 0$ for all $n$, and assume
+\[
+\rho=\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|
+\]
+exists (or equals $\infty$).
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item If $\rho<1$, then $\sum a_n$ converges absolutely.
+\item If $\rho>1$ (or $\rho=\infty$), then $\sum a_n$ diverges.
+\item If $\rho=1$, the Ratio Test is \textbf{inconclusive}.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textbf{Why the Ratio Test works (proof sketch for $\rho<1$).}
+Choose $r$ with $\rho<r<1$. Since $|a_{n+1}/a_n|\to \rho$, there exists $N$ such that $|a_{n+1}/a_n|<r$ for all $n\ge N$.
+Then $|a_{N+k}|<r^k|a_N|$ for all $k\ge 0$. So:
+\[
+\sum_{n=N}^{\infty}|a_n|=\sum_{k=0}^{\infty}|a_{N+k}|\le |a_N|\sum_{k=0}^{\infty}r^k=\frac{|a_N|}{1-r}<\infty.
+\]
+This is a comparison with a convergent geometric series.
+
+\textbf{For $\rho>1$:} By the same argument with reversed inequality, $|a_{N+k}|\ge r^k|a_N|$ with $r>1$, so $|a_n|\to\infty$ and $a_n\not\to 0$. Divergence follows from the $n$th-term test.
+
+\begin{commonmistake}[title={Common Mistake: $\rho=1$ does NOT mean divergence}]
+When $\rho=1$, both convergence and divergence are possible:
+\begin{itemize}[leftmargin=*]
+\item $a_n=1/n^2$: $\rho=\lim\frac{n^2}{(n+1)^2}=1$, but $\sum 1/n^2$ converges.
+\item $a_n=1/n$: $\rho=\lim\frac{n}{n+1}=1$, but $\sum 1/n$ diverges.
+\end{itemize}
+When you get $\rho=1$, you \emph{must} use a different test (Comparison, Integral, etc.).
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: When to use the Ratio Test}]
+The Ratio Test is most effective when the general term involves:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Factorials}: $n!$, $(2n)!$ --- the ratio $a_{n+1}/a_n$ simplifies via $(n+1)!/n!=n+1$.
+\item \textbf{Exponential constants}: $c^n$ --- the ratio gives $c^{n+1}/c^n=c$.
+\item \textbf{Mixed factorial--exponential}: $\frac{n!}{2^n}$, $\frac{3^n}{n!}$ --- these are the Ratio Test's ``sweet spot.''
+\end{itemize}
+The Ratio Test is \textbf{not} useful for rational expressions in $n$ (you always get $\rho=1$).
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.15): $\sum 1/n!$ converges}]
+Show that $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n!}$ converges.
+
+\emph{Solution.}
+Let $a_n=\frac{1}{n!}$. Then:
+\[
+\left|\frac{a_{n+1}}{a_n}\right|=\frac{1/(n+1)!}{1/n!}=\frac{n!}{(n+1)!}=\frac{1}{n+1}.
+\]
+So $\rho=\lim_{n\to\infty}\frac{1}{n+1}=0<1$.
+
+By the Ratio Test, $\displaystyle\boxed{\sum_{n=1}^{\infty}\frac{1}{n!}\ \text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.16): $\sum n^2/2^n$ converges}]
+Does $\displaystyle\sum_{n=1}^{\infty}\frac{n^2}{2^n}$ converge?
+
+\emph{Solution.}
+Let $a_n=\frac{n^2}{2^n}$. Then:
+\[
+\left|\frac{a_{n+1}}{a_n}\right|=\frac{(n+1)^2}{2^{n+1}}\cdot\frac{2^n}{n^2}=\frac{1}{2}\cdot\frac{(n+1)^2}{n^2}=\frac{1}{2}\left(1+\frac{1}{n}\right)^2.
+\]
+So $\rho=\frac{1}{2}\cdot 1=\frac{1}{2}<1$.
+
+By the Ratio Test, $\displaystyle\boxed{\sum\frac{n^2}{2^n}\ \text{converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.17): $\sum (-1)^n n!/100^n$ diverges}]
+Determine whether $\displaystyle\sum_{n=0}^{\infty}\frac{(-1)^n n!}{100^n}$ converges.
+
+\emph{Solution.}
+Let $a_n=\frac{(-1)^n n!}{100^n}$. Then:
+\[
+\left|\frac{a_{n+1}}{a_n}\right|=\frac{(n+1)!}{100^{n+1}}\cdot\frac{100^n}{n!}=\frac{n+1}{100}.
+\]
+So $\rho=\lim_{n\to\infty}\frac{n+1}{100}=\infty>1$.
+
+By the Ratio Test, $\displaystyle\boxed{\text{the series diverges}}$.
+
+\textbf{Intuition:} Factorials grow faster than any exponential. Hence $n!/100^n\to\infty$, and the terms do not approach $0$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Q2): $\sum (n!)^2/(kn)!$ and parameter $k$}]
+For which positive integers $k$ does $\displaystyle\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}$ converge?
+
+\emph{Solution.}
+Let $a_n=\frac{(n!)^2}{(kn)!}$. Compute:
+\[
+\frac{a_{n+1}}{a_n}=\frac{((n+1)!)^2}{(k(n+1))!}\cdot\frac{(kn)!}{(n!)^2}=(n+1)^2\cdot\frac{(kn)!}{(kn+k)!}=\frac{(n+1)^2}{\prod_{j=1}^{k}(kn+j)}.
+\]
+
+\textbf{$k=1$:} $\frac{a_{n+1}}{a_n}=\frac{(n+1)^2}{n+1}=n+1\to\infty$. Diverges.
+
+\textbf{$k=2$:} $\frac{a_{n+1}}{a_n}=\frac{(n+1)^2}{(2n+1)(2n+2)}=\frac{n+1}{2(2n+1)}\to\frac{1}{4}<1$. Converges.
+
+\textbf{$k\ge 3$:} The denominator $\prod_{j=1}^{k}(kn+j)\sim (kn)^k=k^k n^k$, so $\frac{a_{n+1}}{a_n}\sim \frac{n^2}{k^k n^k}=\frac{1}{k^k}n^{2-k}\to 0<1$. Converges.
+
+$\boxed{\text{The series converges for all }k\ge 2\text{, and diverges for }k=1.}$
+\end{examplebox}
+
+\paragraph{The Root Test.}
+
+\begin{theorem}{The Root Test}{thm:root}
+Let $\{a_n\}$ be a sequence and assume
+\[
+L=\lim_{n\to\infty}\sqrt[n]{|a_n|}
+\]
+exists (or equals $\infty$).
+\begin{enumerate}[label=(\roman*), leftmargin=3em]
+\item If $L<1$, then $\sum a_n$ converges absolutely.
+\item If $L>1$ (or $L=\infty$), then $\sum a_n$ diverges.
+\item If $L=1$, the Root Test is \textbf{inconclusive}.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textbf{Why the Root Test works (same idea as Ratio).}
+If $L<1$, pick $r$ with $L<r<1$. For large $n$, $\sqrt[n]{|a_n|}<r$, i.e.\ $|a_n|<r^n$. Comparing with the convergent geometric series $\sum r^n$ gives convergence.
+
+If $L>1$, then for large $n$, $|a_n|>r^n$ with $r>1$, so $|a_n|\not\to 0$.
+
+\begin{examtip}[title={Exam Focus: When to use the Root Test}]
+Use the Root Test when the general term is an \emph{$n$-th power}:
+\[
+a_n=\left(\text{expression in }n\right)^n.
+\]
+Then $\sqrt[n]{|a_n|}=|\text{expression in }n|$, and you just compute its limit.
+
+The Root Test is also useful for piecewise-defined terms (e.g.\ odd/even) where the Ratio Test may not have a limit.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example (Lecture Example 5.18): Root Test on $n$-th power}]
+Does $\displaystyle\sum_{n=1}^{\infty}\left(\frac{n}{2n+3}\right)^n$ converge?
+
+\emph{Solution.}
+$\sqrt[n]{|a_n|}=\frac{n}{2n+3}\to\frac{1}{2}<1$.
+
+By the Root Test, $\displaystyle\boxed{\text{the series converges}}$.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Q1(c)): Root Test for $\left(\frac{1-n}{2+3n}\right)^n$}]
+Classify $\displaystyle\sum_{n=1}^{\infty}\left(\frac{1-n}{2+3n}\right)^n$.
+
+\emph{Solution.}
+\[
+\sqrt[n]{|a_n|}=\left|\frac{1-n}{2+3n}\right|=\frac{n-1}{3n+2}\to\frac{1}{3}<1.
+\]
+By the Root Test, the series converges absolutely.
+
+$\displaystyle\boxed{\text{Absolutely convergent.}}$
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 10, Q3): $\lim_{n\to\infty}x^n/n!=0$ via Ratio Test}]
+\textbf{Claim:} $\displaystyle\lim_{n\to\infty}\frac{x^n}{n!}=0$ for all $x\in\mathbb{R}$.
+
+\emph{Proof.}
+Let $u_n=|x|^n/n!$. Then:
+\[
+\frac{u_{n+1}}{u_n}=\frac{|x|}{n+1}\to 0<1.
+\]
+By the Ratio Test (applied to the sequence: if ratios tend to $L<1$, terms tend to $0$), $u_n\to 0$.
+
+Hence $|x^n/n!|=u_n\to 0$, so $\boxed{x^n/n!\to 0}$ for all $x\in\mathbb{R}$.
+
+\textbf{Interpretation:} Factorials grow faster than \emph{any} exponential. This is why the Taylor series $e^x=\sum x^n/n!$ converges for all $x$.
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 10, Q5): Bounding the remainder of a convergent series}]
+\textbf{Syllabus link:} Chapter 5 --- \S5.4 Ratio Test.
+
+\medskip
+\textbf{Theorem (Tail bound under ratio assumptions).}
+Let $\sum a_n$ be a series with positive terms, with ratio $r_n=a_{n+1}/a_n$.
+Suppose $\lim r_n=L<1$, $\{r_n\}$ is decreasing, and $r_{n+1}<1$. Then the tail
+\[
+R_n=a_{n+1}+a_{n+2}+\cdots
+\]
+satisfies
+\[
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+\]
+
+\medskip
+\textbf{Proof.}
+Since $\{r_m\}$ is decreasing, for all $m\ge n+1$: $r_m\le r_{n+1}<1$.
+Then for $k\ge 1$:
+\[
+a_{n+1+k}=a_{n+1}\prod_{j=n+1}^{n+k}r_j\le a_{n+1}\cdot r_{n+1}^k.
+\]
+Summing:
+$R_n=a_{n+1}+\sum_{k=1}^{\infty}a_{n+1+k}\le a_{n+1}\sum_{k=0}^{\infty}r_{n+1}^k=\frac{a_{n+1}}{1-r_{n+1}}$.
+
+\medskip
+\textbf{Application:}
+This is useful for estimating how many terms are needed to approximate $\sum a_n$ to a given accuracy.
+\end{extension}
+
+\begin{keyformula}[title={Master convergence test summary (exam reference)}]
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{3.8cm}p{4.2cm}p{4.8cm}@{}}
+\textbf{Test} & \textbf{Best for} & \textbf{Pitfall} \\
+\hline
+$n$th-term test & Quick divergence check & Cannot prove convergence \\
+Integral Test & $f(n)$ with nice integral & Must verify $f$ is decreasing \\
+Comparison Test & Explicit inequality & Wrong direction gives nothing \\
+Limit Comparison & Asymptotic match & Both series must have positive terms \\
+Alternating Series & $(-1)^n b_n$ form & Must verify $b_n$ decreasing and $\to 0$ \\
+Ratio Test & Factorials, $c^n$ & Inconclusive when $\rho=1$ \\
+Root Test & $n$-th powers & Inconclusive when $L=1$ \\
+\end{tabular}
+\end{center}
+\end{keyformula}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% add explanantion to the ftc part especially, avoid giving the definitons directly without any explanaitoin on why are they like that
+% --- All definitions in this chapter now include a "Why this definition" paragraph before or after the formal statement.
+% --- The Integral Test includes a full "Why does this work?" proof idea with geometric intuition.
+% --- Absolute/conditional convergence definitions explain the conceptual motivation (sign-stripping, fragility).
+% --- The AST includes geometric intuition about even/odd partial sums bouncing.
+% --- The Ratio/Root Test proofs sketch the key comparison-with-geometric idea.
+% --- Every theorem box is followed by a "Why this works" explanation or proof sketch.
+% --- Tutorial-sourced examples are labelled: Tutorial 9 Q1, Q2; Tutorial 10 Q1, Q2, Q3, Q5.

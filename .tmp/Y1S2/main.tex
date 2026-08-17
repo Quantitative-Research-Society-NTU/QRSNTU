@@ -1,0 +1,112 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.8in]{geometry} % Adjust margins
+\usepackage{booktabs} % For professional looking tables
+\usepackage{tabularx} % For tables that auto-adjust width
+\usepackage{longtable} % For tables that might span pages
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% Define custom colors for headers
+\definecolor{headerblue}{RGB}{0, 51, 102}
+
+% Format section headers
+\titleformat{\section}
+{\color{headerblue}\normalfont\Large\bfseries}
+{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+
+\titleformat{\subsection}
+{\color{headerblue}\normalfont\large\bfseries}
+{\thesubsection}{1em}{}
+
+\title{Semester Overview \& Assessment Schedule}
+\author{Academic Schedule}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Exam Schedule}
+
+\subsection*{Midterm / Continuous Assessment Schedule}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}l l l l X@{}}
+\toprule
+\textbf{Code} & \textbf{Course Name} & \textbf{Date/Time} & \textbf{Venue} & \textbf{Content / Notes} \\
+\midrule
+HE2002 & Macroeconomics II & 24 Feb (Tue) 09:30--11:00 & -- & Quiz 1 (Lectures 1--5) \\
+MH1101 & Calculus II & 12 Mar 2025 (Thu) 10:00--11:00 & Hall C & 1 A4 help sheet (double-sided)  \\
+MH1201 & Linear Algebra II & 11 Mar 2026 (Wed) 13:30--15:20 & Hall C & 1 A4 help sheet (double-sided)  \\
+MH1301 & Discrete Math & 16 Mar (Mon) 15:40--17:10 & Hall C & Lectures up to 9 Mar + Tuts 1--7; 1 A4 help sheet (\textbf{single}-sided)  \\
+HE2001 & Microeconomics II & Week 7 & -- & Non-cumulative Test 1 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection*{Final Exam Schedule}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}l l l l X@{}}
+\toprule
+\textbf{Code} & \textbf{Course Name} & \textbf{Date/Time} & \textbf{Venue} & \textbf{Exam Allowance / Notes} \\
+\midrule
+MH1201 & Linear Algebra II & 27-Apr-2026 17:00--19:00 & TBA & 1 A4 helpsheet (double-sided) \\
+HE2002 & Macroeconomics II & 29-Apr-2026 17:00--19:00 & -- & Final Test (Lectures 6--12) \\
+MH1301 & Discrete Math & 30-Apr-2026 17:00--19:00 & TBA & 1 A4 helpsheet (double-sided) \\
+MH1101 & Calculus II & 04-May-2026 09:00--11:00 & -- & 1 A4 help sheet (double-sided) \\
+HE2001 & Microeconomics II & Week 13 (TBA) & -- & Non-cumulative Test 2 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Detailed Assessment Breakdown}
+
+% MH1101
+\subsection*{MH1101 — Calculus II (4 AUs)}
+\begin{itemize}
+    \item \textbf{Assignment 1 (5\%):} Released 05 Feb 2025 (Week 4); Due 26 Feb 2025.
+    \item \textbf{Class Participation (5\%):} Wooclap. Full marks requires 8 of 12 activities.
+    \item \textbf{Midterm Test (20\%):} Week 8, Thu 12 Mar 2025.
+    \item \textbf{Assignment 2 (10\%):} Released 26 Mar 2025 (Week 9); Due 16 Apr 2025.
+    \item \textbf{Final Exam (60\%):} 04-May-2026.
+    \item \textit{Note:} Tutorials run from Week 2 through Week 13.
+\end{itemize}
+
+% MH1201
+\subsection*{MH1201 — Linear Algebra II (4 AUs)}
+\begin{itemize}
+    \item \textbf{In-class Quizzes (15\%):} Team-based (3--4 members). Conducted nearly every tutorial. Lowest 2 dropped.
+    \item \textbf{Midterm Exam (25\%):} Individual. 11 Mar 2026.
+    \item \textbf{Final Exam (60\%):} Individual. 27 Apr 2026.
+\end{itemize}
+
+% MH1301
+\subsection*{MH1301 — Discrete Mathematics (3 AUs)}
+\begin{itemize}
+    \item \textbf{Lecture Quizzes (16\%):} Wooclap. Weeks 2, 4, 7, 8, 11, 13. Open discussion allowed.
+    \item \textbf{Mid-semester Quiz (20\%):} 16 Mar (Week 9). One side A4 help sheet allowed.
+    \item \textbf{Tutorial Participation (4\%)}
+    \item \textbf{Final Exam (60\%):} 30 Apr 2026. Double-sided A4 help sheet allowed.
+\end{itemize}
+
+% HE2001
+\subsection*{HE2001 — Microeconomics II (3 AUs)}
+\begin{itemize}
+    \item \textbf{Class Participation (5\%):} Per instructor.
+    \item \textbf{Online Quizzes (Total 20\%):} Six quizzes (5\% each). Top 2 from each instructor count.
+    \item \textbf{Tests (70\%):} Two non-cumulative tests (35\% each) held in Week 7 and Week 13.
+\end{itemize}
+
+% HE2002
+\subsection*{HE2002 — Macroeconomics II (3 AUs)}
+\begin{itemize}
+    \item \textbf{Course Participation (10\%):} Active attendance + tutorial presentations.
+    \item \textbf{Quiz 1 (40\%):} Tue, 24 Feb. Coverage: Lectures 1--5 (Short Run). Format: MCQ, short answer, numerical.
+    \item \textbf{Final Test (50\%):} Wed, 29 Apr. Coverage: Lectures 6--12 (Medium + Long Run). Format: MCQ, short answer, numerical.
+\end{itemize}
+
+\end{document}

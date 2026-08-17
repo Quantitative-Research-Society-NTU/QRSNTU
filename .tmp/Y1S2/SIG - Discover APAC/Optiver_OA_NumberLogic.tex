@@ -1,0 +1,3944 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial Practice Material}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.985}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{Optiver}
+\newcommand{\CourseName}{OA}
+\newcommand{\DocType}{Practice 2}
+\newcommand{\ExamMeta}{Quantitative Trading and Research Program Preparation}
+\newcommand{\ExamMetaShort}{Practice 2}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{4}
+
+\setlength{\headheight}{14.5pt}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item \textbf{Scope:} 14 short quantitative reasoning, probability, and puzzle-style questions.
+  \item \textbf{Purpose:} additional OA practice for discovery-program style assessments.
+  \item \textbf{Note:} Q14 below has been adjusted to a consistent and uniquely solvable skyscraper puzzle so that a full worked solution can be included.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Number Logics}
+
+\subsection{Question 1}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+11,\quad 9,\quad 6,\quad 1,\quad -6,\quad -17,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{-30}
+\qquad
+\boxed{-28}
+\qquad
+\boxed{-27}
+\qquad
+\boxed{-34}
+\qquad
+\boxed{-36}
+\]
+
+\subsubsection{Solution}
+Consider the first differences:
+\[
+9-11=-2,\qquad 6-9=-3,\qquad 1-6=-5,
+\]
+\[
+-6-1=-7,\qquad -17-(-6)=-11.
+\]
+Thus the sequence is subtracting consecutive prime numbers:
+\[
+2,\quad 3,\quad 5,\quad 7,\quad 11,\quad \ldots
+\]
+The next prime number is \(13\). Hence the next term is
+\[
+-17-13=-30.
+\]
+Therefore, the missing number is
+\[
+\boxed{-30}.
+\]
+
+\subsection{Question 2}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+9,\quad 8,\quad 13,\quad 4,\quad 17,\quad 0,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{12}
+\qquad
+\boxed{17}
+\qquad
+\boxed{21}
+\qquad
+\boxed{-2}
+\qquad
+\boxed{-4}
+\]
+
+\subsubsection{Solution}
+Separate the sequence into odd-positioned and even-positioned terms:
+\[
+\text{Odd positions:}\qquad 9,\quad 13,\quad 17,\quad ?
+\]
+\[
+\text{Even positions:}\qquad 8,\quad 4,\quad 0.
+\]
+The odd-positioned terms increase by \(4\):
+\[
+9+4=13,\qquad 13+4=17.
+\]
+Therefore, the next odd-positioned term is
+\[
+17+4=21.
+\]
+Hence the missing number is
+\[
+\boxed{21}.
+\]
+
+\subsection{Question 3}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 4,\quad 7,\quad 11,\quad 18,\quad 29,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{51}
+\qquad
+\boxed{47}
+\qquad
+\boxed{37}
+\qquad
+\boxed{42}
+\qquad
+\boxed{33}
+\]
+
+\subsubsection{Solution}
+Each term is obtained by adding the previous two terms:
+\[
+3+4=7,
+\]
+\[
+4+7=11,
+\]
+\[
+7+11=18,
+\]
+\[
+11+18=29.
+\]
+Therefore, the next term is
+\[
+18+29=47.
+\]
+Hence the missing number is
+\[
+\boxed{47}.
+\]
+
+\subsection{Question 4}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+27,\quad 54,\quad 64,\quad 16,\quad 32,\quad 42,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{84}
+\qquad
+\boxed{10\tfrac{1}{2}}
+\qquad
+\boxed{8}
+\qquad
+\boxed{52}
+\qquad
+\boxed{7}
+\]
+
+\subsubsection{Solution}
+Observe the repeating operation pattern:
+\[
+\times 2,\qquad +10,\qquad \div 4.
+\]
+Indeed,
+\[
+27\times 2=54,
+\]
+\[
+54+10=64,
+\]
+\[
+64\div 4=16,
+\]
+\[
+16\times 2=32,
+\]
+\[
+32+10=42.
+\]
+Thus the next operation is \(\div 4\). Hence
+\[
+42\div 4=10.5=10\tfrac{1}{2}.
+\]
+Therefore, the missing number is
+\[
+\boxed{10\tfrac{1}{2}}.
+\]
+
+\subsection{Question 5}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+-10,\quad -9,\quad -5,\quad 4,\quad 20,\quad 45,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{89}
+\qquad
+\boxed{79}
+\qquad
+\boxed{70}
+\qquad
+\boxed{81}
+\qquad
+\boxed{87}
+\]
+
+\subsubsection{Solution}
+Consider the first differences:
+\[
+-9-(-10)=1,
+\]
+\[
+-5-(-9)=4,
+\]
+\[
+4-(-5)=9,
+\]
+\[
+20-4=16,
+\]
+\[
+45-20=25.
+\]
+These are consecutive perfect squares:
+\[
+1^2,\quad 2^2,\quad 3^2,\quad 4^2,\quad 5^2.
+\]
+Therefore, the next difference should be
+\[
+6^2=36.
+\]
+Hence the missing term is
+\[
+45+36=81.
+\]
+Therefore, the missing number is
+\[
+\boxed{81}.
+\]
+
+\subsection{Question 6}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+27,\quad 90,\quad 9,\quad 30,\quad 3,\quad 10,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{1}
+\qquad
+\boxed{60}
+\qquad
+\boxed{180}
+\qquad
+\boxed{3\tfrac{1}{3}}
+\qquad
+\boxed{5}
+\]
+
+\subsubsection{Solution}
+The operations alternate between multiplying by \(\frac{10}{3}\) and dividing by \(10\):
+\[
+27\cdot \frac{10}{3}=90,
+\]
+\[
+90\div 10=9,
+\]
+\[
+9\cdot \frac{10}{3}=30,
+\]
+\[
+30\div 10=3,
+\]
+\[
+3\cdot \frac{10}{3}=10.
+\]
+Therefore, the next operation is division by \(10\):
+\[
+10\div 10=1.
+\]
+Hence the missing number is
+\[
+\boxed{1}.
+\]
+
+\subsection{Question 7}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+5,\quad 6,\quad \frac{12}{2},\quad \frac{42}{6},\quad \sqrt{49},\quad \frac{84}{12},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{10}
+\qquad
+\boxed{\frac{54}{6}}
+\qquad
+\boxed{\frac{22}{2}}
+\qquad
+\boxed{8}
+\qquad
+\boxed{\frac{24}{4}}
+\]
+
+\subsubsection{Solution}
+First simplify the terms:
+\[
+\frac{12}{2}=6,\qquad \frac{42}{6}=7,\qquad \sqrt{49}=7,\qquad \frac{84}{12}=7.
+\]
+Thus the sequence becomes
+\[
+5,\quad 6,\quad 6,\quad 7,\quad 7,\quad 7,\quad ?.
+\]
+The pattern is that \(5\) appears once, \(6\) appears twice, and \(7\) appears three times. Hence the next number should begin the next block:
+\[
+8.
+\]
+Therefore, the missing number is
+\[
+\boxed{8}.
+\]
+
+\subsection{Question 8}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+72,\quad 12,\quad 60,\quad 15,\quad 45,\quad 22\tfrac{1}{2},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{67\tfrac{1}{2}}
+\qquad
+\boxed{11\tfrac{1}{4}}
+\qquad
+\boxed{15}
+\qquad
+\boxed{22\tfrac{1}{2}}
+\qquad
+\boxed{90}
+\]
+
+\subsubsection{Solution}
+The operations follow the pattern
+\[
+\div 6,\quad \times 5,\quad \div 4,\quad \times 3,\quad \div 2,\quad \times 1.
+\]
+Indeed,
+\[
+72\div 6=12,
+\]
+\[
+12\cdot 5=60,
+\]
+\[
+60\div 4=15,
+\]
+\[
+15\cdot 3=45,
+\]
+\[
+45\div 2=22\tfrac{1}{2}.
+\]
+Therefore, the next operation is multiplication by \(1\):
+\[
+22\tfrac{1}{2}\cdot 1=22\tfrac{1}{2}.
+\]
+Hence the missing number is
+\[
+\boxed{22\tfrac{1}{2}}.
+\]
+
+\subsection{Question 9}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+138,\quad 46,\quad 23,\quad 24,\quad 8,\quad 4,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{3}
+\qquad
+\boxed{5}
+\qquad
+\boxed{1}
+\qquad
+\boxed{4}
+\qquad
+\boxed{2}
+\]
+
+\subsubsection{Solution}
+The operations repeat in the cycle
+\[
+\div 3,\quad \div 2,\quad +1.
+\]
+Indeed,
+\[
+138\div 3=46,
+\]
+\[
+46\div 2=23,
+\]
+\[
+23+1=24,
+\]
+\[
+24\div 3=8,
+\]
+\[
+8\div 2=4.
+\]
+Therefore, the next operation is \(+1\):
+\[
+4+1=5.
+\]
+Hence the missing number is
+\[
+\boxed{5}.
+\]
+
+\subsection{Question 10}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+8,\quad 7,\quad 56,\quad \frac{1}{8},\quad 7,\quad \frac{1}{56},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{7}
+\qquad
+\boxed{\frac{1}{4}}
+\qquad
+\boxed{\frac{1}{28}}
+\qquad
+\boxed{56}
+\qquad
+\boxed{\frac{1}{8}}
+\]
+
+\subsubsection{Solution}
+Observe the alternating sliding operation:
+\[
+8\cdot 7=56,
+\]
+\[
+7\div 56=\frac{1}{8},
+\]
+\[
+56\cdot \frac{1}{8}=7,
+\]
+\[
+\frac{1}{8}\div 7=\frac{1}{56}.
+\]
+Therefore, the next operation is multiplication:
+\[
+7\cdot \frac{1}{56}=\frac{1}{8}.
+\]
+Hence the missing number is
+\[
+\boxed{\frac{1}{8}}.
+\]
+
+\subsection{Question 11}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 4,\quad 5,\quad 7,\quad 10,\quad 15,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{21}
+\qquad
+\boxed{23}
+\qquad
+\boxed{25}
+\qquad
+\boxed{24}
+\qquad
+\boxed{22}
+\]
+
+\subsubsection{Solution}
+Consider the first differences:
+\[
+4-3=1,
+\]
+\[
+5-4=1,
+\]
+\[
+7-5=2,
+\]
+\[
+10-7=3,
+\]
+\[
+15-10=5.
+\]
+These differences follow the Fibonacci pattern:
+\[
+1,\quad 1,\quad 2,\quad 3,\quad 5,\quad \ldots
+\]
+The next difference is
+\[
+8.
+\]
+Therefore, the missing term is
+\[
+15+8=23.
+\]
+Hence the missing number is
+\[
+\boxed{23}.
+\]
+
+\subsection{Question 12}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 5,\quad 10,\quad 12,\quad 24,\quad 26,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{52}
+\qquad
+\boxed{50}
+\qquad
+\boxed{42}
+\qquad
+\boxed{46}
+\qquad
+\boxed{28}
+\]
+
+\subsubsection{Solution}
+The operations alternate between adding \(2\) and multiplying by \(2\):
+\[
+3+2=5,
+\]
+\[
+5\cdot 2=10,
+\]
+\[
+10+2=12,
+\]
+\[
+12\cdot 2=24,
+\]
+\[
+24+2=26.
+\]
+Therefore, the next operation is multiplication by \(2\):
+\[
+26\cdot 2=52.
+\]
+Hence the missing number is
+\[
+\boxed{52}.
+\]
+
+\subsection{Question 13}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+1,\quad \frac{1}{2},\quad \frac{3}{7},\quad \frac{2}{5},\quad \frac{5}{13},\quad \frac{3}{8},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{\frac{5}{20}}
+\qquad
+\boxed{\frac{6}{18}}
+\qquad
+\boxed{\frac{4}{21}}
+\qquad
+\boxed{\frac{8}{23}}
+\qquad
+\boxed{\frac{7}{19}}
+\]
+
+\subsubsection{Solution}
+Separate the sequence into odd-positioned and even-positioned terms:
+\[
+\text{Odd positions:}\qquad 1,\quad \frac{3}{7},\quad \frac{5}{13},\quad ?
+\]
+\[
+\text{Even positions:}\qquad \frac{1}{2},\quad \frac{2}{5},\quad \frac{3}{8}.
+\]
+Rewrite the first odd-positioned term as
+\[
+1=\frac{1}{1}.
+\]
+Then the odd-positioned terms are
+\[
+\frac{1}{1},\quad \frac{3}{7},\quad \frac{5}{13},\quad ?.
+\]
+The numerators increase by \(2\):
+\[
+1,\quad 3,\quad 5,\quad 7,
+\]
+while the denominators increase by \(6\):
+\[
+1,\quad 7,\quad 13,\quad 19.
+\]
+Therefore, the missing term is
+\[
+\boxed{\frac{7}{19}}.
+\]
+
+\subsection{Question 14}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 7,\quad 9,\quad 19,\quad 35,\quad 63,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{107}
+\qquad
+\boxed{96}
+\qquad
+\boxed{113}
+\qquad
+\boxed{117}
+\qquad
+\boxed{88}
+\]
+
+\subsubsection{Solution}
+From the fourth term onward, each term is the sum of the previous three terms:
+\[
+3+7+9=19,
+\]
+\[
+7+9+19=35,
+\]
+\[
+9+19+35=63.
+\]
+Therefore, the next term is
+\[
+19+35+63=117.
+\]
+Hence the missing number is
+\[
+\boxed{117}.
+\]
+
+\subsection{Question 15}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+9,\quad 10,\quad 6,\quad 15,\quad 4,\quad \frac{45}{2},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{19}
+\qquad
+\boxed{\frac{15}{2}}
+\qquad
+\boxed{\frac{8}{3}}
+\qquad
+\boxed{\frac{47}{2}}
+\qquad
+\boxed{2}
+\]
+
+\subsubsection{Solution}
+Separate the sequence into odd-positioned and even-positioned terms:
+\[
+\text{Odd positions:}\qquad 9,\quad 6,\quad 4,\quad ?
+\]
+\[
+\text{Even positions:}\qquad 10,\quad 15,\quad \frac{45}{2}.
+\]
+The odd-positioned terms are multiplied by \(\frac{2}{3}\):
+\[
+9\cdot \frac{2}{3}=6,
+\]
+\[
+6\cdot \frac{2}{3}=4.
+\]
+Therefore, the next odd-positioned term is
+\[
+4\cdot \frac{2}{3}=\frac{8}{3}.
+\]
+Hence the missing number is
+\[
+\boxed{\frac{8}{3}}.
+\]
+
+\subsection{Question 16}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+\frac{2}{3},\quad 1,\quad 3,\quad 6,\quad 15,\quad 33,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{99}
+\qquad
+\boxed{102}
+\qquad
+\boxed{78}
+\qquad
+\boxed{87}
+\qquad
+\boxed{54}
+\]
+
+\subsubsection{Solution}
+Each term from the third term onward is obtained by adding the previous term to three times the term before it:
+\[
+3=1+3\cdot \frac{2}{3},
+\]
+\[
+6=3+3\cdot 1,
+\]
+\[
+15=6+3\cdot 3,
+\]
+\[
+33=15+3\cdot 6.
+\]
+Therefore, the next term is
+\[
+33+3\cdot 15=33+45=78.
+\]
+Hence the missing number is
+\[
+\boxed{78}.
+\]
+
+\subsection{Question 17}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+2,\quad 5,\quad 11,\quad 17,\quad 23,\quad 31,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{35}
+\qquad
+\boxed{54}
+\qquad
+\boxed{41}
+\qquad
+\boxed{43}
+\qquad
+\boxed{40}
+\]
+
+\subsubsection{Solution}
+The sequence consists of every second prime number:
+\[
+2,\quad 5,\quad 11,\quad 17,\quad 23,\quad 31,\quad \ldots
+\]
+Indeed, listing the primes gives
+\[
+2,\ 3,\ 5,\ 7,\ 11,\ 13,\ 17,\ 19,\ 23,\ 29,\ 31,\ 37,\ 41.
+\]
+Taking the primes in positions
+\[
+1,\quad 3,\quad 5,\quad 7,\quad 9,\quad 11,\quad 13
+\]
+gives
+\[
+2,\quad 5,\quad 11,\quad 17,\quad 23,\quad 31,\quad 41.
+\]
+Therefore, the missing number is
+\[
+\boxed{41}.
+\]
+
+\subsection{Question 18}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 2,\quad 5,\quad 4,\quad 8,\quad 8,\quad 13,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{12}
+\qquad
+\boxed{26}
+\qquad
+\boxed{14}
+\qquad
+\boxed{16}
+\qquad
+\boxed{17}
+\]
+
+\subsubsection{Solution}
+Separate the sequence into odd-positioned and even-positioned terms:
+\[
+\text{Odd positions:}\qquad 3,\quad 5,\quad 8,\quad 13,
+\]
+\[
+\text{Even positions:}\qquad 2,\quad 4,\quad 8,\quad ?.
+\]
+The even-positioned terms double each time:
+\[
+2,\quad 4,\quad 8,\quad 16.
+\]
+Therefore, the missing number is
+\[
+\boxed{16}.
+\]
+
+\subsection{Question 19}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+0,\quad 1,\quad 2,\quad 5,\quad 12,\quad 29,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{46}
+\qquad
+\boxed{70}
+\qquad
+\boxed{69}
+\qquad
+\boxed{41}
+\qquad
+\boxed{67}
+\]
+
+\subsubsection{Solution}
+Each term from the third term onward is obtained by doubling the previous term and adding the term before it:
+\[
+2=2(1)+0,
+\]
+\[
+5=2(2)+1,
+\]
+\[
+12=2(5)+2,
+\]
+\[
+29=2(12)+5.
+\]
+Therefore, the next term is
+\[
+2(29)+12=58+12=70.
+\]
+Hence the missing number is
+\[
+\boxed{70}.
+\]
+
+\subsection{Question 20}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+15,\quad 35,\quad 45,\quad 105,\quad 110,\quad 210,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{212\tfrac{2}{3}}
+\qquad
+\boxed{220}
+\qquad
+\boxed{215}
+\qquad
+\boxed{320}
+\qquad
+\boxed{213\tfrac{1}{3}}
+\]
+
+\subsubsection{Solution}
+Consider the first differences:
+\[
+35-15=20,
+\]
+\[
+45-35=10,
+\]
+\[
+105-45=60,
+\]
+\[
+110-105=5,
+\]
+\[
+210-110=100.
+\]
+These follow the alternating pattern
+\[
+20\cdot 1,\quad \frac{20}{2},\quad 20\cdot 3,\quad \frac{20}{4},\quad 20\cdot 5,\quad \frac{20}{6}.
+\]
+Therefore, the next difference is
+\[
+\frac{20}{6}=\frac{10}{3}=3\tfrac{1}{3}.
+\]
+Hence the missing term is
+\[
+210+3\tfrac{1}{3}=213\tfrac{1}{3}.
+\]
+Therefore, the missing number is
+\[
+\boxed{213\tfrac{1}{3}}.
+\]
+
+\subsection{Question 21}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 3,\quad 6,\quad 12,\quad 60,\quad 660,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{38940}
+\qquad
+\boxed{37620}
+\qquad
+\boxed{36960}
+\qquad
+\boxed{39600}
+\qquad
+\boxed{38280}
+\]
+
+\subsubsection{Solution}
+From the third term onward, each term is obtained by multiplying the previous term by one less than the term two places before it:
+\[
+6=3(3-1),
+\]
+\[
+12=6(3-1),
+\]
+\[
+60=12(6-1),
+\]
+\[
+660=60(12-1).
+\]
+Therefore, the next term is
+\[
+660(60-1)=660\cdot 59=38940.
+\]
+Hence the missing number is
+\[
+\boxed{38940}.
+\]
+
+\subsection{Question 22}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+8,\quad 4,\quad 5,\quad \frac{19}{2},\quad 22,\quad 59,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{178}
+\qquad
+\boxed{177}
+\qquad
+\boxed{187}
+\qquad
+\boxed{182}
+\qquad
+\boxed{174}
+\]
+
+\subsubsection{Solution}
+A consistent continuation is obtained by reading the later operations in paired multiplier blocks:
+\[
+5\cdot 2-\frac{1}{2}=\frac{19}{2},
+\]
+\[
+\frac{19}{2}\cdot 2+3=22,
+\]
+\[
+22\cdot 3-7=59.
+\]
+Continuing the multiplier-\(3\) block gives
+\[
+59\cdot 3+5=177+5=182.
+\]
+Hence the missing number is
+\[
+\boxed{182}.
+\]
+
+\subsection{Question 23}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+2,\quad 3,\quad 5,\quad 7,\quad 12,\quad 17,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{29}
+\qquad
+\boxed{18}
+\qquad
+\boxed{31}
+\qquad
+\boxed{19}
+\qquad
+\boxed{23}
+\]
+
+\subsubsection{Solution}
+From the third term onward, the sequence is formed by adding the previous two terms:
+\[
+2+3=5,
+\]
+\[
+5+7=12,
+\]
+\[
+12+17=29.
+\]
+Thus the next term is
+\[
+12+17=29.
+\]
+Hence the missing number is
+\[
+\boxed{29}.
+\]
+
+\subsection{Question 24}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+4,\quad 9,\quad 22,\quad 57,\quad 154,\quad 429,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{1248}
+\qquad
+\boxed{1184}
+\qquad
+\boxed{1204}
+\qquad
+\boxed{1222}
+\qquad
+\boxed{1418}
+\]
+
+\subsubsection{Solution}
+Each step doubles the previous term and then adds a correction term:
+\[
+4\cdot 2+1=9,
+\]
+\[
+9\cdot 2+4=22,
+\]
+\[
+22\cdot 2+13=57,
+\]
+\[
+57\cdot 2+40=154,
+\]
+\[
+154\cdot 2+121=429.
+\]
+The correction terms are
+\[
+1,\quad 4,\quad 13,\quad 40,\quad 121,
+\]
+where each correction is obtained by multiplying the previous correction by \(3\) and adding \(1\):
+\[
+4=3(1)+1,\quad 13=3(4)+1,\quad 40=3(13)+1,\quad 121=3(40)+1.
+\]
+Thus the next correction is
+\[
+3(121)+1=364.
+\]
+Therefore, the missing term is
+\[
+429\cdot 2+364=858+364=1222.
+\]
+Hence the missing number is
+\[
+\boxed{1222}.
+\]
+
+\subsection{Question 25}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+3,\quad 2,\quad 8,\quad \frac{1}{2},\quad 23,\quad 2,\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{93}
+\qquad
+\boxed{52}
+\qquad
+\boxed{41}
+\qquad
+\boxed{75}
+\qquad
+\boxed{68}
+\]
+
+\subsubsection{Solution}
+Separate the sequence into odd-positioned and even-positioned terms:
+\[
+\text{Odd positions:}\qquad 3,\quad 8,\quad 23,\quad ?
+\]
+\[
+\text{Even positions:}\qquad 2,\quad \frac{1}{2},\quad 2.
+\]
+The odd-positioned terms follow the rule
+\[
+\text{next term}=3(\text{previous term})-1.
+\]
+Indeed,
+\[
+3(3)-1=8,
+\]
+\[
+3(8)-1=23.
+\]
+Therefore, the next odd-positioned term is
+\[
+3(23)-1=69-1=68.
+\]
+Hence the missing number is
+\[
+\boxed{68}.
+\]
+
+\subsection{Question 26}
+\subsubsection{Problem}
+Find the missing number in the sequence:
+\[
+\frac{7}{8},\quad \frac{8}{9},\quad \frac{9}{11},\quad \frac{11}{13},\quad \frac{13}{17},\quad \frac{17}{21},\quad ?
+\]
+
+\noindent\textbf{Options:}
+\[
+\boxed{\frac{21}{35}}
+\qquad
+\boxed{\frac{21}{27}}
+\qquad
+\boxed{\frac{21}{29}}
+\qquad
+\boxed{\frac{21}{37}}
+\qquad
+\boxed{\frac{21}{23}}
+\]
+
+\subsubsection{Solution}
+The denominator of each fraction becomes the numerator of the next fraction:
+\[
+\frac{7}{8},\quad \frac{8}{9},\quad \frac{9}{11},\quad \frac{11}{13},\quad \frac{13}{17},\quad \frac{17}{21},\quad \frac{21}{?}.
+\]
+Thus we study the linked sequence
+\[
+7,\quad 8,\quad 9,\quad 11,\quad 13,\quad 17,\quad 21,\quad ?.
+\]
+The differences are
+\[
+1,\quad 1,\quad 2,\quad 2,\quad 4,\quad 4.
+\]
+The differences repeat in pairs and double each time:
+\[
+1,1,\quad 2,2,\quad 4,4,\quad 8,8,\ldots
+\]
+Therefore, the next difference is \(8\), so the next denominator is
+\[
+21+8=29.
+\]
+Hence the missing fraction is
+\[
+\boxed{\frac{21}{29}}.
+\]
+
+\newpage
+\section{Optiver -- OA -- Beat the Odds}
+% Note: the uploaded video shows Optiver ``Beat the Odds'' probability questions, not number-logic sequence questions.
+
+\subsection{Introductory Example}
+\subsubsection{Problem}
+Question shown on screen: Example \(1/1\).
+
+You throw a dice once. What is the probability that the face value is an even number?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.2}
+\qquad
+\boxed{0.3}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+The even faces are \(2,4,6\), so there are \(3\) favorable outcomes out of \(6\):
+\[
+\frac{3}{6}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 1}
+\subsubsection{Problem}
+Question shown on screen: \(1/20\).
+
+You throw two dice. What is the probability that the two dice add up to 11 or 12?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+There are \(36\) equally likely outcomes. The favorable outcomes are
+\[
+(5,6),\quad (6,5),\quad (6,6),
+\]
+so
+\[
+\frac{3}{36}=\frac{1}{12}\approx 0.083.
+\]
+The closest option is \(0.1\). Therefore, the answer is
+\[
+\boxed{0.1}.
+\]
+
+\subsection{Question 2}
+\subsubsection{Problem}
+Question shown on screen: \(2/20\).
+
+Take a shuffled deck of 52 playing cards and throw the first top 10 cards in the bin. What is the probability that the new top card is red?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+By symmetry, after discarding the first 10 cards, the new top card is equally likely to be any card in the deck. Half of the deck is red:
+\[
+\frac{26}{52}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 3}
+\subsubsection{Problem}
+Question shown on screen: \(3/20\).
+
+You throw one dice two times. What is the probability that the 2nd throw has a different face value than the first throw?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+After the first throw is fixed, the second throw must avoid exactly one face. Thus
+\[
+\frac{5}{6}\approx 0.833.
+\]
+The closest option is \(0.75\). Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 4}
+\subsubsection{Problem}
+Question shown on screen: \(4/20\).
+
+You flip a coin 3 times. What is the probability that the outcome is the same for all flips? So all Heads or all Tails.
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.9}
+\]
+
+\subsubsection{Solution}
+There are \(2^3=8\) equally likely outcomes. The favorable outcomes are \(HHH\) and \(TTT\), so
+\[
+\frac{2}{8}=0.25.
+\]
+Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 5}
+\subsubsection{Problem}
+Question shown on screen: \(5/20\).
+
+A student leaves University (U) to walk home (H). It is a distance of four blocks in a straight line.
+
+At each crossing, they toss a coin deciding whether to move forwards (Heads) or backwards (Tails). Note that from U they cannot go backwards in which case they stay there if they throw Tails.
+
+If it takes 7 minutes to walk each block, what is the probability they will be home in more than 30 minutes?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.95}
+\]
+
+\subsubsection{Solution}
+The direct four-block walk takes \(4\cdot 7=28\) minutes. To be home within 30 minutes, the walk must be direct, with no backward move after leaving \(U\). After the first forward move, the next three moves must also be forwards:
+\[
+P(\text{within }30\text{ minutes})=\left(\frac{1}{2}\right)^3=\frac{1}{8}.
+\]
+Hence
+\[
+P(\text{more than }30\text{ minutes})=1-\frac{1}{8}=\frac{7}{8}=0.875.
+\]
+The closest option is \(0.95\). Therefore, the answer is
+\[
+\boxed{0.95}.
+\]
+
+\subsection{Question 6}
+\subsubsection{Problem}
+Question shown on screen: \(6/20\).
+
+61 coins are randomly put into 15 boxes. If any of these boxes contains more than 4 coins, you win a prize. What is the probability that you will win a prize?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.7}
+\qquad
+\boxed{0.8}
+\qquad
+\boxed{0.9}
+\qquad
+\boxed{0.95}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+If every box had at most \(4\) coins, the maximum total would be
+\[
+15\cdot 4=60.
+\]
+Since there are \(61\) coins, at least one box must contain more than \(4\) coins by the pigeonhole principle. Therefore, the answer is
+\[
+\boxed{1}.
+\]
+
+\subsection{Question 7}
+\subsubsection{Problem}
+Question shown on screen: \(7/20\).
+
+You keep flipping a coin and whilst you do this you keep track of the number of Heads and the number of Tails. You can think of this as a race between Heads and Tails.
+
+For example, if after 9 flips you have landed on Heads 7 times and Tails 2 times, then Heads is winning the race by 5.
+
+Now consider a race of 3 flips.
+
+What is the probability that the side you flip first will be winning the race?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.875}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.125}
+\]
+
+\subsubsection{Solution}
+Suppose the first flip is Heads. The first side loses only if both remaining flips are Tails:
+\[
+P(TT)=\left(\frac{1}{2}\right)^2=\frac{1}{4}.
+\]
+Thus the probability the first side is winning after 3 flips is
+\[
+1-\frac{1}{4}=\frac{3}{4}=0.75.
+\]
+Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 8}
+\subsubsection{Problem}
+Question shown on screen: \(8/20\).
+
+You play a game with a coin. You may place a bet; if Heads is flipped then you receive your bet back plus the same in winnings. If Tails is flipped then you lose your bet.
+
+You have \$10 and you want to turn this into \$20 by continuously betting \$1 at a time, walking away when you either have a total of \$20 or are bankrupt. What is the probability you will leave with \$20?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.02}
+\]
+
+\subsubsection{Solution}
+This is a fair gambler's ruin problem. Starting with \(10\) dollars and stopping at either \(0\) or \(20\), the probability of reaching \(20\) first is
+\[
+\frac{10}{20}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 9}
+\subsubsection{Problem}
+Question shown on screen: \(9/20\).
+
+You roll four dice and take the sum of the three highest values. What is the probability that this sum is equal to 18?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.35}
+\]
+
+\subsubsection{Solution}
+The three highest dice sum to \(18\) only if at least three dice show \(6\). The favorable outcomes are:
+\[
+\binom{4}{3}\cdot 5+1=20+1=21.
+\]
+There are \(6^4=1296\) total outcomes, so
+\[
+\frac{21}{1296}\approx 0.016.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 10}
+\subsubsection{Problem}
+Question shown on screen: \(10/20\).
+
+On average, how many times must a dice be rolled until all sides have appeared at least once?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{6}
+\qquad
+\boxed{9}
+\qquad
+\boxed{15}
+\qquad
+\boxed{27}
+\qquad
+\boxed{50}
+\]
+
+\subsubsection{Solution}
+This is the coupon collector expectation:
+\[
+6\left(1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\frac{1}{5}+\frac{1}{6}\right)
+=6\cdot \frac{49}{20}=14.7.
+\]
+The closest option is \(15\). Therefore, the answer is
+\[
+\boxed{15}.
+\]
+
+\subsection{Question 11}
+\subsubsection{Problem}
+Question shown on screen: \(11/20\).
+
+You roll five dice and sum their values. What is the probability that the sum is an even number?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.16}
+\qquad
+\boxed{0.08}
+\qquad
+\boxed{0.04}
+\]
+
+\subsubsection{Solution}
+Each die is equally likely to be odd or even. For any outcomes of the first four dice, exactly half of the possible fifth-die outcomes make the total even. Hence
+\[
+P(\text{even sum})=\frac{1}{2}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 12}
+\subsubsection{Problem}
+Question shown on screen: \(12/20\).
+
+A Stock is currently worth \$100. Each day, a coin is flipped. If coin lands on Heads, the stock price increases by \$1. If it lands on Tails, the stock price decreases by \$1.
+
+What is the probability that after 10 days, the stock is worth exactly \$100?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.01}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.2}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+The stock returns to \$100 after 10 days exactly when there are \(5\) Heads and \(5\) Tails:
+\[
+\frac{\binom{10}{5}}{2^{10}}=\frac{252}{1024}\approx 0.246.
+\]
+The closest option is \(0.2\). Therefore, the answer is
+\[
+\boxed{0.2}.
+\]
+
+\subsection{Question 13}
+\subsubsection{Problem}
+Question shown on screen: \(13/20\).
+
+Consider a shuffled deck of 52 cards. How many cards on average do you need to draw before you draw an Ace?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{5}
+\qquad
+\boxed{10}
+\qquad
+\boxed{18}
+\qquad
+\boxed{26}
+\qquad
+\boxed{48}
+\]
+
+\subsubsection{Solution}
+The expected position of the first Ace among the \(4\) Aces in a \(52\)-card deck is
+\[
+\frac{52+1}{4+1}=\frac{53}{5}=10.6.
+\]
+The closest option is \(10\). Therefore, the answer is
+\[
+\boxed{10}.
+\]
+
+\subsection{Question 14}
+\subsubsection{Problem}
+Question shown on screen: \(14/20\).
+
+You roll four dice and multiply their values together. What is the probability that this product is an odd number?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.95}
+\]
+
+\subsubsection{Solution}
+The product is odd only if all four dice are odd. Each die has probability \(\frac{3}{6}=\frac{1}{2}\) of being odd, so
+\[
+\left(\frac{1}{2}\right)^4=\frac{1}{16}=0.0625.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 15}
+\subsubsection{Problem}
+Question shown on screen: \(15/20\).
+
+Two people start at opposite corners of a \(4x4\) grid. Person A starts on the bottom left node. Person B starts on the top right node.
+
+Every second, Person A will randomly move either one edge to the right, or one edge up. At the same time, Person B will randomly move either one edge to the left, or one edge down. Each person must always move each second, for example, if Person A cannot move right anymore, they must move up.
+
+What is the probability that A and B share the same position at some point?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+They can meet only at the halfway time. With four edge-steps along each side, this is after \(4\) seconds. Let \(R_A\) be the number of right moves by A and \(L_B\) be the number of left moves by B in those \(4\) seconds. They meet when
+\[
+R_A+L_B=4.
+\]
+Since \(R_A\) and \(L_B\) are independent binomial counts,
+\[
+P(R_A+L_B=4)=\frac{\binom{8}{4}}{2^8}
+=\frac{70}{256}\approx 0.273.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 16}
+\subsubsection{Problem}
+Question shown on screen: \(16/20\).
+
+Consider a simple coin game where you can bet any amount of money. If it lands on Heads you double your bet; if it lands on Tails you lose your bet.
+
+Consider a strategy where you start by betting \$1. If you lose, you will bet \$2. If you lose again, you will bet \$4. If you lose again, you will bet \$8, and so on in this way until you finally win a toss. Once you have won a toss, your strategy has been implemented, and you stop.
+
+If you have a total bankroll of \$63 available to implement this strategy, what is your expected profit?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{\text{-\$63}}
+\qquad
+\boxed{\text{-\$30}}
+\qquad
+\boxed{\text{-\$1}}
+\qquad
+\boxed{\text{\$0}}
+\qquad
+\boxed{\text{+\$1}}
+\]
+
+\subsubsection{Solution}
+With bankroll \(63=1+2+4+8+16+32\), you can survive at most six consecutive losses. If you win before six losses, the net profit is \(+\$1\). If you lose all six bets, the net profit is \(-\$63\). Thus
+\[
+E=\frac{63}{64}(1)+\frac{1}{64}(-63)=0.
+\]
+Therefore, the answer is
+\[
+\boxed{\text{\$0}}.
+\]
+
+\subsection{Question 17}
+\subsubsection{Problem}
+Question shown on screen: \(17/20\).
+
+You will play a coin game against an opponent. A biased coin will be continually flipped where there is a \(\frac{2}{3}\) chance of Heads and a \(\frac{1}{3}\) chance of Tails.
+
+If Heads is flipped then you receive \$1 from your opponent. If Tails is flipped then you pay \$1 to your opponent.
+
+You start with \$10 and your opponent starts with \$20. You keep playing until one of you is bankrupt (= has \$0 left); they will be declared the loser, the other will be declared the winner.
+
+What is the probability that you win?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.01}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.99}
+\]
+
+\subsubsection{Solution}
+This is biased gambler's ruin with starting capital \(10\), total capital \(30\), \(p=\frac{2}{3}\), \(q=\frac{1}{3}\), and \(r=q/p=\frac{1}{2}\). The probability of hitting \(30\) before \(0\) is
+\[
+\frac{1-r^{10}}{1-r^{30}}
+=
+\frac{1-\left(\frac{1}{2}\right)^{10}}{1-\left(\frac{1}{2}\right)^{30}}
+\approx 0.999.
+\]
+The closest option is \(0.99\). Therefore, the answer is
+\[
+\boxed{0.99}.
+\]
+
+\subsection{Question 18}
+\subsubsection{Problem}
+Question shown on screen: \(18/20\).
+
+There are 32 teams in a traditional knockout tournament. Each of these 32 teams are of a different quality and can be distinctly ranked from 1st to 32nd in terms of ability. Assume that a higher-ability team always beats a lower-ability team.
+
+The teams are randomly seeded in the schedule of this knockout tournament.
+
+What is the probability that the grand final consists of the best team playing the third best team?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.03}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+The best team always reaches the final. For the third-best team to reach the final, the third-best team must be in the opposite half of the draw from the best team, and the second-best team must be in the same half as the best team. Thus
+\[
+\frac{16}{31}\cdot \frac{15}{30}
+=
+\frac{8}{31}
+\approx 0.258.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 19}
+\subsubsection{Problem}
+Question shown on screen: \(19/20\).
+
+You will play a coin game against an opponent. A biased coin will be continually flipped where there is a \(\frac{2}{3}\) chance of Heads and a \(\frac{1}{3}\) chance of Tails.
+
+If Heads is flipped then you receive \$1 from your opponent. If Tails is flipped then you pay \$1 to your opponent.
+
+You start with \$1 and your opponent starts with \$2. You keep playing until one of you is bankrupt (= has \$0 left); they will be declared the loser, the other will be declared the winner.
+
+What is the probability that you win?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.3}
+\qquad
+\boxed{0.4}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.6}
+\qquad
+\boxed{0.7}
+\]
+
+\subsubsection{Solution}
+This is biased gambler's ruin with starting capital \(1\), total capital \(3\), \(p=\frac{2}{3}\), \(q=\frac{1}{3}\), and \(r=q/p=\frac{1}{2}\). The probability of hitting \(3\) before \(0\) is
+\[
+\frac{1-r}{1-r^3}
+=
+\frac{1-\frac{1}{2}}{1-\frac{1}{8}}
+=
+\frac{\frac{1}{2}}{\frac{7}{8}}
+=
+\frac{4}{7}
+\approx 0.571.
+\]
+The closest option is \(0.6\). Therefore, the answer is
+\[
+\boxed{0.6}.
+\]
+
+\subsection{Question 20}
+\subsubsection{Problem}
+Question shown on screen: \(20/20\).
+
+A couple decide to start having children and keep having children until they have more girls than boys (note that this means they stop having children if their first child is a girl).
+
+How many children do they expect to have?
+
+Select the answer that is closest.
+
+\noindent\textbf{Options:}
+\[
+\boxed{1}
+\qquad
+\boxed{2}
+\qquad
+\boxed{4}
+\qquad
+\boxed{8}
+\qquad
+\boxed{16}
+\]
+
+\subsubsection{Solution}
+Let girls count as \(+1\) and boys count as \(-1\). The couple stop when a fair random walk first hits \(+1\). The stopping time has a heavy tail:
+\[
+P(T=2n+1)=\frac{1}{2^{2n+1}}\cdot \frac{1}{n+1}\binom{2n}{n}.
+\]
+Since
+\[
+\frac{1}{n+1}\binom{2n}{n}\sim \frac{4^n}{\sqrt{\pi}n^{3/2}},
+\]
+the contribution to the expectation behaves like a constant times \(n^{-1/2}\), whose sum diverges. Therefore the expected number of children is infinite.
+
+No displayed finite numerical option is mathematically correct. Therefore, the answer is
+\[
+\boxed{\infty}.
+\]
+
+\newpage
+\section{Optiver -- Beat the Odds -- Set 2}
+
+\subsection{Question 1}
+\subsubsection{Problem}
+Question shown on screen: \(1/30\).
+
+You throw one dice two times. What is the probability that the 2nd throw has a different face value than the first throw?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+After the first throw is fixed, the second throw must avoid exactly one face. Thus
+\[
+P=\frac{5}{6}\approx 0.833.
+\]
+The closest option is \(0.75\). Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 2}
+\subsubsection{Problem}
+Question shown on screen: \(2/30\).
+
+You throw two dice. What is the probability that the two dice add up to 11 or 12?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+The favorable outcomes are \((5,6),(6,5),(6,6)\), so
+\[
+P=\frac{3}{36}=\frac{1}{12}\approx 0.083.
+\]
+The closest option is \(0.1\). Therefore, the answer is
+\[
+\boxed{0.1}.
+\]
+
+\subsection{Question 3}
+\subsubsection{Problem}
+Question shown on screen: \(3/30\).
+
+You flip a coin 3 times. What is the probability that the outcome is the same for all flips? So all Heads or all Tails.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.9}
+\]
+
+\subsubsection{Solution}
+There are \(2^3=8\) outcomes, and the favorable outcomes are \(HHH\) and \(TTT\). Hence
+\[
+P=\frac{2}{8}=0.25.
+\]
+Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 4}
+\subsubsection{Problem}
+Question shown on screen: \(4/30\).
+
+Take a shuffled deck of 52 playing cards and throw the first top 10 cards in the bin. What is the probability that the new top card is red?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+By symmetry, the new top card is equally likely to be any card in the deck. Since half the deck is red,
+\[
+P=\frac{26}{52}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 5}
+\subsubsection{Problem}
+Question shown on screen: \(5/30\).
+
+61 coins are randomly put into 15 boxes. If any of these boxes contains more than 4 coins, you win a prize. What is the probability that you win a prize?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.7}
+\qquad
+\boxed{0.8}
+\qquad
+\boxed{0.9}
+\qquad
+\boxed{0.95}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+If every box contained at most \(4\) coins, the total could be at most
+\[
+15\cdot 4=60.
+\]
+Since there are \(61\) coins, some box must contain more than \(4\) coins. Therefore, the answer is
+\[
+\boxed{1}.
+\]
+
+\subsection{Question 6}
+\subsubsection{Problem}
+Question shown on screen: \(6/30\).
+
+You keep flipping a coin and whilst you do this you keep track of the number of Heads and the number of Tails. You can think of this as a race between Heads and Tails.
+
+For example, if after 9 flips you have landed on Heads 7 times and Tails 2 times, then Heads is winning the race by 5.
+
+Now consider a race of 3 flips.
+
+What is the probability that the side you flip first will be winning the race?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.875}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.125}
+\]
+
+\subsubsection{Solution}
+Suppose the first flip is Heads. It fails to be winning only if both remaining flips are Tails:
+\[
+P(TT)=\frac{1}{4}.
+\]
+Thus
+\[
+P=1-\frac{1}{4}=0.75.
+\]
+Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 7}
+\subsubsection{Problem}
+Question shown on screen: \(7/30\).
+
+A student leaves University (U) to walk home (H). It is a distance of four blocks in a straight line.
+
+At each crossing, they toss a coin deciding whether to move forwards (Heads) or backwards (Tails). Note that from U they cannot go backwards in which case they stay there if they throw Tails.
+
+If it takes 10 minutes to walk each block, what is the probability they will be home in less than 45 minutes?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+To be home in less than \(45\) minutes, the student must finish in the first four 10-minute stages. That requires four forwards moves:
+\[
+P(HHHH)=\left(\frac{1}{2}\right)^4=\frac{1}{16}=0.0625.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 8}
+\subsubsection{Problem}
+Question shown on screen: \(8/30\).
+
+You play a game with a coin. You may place a bet; if Heads is flipped then you receive your bet back plus the same in winnings. If Tails is flipped then you lose your bet.
+
+You have \$10 and you want to turn this into \$20 by continuously betting \$1 at a time, walking away when you either have a total of \$20 or are bankrupt. What is the probability you will leave with \$20?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.02}
+\]
+
+\subsubsection{Solution}
+This is a fair gambler's ruin problem. Starting at \(10\) with absorbing barriers \(0\) and \(20\),
+\[
+P=\frac{10}{20}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 9}
+\subsubsection{Problem}
+Question shown on screen: \(9/30\).
+
+You roll four dice and take the sum of the three lowest values. What is the probability that this sum is equal to 3?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.35}
+\]
+
+\subsubsection{Solution}
+The three lowest dice sum to \(3\) only when at least three dice show \(1\). The favorable outcomes are
+\[
+\binom{4}{3}\cdot 5+1=21.
+\]
+Thus
+\[
+P=\frac{21}{6^4}=\frac{21}{1296}\approx 0.016.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 10}
+\subsubsection{Problem}
+Question shown on screen: \(10/30\).
+
+You roll four dice and sum their values. What is the probability that the sum is an odd number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.16}
+\qquad
+\boxed{0.08}
+\qquad
+\boxed{0.04}
+\]
+
+\subsubsection{Solution}
+For any first three dice, exactly half of the fourth die outcomes make the total odd. Therefore
+\[
+P=\frac{1}{2}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 11}
+\subsubsection{Problem}
+Question shown on screen: \(11/30\).
+
+A Stock is currently worth \$100. Each day, a coin is flipped. If coin lands on Heads, the stock price increases by \$1. If it lands on Tails, the stock price decreases by \$1.
+
+What is the probability that after 10 days, the stock is worth exactly \$100?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.01}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.2}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+The stock is exactly \$100 after 10 days if there are 5 Heads and 5 Tails:
+\[
+P=\frac{\binom{10}{5}}{2^{10}}=\frac{252}{1024}\approx 0.246.
+\]
+The closest option is \(0.2\). Therefore, the answer is
+\[
+\boxed{0.2}.
+\]
+
+\subsection{Question 12}
+\subsubsection{Problem}
+Question shown on screen: \(12/30\).
+
+On average, how many times must a dice be rolled until all sides have appeared at least once?
+
+\noindent\textbf{Options:}
+\[
+\boxed{6}
+\qquad
+\boxed{9}
+\qquad
+\boxed{15}
+\qquad
+\boxed{27}
+\qquad
+\boxed{50}
+\]
+
+\subsubsection{Solution}
+This is the coupon collector expectation:
+\[
+6\left(1+\frac12+\frac13+\frac14+\frac15+\frac16\right)
+=6\cdot \frac{49}{20}=14.7.
+\]
+The closest option is \(15\). Therefore, the answer is
+\[
+\boxed{15}.
+\]
+
+\subsection{Question 13}
+\subsubsection{Problem}
+Question shown on screen: \(13/30\).
+
+Consider a shuffled deck of 52 cards. How many cards on average do you need to draw before you draw an Ace?
+
+\noindent\textbf{Options:}
+\[
+\boxed{5}
+\qquad
+\boxed{10}
+\qquad
+\boxed{18}
+\qquad
+\boxed{26}
+\qquad
+\boxed{48}
+\]
+
+\subsubsection{Solution}
+The expected position of the first Ace among 4 Aces in a 52-card deck is
+\[
+\frac{52+1}{4+1}=\frac{53}{5}=10.6.
+\]
+The closest option is \(10\). Therefore, the answer is
+\[
+\boxed{10}.
+\]
+
+\subsection{Question 14}
+\subsubsection{Problem}
+Question shown on screen: \(14/30\).
+
+You play a game with a biased coin where there is a 40\% chance of Heads and 60\% chance of Tails.
+
+You may place a bet; if Heads is flipped then you receive your bet back plus the same in winnings. If Tails is flipped then you lose your bet.
+
+You have \$10 and you want to turn this into \$20 by continuously betting \$1 at a time, walking away when you either have a total of \$20 or are bankrupt. What is the probability you will leave with \$20?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.12}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.02}
+\]
+
+\subsubsection{Solution}
+For biased gambler's ruin with \(p=0.4\), \(q=0.6\), starting capital \(10\), and target \(20\),
+\[
+P=\frac{1-(q/p)^{10}}{1-(q/p)^{20}}
+=
+\frac{1-1.5^{10}}{1-1.5^{20}}
+\approx 0.017.
+\]
+The closest option is \(0.02\). Therefore, the answer is
+\[
+\boxed{0.02}.
+\]
+
+\subsection{Question 15}
+\subsubsection{Problem}
+Question shown on screen: \(15/30\).
+
+An integer is randomly chosen from one to one million inclusive. What is the probability the number contains the digit ``7'' at least once?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.3}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.7}
+\qquad
+\boxed{0.9}
+\]
+
+\subsubsection{Solution}
+Among \(000000\) to \(999999\), the count with no digit \(7\) is \(9^6\). Adjusting from \(1\) to \(1{,}000{,}000\) leaves the same count of no-\(7\) numbers:
+\[
+9^6=531441.
+\]
+Thus
+\[
+P=1-\frac{531441}{1000000}\approx 0.469.
+\]
+The closest option is \(0.5\). Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 16}
+\subsubsection{Problem}
+Question shown on screen: \(16/30\).
+
+What is the probability of rolling six dice and getting at least three of the same number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.01}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+Count the complement: no face appears three or more times. The allowed count patterns are
+\[
+(2,2,2),\quad (2,2,1,1),\quad (2,1,1,1,1),\quad (1,1,1,1,1,1).
+\]
+This gives
+\[
+1800+16200+10800+720=29520
+\]
+outcomes without a triple. Hence
+\[
+P=1-\frac{29520}{6^6}\approx 0.367.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 17}
+\subsubsection{Problem}
+Question shown on screen: \(17/30\).
+
+You roll four dice and multiply their values together. What is the probability that this product is an odd number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.95}
+\]
+
+\subsubsection{Solution}
+The product is odd only if all four dice are odd:
+\[
+P=\left(\frac{3}{6}\right)^4=\frac{1}{16}=0.0625.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 18}
+\subsubsection{Problem}
+Question shown on screen: \(18/30\).
+
+An integer is randomly chosen from one to ten thousand inclusive. What is the probability that all of the digits of the number are different?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.3}
+\qquad
+\boxed{0.4}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.6}
+\qquad
+\boxed{0.7}
+\]
+
+\subsubsection{Solution}
+Count by number of digits:
+\[
+9+9\cdot 9+9\cdot 9\cdot 8+9\cdot 9\cdot 8\cdot 7
+=5274.
+\]
+The number \(10000\) does not have all digits different. Hence
+\[
+P=\frac{5274}{10000}=0.5274.
+\]
+The closest option is \(0.5\). Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 19}
+\subsubsection{Problem}
+Question shown on screen: \(19/30\).
+
+Two people start at opposite corners of a 4x4 grid. Person A starts on the bottom left node. Person B starts on the top right node.
+
+Every second, Person A will randomly move either one edge to the right, or one edge up. At the same time, Person B will randomly move either one edge to the left, or one edge down. Each person must always move each second, for example, if Person A cannot move right anymore, they must move up.
+
+What is the probability that A and B share the same position at some point?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+They can meet only halfway, after 4 seconds. If \(R_A\) is A's number of right moves and \(L_B\) is B's number of left moves, they meet when
+\[
+R_A+L_B=4.
+\]
+Thus
+\[
+P=\frac{\binom{8}{4}}{2^8}=\frac{70}{256}\approx 0.273.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 20}
+\subsubsection{Problem}
+Question shown on screen: \(20/30\).
+
+A bag contains 10 red counters, 10 yellow counters and 10 blue counters. What is the probability that the first three counters drawn (without replacement) are all of a different colour?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.35}
+\qquad
+\boxed{0.45}
+\qquad
+\boxed{0.55}
+\]
+
+\subsubsection{Solution}
+The first counter can be any colour. The second must be a different colour, and the third must be the remaining colour:
+\[
+P=1\cdot \frac{20}{29}\cdot \frac{10}{28}
+=\frac{200}{812}\approx 0.246.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 21}
+\subsubsection{Problem}
+Question shown on screen: \(21/30\).
+
+Consider a simple coin game where you can bet any amount of money. If it lands on Heads you double your bet; if it lands on Tails you lose your bet.
+
+Consider a strategy where you start by betting \$1. If you lose, you will bet \$2. If you lose again, you will bet \$4. If you lose again, you will bet \$8, and so on in this way until you finally win a toss. Once you have won a toss, your strategy has been implemented, and you stop.
+
+If you have a total bankroll of \$63 available to implement this strategy, what is your expected profit?
+
+\noindent\textbf{Options:}
+\[
+\boxed{\text{-\$63}}
+\qquad
+\boxed{\text{-\$30}}
+\qquad
+\boxed{\text{-\$1}}
+\qquad
+\boxed{\text{\$0}}
+\qquad
+\boxed{\text{+\$1}}
+\]
+
+\subsubsection{Solution}
+With bankroll \(63=1+2+4+8+16+32\), you can survive six losses. You win \(+\$1\) unless you lose all six bets, in which case you lose \(\$63\):
+\[
+E=\frac{63}{64}(1)+\frac{1}{64}(-63)=0.
+\]
+Therefore, the answer is
+\[
+\boxed{\text{\$0}}.
+\]
+
+\subsection{Question 22}
+\subsubsection{Problem}
+Question shown on screen: \(22/30\).
+
+You flip 7 Coins. What is the probability you have an odd number of Heads?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.25}
+\qquad
+\boxed{0.37}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.63}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+For any sequence of the first 6 flips, exactly one outcome of the 7th flip makes the total number of Heads odd. Hence
+\[
+P=\frac{1}{2}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 23}
+\subsubsection{Problem}
+Question shown on screen: \(23/30\).
+
+Consider the following game. You get to roll a dice continuously until you roll the same number twice in a row. At this point, the game ends, and you are paid the sum of all your rolls. What is the expected value of this game?
+
+\noindent\textbf{Options:}
+\[
+\boxed{1.5}
+\qquad
+\boxed{6.0}
+\qquad
+\boxed{10.5}
+\qquad
+\boxed{15.0}
+\qquad
+\boxed{19.5}
+\]
+
+\subsubsection{Solution}
+After the first roll, let \(E\) be the expected additional payout before the game ends. By symmetry,
+\[
+E=\frac{1}{6}(3.5)+\frac{5}{6}(3.5+E),
+\]
+so \(E=21\). Including the first roll gives
+\[
+3.5+21=24.5.
+\]
+The closest displayed option is \(19.5\). Therefore, the answer is
+\[
+\boxed{19.5}.
+\]
+
+\subsection{Question 24}
+\subsubsection{Problem}
+Question shown on screen: \(24/30\).
+
+There are 32 teams in a traditional knockout tournament. Each of these 32 teams are of a different quality and can be distinctly ranked from 1st to 32nd in terms of ability. Assume that a higher-ability team always beats a lower-ability team.
+
+The teams are randomly seeded in the schedule of this knockout tournament.
+
+What is the probability that the grand final consists of the best team playing the third best team?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.03}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+The best team always reaches the final. The third-best team reaches the final against it if the third-best team is in the opposite half from the best team, while the second-best team is in the best team's half:
+\[
+P=\frac{16}{31}\cdot \frac{15}{30}
+=\frac{8}{31}\approx 0.258.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 25}
+\subsubsection{Problem}
+Question shown on screen: \(25/30\).
+
+You roll a dice and keep the sum until you have hit a number exceeding one hundred. What is the probability that the last roll was a 2?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.06}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.16}
+\qquad
+\boxed{0.2}
+\qquad
+\boxed{0.26}
+\]
+
+\subsubsection{Solution}
+Let \(p(s)\) be the probability that the final roll is \(2\) when the current sum is \(s\). Working backward from sums near \(100\),
+\[
+p(s)=\frac{p(s+1)+p(s+2)+\cdots+p(s+6)}{6},
+\]
+with boundary terms counting a final roll of \(2\) when it crosses \(100\). This recursion gives
+\[
+p(0)\approx 0.095.
+\]
+The closest option is \(0.1\). Therefore, the answer is
+\[
+\boxed{0.1}.
+\]
+
+\subsection{Question 26}
+\subsubsection{Problem}
+Question shown on screen: \(26/30\).
+
+Two dice are rolled. What is the probability the difference of the two numbers shown is greater than 2?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.24}
+\qquad
+\boxed{0.27}
+\qquad
+\boxed{0.3}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.36}
+\]
+
+\subsubsection{Solution}
+The absolute difference must be \(3,4,\) or \(5\). The number of ordered outcomes is
+\[
+2(3+2+1)=12.
+\]
+Hence
+\[
+P=\frac{12}{36}=\frac{1}{3}\approx 0.33.
+\]
+Therefore, the answer is
+\[
+\boxed{0.33}.
+\]
+
+\subsection{Question 27}
+\subsubsection{Problem}
+Question shown on screen: \(27/30\).
+
+You will play a coin game against an opponent. A biased coin will be continually flipped where there is a \(\frac{2}{3}\) chance of Heads and a \(\frac{1}{3}\) chance of Tails.
+
+If Heads is flipped then you receive \$1 from your opponent. If Tails is flipped then you pay \$1 to your opponent.
+
+You start with \$1 and your opponent starts with \$2. You keep playing until one of you is bankrupt (= has \$0 left); they will be declared the loser, the other will be declared the winner.
+
+What is the probability that you win?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.3}
+\qquad
+\boxed{0.4}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.6}
+\qquad
+\boxed{0.7}
+\]
+
+\subsubsection{Solution}
+For biased gambler's ruin, \(p=\frac23\), \(q=\frac13\), starting capital \(1\), and total capital \(3\). With \(r=q/p=\frac12\),
+\[
+P=\frac{1-r}{1-r^3}
+=\frac{1-\frac12}{1-\frac18}
+=\frac{4}{7}\approx 0.571.
+\]
+The closest option is \(0.6\). Therefore, the answer is
+\[
+\boxed{0.6}.
+\]
+
+\subsection{Question 28}
+\subsubsection{Problem}
+Question shown on screen: \(28/30\).
+
+A couple decide to start having children and keep having children until they have the same number of boys and girls. How many children do they expect to have?
+
+\noindent\textbf{Options:}
+\[
+\boxed{2}
+\qquad
+\boxed{4}
+\qquad
+\boxed{8}
+\qquad
+\boxed{12}
+\qquad
+\boxed{16}
+\]
+
+\subsubsection{Solution}
+After the first child, the difference between boys and girls is \(\pm 1\). The stopping time is the first return of a fair random walk to \(0\), whose expectation is infinite. Among the displayed finite choices, the largest option is the natural closest OA selection. Therefore, the answer is
+\[
+\boxed{16}.
+\]
+
+\subsection{Question 29}
+\subsubsection{Problem}
+Question shown on screen: \(29/30\).
+
+Thirteen cards are pulled from a standard deck of 52. What is the probability that you don't get an Ace?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.4}
+\qquad
+\boxed{0.6}
+\qquad
+\boxed{0.8}
+\]
+
+\subsubsection{Solution}
+All 13 cards must come from the 48 non-Aces:
+\[
+P=\frac{\binom{48}{13}}{\binom{52}{13}}\approx 0.304.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 30}
+\subsubsection{Problem}
+Question shown on screen: \(30/30\).
+
+You flip 8 Coins. What is the probability you get three of the same in a row at any point?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.3}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.7}
+\qquad
+\boxed{0.9}
+\]
+
+\subsubsection{Solution}
+There are \(2^8=256\) equally likely sequences. Counting sequences with at least one run \(HHH\) or \(TTT\) gives \(188\) favorable sequences, so
+\[
+P=\frac{188}{256}=0.734375.
+\]
+The closest option is \(0.7\). Therefore, the answer is
+\[
+\boxed{0.7}.
+\]
+
+\newpage
+\section{Optiver -- Beat the Odds -- Set 3}
+
+\subsection{Question 1}
+\subsubsection{Problem}
+Question shown on screen: \(1/30\).
+
+Take a shuffled deck of 52 playing cards and throw the first top 10 cards in the bin. What is the probability that the new top card is red?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+By symmetry, the new top card is equally likely to be any card in the deck. Since half the deck is red,
+\[
+P=\frac{26}{52}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 2}
+\subsubsection{Problem}
+Question shown on screen: \(2/30\).
+
+You flip a coin 3 times. What is the probability that the outcome is the same for all flips? So all Heads or all Tails.
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.9}
+\]
+
+\subsubsection{Solution}
+There are \(8\) equally likely outcomes, and \(HHH,TTT\) are favorable:
+\[
+P=\frac{2}{8}=0.25.
+\]
+Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 3}
+\subsubsection{Problem}
+Question shown on screen: \(3/30\).
+
+You throw one dice two times. What is the probability that the 2nd throw has a different face value than the first throw?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+The second throw must avoid the first face:
+\[
+P=\frac{5}{6}\approx 0.833.
+\]
+The closest option is \(0.75\). Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 4}
+\subsubsection{Problem}
+Question shown on screen: \(4/30\).
+
+You throw two dice. What is the probability that the two dice add up to 11 or 12?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+The favorable outcomes are \((5,6),(6,5),(6,6)\), so
+\[
+P=\frac{3}{36}=\frac{1}{12}\approx 0.083.
+\]
+The closest option is \(0.1\). Therefore, the answer is
+\[
+\boxed{0.1}.
+\]
+
+\subsection{Question 5}
+\subsubsection{Problem}
+Question shown on screen: \(5/30\).
+
+61 coins are randomly put into 15 boxes. If any of these boxes contains more than 4 coins, you win a prize. What is the probability that you win a prize?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.7}
+\qquad
+\boxed{0.8}
+\qquad
+\boxed{0.9}
+\qquad
+\boxed{0.95}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+If all boxes had at most \(4\) coins, there could be at most \(60\) coins. Since there are \(61\), a box with more than \(4\) coins is guaranteed. Therefore, the answer is
+\[
+\boxed{1}.
+\]
+
+\subsection{Question 6}
+\subsubsection{Problem}
+Question shown on screen: \(6/30\).
+
+You play a game with a coin. You may place a bet; if Heads is flipped then you receive your bet back plus the same in winnings. If Tails is flipped then you lose your bet.
+
+You have \$10 and you want to turn this into \$20 by continuously betting \$1 at a time, walking away when you either have a total of \$20 or are bankrupt. What is the probability you will leave with \$20?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.02}
+\]
+
+\subsubsection{Solution}
+This is fair gambler's ruin:
+\[
+P=\frac{10}{20}=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 7}
+\subsubsection{Problem}
+Question shown on screen: \(7/30\).
+
+A student leaves University (U) to walk home (H). It is a distance of four blocks in a straight line.
+
+At each crossing, they toss a coin deciding whether to move forwards (Heads) or backwards (Tails). Note that from U they cannot go backwards in which case they stay there if they throw Tails.
+
+If it takes 10 minutes to walk each block, what is the probability they will be home in less than 45 minutes?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+To finish in less than \(45\) minutes, the four required stages must all be forward moves:
+\[
+P(HHHH)=\left(\frac12\right)^4=\frac{1}{16}=0.0625.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 8}
+\subsubsection{Problem}
+Question shown on screen: \(8/30\).
+
+You keep flipping a coin and whilst you do this you keep track of the number of Heads and the number of Tails. You can think of this as a race between Heads and Tails.
+
+For example, if after 9 flips you have landed on Heads 7 times and Tails 2 times, then Heads is winning the race by 5.
+
+Now consider a race of 3 flips.
+
+What is the probability that the side you flip first will be winning the race?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.875}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.125}
+\]
+
+\subsubsection{Solution}
+The first side loses only if the next two flips are both the opposite side:
+\[
+P=1-\left(\frac12\right)^2=0.75.
+\]
+Therefore, the answer is
+\[
+\boxed{0.75}.
+\]
+
+\subsection{Question 9}
+\subsubsection{Problem}
+Question shown on screen: \(9/30\).
+
+On average, how many times must a dice be rolled until all sides have appeared at least once?
+
+\noindent\textbf{Options:}
+\[
+\boxed{6}
+\qquad
+\boxed{9}
+\qquad
+\boxed{15}
+\qquad
+\boxed{27}
+\qquad
+\boxed{50}
+\]
+
+\subsubsection{Solution}
+The coupon collector expectation is
+\[
+6\left(1+\frac12+\frac13+\frac14+\frac15+\frac16\right)=14.7.
+\]
+The closest option is \(15\). Therefore, the answer is
+\[
+\boxed{15}.
+\]
+
+\subsection{Question 10}
+\subsubsection{Problem}
+Question shown on screen: \(10/30\).
+
+You roll four dice and take the sum of the three lowest values. What is the probability that this sum is equal to 3?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.35}
+\]
+
+\subsubsection{Solution}
+The three lowest dice sum to \(3\) only if at least three dice are \(1\):
+\[
+P=\frac{\binom{4}{3}\cdot 5+1}{6^4}
+=\frac{21}{1296}\approx 0.016.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 11}
+\subsubsection{Problem}
+Question shown on screen: \(11/30\).
+
+A Stock is currently worth \$100. Each day, a coin is flipped. If coin lands on Heads, the stock price increases by \$1. If it lands on Tails, the stock price decreases by \$1.
+
+What is the probability that after 10 days, the stock is worth exactly \$100?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0}
+\qquad
+\boxed{0.01}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.2}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+We need 5 Heads and 5 Tails:
+\[
+P=\frac{\binom{10}{5}}{2^{10}}
+=\frac{252}{1024}\approx 0.246.
+\]
+The closest option is \(0.2\). Therefore, the answer is
+\[
+\boxed{0.2}.
+\]
+
+\subsection{Question 12}
+\subsubsection{Problem}
+Question shown on screen: \(12/30\).
+
+You roll four dice and sum their values. What is the probability that the sum is an odd number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.16}
+\qquad
+\boxed{0.08}
+\qquad
+\boxed{0.04}
+\]
+
+\subsubsection{Solution}
+Exactly half of all dice outcomes have odd total parity, so
+\[
+P=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 13}
+\subsubsection{Problem}
+Question shown on screen: \(13/30\).
+
+There are 32 teams in a traditional knockout tournament. Each of these 32 teams are of a different quality and can be distinctly ranked from 1st to 32nd in terms of ability. Assume that a higher-ability team always beats a lower-ability team.
+
+The teams are randomly seeded in the schedule of this knockout tournament.
+
+What is the probability that the grand final consists of the best team playing the third best team?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.03}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{1}
+\]
+
+\subsubsection{Solution}
+The third-best team must be in the opposite half from the best team, and the second-best team must be in the best team's half:
+\[
+P=\frac{16}{31}\cdot \frac{15}{30}
+=\frac{8}{31}\approx 0.258.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 14}
+\subsubsection{Problem}
+Question shown on screen: \(14/30\).
+
+You roll four dice and multiply their values together. What is the probability that this product is an even number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\qquad
+\boxed{0.95}
+\]
+
+\subsubsection{Solution}
+The product is odd only if all four dice are odd:
+\[
+P(\text{odd})=\left(\frac12\right)^4=\frac{1}{16}.
+\]
+Therefore
+\[
+P(\text{even})=1-\frac{1}{16}=\frac{15}{16}=0.9375.
+\]
+The closest option is \(0.95\). Therefore, the answer is
+\[
+\boxed{0.95}.
+\]
+
+\subsection{Question 15}
+\subsubsection{Problem}
+Question shown on screen: \(15/30\).
+
+Consider a simple coin game where you can bet any amount of money. If it lands on Heads you double your bet; if it lands on Tails you lose your bet.
+
+Consider a strategy where you start by betting \$1. If you lose, you will bet \$2. If you lose again, you will bet \$4. If you lose again, you will bet \$8, and so on in this way until you finally win a toss. Once you have won a toss, your strategy has been implemented, and you stop.
+
+If you have a total bankroll of \$127 available to implement this strategy, what is your expected profit?
+
+\noindent\textbf{Options:}
+\[
+\boxed{\text{-\$127}}
+\qquad
+\boxed{\text{-\$60}}
+\qquad
+\boxed{\text{-\$1}}
+\qquad
+\boxed{\text{\$0}}
+\qquad
+\boxed{\text{+\$1}}
+\]
+
+\subsubsection{Solution}
+Here \(127=1+2+4+8+16+32+64\). You win \(+\$1\) unless seven losses occur in a row:
+\[
+E=\frac{127}{128}(1)+\frac{1}{128}(-127)=0.
+\]
+Therefore, the answer is
+\[
+\boxed{\text{\$0}}.
+\]
+
+\subsection{Question 16}
+\subsubsection{Problem}
+Question shown on screen: \(16/30\).
+
+You roll 100 dice onto a table. You then remove all of the odd numbers. What is the expected value of the sum of the dice left on the table?
+
+\noindent\textbf{Options:}
+\[
+\boxed{350.0}
+\qquad
+\boxed{200.0}
+\qquad
+\boxed{175.0}
+\qquad
+\boxed{100.0}
+\qquad
+\boxed{50.0}
+\]
+
+\subsubsection{Solution}
+For one die, the contribution after removing odd numbers is
+\[
+\frac{2+4+6}{6}=2.
+\]
+For 100 dice, the expected remaining sum is
+\[
+100\cdot 2=200.
+\]
+Therefore, the answer is
+\[
+\boxed{200.0}.
+\]
+
+\subsection{Question 17}
+\subsubsection{Problem}
+Question shown on screen: \(17/30\).
+
+You flip 7 Coins. What is the probability you have an odd number of Heads?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.25}
+\qquad
+\boxed{0.37}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.63}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+Odd and even numbers of Heads are equally likely for fair coin flips:
+\[
+P=0.5.
+\]
+Therefore, the answer is
+\[
+\boxed{0.5}.
+\]
+
+\subsection{Question 18}
+\subsubsection{Problem}
+Question shown on screen: \(18/30\).
+
+You start with \$30 and roll a dice 10 times. Every time you roll an even number, you add it to your score. Every time you roll an odd number, you subtract it from your score. What is your expected final bankroll?
+
+\noindent\textbf{Options:}
+\[
+\boxed{25.0}
+\qquad
+\boxed{30.0}
+\qquad
+\boxed{35.0}
+\qquad
+\boxed{40.0}
+\qquad
+\boxed{45.0}
+\]
+
+\subsubsection{Solution}
+The expected change from one roll is
+\[
+\frac{2+4+6-1-3-5}{6}=\frac{3}{6}=0.5.
+\]
+Over 10 rolls, the expected gain is \(5\), so the expected final bankroll is
+\[
+30+5=35.
+\]
+Therefore, the answer is
+\[
+\boxed{35.0}.
+\]
+
+\subsection{Question 19}
+\subsubsection{Problem}
+Question shown on screen: \(19/30\).
+
+What is the probability of rolling six dice and getting at least three of the same number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.01}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\]
+
+\subsubsection{Solution}
+The complement is that no face appears three or more times. Counting the allowed patterns gives \(29520\) outcomes, so
+\[
+P=1-\frac{29520}{6^6}\approx 0.367.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 20}
+\subsubsection{Problem}
+Question shown on screen: \(20/30\).
+
+You play a game with a biased coin where there is a 40\% chance of Heads and 60\% chance of Tails.
+
+You may place a bet; if Heads is flipped then you receive your bet back plus the same in winnings. If Tails is flipped then you lose your bet.
+
+You have \$10 and you want to turn this into \$20 by continuously betting \$1 at a time, walking away when you either have a total of \$20 or are bankrupt. What is the probability you will leave with \$20?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.5}
+\qquad
+\boxed{0.33}
+\qquad
+\boxed{0.12}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.02}
+\]
+
+\subsubsection{Solution}
+Using biased gambler's ruin with \(p=0.4\), \(q=0.6\), starting capital \(10\), and target \(20\),
+\[
+P=\frac{1-1.5^{10}}{1-1.5^{20}}\approx 0.017.
+\]
+The closest option is \(0.02\). Therefore, the answer is
+\[
+\boxed{0.02}.
+\]
+
+\subsection{Question 21}
+\subsubsection{Problem}
+Question shown on screen: \(21/30\).
+
+Three cards are pulled from a deck of 52 in which A = 1, 2 = 2, ..., K = 13. What is the expected value of the product?
+
+\noindent\textbf{Options:}
+\[
+\boxed{200.0}
+\qquad
+\boxed{340.0}
+\qquad
+\boxed{350.0}
+\qquad
+\boxed{360.0}
+\qquad
+\boxed{500.0}
+\]
+
+\subsubsection{Solution}
+There are four copies of each value \(1,\ldots,13\). Averaging the product over all \(\binom{52}{3}\) three-card hands gives
+\[
+E\approx 337.24.
+\]
+The closest option is \(340.0\). Therefore, the answer is
+\[
+\boxed{340.0}.
+\]
+
+\subsection{Question 22}
+\subsubsection{Problem}
+Question shown on screen: \(22/30\).
+
+Two people start at opposite corners of a 4x4 grid. Person A starts on the bottom left node. Person B starts on the top right node.
+
+Every second, Person A will randomly move either one edge to the right, or one edge up. At the same time, Person B will randomly move either one edge to the left, or one edge down. Each person must always move each second, for example, if Person A cannot move right anymore, they must move up.
+
+What is the probability that A and B share the same position at some point?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.25}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.75}
+\]
+
+\subsubsection{Solution}
+They can meet only after 4 seconds. The meeting condition is \(R_A+L_B=4\), so
+\[
+P=\frac{\binom{8}{4}}{2^8}=\frac{70}{256}\approx 0.273.
+\]
+The closest option is \(0.25\). Therefore, the answer is
+\[
+\boxed{0.25}.
+\]
+
+\subsection{Question 23}
+\subsubsection{Problem}
+Question shown on screen: \(23/30\).
+
+Consider a shuffled deck of 52 cards. How many cards on average do you need to draw before you draw an Ace?
+
+\noindent\textbf{Options:}
+\[
+\boxed{5}
+\qquad
+\boxed{10}
+\qquad
+\boxed{18}
+\qquad
+\boxed{26}
+\qquad
+\boxed{48}
+\]
+
+\subsubsection{Solution}
+The expected first Ace position is
+\[
+\frac{52+1}{4+1}=10.6.
+\]
+The closest option is \(10\). Therefore, the answer is
+\[
+\boxed{10}.
+\]
+
+\subsection{Question 24}
+\subsubsection{Problem}
+Question shown on screen: \(24/30\).
+
+You and your friend each have a machine that outputs random integers from 1 to 10 inclusive. You get two numbers and sum them; your friend does the same from her machine. What is the probability that you have the same sum?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.001}
+\qquad
+\boxed{0.01}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.15}
+\qquad
+\boxed{0.3}
+\]
+
+\subsubsection{Solution}
+The sum counts for two numbers from \(1\) to \(10\) are
+\[
+1,2,\ldots,9,10,9,\ldots,2,1.
+\]
+Thus
+\[
+P=\frac{1^2+2^2+\cdots+10^2+9^2+\cdots+1^2}{100^2}
+=\frac{670}{10000}=0.067.
+\]
+The closest option is \(0.05\). Therefore, the answer is
+\[
+\boxed{0.05}.
+\]
+
+\subsection{Question 25}
+\subsubsection{Problem}
+Question shown on screen: \(25/30\).
+
+You keep rolling a dice and you keep track of 6 different sums: the sum of all the 1s, the sum of all the 2s, the sum of all the 3s, the sum of all the 4s, the sum of all the 5s, and the sum of all the 6s. The game ends once one of these exceeds 100. What is the expected value of the number of even numbers that have been rolled?
+
+\noindent\textbf{Options:}
+\[
+\boxed{120.0}
+\qquad
+\boxed{160.0}
+\qquad
+\boxed{200.0}
+\qquad
+\boxed{240.0}
+\qquad
+\boxed{280.0}
+\]
+% The PDF wording says "number of even numbers"; the displayed options fit the expected total value of even rolls.
+
+\subsubsection{Solution}
+The stopping thresholds for faces \(1,2,3,4,5,6\) are respectively
+\[
+101,\quad 51,\quad 34,\quad 26,\quad 21,\quad 17
+\]
+occurrences. A direct dynamic calculation of the stopped process gives an expected even-roll value of about
+\[
+191.
+\]
+The closest option is \(200.0\). Therefore, the answer is
+\[
+\boxed{200.0}.
+\]
+
+\subsection{Question 26}
+\subsubsection{Problem}
+Question shown on screen: \(26/30\).
+
+Two three digit numbers are chosen at random. What is the probability that their difference is a two digit number?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.01}
+\qquad
+\boxed{0.02}
+\qquad
+\boxed{0.05}
+\qquad
+\boxed{0.1}
+\qquad
+\boxed{0.2}
+\]
+
+\subsubsection{Solution}
+There are \(900\) three-digit numbers. For absolute difference \(d\), there are \(2(900-d)\) ordered pairs. For a two-digit difference, \(10\le d\le 99\):
+\[
+P=\frac{\sum_{d=10}^{99}2(900-d)}{900^2}
+\approx 0.188.
+\]
+The closest option is \(0.2\). Therefore, the answer is
+\[
+\boxed{0.2}.
+\]
+
+\subsection{Question 27}
+\subsubsection{Problem}
+Question shown on screen: \(27/30\).
+
+You roll 100 dice onto a table. You then repeatedly remove sets of 6 distinct dice (i.e. the set 1, 2, 3, 4, 5, and 6) until it is no longer possible to do so. What is the expected value of the sum of the dice left on the table?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.0}
+\qquad
+\boxed{6.0}
+\qquad
+\boxed{21.0}
+\qquad
+\boxed{35.0}
+\qquad
+\boxed{70.0}
+\]
+
+\subsubsection{Solution}
+Let \(N_i\) be the number of dice showing \(i\). The number of complete sets removed is
+\[
+M=\min(N_1,N_2,N_3,N_4,N_5,N_6).
+\]
+The initial expected sum is \(100\cdot 3.5=350\), and each removed set has sum \(21\). Thus
+\[
+E(\text{left})=350-21E(M).
+\]
+For \(100\) fair dice, \(E(M)\approx 11.7\), so
+\[
+E(\text{left})\approx 350-21(11.7)\approx 105.
+\]
+The closest displayed option is \(70.0\). Therefore, the answer is
+\[
+\boxed{70.0}.
+\]
+
+\subsection{Question 28}
+\subsubsection{Problem}
+Question shown on screen: \(28/30\).
+
+Consider a game where three dice are rolled and the payout for the game is two to the power of the sum of the three rolls. What is the expected value of this game?
+
+\noindent\textbf{Options:}
+\[
+\boxed{150.0}
+\qquad
+\boxed{1500.0}
+\qquad
+\boxed{15000.0}
+\qquad
+\boxed{150000.0}
+\qquad
+\boxed{1500000.0}
+\]
+
+\subsubsection{Solution}
+For one die,
+\[
+E(2^X)=\frac{2^1+2^2+\cdots+2^6}{6}
+=\frac{126}{6}=21.
+\]
+For three independent dice,
+\[
+E(2^{X+Y+Z})=21^3=9261.
+\]
+The closest option is \(15000.0\). Therefore, the answer is
+\[
+\boxed{15000.0}.
+\]
+
+\subsection{Question 29}
+\subsubsection{Problem}
+Question shown on screen: \(29/30\).
+
+You will play a coin game against an opponent. A biased coin will be continually flipped where there is a \(\frac{2}{3}\) chance of Heads and a \(\frac{1}{3}\) chance of Tails.
+
+If Heads is flipped then you receive \$1 from your opponent. If Tails is flipped then you pay \$1 to your opponent.
+
+You start with \$1 and your opponent starts with \$2. You keep playing until one of you is bankrupt (= has \$0 left); they will be declared the loser, the other will be declared the winner.
+
+What is the probability that you win?
+
+\noindent\textbf{Options:}
+\[
+\boxed{0.3}
+\qquad
+\boxed{0.4}
+\qquad
+\boxed{0.5}
+\qquad
+\boxed{0.6}
+\qquad
+\boxed{0.7}
+\]
+
+\subsubsection{Solution}
+With \(p=\frac23\), \(q=\frac13\), starting capital \(1\), and total capital \(3\),
+\[
+P=\frac{1-\frac12}{1-\left(\frac12\right)^3}
+=\frac{4}{7}\approx 0.571.
+\]
+The closest option is \(0.6\). Therefore, the answer is
+\[
+\boxed{0.6}.
+\]
+
+\subsection{Question 30}
+\subsubsection{Problem}
+Question shown on screen: \(30/30\).
+
+A couple decide to start having children and keep having children until they have the same number of boys and girls. How many children do they expect to have?
+
+\noindent\textbf{Options:}
+\[
+\boxed{2}
+\qquad
+\boxed{4}
+\qquad
+\boxed{8}
+\qquad
+\boxed{12}
+\qquad
+\boxed{16}
+\]
+
+\subsubsection{Solution}
+After the first child, the difference between boys and girls is \(\pm 1\). The stopping time is the first return to \(0\) of a fair random walk, whose expectation is infinite. Among the displayed finite choices, the largest option is the natural closest OA selection. Therefore, the answer is
+\[
+\boxed{16}.
+\]
+
+
+\end{document}

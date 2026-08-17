@@ -1,0 +1,995 @@
+% chapters/ch04_intertemporal_consumption_and_asset_pricing.tex
+
+\section{Intertemporal Consumption and Asset Pricing}
+
+This chapter studies choice across time. The first part rewrites intertemporal consumption as an ordinary consumer-choice problem with dated consumption goods and relative prices determined by the interest rate. The second part introduces discounted utility and the Euler-style optimality condition for present versus future consumption. The final part applies present-value logic to asset pricing, net present value, perpetuities, installment loans, and asset returns under taxes.
+
+\subsection{Intertemporal Consumption: Two-Period Model}
+
+Consider a consumer who lives for two periods, $t=0,1$. Let
+\[
+x=(x_0,x_1)\in \mathbb{R}_+^2
+\]
+denote the consumption stream, where $x_t$ is expenditure on consumption in period $t$. Let
+\[
+y=(y_0,y_1)\in \mathbb{R}_+^2
+\]
+denote the income stream. The consumer can save or borrow between the two periods at interest rate $r\ge 0$.
+
+\begin{definition}{Two-period savings formulation}{ch4-two-period-savings}
+Let $s_0 \in \mathbb{R}$ denote period-0 saving, where
+\[
+s_0>0 \text{ means saving}, \qquad s_0<0 \text{ means borrowing}.
+\]
+The two-period budget equations are
+\[
+x_0+s_0=y_0,
+\qquad
+x_1=(1+r)s_0+y_1.
+\]
+\end{definition}
+
+The first equation says current income is split between current consumption and saving. The second says future consumption equals future income plus the gross return on current saving.
+
+\begin{theorem}{Present-value and future-value budget constraints}{ch4-pv-fv}
+The two-period savings system
+\[
+x_0+s_0=y_0,
+\qquad
+x_1=(1+r)s_0+y_1
+\]
+is equivalent to either of the following:
+\[
+(1+r)x_0+x_1=(1+r)y_0+y_1,
+\]
+or
+\[
+x_0+\frac{x_1}{1+r}=y_0+\frac{y_1}{1+r}.
+\]
+\end{theorem}
+
+\begin{proof}
+From
+\[
+x_0+s_0=y_0,
+\]
+multiply by $1+r$:
+\[
+(1+r)x_0+(1+r)s_0=(1+r)y_0.
+\]
+Add the second budget equation:
+\[
+x_1=(1+r)s_0+y_1.
+\]
+Cancelling $(1+r)s_0$ gives
+\[
+(1+r)x_0+x_1=(1+r)y_0+y_1.
+\]
+Dividing through by $1+r$ yields
+\[
+x_0+\frac{x_1}{1+r}=y_0+\frac{y_1}{1+r}.
+\]
+\end{proof}
+
+\begin{definition}{Present value and future value}{ch4-pv-fv-def}
+For a two-period stream $(a_0,a_1)$:
+\begin{itemize}
+    \item its \emph{future value} at date 1 is
+    \[
+    FV(a_0,a_1)=(1+r)a_0+a_1;
+    \]
+    \item its \emph{present value} at date 0 is
+    \[
+    PV(a_0,a_1)=a_0+\frac{a_1}{1+r}.
+    \]
+\end{itemize}
+Thus an intertemporal consumption plan is affordable if and only if
+\[
+PV(x_0,x_1)=PV(y_0,y_1).
+\]
+\end{definition}
+
+This turns intertemporal choice into an ordinary consumer problem with two goods:
+\[
+p=(p_0,p_1)=\left(1,\frac{1}{1+r}\right),
+\]
+so that
+\[
+p\cdot x = p\cdot y.
+\]
+The ``price'' of future consumption is therefore
+\[
+p_1=\frac{1}{1+r}.
+\]
+A rise in $r$ lowers the price of future consumption relative to present consumption.
+
+\begin{keyformula}[title={Key Formula: Two-Period Intertemporal Budget}]
+\[
+x_0+\frac{x_1}{1+r}=y_0+\frac{y_1}{1+r}.
+\]
+Equivalently, with
+\[
+p=\left(1,\frac{1}{1+r}\right),
+\]
+the budget set is
+\[
+B(p,p\cdot y)=\{x\in \mathbb{R}_+^2 : p\cdot x \le p\cdot y\}.
+\]
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example: present value, future value, and saving}]
+Suppose
+\[
+y=(190,11), \qquad r=0.1,
+\]
+and utility is
+\[
+U(x_0,x_1)=x_0x_1.
+\]
+The present value of income is
+\[
+PV(y)=190+\frac{11}{1.1}=190+10=200.
+\]
+The future value of income is
+\[
+FV(y)=1.1(190)+11=209+11=220.
+\]
+
+For Cobb--Douglas utility $U(x_0,x_1)=x_0x_1$, the optimal demand with prices
+\[
+\left(1,\frac{1}{1+r}\right)
+\]
+and present-value wealth $m$ is
+\[
+x(r,m)=\left(\frac{m}{2},\frac{(1+r)m}{2}\right).
+\]
+Hence, with $m=200$ and $r=0.1$,
+\[
+x(0.1,200)=\left(100,\frac{1.1\cdot 200}{2}\right)=(100,110).
+\]
+
+So the consumer saves
+\[
+s_0=y_0-x_0=190-100=90
+\]
+in period 0, and this becomes
+\[
+(1+r)s_0=1.1\cdot 90=99
+\]
+in period 1. Since future income is $11$, future consumption is
+\[
+99+11=110.
+\]
+
+Therefore the optimal plan is
+\[
+\boxed{x=(100,110), \qquad s_0=90.}
+\]
+\end{examplebox}
+
+\subsection{Comparative Statics with Respect to the Interest Rate}
+
+Because
+\[
+p_1=\frac{1}{1+r},
+\]
+a rise in the interest rate lowers the relative price of future consumption. Thus intertemporal comparative statics are a direct application of the consumer theory from Chapters 2 and 3.
+
+\begin{definition}{Saver, borrower, and net demand for future consumption}{ch4-saver-borrower}
+Given income stream $y=(y_0,y_1)$ and chosen consumption stream $x=(x_0,x_1)$:
+\begin{itemize}
+    \item the consumer is a \emph{saver} if
+    \[
+    x_1>y_1
+    \quad \Longleftrightarrow \quad
+    s_0>0;
+    \]
+    \item the consumer is a \emph{borrower} if
+    \[
+    x_1<y_1
+    \quad \Longleftrightarrow \quad
+    s_0<0.
+    \]
+\end{itemize}
+Thus a saver is a net buyer of future consumption, while a borrower is a net seller of future consumption.
+\end{definition}
+
+This matches the endowment logic from Chapter 3 with dated consumption as the two goods and income stream $y$ as the endowment.
+
+\begin{theorem}{Effect of an increase in the interest rate on saver/borrower status}{ch4-saver-status}
+Suppose the interest rate rises from $r$ to $r'>r$.
+\begin{enumerate}
+    \item A saver stays a saver.
+    \item A borrower may remain a borrower or may become a saver.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Future consumption has price
+\[
+q(r)=\frac{1}{1+r}.
+\]
+If $r'>r$, then
+\[
+q(r')<q(r),
+\]
+so the price of future consumption falls. By Chapter 3, when the price of a good falls, a net buyer of that good remains a net buyer. Thus a saver stays a saver. A net seller may remain a seller or may switch to being a buyer.
+\end{proof}
+
+To apply the Slutsky decomposition, write Marshallian intertemporal demand as
+\[
+x(r,m)=\bigl(x_0(r,m),x_1(r,m)\bigr),
+\]
+where $m$ is present-value wealth. If the interest rate changes from $r$ to $r'$, then the present value of the income stream changes from
+\[
+m=y_0+\frac{y_1}{1+r}
+\]
+to
+\[
+m'=y_0+\frac{y_1}{1+r'}.
+\]
+
+\begin{definition}{Slutsky decomposition for intertemporal choice}{ch4-slutsky-r}
+Let
+\[
+\Delta x_1 := x_1(r',m')-x_1(r,m)
+\]
+be the total change in future consumption. Define the Slutsky compensated present-value wealth at the new interest rate by
+\[
+m^s := x_0(r,m)+\frac{x_1(r,m)}{1+r'}.
+\]
+Then
+\[
+\Delta x_1 = \Delta x_1^s + \Delta x_1^n,
+\]
+where
+\[
+\Delta x_1^s := x_1(r',m^s)-x_1(r,m)
+\]
+is the substitution effect, and
+\[
+\Delta x_1^n := x_1(r',m')-x_1(r',m^s)
+\]
+is the income effect.
+\end{definition}
+
+Since $r'>r$ implies the price of future consumption falls, the substitution effect for future consumption is nonnegative:
+\[
+\Delta x_1^s \ge 0.
+\]
+
+If future consumption is normal and the consumer is a saver, then the income effect is also nonnegative. The reason is that a saver benefits when the interest rate rises: the price of the good she is a net buyer of falls.
+
+\begin{theorem}{Interest-rate comparative statics for savers}{ch4-saver-theorem}
+Suppose future consumption is normal and the consumer is a saver at the initial interest rate. If $r$ increases, then
+\[
+x_1(r',m') \ge x_1(r,m).
+\]
+\end{theorem}
+
+\begin{proof}
+When $r$ rises, the price of future consumption falls, so the substitution effect satisfies
+\[
+\Delta x_1^s \ge 0.
+\]
+Because the consumer is a saver, she is a net buyer of future consumption. Thus the fall in its price raises her welfare and, if future consumption is normal, the associated income effect also satisfies
+\[
+\Delta x_1^n \ge 0.
+\]
+Hence
+\[
+\Delta x_1=\Delta x_1^s+\Delta x_1^n\ge 0.
+\]
+\end{proof}
+
+\begin{examtip}
+A rise in $r$ does \emph{not} mean current wealth necessarily rises. The correct logic is:
+\begin{enumerate}
+    \item the price of future consumption falls;
+    \item substitution pushes toward more future consumption;
+    \item the welfare effect depends on whether the consumer is a saver or borrower;
+    \item for a saver, both substitution and income effects push toward more future consumption if future consumption is normal.
+\end{enumerate}
+For a borrower, the overall effect on future consumption is ambiguous.
+\end{examtip}
+
+\subsection{Multi-Period Intertemporal Choice}
+
+Now suppose the consumer lives for periods
+\[
+t=0,1,\dots,T.
+\]
+Let
+\[
+x=(x_0,x_1,\dots,x_T)\in \mathbb{R}_+^{T+1},
+\qquad
+y=(y_0,y_1,\dots,y_T)\in \mathbb{R}_+^{T+1}.
+\]
+Let $s_t$ denote assets carried from period $t$ to period $t+1$, with
+\[
+s_{-1}=0, \qquad s_T=0.
+\]
+
+\begin{definition}{Multi-period intertemporal budget equations}{ch4-multi-budget}
+For each period $t=0,1,\dots,T$,
+\[
+x_t+s_t=(1+r)s_{t-1}+y_t.
+\]
+\end{definition}
+
+\begin{theorem}{Multi-period present-value budget constraint}{ch4-multi-pv}
+The multi-period budget system is equivalent to
+\[
+\sum_{t=0}^{T}\frac{x_t}{(1+r)^t}
+=
+\sum_{t=0}^{T}\frac{y_t}{(1+r)^t}.
+\]
+Equivalently, with price vector
+\[
+p=\left(1,\frac{1}{1+r},\frac{1}{(1+r)^2},\dots,\frac{1}{(1+r)^T}\right),
+\]
+the budget constraint is
+\[
+p\cdot x = p\cdot y.
+\]
+\end{theorem}
+
+\begin{proof}
+Divide each period budget equation
+\[
+x_t+s_t=(1+r)s_{t-1}+y_t
+\]
+by $(1+r)^t$:
+\[
+\frac{x_t}{(1+r)^t}+\frac{s_t}{(1+r)^t}
+=
+\frac{s_{t-1}}{(1+r)^{t-1}}+\frac{y_t}{(1+r)^t}.
+\]
+Summing from $t=0$ to $T$ causes the asset terms to telescope:
+\[
+\sum_{t=0}^{T}\frac{s_t}{(1+r)^t}
+=
+\sum_{t=0}^{T}\frac{s_{t-1}}{(1+r)^{t-1}}
+\]
+because $s_{-1}=s_T=0$. Hence
+\[
+\sum_{t=0}^{T}\frac{x_t}{(1+r)^t}
+=
+\sum_{t=0}^{T}\frac{y_t}{(1+r)^t}.
+\]
+\end{proof}
+
+\begin{theorem}{Only present value matters for demand}{ch4-only-pv-matters}
+Suppose the consumer solves
+\[
+\max_{x\in \mathbb{R}_+^{T+1}} U(x)
+\quad \text{subject to} \quad
+p\cdot x \le p\cdot y.
+\]
+If two income streams $y$ and $y'$ satisfy
+\[
+p\cdot y = p\cdot y',
+\]
+then they generate the same budget set and therefore the same demand.
+\end{theorem}
+
+\begin{proof}
+The feasible set depends only on the scalar wealth level $p\cdot y$. If
+\[
+p\cdot y = p\cdot y',
+\]
+then
+\[
+\{x : p\cdot x \le p\cdot y\}
+=
+\{x : p\cdot x \le p\cdot y'\}.
+\]
+Hence the maximization problem is identical, so the solution is the same.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: different income timings with the same present value}]
+Let $T=2$ and $r=\tfrac12$. Then
+\[
+p=\left(1,\frac{2}{3},\left(\frac{2}{3}\right)^2\right).
+\]
+Consider the three income streams
+\[
+y=(2,3,9), \qquad y'=(8,0,0), \qquad y''=(0,0,18).
+\]
+Their present values are:
+\[
+p\cdot y = 2+\frac{2}{3}\cdot 3 + \left(\frac{2}{3}\right)^2\cdot 9 = 2+2+4=8,
+\]
+\[
+p\cdot y' = 8,
+\]
+\[
+p\cdot y'' = \left(\frac{2}{3}\right)^2\cdot 18 = \frac{4}{9}\cdot 18 = 8.
+\]
+Thus all three income streams have the same present value. Therefore they generate the same intertemporal budget set and the same optimal demand.
+
+So the correct conclusion is:
+\[
+\boxed{
+(2,3,9),\ (8,0,0),\ \text{and } (0,0,18)
+\text{ are equivalent for choice purposes at } r=\tfrac12.
+}
+\]
+\end{examplebox}
+
+\begin{commonmistake}
+Do not say that the \emph{timing} of income never matters. It matters through its effect on present value. What Lecture 4 shows is that if the present value is the same, then the timing alone does not change the budget set under perfect borrowing and lending at rate $r$.
+\end{commonmistake}
+
+\subsection{Inflation and the Real Interest Rate}
+
+Suppose the monetary price of one unit of consumption rises by factor $1+\pi$ each period. Then one unit of consumption costs:
+\[
+1 \text{ in period 0}, \quad 1+\pi \text{ in period 1}, \quad (1+\pi)^2 \text{ in period 2}, \dots
+\]
+
+\begin{definition}{Intertemporal budget with inflation}{ch4-inflation-budget}
+With inflation rate $\pi$, the period-$t$ budget equation becomes
+\[
+(1+\pi)^t x_t + s_t = (1+r)s_{t-1} + (1+\pi)^t y_t.
+\]
+\end{definition}
+
+Dividing by $(1+r)^t$ and summing over time yields the \emph{real} present-value budget:
+
+\begin{theorem}{Real present-value budget}{ch4-real-pv}
+With inflation rate $\pi$ and nominal interest rate $r$,
+\[
+\sum_{t=0}^{T}\left(\frac{1+\pi}{1+r}\right)^t x_t
+=
+\sum_{t=0}^{T}\left(\frac{1+\pi}{1+r}\right)^t y_t.
+\]
+Hence the real price vector is
+\[
+p=\left(1,\frac{1+\pi}{1+r},\left(\frac{1+\pi}{1+r}\right)^2,\dots,\left(\frac{1+\pi}{1+r}\right)^T\right).
+\]
+\end{theorem}
+
+\begin{definition}{Real interest rate}{ch4-real-interest}
+The \emph{real interest rate} $\rho$ is defined by
+\[
+1+\rho = \frac{1+r}{1+\pi}.
+\]
+Equivalently,
+\[
+\rho = \frac{1+r}{1+\pi}-1 = \frac{r-\pi}{1+\pi} \approx r-\pi.
+\]
+\end{definition}
+
+The approximation
+\[
+\rho \approx r-\pi
+\]
+is accurate when inflation is moderate. It is the standard ``nominal minus inflation'' rule.
+
+\begin{examplebox}[title={Worked Example: computing the real interest rate}]
+Suppose
+\[
+r=0.32, \qquad \pi=0.20.
+\]
+Then
+\[
+1+\rho = \frac{1.32}{1.20}=1.1,
+\]
+so
+\[
+\rho = 0.1.
+\]
+If the income stream is
+\[
+y=(100,132),
+\]
+then its real present value is
+\[
+100+\frac{132}{1.1}=100+120=220.
+\]
+Hence
+\[
+\boxed{\rho=10\%, \qquad PV_{\text{real}}(y)=220.}
+\]
+\end{examplebox}
+
+\subsection{Discounted Utility and Optimal Consumption Smoothing}
+
+Lecture 4 uses the standard discounted-utility specification
+\[
+U(x_0,x_1)=u(x_0)+\delta u(x_1),
+\]
+where $u$ is the felicity function and $\delta \in [0,1]$ is the discount factor.
+
+\begin{definition}{Discounted utility}{ch4-discounted-utility}
+A two-period discounted-utility representation is
+\[
+U(x_0,x_1)=u(x_0)+\delta u(x_1),
+\]
+where:
+\begin{itemize}
+    \item $u:\mathbb{R}_+\to \mathbb{R}$ is increasing;
+    \item $u$ is concave, so marginal utility is diminishing;
+    \item $\delta \in [0,1]$ measures the value placed on future felicity.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Concavity implies diminishing marginal utility}{ch4-dmu}
+If $u$ is concave and differentiable, then $u'$ is decreasing.
+\end{theorem}
+
+\begin{proof}
+Concavity means that for any $x>x'$ and any $\alpha>0$,
+\[
+u(x+\alpha)-u(x) \le u(x'+\alpha)-u(x').
+\]
+Divide by $\alpha$ and let $\alpha \to 0$ to obtain
+\[
+u'(x) \le u'(x').
+\]
+Hence $u'$ is decreasing.
+\end{proof}
+
+\begin{theorem}{Euler-type first-order condition for discounted utility}{ch4-euler}
+Suppose the consumer maximizes
+\[
+u(x_0)+\delta u(x_1)
+\]
+subject to
+\[
+x_0+\frac{x_1}{1+r}=m,
+\]
+and the optimum is interior. Then
+\[
+\frac{u'(x_0)}{\delta u'(x_1)} = 1+r,
+\]
+equivalently,
+\[
+u'(x_0) = (1+r)\delta u'(x_1).
+\]
+\end{theorem}
+
+\begin{proof}
+The marginal utilities are
+\[
+MU_0=u'(x_0), \qquad MU_1=\delta u'(x_1).
+\]
+By the interior tangency condition from Chapter 3,
+\[
+\frac{MU_0}{MU_1} = \frac{p_0}{p_1}.
+\]
+Here
+\[
+p_0=1, \qquad p_1=\frac{1}{1+r},
+\]
+so
+\[
+\frac{p_0}{p_1}=1+r.
+\]
+Hence
+\[
+\frac{u'(x_0)}{\delta u'(x_1)}=1+r,
+\]
+which rearranges to
+\[
+u'(x_0)=(1+r)\delta u'(x_1).
+\]
+\end{proof}
+
+This condition compares the marginal value of consuming one more unit today with the discounted marginal value of consuming one more unit tomorrow, adjusted by the gross return from saving.
+
+\begin{theorem}{Consumption pattern under discounted utility}{ch4-pattern}
+Assume $u$ is differentiable and strictly concave, so $u'$ is strictly decreasing.
+\begin{enumerate}
+    \item If $(1+r)\delta = 1$, then $x_0=x_1$.
+    \item If $(1+r)\delta > 1$, then $x_1>x_0$.
+    \item If $(1+r)\delta < 1$, then $x_0>x_1$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+From Theorem \ref{thm:ch4-euler},
+\[
+u'(x_0)=(1+r)\delta u'(x_1).
+\]
+If $(1+r)\delta=1$, then
+\[
+u'(x_0)=u'(x_1),
+\]
+and strict monotonicity of $u'$ implies
+\[
+x_0=x_1.
+\]
+If $(1+r)\delta>1$, then
+\[
+u'(x_0)>u'(x_1).
+\]
+Because $u'$ is decreasing, this implies
+\[
+x_0<x_1.
+\]
+Similarly, if $(1+r)\delta<1$, then
+\[
+u'(x_0)<u'(x_1),
+\]
+so
+\[
+x_0>x_1.
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: logarithmic felicity}]
+Suppose
+\[
+u(x)=\ln x.
+\]
+Then
+\[
+u'(x)=\frac{1}{x}.
+\]
+The first-order condition becomes
+\[
+\frac{1}{x_0} = (1+r)\delta \frac{1}{x_1},
+\]
+so
+\[
+x_1=(1+r)\delta x_0.
+\]
+
+If
+\[
+r=0.1, \qquad \delta=0.9,
+\]
+then
+\[
+(1+r)\delta = 1.1\times 0.9 = 0.99,
+\]
+hence
+\[
+x_1=0.99x_0.
+\]
+So optimal future consumption is slightly below present consumption:
+\[
+\boxed{x_1 < x_0.}
+\]
+\end{examplebox}
+
+\begin{examtip}
+The single most important condition in discounted-utility questions is
+\[
+u'(x_0)=(1+r)\delta u'(x_1).
+\]
+Always interpret the product $(1+r)\delta$:
+\begin{itemize}
+    \item high $\delta$ means patience;
+    \item high $r$ makes future consumption relatively cheap;
+    \item both push consumption toward the future.
+\end{itemize}
+\end{examtip}
+
+\subsection{Asset Pricing by No-Arbitrage}
+
+An asset is a stream of future monetary payoffs. Lecture 4 prices assets by the no-arbitrage principle.
+
+\begin{definition}{Arbitrage}{ch4-arbitrage}
+An \emph{arbitrage opportunity} is a trading strategy that yields a nonnegative payoff in every contingency and a strictly positive payoff in at least one contingency, with no net cost or riskless profit at the prevailing prices.
+\end{definition}
+
+\begin{theorem}{Present-value pricing of a certain asset}{ch4-pv-asset}
+Suppose an asset pays deterministic cash flow
+\[
+y=(y_0,y_1,\dots,y_T).
+\]
+If borrowing and lending are possible at interest rate $r$ and there is no arbitrage, then the asset's time-0 price must be
+\[
+P_0 = \sum_{t=0}^{T}\frac{y_t}{(1+r)^t}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+PV(y)=\sum_{t=0}^{T}\frac{y_t}{(1+r)^t}.
+\]
+
+If $P_0<PV(y)$, borrow $P_0$ at time 0 and buy the asset. The asset's cash flows are sufficient to service the debt and still leave a strictly positive surplus in present-value terms, which is an arbitrage.
+
+If $P_0>PV(y)$, short the asset, receive $P_0$ at time 0, invest the proceeds, and use the investment returns to cover the promised asset payments. The excess $P_0-PV(y)$ yields arbitrage.
+
+Hence no-arbitrage requires
+\[
+P_0=PV(y).
+\]
+\end{proof}
+
+\begin{definition}{Net present value}{ch4-npv}
+If acquiring an asset requires payment stream
+\[
+m=(m_0,m_1,\dots,m_T)
+\]
+and yields payoff stream
+\[
+y=(y_0,y_1,\dots,y_T),
+\]
+then its \emph{net present value} is
+\[
+NPV=\sum_{t=0}^{T}\frac{y_t-m_t}{(1+r)^t}.
+\]
+\end{definition}
+
+A project is attractive at discount rate $r$ if its net present value is positive.
+
+\begin{theorem}{Perpetuity formula}{ch4-perpetuity}
+A perpetuity that pays a fixed amount $m$ each period forever, starting in period 1, has present value
+\[
+PV = \frac{m}{r}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+PV=\frac{m}{1+r}+\frac{m}{(1+r)^2}+\frac{m}{(1+r)^3}+\cdots.
+\]
+Multiply both sides by $\frac{1}{1+r}$:
+\[
+\frac{PV}{1+r}
+=
+\frac{m}{(1+r)^2}+\frac{m}{(1+r)^3}+\cdots.
+\]
+Subtract this from the original expression:
+\[
+PV-\frac{PV}{1+r}=\frac{m}{1+r}.
+\]
+So
+\[
+\frac{r}{1+r}PV=\frac{m}{1+r},
+\]
+hence
+\[
+PV=\frac{m}{r}.
+\]
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: net present value of a delayed perpetuity project}]
+Suppose a project requires payment of $1$ in each of the first three periods and then pays $2$ forever from period 3 onward. Its net present value is
+\[
+NPV
+=
+-1-\frac{1}{1+r}-\frac{1}{(1+r)^2}
++\frac{2}{(1+r)^3}+\frac{2}{(1+r)^4}+\cdots.
+\]
+The infinite tail is a perpetuity starting at period 3, so
+\[
+\frac{2}{(1+r)^3}+\frac{2}{(1+r)^4}+\cdots
+=
+\frac{1}{(1+r)^2}\left(\frac{2}{1+r}+\frac{2}{(1+r)^2}+\cdots\right)
+=
+\frac{1}{(1+r)^2}\cdot \frac{2}{r}.
+\]
+Therefore
+\[
+NPV
+=
+\frac{2}{r(1+r)^2}
+-
+\left(
+1+\frac{1}{1+r}+\frac{1}{(1+r)^2}
+\right).
+\]
+So the correct compact expression is
+\[
+\boxed{
+NPV
+=
+\frac{2}{r(1+r)^2}
+-
+\left(
+1+\frac{1}{1+r}+\frac{1}{(1+r)^2}
+\right).
+}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: installment loan interest rate}]
+An installment loan gives $m=1000$ upfront and requires monthly payments of $y=100$ for $T=12$ months. The correct monthly interest rate $r$ solves
+\[
+1000
+=
+\frac{100}{1+r}
++
+\frac{100}{(1+r)^2}
++\cdots+
+\frac{100}{(1+r)^{12}}.
+\]
+This is \emph{not} the same as taking
+\[
+\frac{12\cdot 100}{1000}-1=20\%.
+\]
+That simple ratio ignores the fact that payments are made over time rather than all at the end.
+
+Numerically, the solution is approximately
+\[
+r \approx 0.03
+\]
+per month, i.e. about $3\%$ monthly. The implied annual rate is therefore much larger than $20\%$; Lecture 4 reports it as roughly $41\%$ per year.
+
+The exam logic is:
+\begin{enumerate}
+    \item write the present-value equation for the loan;
+    \item solve for the periodic interest rate;
+    \item do not treat the total repayment as if it occurred only in the final period.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Asset Price Changes and Rates of Return}
+
+Suppose an asset does not pay dividends in period 0 and its price rises from $p_0$ to $p_1$ with certainty by next period.
+
+\begin{theorem}{No-arbitrage return condition}{ch4-return}
+If the asset pays no interim cash flow and can be traded freely, then no arbitrage implies
+\[
+r=\frac{p_1-p_0}{p_0}.
+\]
+Equivalently,
+\[
+p_0=\frac{p_1}{1+r}.
+\]
+\end{theorem}
+
+\begin{proof}
+If
+\[
+\frac{p_1-p_0}{p_0}>r,
+\]
+borrow $p_0$, buy the asset, sell it next period for $p_1$, and repay $(1+r)p_0$. The surplus
+\[
+p_1-(1+r)p_0>0
+\]
+is an arbitrage.
+
+If
+\[
+\frac{p_1-p_0}{p_0}<r,
+\]
+short the asset, receive $p_0$, invest at rate $r$, and next period buy back the asset for $p_1$. The surplus
+\[
+(1+r)p_0-p_1>0
+\]
+is an arbitrage.
+
+Therefore only
+\[
+\frac{p_1-p_0}{p_0}=r
+\]
+can hold.
+\end{proof}
+
+\begin{policynote}[title={Policy Application: housing as an asset}]
+A house pays housing services rather than direct cash. If the monetary rental value of current housing services is $y_0$ and next period's house price is $p_1$, then no-arbitrage implies
+\[
+p_0 = y_0 + \frac{p_1}{1+r}.
+\]
+So the value of a house is the value of current housing services plus the discounted resale value.
+\end{policynote}
+
+\begin{policynote}[title={Policy Application: depletable resources}]
+If a depletable resource such as oil yields no extraction cost and must eventually be replaced by a perfect substitute with cost $C$ at terminal date $T$, then no-arbitrage implies
+\[
+p_t = \frac{p_{t+1}}{1+r}.
+\]
+Hence
+\[
+p_0 = \frac{p_T}{(1+r)^T} = \frac{C}{(1+r)^T}.
+\]
+This is the basic present-value logic behind the price path of a scarce exhaustible resource.
+\end{policynote}
+
+\subsection{Taxes and Asset Returns}
+
+Lecture 4 also studies taxes on interest income and asset returns.
+
+\begin{definition}{After-tax interest rate}{ch4-after-tax}
+If the tax rate on interest income is $\tau$, then one dollar saved becomes
+\[
+1+r(1-\tau)
+\]
+next period. Thus the effective after-tax interest rate is
+\[
+r(1-\tau).
+\]
+\end{definition}
+
+This means taxes reduce the reward to saving and soften the incentive to transfer consumption into the future.
+
+Now consider two assets:
+\begin{itemize}
+    \item asset $A$ is untaxed;
+    \item asset $B$ faces tax rate $\tau$ on its capital gain.
+\end{itemize}
+
+\begin{theorem}{Required pre-tax return on a taxed asset}{ch4-taxed-asset}
+Suppose asset $B$ has price $p_0^B$ today and price $p_1^B$ next period, and the tax rate on its return is $\tau$. No arbitrage implies
+\[
+p_0^B = \left(\frac{1-\tau}{1-\tau+r}\right)p_1^B,
+\]
+equivalently,
+\[
+\frac{p_1^B-p_0^B}{p_0^B}=\frac{r}{1-\tau}.
+\]
+\end{theorem}
+
+\begin{proof}
+If an investor buys asset $B$ at time 0 for $p_0^B$, then next period the gross proceeds net of tax are
+\[
+p_1^B - \tau(p_1^B-p_0^B).
+\]
+No arbitrage requires this to equal the gross return from investing $p_0^B$ at interest rate $r$:
+\[
+(1+r)p_0^B = p_1^B - \tau(p_1^B-p_0^B).
+\]
+Rearranging:
+\[
+(1+r)p_0^B = (1-\tau)p_1^B + \tau p_0^B,
+\]
+so
+\[
+(1-\tau+r)p_0^B = (1-\tau)p_1^B.
+\]
+Hence
+\[
+p_0^B = \left(\frac{1-\tau}{1-\tau+r}\right)p_1^B.
+\]
+Subtract $p_0^B$ from both sides of the equivalent expression
+\[
+(1-\tau+r)p_0^B=(1-\tau)p_1^B
+\]
+to get
+\[
+rp_0^B = (1-\tau)(p_1^B-p_0^B),
+\]
+which gives
+\[
+\frac{p_1^B-p_0^B}{p_0^B}=\frac{r}{1-\tau}.
+\]
+\end{proof}
+
+Thus the taxed asset must offer a higher \emph{pre-tax} return than the untaxed asset in order to remain competitive after tax.
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 4 Summary}]
+\begin{align*}
+x_0+s_0 &= y_0, \\
+x_1 &= (1+r)s_0+y_1, \\
+x_0+\frac{x_1}{1+r} &= y_0+\frac{y_1}{1+r}, \\
+p &= \left(1,\frac{1}{1+r}\right), \\
+\sum_{t=0}^{T}\frac{x_t}{(1+r)^t} &= \sum_{t=0}^{T}\frac{y_t}{(1+r)^t}, \\
+1+\rho &= \frac{1+r}{1+\pi}, \\
+U(x_0,x_1) &= u(x_0)+\delta u(x_1), \\
+u'(x_0) &= (1+r)\delta u'(x_1), \\
+P_0 &= \sum_{t=0}^{T}\frac{y_t}{(1+r)^t}, \\
+NPV &= \sum_{t=0}^{T}\frac{y_t-m_t}{(1+r)^t}, \\
+PV_{\text{perpetuity}} &= \frac{m}{r}, \\
+r &= \frac{p_1-p_0}{p_0}, \\
+p_0^B &= \left(\frac{1-\tau}{1-\tau+r}\right)p_1^B.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield skills from Lecture 4 are:
+\begin{itemize}
+    \item convert intertemporal budgets into present-value form;
+    \item interpret $1/(1+r)$ as the price of future consumption;
+    \item distinguish savers from borrowers and use price-change logic correctly;
+    \item use
+    \[
+    u'(x_0)=(1+r)\delta u'(x_1)
+    \]
+    for discounted-utility problems;
+    \item compute present values, real interest rates, and net present values cleanly;
+    \item apply no-arbitrage to price assets and derive required returns;
+    \item adjust return formulas correctly when taxes are imposed.
+\end{itemize}
+\end{examtip}

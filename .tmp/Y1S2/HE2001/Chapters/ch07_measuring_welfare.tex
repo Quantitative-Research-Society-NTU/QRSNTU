@@ -1,0 +1,528 @@
+% chapters/ch07_measuring_welfare.tex
+
+\section{Measuring Welfare}
+
+This chapter begins Part II by introducing monetary measures of welfare. Utility is the conceptual object that captures welfare, but utility itself is not directly observable. For policy analysis, market intervention, and social-welfare comparisons, it is therefore useful to translate changes in utility into dollar terms. The main measures in this chapter are reservation prices, gains to trade, consumer surplus, compensating variation, equivalent variation, and producer surplus.
+
+\subsection{Why Measure Welfare in Monetary Terms?}
+
+A central goal of welfare economics is to compare alternative allocations, prices, and policies. Since utility is not directly observed, economists often use monetary measures that track how much income a consumer would be willing to give up or require in compensation.
+
+\begin{definition}{Monetary welfare measure}{ch7-monetary-welfare}
+A \emph{monetary welfare measure} is a dollar amount that is equivalent to a change in utility. It answers questions such as:
+\begin{itemize}
+    \item How much is a consumer willing to pay for a good or opportunity?
+    \item How much compensation is needed after a harmful price change?
+    \item How much welfare is gained from access to a market?
+\end{itemize}
+\end{definition}
+
+\begin{examtip}
+The point of monetary welfare measures is not to replace utility, but to express changes in utility in a common unit that can be compared with costs, benefits, taxes, subsidies, or producer gains.
+\end{examtip}
+
+\subsection{Reservation Prices and Gains to Trade}
+
+The most direct monetary measure of value is a reservation price.
+
+\begin{definition}{Reservation price}{ch7-reservation-price}
+A \emph{reservation price} is the maximum amount of money a consumer is willing to pay for a good, action, or marginal increase in consumption.
+\end{definition}
+
+For an indivisible object, such as buying one iPhone, the reservation price is defined by indifference between buying and not buying.
+
+\begin{keyformula}[title={Key Formula: Reservation Price for a Discrete Object}]
+Suppose utility depends on cash holdings and ownership of an object:
+\[
+U(\text{cash}, \text{ownership}).
+\]
+If income is $I$, then the reservation price $r$ satisfies
+\[
+U(I-r,\text{own object}) = U(I,\text{do not own object}).
+\]
+Hence:
+\begin{itemize}
+    \item if price $p<r$, buy;
+    \item if price $p>r$, do not buy.
+\end{itemize}
+\end{keyformula}
+
+For repeated units of a good, reservation prices can be defined unit by unit.
+
+\begin{definition}{Reservation price sequence and gains to trade}{ch7-rp-sequence}
+Let $r_n$ denote the reservation price for the $n$th unit of a good, given that the consumer already has $n-1$ units. If the market price is $p$, then the consumer buys the $n$th unit only if
+\[
+r_n - p > 0.
+\]
+If the consumer buys $n$ units, the total dollar value of net utility gains from trade is
+\[
+\sum_{i=1}^{n} (r_i-p)
+=
+\left(\sum_{i=1}^{n} r_i\right) - np.
+\]
+\end{definition}
+
+When the good is infinitely divisible, this becomes the area between the reservation price curve and the price line.
+
+\begin{examplebox}[title={Worked Example: reservation price for nuggets}]
+Suppose Tom has utility
+\[
+U(\text{cash held}, \#\text{nuggets}) = \text{cash held} + 10 \times \#\text{nuggets}.
+\]
+
+Then the gain from one extra nugget is always $10$ units of utility, and one dollar of cash is worth $1$ unit of utility. Therefore the reservation price for the first nugget is
+\[
+\boxed{10}.
+\]
+
+Because utility is linear in the number of nuggets, the marginal utility of nuggets does not change with the number already consumed. Hence the reservation price does \emph{not} change across units:
+\[
+r_1=r_2=r_3=\cdots=10.
+\]
+\end{examplebox}
+
+\subsection{Consumer Surplus and Its Interpretation}
+
+Consumer surplus is often used to approximate the gains to trade from market participation.
+
+\begin{definition}{Consumer surplus}{ch7-cs}
+Let $x(p)$ denote Marshallian demand for a good and let $P(x)$ denote inverse demand. Consumer surplus at price $p$ is
+\[
+CS = \int_0^{x(p)} P(q)\,dq - p\,x(p).
+\]
+Graphically, it is the area under the inverse demand curve and above the price line, up to the chosen quantity.
+\end{definition}
+
+For a price increase from $p'$ to $p''>p'$, the loss in consumer surplus is the area under Marshallian demand between the two prices:
+\[
+\Delta CS_{\text{loss}} = \int_{p'}^{p''} x(p)\,dp.
+\]
+
+\begin{commonmistake}
+Consumer surplus is \emph{not} generally the same as the exact utility gain from trade. It is computed from the inverse demand curve, whereas exact gains to trade are based on the reservation price curve.
+\end{commonmistake}
+
+\subsection{Reservation Price Curve versus Inverse Demand Curve}
+
+These two curves look similar, but they are conceptually different.
+
+\begin{definition}{Reservation price curve}{ch7-rp-curve}
+A \emph{reservation price curve} records the willingness to pay for successive marginal units of a good, holding the reference level of money available for other goods fixed.
+\end{definition}
+
+\begin{definition}{Inverse demand curve}{ch7-inverse-demand}
+An \emph{inverse demand curve} gives the price at which a total quantity $x$ is the optimal quantity purchased when all $x$ units are bought at that price.
+\end{definition}
+
+The difference comes from income effects:
+\begin{itemize}
+    \item along the reservation price curve, the reference cash level is held fixed when valuing marginal units;
+    \item along inverse demand, the amount of money left over changes with the quantity chosen.
+\end{itemize}
+Therefore the two curves need not coincide.
+
+\begin{examtip}
+If the question asks whether consumer surplus is an \emph{exact} welfare measure, the correct answer is usually ``not in general.'' It becomes exact only under special assumptions, especially quasi-linear utility.
+\end{examtip}
+
+\subsection{Quasi-Linear Utility and Exact Consumer Surplus}
+
+The main special case where consumer surplus becomes exact is quasi-linearity.
+
+\begin{definition}{Quasi-linear utility}{ch7-quasilinear}
+A two-good utility function is \emph{quasi-linear in $x_2$} if it takes the form
+\[
+U(x_1,x_2)=v(x_1)+\alpha x_2,
+\]
+where $v$ is increasing and typically concave, and $\alpha>0$ is constant.
+\end{definition}
+
+If utility is quasi-linear in $x_2$, then the marginal utility of $x_2$ is constant. This removes the income effect on $x_1$.
+
+\begin{theorem}{No income effect under quasi-linear utility}{ch7-no-income-effect}
+If
+\[
+U(x,m)=v(x)+m,
+\]
+where $m$ is money left over for other goods, then demand for $x$ is independent of income. In particular, the inverse demand curve and reservation price curve coincide.
+\end{theorem}
+
+\begin{proof}
+Consider
+\[
+\max_{x,m} \ v(x)+m
+\quad \text{subject to} \quad
+px+m=I.
+\]
+Substituting $m=I-px$ gives
+\[
+\max_x \ v(x)+I-px.
+\]
+The first-order condition is
+\[
+v'(x)=p.
+\]
+This condition depends on $x$ and $p$, but not on income $I$. Hence there is no income effect on $x$. Since willingness to pay for the marginal unit is also given by
+\[
+v'(x),
+\]
+the inverse demand and reservation price curves coincide.
+\end{proof}
+
+\begin{theorem}{Consumer surplus equals gains to trade under quasi-linear utility}{ch7-cs-exact}
+If
+\[
+U(x,m)=v(x)+m,
+\]
+then consumer surplus is an exact measure of gains to trade:
+\[
+CS = v(x)-v(0)-px.
+\]
+\end{theorem}
+
+\begin{proof}
+Under quasi-linear utility, inverse demand is
+\[
+p=v'(x).
+\]
+Hence
+\[
+CS = \int_0^x v'(q)\,dq - px
+= v(x)-v(0)-px.
+\]
+This is exactly the net utility gain from obtaining $x$ units rather than zero units.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: identifying quasi-linear utility}]
+Consider the following utility functions:
+\[
+U(x,y)=x+y, \qquad U(x,y)=x+4y, \qquad U(x,y)=x+3\sqrt{y}.
+\]
+
+\begin{itemize}
+    \item $U(x,y)=x+y$ is quasi-linear in both goods, since it is linear in both.
+    \item $U(x,y)=x+4y$ is also quasi-linear in both goods.
+    \item $U(x,y)=x+3\sqrt{y}$ is quasi-linear in $x$, since it can be written as
+    \[
+    U(x,y)=x+v(y)
+    \quad \text{with} \quad
+    v(y)=3\sqrt{y}.
+    \]
+\end{itemize}
+
+However, the zero-income-effect conclusion must be attached to the good that enters through the \emph{nonlinear} part in the standard quasi-linear setup. For example, if
+\[
+U(x,y)=y+3\sqrt{x},
+\]
+then utility is quasi-linear in $y$, and demand for $x$ has zero income effect.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not say ``quasi-linear means no income effects for both goods.'' The standard result is that the good appearing inside the nonlinear part has zero income effect when utility is quasi-linear in the other good.
+\end{commonmistake}
+
+\subsection{Price Changes and Welfare: Indirect Utility, CV, and EV}
+
+Consumer surplus is convenient, but it is not always exact. Two exact monetary measures of welfare change are compensating variation and equivalent variation.
+
+\begin{definition}{Indirect utility}{ch7-indirect-utility}
+The \emph{indirect utility function} is
+\[
+V(p,I)=\max_{x} U(x)
+\quad \text{subject to} \quad
+p\cdot x \le I.
+\]
+It gives the maximum utility attainable at prices $p$ and income $I$.
+\end{definition}
+
+Suppose the price of good 1 rises from $p_1'$ to $p_1''$, with $p_2$ fixed and income $I$ fixed.
+
+\begin{definition}{Compensating variation and equivalent variation}{ch7-cv-ev}
+For a price increase:
+\begin{itemize}
+    \item \emph{Compensating variation (CV)} is the least extra income needed at the \emph{new} prices to restore the consumer to the \emph{original} utility level:
+    \[
+    V(p_1'',p_2, I+CV)=V(p_1',p_2,I).
+    \]
+    \item \emph{Equivalent variation (EV)} is the greatest amount of income that can be taken away at the \emph{old} prices while leaving the consumer at the \emph{final} utility level:
+    \[
+    V(p_1',p_2, I-EV)=V(p_1'',p_2,I).
+    \]
+\end{itemize}
+\end{definition}
+
+For a price increase, both $CV$ and $EV$ are positive if they are interpreted as magnitudes of welfare loss.
+
+\begin{examtip}
+The difference between CV and EV is the reference point:
+\begin{itemize}
+    \item \textbf{CV:} new prices, old utility;
+    \item \textbf{EV:} old prices, new utility.
+\end{itemize}
+A good mnemonic is:
+\begin{itemize}
+    \item \emph{compensating} = money added after the bad change;
+    \item \emph{equivalent} = money taken away before the bad change.
+\end{itemize}
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: indirect utility, EV, and CV for perfect complements}]
+Suppose
+\[
+U(x_1,x_2)=\min\{x_1,x_2\},
+\qquad
+I=100,
+\qquad
+p_2=10,
+\]
+and the price of good 1 rises from
+\[
+p_1'=5
+\quad \text{to} \quad
+p_1''=10.
+\]
+
+Since utility is Leontief, the optimal bundle satisfies
+\[
+x_1=x_2.
+\]
+Using the budget constraint
+\[
+p_1x_1+p_2x_2=I,
+\]
+we get
+\[
+x_1=x_2=\frac{I}{p_1+p_2}.
+\]
+Therefore the indirect utility is
+\[
+V(p_1,p_2,I)=\frac{I}{p_1+p_2}.
+\]
+
+\textbf{Initial utility:}
+\[
+V(5,10,100)=\frac{100}{15}=\frac{20}{3}.
+\]
+
+\textbf{Final utility:}
+\[
+V(10,10,100)=\frac{100}{20}=5.
+\]
+
+\textbf{Equivalent variation:} solve
+\[
+V(5,10,100-EV)=5.
+\]
+So
+\[
+\frac{100-EV}{15}=5
+\quad \Longrightarrow \quad
+100-EV=75
+\quad \Longrightarrow \quad
+EV=25.
+\]
+
+\textbf{Compensating variation:} solve
+\[
+V(10,10,100+CV)=\frac{20}{3}.
+\]
+So
+\[
+\frac{100+CV}{20}=\frac{20}{3}
+\quad \Longrightarrow \quad
+100+CV=\frac{400}{3}
+\quad \Longrightarrow \quad
+CV=\frac{100}{3}.
+\]
+
+Hence
+\[
+\boxed{EV=25, \qquad CV=\frac{100}{3}.}
+\]
+Both are positive, as expected for a welfare-reducing price increase.
+\end{examplebox}
+
+\subsection{Comparing \texorpdfstring{$\Delta CS$}{Delta CS}, CV, and EV}
+
+These three measures are closely related.
+
+\begin{theorem}{Relationship between consumer surplus, CV, and EV}{ch7-cs-cv-ev}
+For a price change in the two-good case, the consumer-surplus measure lies between compensating variation and equivalent variation:
+\[
+\min\{|CV|,|EV|\} \le |\Delta CS| \le \max\{|CV|,|EV|\}.
+\]
+When utility is quasi-linear in the other good, all three measures coincide.
+\end{theorem}
+
+\begin{examplebox}[title={Worked Example: comparing the three welfare measures}]
+Continue the previous example with
+\[
+U(x_1,x_2)=\min\{x_1,x_2\},
+\qquad
+I=100,
+\qquad
+p_2=10,
+\qquad
+p_1: 5 \to 10.
+\]
+We already found
+\[
+EV=25,
+\qquad
+CV=\frac{100}{3}\approx 33.33.
+\]
+
+Marshallian demand for good 1 is
+\[
+x_1(p_1)=\frac{100}{p_1+10}.
+\]
+So the loss in consumer surplus from the price increase is
+\[
+\Delta CS_{\text{loss}}
+=
+\int_{5}^{10}\frac{100}{p_1+10}\,dp_1
+=
+100\ln\left(\frac{20}{15}\right)
+=
+100\ln\left(\frac{4}{3}\right)
+\approx 28.77.
+\]
+
+Hence
+\[
+25 = EV < \Delta CS_{\text{loss}} \approx 28.77 < CV \approx 33.33.
+\]
+So $\Delta CS$ lies between EV and CV, exactly as theory predicts.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not treat
+\[
+x_1 \cdot (p_1''-p_1')
+\]
+as the welfare loss from a price increase. That ignores substitution effects and therefore generally overstates the true utility loss.
+\end{commonmistake}
+
+\subsection{Producer Surplus}
+
+Welfare analysis also applies to producers. The lecture treats producer surplus as the producer-side analogue of consumer surplus.
+
+\begin{definition}{Producer surplus}{ch7-ps}
+If a firm supplies quantity $q$ at price $p$ and has marginal cost curve $MC(q)$, then producer surplus is
+\[
+PS = pq - VC(q)
+= \int_0^q \bigl(p-MC(\tilde q)\bigr)\,d\tilde q,
+\]
+where $VC(q)$ is variable cost.
+\end{definition}
+
+Under standard profit maximization, the competitive supply curve is the marginal-cost curve above shutdown. Hence producer surplus is the area above supply and below price, up to the quantity sold.
+
+\begin{examplebox}[title={Worked Example: producer surplus from marginal cost}]
+Suppose a competitive firm's marginal cost is
+\[
+MC(q)=2q,
+\]
+and market price is
+\[
+p=10.
+\]
+The profit-maximizing quantity satisfies
+\[
+p=MC(q)
+\quad \Longrightarrow \quad
+10=2q
+\quad \Longrightarrow \quad
+q=5.
+\]
+
+Producer surplus is
+\[
+PS=\int_0^5 (10-2q)\,dq
+= \left[10q-q^2\right]_0^5
+=50-25
+=25.
+\]
+Therefore
+\[
+\boxed{PS=25.}
+\]
+\end{examplebox}
+
+\begin{policynote}
+Consumer surplus and producer surplus are central because later welfare analysis often aggregates them to study taxes, subsidies, quotas, and other market interventions. This chapter provides the monetary foundations for that aggregation.
+\end{policynote}
+
+\subsection{Standard Problem Types and Solution Patterns}
+
+\begin{examtip}[title={Method Pattern: reservation price questions}]
+For discrete or indivisible objects:
+\begin{enumerate}
+    \item write the consumer's utility before and after purchase;
+    \item set them equal to identify the reservation price;
+    \item compare the actual price with the reservation price.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: quasi-linear utility}]
+If utility is
+\[
+U(x,m)=v(x)+m,
+\]
+then:
+\begin{enumerate}
+    \item use
+    \[
+    v'(x)=p
+    \]
+    to find demand;
+    \item conclude there is no income effect on $x$;
+    \item use consumer surplus as an exact welfare measure.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: EV/CV questions}]
+For price-change questions:
+\begin{enumerate}
+    \item derive or identify the indirect utility function $V(p,I)$;
+    \item compute initial and final utility levels;
+    \item solve
+    \[
+    V(\text{new prices}, I+CV)=V(\text{old prices}, I)
+    \]
+    for $CV$;
+    \item solve
+    \[
+    V(\text{old prices}, I-EV)=V(\text{new prices}, I)
+    \]
+    for $EV$.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 7 Summary}]
+\begin{align*}
+U(I-r,\text{own}) &= U(I,\text{not own}) && \text{reservation price}, \\
+\text{Gains to trade} &= \sum_{i=1}^{n}(r_i-p), \\
+CS &= \int_0^{x(p)} P(q)\,dq - p\,x(p), \\
+V(p,I) &= \max_x U(x) \ \text{s.t.}\ p\cdot x \le I, \\
+V(p_1'',p_2,I+CV) &= V(p_1',p_2,I), \\
+V(p_1',p_2,I-EV) &= V(p_1'',p_2,I), \\
+\min\{|CV|,|EV|\} &\le |\Delta CS| \le \max\{|CV|,|EV|\}, \\
+U(x,m)=v(x)+m &\Rightarrow v'(x)=p \text{ and } CS \text{ is exact}, \\
+PS &= \int_0^q \bigl(p-MC(\tilde q)\bigr)\,d\tilde q.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield takeaways from this chapter are:
+\begin{itemize}
+    \item utility changes are often measured in money because utility is not directly observable;
+    \item reservation prices measure willingness to pay for marginal utility gains;
+    \item consumer surplus usually approximates gains to trade, but becomes exact under quasi-linear utility;
+    \item EV and CV are exact welfare measures for price changes and account for substitution effects;
+    \item for a price increase, EV and CV are positive magnitudes of welfare loss;
+    \item producer surplus measures firm welfare when firms maximize profit.
+\end{itemize}
+\end{examtip}

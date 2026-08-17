@@ -1,0 +1,1018 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+% Cross-check file: :contentReference[oaicite:1]{index=1}
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 7}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial - QRS@NTU - qrsntu.org}
+\SetWatermarkScale{1.0}
+\SetWatermarkLightness{0.985}
+
+%------------- SHORTCUTS -------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\comp}[1]{\overline{#1}}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.82\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.82\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial develops the basic counting and structural theory of finite simple graphs. The main themes are:
+\begin{itemize}[leftmargin=*]
+  \item counting labelled simple graphs with prescribed numbers of vertices and edges;
+  \item regular graphs and the Handshaking Lemma;
+  \item classification of small graphs up to isomorphism;
+  \item degree arguments and the pigeonhole principle in graph theory;
+  \item complements of graphs, self-complementary graphs, and invariance under isomorphism;
+  \item counting labelled subgraphs of a complete graph.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Question 1: labelled simple graphs with \(n\) vertices and \(m\) edges.
+  \item Questions 2--5: regularity, edge counts, and non-isomorphic small graphs.
+  \item Questions 6--9: complements, self-complementary graphs, and cycle graphs.
+  \item Question 10: counting subgraphs of \(K_3\) with labelled vertices.
+\end{itemize}
+
+\newpage
+%====================================================
+% TABLE OF CONTENTS
+%====================================================
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Counting simple graphs with \(n\) vertices and \(m\) edges)}
+
+\subsection{Problem}
+How many different possible simple graphs of \(n\) vertices and \(m\) edges are there?
+
+Assume that \(G=(V,E)\) with
+\[
+V=\{1,2,\dots,n\}.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Choose the edge set directly}
+Because the graph is simple, an edge is an unordered pair of distinct vertices. Hence the total number of \emph{possible} edges on the fixed vertex set
+\[
+V=\{1,2,\dots,n\}
+\]
+is
+\[
+\binom{n}{2}=\frac{n(n-1)}{2}.
+\]
+A simple graph with exactly \(m\) edges is determined uniquely by choosing which \(m\) of these \(\binom{n}{2}\) possible edges are present.
+
+Therefore the number of such graphs is
+\[
+\binom{\binom{n}{2}}{m}
+=
+\binom{\,n(n-1)/2\,}{m}.
+\]
+
+Hence
+\[
+\boxed{\binom{\binom{n}{2}}{m}=\binom{\,n(n-1)/2\,}{m}.}
+\]
+
+\subsubsection{Method 2: Direct counting formulas}
+\[
+\#\{G=(V,E):|V|=n,\ |E|=m\}
+=
+\binom{\binom{n}{2}}{m}.
+\]
+Hence
+\[
+\boxed{\binom{\binom{n}{2}}{m}.}
+\]
+\subsubsection{Method 3: Incidence-vector viewpoint}
+List the \(\binom{n}{2}\) possible edges of the complete graph \(K_n\) in some fixed order:
+\[
+e_1,e_2,\dots,e_{\binom{n}{2}}.
+\]
+Any simple graph \(G\) on the labelled vertex set \(V\) can then be encoded by a binary vector
+\[
+(\varepsilon_1,\varepsilon_2,\dots,\varepsilon_{\binom{n}{2}}),
+\]
+where
+\[
+\varepsilon_i=
+\begin{cases}
+1, & \text{if } e_i\in E(G),\\
+0, & \text{if } e_i\notin E(G).
+\end{cases}
+\]
+The graph has exactly \(m\) edges precisely when this binary vector has exactly \(m\) entries equal to \(1\).
+
+Thus the number of such graphs is exactly the number of binary strings of length \(\binom{n}{2}\) with Hamming weight \(m\), which is
+\[
+\binom{\binom{n}{2}}{m}.
+\]
+Therefore
+\[
+\boxed{\binom{\binom{n}{2}}{m}=\binom{\,n(n-1)/2\,}{m}.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Regular graphs and graphs with many edges)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Do simple, \(3\)-regular graphs with \(5\) edges exist?
+\item How many graphs with \(6\) vertices and \(14\) edges (with vertex labels \(\{1,\dots,6\}\)) are there?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Handshaking Lemma and direct counting}
+\begin{enumerate}[label=(\alph*)]
+\item Suppose such a graph exists, and let it have \(n\) vertices. Since it is \(3\)-regular, every vertex has degree \(3\), so the sum of the degrees is
+\[
+3n.
+\]
+On the other hand, the Handshaking Lemma says that the sum of the degrees equals twice the number of edges:
+\[
+\sum_{v\in V}\deg(v)=2|E|=2\cdot 5=10.
+\]
+Therefore
+\[
+3n=10,
+\]
+which is impossible because \(n\) must be an integer.
+
+Hence no such simple graph exists:
+\[
+\boxed{\text{No, a simple \(3\)-regular graph with \(5\) edges does not exist.}}
+\]
+
+\item A simple graph on \(6\) labelled vertices has at most
+\[
+\binom{6}{2}=15
+\]
+edges. So a graph with \(14\) edges is obtained by removing exactly one edge from \(K_6\).
+
+There are exactly \(15\) possible edges in \(K_6\), and each choice of the omitted edge yields a distinct labelled graph. Therefore the number of such graphs is
+\[
+15.
+\]
+Hence
+\[
+\boxed{15.}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Direct use of graph formulas}
+\begin{enumerate}[label=(\alph*)]
+\item
+If \(G\) is \(3\)-regular with \(5\) edges, then
+\[
+3|V|=2|E|=10,
+\]
+impossible. Hence
+\[
+\boxed{\text{No such graph exists.}}
+\]
+
+\item
+\[
+\#\{G=(V,E):|V|=6,\ |E|=14\}
+=
+\binom{\binom{6}{2}}{14}
+=
+\binom{15}{14}
+=
+15.
+\]
+Hence
+\[
+\boxed{15.}
+\]
+\end{enumerate}
+\subsubsection{Method 3: Parity/integrality and the general counting formula}
+\begin{enumerate}[label=(\alph*)]
+\item In a \(3\)-regular graph, every vertex has odd degree. By the Handshaking Lemma, the number of odd-degree vertices must be even. So the number of vertices \(n\) must be even.
+
+But if the graph has \(5\) edges, then
+\[
+3n=2|E|=10,
+\]
+so \(n=10/3\), which is not even, and in fact not even an integer. This contradiction shows that such a graph cannot exist.
+
+Therefore
+\[
+\boxed{\text{No such graph exists.}}
+\]
+
+\item By Question 1, the number of labelled simple graphs on \(6\) vertices with \(14\) edges is
+\[
+\binom{\binom{6}{2}}{14}=\binom{15}{14}=15.
+\]
+So
+\[
+\boxed{15.}
+\]
+\end{enumerate}
+
+\newpage
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Non-isomorphic simple graphs with few edges)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item How many non-isomorphic simple graphs with \(3\) vertices and \(2\) edges are there?
+\item How many non-isomorphic simple graphs with \(4\) vertices and \(2\) edges are there?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct shape classification}
+\begin{enumerate}[label=(\alph*)]
+\item A simple graph on \(3\) vertices with \(2\) edges must use all \(3\) vertices, because on only \(2\) vertices there can be at most \(1\) edge.
+
+So the two edges must share a common vertex, producing a path of length \(2\):
+\[
+\bullet - \bullet - \bullet
+\]
+There is only one such shape up to relabelling. Therefore the number of non-isomorphic graphs is
+\[
+\boxed{1.}
+\]
+
+\item Let \(G\) be a simple graph on \(4\) vertices with \(2\) edges. There are only two possibilities:
+\begin{itemize}[leftmargin=*]
+  \item the two edges share a common endpoint, giving a path of length \(2\) together with one isolated vertex;
+  \item the two edges are disjoint, giving two disjoint edges.
+\end{itemize}
+These two graphs are not isomorphic, because the first has degree multiset
+\[
+\{2,1,1,0\},
+\]
+whereas the second has degree multiset
+\[
+\{1,1,1,1\}.
+\]
+Hence there are exactly
+\[
+\boxed{2}
+\]
+non-isomorphic simple graphs with \(4\) vertices and \(2\) edges.
+\end{enumerate}
+
+\subsubsection{Method 2: Classification by degree sequence}
+\begin{enumerate}[label=(\alph*)]
+\item A graph with \(3\) vertices and \(2\) edges has total degree
+\[
+2\cdot 2=4.
+\]
+The only possible degree sequence for a simple graph on \(3\) vertices with total degree \(4\) is
+\[
+(2,1,1).
+\]
+This degree sequence determines exactly the path on \(3\) vertices. Hence there is only one isomorphism class:
+\[
+\boxed{1.}
+\]
+
+\item A graph with \(4\) vertices and \(2\) edges has total degree
+\[
+2\cdot 2=4.
+\]
+The possible non-increasing degree sequences of length \(4\) summing to \(4\) and realizable by simple graphs are:
+\[
+(2,1,1,0),\qquad (1,1,1,1).
+\]
+The first corresponds to a path of length \(2\) together with an isolated vertex. The second corresponds to two disjoint edges.
+
+Since non-isomorphic graphs must have different degree sequences, these yield two distinct isomorphism classes, and there are no others. Therefore
+\[
+\boxed{2.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Ex.\ 10.2.18: Two vertices of the same degree)}
+
+\subsection{Problem}
+Show that in a simple graph with at least two vertices, there must be two vertices that have the same degree.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Pigeonhole principle with forbidden extreme pair}
+Let \(G\) be a simple graph with \(n\ge 2\) vertices. Each vertex degree lies in the set
+\[
+\{0,1,2,\dots,n-1\}.
+\]
+However, a simple graph cannot simultaneously have:
+\begin{itemize}[leftmargin=*]
+  \item a vertex of degree \(0\), and
+  \item a vertex of degree \(n-1\).
+\end{itemize}
+Indeed, if some vertex has degree \(n-1\), then it is adjacent to every other vertex, so no vertex can have degree \(0\).
+
+Therefore the degrees of the \(n\) vertices can take values from at most one of the two sets
+\[
+\{0,1,\dots,n-2\}
+\quad\text{or}\quad
+\{1,2,\dots,n-1\},
+\]
+each of which contains only \(n-1\) possible values.
+
+So we are assigning \(n\) vertices (the pigeons) to at most \(n-1\) possible degree values (the pigeonholes). By the pigeonhole principle, two vertices must have the same degree.
+
+Hence
+\[
+\boxed{\text{In every simple graph with at least two vertices, two vertices have the same degree.}}
+\]
+
+\subsubsection{Method 2: Contradiction by assuming all degrees are distinct}
+Suppose, for contradiction, that all \(n\) vertices have distinct degrees. Since the possible degrees in a simple graph with \(n\) vertices are integers between \(0\) and \(n-1\), the only way to have \(n\) distinct degrees is to realize every one of the values
+\[
+0,1,2,\dots,n-1.
+\]
+In particular, there would be both:
+\begin{itemize}[leftmargin=*]
+  \item a vertex of degree \(0\), and
+  \item a vertex of degree \(n-1\).
+\end{itemize}
+But a vertex of degree \(n-1\) is adjacent to every other vertex, including the alleged degree-\(0\) vertex. That contradicts the fact that the degree-\(0\) vertex is adjacent to no one.
+
+Therefore our assumption was false, and at least two vertices must have equal degree. Thus
+\[
+\boxed{\text{At least two vertices have the same degree.}}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Non-isomorphic simple graphs with \(4\) vertices and \(3\) edges)}
+
+\subsection{Problem}
+How many non-isomorphic simple graphs with \(4\) vertices and \(3\) edges are there?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Classification by degree sequence}
+Let \(G\) be a simple graph with \(4\) vertices and \(3\) edges. Then the sum of its degrees is
+\[
+2|E|=2\cdot 3=6.
+\]
+We list the possible degree sequences of a simple graph on \(4\) vertices whose entries are nonnegative integers, at most \(3\), and sum to \(6\). The realizable possibilities are:
+\[
+(3,1,1,1),\qquad (2,2,2,0),\qquad (2,2,1,1).
+\]
+
+These correspond respectively to:
+\begin{itemize}[leftmargin=*]
+  \item the star \(K_{1,3}\);
+  \item a triangle \(K_3\) together with one isolated vertex;
+  \item the path \(P_4\) on \(4\) vertices.
+\end{itemize}
+
+These three graphs are pairwise non-isomorphic because isomorphic graphs must have the same degree sequence, and these degree sequences are different.
+
+Therefore the number of non-isomorphic simple graphs with \(4\) vertices and \(3\) edges is
+\[
+\boxed{3.}
+\]
+
+\subsubsection{Method 2: Case split according to whether a triangle is present}
+Let \(G\) be a simple graph on \(4\) vertices with \(3\) edges.
+
+\medskip
+\noindent
+\textbf{Case 1: \(G\) contains a triangle.}
+A triangle already uses \(3\) edges, so the fourth vertex must be isolated. Thus \(G\) is isomorphic to
+\[
+K_3\cup K_1.
+\]
+
+\medskip
+\noindent
+\textbf{Case 2: \(G\) contains no triangle.}
+Since \(G\) has \(4\) vertices and \(3\) edges and no triangle, \(G\) is acyclic; otherwise it would contain a cycle, and with only \(4\) vertices and \(3\) edges the only possible cycle would be a triangle.
+
+So \(G\) is a forest with \(4\) vertices and \(3\) edges. Any forest on \(n\) vertices with \(n-1\) edges is a tree, so here \(G\) must be a tree on \(4\) vertices. Up to isomorphism, there are exactly two trees on \(4\) vertices:
+\[
+P_4 \quad\text{and}\quad K_{1,3}.
+\]
+
+Thus the three possibilities are:
+\[
+K_3\cup K_1,\qquad P_4,\qquad K_{1,3}.
+\]
+These are non-isomorphic, for example because their degree sequences are different:
+\[
+(2,2,2,0),\qquad (2,2,1,1),\qquad (3,1,1,1).
+\]
+Therefore
+\[
+\boxed{3.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex.\ 10.2.60 and Ex.\ 10.2.65: Complements of graphs)}
+
+\subsection{Problem}
+The complement of a graph \(G=(V,E)\) is the graph \(\comp{G}=(V,\overline{E})\) where \(\overline{E}\) contains exactly those edges that are not in \(E\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that if \(G\) is a simple graph with \(n\) vertices, then the union of \(G\) and \(\comp{G}\) is \(K_n\).
+\item If \(G\) is a simple graph with \(15\) edges and \(\comp{G}\) has \(13\) edges, how many vertices does \(G\) have?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Edge-set partition argument}
+\begin{enumerate}[label=(\alph*)]
+\item Let \(G=(V,E)\) be a simple graph with \(|V|=n\). By definition, the complement \(\comp{G}\) has the same vertex set \(V\), and its edge set \(\overline{E}\) consists of exactly those unordered pairs of distinct vertices that are \emph{not} in \(E\).
+
+Thus for every pair of distinct vertices \(\{u,v\}\subseteq V\), exactly one of the following holds:
+\[
+\{u,v\}\in E
+\qquad\text{or}\qquad
+\{u,v\}\in \overline{E}.
+\]
+Therefore the union of the edge sets of \(G\) and \(\comp{G}\) contains \emph{every} possible edge on the vertex set \(V\). But the simple graph on \(V\) containing all possible edges is precisely the complete graph \(K_n\).
+
+Hence
+\[
+\boxed{G\cup \comp{G}=K_n.}
+\]
+
+\item Since \(G\) and \(\comp{G}\) partition the edges of \(K_n\), we have
+\[
+|E(G)|+|E(\comp{G})|=|E(K_n)|=\binom{n}{2}.
+\]
+Given
+\[
+|E(G)|=15,\qquad |E(\comp{G})|=13,
+\]
+we obtain
+\[
+\binom{n}{2}=15+13=28.
+\]
+So
+\[
+\frac{n(n-1)}{2}=28
+\quad\Longrightarrow\quad
+n(n-1)=56.
+\]
+Hence
+\[
+n^2-n-56=0=(n-8)(n+7).
+\]
+Since \(n>0\), we get
+\[
+n=8.
+\]
+Therefore
+\[
+\boxed{8.}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Adjacency-based reasoning}
+\begin{enumerate}[label=(\alph*)]
+\item In a simple graph with vertex set \(V\), the complete graph \(K_n\) consists of all unordered pairs of distinct vertices.
+
+For any two distinct vertices \(u,v\in V\), if \(u\) and \(v\) are adjacent in \(G\), then the edge \(\{u,v\}\) belongs to \(G\). If they are not adjacent in \(G\), then by the definition of complement, they are adjacent in \(\comp{G}\). Thus every pair of distinct vertices is adjacent in at least one of the graphs \(G\) or \(\comp{G}\).
+
+So the union graph has all possible adjacencies, which means it is \(K_n\). Therefore
+\[
+\boxed{G\cup \comp{G}=K_n.}
+\]
+
+\item Since \(G\cup \comp{G}=K_n\), the total number of edges across \(G\) and \(\comp{G}\) is the number of edges in \(K_n\), namely
+\[
+\binom{n}{2}.
+\]
+We are told that
+\[
+15+13=28=\binom{n}{2}.
+\]
+Now
+\[
+\binom{8}{2}=\frac{8\cdot 7}{2}=28,
+\]
+so
+\[
+n=8.
+\]
+Hence
+\[
+\boxed{8.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Complements preserve isomorphism)}
+
+\subsection{Problem}
+Suppose that \(G\) and \(H\) are isomorphic simple graphs. Show that their complementary graphs \(\comp{G}\) and \(\comp{H}\) are also isomorphic.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Use the same isomorphism directly}
+Let
+\[
+G=(V_G,E_G), \qquad H=(V_H,E_H),
+\]
+and suppose \(G\cong H\). Then there exists a bijection
+\[
+f:V_G\to V_H
+\]
+such that for all distinct vertices \(u,v\in V_G\),
+\[
+\{u,v\}\in E_G
+\iff
+\{f(u),f(v)\}\in E_H.
+\]
+We must show that the same bijection \(f\) is an isomorphism from \(\comp{G}\) to \(\comp{H}\).
+
+Now
+\[
+\{u,v\}\in E(\comp{G})
+\iff
+\{u,v\}\notin E_G.
+\]
+Using the fact that \(f\) preserves adjacency in \(G\) and \(H\), we obtain
+\[
+\{u,v\}\notin E_G
+\iff
+\{f(u),f(v)\}\notin E_H.
+\]
+But the right-hand side is exactly
+\[
+\{f(u),f(v)\}\in E(\comp{H}).
+\]
+Therefore
+\[
+\{u,v\}\in E(\comp{G})
+\iff
+\{f(u),f(v)\}\in E(\comp{H}).
+\]
+So \(f\) is an isomorphism \(\comp{G}\to \comp{H}\), and hence
+\[
+\boxed{\comp{G}\cong \comp{H}.}
+\]
+
+\subsubsection{Method 2: Adjacency-matrix proof}
+Suppose \(G\) and \(H\) are isomorphic simple graphs on \(n\) vertices. Then there exists a permutation matrix \(P\) such that their adjacency matrices satisfy
+\[
+A_H=P^{T}A_G P.
+\]
+For a simple graph on \(n\) vertices, the adjacency matrix of its complement is
+\[
+A_{\comp{G}}=J-I-A_G,
+\]
+where \(J\) is the \(n\times n\) all-ones matrix and \(I\) is the identity matrix.
+
+Similarly,
+\[
+A_{\comp{H}}=J-I-A_H.
+\]
+Substitute \(A_H=P^{T}A_G P\):
+\begin{align*}
+A_{\comp{H}}
+&=J-I-P^{T}A_G P.
+\end{align*}
+Because \(P\) is a permutation matrix,
+\[
+P^{T}JP=J,\qquad P^{T}IP=I.
+\]
+Hence
+\begin{align*}
+A_{\comp{H}}
+&=P^{T}JP-P^{T}IP-P^{T}A_G P\\
+&=P^{T}(J-I-A_G)P\\
+&=P^{T}A_{\comp{G}}P.
+\end{align*}
+Therefore the adjacency matrices of \(\comp{G}\) and \(\comp{H}\) are permutation-similar, so the graphs are isomorphic:
+\[
+\boxed{\comp{G}\cong \comp{H}.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 8
+%====================================================
+\section{Question 8 (Self-complementary graphs on \(2,3,4\) vertices)}
+
+\subsection{Problem}
+A simple graph \(G\) is called \emph{self-complementary} if \(G\) and \(\comp{G}\) are isomorphic.
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that there are no self-complementary simple graphs with two nor three vertices.
+\item Find a self-complementary simple graph with four vertices.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Edge-count argument plus explicit example}
+\begin{enumerate}[label=(\alph*)]
+\item If a graph \(G\) is self-complementary, then \(G\cong \comp{G}\). Isomorphic graphs have the same number of edges, so
+\[
+|E(G)|=|E(\comp{G})|.
+\]
+But \(G\) and \(\comp{G}\) together partition the edges of the complete graph \(K_n\). Hence
+\[
+|E(G)|+|E(\comp{G})|=\binom{n}{2}.
+\]
+So for a self-complementary graph,
+\[
+2|E(G)|=\binom{n}{2}.
+\]
+Thus \(\binom{n}{2}\) must be even.
+
+Now:
+\[
+\binom{2}{2}=1 \quad\text{is odd},\qquad \binom{3}{2}=3 \quad\text{is odd}.
+\]
+Therefore no self-complementary simple graph can exist on \(2\) or on \(3\) vertices.
+
+Hence
+\[
+\boxed{\text{There are no self-complementary simple graphs with \(2\) or \(3\) vertices.}}
+\]
+
+\item On \(4\) vertices, \(\binom{4}{2}=6\), so a self-complementary graph must have exactly
+\[
+\frac{6}{2}=3
+\]
+edges.
+
+Take the path \(P_4\) on vertices \(1,2,3,4\):
+\[
+E(G)=\bigl\{\{1,2\},\{2,3\},\{3,4\}\bigr\}.
+\]
+Its complement has edge set
+\[
+E(\comp{G})=\bigl\{\{1,3\},\{1,4\},\{2,4\}\bigr\},
+\]
+which is again a path on \(4\) vertices, namely
+\[
+3-1-4-2.
+\]
+So \(G\cong \comp{G}\). For example, the bijection
+\[
+f(1)=3,\qquad f(2)=1,\qquad f(3)=4,\qquad f(4)=2
+\]
+maps the edges of \(G\) to the edges of \(\comp{G}\).
+
+Therefore one self-complementary graph on \(4\) vertices is \(P_4\), and we may state:
+\[
+\boxed{\text{A self-complementary graph on \(4\) vertices is the path }P_4.}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Explicit classification of small graphs}
+\begin{enumerate}[label=(\alph*)]
+\item For \(n=2\), there are only two simple graphs up to isomorphism:
+\begin{itemize}[leftmargin=*]
+  \item the empty graph with \(0\) edges;
+  \item the single-edge graph with \(1\) edge.
+\end{itemize}
+These are complements of each other, but they are not isomorphic because they have different numbers of edges.
+
+For \(n=3\), the isomorphism classes are:
+\begin{itemize}[leftmargin=*]
+  \item the empty graph (\(0\) edges);
+  \item one edge plus an isolated vertex (\(1\) edge);
+  \item a path of length \(2\) (\(2\) edges);
+  \item the triangle \(K_3\) (\(3\) edges).
+\end{itemize}
+Complements pair them as
+\[
+0 \leftrightarrow 3,\qquad 1 \leftrightarrow 2.
+\]
+In each pair, the two graphs have different degree sequences, so they are not isomorphic. Therefore there are no self-complementary graphs on \(2\) or \(3\) vertices.
+
+Thus
+\[
+\boxed{\text{No self-complementary simple graphs exist for \(n=2\) or \(n=3\).}}
+\]
+
+\item By Question 5, up to isomorphism the simple graphs on \(4\) vertices with \(3\) edges are:
+\[
+K_{1,3},\qquad K_3\cup K_1,\qquad P_4.
+\]
+Now
+\begin{itemize}[leftmargin=*]
+  \item \(\comp{K_{1,3}}\cong K_3\cup K_1\);
+  \item \(\comp{K_3\cup K_1}\cong K_{1,3}\);
+  \item \(\comp{P_4}\cong P_4\).
+\end{itemize}
+So the only self-complementary isomorphism class is \(P_4\).
+
+Hence
+\[
+\boxed{\text{A self-complementary graph with \(4\) vertices is }P_4.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 9
+%====================================================
+\section{Question 9 (Self-complementary graphs with five vertices and cycles)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Find a self-complementary simple graph with five vertices.
+\item For which integers \(n\) is \(C_n\) self-complementary?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Use \(C_5\) explicitly}
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+G=C_5
+\]
+with vertex set
+\[
+V=\{1,2,3,4,5\}
+\]
+and edge set
+\[
+E(G)=\bigl\{\{1,2\},\{2,3\},\{3,4\},\{4,5\},\{5,1\}\bigr\}.
+\]
+The complement has the remaining \(5\) edges:
+\[
+E(\comp{G})=
+\bigl\{\{1,3\},\{1,4\},\{2,4\},\{2,5\},\{3,5\}\bigr\}.
+\]
+These edges form the cycle
+\[
+1-3-5-2-4-1.
+\]
+Hence \(\comp{G}\cong C_5\cong G\), so \(C_5\) is self-complementary.
+
+Thus an example is
+\[
+\boxed{C_5.}
+\]
+
+\item If \(C_n\) is self-complementary, then \(C_n\cong \comp{C_n}\). Isomorphic graphs have the same number of edges.
+
+Now \(C_n\) has exactly
+\[
+n
+\]
+edges. The complete graph \(K_n\) has
+\[
+\binom{n}{2}
+\]
+edges, so \(\comp{C_n}\) has
+\[
+\binom{n}{2}-n
+\]
+edges. For self-complementarity we require
+\[
+n=\binom{n}{2}-n.
+\]
+Hence
+\[
+2n=\binom{n}{2}=\frac{n(n-1)}{2}.
+\]
+Multiply by \(2\):
+\[
+4n=n(n-1).
+\]
+Since \(n\ge 3\) for a cycle graph, divide by \(n\):
+\[
+4=n-1,
+\]
+so
+\[
+n=5.
+\]
+Therefore
+\[
+\boxed{C_n \text{ is self-complementary exactly when } n=5.}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Degree argument}
+\begin{enumerate}[label=(\alph*)]
+\item Another way to verify that \(C_5\) is self-complementary is to note that \(C_5\) is \(2\)-regular on \(5\) vertices. In its complement, each vertex is adjacent to all but itself and its two original neighbors, so the complement is also \(2\)-regular on \(5\) vertices. The only connected \(2\)-regular simple graph on \(5\) vertices is \(C_5\), so the complement is again a \(5\)-cycle. Hence
+\[
+\boxed{C_5 \text{ is self-complementary.}}
+\]
+
+\item The cycle \(C_n\) is \(2\)-regular. Its complement \(\comp{C_n}\) is \((n-3)\)-regular, because each vertex was adjacent to \(2\) vertices in \(C_n\) and to the remaining \(n-1-2=n-3\) vertices in the complement.
+
+If \(C_n\) is self-complementary, then \(C_n\cong \comp{C_n}\), so isomorphic graphs must have the same degree sequence. Therefore
+\[
+2=n-3.
+\]
+Hence
+\[
+n=5.
+\]
+Thus
+\[
+\boxed{C_n \text{ is self-complementary if and only if } n=5.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 10
+%====================================================
+\section{Question 10 (Subgraphs of \(K_3\) with at least one vertex)}
+
+\subsection{Problem}
+How many subgraphs with at least one vertex does \(K_3\) have? Assume vertices are labelled and distinct.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Count by the number of chosen vertices}
+Since the vertices are labelled, distinct choices of vertex sets give distinct subgraphs.
+
+\medskip
+\noindent
+\textbf{Case 1: The subgraph has exactly \(1\) vertex.}
+Choose the vertex in
+\[
+\binom{3}{1}=3
+\]
+ways. A graph on one vertex has no edges, so this contributes
+\[
+3.
+\]
+
+\medskip
+\noindent
+\textbf{Case 2: The subgraph has exactly \(2\) vertices.}
+Choose the vertex set in
+\[
+\binom{3}{2}=3
+\]
+ways. On those two labelled vertices, there is exactly one possible edge, which may be either present or absent. Therefore each such vertex set yields
+\[
+2
+\]
+subgraphs, for a contribution of
+\[
+3\cdot 2=6.
+\]
+
+\medskip
+\noindent
+\textbf{Case 3: The subgraph has all \(3\) vertices.}
+There is
+\[
+\binom{3}{3}=1
+\]
+choice of vertex set. Among these three vertices there are exactly three possible edges, and each can be chosen independently to be present or absent. Therefore there are
+\[
+2^3=8
+\]
+such subgraphs.
+
+Summing all cases:
+\[
+3+6+8=17.
+\]
+Hence
+\[
+\boxed{17.}
+\]
+
+\subsubsection{Method 2: Sum over vertex subsets}
+A subgraph of \(K_3\) is determined by:
+\begin{itemize}[leftmargin=*]
+  \item a nonempty vertex subset \(S\subseteq V(K_3)\), and
+  \item an arbitrary subset of the edges among the vertices of \(S\).
+\end{itemize}
+If \(|S|=k\), then there are
+\[
+\binom{k}{2}
+\]
+possible edges on \(S\), so the number of graphs on that fixed labelled vertex set is
+\[
+2^{\binom{k}{2}}.
+\]
+Hence the total number of nonempty subgraphs is
+\[
+\sum_{k=1}^{3} \binom{3}{k} 2^{\binom{k}{2}}.
+\]
+Compute:
+\[
+\binom{3}{1}2^{\binom{1}{2}}
+=
+3\cdot 2^0=3,
+\]
+\[
+\binom{3}{2}2^{\binom{2}{2}}
+=
+3\cdot 2^1=6,
+\]
+\[
+\binom{3}{3}2^{\binom{3}{2}}
+=
+1\cdot 2^3=8.
+\]
+Therefore
+\[
+\sum_{k=1}^{3} \binom{3}{k} 2^{\binom{k}{2}}
+=
+3+6+8=17.
+\]
+So
+\[
+\boxed{17.}
+\]
+
+\end{document}

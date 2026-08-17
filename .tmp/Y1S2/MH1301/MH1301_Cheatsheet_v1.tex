@@ -1,0 +1,322 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,landscape,margin=0.3in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{atbegshi}
+\usepackage[hidelinks]{hyperref}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{-5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize \textbf{MH1301 Discrete Mathematics - Cheat Sheet (Midterm)}}
+\fancyhead[R]{\normalsize\textbf{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.15em}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{10pt}
+
+% =========================
+% Headings
+% =========================
+\titleformat{\section}
+  {\bfseries\normalsize}
+  {}
+  {0pt}
+  {\underline}
+\titleformat{\subsection}
+  {\bfseries\small}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
+
+% =========================
+% Macros
+% =========================
+\newcommand{\N}{\mathbb{N}}
+
+\begin{document}
+
+\begin{multicols*}{3}
+\footnotesize
+\raggedcolumns
+
+% =====================================================
+\section*{Counting Principles}
+% =====================================================
+
+\subsection*{Core rules}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Product rule: if a process has $k$ successive choices with $n_1,n_2,\dots,n_k$ options, then total $N=n_1n_2\cdots n_k$.\\
+Sum rule: if $A_1,\dots,A_k$ are pairwise disjoint, then $|A_1\cup\cdots\cup A_k|=\sum_{i=1}^k |A_i|$.\\
+Inclusion--Exclusion (2): $|A\cup B|=|A|+|B|-|A\cap B|$.\\
+Inclusion--Exclusion (3): $|A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|$.\\
+General IE: $\left|\bigcup_{i=1}^n A_i\right|=\sum |A_i|-\sum |A_i\cap A_j|+\sum |A_i\cap A_j\cap A_k|-\cdots$.\\
+\end{tabular}
+
+\subsection*{Pigeonhole / basic counts}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Pigeonhole principle: if $N>k$, then boxes at least $2$ objects.\\
+\vspace{-10pt}
+Gen. pigeonhole: distributing $N$ objects into $k$ boxes gives $\ge \left\lceil \dfrac{N}{k}\right\rceil$.\\
+\vspace{-10pt}
+Binary strings of length $n$: $2^n$.\\
+\vspace{-10pt}
+Subsets of an $n$-element set: $2^n$.\\
+Characteristic-vector viewpoint: subsets of $\{1,\dots,n\}$ correspond bijectively to $\{0,1\}^n$.\\
+\end{tabular}
+
+% =====================================================
+\section*{Permutations \& Combinations}
+% =====================================================
+
+\subsection*{Selections without repetition}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Permutations of $n$ distinct objects: $n!$.\\
+\vspace{-10pt}
+$r$-permutations: $P(n,r)=n(n-1)\cdots(n-r+1)=\dfrac{n!}{(n-r)!}$.\\
+\vspace{-10pt}
+$r$-combinations: $\binom{n}{r}=\dfrac{n!}{r!(n-r)!}$.\\
+Choose then order: $P(n,r)=\binom{n}{r}r!$.\\
+Symmetry: $\binom{n}{r}=\binom{n}{n-r}$.\\
+Pascal identity: $\binom{n+1}{r}=\binom{n}{r}+\binom{n}{r-1}$.\\
+\vspace{-10pt}
+Hockey-stick: $\sum_{k=r}^{n}\binom{k}{r}=\binom{n+1}{r+1}$; or $\displaystyle\sum_{i=0}^{n}\binom{i+k}{k}=\binom{n+k+1}{k+1}$.\\
+\vspace{-10pt}
+Binomial sum: $\sum_{k=0}^{n}\binom{n}{k}=2^n$.\\
+Alternating sum: $\sum_{k=0}^{n}(-1)^k\binom{n}{k}=0\ (n\ge 1)$.\\
+Weighted sum: $\sum_{k=0}^{n}k\binom{n}{k}=n2^{\,n-1}$.\\
+Second weighted sum: $\sum_{k=0}^{n}k(k-1)\binom{n}{k}=n(n-1)2^{\,n-2}$.\\
+Hence $\sum_{k=0}^{n}k^2\binom{n}{k}=n(n+1)2^{\,n-2}$.\\
+Vandermonde identity: $\sum_{k=0}^{r}\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}$.\\
+\end{tabular}
+
+\subsection*{Circular / restricted arrangements}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Circular permutations of $n$ distinct objects: $(n-1)!$.\\
+If reflections also identified (necklace-type), for distinct objects: $\dfrac{(n-1)!}{2}$ for $n\ge 3$.\\
+Objects $A,B$ together: treat as one block.\\
+Objects $A,B$ not together: total $-$ together.\\
+Exactly one specified object fixed in a circular arrangement: $(n-1)!$.\\
+\end{tabular}
+
+\subsection*{Expansions / repeated objects}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Binomial theorem: $(x+y)^n=\sum_{k=0}^{n}\binom{n}{k}x^{\,n-k}y^k$.\\
+General term in $(x+y)^n$: $T_{k+1}=\binom{n}{k}x^{\,n-k}y^k$.\\
+Coefficient in $(ax+by)^n$: $[x^{n-k}y^k]=\binom{n}{k}a^{\,n-k}b^k$.\\
+More generally, $[x^r](1+x)^n=\binom{n}{r}$.\\
+Multinomial theorem:\\
+\vspace{-10pt}
+$(x_1+\cdots+x_m)^n=\sum_{n_1+\cdots+n_m=n}\dfrac{n!}{n_1!\cdots n_m!}x_1^{n_1}\cdots x_m^{n_m}$.\\
+\end{tabular}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+\vspace{-10pt}
+Coeff of $[x_1^{n_1}\cdots x_m^{n_m}]$ in $(x_1+\cdots+x_m)^n=\dfrac{n!}{n_1!\!\cdots n_m!}$, $\sum n_i=n$.\\
+
+Multiset perms of $(n_1,\dots,n_k)$ with total n/ Occupancy distribution (distinct objs.\(\to\) labelled boxes):
+\( \binom{n}{n_1,\dots,n_k}
+=\dfrac{n!}{n_1!\cdots n_k!} \).\\
+
+Ordered selections with repetition (length \(r\) from \(n\) types): \( n^r \).\\
+
+Strings length \(n\) over alphabet size \(m\): \( m^n \)
+(binary \(2^n\), ternary \(3^n\)).\\
+\end{tabular}
+
+\subsection*{Stars and bars}
+\vspace{-2pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$x_1+\cdots+x_n=r,\ x_i\ge 0:\ \binom{r+n-1}{n-1}=\binom{r+n-1}{r}$.\\
+$x_1+\cdots+x_n=r,\ x_i\ge 1:\ \binom{r-1}{n-1}$ \ $(r\ge n)$.\\
+Combinations with repetition: $\binom{r+n-1}{n-1}=\binom{r+n-1}{r}$.\\
+Lower bounds: $x_i \ge l_i
+\;\Rightarrow\;
+x_i = l_i + y_i, y_i \ge 0$;
+$\#=\binom{r-\sum l_i+n-1}{n-1}$.\\
+Upper bounds $x_i\le u_i$: use IE. Range $\ell_i\le x_i\le u_i$: shift then IE.\\
+Nondecreasing $1\le a_1\le\cdots\le a_r\le n:\ \binom{n+r-1}{r}$. \quad
+Strictly increasing $1\le a_1<\cdots<a_r\le n:\ \binom{n}{r}$.\\
+\end{tabular}
+
+\subsection*{Useful special counts}
+\vspace{-2pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Subsets: $2^n$. \quad
+$r$-subsets: $\binom{n}{r}$.\\
+Even subsets: $2^{n-1}$. \quad
+Odd subsets: $2^{n-1}$ $(n\ge1)$.\\
+Split $n$-set into $(r,n-r)$: $\binom{n}{r}$.\\
+Lattice paths $(0,0)\!\to\!(a,b)$ (R/U): 
+$\binom{a+b}{a}=\binom{a+b}{b}$.\\
+\vspace{-8pt}
+$r$ chosen incl.\ $k$ fixed: $\binom{n-k}{r-k}$. \quad
+$r$ chosen excl.\ $k$ forbidden: $\binom{n-k}{r}$.\\
+\vspace{-8pt}
+At least one of $k$: 
+$\binom{n}{r}-\binom{n-k}{r}$.\\
+\end{tabular}
+% =====================================================
+% =====================================================
+\section*{Functions and Counting}
+% =====================================================
+
+\subsection*{Counts of functions}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Let $|X|=m$, $|Y|=n$. Number of all functions $X\to Y$: $n^m$.\\
+\vspace{-10pt}
+Injective functions exist only if $m\le n$; count $=P(n,m)=\dfrac{n!}{(n-m)!}$.\\
+\vspace{-10pt}
+Bijective functions exist only if $m=n$; count $=n!$.\\
+\vspace{-10pt}
+Surjective functions exist only if $m\ge n$.\\
+\vspace{-8pt}
+Surjections $X\to Y$: $ \sum_{k=0}^{n}(-1)^k\binom{n}{k}(n-k)^m$.\\
+Interpret surjection formula by IE: subtract functions missing at least one codomain element.\\
+\end{tabular}
+
+% =====================================================
+\section*{Recurrence Relations}
+% =====================================================
+
+\subsection*{Linear homogeneous recurrences}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Order 1: $a_n=Aa_{n-1}\Rightarrow a_n=a_0A^n$.\\
+
+Order 2: $a_n=Aa_{n-1}+Ba_{n-2}$, characteristic equation $r^2\!-\!Ar\!-\!B\!=\!0$.\\
+Distinct real roots $r_1\ne r_2$: $a_n=C_1r_1^n+C_2r_2^n$.\\
+Repeated root $r$: $a_n=(C_1+C_2n)r^n$.\\
+Complex roots $\rho(\cos\theta\pm i\sin\theta)$: $a_n=\rho^n(C_1\cos n\theta+C_2\sin n\theta)$.\\
+\vspace{1pt}
+General order $k$: $a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}$; \\
+characteristic $r^k-c_1r^{k-1}-\cdots-c_k=0$.\\
+If root $r$ has multiplicity $m$: $(C_0+C_1n+\cdots+C_{m-1}n^{m-1})r^n$. \\
+Use initial conditions to solve constants.\\
+\end{tabular}
+
+\subsection*{Linear non-homogeneous recurrences}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Affine first-order: $a_n=Aa_{n-1}+B$.\\
+\vspace{-7pt}
+General solution: $a_n=CA^n+\frac{B}{1-A}\!(A\!\ne\!1)$; if $A\!=\!1$: $a_n=a_0+nB$.\\
+\vspace{-7pt}
+General form: $a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}+F(n)$.\\
+Solution: $a_n=a_n^{(h)}+a_n^{(p)}$, where $a_n^{(h)}$ solves the homo recurrence.\\
+Choose $a_n^{(p)}$ by undetermined coeffs; if trial overlaps a homo term, multiply by $n^m$.\\
+\end{tabular}
+
+\vspace{-1pt}
+\begin{center}
+\begin{tabular}{@{}p{0.32\columnwidth}@{\hspace{0.02\columnwidth}}p{0.60\columnwidth}@{}}
+\toprule
+$F(n)$ & Try $a_n^{(p)}$\\
+\midrule
+$c$ & $A$\\
+Polynomial $P_t(n)$ & $Q_t(n)=A_tn^t+\cdots+A_0$\\
+$s^n$ & $As^n$\\
+$P_t(n)s^n$ & $Q_t(n)s^n$\\
+$\cos(\theta n),\sin(\theta n)$ & $A\cos(\theta n)+B\sin(\theta n)$\\
+$s^n\cos(\theta n),s^n\sin(\theta n)$ & $s^n(A\cos(\theta n)+B\sin(\theta n))$\\
+Sum of terms & Sum of corresponding trials\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% =====================================================
+% =====================================================
+\section*{Graph Theory Basics}
+\vspace{-2pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Graph: $G=(V,E)$, edges unordered $\{u,v\}$ (adjacency symmetric).\\
+Simple graph: no loops / multi-edges; $0\le |E|\le \binom{|V|}{2}$.\\
+Degree: $\deg(v)$ incident edges; $k$-regular: $\deg(v)=k\ \forall v$.\\
+\vspace{-6pt}
+$k$-regular graph on $n$ vertices: $nk\!=\!2|E|\Rightarrow|E|\!=\!\frac{nk}{2}$, $nk$ even.\\
+\vspace{-6pt}
+Handshaking: $\sum_{v\in V}\deg(v)=2|E|$; \# \{odd-degree vertices\} even.\\
+Complete graph $K_n$: $|E|=\binom{n}{2}$; $\deg(v)=n-1$.\\
+Cycle graph $C_n$: $|V|=|E|=n$, $\deg(v)=2$.\\
+Subgraph: $H=(W,F)$, $W\subseteq V,\ F\subseteq E$.\\
+Induced subgraph: $G[W]$, keep all edges with endpoints in $W$.\\
+Isomorphism:edge-preserv bijection;$|V|,|E|$, degree multiset invariant\\
+Complement: $\overline G$, $uv\in E(\overline G)\iff uv\notin E(G)$; $G\!\cong\!H\Rightarrow \overline G\!\cong\!\overline H$.\\
+Self-compl: $G\cong\overline G$;$|E(\overline G)|\!=\!\binom{n}{2}\!-\!|E(G)|$; $\deg_{\overline G}(v)\!=\!n\!-\!1\!-\!\deg_G(v)$.\\
+\end{tabular}
+\subsection*{Graph counting}
+\vspace{-1pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Possible edges on $n$ labelled vertices: $\binom{n}{2}$; \\
+\vspace{-10pt}
+Simple graphs on $n$ labelled vertices with $m$ edges:
+$\binom{\binom{n}{2}}{m}$.\\
+\vspace{-10pt}
+Simple graphs on fixed $k$ labelled vertices: $2^{\binom{k}{2}}$; \\
+\vspace{-10pt}
+Subgraphs of $K_n$ with $k$ chosen vertices: $\quad \binom{n}{k}2^{\binom{k}{2}}$.\\
+\end{tabular}
+
+Non-isomorphic simple graphs on $n$ vertices with $k$ edges:
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+$g(n,1)=1\ (n\ge2)$. \\
+$g(n,2)=1\ (n=3),\ 2\ (n\ge4)$. \\
+$g(n,3)=1\ (n=3),\ 3\ (n=4),\ 4\ (n=5),\ 5\ (n\ge6)$.
+\end{tabular}
+%=====================================================
+\section*{\small Special Techniques}
+\vspace{-2pt}
+\begin{tabular}{@{}p{0.96\columnwidth}@{}}
+Handshaking: $\sum\deg(v)=2|E|$. \quad
+Odd-degree vertices even.\\
+Extremal degree $\Rightarrow$ contradictions.\\
+\vspace{-8pt}
+A subgraph can have 0 edge. Average degree: $\dfrac{2|E|}{|V|}$.\\
+\vspace{-10pt}
+Indisti objects put into indist boxes: use pigeon hole principle.\\
+In a simple graph on $n\!\ge\!2$ vertices, degrees lie in $\{0,\dots,n\!-\!1\}$ but $0$ and $n\!-\!1$ cannot both occur $\Rightarrow$ two vertices have the same degree.\\
+\end{tabular}
+
+\end{multicols*}
+
+
+
+\end{document}

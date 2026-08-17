@@ -1,0 +1,377 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2002 }
+\newcommand{\CourseName}{Macroeconomics II}
+\newcommand{\DocType}{Tutorial 1}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType -- Questions \& Solutions
+}
+
+\author{
+Nanyang Technological University \\[-0.1em]
+School of Social Sciences \\[0.35em]
+Academic Year 2024/2025, Semester 2
+}
+
+\date{}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName -- \DocType}
+  \fancyhead[R]{\textit{Typeset version}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------------------------------------------------
+
+%------------- WATERMARK -------------
+
+\SetWatermarkText{Unofficial — Typeset Copy}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview of This Tutorial}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers equilibrium in the goods market, fiscal multipliers (including the balanced budget multiplier), and the role of automatic stabilisers in a simple Keynesian model.
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Question 1:} Equilibrium GDP, disposable income, and consumption in a basic goods market setup.
+\item \textbf{Question 2:} Total demand, the adjustment of production, and the effect of a fiscal expansion (using the same economy as Question 1).
+\item \textbf{Question 3:} Balanced budget multiplier and its dependence on the propensity to consume.
+\item \textbf{Question 4:} Automatic stabilisers with income-dependent taxation and their effect on output fluctuations.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+
+\section*{Question 1 (Chapter 3, Q2)}
+
+\subsection*{Problem}
+
+Suppose that an economy is characterized by the following behavioral equations (in billions of euros):
+\begin{align*}
+C &= 480 + 0.5Y_D,\\
+I &= 110,\\
+T &= 70,\\
+G &= 250.
+\end{align*}
+
+Solve for the following variables.
+\begin{enumerate}[label=(\alph*)]
+\item Equilibrium GDP \((Y)\).
+\item Disposable income \((Y_D)\).
+\item Consumption spending \((C)\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Solve for equilibrium output \(Y\) first}
+
+Disposable income is
+\[
+Y_D = Y - T = Y - 70.
+\]
+Substitute into the consumption function:
+\[
+C = 480 + 0.5(Y - 70) = 480 + 0.5Y - 35 = 445 + 0.5Y.
+\]
+Total demand (goods market demand) is
+\[
+Z = C + I + G = (445 + 0.5Y) + 110 + 250 = 805 + 0.5Y.
+\]
+In equilibrium, output equals demand, \(Y = Z\), so
+\[
+Y = 805 + 0.5Y
+\quad\Rightarrow\quad
+0.5Y = 805
+\quad\Rightarrow\quad
+Y = 1610.
+\]
+Then
+\[
+Y_D = Y - T = 1610 - 70 = 1540,
+\qquad
+C = 480 + 0.5Y_D = 480 + 0.5\cdot 1540 = 1250.
+\]
+
+\subsubsection*{Method 2: Solve for disposable income \(Y_D\) first}
+
+Goods market equilibrium implies
+\[
+Y = C + I + G = (480 + 0.5Y_D) + 110 + 250 = 840 + 0.5Y_D.
+\]
+Also,
+\[
+Y_D = Y - T = Y - 70
+\quad\Rightarrow\quad
+Y = Y_D + 70.
+\]
+Substitute:
+\[
+Y_D + 70 = 840 + 0.5Y_D
+\quad\Rightarrow\quad
+0.5Y_D = 770
+\quad\Rightarrow\quad
+Y_D = 1540.
+\]
+Thus
+\[
+Y = Y_D + 70 = 1610,
+\qquad
+C = 480 + 0.5Y_D = 1250.
+\]
+
+\bigskip
+%====================================================
+% QUESTION 2
+%====================================================
+
+\newpage
+
+\section*{Question 2 (Chapter 3, Q3)}
+
+\subsection*{Problem}
+
+Consider an economy described by the following behavioural equations (in billions of euros):
+\begin{align*}
+C &= 480 + 0.5Y_D,\\
+I &= 110,\\
+T &= 70,\\
+G &= 250.
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+\item Solve for equilibrium output. Compute total demand. Explain how it affects production.
+\item Assume that government spending is now \(G = 300\) (billion). Solve for equilibrium output, consumption, and disposable income. Why might the government decide to expand fiscal spending? Make a reasonable guess based on your results.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Disposable income is
+\[
+Y_D = Y - T = Y - 70.
+\]
+Substitute into the consumption function:
+\[
+C = 480 + 0.5(Y-70) = 480 + 0.5Y - 35 = 445 + 0.5Y.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Equilibrium with \(G=250\).}
+
+Total demand is
+\[
+Z = C + I + G = (44025 + 0.5Y) + 110 + 250 = 805 + 0.5Y.
+\]
+Equilibrium requires \(Y=Z\), hence
+\[
+Y = 805 + 0.5Y
+\quad\Rightarrow\quad
+0.5Y = 805
+\quad\Rightarrow\quad
+Y = 1610.
+\]
+At equilibrium, total demand equals output:
+\[
+Z = 805 + 0.5(1610) = 1610.
+\]
+If \(Y<Z\), desired spending exceeds production, inventories fall, and firms raise production; if \(Y>Z\), inventories rise, and firms cut production. These inventory adjustments push output toward \(Y=1610\).
+
+\item \textbf{Fiscal expansion to \(G=300\).}
+
+Now total demand becomes
+\[
+Z' = C + I + G' = (445 + 0.5Y) + 110 + 300 = 855 + 0.5Y.
+\]
+Equilibrium is
+\[
+Y = 855 + 0.5Y
+\quad\Rightarrow\quad
+0.5Y = 855
+\quad\Rightarrow\quad
+Y = 1710.
+\]
+Then
+\[
+Y_D = Y - 70 = 1710 - 70 = 1640,
+\qquad
+C = 480 + 0.5Y_D = 480 + 0.5\cdot 1640 = 1300.
+\]
+
+Here \(\Delta G = 50\) raises equilibrium output by \(\Delta Y = 100\), so the government spending multiplier (in this numerical example) is \(\Delta Y/\Delta G = 2\). A plausible reason to expand fiscal spending is to increase aggregate demand and raise equilibrium output, which increases disposable income and consumption.
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\newpage
+
+\section*{Question 3 (Chapter 3, Q4: The balanced budget multiplier)}
+
+\subsection*{Problem}
+
+For both political and macroeconomic reasons, governments are often reluctant to run budget deficits. Here, examine whether policy changes in \(G\) and \(T\) that maintain a balanced budget are macroeconomically neutral. Put another way, is it possible to affect output through changes in \(G\) and \(T\) so that the government budget remains balanced?
+
+\medskip
+
+Start from
+\[
+Y = \frac{1}{1-c_1}\bigl[c_0 + \bar{I} + G - c_1T\bigr].
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item By how much does \(Y\) increase when \(G\) increases by one unit?
+\item By how much does \(Y\) decrease when \(T\) increases by one unit?
+\item Why are your answers to parts (a) and (b) different?
+\item Suppose that the economy starts with a balanced budget: \(G = T\). If the increase in \(G\) is equal to the increase in \(T\), then the budget remains in balance. Suppose that \(G\) and \(T\) increase by one unit each. Using your answers to (a) and (b), what is the change in equilibrium GDP? Are balanced budget changes in \(G\) and \(T\) macroeconomically neutral?
+\item How does the specific value of the propensity to consume affect your answer to part (d)? Why?
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\frac{\partial Y}{\partial G}=\frac{1}{1-c_1}.
+\]
+
+\item
+\[
+\frac{\partial Y}{\partial T}=-\frac{c_1}{1-c_1}.
+\]
+
+\item Taxes affect demand only through consumption (via disposable income), so only the fraction \(c_1\) of a tax change feeds into demand, whereas \(G\) enters demand one-for-one.
+
+\item With \(\Delta G=\Delta T=1\),
+\[
+\Delta Y=\frac{1}{1-c_1}-\frac{c_1}{1-c_1}=1.
+\]
+So balanced budget changes are not neutral: output rises by one unit.
+
+\item The balanced budget multiplier remains \(1\) for any \(0<c_1<1\); the separate effects of \(G\) and \(T\) depend on \(c_1\), but in a balanced budget change they net out to \(1\).
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\newpage
+
+\section*{Question 4 (Chapter 3, Q5: Automatic stabilizers)}
+
+\subsection*{Problem}
+
+In this chapter, the fiscal policy variables \(G\) and \(T\) are assumed independent of the level of income. In the real world, however, this is not the case: taxes typically depend on the level of income and so tend to be higher when income is higher. This question examines how this automatic response of taxes can help reduce the impact of changes in autonomous spending on output.
+
+\medskip
+
+Consider the following behavioral equations:
+\begin{align*}
+C &= c_0 + c_1Y_D,\\
+T &= t_0 + t_1Y,\\
+Y_D &= Y - T.
+\end{align*}
+Government spending \(G\) and investment \(I\) are both constant. Assume that \(0 < t_1 < 1\).
+
+\begin{enumerate}[label=(\alph*)]
+\item Solve for equilibrium output.
+\item What is the multiplier in this model? Does the economy respond more to changes in autonomous spending when \(t_1 = 0\) or when \(t_1\) is positive? Explain.
+\item In this model, taxes increase automatically when income rises and fall automatically when income declines. How does this feature affect the response of output to changes in autonomous spending? Based on your answer, explain why fiscal policy in this case is referred to as an automatic stabilizer.
+\end{enumerate}
+
+\subsection*{Solution}
+
+Since \(T=t_0+t_1Y\), disposable income is
+\[
+Y_D = Y - T = Y - (t_0+t_1Y) = (1-t_1)Y - t_0.
+\]
+Consumption becomes
+\[
+C = c_0 + c_1Y_D
+  = c_0 + c_1\bigl[(1-t_1)Y - t_0\bigr]
+  = (c_0 - c_1t_0) + c_1(1-t_1)Y.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Equilibrium:
+\[
+Y = C + I + G
+  = (c_0 - c_1t_0) + c_1(1-t_1)Y + I + G.
+\]
+So
+\[
+\bigl[1-c_1(1-t_1)\bigr]Y = (c_0 - c_1t_0) + I + G,
+\]
+\[
+Y=\frac{(c_0 - c_1t_0) + I + G}{1-c_1(1-t_1)}.
+\]
+
+\item The multiplier on autonomous spending is
+\[
+\frac{1}{1-c_1(1-t_1)}.
+\]
+If \(t_1=0\), this reduces to \(1/(1-c_1)\); if \(t_1>0\), the denominator is larger, so the multiplier is smaller and the response is weaker.
+
+\item When income rises, taxes rise automatically, reducing disposable income and consumption; when income falls, taxes fall, cushioning disposable income and consumption. This dampens the impact of shocks on output, hence the term \emph{automatic stabilizer}.
+\end{enumerate}
+
+\end{document}

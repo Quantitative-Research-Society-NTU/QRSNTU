@@ -1,0 +1,832 @@
+% chapters/ch06_part1_summary.tex
+
+\section{Part I Summary}
+
+This chapter consolidates the main ideas from Part I. The goal is not to re-teach Chapters 1--5 in full, but to compress the most examinable material into a revision-oriented framework. The unifying theme is that all five chapters study \emph{choice under constraints}: first with ordinary consumption bundles, then with price changes and endowments, then across time, and finally across risky states of the world.
+
+\subsection{Core Definitions and Frameworks}
+
+\begin{definition}{Part I master framework}{ch6-master-framework}
+A Part I consumer problem can usually be written in the form
+\[
+\max_{x \in X} U(x)
+\quad \text{subject to} \quad
+p \cdot x \le m,
+\]
+or, with an endowment $\omega$,
+\[
+\max_{x \in X} U(x)
+\quad \text{subject to} \quad
+p \cdot x \le p \cdot \omega.
+\]
+The interpretation of $x$, $p$, and $\omega$ changes by topic:
+\begin{itemize}
+    \item \textbf{ordinary consumption:} $x$ is a bundle of goods;
+    \item \textbf{endowments:} $\omega$ is the initial bundle owned;
+    \item \textbf{intertemporal choice:} coordinates of $x$ are dated consumptions;
+    \item \textbf{contingent consumption:} coordinates of $x$ are state-contingent payoffs.
+\end{itemize}
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Part I notation map}]
+\[
+x=(x_1,\dots,x_L)\in \mathbb{R}_+^L,
+\qquad
+p=(p_1,\dots,p_L)\in \mathbb{R}_{++}^L,
+\qquad
+p\cdot x=\sum_{\ell=1}^L p_\ell x_\ell.
+\]
+Core interpretations:
+\begin{itemize}
+    \item $x$: chosen bundle / plan / payoff;
+    \item $p$: price vector / discounted price vector / state price vector;
+    \item $m$: expenditure or wealth;
+    \item $\omega$: endowment;
+    \item $z=x-\omega$: net demand.
+\end{itemize}
+\end{keyformula}
+
+\begin{examtip}
+A large fraction of Part I can be solved by first identifying exactly what the coordinates of $x$ mean. Once that is clear, the problem is usually just a standard consumer-choice problem with a suitably interpreted price vector.
+\end{examtip}
+
+\subsection{High-Yield Definitions and Results}
+
+\subsubsection{Preferences and revealed preference}
+
+\begin{keyformula}[title={Key Formula: preference language}]
+\[
+x \succeq y \quad \text{weak preference}, \qquad
+x \succ y \quad \text{strict preference}, \qquad
+x \sim y \quad \text{indifference}.
+\]
+A preference relation is usually assumed to be:
+\begin{itemize}
+    \item \textbf{complete};
+    \item \textbf{transitive};
+    \item \textbf{increasing:} if $x>y$, then $x\succ y$.
+\end{itemize}
+\end{keyformula}
+
+\begin{definition}{Revealed preference notation}{ch6-rp-def}
+If bundle $x^t$ is chosen at prices $p^t$, then:
+\[
+x^t R x
+\iff
+p^t \cdot x^t \ge p^t \cdot x
+\]
+means $x$ was affordable when $x^t$ was chosen, and
+\[
+x^t P x
+\iff
+p^t \cdot x^t > p^t \cdot x
+\]
+means $x$ was strictly cheaper than the chosen bundle.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: WARP and GARP}]
+If choices maximize an increasing utility function, then:
+\[
+x^t R x \implies U(x^t)\ge U(x),
+\qquad
+x^t P x \implies U(x^t)>U(x).
+\]
+Hence:
+
+\textbf{WARP:}
+\[
+x^t R x^s \implies \text{not }(x^s P x^t).
+\]
+
+\textbf{GARP:}
+if
+\[
+x^t R^* x^s,
+\]
+then not
+\[
+x^s P x^t.
+\]
+Equivalently, utility maximization with increasing utility forbids a weak revealed-preference chain in one direction together with a strict reversal.
+\end{keyformula}
+
+\begin{examtip}
+For revealed-preference questions:
+\begin{enumerate}
+    \item compute each observed expenditure $p^t\cdot x^t$;
+    \item test cross-affordability $p^t\cdot x^s$;
+    \item translate into $R$ or $P$;
+    \item check for WARP or GARP violations.
+\end{enumerate}
+Never start with utility before checking the affordability relations.
+\end{examtip}
+
+\subsubsection{Demand response to price and expenditure changes}
+
+\begin{keyformula}[title={Key Formula: demand classifications}]
+For Marshallian demand $x(p,m)$:
+\begin{itemize}
+    \item \textbf{ordinary good 1:}
+    \[
+    p_1 \uparrow \implies x_1 \downarrow;
+    \]
+    \item \textbf{Giffen good 1:}
+    \[
+    p_1 \uparrow \implies x_1 \uparrow;
+    \]
+    \item \textbf{gross substitutes:}
+    \[
+    p_1 \uparrow \implies x_2 \uparrow;
+    \]
+    \item \textbf{gross complements:}
+    \[
+    p_1 \uparrow \implies x_2 \downarrow;
+    \]
+    \item \textbf{normal good 1:}
+    \[
+    m \uparrow \implies x_1 \uparrow;
+    \]
+    \item \textbf{inferior good 1:}
+    \[
+    m \uparrow \implies x_1 \downarrow.
+    \]
+\end{itemize}
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Slutsky decomposition}]
+If good 1's price rises from $p_1$ to $p_1'>p_1$, with $p'=(p_1',p_2)$, then
+\[
+\Delta x_1 = x_1(p',m)-x_1(p,m),
+\]
+\[
+m^s = p' \cdot x(p,m),
+\]
+\[
+\Delta x_1^s = x_1(p',m^s)-x_1(p,m),
+\qquad
+\Delta x_1^n = x_1(p',m)-x_1(p',m^s),
+\]
+and
+\[
+\Delta x_1 = \Delta x_1^s + \Delta x_1^n.
+\]
+Always:
+\[
+\Delta x_1^s \le 0
+\quad \text{when } p_1 \uparrow.
+\]
+If the good is normal, then also
+\[
+\Delta x_1^n \le 0.
+\]
+Therefore normal goods satisfy the law of demand:
+\[
+p_1 \uparrow \implies x_1 \downarrow.
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: Hicksian substitution}]
+For the same price increase, let $u_0=U(x(p,m))$ and let $m^h$ be the minimum expenditure at prices $p'$ needed to attain utility $u_0$. Then
+\[
+\Delta x_1 = \Delta x_1^h + \Delta x_1^q,
+\]
+where
+\[
+\Delta x_1^h = h_1(p',u_0)-x_1(p,m) \le 0.
+\]
+Also
+\[
+m^h \le m^s.
+\]
+\end{keyformula}
+
+\subsubsection{Marginal utility, MRS, and interior optimality}
+
+\begin{keyformula}[title={Key Formula: MRS toolkit}]
+For differentiable utility $U(x_1,x_2)$:
+\[
+MU_1=\frac{\partial U}{\partial x_1},
+\qquad
+MU_2=\frac{\partial U}{\partial x_2}.
+\]
+At an interior optimum with budget line
+\[
+p_1x_1+p_2x_2=m,
+\]
+the tangency condition is
+\[
+MRS_{12}=\frac{MU_1}{MU_2}=\frac{p_1}{p_2}.
+\]
+\end{keyformula}
+
+\begin{examtip}
+The tangency condition is only valid for an \emph{interior} optimum. If the tangency candidate is infeasible or gives negative demand, switch immediately to checking corners.
+\end{examtip}
+
+\subsubsection{Endowments and net demand}
+
+\begin{definition}{Net demand}{ch6-net-demand-def}
+Given endowment $\omega$ and chosen bundle $x$,
+\[
+z=x-\omega.
+\]
+Equivalently, if $x(p,m)$ is Marshallian demand and wealth comes from selling the endowment,
+\[
+z(p)=x(p,p\cdot \omega)-\omega.
+\]
+Interpretation:
+\[
+z_\ell>0 \Rightarrow \text{net buyer of good }\ell,
+\qquad
+z_\ell<0 \Rightarrow \text{net seller of good }\ell.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: endowment budget and Walras' law}]
+Affordability with endowments:
+\[
+p\cdot x \le p\cdot \omega
+\quad \Longleftrightarrow \quad
+p\cdot z \le 0.
+\]
+At an optimum with increasing utility,
+\[
+p\cdot x = p\cdot \omega
+\quad \Longrightarrow \quad
+p\cdot z = 0.
+\]
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: endowment price-change logic}]
+When the price of good 1 rises:
+\begin{itemize}
+    \item substitution effect still satisfies
+    \[
+    \Delta x_1^s \le 0;
+    \]
+    \item the sign of the income effect depends on whether the consumer is a buyer or seller of good 1.
+\end{itemize}
+For normal demand:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Change & Status in good 1 & Income effect & Definite total sign? \\
+\hline
+$p_1 \uparrow$ & buyer & $\le 0$ & yes: $\Delta x_1 \le 0$ \\
+\hline
+$p_1 \uparrow$ & seller & $\ge 0$ & ambiguous \\
+\hline
+$p_1 \downarrow$ & buyer & $\ge 0$ & yes: $\Delta x_1 \ge 0$ \\
+\hline
+$p_1 \downarrow$ & seller & $\le 0$ & ambiguous \\
+\hline
+\end{tabular}
+\end{center}
+\end{keyformula}
+
+\begin{examtip}
+Under endowments, the most important first step is to classify the consumer as a \emph{net buyer} or \emph{net seller} of the good whose price changes. Without that step, the sign of the income effect is usually wrong.
+\end{examtip}
+
+\subsubsection{Intertemporal consumption}
+
+\begin{keyformula}[title={Key Formula: intertemporal budget}]
+For periods $t=0,\dots,T$ and interest rate $r\ge 0$,
+\[
+\sum_{t=0}^{T} \frac{x_t}{(1+r)^t}
+=
+\sum_{t=0}^{T} \frac{y_t}{(1+r)^t}.
+\]
+With
+\[
+p_t=\left(\frac{1}{1+r}\right)^t,
+\]
+this is simply
+\[
+p\cdot x = p\cdot y.
+\]
+\end{keyformula}
+
+\begin{definition}{Intertemporal net demand}{ch6-intertemporal-net}
+For income stream $y=(y_0,\dots,y_T)$ and chosen stream $x=(x_0,\dots,x_T)$,
+\[
+z=x-y.
+\]
+If $T=1$, then:
+\begin{itemize}
+    \item $z_0<0$ means saving in period 0;
+    \item $z_0>0$ means borrowing in period 0;
+    \item $z_1$ records the opposite side of that saving/borrowing decision in period 1.
+\end{itemize}
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: interest-rate comparative statics}]
+In the two-period case,
+\[
+p_1=\frac{1}{1+r}.
+\]
+So:
+\begin{itemize}
+    \item $r \uparrow$ means future consumption becomes cheaper;
+    \item a saver (net buyer of future consumption) stays a saver;
+    \item if $r \downarrow$, a borrower (net seller of future consumption) stays a borrower.
+\end{itemize}
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: discounted utility}]
+For
+\[
+U(x_0,x_1)=u(x_0)+\delta u(x_1),
+\]
+the interior first-order condition is
+\[
+u'(x_0)=(1+r)\delta u'(x_1).
+\]
+Hence:
+\begin{itemize}
+    \item if $(1+r)\delta=1$, then $x_0=x_1$;
+    \item if $(1+r)\delta>1$, then $x_1>x_0$;
+    \item if $(1+r)\delta<1$, then $x_0>x_1$.
+\end{itemize}
+\end{keyformula}
+
+\subsubsection{Contingent consumption, state prices, and risk}
+
+\begin{definition}{Contingent consumption and expected utility}{ch6-risk-def}
+With $S$ states, probabilities $\pi=(\pi_1,\dots,\pi_S)$, and contingent consumption
+\[
+x=(x_1,\dots,x_S),
+\]
+expected utility is
+\[
+U(x)=\sum_{s=1}^S \pi_s u(x_s).
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: state prices and asset pricing}]
+If $p=(p_1,\dots,p_S)$ is the state-price vector, then a contingent bundle $x$ costs
+\[
+p\cdot x.
+\]
+If an asset has payoff vector
+\[
+a=(a_1,\dots,a_S),
+\]
+then its no-arbitrage price is
+\[
+q(a)=p\cdot a.
+\]
+More generally, if a new asset can be replicated by portfolio $\theta$, its price must equal the cost of the replicating portfolio.
+\end{keyformula}
+
+\begin{keyformula}[title={Key Formula: expected value, FOSD, and risk attitudes}]
+Expected value:
+\[
+E[x]=\sum_{s=1}^S \pi_s x_s.
+\]
+
+Interior FOC under expected utility:
+\[
+\frac{\pi_i u'(x_i)}{\pi_j u'(x_j)}=\frac{p_i}{p_j}.
+\]
+
+First-order stochastic dominance:
+\[
+x \succeq_{FOSD} x'
+\quad \Longrightarrow \quad
+U(x)\ge U(x')
+\]
+for all increasing $u$.
+
+If $u$ is concave, then
+\[
+u(E[x]) \ge E[u(x)] = U(x).
+\]
+Interpretation: the consumer is risk averse.
+
+Risk classifications:
+\[
+u(E[x]) \ge U(x) \Rightarrow \text{risk averse},
+\]
+\[
+u(E[x]) = U(x) \Rightarrow \text{risk neutral},
+\]
+\[
+u(E[x]) \le U(x) \Rightarrow \text{risk loving}.
+\]
+\end{keyformula}
+
+\subsection{Comparison of Central Models}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.0cm}|p{3.4cm}|p{4.2cm}|p{4.0cm}|}
+\hline
+\textbf{Topic} & \textbf{Choice vector} & \textbf{Price interpretation} & \textbf{Core technique} \\
+\hline
+Revealed preference & ordinary bundle $x$ & market prices $p$ & affordability tests, $R/P$, WARP, GARP \\
+\hline
+Price changes & Marshallian demand $x(p,m)$ & relative goods prices & Slutsky decomposition \\
+\hline
+Endowments & consumption $x$ with endowment $\omega$ & goods prices applied to both $x$ and $\omega$ & net demand $z=x-\omega$, buyer/seller classification \\
+\hline
+Intertemporal choice & dated consumption $(x_0,\dots,x_T)$ & discounted prices $p_t=(1+r)^{-t}$ & present value, saving/borrowing, Euler condition \\
+\hline
+Risk / contingent claims & state payoffs $(x_1,\dots,x_S)$ & state prices $p_s$ & expected utility, no-arbitrage pricing, FOSD \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+A strong way to remember Part I is:
+\[
+\text{ordinary goods} \rightarrow \text{endowments} \rightarrow \text{time} \rightarrow \text{states}.
+\]
+The mathematics stays almost the same. Only the economic interpretation of each coordinate changes.
+\end{examtip}
+
+\subsection{Standard Problem Types and Solution Patterns}
+
+\subsubsection{Type A: revealed-preference consistency}
+
+\begin{examtip}[title={Method Pattern: WARP / GARP problems}]
+Use the following template:
+\begin{enumerate}
+    \item list each observation $(p^t,x^t)$;
+    \item compute
+    \[
+    p^t \cdot x^t
+    \quad \text{and} \quad
+    p^t \cdot x^s
+    \]
+    for other bundles $x^s$;
+    \item infer $R$ or $P$ relations;
+    \item look for:
+    \[
+    x^t R x^s \text{ and } x^s P x^t
+    \]
+    for WARP, or
+    \[
+    x^t R^* x^s \text{ and } x^s P x^t
+    \]
+    for GARP.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection{Type B: price change and demand decomposition}
+
+\begin{examtip}[title={Method Pattern: Slutsky questions}]
+When a price changes:
+\begin{enumerate}
+    \item compute the original demand $x(p,m)$;
+    \item compute the compensated expenditure
+    \[
+    m^s = p' \cdot x(p,m);
+    \]
+    \item compute the compensated demand $x(p',m^s)$;
+    \item split the total effect into substitution and income effects;
+    \item use normal/inferior status to sign the income effect.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection{Type C: endowment comparative statics}
+
+\begin{examtip}[title={Method Pattern: endowment questions}]
+Always do this first:
+\[
+z = x-\omega.
+\]
+Then identify whether the consumer is a buyer or seller of the good whose price changes. Only after that should you analyze the substitution and income effects.
+\end{examtip}
+
+\subsubsection{Type D: intertemporal optimization}
+
+\begin{examtip}[title={Method Pattern: intertemporal questions}]
+Standard order:
+\begin{enumerate}
+    \item convert the stream budget into present-value form;
+    \item rewrite as a standard consumer problem with prices
+    \[
+    p_t=(1+r)^{-t};
+    \]
+    \item if discounted utility is given, apply
+    \[
+    u'(x_0)=(1+r)\delta u'(x_1);
+    \]
+    \item use the budget equation to solve.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection{Type E: risk and asset pricing}
+
+\begin{examtip}[title={Method Pattern: contingent consumption / assets}]
+When a risk problem involves insurance or asset trade:
+\begin{enumerate}
+    \item write the final contingent consumption bundle;
+    \item identify the linear tradeoff across states;
+    \item infer the implied state prices or use no-arbitrage replication;
+    \item if expected utility is given, solve
+    \[
+    \frac{\pi_i u'(x_i)}{\pi_j u'(x_j)}=\frac{p_i}{p_j}.
+    \]
+\end{enumerate}
+\end{examtip}
+
+\subsection{Common Mistakes and Exam Traps}
+
+\begin{commonmistake}
+In revealed-preference questions, do not mix up the meanings of $R$ and $P$. The lecture convention is:
+\[
+x^t R x \iff x \text{ was affordable when } x^t \text{ was chosen},
+\]
+\[
+x^t P x \iff x \text{ was strictly cheaper than the chosen bundle}.
+\]
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not conclude that a good is normal from a negative own-price effect. Normality is about the sign of the \emph{expenditure} effect, not the total price effect.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not apply the tangency condition automatically. It requires an interior optimum. If the candidate is infeasible or violates nonnegativity, check corners.
+\end{commonmistake}
+
+\begin{commonmistake}
+In endowment problems, forgetting to classify buyer versus seller is usually fatal. The substitution effect has its usual sign, but the income effect reverses between buyers and sellers.
+\end{commonmistake}
+
+\begin{commonmistake}
+In intertemporal questions, do not keep the raw interest-rate algebra longer than necessary. Rewrite immediately as
+\[
+p_t=(1+r)^{-t}
+\]
+and reduce to a standard budget problem.
+\end{commonmistake}
+
+\begin{commonmistake}
+In risky-choice problems, do not use expected value when the question specifies expected utility. Higher expected value does \emph{not} imply higher welfare for a risk-averse consumer.
+\end{commonmistake}
+
+\subsection{Integrated Worked Review Examples}
+
+\begin{examplebox}[title={Worked Review Example 1: GARP logic from a chain of choices}]
+Suppose three bundles are observed:
+\[
+x,\ y,\ z.
+\]
+You find that
+\[
+x R y,
+\qquad
+y R z,
+\qquad
+z P x.
+\]
+Then
+\[
+x R^* z
+\]
+because there is a revealed-preference chain from $x$ to $z$. Since also
+\[
+z P x,
+\]
+the data violate GARP.
+
+Why? Under increasing utility maximization,
+\[
+x R^* z \implies U(x)\ge U(z),
+\]
+but
+\[
+z P x \implies U(z)>U(x),
+\]
+which is impossible.
+
+So the correct conclusion is:
+\[
+\boxed{\text{The dataset cannot be rationalized by an increasing utility function.}}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 2: Slutsky decomposition and the law of demand}]
+Suppose a two-good consumer has demand
+\[
+x(p_1,p_2,m)=\left(\frac{m}{2p_1},\frac{m}{2p_2}\right).
+\]
+This is the Cobb--Douglas demand from $U(x_1,x_2)=x_1x_2$.
+
+Let
+\[
+p=(1,1), \qquad m=8,
+\qquad
+p'=(2,1).
+\]
+Original demand:
+\[
+x(p,m)=\left(\frac{8}{2},\frac{8}{2}\right)=(4,4).
+\]
+New uncompensated demand:
+\[
+x(p',m)=\left(\frac{8}{4},\frac{8}{2}\right)=(2,4).
+\]
+So the total change in demand for good 1 is
+\[
+\Delta x_1 = 2-4=-2.
+\]
+
+Now compute Slutsky compensation:
+\[
+m^s = p' \cdot x(p,m) = 2\cdot 4 + 1\cdot 4 = 12.
+\]
+Compensated demand:
+\[
+x(p',m^s)=\left(\frac{12}{4},\frac{12}{2}\right)=(3,6).
+\]
+Hence
+\[
+\Delta x_1^s = 3-4=-1,
+\qquad
+\Delta x_1^n = 2-3=-1.
+\]
+Therefore
+\[
+\Delta x_1=\Delta x_1^s+\Delta x_1^n=-1+(-1)=-2.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item substitution effect is negative;
+    \item income effect is negative because the good is normal;
+    \item law of demand holds.
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 3: endowment buyer versus seller}]
+Suppose the same demand
+\[
+x(p_1,p_2,m)=\left(\frac{m}{2p_1},\frac{m}{2p_2}\right)
+\]
+applies, and the endowment is
+\[
+\omega=(1,6).
+\]
+At prices
+\[
+p=(1,1),
+\]
+wealth is
+\[
+m=p\cdot \omega=7.
+\]
+So demand is
+\[
+x(1,1,7)=\left(\frac72,\frac72\right).
+\]
+Hence net demand is
+\[
+z = x-\omega = \left(\frac72-1,\frac72-6\right)=\left(\frac52,-\frac52\right).
+\]
+So the consumer is a \emph{buyer of good 1}.
+
+If $p_1$ rises, then:
+\begin{itemize}
+    \item substitution effect on good 1 is negative;
+    \item because the consumer is a buyer of good 1, the income effect is also negative if demand is normal.
+\end{itemize}
+Therefore
+\[
+\boxed{\Delta x_1 \le 0.}
+\]
+
+The exam lesson is that the buyer/seller classification determines the sign of the income effect in endowment problems.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 4: intertemporal demand and discounting}]
+Suppose the income stream is
+\[
+y=(190,11),
+\qquad
+r=0.1,
+\]
+and utility is
+\[
+U(x_0,x_1)=x_0x_1.
+\]
+Present-value wealth is
+\[
+m = 190 + \frac{11}{1.1}=200.
+\]
+For this utility, intertemporal demand is
+\[
+x(r,m)=\left(\frac{m}{2},\frac{(1+r)m}{2}\right).
+\]
+So
+\[
+x(0.1,200)=\left(100,\frac{1.1\cdot 200}{2}\right)=(100,110).
+\]
+Hence the consumer saves
+\[
+190-100=90
+\]
+in period 0.
+
+The revision point is that once the present value is computed, the problem is just a standard two-good demand problem with prices
+\[
+\left(1,\frac{1}{1+r}\right).
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 5: state prices and expected-utility demand}]
+Suppose there are two states with probabilities
+\[
+\pi=\left(\frac13,\frac23\right),
+\]
+and Bernoulli utility
+\[
+u(x)=\ln x.
+\]
+For log utility under expected utility,
+\[
+x(p_1,p_2,m)=\left(\frac{\pi_1 m}{p_1},\frac{\pi_2 m}{p_2}\right).
+\]
+
+First suppose the implied state prices are
+\[
+p=(3,1)
+\]
+and wealth is
+\[
+m=30.
+\]
+Then
+\[
+x(3,1,30)=\left(\frac{(1/3)\cdot 30}{3},\frac{(2/3)\cdot 30}{1}\right)=\left(\frac{10}{3},20\right).
+\]
+
+Now suppose instead two assets generate state prices
+\[
+p=(6,1)
+\]
+and the consumer has wealth
+\[
+m=18.
+\]
+Then demand is
+\[
+x(6,1,18)=\left(\frac{(1/3)\cdot 18}{6},\frac{(2/3)\cdot 18}{1}\right)=(1,12).
+\]
+
+These examples show the standard review workflow:
+\begin{enumerate}
+    \item recover the state prices from insurance or assets;
+    \item plug them into the expected-utility demand formula.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Part I Revision Checklist}
+
+\begin{examtip}[title={Part I final checklist}]
+Before the test, make sure you can do all of the following quickly:
+\begin{enumerate}
+    \item define $R$, $P$, $R^*$, WARP, and GARP precisely;
+    \item classify goods as ordinary/Giffen, normal/inferior, substitutes/complements;
+    \item derive and use the Slutsky identity;
+    \item explain the difference between Slutsky and Hicksian compensation;
+    \item compute $MU_1$, $MU_2$, and apply
+    \[
+    \frac{MU_1}{MU_2}=\frac{p_1}{p_2}
+    \]
+    when appropriate;
+    \item form net demand
+    \[
+    z=x-\omega
+    \]
+    and classify buyer versus seller;
+    \item write any intertemporal budget in present-value form;
+    \item apply
+    \[
+    u'(x_0)=(1+r)\delta u'(x_1)
+    \]
+    in discounted-utility problems;
+    \item price assets by replication or state prices;
+    \item compute expected value, expected utility, and identify risk aversion from concavity;
+    \item test first-order stochastic dominance.
+\end{enumerate}
+\end{examtip}
+
+\begin{keyformula}[title={Key Formula: Part I memory sheet}]
+\begin{align*}
+x^t R x &\iff p^t\cdot x^t \ge p^t\cdot x, \\
+x^t P x &\iff p^t\cdot x^t > p^t\cdot x, \\
+\Delta x_1 &= \Delta x_1^s + \Delta x_1^n, \\
+z &= x-\omega, \\
+p\cdot z &= 0 \quad \text{at an optimum with increasing utility}, \\
+\sum_{t=0}^{T}\frac{x_t}{(1+r)^t} &= \sum_{t=0}^{T}\frac{y_t}{(1+r)^t}, \\
+u'(x_0) &= (1+r)\delta u'(x_1), \\
+U(x) &= \sum_{s=1}^S \pi_s u(x_s), \\
+\frac{\pi_i u'(x_i)}{\pi_j u'(x_j)} &= \frac{p_i}{p_j}, \\
+u(E[x]) &\ge E[u(x)] \quad \text{if } u \text{ is concave}.
+\end{align*}
+\end{keyformula}

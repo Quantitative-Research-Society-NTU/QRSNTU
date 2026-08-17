@@ -1,0 +1,416 @@
+% ==========================================================
+% HE2002 Macroeconomics II — Chapter 2: Financial Markets I
+% Source materials: :contentReference[oaicite:0]{index=0} 
+% (This is a chapter file intended to be \input into the main template.)
+% ==========================================================
+
+\section{Financial Markets I: Money, Bonds, and Interest Rates}
+
+\subsection{Assets: Money vs.\ Bonds (Baseline Setup)}
+
+\begin{definition}{Money, currency, and checkable deposits}{def:money_components}
+In this chapter, \textbf{money} refers to assets that can be used for transactions and pay no interest.
+Two canonical forms are:
+\begin{itemize}
+  \item \textbf{Currency}: physical cash (notes and coins).
+  \item \textbf{Checkable deposits}: funds in checking accounts used for transactions.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Bonds and the nominal interest rate}{def:bonds_interest}
+A \textbf{bond} is a financial asset that promises a future payment. Bonds typically pay a positive \textbf{nominal interest rate} $i$ (the opportunity cost of holding money).
+Money pays no interest but provides liquidity (transaction services).
+\end{definition}
+
+\noindent
+We work with a stylised asset menu: households allocate financial wealth between \textbf{money} and \textbf{bonds}.
+Money provides transactions services; bonds provide interest income but are not directly usable for transactions.
+
+\subsection{The Demand for Money}
+
+\begin{definition}{Nominal income and transactions demand}{def:nominal_income_transactions}
+Let $\$Y$ denote \textbf{nominal income} (nominal GDP), a proxy for the volume of transactions in the economy.
+A higher $\$Y$ increases the desired amount of money held for transactions.
+\end{definition}
+
+\begin{definition}{Money demand function}{def:money_demand_function}
+Nominal money demand is assumed to take the form
+\[
+M^d = \$Y \, L(i),
+\]
+where $L(\cdot)$ is a decreasing function of the nominal interest rate $i$:
+\[
+L'(i) < 0.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Comparative statics of money demand}]
+Holding $\$Y$ fixed, an increase in $i$ reduces money demand:
+\[
+\frac{\partial M^d}{\partial i} = \$Y\,L'(i) < 0.
+\]
+Holding $i$ fixed, an increase in $\$Y$ increases money demand:
+\[
+\frac{\partial M^d}{\partial (\$Y)} = L(i) > 0.
+\]
+\end{keyformula}
+
+\begin{commonmistake}
+\textbf{Movement vs.\ shift of the money-demand curve.}
+\begin{itemize}
+  \item A change in the interest rate $i$ causes a \textbf{movement along} the money-demand curve.
+  \item A change in nominal income $\$Y$ causes a \textbf{shift} of the money-demand curve (since the entire schedule $M^d(i)$ is rescaled by $\$Y$).
+\end{itemize}
+Changes in money supply $M^s$ do \emph{not} shift money demand; they shift the money-\emph{supply} schedule.
+\end{commonmistake}
+
+\subsection{Case I: Determining the Interest Rate (Central Bank Only)}
+
+\begin{definition}{Money supply under direct central-bank control (Case I)}{def:money_supply_case1}
+In Case I, the central bank directly sets the nominal money supply at a constant level:
+\[
+M^s = M,
+\]
+represented as a vertical schedule in the $(M,i)$ plane.
+\end{definition}
+
+\begin{theorem}{Money-market equilibrium and interest-rate determination (Case I)}{thm:money_market_eq_case1}
+Money-market equilibrium requires money supply to equal money demand:
+\[
+M^s = M^d
+\quad\Longleftrightarrow\quad
+M = \$Y\,L(i).
+\]
+Assuming $L$ is strictly decreasing and invertible, the equilibrium interest rate is
+\[
+i^\ast = L^{-1}\!\left(\frac{M}{\$Y}\right).
+\]
+\end{theorem}
+
+\noindent
+\textbf{Comparative statics (implicit differentiation).}
+From $M=\$Y L(i)$:
+\begin{itemize}
+  \item Holding $\$Y$ fixed, differentiate w.r.t.\ $M$:
+  \[
+  1 = \$Y L'(i)\,\frac{di}{dM}
+  \quad\Longrightarrow\quad
+  \frac{di}{dM} = \frac{1}{\$Y L'(i)} < 0.
+  \]
+  Thus, an increase in money supply lowers the equilibrium interest rate.
+  \item Holding $M$ fixed, differentiate w.r.t.\ $\$Y$:
+  \[
+  0 = L(i) + \$Y L'(i)\,\frac{di}{d(\$Y)}
+  \quad\Longrightarrow\quad
+  \frac{di}{d(\$Y)} = -\frac{L(i)}{\$Y L'(i)} > 0.
+  \]
+  Thus, higher nominal income raises the equilibrium interest rate (for fixed $M$).
+\end{itemize}
+
+\subsection{Open Market Operations (Implementation Intuition)}
+
+\begin{definition}{Open market operations}{def:omo}
+\textbf{Open market operations (OMO)} are central-bank purchases or sales of bonds in the bond market to change the money supply.
+\begin{itemize}
+  \item \textbf{Expansionary OMO}: central bank buys bonds $\Rightarrow$ money supply increases.
+  \item \textbf{Contractionary OMO}: central bank sells bonds $\Rightarrow$ money supply decreases.
+\end{itemize}
+\end{definition}
+
+\noindent
+A minimal balance-sheet representation (stylised) is:
+\begin{center}
+\begin{tabular}{|p{6.2cm}|p{6.2cm}|}
+\hline
+\textbf{Central Bank Assets} & \textbf{Central Bank Liabilities} \\
+\hline
+Bonds & Money (issued by the central bank) \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+An expansionary OMO increases bond holdings on the asset side and increases money on the liability side by the same amount; the opposite holds for a contractionary OMO.
+
+\begin{policynote}
+\textbf{Interest-rate targeting.}
+Instead of choosing $M$ directly, a central bank can choose a target interest rate $i^{\text{target}}$ and adjust money supply through OMO so that equilibrium $M=\$Y L(i^{\text{target}})$ holds. This is a choice of \emph{operating procedure}; the equilibrium condition is unchanged.
+\end{policynote}
+
+\subsection{Bond Prices and Yields}
+
+\begin{definition}{One-period bond yield}{def:bond_yield_one_period}
+Consider a one-period bond that pays face value $F$ in one year and has price $P_B$ today.
+The nominal interest rate (yield) $i$ satisfies
+\[
+(1+i)P_B = F.
+\]
+Equivalently,
+\[
+i = \frac{F-P_B}{P_B}.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Price--yield inversion}]
+For a one-period bond paying $F$ in one year,
+\[
+P_B = \frac{F}{1+i},
+\qquad
+i = \frac{F}{P_B}-1.
+\]
+Hence $P_B$ and $i$ move in opposite directions.
+\end{keyformula}
+
+\begin{theorem}{Inverse relation between bond prices and interest rates}{thm:bond_price_yield_inverse}
+For $F>0$ and $i>-1$,
+\[
+P_B(i)=\frac{F}{1+i}
+\quad\Longrightarrow\quad
+\frac{dP_B}{di}=-\frac{F}{(1+i)^2}<0.
+\]
+Thus bond prices are strictly decreasing in interest rates.
+\end{theorem}
+
+\begin{examplebox}[title={Worked Example (Tutorial 2, Question 4): Bond pricing and yields}]
+A one-year bond promises to pay $\$100$ in one year.
+\begin{enumerate}[label=(\alph*)]
+  \item Compute the interest rate $i$ if today's bond price is $\$75$, $\$85$, and $\$95$.
+  \item State the relationship between the bond price and the interest rate.
+  \item If the interest rate is $8\%$, compute the bond price today.
+\end{enumerate}
+
+\textbf{Solution.}
+Let $F=100$ and $P_B$ be today's price. The yield is
+\[
+i=\frac{F}{P_B}-1=\frac{F-P_B}{P_B}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item
+  \begin{itemize}
+    \item If $P_B=75$:
+    \[
+    i=\frac{100}{75}-1=\frac{4}{3}-1=\frac{1}{3}=0.333\overline{3}
+    \quad\Rightarrow\quad
+    i=33.\overline{3}\%.
+    \]
+    \item If $P_B=85$:
+    \[
+    i=\frac{100}{85}-1=\frac{15}{85}=\frac{3}{17}\approx 0.1764706
+    \quad\Rightarrow\quad
+    i\approx 17.65\%.
+    \]
+    \item If $P_B=95$:
+    \[
+    i=\frac{100}{95}-1=\frac{5}{95}=\frac{1}{19}\approx 0.0526316
+    \quad\Rightarrow\quad
+    i\approx 5.26\%.
+    \]
+  \end{itemize}
+
+  \item From $i(P_B)=\frac{100}{P_B}-1$, we have $\frac{di}{dP_B}=-\frac{100}{P_B^2}<0$.
+  Thus \textbf{bond price and interest rate are inversely related}.
+
+  \item If $i=0.08$, then $(1.08)P_B=100$, so
+  \[
+  P_B=\frac{100}{1.08}=\frac{10000}{108}=\frac{2500}{27}\approx 92.59.
+  \]
+\end{enumerate}
+\end{examplebox}
+
+
+\newpage
+\subsection{The Liquidity Trap and the Zero Lower Bound}
+
+\begin{definition}{Liquidity trap (zero lower bound)}{def:liquidity_trap}
+The economy is in a \textbf{liquidity trap} when the nominal interest rate has fallen to (approximately) zero,
+so conventional monetary policy cannot reduce it further:
+\[
+i \approx 0.
+\]
+At $i=0$, once transaction needs are satisfied, agents can become (approximately) indifferent between holding money and bonds,
+so additional increases in money supply do not lower $i$ further.
+\end{definition}
+
+\begin{theorem}{Monetary policy ineffectiveness in a liquidity trap (case-I intuition)}{thm:liquidity_trap_ineffective}
+Suppose the interest rate is constrained by $i\ge 0$ and money demand becomes perfectly elastic at $i=0$ (agents absorb additional money without requiring a lower interest rate).
+Then, for sufficiently large money supply increases, the equilibrium remains at
+\[
+i^\ast = 0,
+\]
+so further expansionary open market operations do not reduce $i$.
+\end{theorem}
+
+\begin{commonmistake}
+Do not conclude that an expansionary open market purchase \emph{must} lower the interest rate.
+When $i$ is already at (or extremely close to) zero and the economy is in a liquidity trap,
+the interest rate may not change even if money supply increases.
+\end{commonmistake}
+
+\subsection{Case II: Central Bank and Commercial Banks (Monetary Base)}
+
+\begin{definition}{Banks, deposits, and reserves}{def:banks_reserves}
+Banks are financial intermediaries with \textbf{checkable deposits} as liabilities.
+They hold \textbf{reserves} (assets) to meet withdrawals and settlement needs.
+Central-bank money consists of \textbf{currency} plus \textbf{bank reserves}.
+\end{definition}
+
+\begin{definition}{Monetary base and reserve ratio (no-currency assumption)}{def:monetary_base}
+Let $H$ denote the \textbf{monetary base} (central-bank money).
+Assume households hold no currency, so money held by the public is entirely checkable deposits.
+Let $\theta\in(0,1)$ be the reserve ratio, so banks desire reserves proportional to deposits:
+\[
+H^d = \theta M^d.
+\]
+In this no-currency setup, reserves coincide with the monetary base: $H=\text{reserves}$.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Demand for monetary base (Case II)}]
+If money demand by the public is
+\[
+M^d = \$Y L(i),
+\]
+and banks demand reserves $H^d=\theta M^d$, then
+\[
+H^d = \theta\,\$Y\,L(i).
+\]
+\end{keyformula}
+
+\begin{definition}{Supply of monetary base}{def:base_supply}
+In Case II, the central bank controls the supply of monetary base:
+\[
+H^s = H,
+\]
+and equilibrium in the market for central-bank money requires $H^s=H^d$.
+\end{definition}
+
+\begin{theorem}{Interest-rate determination with banks (Case II)}{thm:money_market_eq_case2}
+Equilibrium in the market for central-bank money satisfies
+\[
+H = \theta\,\$Y\,L(i).
+\]
+Assuming $L$ is strictly decreasing and invertible, the equilibrium interest rate is
+\[
+i^\ast = L^{-1}\!\left(\frac{H}{\theta\,\$Y}\right).
+\]
+An increase in $H$ lowers $i^\ast$.
+\end{theorem}
+
+\begin{definition}{Money multiplier (no-currency case)}{def:money_multiplier}
+With no currency held by households and reserve ratio $\theta$, deposits (money) are proportional to the monetary base:
+\[
+M = \frac{1}{\theta}H.
+\]
+The \textbf{money multiplier} is
+\[
+m \equiv \frac{M}{H} = \frac{1}{\theta}.
+\]
+\end{definition}
+
+\begin{commonmistake}
+\textbf{Monetary base vs.\ money supply.}
+In Case II, the central bank directly controls $H$ (the monetary base), not total money $M$.
+Total money is linked to $H$ via the money multiplier (under the maintained assumptions).
+Mixing up $H$ and $M$ leads to incorrect policy predictions.
+\end{commonmistake}
+
+
+\newpage
+\subsection{Worked Examples: Money Demand and Money-Market Equilibrium}
+
+\begin{examplebox}[title={Worked Example (Tutorial 2, Question 2): Money demand levels and proportional shifts}]
+Suppose nominal income is $\$Y=50{,}000$ (billion dollars) and money demand is
+\[
+M^d = \$Y\,(0.2-0.8i),
+\]
+where $i$ is expressed as a decimal (e.g.\ $1\%=0.01$).
+\begin{enumerate}[label=(\alph*)]
+  \item Compute $M^d$ when $i=1\%$ and when $i=5\%$.
+  \item State how $M^d$ varies with $\$Y$ and with $i$.
+  \item If $\$Y$ falls by $20\%$, what happens (in percent) to $M^d$ when $i=1\%$? when $i=5\%$?
+\end{enumerate}
+
+\textbf{Solution.}
+\begin{enumerate}[label=(\alph*)]
+  \item For $i=0.01$:
+  \[
+  0.2-0.8i=0.2-0.8(0.01)=0.192,
+  \qquad
+  M^d=50{,}000\times 0.192=9{,}600.
+  \]
+  For $i=0.05$:
+  \[
+  0.2-0.8i=0.2-0.8(0.05)=0.16,
+  \qquad
+  M^d=50{,}000\times 0.16=8{,}000.
+  \]
+
+  \item Rewrite as $M^d=\$Y\cdot(0.2-0.8i)$.
+  Holding $i$ fixed, $M^d$ is proportional to $\$Y$ (higher income $\Rightarrow$ higher transactions demand).
+  Holding $\$Y$ fixed, $M^d$ decreases linearly in $i$ (higher opportunity cost $\Rightarrow$ lower money holdings).
+
+  \item If $\$Y$ falls by $20\%$, then $\$Y' = 0.8\,\$Y$ and
+  \[
+  (M^d)'=\$Y'(0.2-0.8i)=0.8\,\$Y(0.2-0.8i)=0.8\,M^d.
+  \]
+  Therefore $M^d$ falls by exactly $20\%$ for any fixed $i$, including $1\%$ and $5\%$.
+\end{enumerate}
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example (Tutorial 2, Question 3): Equilibrium interest rate and a higher target}]
+Suppose money demand is
+\[
+M^d = \$Y\,(0.25-i),
+\]
+with $\$Y=40{,}000$ and money supply $M^s=\$8{,}000$. Interest rates are decimals.
+\begin{enumerate}[label=(\alph*)]
+  \item Find the equilibrium interest rate.
+  \item If the central bank wants $i=10\%$, will there be excess money supply or excess money demand at the old $M^s$?
+        What change in $M^s$ is required to reach the new equilibrium?
+\end{enumerate}
+
+\textbf{Solution.}
+\begin{enumerate}[label=(\alph*)]
+  \item Money-market equilibrium requires $M^d=M^s$:
+  \[
+  40{,}000(0.25-i)=8{,}000.
+  \]
+  Divide by $40{,}000$:
+  \[
+  0.25-i=0.2
+  \quad\Rightarrow\quad
+  i=0.05=5\%.
+  \]
+
+  \item At $i=0.10$, money demand is
+  \[
+  M^d(0.10)=40{,}000(0.25-0.10)=40{,}000(0.15)=6{,}000.
+  \]
+  With $M^s=8{,}000$, we have $M^s-M^d=2{,}000>0$, so there is \textbf{excess money supply}.
+  To make $i=10\%$ an equilibrium, set $M^s$ equal to demand at $i=0.10$:
+  \[
+  M^{s,\text{new}}=6{,}000,
+  \]
+  i.e.\ reduce money supply by $2{,}000$ via a contractionary operation.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Federal Funds Rate (Institutional Anchor)}
+
+\begin{definition}{Federal funds market and the federal funds rate}{def:ffr}
+The \textbf{federal funds market} is the market for bank reserves.
+The \textbf{federal funds rate} is the interest rate determined in this market and is a primary operational indicator of U.S.\ monetary policy.
+In the Case II logic, the central bank influences this rate by changing the supply of monetary base $H$.
+\end{definition}
+
+\begin{examtip}
+Typical exam tasks for Financial Markets I:
+\begin{itemize}
+  \item Start from $M^d=\$Y L(i)$ and clearly state why $L'(i)<0$.
+  \item Distinguish \textbf{movements along} vs.\ \textbf{shifts} of money demand; identify what changes $M^d$ vs.\ $M^s$.
+  \item Solve equilibrium interest rates from $M^s=M^d$ (Case I) or $H=\theta \$Y L(i)$ (Case II).
+  \item Use implicit differentiation to sign $di/dM$ and $di/d(\$Y)$.
+  \item Compute bond yields from prices and prices from yields; state and justify the inverse relation.
+  \item Liquidity trap logic: explain why increasing money supply may fail to reduce $i$ when $i$ is at (approximately) zero.
+\end{itemize}
+\end{examtip}

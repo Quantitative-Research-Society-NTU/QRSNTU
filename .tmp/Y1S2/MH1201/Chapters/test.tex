@@ -1,0 +1,429 @@
+% Added Extension boxes for Tutorial 1 Q3 Method 2; Tutorial 1 Q2 Method 2; Lecture Week 2: Span as intersection; Tutorial 1 Q5 Method 2; Lecture Week 2: Direct sums via sum map; Tutorial 1 Q6 Method 1
+%====================================================================
+
+\section{Vector Spaces and Subspaces}
+\label{sec:vector-spaces-subspaces}
+
+%====================================================================
+
+This chapter covers the foundational language of MH1201: vector spaces over a field, subspaces, span, and the basic operations on subspaces.
+
+%--------------------------------------------------------------------
+
+\subsection{Vector spaces over a field $\mathbb{F}$}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Vector space}{ch1-vector-space}
+Let $\mathbb{F}$ be a field. A \textbf{vector space over $\mathbb{F}$} is a nonempty set $V$ together with two operations:
+\begin{itemize}
+\item \emph{vector addition}: $+:V\times V\to V$,
+\item \emph{scalar multiplication}: $\mathbb{F}\times V\to V$,
+\end{itemize}
+such that for all $u,v,w\in V$ and all $\alpha,\beta\in\mathbb{F}$:
+\begin{enumerate}
+\item $u+v=v+u$ \hfill (commutativity)
+\item $(u+v)+w=u+(v+w)$ \hfill (associativity)
+\item $\exists\,0\in V$ such that $v+0=v$ \hfill (additive identity)
+\item $\forall v\in V,\ \exists(-v)\in V$ such that $v+(-v)=0$ \hfill (additive inverse)
+\item $\alpha(u+v)=\alpha u+\alpha v$ \hfill (distributivity over vectors)
+\item $(\alpha+\beta)v=\alpha v+\beta v$ \hfill (distributivity over scalars)
+\item $(\alpha\beta)v=\alpha(\beta v)$ \hfill (compatibility)
+\item $1v=v$ where $1$ is the multiplicative identity in $\mathbb{F}$ \hfill (scalar identity)
+\end{enumerate}
+\end{definition}
+
+\begin{examplebox}
+\textbf{Standard examples.}
+\begin{itemize}
+\item $\mathbb{F}^n$ with componentwise addition and scalar multiplication is a vector space over $\mathbb{F}$.
+\item $\mathbb{R}^{m,n}$ (all $m\times n$ real matrices) is a vector space over $\mathbb{R}$ with entrywise operations.
+\item $\mathcal{P}(\mathbb{R})$ (all real polynomials) is a vector space over $\mathbb{R}$.
+\item $\mathbb{R}^{\mathbb{R}}$ (all real functions $f:\mathbb{R}\to\mathbb{R}$) is a vector space over $\mathbb{R}$ under pointwise operations.
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Non-example: $(\mathbb{R}_{>0},+,\cdot)$.}
+Let $V=\mathbb{R}_{>0}$ (positive real numbers) with the usual addition and scalar multiplication.
+Then $V$ is \emph{not} a vector space over $\mathbb{R}$ because it has no additive identity: $0\notin \mathbb{R}_{>0}$.
+Equivalently, additive inverses fail: for $v>0$, $-v\notin \mathbb{R}_{>0}$.
+\end{examplebox}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Forgetting to specify the scalar field $\mathbb{F}$ (especially when the same set can be a vector space over different fields).
+\item Assuming closure under scalar multiplication without checking that \emph{all} scalars in $\mathbb{F}$ are allowed (e.g.\ irrational scalars when $\mathbb{F}=\mathbb{R}$).
+\end{itemize}
+\end{commonmistake}
+
+
+
+%--------------------------------------------------------------------
+
+\subsection{Subspaces and the subspace test}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Vector subspace}{ch1-subspace}
+Let $V$ be a vector space over $\mathbb{F}$. A subset $W\subseteq V$ is a \textbf{vector subspace} of $V$ if
+\begin{enumerate}
+\item $0\in W$;
+\item for all $u,v\in W$, we have $u+v\in W$;
+\item for all $\alpha\in\mathbb{F}$ and all $v\in W$, we have $\alpha v\in W$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}{Subspace Test}{ch1-subspace-test}
+Let $V$ be a vector space over $\mathbb{F}$ and let $W\subseteq V$ be a \emph{nonempty} subset.
+Then $W$ is a subspace of $V$ if and only if
+\[
+\forall\,u,v\in W,\ \forall\,\alpha,\beta\in\mathbb{F},\quad \alpha u+\beta v\in W.
+\]
+\begin{proof}
+($\Rightarrow$) If $W$ is a subspace, then $\alpha u,\beta v\in W$ by closure under scalar multiplication, hence $\alpha u+\beta v\in W$ by closure under addition.
+
+($\Leftarrow$) Assume the displayed condition and that $W$ is nonempty. Pick $w_0\in W$.
+Then $0\cdot w_0+0\cdot w_0=0\in W$. Also $1\cdot u+1\cdot v=u+v\in W$, and $\alpha\cdot v+0\cdot w_0=\alpha v\in W$. So $W$ is a subspace.
+\end{proof}
+\end{theorem}
+
+\begin{keyformula}
+\textbf{How to show $W$ is a subspace (fast).}
+\begin{enumerate}
+\item Prove $W\neq \varnothing$ (or exhibit an element).
+\item Use the Subspace Test: check $\alpha u+\beta v\in W$ for arbitrary $u,v\in W$ and $\alpha,\beta\in\mathbb{F}$.
+\end{enumerate}
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 1, Question 1): a linear constraint subspace in $\mathbb{R}^3$.}
+
+Let
+\[
+U=\{(a,b,c)\in\mathbb{R}^3:\ a=5c\}.
+\]
+Show that $U$ is a subspace of $\mathbb{R}^3$ and find a spanning set.
+
+\medskip
+\textbf{Solution (Subspace Test).}
+First $U\neq\varnothing$ since $(0,0,0)\in U$.
+
+Let $(a_1,b_1,c_1),(a_2,b_2,c_2)\in U$, so $a_1=5c_1$ and $a_2=5c_2$.
+For $\alpha,\beta\in\mathbb{R}$, consider
+\[
+\alpha(a_1,b_1,c_1)+\beta(a_2,b_2,c_2)=(\alpha a_1+\beta a_2,\ \alpha b_1+\beta b_2,\ \alpha c_1+\beta c_2).
+\]
+Its first and third components satisfy
+\[
+\alpha a_1+\beta a_2=\alpha(5c_1)+\beta(5c_2)=5(\alpha c_1+\beta c_2),
+\]
+so the combination lies in $U$. Hence $U$ is a subspace.
+
+\medskip
+\textbf{Spanning set / parametrization.}
+Write $c=t$, $b=s$ free. Then $a=5t$, so
+\[
+(a,b,c)=(5t,s,t)=s(0,1,0)+t(5,0,1).
+\]
+Thus
+\[
+U=\operatorname{span}\{(0,1,0),(5,0,1)\}.
+\]
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 1, Question 2): subspace of differentiable functions.}
+
+Let $\mathcal{D}$ be the set of differentiable functions $f:\mathbb{R}\to\mathbb{R}$.
+Define
+\[
+W=\{f\in\mathcal{D}:\ f'(1)=3f(2)\}.
+\]
+Show that $W$ is a subspace of $\mathbb{R}^{\mathbb{R}}$.
+
+\medskip
+\textbf{Solution.}
+$W\neq\varnothing$ since the zero function satisfies $0'(1)=0=3\cdot 0(2)$.
+
+Let $f,g\in W$ and let $\alpha,\beta\in\mathbb{R}$.
+Then
+\[
+(\alpha f+\beta g)'(1)=\alpha f'(1)+\beta g'(1)=\alpha(3f(2))+\beta(3g(2))=3(\alpha f(2)+\beta g(2))=3(\alpha f+\beta g)(2).
+\]
+Hence $\alpha f+\beta g\in W$. By the Subspace Test, $W$ is a subspace.
+\end{examplebox}
+
+\begin{policynote}[title={Extension (Tutorial 1, Question 2, Method 2)}]
+Let $\mathcal{D}$ be the vector space of differentiable functions $f:\mathbb{R}\to\mathbb{R}$.
+Define a linear map $L:\mathcal{D}\to\mathbb{R}$ by $L(f)=f'(1)-3f(2)$.
+Evaluation $f\mapsto f(2)$ and derivative-evaluation $f\mapsto f'(1)$ are linear, hence $L$ is linear.
+Therefore
+\[
+W=\{f\in\mathcal{D}: f'(1)=3f(2)\}=\ker(L),
+\]
+so $W$ is a subspace immediately.
+\end{policynote}
+
+\begin{theorem}{Kernel is a subspace}{ch1-kernel-subspace}
+Let $V,W$ be vector spaces over $\mathbb{F}$ and let $T:V\to W$ be linear.
+Then
+\[
+\ker(T)=\{v\in V:\ T(v)=0\}
+\]
+is a subspace of $V$.
+\begin{proof}
+$T(0)=0$, so $0\in\ker(T)$. If $u,v\in\ker(T)$, then $T(u+v)=T(u)+T(v)=0+0=0$.
+If $\alpha\in\mathbb{F}$ and $v\in\ker(T)$, then $T(\alpha v)=\alpha T(v)=\alpha\cdot 0=0$.
+\end{proof}
+\end{theorem}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Checking closure under addition and scalar multiplication but forgetting to show $0\in W$ (or forgetting to show $W\neq\varnothing$ when using the Subspace Test).
+\item Confusing a \emph{linear constraint} (homogeneous equation) with an \emph{affine constraint} (nonhomogeneous equation). Only homogeneous constraints yield subspaces.
+\end{itemize}
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Span, generating sets, and “describe the span” problems}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Linear combination and span}{ch1-span}
+Let $S\subseteq V$. A \textbf{linear combination of vectors in $S$} means an expression
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n
+\]
+where $n\in\mathbb{N}$, $v_1,\ldots,v_n\in S$ are distinct, and $\lambda_1,\ldots,\lambda_n\in\mathbb{F}$.
+
+The \textbf{span} of $S$ is
+\[
+\operatorname{span}(S)=\{\text{all linear combinations of vectors in }S\}.
+\]
+\end{definition}
+
+\begin{theorem}{Span is the smallest subspace containing a set}{ch1-span-smallest}
+Let $S\subseteq V$.
+\begin{enumerate}
+\item $\operatorname{span}(S)$ is a subspace of $V$ and contains $S$.
+\item If $W$ is a subspace of $V$ and $S\subseteq W$, then $\operatorname{span}(S)\subseteq W$.
+\end{enumerate}
+Hence $\operatorname{span}(S)$ is the smallest subspace of $V$ containing $S$.
+\begin{proof}
+(1) $0\in\operatorname{span}(S)$ (take all coefficients $0$). Closure follows because sums and scalar multiples of linear combinations are again linear combinations. Also $S\subseteq\operatorname{span}(S)$ since $s=1\cdot s$.
+
+(2) If $S\subseteq W$ and $W$ is a subspace, then all linear combinations of elements of $S$ lie in $W$ by closure. Hence $\operatorname{span}(S)\subseteq W$.
+\end{proof}
+\end{theorem}
+
+\begin{policynote}[title={Extension (Lecture Week 2: Span as an intersection)}]
+Let $\mathcal{W}=\{\,W\subseteq V:\ W\text{ is a subspace and }S\subseteq W\,\}$.
+Then
+\[
+\operatorname{span}(S)=\bigcap_{W\in\mathcal{W}} W.
+\]
+Indeed, $\operatorname{span}(S)\subseteq W$ for every such $W$ (smallest-subspace property), so $\operatorname{span}(S)$ is contained in the intersection; conversely, $\operatorname{span}(S)\in\mathcal{W}$, so the intersection is contained in $\operatorname{span}(S)$.
+\end{policynote}
+
+\begin{keyformula}
+\textbf{How to describe $\operatorname{span}$ in practice.}
+\begin{itemize}
+\item If $S=\{v_1,\ldots,v_k\}$ is finite, then
+\[
+\operatorname{span}(S)=\{a_1v_1+\cdots+a_kv_k:\ a_i\in\mathbb{F}\}.
+\]
+\item To \emph{identify} the subspace geometrically in $\mathbb{R}^2$ or $\mathbb{R}^3$:
+\begin{itemize}
+\item one nonzero vector spans a line through the origin;
+\item two non-collinear vectors span a plane through the origin in $\mathbb{R}^3$;
+\item three vectors in $\mathbb{R}^3$ span $\mathbb{R}^3$ iff they are linearly independent.
+\end{itemize}
+\end{itemize}
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example: describe $\operatorname{span}\{(1,1,0),(0,1,1)\}\subset\mathbb{R}^3$.}
+
+\medskip
+\textbf{Solution.}
+A typical vector is
+\[
+a(1,1,0)+b(0,1,1)=(a,\ a+b,\ b).
+\]
+Thus
+\[
+\operatorname{span}\{(1,1,0),(0,1,1)\}=\{(x,y,z)\in\mathbb{R}^3:\ y=x+z\},
+\]
+a plane through the origin. (Indeed $y=x+z$ is a homogeneous linear equation.)
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example: proving equality of subspaces via double inclusion.}
+
+Let $U=\operatorname{span}\{(1,0,1),(0,1,1)\}$ and
+\[
+W=\{(x,y,z)\in\mathbb{R}^3:\ z=x+y\}.
+\]
+Show $U=W$.
+
+\medskip
+\textbf{Solution.}
+($U\subseteq W$) Take $u\in U$. Then $u=a(1,0,1)+b(0,1,1)=(a,b,a+b)$, so $z=a+b=x+y$. Hence $u\in W$.
+
+($W\subseteq U$) Take $w=(x,y,z)\in W$. Then $z=x+y$, so
+\[
+w=(x,y,x+y)=x(1,0,1)+y(0,1,1)\in U.
+\]
+Thus $W\subseteq U$, hence $U=W$.
+\end{examplebox}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Claiming $\operatorname{span}(S)=W$ without proving both containments.
+\item Mixing up “a basis for $W$” with “a spanning set for $W$”: spanning is necessary but not sufficient (need linear independence for a basis, which is Chapter 2).
+\end{itemize}
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Operations on subspaces: intersection, sum, and direct sum}
+
+%--------------------------------------------------------------------
+
+\begin{theorem}{Intersection of subspaces is a subspace}{ch1-intersection-subspace}
+Let $\{W_i\}_{i\in I}$ be a family of subspaces of $V$. Then
+\[
+\bigcap_{i\in I} W_i
+\]
+is a subspace of $V$.
+\begin{proof}
+$0\in W_i$ for all $i$, so $0$ lies in the intersection. If $u,v$ lie in the intersection, then $u,v\in W_i$ for every $i$, so $\alpha u+\beta v\in W_i$ for every $i$; hence $\alpha u+\beta v$ lies in the intersection.
+\end{proof}
+\end{theorem}
+
+\begin{definition}{Sum of subspaces}{ch1-sum-subspaces}
+Let $W_1,\ldots,W_n$ be subspaces of $V$.
+Their \textbf{sum} is
+\[
+W_1+\cdots+W_n=\{w_1+\cdots+w_n:\ w_i\in W_i\}.
+\]
+\end{definition}
+
+\begin{theorem}{Sum of subspaces is a subspace}{ch1-sum-subspace}
+If $W_1,\ldots,W_n$ are subspaces of $V$, then $W_1+\cdots+W_n$ is a subspace of $V$.
+\begin{proof}
+$0=0+\cdots+0$ lies in the sum.
+If $x=w_1+\cdots+w_n$ and $y=w_1'+\cdots+w_n'$ lie in the sum, then
+\[
+x+y=(w_1+w_1')+\cdots+(w_n+w_n')\in W_1+\cdots+W_n.
+\]
+Also $\alpha x=(\alpha w_1)+\cdots+(\alpha w_n)\in W_1+\cdots+W_n$.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}{Union of two subspaces is a subspace iff one contains the other (Tutorial 1, Question 5)}{ch1-union-subspaces}
+Let $W_1,W_2$ be subspaces of $V$. Then $W_1\cup W_2$ is a subspace of $V$ if and only if
+\[
+W_1\subseteq W_2 \quad \text{or}\quad W_2\subseteq W_1.
+\]
+\begin{proof}
+($\Leftarrow$) If $W_1\subseteq W_2$, then $W_1\cup W_2=W_2$ is a subspace. Similarly if $W_2\subseteq W_1$.
+
+($\Rightarrow$) Suppose $W_1\cup W_2$ is a subspace. If neither contains the other, choose
+\[
+u\in W_1\setminus W_2,\qquad v\in W_2\setminus W_1.
+\]
+Then $u,v\in W_1\cup W_2$, so $u+v\in W_1\cup W_2$.
+If $u+v\in W_1$, then $v=(u+v)-u\in W_1$, contradiction. If $u+v\in W_2$, then $u=(u+v)-v\in W_2$, contradiction.
+Hence one must contain the other.
+\end{proof}
+\end{theorem}
+
+\begin{policynote}[title={Extension (Tutorial 1, Question 5, Method 2)}]
+Assume $W_1\cup W_2$ is a subspace and pick $u\in W_1$, $v\in W_2$.
+Since a subspace containing $u$ and $v$ must contain $\operatorname{span}\{u,v\}$, we have $\operatorname{span}\{u,v\}\subseteq W_1\cup W_2$.
+If $u\notin W_2$ and $v\notin W_1$, then $\{u,v\}$ is linearly independent, so $u+v\in\operatorname{span}\{u,v\}$ but $u+v\notin W_1$ and $u+v\notin W_2$ (otherwise subtract to force $v\in W_1$ or $u\in W_2$), contradiction.
+Therefore one of $W_1,W_2$ must contain the other.
+\end{policynote}
+
+\begin{definition}{Direct sum}{ch1-direct-sum}
+Let $U,W$ be subspaces of $V$. We write
+\[
+V=U\oplus W
+\]
+if $V=U+W$ and $U\cap W=\{0\}$.
+\end{definition}
+
+\begin{theorem}{Direct sum iff unique decomposition}{ch1-direct-sum-unique}
+Let $U,W$ be subspaces of $V$ with $V=U+W$.
+Then $V=U\oplus W$ if and only if every $v\in V$ can be written as
+\[
+v=u+w \quad (u\in U,\ w\in W)
+\]
+in \emph{exactly one} way.
+\begin{proof}
+($\Rightarrow$) Assume $U\cap W=\{0\}$. If $v=u_1+w_1=u_2+w_2$, then
+\[
+u_1-u_2=w_2-w_1.
+\]
+The left side lies in $U$ and the right side lies in $W$, so both lie in $U\cap W=\{0\}$, hence $u_1=u_2$ and $w_1=w_2$.
+
+($\Leftarrow$) Assume every decomposition is unique. If $x\in U\cap W$, then $0=x+(-x)$ with $x\in U$, $-x\in W$, and also $0=0+0$.
+By uniqueness, $x=0$, so $U\cap W=\{0\}$.
+\end{proof}
+\end{theorem}
+
+\begin{policynote}[title={Extension (Lecture Week 2: Direct sums via the sum map)}]
+Define the linear map $\phi:U\times W\to V$ by $\phi(u,w)=u+w$.
+Then $\operatorname{Im}(\phi)=U+W$ and
+\[
+\ker(\phi)=\{(u,w):u=-w\} \cong U\cap W.
+\]
+In particular, $U\cap W=\{0\}$ iff $\ker(\phi)=\{(0,0)\}$ iff $\phi$ is injective.
+If additionally $V=U+W$, then $\phi$ is bijective, so every $v\in V$ has a \emph{unique} representation $v=u+w$.
+\end{policynote}
+
+\begin{examplebox}
+\textbf{Worked Example: a direct sum in $\mathbb{R}^2$.}
+
+Let $U=\{(x,0):x\in\mathbb{R}\}$ and $W=\{(0,y):y\in\mathbb{R}\}$.
+Then $\mathbb{R}^2=U\oplus W$ because every $(a,b)$ decomposes uniquely as $(a,0)+(0,b)$ and $U\cap W=\{(0,0)\}$.
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 1, Question 6): an affine set is not a subspace.}
+
+Consider
+\[
+S=\left\{\begin{pmatrix}a&b\\3b-4c&a+2\end{pmatrix}:a,b,c\in\mathbb{R}\right\}\subseteq \mathbb{R}^{2,2}.
+\]
+Show that $S$ is not a subspace.
+
+\medskip
+\textbf{Solution.}
+A necessary condition for being a subspace is that the zero matrix lies in the set.
+But every matrix in $S$ has bottom-right entry $a+2$, so it can never be $0$ (since $a+2=0$ would force the top-left entry $a=-2$, making the matrix nonzero).
+Hence $0\notin S$, so $S$ is not a subspace.
+\end{examplebox}
+
+\begin{policynote}[title={Extension (Tutorial 1, Question 6, Method 1)}]
+\textbf{Affine-translate viewpoint.}
+In a vector space $V$, a set of the form $v_0+W=\{v_0+w:w\in W\}$ (with $W$ a subspace) is an \emph{affine subspace} and is a vector subspace iff $v_0=0$.
+Here, take
+\[
+M_0=\begin{pmatrix}0&0\\0&2\end{pmatrix},\qquad
+W=\left\{\begin{pmatrix}a&b\\3b-4c&a\end{pmatrix}:a,b,c\in\mathbb{R}\right\},
+\]
+so $S=M_0+W$ with $W$ a genuine subspace. Since $M_0\neq 0$, $S$ cannot be a vector subspace (it does not pass through the origin).
+\end{policynote}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Treating an affine condition (like $a+2$) as if it were homogeneous. Always check whether the set contains $0$.
+\item Writing $V=U\oplus W$ without proving \emph{both} $V=U+W$ and $U\cap W=\{0\}$.
+\end{itemize}
+\end{commonmistake}
+
+%====================================================================

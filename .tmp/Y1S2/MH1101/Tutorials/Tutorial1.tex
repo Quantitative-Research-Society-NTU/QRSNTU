@@ -1,0 +1,637 @@
+% Typeset tutorial generated in MH5200-style template. Source tutorial text: Tutorial-1.pdf [file:4]. Reference LaTeX style: MH5200_ProblemSheet2.tex [file:5].
+
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName} {Calculus II}
+\newcommand{\DocType}{Tutorial 1 (Week 2) -- Questions \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------------------------------------------------
+
+%------------- WATERMARK -------------
+
+\SetWatermarkText{Unofficial — Typeset Copy}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview of This Tutorial}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+Topics covered include antiderivatives, evaluating definite integrals via Riemann sums and geometry, integral inequalities, limits as definite integrals, and basic integral properties.
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Q1:} Antiderivatives and recovering functions from derivatives / second derivatives.
+\item \textbf{Q2:} Riemann sums (right endpoints) and evaluating limits to compute an integral.
+\item \textbf{Q3:} Area interpretations (net area, semicircle geometry).
+\item \textbf{Q4:} Bounding integrals using inequalities without direct evaluation.
+\item \textbf{Q5:} Net areas from a graph plus polynomial integrals.
+\item \textbf{Q6:} Converting limits of sums into definite integrals.
+\item \textbf{Q7--8:} Integral inequalities and trapezoidal-rule identity for linear functions.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+
+\section*{Question 1}
+
+\subsection*{Problem}
+
+\begin{enumerate}[label=(\roman*)]
+\item Find the most general antiderivative of the function
+\[
+\frac{5 - 4x^3 + 2x^6}{x^6},
+\qquad x\in\mathbb{R}\setminus\{0\}.
+\]
+\item Find \(f\) if \(f'(x)=\sec x(\sec x+\tan x)\), \(-\frac{\pi}{2}<x<\frac{\pi}{2}\), and \(f(\pi/4)=-1\).
+\item Find \(f\) if \(f''(x)=\sin x+\cos x\), \(x\in\mathbb{R}\), and \(f(0)=3\), \(f'(0)=12\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct integration (term-by-term)}
+
+\begin{enumerate}[label=(\roman*)]
+\item Rewrite:
+\[
+\frac{5 - 4x^3 + 2x^6}{x^6} = 5x^{-6} - 4x^{-3} + 2.
+\]
+Integrate term-by-term:
+\[
+\int \left(5x^{-6} - 4x^{-3} + 2\right)\,dx
+= 5\cdot \frac{x^{-5}}{-5} - 4\cdot \frac{x^{-2}}{-2} + 2x + C
+= -x^{-5} + 2x^{-2} + 2x + C.
+\]
+Thus an antiderivative is
+\[
+\boxed{F(x)=2x+\frac{2}{x^2}-\frac{1}{x^5}+C}\]
+
+\item Observe:
+\[
+\frac{d}{dx}(\sec x+\tan x)=\sec x\tan x+\sec^2 x=\sec x(\tan x+\sec x)=\sec x(\sec x+\tan x).
+\]
+Hence \(f(x)=\sec x+\tan x + C\). Using \(f(\pi/4)=-1\) with \(\sec(\pi/4)=\sqrt{2}\), \(\tan(\pi/4)=1\):
+\[
+-1 = (\sqrt{2}+1)+C \quad\Rightarrow\quad C=-2-\sqrt{2}.
+\]
+Therefore
+\[
+\boxed{f(x)=\sec x+\tan x -2-\sqrt{2}}
+\]
+
+\item Integrate twice. First:
+\[
+f'(x)=\int(\sin x+\cos x)\,dx=-\cos x+\sin x + C_1.
+\]
+Apply \(f'(0)=12\): \(-1+0+C_1=12\Rightarrow C_1=13\), so
+\[
+f'(x)=-\cos x+\sin x+13.
+\]
+Integrate again:
+\[
+f(x)=\int(-\cos x+\sin x+13)\,dx=-\sin x-\cos x+13x+C_2.
+\]
+Apply \(f(0)=3\): \(0-1+0+C_2=3\Rightarrow C_2=4\). Thus
+\[
+\boxed{f(x)=-\sin x-\cos x+13x+4}
+\]
+\end{enumerate}
+
+% Source question text matches MH1101 Tutorial 1, Q1 [file:4].
+
+\subsubsection*{Method 2: Pattern recognition / derivative matching}
+
+\begin{enumerate}[label=(\roman*)]
+
+\item \textbf{Power-rule matching (recognize integrand as a sum of powers).}
+
+First rewrite the integrand into a sum of simple powers of \(x\):
+\[
+\frac{5-4x^3+2x^6}{x^6}
+= \frac{5}{x^6}-\frac{4x^3}{x^6}+\frac{2x^6}{x^6}
+= 5x^{-6}-4x^{-3}+2.
+\]
+Now apply the power rule in reverse:
+\[
+\int x^n\,dx=\frac{x^{n+1}}{n+1}+C\qquad (n\neq -1).
+\]
+Compute each term:
+\[
+\int 5x^{-6}\,dx = 5\cdot \frac{x^{-5}}{-5} = -x^{-5},\qquad
+\int (-4x^{-3})\,dx = -4\cdot \frac{x^{-2}}{-2}=2x^{-2},\qquad
+\int 2\,dx = 2x.
+\]
+Therefore the most general antiderivative is
+\[
+F(x)=2x+2x^{-2}-x^{-5}+C
+=2x+\frac{2}{x^2}-\frac{1}{x^5}+C,
+\]
+and the final answer can be written as
+\[
+\boxed{\,F(x)=2x+\frac{2}{x^2}-\frac{1}{x^5}+C,\quad x\neq 0.\,}
+\]
+
+\item \textbf{Derivative matching using a known identity.}
+
+Notice the integrand
+\[
+f'(x)=\sec x(\sec x+\tan x)
+\]
+looks like the product obtained when differentiating \(\sec x+\tan x\). Indeed,
+\[
+\frac{d}{dx}(\sec x+\tan x)=\sec x\tan x+\sec^2 x=\sec x(\tan x+\sec x)=\sec x(\sec x+\tan x).
+\]
+Hence a general antiderivative is
+\[
+f(x)=\sec x+\tan x+C.
+\]
+Use the condition \(f(\pi/4)=-1\). Since \(\sec(\pi/4)=\sqrt{2}\) and \(\tan(\pi/4)=1\),
+\[
+-1=f(\pi/4)=\sqrt{2}+1+C
+\quad\Rightarrow\quad
+C=-2-\sqrt{2}.
+\]
+Thus
+\[
+\boxed{\,f(x)=\sec x+\tan x-2-\sqrt{2}.\,}
+\]
+
+\item \textbf{Particular solution + homogeneous part (``add a line'').}
+
+We want \(f''(x)=\sin x+\cos x\). First, find \emph{one} convenient function whose second derivative equals \(\sin x+\cos x\).
+Try
+\[
+f_p(x)=-\sin x-\cos x.
+\]
+Differentiate twice:
+\[
+f_p'(x)=-\cos x+\sin x,\qquad
+f_p''(x)=\sin x+\cos x,
+\]
+so \(f_p\) is a valid particular solution.
+
+Now observe: if \(f''(x)=\sin x+\cos x\), then \(f(x)-f_p(x)\) must have second derivative \(0\). The general function with second derivative \(0\) is a linear function \(Ax+B\). Hence the general solution is
+\[
+f(x)=f_p(x)+Ax+B=-\sin x-\cos x+Ax+B.
+\]
+Compute \(f'(x)\):
+\[
+f'(x)=-\cos x+\sin x + A.
+\]
+Use \(f'(0)=12\):
+\[
+12=f'(0)=-\cos 0+\sin 0 + A = -1+0+A
+\quad\Rightarrow\quad
+A=13.
+\]
+Use \(f(0)=3\):
+\[
+3=f(0)=-\sin 0-\cos 0+13\cdot 0 + B = 0-1+0+B
+\quad\Rightarrow\quad
+B=4.
+\]
+Therefore
+\[
+\boxed{\,f(x)=-\sin x-\cos x+13x+4.\,}
+\]
+
+\end{enumerate}
+
+\newpage
+\section*{Question 2}
+
+\subsection*{Problem}
+
+Using the right endpoints as sample points, find the Riemann sum that corresponds to the definite integral
+\[
+\int_{1}^{4}(x^2+2x-5)\,dx.
+\]
+Evaluate the integral by computing the limit of the Riemann sum directly. You may assume that
+\[
+\sum_{i=1}^n i=\frac{n(n+1)}{2},
+\qquad
+\sum_{i=1}^n i^2=\frac{n(n+1)(2n+1)}{6}.
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Build the right-endpoint Riemann sum and take the limit}
+
+Partition \([1,4]\) into \(n\) equal subintervals. Then \(\Delta x=\frac{4-1}{n}=\frac{3}{n}\), and the right endpoints are
+\[
+x_i = 1+i\Delta x = 1+\frac{3i}{n},\qquad i=1,\dots,n.
+\]
+So the Riemann sum is
+\[
+S_n=\sum_{i=1}^{n}\Bigl(x_i^2+2x_i-5\Bigr)\Delta x
+=\sum_{i=1}^{n}\left(\left(1+\frac{3i}{n}\right)^2+2\left(1+\frac{3i}{n}\right)-5\right)\frac{3}{n}.
+\]
+Simplify inside:
+\begin{align*}
+\left(1+\frac{3i}{n}\right)^2+2\left(1+\frac{3i}{n}\right)-5
+&=\left(1+\frac{6i}{n}+\frac{9i^2}{n^2}\right)+\left(2+\frac{6i}{n}\right)-5\\
+&=\frac{12i}{n}+\frac{9i^2}{n^2}-2.
+\end{align*}
+Thus
+\[
+S_n=\sum_{i=1}^n\left(\frac{12i}{n}+\frac{9i^2}{n^2}-2\right)\frac{3}{n}
+=\sum_{i=1}^n\left(\frac{36i}{n^2}+\frac{27i^2}{n^3}-\frac{6}{n}\right).
+\]
+Split the sums:
+\[
+S_n=\frac{36}{n^2}\sum_{i=1}^n i + \frac{27}{n^3}\sum_{i=1}^n i^2 - \frac{6}{n}\sum_{i=1}^n 1.
+\]
+Use the given formulas and \(\sum_{i=1}^n 1=n\):
+\begin{align*}
+S_n
+&=\frac{36}{n^2}\cdot \frac{n(n+1)}{2}
++ \frac{27}{n^3}\cdot \frac{n(n+1)(2n+1)}{6}
+- \frac{6}{n}\cdot n\\
+&=18\cdot \frac{n+1}{n}
++ \frac{27}{6}\cdot \frac{(n+1)(2n+1)}{n^2}
+- 6.
+\end{align*}
+Take \(n\to\infty\):
+\[
+\lim_{n\to\infty} S_n
+=18\cdot 1 + \frac{27}{6}\cdot \lim_{n\to\infty}\frac{(n+1)(2n+1)}{n^2}-6
+=18+\frac{27}{6}\cdot 2 - 6
+=18+9-6 \
+=21.
+\]
+Hence \(\boxed{\int_1^4 (x^2+2x-5)\,dx = 21}\).
+
+\subsubsection*{Method 2: Evaluate the integral directly (cross-check)}
+
+Compute an antiderivative:
+\[
+\int (x^2+2x-5)\,dx = \frac{x^3}{3}+x^2-5x + C.
+\]
+Evaluate from 1 to 4:
+\[
+\left(\frac{64}{3}+16-20\right) - \left(\frac{1}{3}+1-5\right)
+=\left(\frac{64}{3}-4\right)-\left(\frac{1}{3}-4\right)
+=\frac{63}{3}
+=21.
+\]
+
+
+\bigskip
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\newpage
+
+\section*{Question 3}
+
+\subsection*{Problem}
+
+Evaluate the integral by interpreting it in terms of areas:
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle \int_0^9 \left(\frac{1}{3}x - 2\right)\,dx.\)
+\item \(\displaystyle \int_{-3}^{0}\left(1+\sqrt{9-x^2}\right)\,dx.\)
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\roman*)]
+\item The graph of \(y=\frac{1}{3}x-2\) is a line crossing the \(x\)-axis at \(\frac{1}{3}x-2=0\Rightarrow x=6\).
+On \([0,6]\) the graph is below the axis, forming a triangle of base \(6\) and height \(2\), so net area is negative:
+\[
+\int_0^6\left(\frac{1}{3}x-2\right)\,dx = -\frac{1}{2}\cdot 6\cdot 2 = -6.
+\]
+On \([6,9]\) the graph is above the axis, forming a triangle of base \(3\) and height \(y(9)=1\):
+\[
+\int_6^9\left(\frac{1}{3}x-2\right)\,dx = \frac{1}{2}\cdot 3\cdot 1 = \frac{3}{2}.
+\]
+Thus
+\[
+\int_0^9\left(\frac{1}{3}x-2\right)\,dx = -6+\frac{3}{2}=-\frac{9}{2}.
+\]
+
+\item On \([-3,0]\), \(\sqrt{9-x^2}\) is the upper semicircle of radius \(3\), and restricting to \([-3,0]\) gives a quarter-circle region. Hence
+\[
+\int_{-3}^0 \sqrt{9-x^2}\,dx = \frac{1}{4}\pi (3)^2 = \frac{9\pi}{4}.
+\]
+Also,
+\[
+\int_{-3}^0 1\,dx = 3.
+\]
+So
+\[
+\int_{-3}^{0}\left(1+\sqrt{9-x^2}\right)\,dx = 3+\frac{9\pi}{4}.
+\]
+\end{enumerate}
+
+\newpage
+\section*{Question 4}
+
+\subsection*{Problem}
+
+Use properties of integrals to verify the inequality without evaluating the integrals.
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle 2 \le \int_{-1}^{1}\sqrt{1+x^2}\,dx \le 2\sqrt{2}.\)
+\item \(\displaystyle \int_{0}^{\pi/2} x\sin x\,dx \le \frac{\pi^2}{8}.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Pointwise bounds + integrate}
+
+\begin{enumerate}[label=(\roman*)]
+\item For \(x\in[-1,1]\), we have \(1\le 1+x^2\le 2\), hence
+\[
+1 \le \sqrt{1+x^2} \le \sqrt{2}.
+\]
+Integrating over \([-1,1]\) gives
+\[
+\int_{-1}^1 1\,dx \le \int_{-1}^1 \sqrt{1+x^2}\,dx \le \int_{-1}^1 \sqrt{2}\,dx,
+\]
+i.e.
+\[
+2 \le \int_{-1}^1 \sqrt{1+x^2}\,dx \le 2\sqrt{2}.
+\]
+
+\item For \(x\in[0,\pi/2]\), \(0\le \sin x \le 1\), so \(0\le x\sin x \le x\). Thus
+\[
+\int_0^{\pi/2} x\sin x\,dx \le \int_0^{\pi/2} x\,dx = \left[\frac{x^2}{2}\right]_0^{\pi/2}=\frac{\pi^2}{8}.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Monotonicity / comparison}
+
+\begin{enumerate}[label=(\roman*)]
+\item Since \(\sqrt{1+x^2}\) is even, one can write
+\[
+\int_{-1}^1 \sqrt{1+x^2}\,dx = 2\int_0^1 \sqrt{1+x^2}\,dx,
+\]
+and then use \(1\le \sqrt{1+x^2}\le \sqrt{2}\) on \([0,1]\), multiplying by 2 to obtain the same bounds.
+
+\item Use the comparison \(x\sin x \le x\cdot 1=x\) on \([0,\pi/2]\). Alternatively, note \(x\le \pi/2\) and \(\sin x\le 1\) so \(x\sin x\le x\), giving the same result after integration.
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 5
+%====================================================
+
+\newpage
+
+\section*{Question 5}
+
+\subsection*{Problem}
+
+Each of the regions \(A\) (Below), \(B\) (Above), and \(C\) (Below) bounded by the graph \(f\) and the \(x\)-axis has area \(3\).
+Find the value of
+\[
+\int_{-4}^{2} \left(f(x) + 2x + 5\right)\,dx
+\]
+by interpreting definite integrals as areas (net areas).
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Split the integral and use net area}
+
+Split:
+\[
+\int_{-4}^{2}\left(f(x)+2x+5\right)\,dx
+=\int_{-4}^{2} f(x)\,dx + \int_{-4}^{2}(2x+5)\,dx.
+\]
+From the given graph, the three labelled regions \(A,B,C\) each have (unsigned) area \(3\), and the net area over \([-4,2]\) is
+\[
+\int_{-4}^{2} f(x)\,dx = (\text{area above})-(\text{area below})=3-3-3=-3,
+\]
+since exactly one of the regions is above the axis and two are below (as shown by the diagram).
+Next,
+\[
+\int_{-4}^{2}(2x+5)\,dx = \left[x^2+5x\right]_{-4}^{2} = (4+10)-(16-20)=14-(-4)=18.
+\]
+Therefore
+\[
+\int_{-4}^{2} \left(f(x) + 2x + 5\right)\,dx = -3+18 = 15.
+\]
+
+\bigskip
+
+%====================================================
+% QUESTION 6
+%====================================================
+
+\newpage
+
+\section*{Question 6}
+
+\subsection*{Problem}
+
+Express the following limit as a definite integral:
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle \lim_{n\to\infty}\sum_{i=1}^{n}\frac{i^4}{n^5}.\)
+\item \(\displaystyle \lim_{n\to\infty}\frac{2}{n}\sum_{i=1}^{n}\frac{1}{1+\left(1+\frac{2i}{n}\right)^2}.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Identify \(\Delta x\) and \(x_i\) (Riemann-sum form)}
+
+\begin{enumerate}[label=(\roman*)]
+\item Rewrite:
+\[
+\sum_{i=1}^n \frac{i^4}{n^5} = \sum_{i=1}^n \left(\frac{1}{n}\right)\left(\frac{i}{n}\right)^4.
+\]
+This is a Riemann sum for \(\int_0^1 x^4\,dx\). Hence the limit equals
+\[
+\int_0^1 x^4\,dx.
+\]
+
+\item Write it as
+\[
+\frac{2}{n}\sum_{i=1}^{n}\frac{1}{1+\left(1+\frac{2i}{n}\right)^2}
+=\sum_{i=1}^n \underbrace{\frac{2}{n}}_{\Delta x}\;
+\underbrace{\frac{1}{1+x_i^2}}_{f(x_i)},
+\qquad
+x_i=1+\frac{2i}{n}.
+\]
+Here \(\Delta x=2/n\) corresponds to partitioning \([1,3]\) into \(n\) equal parts, with right endpoints \(x_i\). Thus the limit equals
+\[
+\int_{1}^{3}\frac{1}{1+x^2}\,dx.
+\]
+\end{enumerate}
+
+
+
+\bigskip
+
+%====================================================
+% QUESTION 7
+%====================================================
+
+\newpage
+
+\section*{Question 7}
+
+\subsection*{Problem}
+
+If \(f\) is a continuous function on \([a,b]\), show that
+\[
+\left|\int_a^b f(x)\,dx\right|\le \int_a^b |f(x)|\,dx.
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Order inequality \(-|f|\le f\le |f|\)}
+
+For all \(x\in[a,b]\),
+\[
+-|f(x)|\le f(x)\le |f(x)|.
+\]
+Integrate across \([a,b]\):
+\[
+-\int_a^b |f(x)|\,dx \le \int_a^b f(x)\,dx \le \int_a^b |f(x)|\,dx.
+\]
+This implies
+\[
+\left|\int_a^b f(x)\,dx\right|\le \int_a^b |f(x)|\,dx.
+\]
+
+\subsubsection*{Method 2: Triangle inequality for integrals (via positive/negative parts)}
+
+Write \(f=f^+-f^-\) where \(f^+=\max\{f,0\}\), \(f^-=\max\{-f,0\}\), so \(|f|=f^+ + f^-\).
+Then
+\[
+\int_a^b f = \int_a^b f^+ - \int_a^b f^-,
+\]
+so
+\[
+\left|\int_a^b f\right|
+\le \int_a^b f^+ + \int_a^b f^- = \int_a^b |f|.
+\]
+
+\bigskip
+
+%====================================================
+% QUESTION 8
+%====================================================
+
+\newpage
+
+\section*{Question 8}
+
+\subsection*{Problem}
+
+Suppose \(f(x)\) is linear on \([a,b]\) (i.e.\ \(f(x)=mx+c\) for constants \(m,c\)), and \(f(x)>0\) on \([a,b]\).
+Explain, using a graph, that
+\[
+\int_a^b f(x)\,dx = \frac{1}{2}(R_n + L_n)
+\quad\text{for all } n,
+\]
+where \(R_n\) and \(L_n\) are right-endpoints and left-endpoints approximations of the area under \(f\) and above \([a,b]\).
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Trapezoidal rule identity (exact for linear functions)}
+
+Let \(\Delta x=\frac{b-a}{n}\) and \(x_i=a+i\Delta x\).
+Then
+\[
+L_n = \Delta x\sum_{i=0}^{n-1} f(x_i),
+\qquad
+R_n = \Delta x\sum_{i=1}^{n} f(x_i).
+\]
+Add:
+\[
+L_n+R_n = \Delta x\left(f(x_0)+2\sum_{i=1}^{n-1} f(x_i)+f(x_n)\right),
+\]
+so
+\[
+\frac{1}{2}(L_n+R_n) = \Delta x\left(\frac{f(x_0)+f(x_n)}{2}+\sum_{i=1}^{n-1} f(x_i)\right),
+\]
+which is exactly the trapezoidal-rule approximation \(T_n\).
+Since \(f\) is linear, the trapezoidal rule is exact on each subinterval (the area under a line segment is a trapezoid), hence \(T_n=\int_a^b f(x)\,dx\), i.e.
+\[
+\int_a^b f(x)\,dx = \frac{1}{2}(R_n+L_n).
+\]
+
+\subsubsection*{Method 2: Geometry on each subinterval}
+
+On each subinterval \([x_{i-1},x_i]\), the area under a linear function is a trapezoid with parallel sides \(f(x_{i-1})\) and \(f(x_i)\) and width \(\Delta x\), so the area is
+\[
+A_i=\frac{\Delta x}{2}\bigl(f(x_{i-1})+f(x_i)\bigr).
+\]
+Summing \(i=1\) to \(n\),
+\[
+\int_a^b f(x)\,dx=\sum_{i=1}^n A_i
+=\frac{\Delta x}{2}\left(\sum_{i=1}^n f(x_{i-1})+\sum_{i=1}^n f(x_i)\right)
+=\frac{1}{2}(L_n+R_n).
+\]
+
+\end{document}

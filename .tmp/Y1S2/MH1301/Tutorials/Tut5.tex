@@ -1,0 +1,1769 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+% Cross-check file: :contentReference[oaicite:1]{index=1}
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 5}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial - QRS@NTU - qrsntu.org}
+\SetWatermarkScale{1.0}
+\SetWatermarkLightness{0.985}
+
+%------------- SHORTCUTS -------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.82\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.82\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial develops recurrence-based counting and linear recurrence solving, with emphasis on:
+\begin{itemize}[leftmargin=*]
+  \item recurrence relations for binary and ternary strings with adjacency restrictions;
+  \item tiling recurrences obtained from last-piece and state-based decompositions;
+  \item closed-form solutions of first-order and second-order homogeneous recurrences;
+  \item characteristic-root methods, repeated-root cases, and alternative transform methods;
+  \item recurrence modelling in applied contexts, including tilings and population/catch models.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Ex.\ 8.1.10: binary strings containing two consecutive $0$'s.
+  \item Ex.\ 8.1.9 and Ex.\ 8.1.11: ternary strings under forbidden-adjacency conditions.
+  \item Additional exercise: tilings of an $n\times 1$ hallway with red and blue tiles.
+  \item Ex.\ 8.2.2(a)--(e): solving homogeneous linear recurrences.
+  \item Ex.\ 8.2.5: tilings of a $2\times n$ board using $1\times 2$ and $2\times 2$ tiles.
+  \item Ex.\ 8.2.6: a recurrence model for yearly lobster catches.
+\end{itemize}
+
+\newpage
+%====================================================
+% TABLE OF CONTENTS
+%====================================================
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Ex.\ 8.1.10: Bit strings containing two consecutive $0$'s)}
+
+\subsection{Problem}
+A binary string is a string containing only $0$'s and $1$'s.
+\begin{enumerate}[label=(\alph*)]
+\item Find a recurrence relation for the number of bit strings of length $n$ that contain two consecutive $0$'s.
+\item What are the initial conditions?
+\item Find the answer when $n=4$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short end-pattern count}
+
+Let
+\[
+a_n=\#\{\text{bit strings of length }n\text{ containing }00\}.
+\]
+
+\paragraph{(a) Recurrence relation}
+For \(n\ge 3\), every bit string counted by \(a_n\) ends in exactly one of
+\[
+1,\qquad 10,\qquad 00.
+\]
+We count each case separately.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Ends in \(1\).}  
+  Then the first \(n-1\) bits must already contain \(00\).  
+  Number of such strings:
+  \[
+  a_{n-1}.
+  \]
+
+  \item \textbf{Ends in \(10\).}  
+  Then the first \(n-2\) bits must already contain \(00\).  
+  Number of such strings:
+  \[
+  a_{n-2}.
+  \]
+
+  \item \textbf{Ends in \(00\).}  
+  Then the first \(n-2\) bits may be arbitrary, since appending \(00\) automatically guarantees the required property.  
+  Number of such strings:
+  \[
+  2^{n-2}.
+  \]
+\end{itemize}
+
+These three cases are disjoint and exhaustive, so
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\qquad (n\ge 3).}
+\]
+
+\paragraph{(b) Initial conditions}
+For \(n=1\), the bit strings are
+\[
+0,\ 1,
+\]
+and neither contains two consecutive \(0\)'s. Hence
+\[
+\boxed{a_1=0.}
+\]
+
+For \(n=2\), the bit strings are
+\[
+00,\ 01,\ 10,\ 11,
+\]
+and only \(00\) contains two consecutive \(0\)'s. Hence
+\[
+\boxed{a_2=1.}
+\]
+
+Thus the full recurrence data are
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\ \ (n\ge 3),\qquad a_1=0,\ a_2=1.}
+\]
+
+\paragraph{(c) Value when \(n=4\)}
+Using the recurrence,
+\[
+a_3=a_2+a_1+2^{1}=1+0+2=3,
+\]
+and then
+\[
+a_4=a_3+a_2+2^{2}=3+1+4=8.
+\]
+Therefore
+\[
+\boxed{a_4=8.}
+\]
+
+\newpage
+\subsubsection*{Method 2: Classify by the ending pattern}
+
+Let \(a_n\) be the number of binary strings of length \(n\) that contain two consecutive \(0\)'s.
+
+\paragraph{(a) Recurrence relation}
+For \(n\ge 3\), classify such a string according to its final bits.
+
+\medskip
+\noindent
+\textbf{Case 1: The last bit is \(1\).}  
+Then the first \(n-1\) bits must already form a valid length-\((n-1)\) string containing two consecutive \(0\)'s.  
+So this case contributes
+\[
+a_{n-1}.
+\]
+
+\medskip
+\noindent
+\textbf{Case 2: The last two bits are \(10\).}  
+Then the first \(n-2\) bits must already contain two consecutive \(0\)'s.  
+So this case contributes
+\[
+a_{n-2}.
+\]
+
+\medskip
+\noindent
+\textbf{Case 3: The last two bits are \(00\).}  
+Any binary string of length \(n-2\) can be followed by \(00\), and the resulting length-\(n\) string certainly contains two consecutive \(0\)'s.  
+So this case contributes
+\[
+2^{n-2}.
+\]
+
+Since these three cases are disjoint and exhaustive,
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\qquad (n\ge 3).}
+\]
+
+\paragraph{(b) Initial conditions}
+For \(n=1\), the strings are \(0,1\), and neither contains two consecutive \(0\)'s. Hence
+\[
+\boxed{a_1=0.}
+\]
+
+For \(n=2\), the strings are \(00,01,10,11\), and only \(00\) works. Hence
+\[
+\boxed{a_2=1.}
+\]
+
+Therefore
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\ \ (n\ge 3),\qquad a_1=0,\ a_2=1.}
+\]
+
+\paragraph{(c) Value when \(n=4\)}
+First,
+\[
+a_3=a_2+a_1+2^1=1+0+2=3.
+\]
+Then,
+\[
+a_4=a_3+a_2+2^2=3+1+4=8.
+\]
+Therefore
+\[
+\boxed{a_4=8.}
+\]
+
+\subsubsection*{Method 3: Count by complement and then convert back}
+
+Let
+\[
+b_n=\#\{\text{bit strings of length }n\text{ with no consecutive }0\text{'s}\}.
+\]
+Then
+\[
+a_n=2^n-b_n.
+\]
+
+\paragraph{(a) Recurrence relation}
+We first find a recurrence for \(b_n\).
+
+A valid length-\(n\) string counted by \(b_n\) has one of the following forms:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Ends in \(1\).}  
+  Then the first \(n-1\) bits may be any valid string counted by \(b_{n-1}\).
+
+  \item \textbf{Ends in \(0\).}  
+  Then the preceding bit must be \(1\), so the string ends in \(10\).  
+  The first \(n-2\) bits may be any valid string counted by \(b_{n-2}\).
+\end{itemize}
+
+Hence
+\[
+b_n=b_{n-1}+b_{n-2}\qquad (n\ge 3).
+\]
+
+Now convert back to \(a_n\):
+\[
+a_n=2^n-b_n
+=2^n-(b_{n-1}+b_{n-2}).
+\]
+Using
+\[
+b_{n-1}=2^{n-1}-a_{n-1},\qquad b_{n-2}=2^{n-2}-a_{n-2},
+\]
+we get
+\[
+a_n
+=2^n-\bigl((2^{n-1}-a_{n-1})+(2^{n-2}-a_{n-2})\bigr).
+\]
+Thus
+\[
+a_n
+=2^n-2^{n-1}-2^{n-2}+a_{n-1}+a_{n-2}
+=2^{n-2}+a_{n-1}+a_{n-2}.
+\]
+Therefore
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\qquad (n\ge 3).}
+\]
+
+\paragraph{(b) Initial conditions}
+For \(b_n\), we have
+\[
+b_1=2 \quad (0,1),\qquad b_2=3 \quad (01,10,11).
+\]
+So
+\[
+a_1=2^1-b_1=2-2=0,
+\qquad
+a_2=2^2-b_2=4-3=1.
+\]
+Hence
+\[
+\boxed{a_1=0,\qquad a_2=1.}
+\]
+
+Therefore the full recurrence data are
+\[
+\boxed{a_n=a_{n-1}+a_{n-2}+2^{n-2}\ \ (n\ge 3),\qquad a_1=0,\ a_2=1.}
+\]
+
+\paragraph{(c) Value when \(n=4\)}
+Compute
+\[
+b_3=b_2+b_1=3+2=5,\qquad b_4=b_3+b_2=5+3=8.
+\]
+Hence
+\[
+a_4=2^4-b_4=16-8=8.
+\]
+Therefore
+\[
+\boxed{a_4=8.}
+\]
+
+\newpage
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Ex.\ 8.1.9: Ternary strings with no consecutive $0$'s)}
+
+\subsection{Problem}
+A ternary string is a string containing only $0$'s, $1$'s, and $2$'s.
+\begin{enumerate}[label=(\alph*)]
+\item Find a recurrence relation for the number of ternary strings of length $n$ that do not contain two consecutive $0$'s.
+\item What are the initial conditions?
+\item Find the answer when $n=4$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short end-symbol count}
+Let
+\[
+a_n=\#\{\text{ternary strings of length }n\text{ with no }00\}.
+\]
+For \(n\ge 3\), split by the last symbol:
+\[
+0,\qquad 1,\qquad 2.
+\]
+If the last symbol is \(0\), the previous symbol must be \(1\) or \(2\), so this contributes
+\[
+2a_{n-2}.
+\]
+If the last symbol is \(1\) or \(2\), append it to any valid length-\((n-1)\) string, contributing
+\[
+a_{n-1}+a_{n-1}=2a_{n-1}.
+\]
+Hence
+\[
+a_n=2a_{n-1}+2a_{n-2}, \qquad n\ge 3.
+\]
+Also,
+\[
+a_1=3,\qquad a_2=9-1=8.
+\]
+Thus
+\[
+\boxed{a_n=2a_{n-1}+2a_{n-2}\ \ (n\ge 3),\qquad a_1=3,\ a_2=8.}
+\]
+Then
+\[
+a_3=2(8)+2(3)=22,\qquad a_4=2(22)+2(8)=60.
+\]
+Hence
+\[
+\boxed{a_4=60.}
+\]
+
+\subsubsection*{Method 2: Classify by the last symbol}
+Let $a_n$ be the number of ternary strings of length $n$ that do not contain two consecutive $0$'s.
+
+For $n\ge 3$, consider the last symbol.
+
+\medskip
+\noindent
+\textbf{Case 1: The last symbol is $0$.}
+Then the penultimate symbol cannot be $0$; it must be $1$ or $2$. Thus the last two symbols are either $10$ or $20$. In either subcase, the first $n-2$ symbols may be any valid ternary string counted by $a_{n-2}$. Hence this case contributes
+\[
+2a_{n-2}.
+\]
+
+\medskip
+\noindent
+\textbf{Case 2: The last symbol is $1$.}
+Then the first $n-1$ symbols may be any valid ternary string counted by $a_{n-1}$.
+
+\medskip
+\noindent
+\textbf{Case 3: The last symbol is $2$.}
+Exactly as in Case 2, this contributes another
+\[
+a_{n-1}.
+\]
+
+Adding the three disjoint cases gives
+\[
+a_n=2a_{n-1}+2a_{n-2}, \qquad n\ge 3.
+\]
+
+Now compute the initial conditions.
+For $n=1$, all three strings
+\[
+0,\ 1,\ 2
+\]
+are valid, so
+\[
+a_1=3.
+\]
+For $n=2$, there are $3^2=9$ ternary strings in total, and only $00$ is forbidden. Hence
+\[
+a_2=9-1=8.
+\]
+
+Therefore
+\[
+\boxed{a_n=2a_{n-1}+2a_{n-2}\ \ (n\ge 3), \qquad a_1=3,\ a_2=8.}
+\]
+
+For part (c),
+\[
+a_3=2a_2+2a_1=2(8)+2(3)=22,
+\]
+and then
+\[
+a_4=2a_3+2a_2=2(22)+2(8)=60.
+\]
+Thus
+\[
+\boxed{a_4=60.}
+\]
+
+\subsubsection*{Method 3: Use end-state variables and eliminate them}
+Let
+\[
+z_n=\#\{\text{valid length-}n\text{ strings ending in }0\},
+\]
+and
+\[
+u_n=\#\{\text{valid length-}n\text{ strings ending in }1\text{ or }2\}.
+\]
+Then
+\[
+a_n=z_n+u_n.
+\]
+
+We derive recurrences for $z_n$ and $u_n$.
+
+\medskip
+\noindent
+To end in $0$, the previous symbol must be either $1$ or $2$. Therefore
+\[
+z_n=u_{n-1}.
+\]
+
+To end in $1$ or $2$, take any valid length-$(n-1)$ string and append either $1$ or $2$. This gives
+\[
+u_n=2a_{n-1}.
+\]
+
+Hence
+\[
+a_n=z_n+u_n=u_{n-1}+2a_{n-1}.
+\]
+Using $u_{n-1}=2a_{n-2}$, we obtain
+\[
+a_n=2a_{n-1}+2a_{n-2}, \qquad n\ge 3.
+\]
+
+Now compute the initial conditions:
+\[
+a_1=3
+\]
+because $0,1,2$ are all valid, and
+\[
+a_2=8
+\]
+because the only invalid length-$2$ ternary string is $00$.
+
+Thus
+\[
+\boxed{a_n=2a_{n-1}+2a_{n-2}\ \ (n\ge 3), \qquad a_1=3,\ a_2=8.}
+\]
+
+Finally,
+\[
+a_3=2(8)+2(3)=22,\qquad a_4=2(22)+2(8)=60,
+\]
+so
+\[
+\boxed{a_4=60.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Ex.\ 8.1.11: Ternary strings with no consecutive $0$'s or $1$'s)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Find a recurrence relation for the number of ternary strings of length $n$ that do not contain two consecutive $0$'s or two consecutive $1$'s.
+\item What are the initial conditions?
+\item Find the answer when $n=4$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short end-symbol count}
+Let
+\[
+a_n=\#\{\text{valid ternary strings of length }n\}.
+\]
+The last symbol is \(0,1,\) or \(2\).
+If it is \(0\), the previous symbol must be \(1\) or \(2\), so this contributes
+\[
+a_{1,n-1}+a_{2,n-1}=a_{n-1}-a_{0,n-1}.
+\]
+Similarly, ending in \(1\) contributes
+\[
+a_{0,n-1}+a_{2,n-1}=a_{n-1}-a_{1,n-1}.
+\]
+Ending in \(2\) contributes
+\[
+a_{n-1}.
+\]
+Using symmetry \(a_{0,n-1}=a_{1,n-1}\) and \(a_{2,n-1}=a_{n-2}\), one gets
+\[
+a_n=2a_{n-1}+a_{n-2}, \qquad n\ge 3.
+\]
+Equivalently, a valid length-\(n\) string is obtained by appending:
+\begin{itemize}[leftmargin=*]
+  \item \(2\) to any valid length-\((n-1)\) string \(\Rightarrow a_{n-1}\);
+  \item \(0\) or \(1\) to a valid length-\((n-1)\) string ending in a different symbol, giving altogether \(a_{n-1}+a_{n-2}\).
+\end{itemize}
+Hence
+\[
+a_n=2a_{n-1}+a_{n-2}.
+\]
+Also,
+\[
+a_1=3,\qquad a_2=9-2=7.
+\]
+Thus
+\[
+\boxed{a_n=2a_{n-1}+a_{n-2}\ \ (n\ge 3),\qquad a_1=3,\ a_2=7.}
+\]
+Then
+\[
+a_3=2(7)+3=17,\qquad a_4=2(17)+7=41.
+\]
+Hence
+\[
+\boxed{a_4=41.}
+\]
+
+\subsubsection*{Method 2: Three end-state counts}
+
+Let $a_n$ be the number of ternary strings of length $n$ containing neither $00$ nor $11$.
+
+Define
+\[
+a_{i,n}=\#\{\text{valid length-}n\text{ strings ending in }i\},\qquad i\in\{0,1,2\}.
+\]
+Then
+\[
+a_n=a_{0,n}+a_{1,n}+a_{2,n}.
+\]
+
+From the adjacency restrictions:
+
+\[
+a_{0,n}=a_{1,n-1}+a_{2,n-1},\qquad
+a_{1,n}=a_{0,n-1}+a_{2,n-1},\qquad
+a_{2,n}=a_{n-1}.
+\]
+
+Summing gives
+\[
+a_n=(a_{1,n-1}+a_{2,n-1})+(a_{0,n-1}+a_{2,n-1})+a_{n-1}
+=2a_{n-1}+a_{2,n-1}.
+\]
+
+Since a string ending in $2$ at length $n-1$ corresponds to any valid string of length $n-2$ followed by $2$,
+\[
+a_{2,n-1}=a_{n-2}.
+\]
+
+Hence
+\[
+\boxed{a_n=2a_{n-1}+a_{n-2}},\qquad n\ge3.
+\]
+
+For $n=1$:
+\[
+a_1=3 \quad (0,1,2).
+\]
+
+For $n=2$:
+\[
+3^2=9\ \text{strings},\quad \text{forbidden: }00,11,
+\]
+so
+\[
+a_2=7.
+\]
+
+Thus
+\[
+\boxed{a_n=2a_{n-1}+a_{n-2}\ (n\ge3),\qquad a_1=3,\ a_2=7.}
+\]
+
+\[
+a_3=2a_2+a_1=2(7)+3=17,
+\]
+\[
+a_4=2a_3+a_2=2(17)+7=41.
+\]
+
+\[
+\boxed{a_4=41.}
+\]
+\subsubsection*{Method 3: Separate the strings ending in $2$ from those ending in $0$ or $1$}
+Let
+\[
+b_n=\#\{\text{valid length-}n\text{ strings ending in }2\},
+\]
+\[
+c_n=\#\{\text{valid length-}n\text{ strings ending in }0\text{ or }1\}.
+\]
+Then
+\[
+a_n=b_n+c_n.
+\]
+
+We first express $b_n$:
+to obtain a valid length-$n$ string ending in $2$, we may append $2$ to any valid length-$(n-1)$ string. Hence
+\[
+b_n=a_{n-1}.
+\]
+
+Next we count $c_n$.
+A valid length-$n$ string ending in $0$ or $1$ can arise in two disjoint ways:
+\begin{itemize}[leftmargin=*]
+  \item append $0$ or $1$ to a valid length-$(n-1)$ string ending in $2$; this gives
+  \[
+  2b_{n-1}
+  \]
+  possibilities;
+  \item append the \emph{opposite} symbol to a valid length-$(n-1)$ string ending in $0$ or $1$; for each such string there is exactly one allowed choice, so this contributes
+  \[
+  c_{n-1}.
+  \]
+\end{itemize}
+Therefore
+\[
+c_n=2b_{n-1}+c_{n-1}.
+\]
+Substitute
+\[
+b_{n-1}=a_{n-2}, \qquad c_{n-1}=a_{n-1}-b_{n-1}=a_{n-1}-a_{n-2},
+\]
+to obtain
+\[
+c_n=2a_{n-2}+\bigl(a_{n-1}-a_{n-2}\bigr)=a_{n-1}+a_{n-2}.
+\]
+
+Hence
+\[
+a_n=b_n+c_n=a_{n-1}+\bigl(a_{n-1}+a_{n-2}\bigr)=2a_{n-1}+a_{n-2}.
+\]
+
+The initial conditions are again
+\[
+a_1=3,\qquad a_2=7.
+\]
+Thus
+\[
+\boxed{a_n=2a_{n-1}+a_{n-2}\ \ (n\ge 3), \qquad a_1=3,\ a_2=7.}
+\]
+
+Finally,
+\[
+a_4=2a_3+a_2=2(17)+7=41,
+\]
+so
+\[
+\boxed{a_4=41.}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Additional Exercise: Tiling an \(n\times 1\) hallway)}
+
+\subsection{Problem}
+You need to tile an \(n\times 1\) hallway with an unlimited supply of \(1\times 1\) red tiles, \(2\times 1\) red tiles, and \(2\times 1\) blue tiles. Write down the recurrence formula and initial conditions for the number of ways to tile:
+\begin{enumerate}[label=(\alph*)]
+\item an \(n\times 1\) hallway for which you are allowed to use all types of tiles;
+\item an \(n\times 1\) hallway for which you are allowed to use all types of tiles, but no two red tiles are consecutive.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short last-tile count}
+\begin{enumerate}[label=(\alph*)]
+\item Let \(f_n\) be the number of tilings. The last tile is
+\[
+\text{red }1,\qquad \text{red }2,\qquad \text{blue }2.
+\]
+Hence
+\[
+f_n=f_{n-1}+2f_{n-2}, \qquad n\ge 3.
+\]
+Also,
+\[
+f_1=1,\qquad f_2=3.
+\]
+Thus
+\[
+\boxed{f_n=f_{n-1}+2f_{n-2}\ \ (n\ge 3),\qquad f_1=1,\ f_2=3.}
+\]
+
+\item Let \(g_n\) be the number of valid tilings with no two red tiles consecutive. The ending must be one of
+\[
+\text{blue }2,\qquad \text{blue }2+\text{red }1,\qquad \text{blue }2+\text{red }2,
+\]
+so
+\[
+g_n=g_{n-2}+g_{n-3}+g_{n-4}, \qquad n\ge 5.
+\]
+Also,
+\[
+g_1=1,\qquad g_2=2,\qquad g_3=2,\qquad g_4=4.
+\]
+Thus
+\[
+\boxed{g_n=g_{n-2}+g_{n-3}+g_{n-4}\ \ (n\ge 5),\qquad g_1=1,\ g_2=2,\ g_3=2,\ g_4=4.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Classify by the last tile}
+\begin{enumerate}[label=(\alph*)]
+\item Let \(f_n\) be the number of tilings of an \(n\times 1\) hallway using all three tile types.
+
+For \(n\ge 3\), consider the last tile.
+\begin{itemize}[leftmargin=*]
+  \item If the last tile is a \(1\times 1\) red tile, then the first \(n-1\) positions may be tiled in \(f_{n-1}\) ways.
+  \item If the last tile is a \(2\times 1\) red tile, then the first \(n-2\) positions may be tiled in \(f_{n-2}\) ways.
+  \item If the last tile is a \(2\times 1\) blue tile, then the first \(n-2\) positions may again be tiled in \(f_{n-2}\) ways.
+\end{itemize}
+Hence
+\[
+f_n=f_{n-1}+2f_{n-2}, \qquad n\ge 3.
+\]
+
+Initial conditions:
+\[
+f_1=1
+\]
+because only the \(1\times 1\) red tile fits, and
+\[
+f_2=3
+\]
+because the valid tilings are
+\[
+\text{(red 1)}+\text{(red 1)}, \qquad \text{(red 2)}, \qquad \text{(blue 2)}.
+\]
+
+Therefore
+\[
+\boxed{f_n=f_{n-1}+2f_{n-2}\ \ (n\ge 3), \qquad f_1=1,\ f_2=3.}
+\]
+
+\item Let \(g_n\) be the number of tilings of an \(n\times 1\) hallway in which no two red tiles are consecutive.
+
+For \(n\ge 5\), classify by the last tile.
+
+\medskip
+\noindent
+If the last tile is a \(2\times 1\) blue tile, then the first \(n-2\) positions may be tiled by any valid tiling counted by \(g_{n-2}\).
+
+\medskip
+\noindent
+If the last tile is a \(1\times 1\) red tile, then the preceding tile cannot be red, so it must be a \(2\times 1\) blue tile. Thus the tiling ends in
+\[
+\text{(blue 2)}+\text{(red 1)},
+\]
+and the first \(n-3\) positions may be tiled in \(g_{n-3}\) ways.
+
+\medskip
+\noindent
+If the last tile is a \(2\times 1\) red tile, then the preceding tile must again be a \(2\times 1\) blue tile, so the tiling ends in
+\[
+\text{(blue 2)}+\text{(red 2)},
+\]
+and the first \(n-4\) positions may be tiled in \(g_{n-4}\) ways.
+
+Hence
+\[
+g_n=g_{n-2}+g_{n-3}+g_{n-4}, \qquad n\ge 5.
+\]
+
+Now compute the initial conditions explicitly:
+\[
+g_1=1
+\]
+(the only tiling is a single \(1\times 1\) red tile);
+
+\[
+g_2=2
+\]
+(the tilings are red \(2\) and blue \(2\); two red \(1\times 1\) tiles are forbidden);
+
+\[
+g_3=2
+\]
+(the tilings are blue \(2\)+red \(1\), and red \(1\)+blue \(2\));
+
+\[
+g_4=4
+\]
+(the tilings are blue \(2\)+blue \(2\), blue \(2\)+red \(2\), red \(2\)+blue \(2\), red \(1\)+blue \(2\)+red \(1\)).
+
+Therefore
+\[
+\boxed{g_n=g_{n-2}+g_{n-3}+g_{n-4}\ \ (n\ge 5), \qquad g_1=1,\ g_2=2,\ g_3=2,\ g_4=4.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 3: State decomposition}
+\begin{enumerate}[label=(\alph*)]
+\item For the unrestricted problem, let
+\[
+F_n=\#\{\text{valid tilings of length }n\}.
+\]
+A valid tiling is obtained by choosing its \emph{first} tile instead of its last tile:
+\begin{itemize}[leftmargin=*]
+  \item first tile \(1\times 1\) red: \(F_{n-1}\) possibilities remain;
+  \item first tile \(2\times 1\) red: \(F_{n-2}\) possibilities remain;
+  \item first tile \(2\times 1\) blue: \(F_{n-2}\) possibilities remain.
+\end{itemize}
+Thus
+\[
+F_n=F_{n-1}+2F_{n-2}, \qquad n\ge 3,
+\]
+with
+\[
+F_1=1,\qquad F_2=3.
+\]
+So
+\[
+\boxed{F_n=F_{n-1}+2F_{n-2}\ \ (n\ge 3), \qquad F_1=1,\ F_2=3.}
+\]
+
+\item For the restricted problem, let
+\[
+B_n=\#\{\text{valid length-}n\text{ tilings ending in a blue }2\times 1\text{ tile}\},
+\]
+\[
+R_n=\#\{\text{valid length-}n\text{ tilings ending in a red tile}\}.
+\]
+Then
+\[
+g_n=B_n+R_n.
+\]
+
+Now derive recurrences:
+\begin{itemize}[leftmargin=*]
+  \item To end in a blue \(2\times 1\) tile, remove that last tile. What remains is any valid tiling of length \(n-2\). Hence
+  \[
+  B_n=g_{n-2}.
+  \]
+  \item To end in a red \(1\times 1\) tile, the preceding tile must be blue, so the count is \(B_{n-1}\).
+  \item To end in a red \(2\times 1\) tile, the preceding tile must also be blue, so the count is \(B_{n-2}\).
+\end{itemize}
+Therefore
+\[
+R_n=B_{n-1}+B_{n-2}=g_{n-3}+g_{n-4}.
+\]
+Hence
+\[
+g_n=B_n+R_n=g_{n-2}+g_{n-3}+g_{n-4}, \qquad n\ge 5.
+\]
+
+With the same direct initial counts
+\[
+g_1=1,\qquad g_2=2,\qquad g_3=2,\qquad g_4=4,
+\]
+we obtain
+\[
+\boxed{g_n=g_{n-2}+g_{n-3}+g_{n-4}\ \ (n\ge 5), \qquad g_1=1,\ g_2=2,\ g_3=2,\ g_4=4.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Ex.\ 8.2.2(a)--(e): Solve the homogeneous recurrence relations)}
+
+\subsection{Problem}
+Solve the following homogeneous recurrence relations.
+\begin{enumerate}[label=(\alph*)]
+\item \(a_n=2a_{n-1}\) for \(n\ge 1\), \(a_0=3\).
+\item \(a_n=a_{n-1}\) for \(n\ge 1\), \(a_0=2\).
+\item \(a_n=5a_{n-1}-6a_{n-2}\) for \(n\ge 2\), \(a_0=1\), \(a_1=0\).
+\item \(a_n=4a_{n-1}-4a_{n-2}\) for \(n\ge 2\), \(a_0=6\), \(a_1=8\).
+\item \(a_n=-4a_{n-1}-4a_{n-2}\) for \(n\ge 2\), \(a_0=0\), \(a_1=1\).
+\end{enumerate}
+
+\subsection{Solution}
+\subsubsection*{Method 1: Characteristic equations}
+\begin{enumerate}[label=(\alph*)]
+\item The recurrence
+\[
+a_n=2a_{n-1}
+\]
+has characteristic equation
+\[
+r=2.
+\]
+Hence the general form is
+\[
+a_n=h\,2^n.
+\]
+Use \(a_0=3\):
+\[
+3=a_0=h\,2^0=h.
+\]
+So
+\[
+\boxed{a_n=3\cdot 2^n.}
+\]
+
+\item The recurrence
+\[
+a_n=a_{n-1}
+\]
+has characteristic equation
+\[
+r=1.
+\]
+Hence
+\[
+a_n=h\,1^n=h.
+\]
+Using \(a_0=2\), we get \(h=2\). Therefore
+\[
+\boxed{a_n=2.}
+\]
+
+\item The characteristic equation is
+\[
+r^2-5r+6=0.
+\]
+Factor:
+\[
+r^2-5r+6=(r-2)(r-3)=0.
+\]
+Thus the roots are \(2\) and \(3\), so
+\[
+a_n=h_1 2^n+h_2 3^n.
+\]
+Apply the initial conditions:
+\[
+a_0=1 \implies h_1+h_2=1,
+\]
+\[
+a_1=0 \implies 2h_1+3h_2=0.
+\]
+Solving,
+\[
+h_1=3,\qquad h_2=-2.
+\]
+Therefore
+\[
+\boxed{a_n=3\cdot 2^n-2\cdot 3^n.}
+\]
+
+\item The characteristic equation is
+\[
+r^2-4r+4=0=(r-2)^2.
+\]
+There is a repeated root \(r=2\), so the general form is
+\[
+a_n=(h_1+h_2 n)2^n.
+\]
+Use \(a_0=6\):
+\[
+6=(h_1+0)2^0 \implies h_1=6.
+\]
+Use \(a_1=8\):
+\[
+8=(6+h_2)2.
+\]
+Hence
+\[
+6+h_2=4 \implies h_2=-2.
+\]
+So
+\[
+a_n=(6-2n)2^n.
+\]
+Equivalently,
+\[
+a_n=6\cdot 2^n-n\cdot 2^{n+1}.
+\]
+Thus
+\[
+\boxed{a_n=(6-2n)2^n.}
+\]
+
+\item The characteristic equation is
+\[
+r^2+4r+4=0=(r+2)^2.
+\]
+There is a repeated root \(r=-2\), so
+\[
+a_n=(h_1+h_2 n)(-2)^n.
+\]
+Use \(a_0=0\):
+\[
+0=(h_1+0)(-2)^0 \implies h_1=0.
+\]
+Use \(a_1=1\):
+\[
+1=(0+h_2)(-2) \implies h_2=-\frac12.
+\]
+Therefore
+\[
+a_n=-\frac12\,n(-2)^n=n(-2)^{n-1}.
+\]
+Hence
+\[
+\boxed{a_n=n(-2)^{n-1}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection*{Method 2: Characteristic-root formulas}
+\begin{enumerate}[label=(\alph*)]
+
+\item
+\[
+a_n=2a_{n-1}.
+\]
+\[
+a_n=C2^n.
+\]
+Using \(a_0=3\Rightarrow C=3\),
+\[
+\boxed{a_n=3\cdot2^n.}
+\]
+
+\item
+\[
+a_n=a_{n-1}.
+\]
+\[
+a_n=C.
+\]
+Using \(a_0=2\Rightarrow C=2\),
+\[
+\boxed{a_n=2.}
+\]
+
+\item
+\[
+r^2-5r+6=0=(r-2)(r-3).
+\]
+\[
+a_n=C_12^n+C_23^n.
+\]
+Using \(a_0=1,\ a_1=0\):
+\[
+C_1+C_2=1,\qquad2C_1+3C_2=0
+\Rightarrow C_1=3,\ C_2=-2.
+\]
+\[
+\boxed{a_n=3\cdot2^n-2\cdot3^n.}
+\]
+
+\item
+\[
+r^2-4r+4=0=(r-2)^2.
+\]
+\[
+a_n=(C_1+C_2n)2^n.
+\]
+Using \(a_0=6,\ a_1=8\):
+\[
+C_1=6,\qquad2(6+C_2)=8\Rightarrow C_2=-2.
+\]
+\[
+\boxed{a_n=(6-2n)2^n.}
+\]
+
+\item
+\[
+r^2+4r+4=0=(r+2)^2.
+\]
+\[
+a_n=(C_1+C_2n)(-2)^n.
+\]
+Using \(a_0=0,\ a_1=1\):
+\[
+C_1=0,\qquad-2C_2=1\Rightarrow C_2=-\tfrac12.
+\]
+\[
+a_n=-\tfrac12 n(-2)^n=n(-2)^{n-1}.
+\]
+\[
+\boxed{a_n=n(-2)^{n-1}.}
+\]
+
+\end{enumerate}
+
+\subsubsection*{Method 3: Factor the recurrence stepwise into first-order recurrences}
+\begin{enumerate}[label=(\alph*)]
+\item Starting from
+\[
+a_n=2a_{n-1},
+\]
+divide by \(2^n\):
+\[
+\frac{a_n}{2^n}=\frac{a_{n-1}}{2^{n-1}}.
+\]
+Hence the sequence \(\frac{a_n}{2^n}\) is constant. Let that constant be \(C\). Then
+\[
+a_n=C2^n.
+\]
+Using \(a_0=3\), we obtain \(C=3\). Therefore
+\[
+\boxed{a_n=3\cdot 2^n.}
+\]
+
+\item From
+\[
+a_n=a_{n-1},
+\]
+we immediately obtain
+\[
+a_n=a_{n-1}=a_{n-2}=\cdots=a_0=2.
+\]
+Hence
+\[
+\boxed{a_n=2.}
+\]
+
+\item Rewrite
+\[
+a_n-2a_{n-1}=3(a_{n-1}-2a_{n-2}).
+\]
+Define
+\[
+b_n=a_n-2a_{n-1}.
+\]
+Then
+\[
+b_n=3b_{n-1}.
+\]
+Also,
+\[
+b_1=a_1-2a_0=0-2(1)=-2.
+\]
+Therefore
+\[
+b_n=-2\cdot 3^{\,n-1}.
+\]
+So \(a_n\) satisfies the first-order nonhomogeneous recurrence
+\[
+a_n-2a_{n-1}=-2\cdot 3^{\,n-1}.
+\]
+
+Solve it by writing
+\[
+a_n=c\,2^n+A3^n.
+\]
+Substitute into \(a_n-2a_{n-1}=-2\cdot 3^{n-1}\):
+\[
+(c2^n+A3^n)-2(c2^{n-1}+A3^{n-1})=A3^{n-1}=-2\cdot 3^{n-1}.
+\]
+Hence
+\[
+A=-2.
+\]
+Now use \(a_0=1\):
+\[
+1=c-2 \implies c=3.
+\]
+Therefore
+\[
+\boxed{a_n=3\cdot 2^n-2\cdot 3^n.}
+\]
+
+\item Rewrite
+\[
+a_n-2a_{n-1}=2(a_{n-1}-2a_{n-2}).
+\]
+Define
+\[
+b_n=a_n-2a_{n-1}.
+\]
+Then
+\[
+b_n=2b_{n-1}.
+\]
+Also,
+\[
+b_1=a_1-2a_0=8-12=-4.
+\]
+Hence
+\[
+b_n=-4\cdot 2^{n-1}=-2^{n+1}.
+\]
+So \(a_n\) satisfies
+\[
+a_n-2a_{n-1}=-2^{n+1}.
+\]
+
+Because the homogeneous part has root \(2\), try a particular solution of the form
+\[
+a_n^{(p)}=An2^n.
+\]
+Then
+\[
+a_n^{(p)}-2a_{n-1}^{(p)}=An2^n-2A(n-1)2^{n-1}=A2^n.
+\]
+We need this to equal \(-2^{n+1}\), so
+\[
+A=-2.
+\]
+Thus the general solution is
+\[
+a_n=c2^n-2n2^n=(c-2n)2^n.
+\]
+Use \(a_0=6\), giving \(c=6\). Therefore
+\[
+\boxed{a_n=(6-2n)2^n.}
+\]
+
+\item Rewrite
+\[
+a_n+2a_{n-1}=-2(a_{n-1}+2a_{n-2}).
+\]
+Define
+\[
+b_n=a_n+2a_{n-1}.
+\]
+Then
+\[
+b_n=-2b_{n-1}.
+\]
+Also,
+\[
+b_1=a_1+2a_0=1+0=1.
+\]
+Hence
+\[
+b_n=(-2)^{n-1}.
+\]
+So
+\[
+a_n+2a_{n-1}=(-2)^{n-1}.
+\]
+
+Because the homogeneous part has root \(-2\), try a particular solution
+\[
+a_n^{(p)}=An(-2)^n.
+\]
+Then
+\[
+a_n^{(p)}+2a_{n-1}^{(p)}
+=An(-2)^n+2A(n-1)(-2)^{n-1}
+=An(-2)^n-A(n-1)(-2)^n
+=A(-2)^n.
+\]
+We want this to equal \((-2)^{n-1}\), so
+\[
+A=-\frac12.
+\]
+Thus
+\[
+a_n=c(-2)^n-\frac12 n(-2)^n.
+\]
+Use \(a_0=0\), giving \(c=0\). Therefore
+\[
+a_n=n(-2)^{n-1}.
+\]
+Hence
+\[
+\boxed{a_n=n(-2)^{n-1}.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex.\ 8.2.5: Tiling a \(2\times n\) board)}
+
+\subsection{Problem}
+Let \(a_n\) be the number of ways to tile a \(2\times n\) rectangular board using \(1\times 2\) and \(2\times 2\) pieces.
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the values \(a_1\) and \(a_2\).
+\item Find a recurrence relation for the sequence \((a_n)\).
+\item Solve the recurrence relation in part (b).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short decomposition + closed form}
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+a_1=1,\qquad a_2=3.
+\]
+Hence
+\[
+\boxed{a_1=1,\qquad a_2=3.}
+\]
+
+\item The last part is one of:
+\[
+\text{vertical }1\times 2,\qquad \text{square }2\times 2,\qquad \text{two horizontal }1\times 2.
+\]
+Hence
+\[
+a_n=a_{n-1}+2a_{n-2}, \qquad n\ge 3.
+\]
+Thus
+\[
+\boxed{a_n=a_{n-1}+2a_{n-2}\ \ (n\ge 3),\qquad a_1=1,\ a_2=3.}
+\]
+
+\item
+\[
+r^2-r-2=0=(r-2)(r+1),
+\]
+so
+\[
+a_n=A2^n+B(-1)^n.
+\]
+Using
+\[
+a_1=1,\qquad a_2=3,
+\]
+we get
+\[
+2A-B=1,\qquad 4A+B=3.
+\]
+Hence
+\[
+A=\frac23,\qquad B=\frac13.
+\]
+Therefore
+\[
+\boxed{a_n=\frac23\,2^n+\frac13\,(-1)^n=\frac{2^{n+1}+(-1)^n}{3}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Last-column decomposition and characteristic roots}
+\begin{enumerate}[label=(\alph*)]
+\item For a \(2\times 1\) board, the only possible tiling is one vertical \(1\times 2\) domino. Hence
+\[
+a_1=1.
+\]
+
+For a \(2\times 2\) board, the possible tilings are:
+\begin{itemize}[leftmargin=*]
+  \item two vertical \(1\times 2\) dominoes;
+  \item two horizontal \(1\times 2\) dominoes;
+  \item one \(2\times 2\) square.
+\end{itemize}
+Therefore
+\[
+a_2=3.
+\]
+Thus
+\[
+\boxed{a_1=1,\qquad a_2=3.}
+\]
+
+\item For \(n\ge 3\), examine the rightmost part of a tiling of the \(2\times n\) board.
+
+\begin{itemize}[leftmargin=*]
+  \item If the last column is covered by one vertical \(1\times 2\) domino, then the remaining board is \(2\times (n-1)\), giving \(a_{n-1}\) possibilities.
+  \item If the last two columns are covered by one \(2\times 2\) square, then the remaining board is \(2\times (n-2)\), giving \(a_{n-2}\) possibilities.
+  \item If the last two columns are covered by two horizontal \(1\times 2\) dominoes, then again the remaining board is \(2\times (n-2)\), giving another \(a_{n-2}\) possibilities.
+\end{itemize}
+
+These cases are disjoint and exhaustive, so
+\[
+a_n=a_{n-1}+2a_{n-2}, \qquad n\ge 3.
+\]
+Hence
+\[
+\boxed{a_n=a_{n-1}+2a_{n-2}\ \ (n\ge 3), \qquad a_1=1,\ a_2=3.}
+\]
+
+\item Solve
+\[
+a_n=a_{n-1}+2a_{n-2}.
+\]
+The characteristic equation is
+\[
+r^2-r-2=0,
+\]
+which factors as
+\[
+(r-2)(r+1)=0.
+\]
+Hence
+\[
+a_n=h_1 2^n+h_2(-1)^n.
+\]
+Use \(a_1=1\) and \(a_2=3\):
+\[
+1=2h_1-h_2,
+\]
+\[
+3=4h_1+h_2.
+\]
+Adding these equations gives
+\[
+4=6h_1 \implies h_1=\frac23.
+\]
+Then
+\[
+h_2=2h_1-1=\frac43-1=\frac13.
+\]
+Therefore
+\[
+a_n=\frac23\,2^n+\frac13\,(-1)^n.
+\]
+Equivalently,
+\[
+a_n=\frac{2^{n+1}+(-1)^n}{3}.
+\]
+Thus
+\[
+\boxed{a_n=\frac23\,2^n+\frac13\,(-1)^n=\frac{2^{n+1}+(-1)^n}{3}.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 3: Use \(a_0\) and solve by generating functions}
+\begin{enumerate}[label=(\alph*)]
+\item It is convenient to define
+\[
+a_0=1,
+\]
+corresponding to the empty tiling of a \(2\times 0\) board. Then, as above,
+\[
+a_1=1,\qquad a_2=3.
+\]
+So
+\[
+\boxed{a_1=1,\qquad a_2=3.}
+\]
+
+\item Using the same rightmost-piece analysis as in Method 2, we obtain
+\[
+a_n=a_{n-1}+2a_{n-2}, \qquad n\ge 2,
+\]
+if we use the convention \(a_0=1\). This is equivalent to the \(n\ge 3\) version together with \(a_1=1,a_2=3\). Hence
+\[
+\boxed{a_n=a_{n-1}+2a_{n-2}\ \ (n\ge 2), \qquad a_0=1,\ a_1=1.}
+\]
+
+\item Let
+\[
+A(x)=\sum_{n\ge 0} a_n x^n.
+\]
+From
+\[
+a_n-a_{n-1}-2a_{n-2}=0 \qquad (n\ge 2),
+\]
+multiply by \(x^n\) and sum for \(n\ge 2\):
+\[
+\sum_{n\ge 2} a_n x^n-\sum_{n\ge 2} a_{n-1}x^n-2\sum_{n\ge 2} a_{n-2}x^n=0.
+\]
+Rewrite each sum:
+\[
+\sum_{n\ge 2} a_n x^n=A(x)-a_0-a_1x=A(x)-1-x,
+\]
+\[
+\sum_{n\ge 2} a_{n-1}x^n=x\sum_{n\ge 2} a_{n-1}x^{n-1}=x(A(x)-a_0)=x(A(x)-1),
+\]
+\[
+\sum_{n\ge 2} a_{n-2}x^n=x^2A(x).
+\]
+Therefore
+\[
+A(x)-1-x-x(A(x)-1)-2x^2A(x)=0.
+\]
+Simplifying,
+\[
+A(x)(1-x-2x^2)=1.
+\]
+Hence
+\[
+A(x)=\frac{1}{1-x-2x^2}=\frac{1}{(1-2x)(1+x)}.
+\]
+Use partial fractions:
+\[
+\frac{1}{(1-2x)(1+x)}=\frac{2/3}{1-2x}+\frac{1/3}{1+x}.
+\]
+Therefore
+\[
+A(x)=\frac{2}{3}\sum_{n\ge 0}(2x)^n+\frac{1}{3}\sum_{n\ge 0}(-x)^n
+=\sum_{n\ge 0}\left(\frac23\,2^n+\frac13\,(-1)^n\right)x^n.
+\]
+So
+\[
+a_n=\frac23\,2^n+\frac13\,(-1)^n.
+\]
+Thus
+\[
+\boxed{a_n=\frac23\,2^n+\frac13\,(-1)^n=\frac{2^{n+1}+(-1)^n}{3}.}
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Ex.\ 8.2.6: Lobster catches)}
+
+\subsection{Problem}
+A model for the number of lobsters caught per year is based on the assumption that the number of lobsters caught in a year is the average of the number caught in the two previous years.
+\begin{enumerate}[label=(\alph*)]
+\item Find a recurrence relation for the sequence \((L_n)\), where \(L_n\) is the number of lobsters caught in year \(n\).
+\item Solve \(L_n\) if \(100{,}000\) lobsters were caught in year \(1\) and \(300{,}000\) lobsters were caught in year \(2\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection*{Method 1: Short recurrence + root form}
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+L_n=\frac{L_{n-1}+L_{n-2}}{2}, \qquad n\ge 3.
+\]
+Hence
+\[
+\boxed{L_n=\frac12L_{n-1}+\frac12L_{n-2}\ \ (n\ge 3).}
+\]
+
+\item
+\[
+r^2-\frac12r-\frac12=0
+\quad\Longleftrightarrow\quad
+2r^2-r-1=(2r+1)(r-1)=0,
+\]
+so
+\[
+L_n=A+B\left(-\frac12\right)^n.
+\]
+Using
+\[
+L_1=100000,\qquad L_2=300000,
+\]
+we get
+\[
+A-\frac12B=100000,\qquad A+\frac14B=300000.
+\]
+Hence
+\[
+B=\frac{800000}{3},\qquad A=\frac{700000}{3}.
+\]
+Therefore
+\[
+\boxed{L_n=\frac{700000}{3}+\frac{800000}{3}\left(-\frac12\right)^n.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Characteristic equation}
+\begin{enumerate}[label=(\alph*)]
+\item Since \(L_n\) is the average of the two previous yearly catches,
+\[
+L_n=\frac{L_{n-1}+L_{n-2}}{2}, \qquad n\ge 3.
+\]
+Thus
+\[
+\boxed{L_n=\frac12 L_{n-1}+\frac12 L_{n-2}\ \ (n\ge 3).}
+\]
+
+\item We solve
+\[
+L_n=\frac12 L_{n-1}+\frac12 L_{n-2}, \qquad L_1=100000,\quad L_2=300000.
+\]
+
+The characteristic equation is
+\[
+r^2-\frac12 r-\frac12=0.
+\]
+Multiply by \(2\):
+\[
+2r^2-r-1=0.
+\]
+Factor:
+\[
+2r^2-r-1=(2r+1)(r-1)=0.
+\]
+Hence the roots are
+\[
+r_1=1,\qquad r_2=-\frac12.
+\]
+Therefore
+\[
+L_n=A+B\left(-\frac12\right)^n.
+\]
+
+Use the initial conditions:
+\[
+100000=A-\frac12 B,
+\]
+\[
+300000=A+\frac14 B.
+\]
+Subtract the first equation from the second:
+\[
+200000=\frac14 B+\frac12 B=\frac34 B.
+\]
+Hence
+\[
+B=\frac{800000}{3}.
+\]
+Substitute back:
+\[
+A=100000+\frac12\cdot \frac{800000}{3}
+=100000+\frac{400000}{3}
+=\frac{700000}{3}.
+\]
+Therefore
+\[
+L_n=\frac{700000}{3}+\frac{800000}{3}\left(-\frac12\right)^n.
+\]
+Hence
+\[
+\boxed{L_n=\frac{700000}{3}+\frac{800000}{3}\left(-\frac12\right)^n.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 3: Convert the model into a recurrence for first differences}
+\begin{enumerate}[label=(\alph*)]
+\item The recurrence relation is still
+\[
+\boxed{L_n=\frac12 L_{n-1}+\frac12 L_{n-2}\ \ (n\ge 3).}
+\]
+
+\item Define the first-difference sequence
+\[
+D_n=L_n-L_{n-1}\qquad (n\ge 2).
+\]
+Then
+\begin{align*}
+D_n
+&=L_n-L_{n-1}\\
+&=\frac12(L_{n-1}+L_{n-2})-L_{n-1}\\
+&=\frac12(L_{n-2}-L_{n-1})\\
+&=-\frac12(L_{n-1}-L_{n-2})\\
+&=-\frac12 D_{n-1}.
+\end{align*}
+So the first differences form a geometric sequence with ratio \(-\tfrac12\).
+
+Now
+\[
+D_2=L_2-L_1=300000-100000=200000.
+\]
+Hence
+\[
+D_n=200000\left(-\frac12\right)^{n-2}, \qquad n\ge 2.
+\]
+
+Now recover \(L_n\) by summing the differences:
+\[
+L_n=L_1+\sum_{j=2}^{n} D_j
+=100000+200000\sum_{j=2}^{n}\left(-\frac12\right)^{j-2}.
+\]
+Let \(m=j-2\). Then
+\[
+L_n=100000+200000\sum_{m=0}^{n-2}\left(-\frac12\right)^m.
+\]
+This is a finite geometric series:
+\[
+\sum_{m=0}^{n-2}r^m=\frac{1-r^{\,n-1}}{1-r},
+\qquad r=-\frac12.
+\]
+Therefore
+\[
+\sum_{m=0}^{n-2}\left(-\frac12\right)^m
+=\frac{1-\left(-\frac12\right)^{n-1}}{1+\frac12}
+=\frac{1-\left(-\frac12\right)^{n-1}}{3/2}
+=\frac23\left(1-\left(-\frac12\right)^{n-1}\right).
+\]
+So
+\begin{align*}
+L_n
+&=100000+200000\cdot \frac23\left(1-\left(-\frac12\right)^{n-1}\right)\\
+&=100000+\frac{400000}{3}-\frac{400000}{3}\left(-\frac12\right)^{n-1}\\
+&=\frac{700000}{3}-\frac{400000}{3}\left(-\frac12\right)^{n-1}.
+\end{align*}
+Since
+\[
+-\frac{400000}{3}\left(-\frac12\right)^{n-1}
+=\frac{800000}{3}\left(-\frac12\right)^n,
+\]
+this becomes
+\[
+L_n=\frac{700000}{3}+\frac{800000}{3}\left(-\frac12\right)^n.
+\]
+Hence
+\[
+\boxed{L_n=\frac{700000}{3}+\frac{800000}{3}\left(-\frac12\right)^n.}
+\]
+\end{enumerate}
+
+\end{document}

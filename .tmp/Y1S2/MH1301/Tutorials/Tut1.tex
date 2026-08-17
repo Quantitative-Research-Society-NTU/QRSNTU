@@ -1,0 +1,752 @@
+% Questions transcribed from the provided tutorial handout. [file:1]
+% Style adapted to match the referenced MH5200 template. [file:2]
+
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 1 --- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+%------------------------------------
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview of This Tutorial}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+Where pedagogically helpful, we:
+\begin{itemize}[leftmargin=*]
+\item write counting arguments in explicit step-by-step form (product rule, sum rule, complement);
+\item use multiple viewpoints (strings $\leftrightarrow$ functions, direct counting $\leftrightarrow$ inclusion--exclusion);
+\item emphasize careful handling of edge cases (e.g.\ $n=1$) and clear final answers.
+\end{itemize}
+
+\noindent
+\textbf{Themes.}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Ex.\ 6.1.3--6.1.4:} Basic counting via the product rule.
+\item \textbf{Ex.\ 6.1.6--6.1.7:} Bit strings; fixed endpoints; simple sums.
+\item \textbf{Ex.\ 6.1.9:} Counting strings with a required character; complement and inclusion--exclusion.
+\item \textbf{Ex.\ 6.1.10:} Counting RNA sequences under restrictions.
+\item \textbf{Ex.\ 6.1.12:} Counting integers in an interval; divisibility; inclusion--exclusion.
+\item \textbf{Ex.\ 6.1.13:} Digit strings; complement; exact counts.
+\item \textbf{Ex.\ 6.1.20--6.1.21:} Functions $A\to B$; injections; bijections to bit strings.
+\end{itemize}
+
+\newpage
+%====================================================
+% Table of Contents
+%====================================================
+\tableofcontents
+\newpage
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+\section{Question 1 (Ex.\ 6.1.3 and Ex.\ 6.1.4)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Assume there are 26 letters. How many different three-letter initials can people have?
+\item A committee is formed consisting of one representative from each of the 50 states in the United States, where the representative from a state is either the governor or one of the two senators from that state. How many ways are there to form this committee?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Product rule (multiplication principle)}
+\begin{enumerate}[label=(\alph*)]
+\item For a three-letter initial, there are 3 positions to fill. For each position, there are 26 choices, and choices are independent across positions.
+\[
+\# = 26\cdot 26\cdot 26 = 26^3.
+\]
+Hence
+\[
+\boxed{\,26^3 = 17576\,}.
+\]
+
+\item For each of the 50 states, there are exactly 3 allowed choices for the representative (governor, senator 1, senator 2). Choices for different states are independent.
+\[
+\# = \underbrace{3\cdot 3\cdots 3}_{50\text{ times}} = 3^{50}.
+\]
+Hence
+\[
+\boxed{\,3^{50}\,}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Functions between finite sets}
+\begin{enumerate}[label=(\alph*)]
+\item Let $L$ be the set of 26 letters and let $P=\{1,2,3\}$ index the three positions. A three-letter initial is exactly a function $f:P\to L$ (choose a letter for each position).
+For each $i\in P$, there are $|L|=26$ choices for $f(i)$, so
+\[
+|\{f:P\to L\}| = 26^3,
+\]
+and therefore
+\[
+\boxed{\,26^3 = 17576\,}.
+\]
+
+\item Let $S$ be the set of 50 states and let $R=\{G,S_1,S_2\}$ be the 3 allowed roles (governor or the two senators). A committee selection is exactly a function $g:S\to R$ assigning to each state one of the 3 roles.
+Thus
+\[
+|\{g:S\to R\}| = |R|^{|S|} = 3^{50},
+\]
+so
+\[
+\boxed{\,3^{50}\,}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\newpage
+\section{Question 2 (Ex.\ 6.1.6 and Ex.\ 6.1.7)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item How many bit strings with length not exceeding $n$, where $n$ is a positive integer, consist entirely of 1's, not counting the empty string?
+\item How many bit strings of length $n$, where $n$ is a positive integer, start and end with 1's?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct enumeration / fixed-free positions}
+\begin{enumerate}[label=(\alph*)]
+\item A bit string consisting entirely of 1's is uniquely determined by its length.
+For each length $\ell\in\{1,2,\dots,n\}$, there is exactly one such string, namely $11\cdots 1$ (with $\ell$ ones).
+Hence the count is
+\[
+\# = n,
+\qquad
+\boxed{\,n\,}.
+\]
+
+\item If $n=1$, then the only length-1 string that starts and ends with 1 is the string ``1'', so the count is 1.
+
+Assume now $n\ge 2$. Then the first bit is fixed to be 1 and the last bit is fixed to be 1. The remaining $n-2$ middle positions can each be chosen freely as 0 or 1, giving $2$ choices per position. Thus
+\[
+\# = 2^{n-2}\quad (n\ge 2).
+\]
+Therefore,
+\[
+\boxed{\,
+\#=
+\begin{cases}
+1, & n=1,\\
+2^{n-2}, & n\ge 2.
+\end{cases}
+\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Sum rule and bijection to shorter strings}
+\begin{enumerate}[label=(\alph*)]
+\item Let $S_\ell$ be the set of all-ones bit strings of length exactly $\ell$.
+Then for each $\ell\ge 1$, $|S_\ell|=1$.
+The desired set is the disjoint union
+\[
+S_1 \,\dot\cup\, S_2 \,\dot\cup\, \cdots \,\dot\cup\, S_n.
+\]
+By the sum rule,
+\[
+\#=\sum_{\ell=1}^n |S_\ell|=\sum_{\ell=1}^n 1 = n,
+\qquad
+\boxed{\,n\,}.
+\]
+
+\item For $n\ge 2$, define a map $\varphi$ from the set of length-$n$ bit strings that start and end with 1 to the set of all bit strings of length $n-2$ by deleting the first and last bits:
+\[
+\varphi(1\,b_2 b_3 \cdots b_{n-1}\,1) := b_2 b_3 \cdots b_{n-1}.
+\]
+This map is a bijection:
+\begin{itemize}[leftmargin=*]
+\item (Injective) If two strings become equal after deleting the same fixed endpoints, then their middle blocks are equal, hence the original strings are equal.
+\item (Surjective) Given any length-$(n-2)$ string $c_1\cdots c_{n-2}$, the length-$n$ string $1c_1\cdots c_{n-2}1$ maps to it.
+\end{itemize}
+So the number of such length-$n$ strings equals the number of all length-$(n-2)$ bit strings, which is $2^{n-2}$ for $n\ge 2$.
+Together with the $n=1$ case,
+\[
+\boxed{\,
+\#=
+\begin{cases}
+1, & n=1,\\
+2^{n-2}, & n\ge 2.
+\end{cases}
+\,}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\newpage
+\section{Question 3 (Ex.\ 6.1.9)}
+\subsection{Problem}
+There are 128 different ASCII characters. How many strings of 5 ASCII characters contain the character `@' at least once?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Complement counting}
+Let $\Omega$ be the set of all length-5 strings over the 128 ASCII characters. Then
+\[
+|\Omega| = 128^5.
+\]
+Let $A$ be the set of length-5 strings that contain no `@'. For each of the 5 positions, there are $127$ allowed characters (all but `@'), hence
+\[
+|A| = 127^5.
+\]
+The desired set is $\Omega\setminus A$, so
+\[
+\# = |\Omega|-|A| = 128^5 - 127^5.
+\]
+Compute the numerical value:
+\[
+128^5 = (2^7)^5 = 2^{35} = 34359738368,
+\]
+and
+\[
+127^5 = 33038369407.
+\]
+Therefore,
+\[
+\boxed{\,128^5-127^5 = 1321368961\,}.
+\]
+
+\subsubsection{Method 2: Count by the number of `@' symbols}
+For $k\in\{1,2,3,4,5\}$, count strings with exactly $k$ occurrences of `@'.
+\begin{itemize}[leftmargin=*]
+\item Choose which $k$ of the 5 positions are `@': $\binom{5}{k}$ ways.
+\item Fill the remaining $5-k$ positions with any of the other 127 characters: $127^{5-k}$ ways.
+\end{itemize}
+Thus the total is
+\[
+\# = \sum_{k=1}^{5} \binom{5}{k} 127^{5-k}.
+\]
+Using the binomial theorem,
+\[
+\sum_{k=0}^{5} \binom{5}{k} 127^{5-k} = (127+1)^5 = 128^5,
+\]
+so
+\[
+\sum_{k=1}^{5} \binom{5}{k} 127^{5-k} = 128^5 - 127^5.
+\]
+Hence
+\[
+\boxed{\,128^5-127^5 = 1321368961\,}.
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\newpage
+\section{Question 4 (Ex.\ 6.1.10)}
+\subsection{Problem}
+There are 4 choices $\{G,U,A,C\}$ for each element of an RNA sequence. How many 6-element RNA sequences
+\begin{enumerate}[label=(\alph*)]
+\item do not contain $U$?
+\item end with $GU$?
+\item start with $C$?
+\item contain only $A$ or $U$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Product rule (independent positions)}
+\begin{enumerate}[label=(\alph*)]
+\item If the sequence cannot contain $U$, then each of the 6 positions can be filled by one of $\{G,A,C\}$, i.e.\ 3 choices per position. Hence
+\[
+\boxed{\,3^6 = 729\,}.
+\]
+
+\item If the sequence must end with $GU$, then position 5 is fixed as $G$ and position 6 is fixed as $U$. The first 4 positions are free, each with 4 choices. Hence
+\[
+\boxed{\,4^4 = 256\,}.
+\]
+
+\item If the sequence must start with $C$, then position 1 is fixed as $C$ and the remaining 5 positions are free with 4 choices each. Hence
+\[
+\boxed{\,4^5 = 1024\,}.
+\]
+
+\item If the sequence can contain only $A$ or $U$, then each position has 2 choices, so
+\[
+\boxed{\,2^6 = 64\,}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Functions from positions to allowed alphabets}
+Let $P=\{1,2,3,4,5,6\}$ be the position set. A length-6 RNA sequence is a function $f:P\to \{G,U,A,C\}$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Restrict the codomain to $\{G,A,C\}$ (size 3). Then the number of functions is $3^{|P|}=3^6$, hence
+\[
+\boxed{\,3^6 = 729\,}.
+\]
+
+\item Enforce $f(5)=G$ and $f(6)=U$. Then $f$ is determined uniquely by its values on $\{1,2,3,4\}$, and there are $4^4$ possible restrictions to these four positions. Hence
+\[
+\boxed{\,4^4 = 256\,}.
+\]
+
+\item Enforce $f(1)=C$. Then $f$ is determined by its restriction to $\{2,3,4,5,6\}$, which can be any function into a 4-element set, giving $4^5$. Hence
+\[
+\boxed{\,4^5 = 1024\,}.
+\]
+
+\item Restrict the codomain to $\{A,U\}$ (size 2). Then the number of functions is $2^6$, hence
+\[
+\boxed{\,2^6 = 64\,}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 5
+%====================================================
+
+\newpage
+\section{Question 5 (Ex.\ 6.1.12)}
+\subsection{Problem}
+How many positive integers between 100 and 999 (both inclusive)
+\begin{enumerate}[label=(\alph*)]
+\item are divisible by 7?
+\item are odd?
+\item have the same three decimal digits?
+\item are not divisible by 4?
+\item are divisible by 3 or 4?
+\item are not divisible by either 3 or 4?
+\item are divisible by 3 and 4?
+\item are divisible by 3 but not by 4?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Arithmetic progressions and inclusion--exclusion}
+There are $999-100+1=900$ integers from 100 to 999 inclusive.
+
+\begin{enumerate}[label=(\alph*)]
+\item Multiples of 7 in $[100,999]$:
+\[
+7\cdot 15=105\ge 100 \quad\text{(first)},\qquad 7\cdot 142=994\le 999 \quad\text{(last)}.
+\]
+Thus there are
+\[
+142-15+1 = 128
+\]
+multiples, so
+\[
+\boxed{\,128\,}.
+\]
+
+\item The numbers 100--999 form 900 consecutive integers, starting with an even number (100). In any consecutive block of even length, exactly half are odd. Hence
+\[
+\boxed{\,450\,}.
+\]
+
+\item Numbers with the same three digits are
+\[
+111,222,\dots,999,
+\]
+which is 9 numbers, hence
+\[
+\boxed{\,9\,}.
+\]
+
+\item Count multiples of 4, then subtract from 900.
+The first multiple of 4 in the interval is $100=4\cdot 25$, and the last is $996=4\cdot 249$. Hence
+\[
+\#\{\text{divisible by 4}\} = 249-25+1=225,
+\]
+so
+\[
+\#\{\text{not divisible by 4}\} = 900-225=675,
+\qquad
+\boxed{\,675\,}.
+\]
+
+\item Let $A$ be divisible by 3, $B$ be divisible by 4.
+First count $|A|,|B|,|A\cap B|$.
+\[
+3\cdot 34=102\ge 100,\qquad 3\cdot 333=999\le 999 \Rightarrow |A|=333-34+1=300.
+\]
+Also $|B|=225$ from part (d).
+Now $A\cap B$ is divisibility by $\mathrm{lcm}(3,4)=12$:
+\[
+12\cdot 9=108\ge 100,\qquad 12\cdot 83=996\le 999 \Rightarrow |A\cap B|=83-9+1=75.
+\]
+By inclusion--exclusion,
+\[
+|A\cup B| = |A|+|B|-|A\cap B| = 300+225-75 = 450,
+\]
+so
+\[
+\boxed{\,450\,}.
+\]
+
+\item ``Not divisible by either 3 or 4'' means complement of $A\cup B$ within the 900 numbers:
+\[
+900-|A\cup B| = 900-450=450,
+\qquad
+\boxed{\,450\,}.
+\]
+
+\item ``Divisible by 3 and 4'' means $A\cap B$, already computed as 75:
+\[
+\boxed{\,75\,}.
+\]
+
+\item ``Divisible by 3 but not by 4'' means $A\setminus B$, so
+\[
+|A\setminus B| = |A|-|A\cap B| = 300-75=225,
+\qquad
+\boxed{\,225\,}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Floor-function counting (systematic endpoint formulas)}
+For an integer $d\ge 1$, the number of multiples of $d$ in $[100,999]$ is
+\[
+\left\lfloor \frac{999}{d}\right\rfloor - \left\lfloor \frac{99}{d}\right\rfloor,
+\]
+because multiples of $d$ up to 999 are $\lfloor 999/d\rfloor$, and multiples up to 99 (i.e.\ below 100) are $\lfloor 99/d\rfloor$.
+
+\begin{enumerate}[label=(\alph*)]
+\item For $d=7$:
+\[
+\left\lfloor \frac{999}{7}\right\rfloor - \left\lfloor \frac{99}{7}\right\rfloor
+= 142 - 14 = 128,
+\qquad
+\boxed{\,128\,}.
+\]
+
+\item Odds in $[100,999]$.
+The odd numbers form the arithmetic progression
+\[
+101,103,\dots,999,
+\]
+with first term 101, last term 999, common difference 2. The number of terms is
+\[
+\frac{999-101}{2}+1 = \frac{898}{2}+1=449+1=450,
+\qquad
+\boxed{\,450\,}.
+\]
+
+\item Same three digits are $aaa$ for $a\in\{1,2,\dots,9\}$, giving 9 choices:
+\[
+\boxed{\,9\,}.
+\]
+
+\item Not divisible by 4:
+\[
+\#(\text{divisible by 4})=
+\left\lfloor \frac{999}{4}\right\rfloor - \left\lfloor \frac{99}{4}\right\rfloor
+=249-24=225,
+\]
+so
+\[
+\#(\text{not divisible by 4}) = 900-225 = 675,
+\qquad
+\boxed{\,675\,}.
+\]
+
+\item Divisible by 3 or 4:
+\[
+|A|=\left\lfloor\frac{999}{3}\right\rfloor-\left\lfloor\frac{99}{3}\right\rfloor=333-33=300,
+\]
+\[
+|B|=\left\lfloor\frac{999}{4}\right\rfloor-\left\lfloor\frac{99}{4}\right\rfloor=249-24=225,
+\]
+\[
+|A\cap B|=\left\lfloor\frac{999}{12}\right\rfloor-\left\lfloor\frac{99}{12}\right\rfloor=83-8=75.
+\]
+Thus
+\[
+|A\cup B|=300+225-75=450,
+\qquad
+\boxed{\,450\,}.
+\]
+
+\item Not divisible by either 3 or 4:
+\[
+900-|A\cup B| = 900-450=450,
+\qquad
+\boxed{\,450\,}.
+\]
+
+\item Divisible by 3 and 4:
+\[
+|A\cap B|=75,
+\qquad
+\boxed{\,75\,}.
+\]
+
+\item Divisible by 3 but not by 4:
+\[
+|A|-|A\cap B| = 300-75=225,
+\qquad
+\boxed{\,225\,}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 6
+%====================================================
+
+\newpage
+\section{Question 6 (Ex.\ 6.1.13)}
+\subsection{Problem}
+How many strings of three decimal digits
+\begin{enumerate}[label=(\alph*)]
+\item do not contain the same digit three times?
+\item begin with an odd digit?
+\item have exactly two digits that are 4's?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct counting (product rule, complement, and cases)}
+A string of three decimal digits is a length-3 string over $\{0,1,\dots,9\}$, so there are $10^3=1000$ total.
+
+\begin{enumerate}[label=(\alph*)]
+\item Exclude the 10 strings with all digits equal:
+\[
+000,111,\dots,999.
+\]
+Hence
+\[
+\#=1000-10=990,
+\qquad
+\boxed{\,990\,}.
+\]
+
+\item The first digit must be odd, so it can be one of $\{1,3,5,7,9\}$ (5 choices). The remaining two digits are arbitrary (10 choices each). Hence
+\[
+\# = 5\cdot 10\cdot 10 = 500,
+\qquad
+\boxed{\,500\,}.
+\]
+
+\item Exactly two digits are 4's:
+\begin{itemize}[leftmargin=*]
+\item Choose which two of the three positions are 4: $\binom{3}{2}=3$.
+\item The remaining position must be a digit different from 4: 9 choices.
+\end{itemize}
+Thus
+\[
+\# = 3\cdot 9 = 27,
+\qquad
+\boxed{\,27\,}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Equivalent formulations via sets of strings}
+Let $\Omega=\{0,1,\dots,9\}^3$ be the set of all length-3 digit strings, so $|\Omega|=10^3=1000$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $E=\{(d,d,d): d\in\{0,1,\dots,9\}\}$ be the set of strings with all three digits equal. Then $|E|=10$.
+The desired set is $\Omega\setminus E$, hence
+\[
+\# = |\Omega|-|E| = 1000-10 = 990,
+\qquad
+\boxed{\,990\,}.
+\]
+
+\item Let $O=\{1,3,5,7,9\}$ be the set of odd digits. The set of strings beginning with an odd digit is $O\times \{0,\dots,9\}\times \{0,\dots,9\}$, whose cardinality is
+\[
+|O|\cdot 10\cdot 10 = 5\cdot 10^2 = 500,
+\qquad
+\boxed{\,500\,}.
+\]
+
+\item Let $S$ be the set of strings with exactly two 4's. For each choice of the unique position that is \emph{not} 4 (3 choices), the non-4 digit can be any of the 9 digits in $\{0,\dots,9\}\setminus\{4\}$. Therefore
+\[
+|S| = 3\cdot 9 = 27,
+\qquad
+\boxed{\,27\,}.
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 7
+%====================================================
+
+\newpage
+\section{Question 7 (Ex.\ 6.1.20 and Ex.\ 6.1.21)}
+\subsection{Problem}
+Consider functions that map from the set $A=\{1,2,\dots,n\}$ to the set $B=\{0,1\}$, where $n$ is a positive integer.
+\begin{enumerate}[label=(\alph*)]
+\item How many such functions are there?
+\item How many such functions are one-to-one?
+\item How many such functions are there that assign 0 to both 1 and $n$?
+\item How many such functions are there that assign 1 to exactly one element in $A$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: View functions as bit strings}
+A function $f:A\to B$ corresponds uniquely to a length-$n$ bit string $(f(1),f(2),\dots,f(n))$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Each of the $n$ positions can be 0 or 1, so there are $2^n$ bit strings, hence
+\[
+\boxed{\,2^n\,}.
+\]
+
+\item A function $f:A\to\{0,1\}$ is injective exactly when no two different elements of $A$ map to the same value.
+\begin{itemize}[leftmargin=*]
+\item If $n=1$, every function is injective, so there are $2$.
+\item If $n=2$, injective means the two outputs differ, so the only possibilities are $(0,1)$ and $(1,0)$, i.e.\ 2.
+\item If $n\ge 3$, injection is impossible because there are only 2 possible values but at least 3 inputs (pigeonhole principle).
+\end{itemize}
+Therefore,
+\[
+\boxed{\,
+\#=
+\begin{cases}
+2, & n=1,\\
+2, & n=2,\\
+0, & n\ge 3.
+\end{cases}
+\,}
+\]
+
+\item Require $f(1)=0$ and $f(n)=0$.
+\begin{itemize}[leftmargin=*]
+\item If $n=1$, then $1=n$ so the constraint is just $f(1)=0$, giving 1 function.
+\item If $n\ge 2$, then two positions are fixed as 0, and the remaining $n-2$ positions are free bits, giving $2^{n-2}$ functions.
+\end{itemize}
+Hence
+\[
+\boxed{\,
+\#=
+\begin{cases}
+1, & n=1,\\
+2^{n-2}, & n\ge 2.
+\end{cases}
+\,}
+\]
+
+\item ``Assign 1 to exactly one element'' means the bit string has exactly one 1.
+Choose which index $i\in\{1,\dots,n\}$ has value 1 (there are $n$ choices), and all others are forced to be 0. Hence
+\[
+\boxed{\,n\,}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Direct function counting and injectivity constraints}
+\begin{enumerate}[label=(\alph*)]
+\item For each input $i\in A$, the value $f(i)$ can be chosen independently as 0 or 1 (2 choices). By the product rule,
+\[
+\# = \underbrace{2\cdot 2\cdots 2}_{n\text{ times}} = 2^n,
+\qquad
+\boxed{\,2^n\,}.
+\]
+
+\item An injective function $f:A\to B$ can exist only if $|A|\le |B|$.
+Since $|A|=n$ and $|B|=2$, injectivity forces $n\le 2$ (pigeonhole principle).
+\begin{itemize}[leftmargin=*]
+\item If $n=1$, there are $2$ functions total, and all are injective.
+\item If $n=2$, injective functions are exactly bijections from a 2-element set to a 2-element set; there are $2!=2$.
+\item If $n\ge 3$, there are no injective functions.
+\end{itemize}
+Thus
+\[
+\boxed{\,
+\#=
+\begin{cases}
+2, & n=1,\\
+2, & n=2,\\
+0, & n\ge 3.
+\end{cases}
+\,}
+\]
+
+\item Enforce $f(1)=0$ and $f(n)=0$.
+\begin{itemize}[leftmargin=*]
+\item If $n=1$, the condition reduces to $f(1)=0$, so there is 1 function.
+\item If $n\ge 2$, then for each of the remaining $n-2$ inputs, there are 2 independent choices.
+\end{itemize}
+Hence
+\[
+\boxed{\,
+\#=
+\begin{cases}
+1, & n=1,\\
+2^{n-2}, & n\ge 2.
+\end{cases}
+\,}
+\]
+
+\item Exactly one element maps to 1 means the preimage $f^{-1}(\{1\})$ has size 1.
+Choose the unique element $i\in A$ that maps to 1 (there are $n$ choices); then all other elements must map to 0, yielding a unique function per choice. Therefore
+\[
+\boxed{\,n\,}.
+\]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,1082 @@
+\section{Comprehensive Course Summary and Final Review}
+\label{sec:mh1201-course-summary}
+
+This section is a course-wide synthesis of MH1201. It is intended to sit \emph{after} the six main chapters, not to replace them. The goal is to compress the module into a logically connected, exam-ready narrative that preserves the course's main abstractions, theorem hypotheses, standard workflows, and recurrent traps.
+
+\begin{examtip}[title={Exam Focus: what the recent finals reward most strongly}]
+Across the uploaded finals, the heaviest recurrent demands are:
+\begin{itemize}[leftmargin=*]
+    \item moving fluently between an \emph{abstract linear operator} and its \emph{matrix representation} relative to a specified ordered basis;
+    \item computing \(\operatorname{Null}(T)\), \(\operatorname{Range}(T)\), eigenvalues, eigenspaces, and diagonalizability from that representation;
+    \item using a diagonalizing basis to compute \(T^k(v)\) or \(A^k\);
+    \item handling \emph{non-standard inner products}, then applying Gram--Schmidt, Fourier coefficients, orthogonal complements, projections, and QR-style factorization;
+    \item proving dimension statements cleanly, especially by basis extension/extraction, rank--nullity, and dimension formulas for sums or orthogonal complements.
+\end{itemize}
+A strong exam answer in MH1201 is usually not long because it is computationally heavy; it is strong because it uses the \emph{right structural theorem at the right moment}.
+\end{examtip}
+
+\subsection{The logical architecture of MH1201}
+
+The course is best viewed as a three-stage progression.
+
+\begin{enumerate}[label=\textbf{Stage \arabic*:}, leftmargin=*]
+    \item \textbf{Algebraic structure of spaces.}  
+    One first learns what vector spaces and subspaces are, then how spaces are built from spans, how redundancy is detected by linear dependence, and how bases and dimension quantify the true number of independent directions.
+
+    \item \textbf{Linear maps as the central objects.}  
+    The course then shifts from sets of vectors to maps \(T:V\to W\). The central questions become: what does \(T\) kill, what can \(T\) reach, when is \(T\) invertible, and how do coordinates convert \(T\) into a matrix?
+
+    \item \textbf{Structure theory and geometry.}  
+    After that, one asks whether an operator can be simplified by a good basis: first via eigenvalues/eigenvectors and diagonalization, then via inner products, orthogonality, orthonormal bases, projections, and best approximation.
+\end{enumerate}
+
+\begin{policynote}
+\textbf{Unifying principle.}
+Almost every major theorem in MH1201 can be understood as answering one of the following:
+\begin{itemize}[leftmargin=*]
+    \item What is the right basis?
+    \item What is the right invariant?
+    \item What is the right decomposition?
+\end{itemize}
+Span, basis, direct sum, rank--nullity, similarity, diagonalization, and orthogonal decomposition are all manifestations of this single organising theme.
+\end{policynote}
+
+\subsection{Vector spaces, subspaces, span, and direct sums}
+
+\subsubsection*{1. Vector spaces and the subspace viewpoint}
+
+A vector space over \(\mathbb{F}\) is a set \(V\) together with addition and scalar multiplication satisfying the usual axioms. In this course, the most important ambient examples are
+\[
+\mathbb{F}^n,\qquad \mathbb{F}^{m,n},\qquad P_n(\mathbb{F}),\qquad \mathcal{F}(S,\mathbb{F}).
+\]
+In computations, however, the more important object is usually a \emph{subspace} of a known ambient vector space.
+
+\begin{definition}{Subspace}{sum:def-subspace}
+Let \(V\) be a vector space over \(\mathbb{F}\) and let \(W\subseteq V\). Then \(W\) is a subspace of \(V\) if it is a vector space under the restricted operations inherited from \(V\).
+\end{definition}
+
+\begin{theorem}{Subspace Test}{sum:thm-subspace-test}
+For \(W\subseteq V\),
+\[
+W\le V
+\iff
+\bigl(
+W\neq\varnothing,\;
+u,v\in W\Rightarrow u+v\in W,\;
+c\in\mathbb{F},\,u\in W\Rightarrow cu\in W
+\bigr).
+\]
+Equivalently, one may use the one-line version
+\[
+W\le V
+\iff
+\bigl(
+W\neq\varnothing
+\text{ and }
+\forall u,v\in W,\forall c\in\mathbb{F}:\ cu+v\in W
+\bigr).
+\]
+\end{theorem}
+
+\begin{examtip}[title={Exam Focus: fast subspace proofs}]
+There are three standard proof patterns.
+\begin{enumerate}[leftmargin=*]
+    \item Apply the Subspace Test directly.
+    \item Recognise the set as a kernel of a linear map.
+    \item Show the set equals \(\operatorname{Span}(S)\) for some \(S\).
+\end{enumerate}
+The second method is especially high-yield: whenever a set is defined by \emph{homogeneous linear conditions}, it is usually a kernel.
+\end{examtip}
+
+\begin{commonmistake}[title={Common Mistake: checking closure but forgetting the origin}]
+A subset can be closed under certain operations and still fail to be a subspace if \(0\notin W\). Affine sets such as
+\[
+\{x\in \mathbb{R}^n : a^{\mathsf T}x = b\},\qquad b\neq 0,
+\]
+typically fail precisely because they do not pass through the origin.
+\end{commonmistake}
+
+\subsubsection*{2. Span and generated structure}
+
+\begin{definition}{Span}{sum:def-span}
+For \(S\subseteq V\),
+\[
+\operatorname{Span}(S)
+=
+\{\text{all finite linear combinations of vectors from }S\}.
+\]
+\end{definition}
+
+The word \emph{finite} matters. This is not cosmetic; it is part of the definition.
+
+\begin{theorem}{Span as smallest containing subspace}{sum:thm-span-smallest}
+For every \(S\subseteq V\),
+\[
+\operatorname{Span}(S)\le V,\qquad
+S\subseteq \operatorname{Span}(S),
+\]
+and if \(S\subseteq W\le V\), then
+\[
+\operatorname{Span}(S)\subseteq W.
+\]
+Thus \(\operatorname{Span}(S)\) is the smallest subspace of \(V\) containing \(S\).
+\end{theorem}
+
+\begin{keyformula}[title={Key Formula: basic span identities}]
+For \(A,B\subseteq V\),
+\[
+A\subseteq B \Rightarrow \operatorname{Span}(A)\subseteq \operatorname{Span}(B),
+\qquad
+\operatorname{Span}(A\cup B)=\operatorname{Span}(A)+\operatorname{Span}(B),
+\]
+\[
+\operatorname{Span}(\operatorname{Span}(A))=\operatorname{Span}(A),
+\qquad
+\operatorname{Span}(\varnothing)=\{0\}.
+\]
+\end{keyformula}
+
+\subsubsection*{3. Sums, intersections, and direct sums}
+
+If \(U,W\le V\), then both \(U\cap W\) and \(U+W\) are subspaces. The crucial distinction is between an ordinary sum and a \emph{direct} sum.
+
+\begin{definition}{Direct sum}{sum:def-direct-sum}
+For subspaces \(V_1,\dots,V_n\le V\),
+\[
+W=V_1\oplus\cdots\oplus V_n
+\]
+means that \(W=V_1+\cdots+V_n\) and each \(w\in W\) has a unique decomposition
+\[
+w=v_1+\cdots+v_n,\qquad v_i\in V_i.
+\]
+\end{definition}
+
+\begin{theorem}{Direct-sum criteria}{sum:thm-direct-sum-criteria}
+For two subspaces \(U,W\le V\),
+\[
+V=U\oplus W
+\iff
+V=U+W \text{ and } U\cap W=\{0\}.
+\]
+More generally,
+\[
+V_1+\cdots+V_n \text{ is direct }
+\iff
+\Bigl(\sum_{i=1}^n v_i = 0,\; v_i\in V_i \Rightarrow v_1=\cdots=v_n=0\Bigr).
+\]
+\end{theorem}
+
+The general zero-sum criterion is the safer one for \(n\ge 3\).
+
+\begin{commonmistake}[title={Common Mistake: pairwise trivial intersections are not enough for \(n\ge 3\)}]
+For more than two subspaces, it is \emph{false} that
+\[
+V_i\cap V_j=\{0\}\ \forall i\neq j
+\]
+automatically implies the sum is direct. One must check the full direct-sum condition.
+\end{commonmistake}
+
+\subsection{Linear independence, bases, coordinates, and dimension}
+
+\subsubsection*{1. Linear independence and dependence}
+
+\begin{definition}{Linear independence}{sum:def-li}
+A subset \(S\subseteq V\) is linearly independent if every finite relation
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n = 0
+\]
+with distinct \(v_i\in S\) forces
+\[
+\lambda_1=\cdots=\lambda_n=0.
+\]
+Otherwise \(S\) is linearly dependent.
+\end{definition}
+
+\begin{theorem}{Dependence iff one vector lies in the span of the others}{sum:thm-dep-span}
+A set \(S\) is linearly dependent if and only if one vector of \(S\) lies in the span of finitely many others from \(S\).
+\end{theorem}
+
+This theorem explains why dependence is exactly the same as redundancy.
+
+\begin{keyformula}[title={Key Facts: quick tests for independence}]
+\[
+\varnothing \text{ is linearly independent},
+\qquad
+\{v\} \text{ is linearly independent } \iff v\neq 0,
+\]
+\[
+S \text{ linearly independent } \Rightarrow \text{every subset of } S \text{ is linearly independent},
+\]
+\[
+S \text{ dependent } \Rightarrow \text{every superset of } S \text{ is dependent}.
+\]
+For vectors \(v_1,\dots,v_n\in \mathbb{F}^{m,1}\), linear independence is equivalent to the homogeneous system
+\[
+[\;v_1\ \cdots\ v_n\;]\lambda=0
+\]
+having only the trivial solution.
+\end{keyformula}
+
+\subsubsection*{2. Bases and coordinates}
+
+\begin{definition}{Basis and coordinates}{sum:def-basis-coordinates}
+A basis of \(V\) is a set \(B\subseteq V\) that is both linearly independent and spanning.
+If \(\beta=(b_1,\dots,b_n)\) is an ordered basis and
+\[
+v=\lambda_1 b_1+\cdots+\lambda_n b_n,
+\]
+then the coordinate vector of \(v\) relative to \(\beta\) is
+\[
+[v]_\beta=
+\begin{pmatrix}
+\lambda_1\\ \vdots\\ \lambda_n
+\end{pmatrix}.
+\]
+\end{definition}
+
+\begin{theorem}{Uniqueness in a basis}{sum:thm-unique-basis-expansion}
+If \(B\) is a basis of \(V\), then every \(v\in V\) admits a unique finite expansion in vectors of \(B\).
+\end{theorem}
+
+This uniqueness is exactly what makes coordinate vectors meaningful.
+
+\begin{commonmistake}[title={Common Mistake: forgetting that order matters}]
+A basis is a set, but coordinates require an \emph{ordered} basis. Reordering the same basis changes the coordinate vector and changes the matrix representation of a linear map.
+\end{commonmistake}
+
+\subsubsection*{3. Dimension and finite-dimensional structure}
+
+\begin{definition}{Dimension}{sum:def-dimension}
+If \(V\) has a finite basis, then \(\dim(V)\) is the number of vectors in any basis of \(V\).
+\end{definition}
+
+\begin{theorem}{Finite-dimensional size logic}{sum:thm-fd-size-logic}
+If \(\dim(V)=n\), then:
+\begin{itemize}[leftmargin=*]
+    \item every linearly independent subset of \(V\) has size at most \(n\);
+    \item every spanning subset of \(V\) has size at least \(n\);
+    \item any linearly independent set of \(n\) vectors is a basis;
+    \item any spanning set of \(n\) vectors is a basis.
+\end{itemize}
+\end{theorem}
+
+These are among the highest-yield finite-dimensional results in the course.
+
+\begin{theorem}{Basis extension and extraction}{sum:thm-basis-extension-extraction}
+Assume \(V\) is finite-dimensional.
+\begin{itemize}[leftmargin=*]
+    \item Every linearly independent set extends to a basis of \(V\).
+    \item Every spanning set of \(V\) contains a basis of \(V\).
+\end{itemize}
+\end{theorem}
+
+\begin{examtip}[title={Exam Focus: the two standard basis constructions}]
+To \emph{build} a basis, start from an independent set and add vectors outside the current span.  
+To \emph{prune} to a basis, start from a spanning set and remove redundant vectors one by one.
+\end{examtip}
+
+\subsubsection*{4. Dimension formulae}
+
+\begin{theorem}{Dimension of a sum}{sum:thm-dim-sum}
+If \(U,W\le V\) and \(V\) is finite-dimensional, then
+\[
+\dim(U+W)=\dim(U)+\dim(W)-\dim(U\cap W).
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Key Formula: direct sums and dimensions}]
+If \(V=U\oplus W\), then
+\[
+\dim(V)=\dim(U)+\dim(W).
+\]
+More generally, the direct-sum condition is equivalent to saying that dimensions add \emph{without overlap}.
+\end{keyformula}
+
+This formula is one of the main dimension bridges in the course. It is routinely used to show:
+\begin{itemize}[leftmargin=*]
+    \item an intersection is trivial or nontrivial;
+    \item a sum is the whole space;
+    \item a proposed decomposition is direct;
+    \item a missing dimension can be computed from known pieces.
+\end{itemize}
+
+\subsection{Linear transformations, kernel, range, rank, and invertibility}
+
+\subsubsection*{1. Linearity and the space \(\mathcal{L}(V,W)\)}
+
+\begin{definition}{Linear transformation}{sum:def-linear-map}
+A map \(T:V\to W\) is linear if
+\[
+T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)
+\]
+for all \(u,v\in V\) and all \(\alpha,\beta\in\mathbb{F}\).
+\end{definition}
+
+The set \(\mathcal{L}(V,W)\) of all linear maps from \(V\) to \(W\) is itself a vector space under pointwise addition and scalar multiplication. This matters conceptually because one can study linear maps with the same structural tools used to study vectors.
+
+\subsubsection*{2. Null space and range}
+
+\begin{definition}{Kernel and range}{sum:def-kernel-range}
+For \(T\in\mathcal{L}(V,W)\),
+\[
+\operatorname{Null}(T)=\ker(T)=\{v\in V:T(v)=0\},
+\qquad
+\operatorname{Range}(T)=\{T(v):v\in V\}.
+\]
+\end{definition}
+
+\begin{theorem}{Kernel and range are subspaces}{sum:thm-kernel-range-subspaces}
+If \(T\in\mathcal{L}(V,W)\), then
+\[
+\operatorname{Null}(T)\le V,
+\qquad
+\operatorname{Range}(T)\le W.
+\]
+\end{theorem}
+
+These two subspaces measure the two most important structural effects of \(T\):
+\begin{itemize}[leftmargin=*]
+    \item \(\operatorname{Null}(T)\): what \(T\) collapses to \(0\);
+    \item \(\operatorname{Range}(T)\): what outputs \(T\) can actually produce.
+\end{itemize}
+
+\subsubsection*{3. Rank--Nullity and injective/surjective logic}
+
+\begin{definition}{Rank and nullity}{sum:def-rank-nullity}
+If \(T:V\to W\) is linear and \(V\) is finite-dimensional, define
+\[
+\operatorname{Rank}(T)=\dim(\operatorname{Range}(T)),
+\qquad
+\operatorname{Nullity}(T)=\dim(\operatorname{Null}(T)).
+\]
+\end{definition}
+
+\begin{theorem}{Rank--Nullity Theorem}{sum:thm-rank-nullity}
+If \(T:V\to W\) is linear and \(V\) is finite-dimensional, then
+\[
+\dim(V)=\operatorname{Rank}(T)+\operatorname{Nullity}(T).
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Key Formula: injective, surjective, invertible}]
+For linear \(T:V\to W\),
+\[
+T \text{ injective}
+\iff
+\operatorname{Null}(T)=\{0\}.
+\]
+If \(V\) and \(W\) are finite-dimensional, then
+\[
+T \text{ surjective}
+\iff
+\operatorname{Rank}(T)=\dim(W).
+\]
+If moreover \(\dim(V)=\dim(W)\), then the following are equivalent:
+\[
+T\text{ injective}
+\iff
+T\text{ surjective}
+\iff
+T\text{ bijective}
+\iff
+T\text{ invertible}.
+\]
+\end{keyformula}
+
+\begin{examtip}[title={Exam Focus: the equal-dimension shortcut}]
+Whenever \(T:V\to W\) with \(\dim(V)=\dim(W)\), you should immediately think:
+\[
+\ker(T)=\{0\}
+\quad\Longleftrightarrow\quad
+\operatorname{Range}(T)=W
+\quad\Longleftrightarrow\quad
+T\text{ invertible}.
+\]
+This shortcut appears repeatedly in both theory questions and computational questions.
+\end{examtip}
+
+\subsubsection*{4. Invertible linear maps and isomorphism}
+
+A linear map \(T:V\to W\) is invertible if there exists a map \(T^{-1}:W\to V\) such that
+\[
+T^{-1}T=I_V,\qquad TT^{-1}=I_W.
+\]
+If \(T\) is invertible, then \(T^{-1}\) is also linear.
+
+This is the correct notion of two vector spaces being ``the same'' from the standpoint of linear algebra: they are \emph{isomorphic}.
+
+\subsection{Matrices, coordinates, change of basis, and similarity}
+
+\subsubsection*{1. Matrix representations}
+
+Fix ordered bases \(\beta=(v_1,\dots,v_n)\) of \(V\) and \(\gamma=(w_1,\dots,w_m)\) of \(W\). For \(T\in\mathcal{L}(V,W)\), the matrix of \(T\) relative to \((\beta,\gamma)\) is the unique matrix \([T]^\gamma_\beta\in \mathbb{F}^{m,n}\) satisfying
+\[
+[T(v)]_\gamma = [T]^\gamma_\beta [v]_\beta \qquad \forall v\in V.
+\]
+
+\begin{theorem}{Fundamental coordinate identity}{sum:thm-fundamental-coordinate-identity}
+If \([T]^\gamma_\beta\) is the matrix representation of \(T\), then for each basis vector \(v_j\in\beta\), the \(j\)-th column of \([T]^\gamma_\beta\) is
+\[
+[T(v_j)]_\gamma.
+\]
+Equivalently,
+\[
+[T(v)]_\gamma = [T]^\gamma_\beta [v]_\beta
+\]
+for every \(v\in V\).
+\end{theorem}
+
+\begin{commonmistake}[title={Common Mistake: mixing up rows, columns, and basis roles}]
+If \(T:V\to W\), then
+\[
+[T]^\gamma_\beta \in \mathbb{F}^{(\dim W)\times (\dim V)}.
+\]
+The \emph{columns} come from the images of \emph{domain-basis} vectors expressed in the \emph{codomain basis}. Many sign and dimension errors come from reversing this.
+\end{commonmistake}
+
+\subsubsection*{2. Composition and matrix multiplication}
+
+If \(T:U\to V\) and \(S:V\to W\), then
+\[
+[S\circ T]^\delta_\alpha = [S]^\delta_\beta [T]^\beta_\alpha
+\]
+provided the middle basis \(\beta\) is the same on both sides. Matrix multiplication is therefore not an arbitrary formal rule; it is the coordinate shadow of composition of linear maps.
+
+\subsubsection*{3. Change of coordinates}
+
+\begin{definition}{Change-of-coordinate matrix}{sum:def-change-of-coordinate}
+If \(\beta\) and \(\gamma\) are ordered bases of the same vector space \(V\), then
+\[
+[I_V]^\gamma_\beta
+\]
+is the change-of-coordinate matrix from \(\beta\)-coordinates to \(\gamma\)-coordinates. Thus
+\[
+[v]_\gamma = [I_V]^\gamma_\beta [v]_\beta.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: coordinate-change inverse relation}]
+\[
+[I_V]^\beta_\gamma = \bigl([I_V]^\gamma_\beta\bigr)^{-1}.
+\]
+\end{keyformula}
+
+This is one of the most frequently mishandled pieces of notation in the course. Always read the subscripts and superscripts as \emph{from} the lower basis \emph{to} the upper basis.
+
+\subsubsection*{4. Change of matrix representation and similarity}
+
+If \(T\in\mathcal{L}(V)\) and \(\beta,\gamma\) are ordered bases of \(V\), then
+\[
+[T]^\gamma_\gamma
+=
+[I_V]^\gamma_\beta\,[T]^\beta_\beta\,[I_V]^\beta_\gamma.
+\]
+Thus two matrices representing the same operator in different ordered bases are similar.
+
+\begin{definition}{Similarity}{sum:def-similarity}
+Matrices \(A,B\in \mathbb{F}^{n,n}\) are similar if there exists an invertible matrix \(Q\) such that
+\[
+B=Q^{-1}AQ.
+\]
+\end{definition}
+
+\begin{theorem}{Similarity invariants used in MH1201}{sum:thm-similarity-invariants}
+If \(A\sim B\), then \(A\) and \(B\) have the same:
+\begin{itemize}[leftmargin=*]
+    \item determinant,
+    \item trace,
+    \item characteristic polynomial,
+    \item eigenvalues (with algebraic multiplicities),
+    \item rank,
+    \item nullity.
+\end{itemize}
+\end{theorem}
+
+\begin{examtip}[title={Exam Focus: how to show two matrices are not similar}]
+The quickest route is often to exhibit a similarity invariant that differs:
+\[
+\det(A)\neq \det(B),\quad
+\operatorname{tr}(A)\neq \operatorname{tr}(B),\quad
+p_A(\lambda)\neq p_B(\lambda),
+\]
+or a different rank/nullity/eigenvalue profile.
+\end{examtip}
+
+\subsection{Eigenvalues, eigenspaces, diagonalization, and operator structure}
+
+\subsubsection*{1. Eigenvalues and eigenspaces}
+
+\begin{definition}{Eigenvalue and eigenspace}{sum:def-eigenvalue-eigenspace}
+Let \(T\in\mathcal{L}(V)\). A scalar \(\lambda\in\mathbb{F}\) is an eigenvalue of \(T\) if there exists \(v\neq 0\) such that
+\[
+T(v)=\lambda v.
+\]
+The corresponding eigenspace is
+\[
+E_{T,\lambda}=\operatorname{Null}(T-\lambda I_V).
+\]
+\end{definition}
+
+\begin{theorem}{Equivalent eigenvalue tests}{sum:thm-eigenvalue-tests}
+For \(T\in\mathcal{L}(V)\),
+\[
+\lambda \text{ is an eigenvalue }
+\iff
+E_{T,\lambda}\neq\{0\}
+\iff
+T-\lambda I_V \text{ is not injective}.
+\]
+If \(V\) is finite-dimensional and \(\beta\) is an ordered basis, then
+\[
+\lambda \text{ is an eigenvalue }
+\iff
+\det\bigl([T]^\beta_\beta-\lambda I\bigr)=0.
+\]
+\end{theorem}
+
+\begin{commonmistake}[title={Common Mistake: the field matters}]
+A real matrix may have no real eigenvalues but still have complex eigenvalues. Eigenvalues are always computed \emph{in the specified field}. The standard \(2\times 2\) rotation matrix is the canonical example over \(\mathbb{R}\) versus \(\mathbb{C}\).
+\end{commonmistake}
+
+\subsubsection*{2. Characteristic polynomial}
+
+\begin{definition}{Characteristic polynomial}{sum:def-charpoly}
+If \(V\) is finite-dimensional and \(\beta\) is an ordered basis of \(V\), define
+\[
+p_T(\lambda)=\det([T]^\beta_\beta-\lambda I).
+\]
+This is independent of the choice of basis.
+\end{definition}
+
+The basis-independence matters because the characteristic polynomial is an operator invariant, not a coordinate accident.
+
+\begin{keyformula}[title={Key Formula: characteristic roots and easy checks}]
+\[
+\lambda \text{ eigenvalue } \iff p_T(\lambda)=0.
+\]
+For \(A\in \mathbb{F}^{2,2}\),
+\[
+p_A(\lambda)=\lambda^2-(\operatorname{tr}A)\lambda+\det(A),
+\]
+so trace and determinant are often enough to speed up the eigenvalue computation.
+\end{keyformula}
+
+\subsubsection*{3. Direct-sum structure of eigenspaces}
+
+\begin{theorem}{Distinct eigenspaces add directly}{sum:thm-distinct-eigenspaces-direct}
+If \(\lambda_1,\dots,\lambda_k\) are distinct eigenvalues of \(T\), then
+\[
+E_{T,\lambda_1}+\cdots+E_{T,\lambda_k}
+=
+E_{T,\lambda_1}\oplus\cdots\oplus E_{T,\lambda_k}.
+\]
+In particular, eigenvectors corresponding to distinct eigenvalues are linearly independent.
+\end{theorem}
+
+This is one of the most important bridges in the course: the direct-sum machinery from the first half of the course reappears as the structural backbone of eigenvalue theory.
+
+\subsubsection*{4. Diagonalization}
+
+\begin{definition}{Diagonalizability}{sum:def-diagonalizable}
+An operator \(T\in \mathcal{L}(V)\) is diagonalizable if there exists an ordered basis of \(V\) consisting of eigenvectors of \(T\). Equivalently, there exists an invertible \(P\) and diagonal \(D\) such that
+\[
+[T]^\sigma_\sigma = PDP^{-1}
+\]
+for some ordered basis \(\sigma\).
+\end{definition}
+
+\begin{theorem}{Fundamental diagonalization criterion}{sum:thm-fundamental-diag}
+For finite-dimensional \(V\),
+\[
+T \text{ is diagonalizable }
+\iff
+V = \bigoplus_{\lambda} E_{T,\lambda}.
+\]
+Equivalently,
+\[
+T \text{ is diagonalizable }
+\iff
+\sum_{\lambda}\dim(E_{T,\lambda}) = \dim(V),
+\]
+where the sum runs over distinct eigenvalues in the field.
+\end{theorem}
+
+\begin{theorem}{Multiplicity criterion}{sum:thm-multiplicity-diag}
+Assume the characteristic polynomial splits over \(\mathbb{F}\). Then \(T\) is diagonalizable if and only if, for each eigenvalue \(\lambda\),
+\[
+\text{geometric multiplicity of }\lambda
+=
+\text{algebraic multiplicity of }\lambda.
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Key Formula: distinct-eigenvalue criterion}]
+If \(\dim(V)=n\) and \(T\) has \(n\) distinct eigenvalues in \(\mathbb{F}\), then \(T\) is diagonalizable.
+\end{keyformula}
+
+\begin{commonmistake}[title={Common Mistake: repeated eigenvalue does not force failure}]
+The statement
+\[
+\text{``repeated eigenvalue'' } \Rightarrow \text{ ``not diagonalizable''}
+\]
+is false. Repeated eigenvalues only mean that extra checking is needed. What matters is whether enough linearly independent eigenvectors exist.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: complete diagonalizability workflow}]
+Given \(A\in\mathbb{F}^{n,n}\), the standard workflow is:
+\begin{enumerate}[leftmargin=*]
+    \item compute \(p_A(\lambda)\);
+    \item find the eigenvalues in the correct field;
+    \item compute each eigenspace \(\operatorname{Null}(A-\lambda I)\);
+    \item compare the total eigenspace dimension with \(n\), or compare algebraic and geometric multiplicities;
+    \item if diagonalizable, form \(P\) from an eigenbasis and \(D\) from the matching eigenvalues in the same column order.
+\end{enumerate}
+\end{examtip}
+
+\subsubsection*{5. Powers and polynomial functions of operators}
+
+If
+\[
+A=PDP^{-1},
+\]
+then
+\[
+A^k = PD^kP^{-1}
+\]
+for every \(k\in\mathbb{N}\), and more generally
+\[
+p(A)=P\,p(D)\,P^{-1}
+\]
+for polynomials \(p\). This is why diagonalization is computationally useful and not just theoretically elegant.
+
+\begin{examplebox}[title={Worked Illustration: why diagonalization simplifies iteration}]
+If \(\beta=(v_1,\dots,v_n)\) is an eigenbasis with \(T(v_i)=\lambda_i v_i\), and
+\[
+v=c_1v_1+\cdots+c_nv_n,
+\]
+then
+\[
+T^k(v)=c_1\lambda_1^k v_1+\cdots+c_n\lambda_n^k v_n.
+\]
+Thus repeated application of \(T\) becomes scalar exponentiation once one has moved into an eigenbasis.
+\end{examplebox}
+
+\subsubsection*{6. Edge cases and Jordan-type failure}
+
+The uploaded chapter is titled ``Eigenvalues, Diagonalization, and Jordan Canonical Form'', but the course emphasis in the notes is much more heavily on:
+\begin{itemize}[leftmargin=*]
+    \item eigenspaces and direct-sum structure,
+    \item diagonalizability criteria,
+    \item defective examples,
+    \item nilpotent diagnostics,
+    \item solving operator equations using spectral information.
+\end{itemize}
+So the correct revision priority is diagonalization and its failure modes, not a full Jordan algorithm.
+
+\begin{examtip}[title={Exam Focus: nilpotent operators}]
+If \(T\) is nilpotent, then the only possible eigenvalue is \(0\). Hence a nonzero nilpotent operator cannot be diagonalizable, since a diagonalizable operator with only eigenvalue \(0\) would have to be the zero operator.
+\end{examtip}
+
+\subsection{Inner products, orthogonality, orthonormal bases, and projections}
+
+\subsubsection*{1. Inner products and induced norm}
+
+\begin{definition}{Inner product}{sum:def-inner-product}
+An inner product on a vector space \(V\) over \(\mathbb{F}\) is a map
+\[
+\langle \cdot,\cdot\rangle : V\times V \to \mathbb{F}
+\]
+satisfying linearity/sesquilinearity, conjugate symmetry, and positive definiteness.
+\end{definition}
+
+The course uses both standard Euclidean inner products and weighted or matrix-defined inner products such as
+\[
+\langle x,y\rangle = x^{\mathsf T}Ay
+\]
+for a symmetric positive definite matrix \(A\), as well as the Frobenius inner product on matrix spaces:
+\[
+\langle A,B\rangle_F = \operatorname{tr}(A^{\mathsf T}B).
+\]
+
+\begin{definition}{Induced norm}{sum:def-induced-norm}
+The norm induced by an inner product is
+\[
+\|v\|=\sqrt{\langle v,v\rangle}.
+\]
+\end{definition}
+
+\begin{theorem}{Cauchy--Schwarz and triangle inequality}{sum:thm-cs-triangle}
+For all \(u,v\in V\),
+\[
+|\langle u,v\rangle|\le \|u\|\,\|v\|,
+\qquad
+\|u+v\|\le \|u\|+\|v\|.
+\]
+Equality in Cauchy--Schwarz holds if and only if \(u\) and \(v\) are linearly dependent.
+\end{theorem}
+
+\begin{commonmistake}[title={Common Mistake: complex linearity in the wrong slot}]
+In complex vector spaces, one slot is conjugate-linear. Before expanding an inner product, fix the course convention and stick to it consistently.
+\end{commonmistake}
+
+\subsubsection*{2. Orthogonality and orthonormal bases}
+
+\begin{definition}{Orthogonality and ONB}{sum:def-orthogonality-onb}
+Vectors \(u,v\in V\) are orthogonal if \(\langle u,v\rangle=0\).  
+A set is orthogonal if distinct vectors are pairwise orthogonal.  
+A set is orthonormal if it is orthogonal and every vector has norm \(1\).  
+An orthonormal basis is an orthonormal set that is also a basis.
+\end{definition}
+
+\begin{theorem}{Orthogonal nonzero sets are linearly independent}{sum:thm-orthogonal-li}
+Any orthogonal set of nonzero vectors is linearly independent.
+\end{theorem}
+
+\begin{theorem}{Fourier coefficient formula}{sum:thm-fourier}
+If \(\beta\) is an orthonormal basis of \(V\), then every \(v\in V\) has the expansion
+\[
+v=\sum_{u\in\beta}\langle u,v\rangle\,u.
+\]
+\end{theorem}
+
+\begin{keyformula}[title={Key Formula: orthogonal versus orthonormal expansions}]
+If \((u_1,\dots,u_n)\) is \emph{orthogonal} but not normalized, then
+\[
+v=\sum_{k=1}^n \frac{\langle u_k,v\rangle}{\langle u_k,u_k\rangle}\,u_k.
+\]
+If \((u_1,\dots,u_n)\) is \emph{orthonormal}, this simplifies to
+\[
+v=\sum_{k=1}^n \langle u_k,v\rangle\,u_k.
+\]
+\end{keyformula}
+
+\begin{commonmistake}[title={Common Mistake: orthogonal \(\neq\) orthonormal}]
+Many exam errors come from using the orthonormal formula when the basis has not been normalized.
+\end{commonmistake}
+
+\subsubsection*{3. Projection onto a vector and Gram--Schmidt}
+
+\begin{definition}{Projection onto a nonzero vector}{sum:def-proj-vector}
+For \(u\neq 0\), define
+\[
+\operatorname{proj}_u(v)=\frac{\langle u,v\rangle}{\langle u,u\rangle}u.
+\]
+\end{definition}
+
+The point is that \(v-\operatorname{proj}_u(v)\) is orthogonal to \(u\), so projection separates the component of \(v\) along \(u\) from the error perpendicular to \(u\).
+
+\begin{theorem}{Gram--Schmidt}{sum:thm-gram-schmidt}
+Given a basis \((b_1,\dots,b_n)\) of a finite-dimensional inner product space, Gram--Schmidt constructs an orthogonal basis \((v_1,\dots,v_n)\) via
+\[
+v_1=b_1,\qquad
+v_k=b_k-\sum_{j=1}^{k-1}\operatorname{proj}_{v_j}(b_k)\quad (k\ge 2),
+\]
+and then produces an orthonormal basis by normalizing the \(v_k\).
+\end{theorem}
+
+\begin{examtip}[title={Exam Focus: efficient Gram--Schmidt}]
+A good exam solution keeps the \(v_k\) orthogonal but unnormalized until the end. Normalizing too early usually creates unnecessary radicals and increases the chance of algebra mistakes.
+\end{examtip}
+
+\subsubsection*{4. Orthogonal complements}
+
+\begin{definition}{Orthogonal complement}{sum:def-orthogonal-complement}
+For \(A\subseteq V\),
+\[
+A^\perp = \{v\in V : \langle v,a\rangle=0 \text{ for all } a\in A\}.
+\]
+\end{definition}
+
+\begin{theorem}{Core orthogonal-complement facts}{sum:thm-orthogonal-complement-facts}
+For \(A\subseteq V\) and finite-dimensional \(W\le V\):
+\begin{itemize}[leftmargin=*]
+    \item \(A^\perp\) is a subspace;
+    \item \(A^\perp=\operatorname{Span}(A)^\perp\);
+    \item \(V=W\oplus W^\perp\);
+    \item \(\dim(W)+\dim(W^\perp)=\dim(V)\);
+    \item \(W^{\perp\perp}=W\).
+\end{itemize}
+\end{theorem}
+
+The relation \(V=W\oplus W^\perp\) is the geometric strengthening of direct-sum theory from the first half of the course.
+
+\subsubsection*{5. Orthogonal projection onto a subspace}
+
+\begin{definition}{Orthogonal projection onto a subspace}{sum:def-proj-subspace}
+Let \(W\le V\) be finite-dimensional. For each \(v\in V\), write uniquely
+\[
+v=w+z,\qquad w\in W,\ z\in W^\perp.
+\]
+Then the orthogonal projection of \(v\) onto \(W\) is
+\[
+\operatorname{proj}_W(v)=w.
+\]
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: projection using an orthonormal basis of \(W\)}]
+If \((u_1,\dots,u_m)\) is an orthonormal basis of \(W\), then
+\[
+\operatorname{proj}_W(v)=\sum_{k=1}^m \langle u_k,v\rangle u_k.
+\]
+\end{keyformula}
+
+\begin{policynote}
+\textbf{Best-approximation interpretation.}
+The vector \(\operatorname{proj}_W(v)\) is the unique point in \(W\) closest to \(v\). This is the conceptual reason that least-squares problems are really projection problems in disguise.
+\end{policynote}
+
+\subsubsection*{6. Least squares, QR, and Frobenius geometry}
+
+The course notes explicitly connect projection to least squares and, through Gram--Schmidt, to QR decomposition.
+
+If the columns of \(A\) are linearly independent and \(A=QR\) with \(Q\) having orthonormal columns, then solving
+\[
+\min_x \|Ax-b\|^2
+\]
+amounts to projecting \(b\) onto \(\operatorname{Range}(A)\). In coordinate form this leads to the normal equations
+\[
+A^{\mathsf T}Ax = A^{\mathsf T}b.
+\]
+
+Similarly, under the Frobenius inner product on \(\mathbb{R}^{n,n}\), one can compute orthogonal complements of natural matrix subspaces such as diagonal, upper-triangular, symmetric, or skew-symmetric matrices. This is exactly the same orthogonal-complement theory as before, just carried out in a matrix space.
+
+\subsection{Standard problem-solving workflows}
+
+\begin{examtip}[title={Exam Focus: high-frequency workflows and what each answer should look like}]
+\begin{enumerate}[label=\textbf{Workflow \arabic*:}, leftmargin=*]
+
+\item \textbf{Testing a subset for subspace status.}  
+Either apply the Subspace Test directly, or identify the set as a kernel/span.  
+\emph{Expected answer form:} a short closure proof, or a one-line kernel argument.
+
+\item \textbf{Testing linear independence.}  
+Set a linear combination equal to \(0\), or row-reduce a matrix with the vectors as columns.  
+\emph{Expected answer form:} the trivial-solution conclusion.
+
+\item \textbf{Proving a set is a basis.}  
+Show independence plus spanning, or use the finite-dimensional shortcut ``\(n\) vectors in an \(n\)-dimensional space''.  
+\emph{Expected answer form:} one theorem invocation plus a clean verification.
+
+\item \textbf{Computing coordinates.}  
+Solve
+\[
+v=\lambda_1b_1+\cdots+\lambda_n b_n
+\]
+and package the coefficients into \([v]_\beta\).  
+\emph{Expected answer form:} a column vector.
+
+\item \textbf{Computing \([T]^\gamma_\beta\).}  
+Find \(T(b_j)\) for each domain basis vector \(b_j\), express each image in the codomain basis \(\gamma\), and place those coordinate vectors as columns.  
+\emph{Expected answer form:} a matrix whose columns are image coordinates.
+
+\item \textbf{Using rank--nullity.}  
+Compute either kernel or range explicitly, then use
+\[
+\dim(V)=\operatorname{Rank}(T)+\operatorname{Nullity}(T)
+\]
+to infer the missing quantity and deduce injective/surjective behavior.  
+\emph{Expected answer form:} dimension arithmetic plus a property conclusion.
+
+\item \textbf{Changing basis.}  
+Use \([I_V]^\gamma_\beta\) to convert coordinates, then use
+\[
+[T]^\gamma_\gamma=[I_V]^\gamma_\beta [T]^\beta_\beta [I_V]^\beta_\gamma.
+\]
+\emph{Expected answer form:} a similarity transform with correct basis direction.
+
+\item \textbf{Computing eigenvalues and eigenspaces.}  
+Find roots of the characteristic polynomial, then compute each null space \(\operatorname{Null}(A-\lambda I)\).  
+\emph{Expected answer form:} eigenvalues followed by spanning descriptions of eigenspaces.
+
+\item \textbf{Checking diagonalizability.}  
+Either show \(n\) distinct eigenvalues, or show the total eigenspace dimension is \(n\), or compare algebraic versus geometric multiplicity.  
+\emph{Expected answer form:} one decisive criterion, not several pages of unnecessary work.
+
+\item \textbf{Running Gram--Schmidt / finding \(Q R\).}  
+Produce orthogonal vectors first, normalize them, form \(Q\) from the orthonormal columns, and recover \(R\) from coordinate relations or \(R=Q^{\mathsf T}A\) in the Euclidean case.  
+\emph{Expected answer form:} explicit orthonormal basis and upper-triangular \(R\).
+
+\item \textbf{Computing \(W^\perp\) and \(\operatorname{proj}_W(v)\).}  
+Turn orthogonality conditions into linear equations; if needed, first replace the spanning set of \(W\) by an orthonormal basis.  
+\emph{Expected answer form:} a spanning description of \(W^\perp\) and a projection formula/value.
+
+\item \textbf{Solving linear operator equations on polynomial spaces.}  
+Represent the operator in the standard ordered basis, work in coordinates, and convert back to polynomial form.  
+\emph{Expected answer form:} either an explicit polynomial, or an inverse operator formula written in polynomial language.
+\end{enumerate}
+\end{examtip}
+
+\subsection{Common mistakes and hidden assumptions}
+
+\begin{commonmistake}[title={Common Mistake Cluster I: foundational structure}]
+Do not confuse:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{subset} with \textbf{subspace};
+    \item \textbf{span} with \textbf{basis};
+    \item \textbf{sum} with \textbf{direct sum};
+    \item \textbf{finite-dimensional theorem} with \textbf{general theorem without hypotheses}.
+\end{itemize}
+Always track the field \(\mathbb{F}\), the ambient space, and whether the statement is being made for sets, ordered bases, matrices, or operators.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Common Mistake Cluster II: maps and matrices}]
+Do not confuse:
+\begin{itemize}[leftmargin=*]
+    \item \(T\) with \([T]^\gamma_\beta\);
+    \item the \emph{standard matrix} with the matrix in a nonstandard basis;
+    \item domain basis versus codomain basis;
+    \item similarity of matrices with equality of matrices.
+\end{itemize}
+The matrix is a representation of the map, not the map itself.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Common Mistake Cluster III: spectral and inner-product issues}]
+Do not confuse:
+\begin{itemize}[leftmargin=*]
+    \item eigenvalue with eigenvector;
+    \item algebraic multiplicity with geometric multiplicity;
+    \item repeated eigenvalue with non-diagonalizability;
+    \item orthogonal with orthonormal;
+    \item arbitrary basis with orthonormal basis;
+    \item projection onto a vector with projection onto a subspace.
+\end{itemize}
+In complex spaces, also track the conjugation convention in the inner product.
+\end{commonmistake}
+
+\subsection{Representative worked illustrations}
+
+\begin{examplebox}[title={Worked Illustration 1: proving a direct sum by dimensions}]
+Suppose \(V\) is finite-dimensional, \(V=U+W\), and
+\[
+\dim(U)+\dim(W)=\dim(V).
+\]
+Then the dimension formula gives
+\[
+\dim(U\cap W)=\dim(U)+\dim(W)-\dim(U+W)=0.
+\]
+Hence \(U\cap W=\{0\}\), so
+\[
+V=U\oplus W.
+\]
+\textbf{Why this matters.} This is the cleanest standard dimension-based direct-sum proof.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Illustration 2: injective versus surjective via Rank--Nullity}]
+Let \(T:V\to W\) be linear with \(\dim(V)=\dim(W)=n\). If \(\operatorname{Null}(T)=\{0\}\), then \(\operatorname{Nullity}(T)=0\). By Rank--Nullity,
+\[
+n=\operatorname{Rank}(T)+0,
+\]
+so \(\operatorname{Rank}(T)=n=\dim(W)\). Hence \(\operatorname{Range}(T)=W\), so \(T\) is surjective. Therefore \(T\) is invertible.
+\textbf{Why this matters.} This is the canonical equal-dimension shortcut.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Illustration 3: diagonalizability with a repeated eigenvalue}]
+Suppose \(A\in \mathbb{R}^{3,3}\) has characteristic polynomial
+\[
+p_A(\lambda)=(\lambda-2)^2(\lambda-5).
+\]
+Then \(2\) has algebraic multiplicity \(2\), while \(5\) has algebraic multiplicity \(1\). If
+\[
+\dim E_{A,2}=1,\qquad \dim E_{A,5}=1,
+\]
+then the total eigenspace dimension is
+\[
+1+1=2<3.
+\]
+Hence \(A\) is not diagonalizable.
+\textbf{Why this matters.} A repeated eigenvalue does not settle the question by itself; one must compute the eigenspace.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Illustration 4: projection onto a subspace}]
+Let \(W\le V\) have orthonormal basis \((u_1,u_2)\). Then for every \(v\in V\),
+\[
+\operatorname{proj}_W(v)=\langle u_1,v\rangle u_1+\langle u_2,v\rangle u_2.
+\]
+The error
+\[
+v-\operatorname{proj}_W(v)
+\]
+lies in \(W^\perp\). Hence \(\operatorname{proj}_W(v)\) is the unique vector in \(W\) closest to \(v\).
+\textbf{Why this matters.} This single formula is the source of Fourier expansion, orthogonal decomposition, and least-squares best approximation.
+\end{examplebox}
+
+\subsection{Final comprehensive revision checklist}
+
+\begin{examtip}[title={Final Revision Checklist: ``Given \(\cdots\), be able to \(\cdots\)''}]
+\begin{enumerate}[leftmargin=*]
+    \item Given a subset of a known vector space, be able to determine whether it is a subspace and justify the answer with the correct closure and origin logic.
+
+    \item Given a family of vectors or functions, be able to compute or describe its span and explain why that span is the smallest containing subspace.
+
+    \item Given subspaces \(U,W\), be able to distinguish \(U+W\) from \(U\oplus W\), and decide directness correctly.
+
+    \item Given vectors \(v_1,\dots,v_n\), be able to test linear independence by a homogeneous system or by the span criterion for dependence.
+
+    \item Given a linearly independent set in a finite-dimensional space, be able to extend it to a basis; given a spanning set, be able to extract a basis from it.
+
+    \item Given a finite-dimensional space and a family of vectors of the correct size, be able to use the ``independent \(\Leftrightarrow\) spanning'' shortcut appropriately.
+
+    \item Given \(U,W\le V\), be able to apply
+    \[
+    \dim(U+W)=\dim(U)+\dim(W)-\dim(U\cap W)
+    \]
+    to compute unknown dimensions or prove direct-sum statements.
+
+    \item Given a map \(T:V\to W\), be able to test linearity directly.
+
+    \item Given a linear map, be able to compute \(\operatorname{Null}(T)\), \(\operatorname{Range}(T)\), rank, and nullity.
+
+    \item Given \(\dim(V)\), rank, or nullity data, be able to deploy Rank--Nullity and deduce injective/surjective/invertible conclusions.
+
+    \item Given an ordered basis \(\beta\), be able to compute coordinate vectors \([v]_\beta\).
+
+    \item Given \(T\) and ordered bases \(\beta,\gamma\), be able to compute \([T]^\gamma_\beta\) from images of basis vectors.
+
+    \item Given two ordered bases of the same vector space, be able to compute \([I_V]^\gamma_\beta\) and use it to convert coordinates.
+
+    \item Given two matrix representations of the same operator in different bases, be able to relate them by similarity.
+
+    \item Given \(A\in\mathbb{F}^{n,n}\), be able to compute the characteristic polynomial and identify eigenvalues in the correct field.
+
+    \item Given an eigenvalue \(\lambda\), be able to compute \(E_{A,\lambda}=\operatorname{Null}(A-\lambda I)\).
+
+    \item Given algebraic and geometric multiplicities, be able to decide diagonalizability and explain \emph{why}.
+
+    \item Given a diagonalizable matrix \(A=PDP^{-1}\), be able to compute \(A^k\), \(p(A)\), or \(T^k(v)\) efficiently.
+
+    \item Given a nilpotent or otherwise special operator, be able to use structural shortcuts to reason about diagonalizability.
+
+    \item Given a proposed bilinear or sesquilinear form, be able to verify whether it defines an inner product, including symmetry/Hermitian symmetry and positive definiteness.
+
+    \item Given vectors in an inner product space, be able to compute norms, test orthogonality, and apply Cauchy--Schwarz when needed.
+
+    \item Given an orthogonal or orthonormal set, be able to expand vectors correctly and not confuse the two coefficient formulas.
+
+    \item Given a basis in an inner product space, be able to carry out Gram--Schmidt cleanly and then normalize.
+
+    \item Given a subspace \(W\), be able to compute \(W^\perp\) from linear equations.
+
+    \item Given an orthonormal basis of \(W\), be able to compute \(\operatorname{proj}_W(v)\) and identify the orthogonal error.
+
+    \item If least squares is included in assessment, be able to explain why the normal equations
+    \[
+    A^{\mathsf T}Ax=A^{\mathsf T}b
+    \]
+    are projection equations in disguise.
+
+    \item Given a problem on \(P_n(\mathbb{R})\) or matrix spaces, be able to treat it as ordinary finite-dimensional linear algebra once the correct ordered basis and coordinate system are fixed.
+\end{enumerate}
+\end{examtip}
+
+\begin{policynote}
+\textbf{Last-week revision advice.}
+For the final stretch, revise in this order:
+\begin{enumerate}[leftmargin=*]
+    \item basis / dimension / direct sums;
+    \item kernel / range / rank--nullity / invertibility;
+    \item matrix representations and change of basis;
+    \item eigenvalues / eigenspaces / diagonalization;
+    \item inner products / Gram--Schmidt / orthogonal complements / projections.
+\end{enumerate}
+That order follows the actual logical dependency structure of the course.
+\end{policynote}

@@ -1,0 +1,444 @@
+\documentclass[12pt]{article}
+
+% Source: Tutorial-5.pdf
+% Style reference: MH5200_ProblemSheet2.tex
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 5 (Week 6) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on trigonometric integrals and standard substitutions for radicals.
+
+\begin{itemize}[leftmargin=*]
+\item Trigonometric integrals using parity (odd powers), identities, and \(u\)-substitution.
+\item Definite trig integrals using power-reduction and periodicity.
+\item Radical integrals via completing the square and trig substitutions.
+\item Standard forms involving \(\sqrt{t^2-a^2}\), \(\sqrt{a^2-u^2}\), and \(\sqrt{u^2+a^2}\).
+\item A classic mixed \(\tan/\sec\) integral via reduction to \(\int \sec^3 x\) and \(\int \sec x\).
+\end{itemize}
+
+\bigskip
+
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\section*{Question 1 (Trigonometric integrals)}
+
+\subsection*{Problem}
+Evaluate the following trigonometric integrals:
+\begin{enumerate}[label=(\alph*)]
+\item \(\displaystyle \int \sin^{6}x\,\cos^{3}x\,dx\).
+\item \(\displaystyle \int_{0}^{\pi}\cos^{4}(2t)\,dt\).
+\item \(\displaystyle \int \tan x\,\sec^{3}x\,dx\).
+\item \(\displaystyle \int \tan^{2}x\,\sec^{4}x\,dx\).
+\item \(\displaystyle \int \sin(3x)\sin(6x)\,dx\).
+\item \(\displaystyle \int_{0}^{\pi/4}\tan^{4}t\,dt\).
+\item \(\displaystyle \int \tan^{2}x\,\cos^{3}x\,dx\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Identities + direct substitutions}
+
+\begin{enumerate}[label=(\alph*)]
+\item Write \(\cos^{3}x=\cos^{2}x\cos x=(1-\sin^{2}x)\cos x\). Then
+\[
+\int \sin^{6}x\cos^{3}x\,dx
+=\int \sin^{6}x(1-\sin^{2}x)\cos x\,dx.
+\]
+Let \(u=\sin x\), \(du=\cos x\,dx\):
+\[
+\int \sin^{6}x\cos^{3}x\,dx
+=\int (u^{6}-u^{8})\,du
+=\frac{u^{7}}{7}-\frac{u^{9}}{9}+C.
+\]
+Hence
+\[
+\boxed{\int \sin^{6}x\cos^{3}x\,dx=\frac{\sin^{7}x}{7}-\frac{\sin^{9}x}{9}+C.}
+\]
+
+\item Use \(\cos^{4}\theta=\left(\frac{1+\cos 2\theta}{2}\right)^{2}=\frac{3+4\cos 2\theta+\cos 4\theta}{8}\).
+With \(\theta=2t\),
+\[
+\cos^{4}(2t)=\frac{3+4\cos(4t)+\cos(8t)}{8}.
+\]
+Thus
+\begin{align*}
+\int_{0}^{\pi}\cos^{4}(2t)\,dt
+&=\frac{1}{8}\int_{0}^{\pi}\big(3+4\cos 4t+\cos 8t\big)\,dt\\
+&=\frac{1}{8}\left[3t+\sin 4t+\frac{1}{8}\sin 8t\right]_{0}^{\pi}
+=\frac{3\pi}{8}.
+\end{align*}
+\[
+\boxed{\int_{0}^{\pi}\cos^{4}(2t)\,dt=\frac{3\pi}{8}.}
+\]
+
+\item Rewrite \(\tan x\,\sec^{3}x=(\sec x\tan x)\sec^{2}x\). Let \(u=\sec x\), so \(du=\sec x\tan x\,dx\):
+\[
+\int \tan x\,\sec^{3}x\,dx=\int u^{2}\,du=\frac{u^{3}}{3}+C=\frac{\sec^{3}x}{3}+C.
+\]
+\[
+\boxed{\int \tan x\,\sec^{3}x\,dx=\frac{\sec^{3}x}{3}+C.}
+\]
+
+\item Let \(u=\tan x\), \(du=\sec^{2}x\,dx\). Note \(\sec^{4}x=(1+\tan^{2}x)\sec^{2}x=(1+u^{2})\sec^{2}x\). Then
+\[
+\int \tan^{2}x\,\sec^{4}x\,dx
+=\int u^{2}(1+u^{2})\,du
+=\frac{u^{3}}{3}+\frac{u^{5}}{5}+C.
+\]
+Hence
+\[
+\boxed{\int \tan^{2}x\,\sec^{4}x\,dx=\frac{\tan^{3}x}{3}+\frac{\tan^{5}x}{5}+C.}
+\]
+
+\item Use \(\sin A\sin B=\frac{1}{2}(\cos(A-B)-\cos(A+B))\):
+\[
+\sin(3x)\sin(6x)=\frac{1}{2}(\cos 3x-\cos 9x).
+\]
+Thus
+\[
+\int \sin(3x)\sin(6x)\,dx
+=\frac{1}{2}\left(\frac{\sin 3x}{3}-\frac{\sin 9x}{9}\right)+C
+=\frac{\sin 3x}{6}-\frac{\sin 9x}{18}+C.
+\]
+\[
+\boxed{\int \sin(3x)\sin(6x)\,dx=\frac{\sin 3x}{6}-\frac{\sin 9x}{18}+C.}
+\]
+
+\item Use \(\tan^{4}t=(\sec^{2}t-1)^{2}=\sec^{4}t-2\sec^{2}t+1\). Then
+\[
+\int_{0}^{\pi/4}\tan^{4}t\,dt
+=\int_{0}^{\pi/4}\sec^{4}t\,dt-2\int_{0}^{\pi/4}\sec^{2}t\,dt+\int_{0}^{\pi/4}1\,dt.
+\]
+Compute \(\int \sec^{4}t\,dt\) by \(u=\tan t\), \(du=\sec^{2}t\,dt\):
+\[
+\int \sec^{4}t\,dt=\int (1+u^{2})\,du=u+\frac{u^{3}}{3}=\tan t+\frac{\tan^{3}t}{3}.
+\]
+Also \(\int \sec^{2}t\,dt=\tan t\). Hence
+\begin{align*}
+\int_{0}^{\pi/4}\tan^{4}t\,dt
+&=\left[\tan t+\frac{\tan^{3}t}{3}\right]_{0}^{\pi/4}
+-2\left[\tan t\right]_{0}^{\pi/4}
++\left[t\right]_{0}^{\pi/4}\\
+&=\left(1+\frac{1}{3}\right)-2(1)+\frac{\pi}{4}
+=\frac{\pi}{4}-\frac{2}{3}.
+\end{align*}
+\[
+\boxed{\int_{0}^{\pi/4}\tan^{4}t\,dt=\frac{\pi}{4}-\frac{2}{3}.}
+\]
+
+\item Simplify:
+\[
+\tan^{2}x\,\cos^{3}x=\frac{\sin^{2}x}{\cos^{2}x}\cos^{3}x=\sin^{2}x\cos x.
+\]
+Let \(u=\sin x\), \(du=\cos x\,dx\):
+\[
+\int \tan^{2}x\,\cos^{3}x\,dx=\int u^{2}\,du=\frac{u^{3}}{3}+C=\frac{\sin^{3}x}{3}+C.
+\]
+\[
+\boxed{\int \tan^{2}x\,\cos^{3}x\,dx=\frac{\sin^{3}x}{3}+C.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Alternative checks / structural shortcuts}
+
+\begin{enumerate}[label=(\alph*)]
+\item Differentiate \(\frac{\sin^{7}x}{7}-\frac{\sin^{9}x}{9}\) to confirm it equals \(\sin^{6}x\cos^{3}x\).
+
+\item Substitute \(u=2t\) to get
+\[
+\int_{0}^{\pi}\cos^{4}(2t)\,dt=\frac{1}{2}\int_{0}^{2\pi}\cos^{4}u\,du.
+\]
+Using the average value of \(\cos^{4}u\) over one full period (\(=3/8\)) yields \(\frac{1}{2}\cdot 2\pi\cdot \frac{3}{8}=\frac{3\pi}{8}\).
+
+\item Observe \(\dfrac{d}{dx}(\sec^{3}x)=3\sec^{3}x\tan x\), giving the integral immediately.
+
+\item Differentiate \(\frac{\tan^{3}x}{3}+\frac{\tan^{5}x}{5}\) to verify it equals \(\tan^{2}x\sec^{4}x\).
+
+\item Use product-to-sum as in Method 1; alternatively expand \(\sin 6x=2\sin 3x\cos 3x\) and integrate via a substitution in \(\cos 3x\).
+
+\item After converting \(\tan^{4}t\) into \(\sec^{4}t-2\sec^{2}t+1\), a quick consistency check is to note \(\tan^{4}t\ge 0\) and the value \(\frac{\pi}{4}-\frac{2}{3}>0\).
+
+\item Recognize \(\sin^{2}x\cos x=\frac{d}{dx}\left(\frac{\sin^{3}x}{3}\right)\).
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\section*{Question 2 (Radicals and standard substitutions)}
+
+\subsection*{Problem}
+Evaluate the integral.
+\begin{enumerate}[label=(\alph*)]
+\item \(\displaystyle \int \frac{1}{t^{2}\sqrt{t^{2}-16}}\,dt\).
+\item \(\displaystyle \int_{0}^{1}\frac{1}{(x^{2}+1)^{2}}\,dx\).
+\item \(\displaystyle \int \sqrt{5+4x-x^{2}}\,dx\). \quad (Hint: express \(\sqrt{5+4x-x^{2}}\) as \(\sqrt{a^{2}-(x-b)^{2}}\).)
+\item \(\displaystyle \int_{0}^{1}\sqrt{x-x^{2}}\,dx\). \quad (Hint: express \(\sqrt{x-x^{2}}\) as \(\sqrt{a^{2}-(x-b)^{2}}\).)
+\item \(\displaystyle \int \frac{1}{\sqrt{x^{2}+2x+5}}\,dx\). \quad (Hint: express \(\sqrt{x^{2}+2x+5}\) as \(\sqrt{(x+b)^{2}+a^{2}}\).)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Trig substitutions after completing the square}
+
+\begin{enumerate}[label=(\alph*)]
+\item Use \(t=4\sec\theta\). Then
+\[
+dt=4\sec\theta\tan\theta\,d\theta,\quad
+\sqrt{t^{2}-16}=4\tan\theta,\quad
+t^{2}=16\sec^{2}\theta.
+\]
+So
+\begin{align*}
+\int \frac{1}{t^{2}\sqrt{t^{2}-16}}\,dt
+&=\int \frac{1}{(16\sec^{2}\theta)(4\tan\theta)}(4\sec\theta\tan\theta)\,d\theta\\
+&=\frac{1}{16}\int \cos\theta\,d\theta
+=\frac{1}{16}\sin\theta + C.
+\end{align*}
+Since \(\sec\theta=t/4\), we have \(\cos\theta=4/t\) and \(\tan\theta=\sqrt{t^{2}-16}/4\), hence
+\[
+\sin\theta=\tan\theta\cos\theta=\frac{\sqrt{t^{2}-16}}{t}.
+\]
+Therefore
+\[
+\boxed{\int \frac{1}{t^{2}\sqrt{t^{2}-16}}\,dt=\frac{\sqrt{t^{2}-16}}{16t}+C.}
+\]
+
+\item Substitute \(x=\tan\theta\), \(dx=\sec^{2}\theta\,d\theta\), \(1+x^{2}=\sec^{2}\theta\):
+\[
+\int_{0}^{1}\frac{1}{(x^{2}+1)^{2}}\,dx
+=\int_{0}^{\pi/4}\cos^{2}\theta\,d\theta
+=\left[\frac{\theta}{2}+\frac{\sin 2\theta}{4}\right]_{0}^{\pi/4}
+=\frac{\pi}{8}+\frac{1}{4}.
+\]
+\[
+\boxed{\int_{0}^{1}\frac{1}{(x^{2}+1)^{2}}\,dx=\frac{\pi}{8}+\frac{1}{4}.}
+\]
+
+\item Complete the square:
+\[
+5+4x-x^{2}=9-(x-2)^{2}.
+\]
+Let \(u=x-2\). Then the integral is \(\int \sqrt{9-u^{2}}\,du\). Use the standard formula
+\[
+\int \sqrt{a^{2}-u^{2}}\,du=\frac{u}{2}\sqrt{a^{2}-u^{2}}+\frac{a^{2}}{2}\sin^{-1}\!\left(\frac{u}{a}\right)+C.
+\]
+With \(a=3\),
+\[
+\int \sqrt{9-u^{2}}\,du=\frac{u}{2}\sqrt{9-u^{2}}+\frac{9}{2}\sin^{-1}\!\left(\frac{u}{3}\right)+C.
+\]
+Return to \(x\):
+\[
+\boxed{\int \sqrt{5+4x-x^{2}}\,dx
+=\frac{x-2}{2}\sqrt{5+4x-x^{2}}+\frac{9}{2}\sin^{-1}\!\left(\frac{x-2}{3}\right)+C.}
+\]
+
+\item Complete the square:
+\[
+x-x^{2}=\frac{1}{4}-\left(x-\frac{1}{2}\right)^{2}.
+\]
+Thus
+\[
+\int_{0}^{1}\sqrt{x-x^{2}}\,dx
+=\int_{0}^{1}\sqrt{\frac{1}{4}-\left(x-\frac{1}{2}\right)^{2}}\,dx.
+\]
+This is the area under a semicircle of radius \(1/2\), so
+\[
+\boxed{\int_{0}^{1}\sqrt{x-x^{2}}\,dx=\frac{1}{2}\pi\left(\frac{1}{2}\right)^{2}=\frac{\pi}{8}.}
+\]
+
+\item Complete the square:
+\[
+x^{2}+2x+5=(x+1)^{2}+4.
+\]
+Let \(u=x+1\):
+\[
+\int \frac{1}{\sqrt{x^{2}+2x+5}}\,dx
+=\int \frac{1}{\sqrt{u^{2}+2^{2}}}\,du
+=\ln\left|u+\sqrt{u^{2}+4}\right|+C.
+\]
+Thus
+\[
+\boxed{\int \frac{1}{\sqrt{x^{2}+2x+5}}\,dx
+=\ln\left|x+1+\sqrt{x^{2}+2x+5}\right|+C.}
+\]
+Equivalently (absorbing a constant into \(C\)),
+\[
+\boxed{\int \frac{1}{\sqrt{x^{2}+2x+5}}\,dx
+=\ln\left|\frac{x+1+\sqrt{x^{2}+2x+5}}{2}\right|+C.}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Known antiderivatives / geometric or alternative substitutions}
+
+\begin{enumerate}[label=(\alph*)]
+\item One may also set \(t=4\cosh u\) (hyperbolic substitution). Then \(\sqrt{t^{2}-16}=4\sinh u\), and the integral reduces to \(\frac{1}{16}\tanh u + C\), which simplifies back to \(\frac{\sqrt{t^{2}-16}}{16t}+C\).
+
+\item Use the standard primitive
+\[
+\int \frac{dx}{(1+x^{2})^{2}}
+=\frac{x}{2(1+x^{2})}+\frac{1}{2}\tan^{-1}x + C,
+\]
+then evaluate from \(0\) to \(1\) to obtain \(\frac{1}{4}+\frac{\pi}{8}\).
+
+\item Use the trig substitution \(x-2=3\sin\theta\). Then \(\sqrt{9-(x-2)^{2}}=3\cos\theta\) and \(dx=3\cos\theta\,d\theta\), giving \(\int 9\cos^{2}\theta\,d\theta\), which yields the same final expression.
+
+\item Use \(x=\frac{1}{2}(1+\sin\theta)\). Then \(x-x^{2}=\frac{1}{4}\cos^{2}\theta\) and \(dx=\frac{1}{2}\cos\theta\,d\theta\). The integral becomes
+\[
+\int_{-\pi/2}^{\pi/2}\frac{1}{4}\cos^{2}\theta\,d\theta=\frac{\pi}{8}.
+\]
+
+\item Use \(x+1=2\tan\theta\). Then \(\sqrt{(x+1)^{2}+4}=2\sec\theta\), and the integrand becomes \(\sec\theta\,d\theta\), giving \(\ln|\sec\theta+\tan\theta|+C\), which is equivalent to the logarithmic form in \(x\).
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\section*{Question 3 (A mixed \(\tan/\sec\) integral)}
+
+\subsection*{Problem}
+Evaluate the integral
+\[
+\int \tan^{2}x\,\sec x\,dx.
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Convert to \(\int \sec^{3}x\) and \(\int \sec x\)}
+
+Use \(\tan^{2}x=\sec^{2}x-1\):
+\[
+\int \tan^{2}x\,\sec x\,dx
+=\int (\sec^{2}x-1)\sec x\,dx
+=\int \sec^{3}x\,dx-\int \sec x\,dx.
+\]
+Compute \(\int \sec^{3}x\,dx\) by parts. Let \(u=\sec x\), \(dv=\sec^{2}x\,dx\), so \(du=\sec x\tan x\,dx\), \(v=\tan x\):
+\begin{align*}
+\int \sec^{3}x\,dx
+&=\int \sec x\sec^{2}x\,dx
+=\sec x\tan x-\int \tan x(\sec x\tan x)\,dx\\
+&=\sec x\tan x-\int \sec x\tan^{2}x\,dx\\
+&=\sec x\tan x-\int \sec x(\sec^{2}x-1)\,dx\\
+&=\sec x\tan x-\int \sec^{3}x\,dx+\int \sec x\,dx.
+\end{align*}
+Hence
+\[
+2\int \sec^{3}x\,dx=\sec x\tan x+\int \sec x\,dx.
+\]
+Using \(\int \sec x\,dx=\ln|\sec x+\tan x|+C\),
+\[
+\int \sec^{3}x\,dx=\frac{1}{2}\sec x\tan x+\frac{1}{2}\ln|\sec x+\tan x|+C.
+\]
+Therefore
+\begin{align*}
+\int \tan^{2}x\,\sec x\,dx
+&=\left(\frac{1}{2}\sec x\tan x+\frac{1}{2}\ln|\sec x+\tan x|\right)-\ln|\sec x+\tan x|+C\\
+&=\frac{1}{2}\sec x\tan x-\frac{1}{2}\ln|\sec x+\tan x|+C.
+\end{align*}
+So
+\[
+\boxed{\int \tan^{2}x\,\sec x\,dx=\frac{1}{2}\Big(\tan x\,\sec x-\ln|\sec x+\tan x|\Big)+C.}
+\]
+
+\subsubsection*{Method 2: Solve-for-the-integral trick}
+
+Let
+\[
+I=\int \tan^{2}x\,\sec x\,dx.
+\]
+From \(\tan^{2}x=\sec^{2}x-1\),
+\[
+I=\int (\sec^{3}x-\sec x)\,dx = J-\int \sec x\,dx,
+\quad\text{where } J=\int \sec^{3}x\,dx.
+\]
+From the integration-by-parts identity derived above,
+\[
+2J=\sec x\tan x+\int \sec x\,dx
+\quad\Rightarrow\quad
+J=\frac{1}{2}\sec x\tan x+\frac{1}{2}\int \sec x\,dx.
+\]
+Substitute into \(I=J-\int \sec x\,dx\):
+\[
+I=\frac{1}{2}\sec x\tan x-\frac{1}{2}\int \sec x\,dx
+=\frac{1}{2}\sec x\tan x-\frac{1}{2}\ln|\sec x+\tan x|+C,
+\]
+hence
+\[
+\boxed{\int \tan^{2}x\,\sec x\,dx=\frac{1}{2}\Big(\tan x\,\sec x-\ln|\sec x+\tan x|\Big)+C.}
+\]
+
+\end{document}

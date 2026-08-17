@@ -1,0 +1,588 @@
+% ==========================================================
+% HE2002 Macroeconomics II — Chapter 4: Extended IS--LM
+% (This is a chapter file intended to be \input into the main template.)
+% ==========================================================
+
+\section{Extended IS--LM}
+
+\subsection{Why the baseline IS--LM model needs extension}
+
+In the baseline IS--LM model, we effectively made three simplifying assumptions:
+\begin{itemize}[leftmargin=1.5em]
+    \item there are only two financial assets, money and bonds;
+    \item there is only one relevant interest rate;
+    \item all borrowing rates move one-for-one with the policy rate set by the central bank.
+\end{itemize}
+
+\noindent
+Lecture 4 relaxes these assumptions. In practice:
+\begin{itemize}[leftmargin=1.5em]
+    \item the \textbf{central bank} controls a short-term \textbf{nominal policy rate};
+    \item households and firms care about the \textbf{real cost of borrowing};
+    \item actual borrowing rates differ across borrowers because of \textbf{risk premia};
+    \item the health of \textbf{financial intermediaries} affects credit conditions and therefore aggregate demand.
+\end{itemize}
+
+\begin{definition}{Core idea of the extended IS--LM model}{}
+The extended IS--LM model distinguishes:
+\begin{itemize}[leftmargin=1.5em]
+    \item the \textbf{policy rate} chosen by the central bank,
+    \item the \textbf{real interest rate} relevant for spending decisions, and
+    \item the \textbf{borrowing rate} actually faced by consumers and firms.
+\end{itemize}
+This allows financial-market disruptions to affect output even if the central bank does not change its policy rate.
+\end{definition}
+
+\subsection{Nominal versus real interest rates}
+
+\begin{definition}{Nominal interest rate and real interest rate}{}
+The \textbf{nominal interest rate} $i_t$ is the return in money terms.  
+The \textbf{real interest rate} $r_t$ is the return in goods or purchasing-power terms.
+\end{definition}
+
+\noindent
+Suppose one good costs $P_t$ today and the expected price level next period is $P_{t+1}^e$. If one unit of goods is converted into money today, invested at nominal rate $i_t$, and converted back into goods next period, then:
+\[
+1+r_t = (1+i_t)\frac{P_t}{P_{t+1}^e}.
+\]
+
+\begin{keyformula}[title={Key Formula: Exact relation between nominal and real interest rates}]
+\[
+1+r_t = (1+i_t)\frac{P_t}{P_{t+1}^e}.
+\]
+\end{keyformula}
+
+\noindent
+Define expected inflation between $t$ and $t+1$ by
+\[
+\pi_{t+1}^e \equiv \frac{P_{t+1}^e-P_t}{P_t}.
+\]
+Then
+\[
+P_{t+1}^e = P_t(1+\pi_{t+1}^e),
+\]
+so the exact relation becomes
+\[
+1+r_t = \frac{1+i_t}{1+\pi_{t+1}^e}.
+\]
+
+\begin{keyformula}[title={Key Formula: Fisher relation (exact and approximate)}]
+\[
+1+r_t = \frac{1+i_t}{1+\pi_{t+1}^e},
+\qquad
+r_t \approx i_t - \pi_{t+1}^e
+\quad
+\text{when } i_t \text{ and } \pi_{t+1}^e \text{ are not too large.}
+\]
+\end{keyformula}
+
+\begin{theorem}{Comparative statics of the real interest rate}{}
+Holding the nominal interest rate fixed:
+\[
+\frac{\partial r_t}{\partial \pi_{t+1}^e}<0.
+\]
+So higher expected inflation lowers the real interest rate, while lower expected inflation raises it.
+\end{theorem}
+
+\noindent
+This matters because investment and other interest-sensitive spending decisions depend on the \textbf{real} borrowing cost, not the nominal rate alone.
+
+\begin{definition}{Ex-ante and ex-post real interest rates}{}
+The \textbf{ex-ante real interest rate} uses expected inflation:
+\[
+r_t^{\,\text{ex-ante}} \approx i_t-\pi_{t+1}^e.
+\]
+The \textbf{ex-post real interest rate} uses actual inflation:
+\[
+r_t^{\,\text{ex-post}} \approx i_t-\pi_{t+1}.
+\]
+\end{definition}
+
+\begin{commonmistake}
+Do not reverse the units:
+\begin{itemize}[leftmargin=1.5em]
+    \item the \textbf{nominal} interest rate is measured in money terms;
+    \item the \textbf{real} interest rate is measured in goods or purchasing-power terms.
+\end{itemize}
+\end{commonmistake}
+
+\subsection{Which interest rate enters the IS relation?}
+
+The central bank chooses a \textbf{nominal policy rate}. However, spending decisions are driven by the \textbf{real interest rate}.
+
+\begin{definition}{Interest rate relevant for aggregate demand}{}
+The interest rate entering the IS relation is the \textbf{real interest rate}, because firms and households care about borrowing costs in terms of goods:
+\[
+r \approx i - \pi^e.
+\]
+\end{definition}
+
+\noindent
+Thus, if the central bank wants to achieve a target real interest rate $r$, it must choose the nominal interest rate $i$ taking expected inflation into account:
+\[
+i \approx r + \pi^e.
+\]
+
+\begin{examplebox}[title={Worked Example: Real versus nominal rate}]
+Suppose the central bank wants the real interest rate to be $4\%$ and expected inflation is $2\%$. Then the required nominal interest rate is approximately
+\[
+i \approx r+\pi^e = 4\%+2\% = 6\%.
+\]
+So the central bank must set the nominal rate at about $6\%$ to obtain a real rate of $4\%$.
+\end{examplebox}
+
+\subsection{The zero lower bound and the lower bound on the real rate}
+
+In practice, conventional monetary policy faces a lower bound on the nominal interest rate:
+\[
+i \ge 0.
+\]
+
+\begin{theorem}{Lower bound on the real interest rate}{}
+Because
+\[
+r = i-\pi^e,
+\]
+and the nominal interest rate cannot be reduced below zero under the zero lower bound,
+the lowest real interest rate the central bank can achieve is
+\[
+r_{\min} = -\pi^e.
+\]
+\end{theorem}
+
+\noindent
+This has two immediate implications:
+\begin{itemize}[leftmargin=1.5em]
+    \item if expected inflation is positive, the central bank may still achieve a negative real rate;
+    \item if expected inflation is negative (expected deflation), the lower bound on the real rate becomes \emph{positive}, making monetary stimulus much harder.
+\end{itemize}
+
+\begin{examplebox}[title={Worked Example: Real-rate lower bound}]
+\begin{enumerate}[label=(\alph*)]
+    \item If expected inflation is $\pi^e=2\%$, then
+    \[
+    r_{\min} = -2\%.
+    \]
+    \item If expected inflation is $\pi^e=-2\%$ (expected deflation), then
+    \[
+    r_{\min} = 2\%.
+    \]
+\end{enumerate}
+So deflation raises the lowest feasible real rate and tightens the monetary-policy constraint.
+\end{examplebox}
+
+\begin{examtip}[title={Exam Focus: Expected inflation and the real rate}]
+For a \emph{given nominal interest rate}, a fall in expected inflation raises the real interest rate:
+\[
+r \approx i-\pi^e.
+\]
+Hence lower expected inflation is contractionary for interest-sensitive demand.
+\end{examtip}
+
+\subsection{Risk and risk premia}
+
+Not all bonds are equally safe. Risky borrowers must pay a rate above the risk-free rate.
+
+\begin{definition}{Risk premium}{}
+Let $i$ denote the nominal interest rate on a riskless bond and let $x$ denote the \textbf{risk premium}. Then the risky borrowing rate is
+\[
+i+x.
+\]
+The premium $x$ compensates lenders for default risk and other forms of financial risk.
+\end{definition}
+
+\noindent
+In the simple default-risk example from the lecture, let $p$ be the probability of default. If the risky bond pays nothing in default and lenders must be indifferent between risky and riskless lending, then
+\[
+1+i = (1-p)(1+i+x)+p\cdot 0.
+\]
+
+\begin{keyformula}[title={Key Formula: Risk premium in a simple default model}]
+From
+\[
+1+i = (1-p)(1+i+x),
+\]
+we obtain
+\[
+x = \frac{(1+i)p}{1-p}.
+\]
+\end{keyformula}
+
+\begin{theorem}{Determinants of the risk premium}{}
+The risk premium increases when:
+\begin{itemize}[leftmargin=1.5em]
+    \item the probability of default $p$ increases;
+    \item lenders become more risk averse;
+    \item financial conditions deteriorate and intermediation becomes impaired.
+\end{itemize}
+\end{theorem}
+
+\noindent
+Thus even if the central bank keeps the policy rate unchanged, the borrowing rate faced by firms and households can rise because $x$ rises.
+
+\begin{commonmistake}
+Do not confuse:
+\begin{itemize}[leftmargin=1.5em]
+    \item the \textbf{policy rate}, chosen by the central bank, and
+    \item the \textbf{borrowing rate}, faced by private agents.
+\end{itemize}
+In the extended model, these are generally \emph{not} the same.
+\end{commonmistake}
+
+\subsection{Financial intermediaries, balance sheets, and leverage}
+
+Much real-world borrowing does not take place through direct finance alone. It goes through \textbf{financial intermediaries} such as banks, money-market funds, mortgage companies, and other non-bank institutions.
+
+\begin{definition}{Bank balance sheet}{}
+A simplified bank balance sheet satisfies
+\[
+\text{Assets} = \text{Liabilities} + \text{Capital}.
+\]
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Liabilities}: deposits and other borrowing.
+    \item \textbf{Assets}: reserves, loans, mortgages, government bonds, and other securities.
+    \item \textbf{Capital}: the bank's own funds or equity cushion.
+\end{itemize}
+\end{definition}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{0.34\textwidth}|p{0.28\textwidth}|p{0.22\textwidth}|}
+\hline
+\textbf{Assets} & \textbf{Liabilities} & \textbf{Capital} \\
+\hline
+100 & 80 & 20 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{definition}{Capital ratio and leverage ratio}{}
+For the balance sheet above:
+\[
+\text{Capital ratio}=\frac{\text{Capital}}{\text{Assets}}=\frac{20}{100}=20\%,
+\]
+\[
+\text{Leverage ratio}=\frac{\text{Assets}}{\text{Capital}}=\frac{100}{20}=5.
+\]
+The leverage ratio is the inverse of the capital ratio.
+\end{definition}
+
+\begin{theorem}{Why leverage matters for lending}{}
+A higher leverage ratio raises expected return on equity in good states, but also makes the intermediary more fragile. If asset values fall:
+\begin{itemize}[leftmargin=1.5em]
+    \item capital falls;
+    \item leverage rises;
+    \item the intermediary may try to restore its target leverage by raising capital or shrinking assets;
+    \item shrinking assets often means cutting lending or selling assets, which tightens credit conditions.
+\end{itemize}
+\end{theorem}
+
+\noindent
+Hence problems in the financial system can reduce lending to firms and households even if the policy rate is unchanged.
+
+\begin{policynote}[title={Policy Application: Financial frictions as a macroeconomic channel}]
+A deterioration in bank balance sheets can:
+\begin{itemize}[leftmargin=1.5em]
+    \item reduce the supply of credit,
+    \item increase the premium borrowers must pay,
+    \item lower investment and spending,
+    \item turn a financial disturbance into a macroeconomic recession.
+\end{itemize}
+This is the main intuition behind the extended IS--LM model.
+\end{policynote}
+
+\subsection{From the baseline model to the extended IS relation}
+
+In Lecture 3, the IS relation was written using one interest rate. Lecture 4 modifies it in two ways:
+\begin{itemize}[leftmargin=1.5em]
+    \item spending depends on the \textbf{real} interest rate rather than the nominal rate;
+    \item borrowers face a rate above the policy rate because of a \textbf{risk premium}.
+\end{itemize}
+
+\begin{keyformula}[title={Key Formula: Extended IS relation in nominal-rate form}]
+\[
+Y = C(Y-T) + I\bigl(Y,\, i-\pi^e + x\bigr) + G.
+\]
+\end{keyformula}
+
+\noindent
+Here:
+\begin{itemize}[leftmargin=1.5em]
+    \item $i$ is the nominal policy rate,
+    \item $\pi^e$ is expected inflation,
+    \item $r=i-\pi^e$ is the real policy rate,
+    \item $x$ is the risk premium,
+    \item $r+x$ is the real borrowing rate faced by private agents.
+\end{itemize}
+
+\noindent
+If the central bank can choose the nominal rate so as to achieve a desired real rate $\bar r$, then the model is more cleanly written as:
+
+\begin{keyformula}[title={Key Formula: Extended IS--LM system}]
+\[
+\text{IS:}\qquad
+Y = C(Y-T) + I(Y,\bar r + x) + G,
+\]
+\[
+\text{LM:}\qquad
+r=\bar r.
+\]
+\end{keyformula}
+
+\begin{definition}{Borrowing rate in the extended model}{}
+The \textbf{real borrowing rate} faced by consumers and firms is
+\[
+r_b = r+x.
+\]
+This is the rate relevant for investment and other interest-sensitive components of demand.
+\end{definition}
+
+\subsection{Linear extended IS equation}
+
+Using the same linear structure as in the baseline model,
+\[
+C=c_0+c_1(Y-T),
+\qquad
+I=b_0+b_1Y-b_2(r+x),
+\]
+with
+\[
+0<c_1<1,\qquad b_1\ge 0,\qquad b_2>0,\qquad c_1+b_1<1,
+\]
+the extended IS relation becomes
+\[
+Y = c_0+c_1(Y-T)+b_0+b_1Y-b_2(r+x)+G.
+\]
+
+\begin{keyformula}[title={Key Formula: Linear extended IS relation}]
+\[
+(1-c_1-b_1)Y
+=
+c_0+b_0+G-c_1T-b_2(r+x),
+\]
+so
+\[
+Y
+=
+\frac{c_0+b_0+G-c_1T-b_2(r+x)}{1-c_1-b_1}.
+\]
+\end{keyformula}
+
+\begin{theorem}{Comparative statics with respect to the risk premium}{}
+From the linear extended IS relation,
+\[
+\frac{\partial Y}{\partial x}
+=
+-\frac{b_2}{1-c_1-b_1}
+<0.
+\]
+So a rise in the risk premium unambiguously lowers equilibrium output.
+\end{theorem}
+
+\noindent
+This is the key new mechanism absent from the baseline IS--LM model.
+
+\subsection{How financial frictions shift the IS curve}
+
+\begin{theorem}{Financial shock and IS shift}{}
+Suppose the risk premium $x$ rises while the real policy rate $r$ is unchanged. Then:
+\[
+r_b = r+x \uparrow
+\quad\Longrightarrow\quad
+I \downarrow
+\quad\Longrightarrow\quad
+\text{IS shifts left}
+\quad\Longrightarrow\quad
+Y \downarrow.
+\]
+\end{theorem}
+
+\noindent
+Thus a financial shock can cause a recession even without any immediate change in fiscal policy or the policy rate.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (7.2,0) node[right] {Output, $Y$};
+\draw[->] (0,0) -- (0,5.2) node[above] {Policy rate, $r$};
+
+% LM
+\draw[thick,red!70!black] (0.5,2.8) -- (6.8,2.8);
+\node[red!70!black] at (6.35,3.05) {LM};
+
+% IS and IS'
+\draw[thick,blue!70!black] (2.2,4.5) -- (6.0,0.9);
+\node[blue!70!black] at (5.9,1.15) {IS};
+
+\draw[thick,blue!40!black] (1.1,4.5) -- (4.9,0.9);
+\node[blue!40!black] at (1.05,4.2) {IS$'$};
+
+% Equilibria
+\fill (3.98,2.8) circle (2pt);
+\node[above right] at (4.03,2.8) {$A$};
+
+\fill (2.88,2.8) circle (2pt);
+\node[above right] at (2.93,2.8) {$A'$};
+
+\draw[dashed] (3.98,0) -- (3.98,2.8);
+\node[below] at (3.98,0) {$Y$};
+
+\draw[dashed] (2.88,0) -- (2.88,2.8);
+\node[below] at (2.88,0) {$Y'$};
+\end{tikzpicture}
+\end{center}
+
+\noindent
+An increase in $x$ shifts the IS curve left from IS to IS$'$, reducing equilibrium output from $Y$ to $Y'$.
+
+\subsection{Policy responses to a financial shock}
+
+Once a financial shock raises the risk premium, policymakers can respond through either fiscal policy or monetary policy.
+
+\begin{definition}{Two main stabilization responses}{}
+If the financial system becomes impaired and $x$ rises:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Fiscal policy} can raise demand directly through $G\uparrow$ or $T\downarrow$.
+    \item \textbf{Monetary policy} can lower the policy rate $r$ to reduce the borrowing rate $r+x$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Offsetting a higher risk premium}{}
+To keep the borrowing rate unchanged after a rise in the risk premium, the central bank must reduce the real policy rate one-for-one:
+\[
+\Delta(r+x)=0
+\quad\Longrightarrow\quad
+\Delta r = -\Delta x.
+\]
+\end{theorem}
+
+\noindent
+So if $x$ rises by $4$ percentage points, the central bank must reduce $r$ by $4$ percentage points to leave the borrowing rate unchanged.
+
+\begin{examplebox}[title={Worked Example: Monetary offset of a financial shock}]
+Suppose initially
+\[
+r=2\%, \qquad x=1\%,
+\]
+so the borrowing rate is
+\[
+r+x=3\%.
+\]
+Now suppose the risk premium rises by $4$ percentage points:
+\[
+x: 1\% \to 5\%.
+\]
+To keep the borrowing rate unchanged at $3\%$, the central bank must set
+\[
+r + 5\% = 3\%
+\quad\Longrightarrow\quad
+r=-2\%.
+\]
+Hence the real policy rate must fall from $2\%$ to $-2\%$.
+\end{examplebox}
+
+\begin{policynote}[title={Policy Application: Why the zero lower bound matters}]
+Even if, in principle, monetary policy could offset a higher risk premium, it may be impossible in practice. Since
+\[
+r=i-\pi^e,
+\]
+the nominal interest rate required to achieve a sufficiently low real rate may have to be negative. If the nominal rate is stuck at the zero lower bound, the central bank may be unable to offset the shock fully, and a recession can still occur.
+\end{policynote}
+
+\subsection{Fiscal policy versus monetary policy in the extended model}
+
+The extended model clarifies the different transmission channels:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Fiscal policy} offsets weak private demand directly by shifting the IS curve right.
+    \item \textbf{Monetary policy} works indirectly by reducing the real policy rate and therefore the borrowing rate.
+    \item \textbf{Financial frictions} weaken monetary transmission because even if the policy rate falls, the borrowing rate may not fall much when $x$ rises sharply.
+\end{itemize}
+
+\begin{examtip}[title={Exam Focus: Transmission channels}]
+In the extended IS--LM model:
+\begin{itemize}[leftmargin=1.5em]
+    \item policy rate $\downarrow \Rightarrow r\downarrow \Rightarrow r+x\downarrow \Rightarrow I\uparrow \Rightarrow Y\uparrow$;
+    \item risk premium $\uparrow \Rightarrow r+x\uparrow \Rightarrow I\downarrow \Rightarrow Y\downarrow$;
+    \item weak bank balance sheets often operate through \emph{higher} $x$ and weaker credit supply.
+\end{itemize}
+\end{examtip}
+
+\subsection{Links back to the baseline IS--LM model}
+
+\begin{theorem}{Baseline IS--LM as a special case}{}
+The baseline IS--LM model is recovered as a special case of the extended model when:
+\begin{itemize}[leftmargin=1.5em]
+    \item expected inflation is ignored or fixed,
+    \item the risk premium is zero or constant,
+    \item all borrowing rates move one-for-one with the policy rate.
+\end{itemize}
+Then the relevant borrowing cost reduces to the single interest rate used in Lecture 3.
+\end{theorem}
+
+\noindent
+The new content of Lecture 4 is therefore not a replacement of IS--LM, but an economically more realistic version of it.
+
+\subsection{Worked example from Tutorial 4}
+
+\begin{examplebox}[title={Worked Example (Tutorial 4, Question 4): True/false using the Fisher relation}]
+Let $i$ denote the nominal interest rate, $r$ the real interest rate, and $\pi^e$ expected inflation. Recall:
+\[
+1+r=\frac{1+i}{1+\pi^e},
+\qquad
+r\approx i-\pi^e.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Statement:} The nominal interest rate is measured in terms of goods; the real interest rate is measured in terms of money.
+
+    \textbf{Answer: False.}  
+    The nominal rate is measured in money terms, while the real rate is measured in goods or purchasing-power terms.
+
+    \item \textbf{Statement:} As long as expected inflation remains roughly constant, movements in the real interest rate are roughly equal to movements in the nominal interest rate.
+
+    \textbf{Answer: True.}  
+    If $\pi^e$ is approximately constant, then from
+    \[
+    r\approx i-\pi^e
+    \]
+    it follows that
+    \[
+    \Delta r \approx \Delta i.
+    \]
+
+    \item \textbf{Statement:} When expected inflation increases, the real rate of interest falls.
+
+    \textbf{Answer: Uncertain in general; true if the nominal rate is fixed.}  
+    If $i$ is held fixed, then
+    \[
+    \pi^e\uparrow \Rightarrow r\downarrow.
+    \]
+    But if the central bank or market interest rates increase together with expected inflation, the real rate need not fall.
+
+    \item \textbf{Statement:} The nominal policy interest rate is set by the central bank.
+
+    \textbf{Answer: True.}  
+    In the model, the central bank chooses the nominal policy rate and thereby influences the real policy rate.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Short-run macroeconomic interpretation}
+
+\begin{theorem}{Main macroeconomic lesson of the extended model}{}
+A disturbance in the financial system can become a macroeconomic disturbance because it changes the borrowing rate faced by private agents. In particular:
+\begin{itemize}[leftmargin=1.5em]
+    \item weaker balance sheets and higher perceived risk increase the risk premium $x$;
+    \item a higher $x$ raises borrowing costs and reduces investment;
+    \item the IS curve shifts left and output falls;
+    \item conventional monetary policy may be unable to offset this fully if the zero lower bound binds.
+\end{itemize}
+\end{theorem}
+
+\begin{examtip}[title={Exam Focus: What Lecture 4 adds to Lecture 3}]
+Lecture 3 said: the central bank sets the policy rate and this determines demand.  
+
+Lecture 4 adds: the borrowing rate relevant for demand is
+\[
+r+x,
+\]
+not just the policy rate. Therefore financial stress can weaken demand even when monetary policy is unchanged or expansionary.
+\end{examtip}

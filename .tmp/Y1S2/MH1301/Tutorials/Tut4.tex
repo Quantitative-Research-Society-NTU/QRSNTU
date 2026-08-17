@@ -1,0 +1,1156 @@
+% Source handout: :contentReference[oaicite:0]{index=0}
+% Cross-check file: :contentReference[oaicite:1]{index=1}
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+\newcommand{\CourseCode}{MH1301 }
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Tutorial 4}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial - QRS@NTU - qrsntu.org}
+\SetWatermarkScale{1.0}
+\SetWatermarkLightness{0.985}
+
+%------------- SHORTCUTS -------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.82\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.82\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial develops the standard counting techniques from Chapter 6.5, with emphasis on:
+\begin{itemize}[leftmargin=*]
+  \item arrangements under symmetry constraints (hexagonal seating around a table);
+  \item stars-and-bars for equations and inequalities in non-negative integers;
+  \item digit-sum counting with upper bounds handled by inclusion-exclusion;
+  \item ordered selection, multisets, and assignments with repetition allowed;
+  \item multinomial counting and equipartition of distinct books across labelled shelves;
+  \item shelf-placement models with indistinguishable or distinguishable books;
+  \item partitions of an integer into indistinguishable boxes with lower bounds.
+\end{itemize}
+
+\noindent
+\textbf{Question map.}
+\begin{itemize}[leftmargin=*]
+  \item Additional exercise: hexagonal seating with six boys and six girls.
+  \item Ex. 6.5.11: restricted solutions of $x_1+x_2+x_3+x_4+x_5=21$.
+  \item Ex. 6.5.14 and 6.5.19: inequality counting and digit sums.
+  \item Ex. 6.5.1, 6.5.4, 6.5.12: repetition allowed, multinomial strings, equal shelf sizes.
+  \item Ex. 6.5.32 and 6.5.59: shelf models and indistinguishable boxes.
+\end{itemize}
+
+\newpage
+%====================================================
+% Table of Contents
+%====================================================
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Additional Exercise: Hexagonal seating)}
+\subsection{Problem}
+How many seating arrangements are there with six boys and six girls if the table is hexagonal with $2$ seats on each side, out of which one must be occupied by a boy and the other one by a girl?
+
+\subsection{Solution}
+We follow the tutorial convention for circular seatings: arrangements that differ only by a rotation of the hexagon are identified, whereas mirror images are regarded as different unless a reflection is explicitly specified.
+
+\subsubsection{Method 1: Label the seats first, then quotient by rotational symmetry}
+Temporarily distinguish all $12$ seat positions by fixing the six sides of the hexagon and the two seats on each side.
+
+For each side, exactly one of its two seats must be occupied by a boy and the other by a girl. Hence, for each of the six sides, there are exactly
+\[
+2
+\]
+possible gender patterns. Therefore the total number of gender patterns over all six sides is
+\[
+2^6.
+\]
+Once the boy-seats and girl-seats have been determined, we may assign the six distinct boys to the six boy-seats in
+\[
+6!
+\]
+ways, and independently assign the six distinct girls to the six girl-seats in
+\[
+6!
+\]
+ways. Thus the number of seatings on a \emph{fully labelled} hexagon is
+\[
+2^6(6!)(6!).
+\]
+Now pass from the labelled hexagon to the actual round-the-table arrangement. A rotation of the hexagon through $0^\circ,60^\circ,120^\circ,180^\circ,240^\circ,300^\circ$ produces the same circular seating. Since all $12$ people are distinct, no nontrivial rotation can fix a labelled seating. Consequently each circular seating is represented by exactly
+\[
+6
+\]
+labelled seatings.
+
+Hence the required number is
+\[
+\frac{2^6(6!)^2}{6}=\frac{64\cdot 720^2}{6}=5{,}529{,}600.
+\]
+
+\[
+\boxed{5{,}529{,}600}
+\]
+
+\subsubsection{Method 2: Count labelled valid seatings, then divide by \(6\)}
+
+\[
+N=\frac{\#\{\text{labelled valid seatings}\}}{6}.
+\]
+
+For each of the \(6\) sides, there are \(2\) choices for which seat is occupied by a boy, so
+\[
+\#\{\text{side-patterns}\}=2^6.
+\]
+Then assign the \(6\) distinct boys and \(6\) distinct girls:
+\[
+\#\{\text{labelled valid seatings}\}=2^6\cdot 6!\cdot 6!.
+\]
+Hence
+\[
+N=\frac{2^6(6!)^2}{6}=5{,}529{,}600.
+\]
+
+\[
+\boxed{5{,}529{,}600}
+\]
+
+\subsubsection{Method 3: Burnside's lemma on the rotational action of the hexagon}
+Let $X$ be the set of all seatings on a \emph{labelled} hexagon satisfying the condition that on each side there is one boy and one girl. As in Method 1,
+\[
+|X|=2^6(6!)^2.
+\]
+The rotation group of the hexagon is the cyclic group
+\[
+C_6=\{\rho_0,\rho_1,\rho_2,\rho_3,\rho_4,\rho_5\},
+\]
+where $\rho_j$ denotes rotation through $60j^\circ$.
+
+The required number of circular seatings is the number of orbits of $X$ under this group action. By Burnside's lemma,
+\[
+\#\text{orbits}=\frac{1}{6}\sum_{j=0}^{5}\bigl|\operatorname{Fix}(\rho_j)\bigr|.
+\]
+We compute the fixed-point counts:
+\begin{itemize}[leftmargin=*]
+  \item For the identity rotation $\rho_0$, every seating is fixed, so
+  \[
+  \bigl|\operatorname{Fix}(\rho_0)\bigr|=|X|=2^6(6!)^2.
+  \]
+  \item For any nonidentity rotation $\rho_j$ with $j\in\{1,2,3,4,5\}$, a seating fixed by $\rho_j$ would have to repeat every person after a nontrivial rotation. Since all $12$ people are distinct, that is impossible. Therefore
+  \[
+  \bigl|\operatorname{Fix}(\rho_j)\bigr|=0 \qquad (j=1,2,3,4,5).
+  \]
+\end{itemize}
+Thus
+\[
+\#\text{orbits}=\frac{1}{6}\Bigl(2^6(6!)^2+0+0+0+0+0\Bigr)=\frac{2^6(6!)^2}{6}=5{,}529{,}600.
+\]
+Therefore,
+\[
+\boxed{5{,}529{,}600}
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 2
+%====================================================
+\section{Question 2 (Ex. 6.5.11: Restricted non-negative solutions)}
+\subsection{Problem}
+How many solutions are there to the equation
+\[
+x_1+x_2+x_3+x_4+x_5=21,
+\]
+where $x_i$, $i=1,2,3,4,5$, is a non-negative integer, such that
+\begin{enumerate}[label=(\alph*)]
+\item $x_1\ge 1$?
+\item $x_i\ge 2$ for $i=1,2,3,4,5$?
+\item $0\le x_1\le 10$?
+\item $0\le x_1\le 3$ and $x_2\ge 15$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Stars-and-bars with variable shifts and subtraction}
+\begin{enumerate}[label=(\alph*)]
+\item Since $x_1\ge 1$, write
+\[
+x_1=1+y_1, \qquad y_1\ge 0.
+\]
+Then the equation becomes
+\[
+y_1+x_2+x_3+x_4+x_5=20.
+\]
+The number of non-negative integer solutions in five variables is, by stars-and-bars,
+\[
+\binom{20+5-1}{5-1}=\binom{24}{4}=10626.
+\]
+Therefore
+\[
+\boxed{10626}.
+\]
+
+\item Since every variable must satisfy $x_i\ge 2$, write
+\[
+x_i=2+y_i \qquad (i=1,2,3,4,5), \qquad y_i\ge 0.
+\]
+Then
+\[
+(2+y_1)+\cdots +(2+y_5)=21
+\]
+reduces to
+\[
+y_1+y_2+y_3+y_4+y_5=11.
+\]
+Hence the number of solutions is
+\[
+\binom{11+5-1}{4}=\binom{15}{4}=1365.
+\]
+Therefore
+\[
+\boxed{1365}.
+\]
+
+\item First count all non-negative solutions of
+\[
+x_1+x_2+x_3+x_4+x_5=21,
+\]
+which is
+\[
+\binom{21+5-1}{4}=\binom{25}{4}.
+\]
+Now subtract the solutions with $x_1\ge 11$. For those, write
+\[
+x_1=11+y_1, \qquad y_1\ge 0.
+\]
+Then the equation becomes
+\[
+y_1+x_2+x_3+x_4+x_5=10,
+\]
+so the number of such solutions is
+\[
+\binom{10+5-1}{4}=\binom{14}{4}.
+\]
+Therefore the number with $0\le x_1\le 10$ is
+\[
+\binom{25}{4}-\binom{14}{4}=12650-1001=11649.
+\]
+Hence
+\[
+\boxed{11649}.
+\]
+
+\item First impose $x_2\ge 15$ by writing
+\[
+x_2=15+y_2, \qquad y_2\ge 0.
+\]
+Then the equation becomes
+\[
+x_1+y_2+x_3+x_4+x_5=6.
+\]
+Ignoring for the moment the restriction $x_1\le 3$, the number of non-negative solutions is
+\[
+\binom{6+5-1}{4}=\binom{10}{4}=210.
+\]
+Now subtract the solutions with $x_1\ge 4$. Write
+\[
+x_1=4+z_1, \qquad z_1\ge 0.
+\]
+Then
+\[
+z_1+y_2+x_3+x_4+x_5=2,
+\]
+which has
+\[
+\binom{2+5-1}{4}=\binom{6}{4}=15
+\]
+solutions. Therefore the number with $0\le x_1\le 3$ and $x_2\ge 15$ is
+\[
+\binom{10}{4}-\binom{6}{4}=210-15=195.
+\]
+Thus
+\[
+\boxed{195}.
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Counting notation with a general lower-bound formula}
+
+\[
+\begin{aligned}
+&\text{Let } N(\mathcal C)
+= \#\{x\in\mathbb Z_{\ge0}^5:\ x_1+\cdots+x_5=21,\ \mathcal C\}.
+&&\\[6pt]
+&x_i \ge l_i
+\;\Rightarrow\;
+x_i = l_i + y_i,\qquad y_i \ge 0.
+&&\\[6pt]
+&N(x_1\ge l_1,\dots,x_5\ge l_5)
+= \binom{25-\sum_{i=1}^5 l_i}{4}.&&
+\end{aligned}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since \(x_1\ge1\),
+\[
+N(x_1\ge1)=\binom{24}{4}=10626.
+\]
+
+\item Since \(x_i\ge2\) for all \(i\),
+\[
+N(x_1\ge2,\dots,x_5\ge2)=\binom{15}{4}=1365.
+\]
+
+\item
+\[
+N(0\le x_1\le10)=N(\text{all})-N(x_1\ge11)
+=\binom{25}{4}-\binom{14}{4}=11649.
+\]
+
+\item
+\[
+N(0\le x_1\le3,\ x_2\ge15)
+= N(x_2\ge15)-N(x_1\ge4,\ x_2\ge15).
+\]
+
+\[
+N(x_2\ge15)=\binom{10}{4},\qquad
+N(x_1\ge4,\ x_2\ge15)=\binom{6}{4}.
+\]
+
+\[
+\binom{10}{4}-\binom{6}{4}=195.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Generating functions}
+For non-negative integer solutions, the generating function for one unrestricted variable is
+\[
+1+x+x^2+\cdots = \frac{1}{1-x}.
+\]
+Hence a system with five unrestricted non-negative variables summing to $21$ is encoded by
+\[
+\left(\frac{1}{1-x}\right)^5.
+\]
+We use the standard coefficient identity
+\[
+[x^m](1-x)^{-5}=\binom{m+4}{4}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item The condition $x_1\ge 1$ contributes generating function
+\[
+x+x^2+x^3+\cdots = \frac{x}{1-x}.
+\]
+Therefore the desired number is
+\[
+[x^{21}]\,\frac{x}{(1-x)^5}=[x^{20}](1-x)^{-5}=\binom{24}{4}=10626.
+\]
+So
+\[
+\boxed{10626}.
+\]
+
+\item The condition $x_i\ge 2$ for every $i$ contributes generating function
+\[
+\left(x^2+x^3+\cdots\right)^5=\left(\frac{x^2}{1-x}\right)^5=\frac{x^{10}}{(1-x)^5}.
+\]
+Thus the number of solutions is
+\[
+[x^{21}]\,\frac{x^{10}}{(1-x)^5}=[x^{11}](1-x)^{-5}=\binom{15}{4}=1365.
+\]
+Hence
+\[
+\boxed{1365}.
+\]
+
+\item The condition $0\le x_1\le 10$ contributes
+\[
+1+x+x^2+\cdots +x^{10}=\frac{1-x^{11}}{1-x}.
+\]
+The other four variables contribute $(1-x)^{-4}$. Therefore the generating function is
+\[
+\frac{1-x^{11}}{(1-x)^5}.
+\]
+So the number of solutions is
+\[
+[x^{21}]\,\frac{1-x^{11}}{(1-x)^5}
+=[x^{21}](1-x)^{-5}-[x^{10}](1-x)^{-5}.
+\]
+Hence
+\[
+\binom{25}{4}-\binom{14}{4}=11649.
+\]
+Therefore
+\[
+\boxed{11649}.
+\]
+
+\item The condition $0\le x_1\le 3$ contributes
+\[
+1+x+x^2+x^3=\frac{1-x^4}{1-x},
+\]
+and the condition $x_2\ge 15$ contributes
+\[
+x^{15}+x^{16}+\cdots = \frac{x^{15}}{1-x}.
+\]
+The remaining three variables contribute $(1-x)^{-3}$. Thus the full generating function is
+\[
+\frac{1-x^4}{1-x}\cdot \frac{x^{15}}{1-x}\cdot \frac{1}{(1-x)^3}
+= x^{15}(1-x^4)(1-x)^{-5}.
+\]
+Hence the number of solutions is
+\[
+[x^{21}]\,x^{15}(1-x^4)(1-x)^{-5}
+=[x^6](1-x^4)(1-x)^{-5}.
+\]
+Therefore
+\[
+[x^6](1-x)^{-5}-[x^2](1-x)^{-5}
+=\binom{10}{4}-\binom{6}{4}=210-15=195.
+\]
+Thus
+\[
+\boxed{195}.
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 3
+%====================================================
+\section{Question 3 (Ex. 6.5.14: A non-negative inequality)}
+\subsection{Problem}
+How many solutions are there to the inequality
+\[
+x_1+x_2+x_3\le 11,
+\]
+where $x_1$, $x_2$, $x_3$ are non-negative integers?
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Introduce an auxiliary variable}
+The condition
+\[
+x_1+x_2+x_3\le 11
+\]
+is equivalent to the existence of a non-negative integer $x_4$ such that
+\[
+x_1+x_2+x_3+x_4=11.
+\]
+Indeed, given $(x_1,x_2,x_3)$ with $x_1+x_2+x_3\le 11$, define
+\[
+x_4=11-(x_1+x_2+x_3)\ge 0.
+\]
+Conversely, any non-negative solution of $x_1+x_2+x_3+x_4=11$ clearly satisfies $x_1+x_2+x_3\le 11$.
+
+So the required number is exactly the number of non-negative solutions to a four-variable equation with total $11$. By stars-and-bars,
+\[
+\binom{11+4-1}{4-1}=\binom{14}{3}=364.
+\]
+Therefore
+\[
+\boxed{364}.
+\]
+\subsubsection{Method 2: Sum over \(r\)}
+
+\[
+N(r)=\#\{(x_1,x_2,x_3)\in\mathbb Z_{\ge0}^3:\ x_1+x_2+x_3=r\}
+=\binom{r+2}{2}.
+\]
+Thus
+\[
+\#\{x_1+x_2+x_3\le 11\}
+=
+\sum_{r=0}^{11} N(r)
+=
+\sum_{r=0}^{11}\binom{r+2}{2}
+=
+\binom{14}{3}
+=
+364.
+\]
+
+\subsubsection{Method 3: Sum over the possible values of the total}
+For each integer
+\[
+s=x_1+x_2+x_3,
+\]
+where $0\le s\le 11$, the number of non-negative solutions of
+\[
+x_1+x_2+x_3=s
+\]
+is
+\[
+\binom{s+3-1}{3-1}=\binom{s+2}{2}.
+\]
+Therefore the required count is
+\[
+\sum_{s=0}^{11}\binom{s+2}{2}.
+\]
+Now apply the hockey-stick identity:
+\[
+\sum_{s=0}^{11}\binom{s+2}{2}=\binom{14}{3}=364.
+\]
+Hence
+\[
+\boxed{364}.
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 4
+%====================================================
+\section{Question 4 (Ex. 6.5.19: Digit sum equal to 19)}
+\subsection{Problem}
+How many positive integers strictly lesser than $1{,}000{,}000$ have the sum of their digits equal to $19$?
+
+\subsection{Solution}
+Every positive integer less than $1{,}000{,}000$ can be written uniquely as a six-digit string
+\[
+x_1x_2x_3x_4x_5x_6,
+\]
+allowing leading zeros, with
+\[
+0\le x_i\le 9 \qquad (i=1,2,3,4,5,6).
+\]
+The condition on the sum of digits is
+\[
+x_1+x_2+x_3+x_4+x_5+x_6=19.
+\]
+The number $000000$ does not occur anyway, since its digit sum is $0$, not $19$. So we only need to count the six-tuples $(x_1,\dots,x_6)$ satisfying the above equation and the digit bounds.
+
+\subsubsection{Method 1: Inclusion-exclusion with the upper bound $x_i\le 9$}
+If we temporarily ignore the constraints $x_i\le 9$, then the number of non-negative integer solutions of
+\[
+x_1+x_2+x_3+x_4+x_5+x_6=19
+\]
+is
+\[
+\binom{19+6-1}{6-1}=\binom{24}{5}.
+\]
+Now we must exclude the solutions in which at least one digit is at least $10$.
+
+Let $A_i$ be the set of solutions with $x_i\ge 10$. To count $|A_i|$, write
+\[
+x_i=10+y_i, \qquad y_i\ge 0.
+\]
+Then the equation becomes
+\[
+y_i+\sum_{j\ne i}x_j=9,
+\]
+so
+\[
+|A_i|=\binom{9+6-1}{5}=\binom{14}{5}.
+\]
+There are $6$ choices of $i$, so the first correction term is
+\[
+6\binom{14}{5}.
+\]
+Next we examine double intersections. If both $x_i\ge 10$ and $x_j\ge 10$ with $i\ne j$, then
+\[
+x_i+x_j\ge 20,
+\]
+which is impossible because the total sum is only $19$. Hence every double intersection is empty, and therefore all higher intersections are also empty.
+
+Thus inclusion-exclusion stops after the first subtraction, giving
+\[
+\binom{24}{5}-6\binom{14}{5}.
+\]
+Now
+\[
+\binom{24}{5}=42504,
+\qquad
+\binom{14}{5}=2002,
+\]
+so
+\[
+42504-6(2002)=42504-12012=30492.
+\]
+Therefore
+\[
+\boxed{30492}.
+\]
+
+\subsubsection{Method 2: Generating functions}
+For one digit $x_i\in\{0,1,2,\dots,9\}$, the generating function recording its possible contributions to the digit sum is
+\[
+1+x+x^2+\cdots +x^9=\frac{1-x^{10}}{1-x}.
+\]
+Since there are six digits, the generating function for the sum of the digits is
+\[
+\left(1+x+x^2+\cdots +x^9\right)^6
+=\left(\frac{1-x^{10}}{1-x}\right)^6.
+\]
+Hence the required number is the coefficient of $x^{19}$:
+\[
+[x^{19}]\left(\frac{1-x^{10}}{1-x}\right)^6.
+\]
+Expand the numerator:
+\[
+(1-x^{10})^6=1-6x^{10}+15x^{20}-\cdots.
+\]
+Because we only need the coefficient of $x^{19}$, all terms involving $x^{20},x^{30},\dots$ are irrelevant. Therefore
+\[
+[x^{19}]\left(\frac{1-x^{10}}{1-x}\right)^6
+=[x^{19}](1-x)^{-6}-6[x^9](1-x)^{-6}.
+\]
+Using
+\[
+[x^m](1-x)^{-6}=\binom{m+5}{5},
+\]
+we obtain
+\[
+\binom{24}{5}-6\binom{14}{5}=30492.
+\]
+Hence
+\[
+\boxed{30492}.
+\]
+
+\newpage
+
+%====================================================
+% QUESTION 5
+%====================================================
+\section{Question 5 (Ex. 6.5.1, 6.5.4, additional exercise)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item In how many different ways can five elements be selected in \emph{order} from a set with three elements when repetition is allowed?
+\item How many ways are there to select five unordered elements from a set with three elements when repetition is allowed?
+\item How many ways are there to assign three distinct jobs to five (of course distinct) employees if each employee can be given more than one jobs?
+\end{enumerate}
+\vspace{2cm}
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Direct encoding formulas}
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\#\{(x_1,\dots,x_5)\in\{a,b,c\}^5\}=3^5=243.
+\]
+
+\[
+\boxed{243}
+\]
+
+\item
+\[
+\#\{(n_1,n_2,n_3)\in\mathbb Z_{\ge0}^3:\ n_1+n_2+n_3=5\}
+=\binom{5+3-1}{3-1}
+=\binom{7}{2}
+=21.
+\]
+
+\[
+\boxed{21}
+\]
+
+\item
+\[
+\#\{f:\{J_1,J_2,J_3\}\to E\}=5^3=125,
+\]
+where \(E\) is the set of \(5\) employees.
+
+\[
+\boxed{125}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Direct counting by product rule and stars-and-bars}
+\begin{enumerate}[label=(\alph*)]
+\item Let the underlying set be $\{a,b,c\}$. We are forming an ordered $5$-tuple
+\[
+(x_1,x_2,x_3,x_4,x_5),
+\]
+where each $x_i$ may be any of the three elements, and repetition is allowed. For each of the five positions there are $3$ choices, independently. Hence by the product rule,
+\[
+3\cdot 3\cdot 3\cdot 3\cdot 3=3^5=243.
+\]
+Therefore
+\[
+\boxed{243}.
+\]
+
+\item An unordered selection of five elements from three available types, with repetition allowed, is equivalent to choosing non-negative integers $(n_1,n_2,n_3)$ such that
+\[
+n_1+n_2+n_3=5,
+\]
+where $n_i$ records how many times the $i$th element is chosen. By stars-and-bars, the number of solutions is
+\[
+\binom{5+3-1}{3-1}=\binom{7}{2}=21.
+\]
+Hence
+\[
+\boxed{21}.
+\]
+
+\item Let the three distinct jobs be $J_1,J_2,J_3$. For each job, there are $5$ possible employees to whom it may be assigned. Since an employee may receive more than one job, these choices are independent. Therefore the number of assignments is
+\[
+5\cdot 5\cdot 5=5^3=125.
+\]
+Thus
+\[
+\boxed{125}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Functions and generating functions}
+\begin{enumerate}[label=(\alph*)]
+\item Choosing five ordered elements from a three-element set with repetition allowed is exactly the same as specifying a function
+\[
+f:\{1,2,3,4,5\}\to\{a,b,c\},
+\]
+where $f(i)$ is the element chosen in the $i$th position. A function from a five-element set to a three-element set is determined by choosing one of $3$ images for each of the $5$ inputs, so there are $3^5=243$ such functions. Hence
+\[
+\boxed{243}.
+\]
+
+\item For unordered selection with repetition, the ordinary generating function for one element type is
+\[
+1+x+x^2+x^3+\cdots = \frac{1}{1-x},
+\]
+because we may choose that type $0,1,2,\dots$ times. With three element types, the generating function is
+\[
+\frac{1}{(1-x)^3}.
+\]
+Therefore the number of ways to choose five elements is
+\[
+[x^5](1-x)^{-3}=\binom{5+3-1}{3-1}=\binom{7}{2}=21.
+\]
+So
+\[
+\boxed{21}.
+\]
+
+\item Assigning three distinct jobs to five employees is the same as specifying a function
+\[
+g:\{J_1,J_2,J_3\}\to E,
+\]
+where $E$ is the five-element set of employees. Since there are $5$ choices for each of the $3$ jobs, the number of such functions is
+\[
+5^3=125.
+\]
+Therefore
+\[
+\boxed{125}.
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 6
+%====================================================
+\section{Question 6 (Ex. 6.5.12, additional exercise)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item How many strings of $10$ ternary digits $(0,1,\text{ or }2)$ are there that contain exactly two $0$'s, three $1$'s, and five $2$'s?
+\item Let $n$ be a multiple of $k$. How many ways can $n$ books be placed on $k$ distinguishable shelves if no two books are the same, the positions of the books on the shelves do not matter, and each shelf has exactly $n/k$ books?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Multinomial form / equal-block form}
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\#=\binom{10}{2,3,5}
+=\frac{10!}{2!\,3!\,5!}
+=2520.
+\]
+
+\[
+\boxed{2520}
+\]
+
+\item Let
+\[
+m=\frac{n}{k}.
+\]
+Then a valid placement is a partition of the \(n\) distinct books into \(k\) labelled groups of size \(m\), so
+\[
+\#=\binom{n}{\underbrace{m,\dots,m}_{k\text{ times}}}
+=\frac{n!}{(m!)^k}
+=\frac{n!}{\left((n/k)!\right)^k}.
+\]
+
+\[
+\boxed{\frac{n!}{\left((n/k)!\right)^k}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Choose positions / choose groups successively}
+\begin{enumerate}[label=(\alph*)]
+\item First choose the $2$ positions occupied by $0$'s. This can be done in
+\[
+\binom{10}{2}
+\]
+ways. Among the remaining $8$ positions, choose the $3$ positions occupied by $1$'s. This can be done in
+\[
+\binom{8}{3}
+\]
+ways. The remaining $5$ positions are then forced to be $2$'s. Thus the total number of strings is
+\[
+\binom{10}{2}\binom{8}{3}=45\cdot 56=2520.
+\]
+Hence
+\[
+\boxed{2520}.
+\]
+
+\item Write
+\[
+m=\frac{n}{k},
+\]
+which is an integer by hypothesis. Since each shelf must contain exactly $m$ books, we choose the books shelf by shelf.
+
+Choose the $m$ books for shelf $1$ in
+\[
+\binom{n}{m}
+\]
+ways. Then choose the $m$ books for shelf $2$ from the remaining $n-m$ books in
+\[
+\binom{n-m}{m}
+\]
+ways. Continue in this way. The final count is
+\[
+\binom{n}{m}\binom{n-m}{m}\binom{n-2m}{m}\cdots \binom{m}{m}.
+\]
+Now simplify this product:
+\begin{align*}
+\binom{n}{m}\binom{n-m}{m}\cdots \binom{m}{m}
+&=\frac{n!}{m!(n-m)!}\cdot \frac{(n-m)!}{m!(n-2m)!}\cdots \frac{m!}{m!0!}\\
+&=\frac{n!}{(m!)^k}.
+\end{align*}
+Therefore the number of ways is
+\[
+\boxed{\frac{n!}{\left((n/k)!\right)^k}}.
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Multinomial viewpoint / permutation-and-cut viewpoint}
+\begin{enumerate}[label=(\alph*)]
+\item A valid string is a permutation of the multiset
+\[
+\{0,0,1,1,1,2,2,2,2,2\}.
+\]
+If the ten symbols were all distinct, there would be $10!$ permutations. But the two $0$'s are indistinguishable, the three $1$'s are indistinguishable, and the five $2$'s are indistinguishable, so we divide by
+\[
+2!\,3!\,5!.
+\]
+Hence the number of strings is
+\[
+\frac{10!}{2!3!5!}=2520.
+\]
+Therefore
+\[
+\boxed{2520}.
+\]
+
+\item Again write $m=n/k$. Arrange all $n$ distinct books in a line. This can be done in
+\[
+n!
+\]
+ways. Now cut this ordered list into $k$ consecutive labelled blocks of size $m$:
+\[
+\underbrace{\boxed{\phantom{aa}}\cdots\boxed{\phantom{aa}}}_{m\text{ books}}
+\underbrace{\boxed{\phantom{aa}}\cdots\boxed{\phantom{aa}}}_{m\text{ books}}
+\cdots
+\underbrace{\boxed{\phantom{aa}}\cdots\boxed{\phantom{aa}}}_{m\text{ books}}.
+\]
+The first block is assigned to shelf $1$, the second to shelf $2$, and so on. This procedure overcounts each shelf placement because the books on a given shelf are \emph{unordered}: permuting the $m$ books within any one block does not change the shelf placement. Therefore we divide by $m!$ for each shelf, giving a factor of $(m!)^k$.
+
+Hence the number of placements is
+\[
+\frac{n!}{(m!)^k}=\frac{n!}{\left((n/k)!\right)^k}.
+\]
+Thus
+\[
+\boxed{\frac{n!}{\left((n/k)!\right)^k}}.
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 7
+%====================================================
+\section{Question 7 (Ex. 6.5.32 modified: Books on distinguishable shelves)}
+\subsection{Problem}
+How many ways can $n$ books be placed on $k$ distinguishable shelves
+\begin{enumerate}[label=(\alph*)]
+\item if the books are indistinguishable copies of the same title?
+\item if no two books are the same, and the positions of the books on the shelves matter?
+\end{enumerate}
+
+\subsection{Solution}
+Empty shelves are allowed unless otherwise stated.
+
+\subsubsection{Method 1: Counting-vector / separator encoding}
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\#\{(x_1,\dots,x_k)\in\mathbb Z_{\ge0}^k:\ x_1+\cdots+x_k=n\}
+=\binom{n+k-1}{k-1}
+=\binom{n+k-1}{n}.
+\]
+
+\[
+\boxed{\binom{n+k-1}{n}}
+\]
+
+\item A placement is equivalent to:
+\begin{itemize}[leftmargin=*]
+\item a permutation of the \(n\) distinct books;
+\item together with \(k-1\) identical separators.
+\end{itemize}
+Hence
+\[
+\#=n!\binom{n+k-1}{k-1}
+=n!\binom{n+k-1}{n}.
+\]
+
+\[
+\boxed{n!\binom{n+k-1}{n}}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Stars-and-bars, then refine by ordering the books}
+\begin{enumerate}[label=(\alph*)]
+\item Let $x_i$ denote the number of books placed on shelf $i$. Because the books are indistinguishable and only the number on each shelf matters, every placement corresponds uniquely to a non-negative integer solution of
+\[
+x_1+x_2+\cdots +x_k=n.
+\]
+Conversely, every such solution determines a placement. Therefore the number of placements equals the number of non-negative integer solutions of this equation, namely
+\[
+\binom{n+k-1}{k-1}=\binom{n+k-1}{n}.
+\]
+Hence
+\[
+\boxed{\binom{n+k-1}{n}}.
+\]
+
+\item First choose how many books go onto each shelf. As in part (a), the number of possible shelf-size vectors
+\[
+(x_1,\dots,x_k) \quad \text{with} \quad x_1+\cdots+x_k=n, \quad x_i\ge 0,
+\]
+is
+\[
+\binom{n+k-1}{n}.
+\]
+Now fix such a vector $(x_1,\dots,x_k)$. Because the books are distinct and the order on each shelf matters, we may proceed as follows: take any permutation of the $n$ books, then place the first $x_1$ books on shelf $1$ in that order, the next $x_2$ books on shelf $2$ in that order, and so on. For the fixed vector $(x_1,\dots,x_k)$, this gives exactly
+\[
+n!
+\]
+placements.
+
+Therefore, multiplying by the number of possible shelf-size vectors, the total number of placements is
+\[
+n!\binom{n+k-1}{n}.
+\]
+Hence
+\[
+\boxed{n!\binom{n+k-1}{n}}.
+\]
+\end{enumerate}
+
+
+
+\newpage
+\subsubsection{Method 3: Separator model}
+\begin{enumerate}[label=(\alph*)]
+\item Represent a placement by writing $n$ identical stars for the books and $k-1$ bars as separators between shelves. For example, with $k=4$, a bar pattern of the form
+\[
+\star\star\mid\mid\star\star\star\mid\star
+\]
+means that shelf $1$ gets $2$ books, shelf $2$ gets $0$, shelf $3$ gets $3$, and shelf $4$ gets $1$. Thus the number of placements equals the number of ways to choose the positions of the $k-1$ bars among the total $n+k-1$ symbols. This is
+\[
+\binom{n+k-1}{k-1}=\binom{n+k-1}{n}.
+\]
+So
+\[
+\boxed{\binom{n+k-1}{n}}.
+\]
+
+\item Arrange the $n$ distinct books in a line; this gives
+\[
+n!
+\]
+possible ordered lists. Now insert $k-1$ identical separators into the resulting list, allowing separators to be adjacent and allowing them to appear at the ends. The books before the first separator go to shelf $1$, the books between the first and second separators go to shelf $2$, and so on, while the order in which books appear in the list is exactly the order in which they appear on their shelves.
+
+Thus a placement is equivalent to a sequence consisting of the $n$ distinct books together with $k-1$ identical separators. To form such a sequence, once the order of the $n$ books is chosen, we choose the positions of the $k-1$ separators among the $n+k-1$ total slots. Hence the number of possibilities is
+\[
+n!\binom{n+k-1}{k-1}=n!\binom{n+k-1}{n}.
+\]
+Therefore
+\[
+\boxed{n!\binom{n+k-1}{n}}.
+\]
+\end{enumerate}
+
+\newpage
+
+%====================================================
+% QUESTION 8
+%====================================================
+\section{Question 8 (Ex. 6.5.59: Identical DVDs in indistinguishable boxes)}
+\subsection{Problem}
+How many ways are there to pack nine identical DVDs into three indistinguishable boxes so that each box contains at least two DVDs?
+
+\subsection{Solution}
+Because the boxes are indistinguishable, only the multiset of box sizes matters. So we are counting partitions of $9$ into exactly three parts, each at least $2$.
+
+\subsubsection{Method 1: Direct partition analysis}
+Let the box sizes be
+\[
+a\ge b\ge c\ge 2,
+\qquad a+b+c=9.
+\]
+Since each part is at least $2$, the smallest part $c$ can be either $2$ or $3$.
+
+\begin{itemize}[leftmargin=*]
+  \item If $c=3$, then $a+b=6$ with $a\ge b\ge 3$. The only possibility is
+  \[
+  (a,b,c)=(3,3,3).
+  \]
+  \item If $c=2$, then $a+b=7$ with $a\ge b\ge 2$. The possibilities are
+  \[
+  (5,2,2), \qquad (4,3,2).
+  \]
+  The combination $(6,1,2)$ is not allowed because each box must contain at least $2$ DVDs.
+\end{itemize}
+Therefore the only valid packings are
+\[
+5+2+2, \qquad 4+3+2, \qquad 3+3+3.
+\]
+So the number of packings is
+\[
+\boxed{3}.
+\]
+
+\newpage
+\subsubsection{Method 2: Shift by \(2\), then partition \(3\)}
+
+\[
+\#\{a\ge b\ge c\ge2:\ a+b+c=9\}
+=
+\#\{u\ge v\ge w\ge0:\ u+v+w=3\},
+\]
+via
+\[
+u=a-2,\qquad v=b-2,\qquad w=c-2.
+\]
+
+The partitions of \(3\) into at most \(3\) parts are
+\[
+3,\qquad 2+1,\qquad 1+1+1.
+\]
+So the shifted triples are
+\[
+(3,0,0),\qquad (2,1,0),\qquad (1,1,1),
+\]
+hence the original triples are
+\[
+(5,2,2),\qquad (4,3,2),\qquad (3,3,3).
+\]
+
+Therefore
+\[
+\boxed{3}.
+\]
+
+\subsubsection{Method 3: Subtract the lower bound first, then count partitions of 3}
+Place $2$ DVDs into each of the three boxes first. This uses
+\[
+2+2+2=6
+\]
+DVDs, leaving
+\[
+9-6=3
+\]
+DVDs still to distribute among the same three indistinguishable boxes.
+
+Because the boxes are indistinguishable, we are now counting partitions of $3$ into at most three parts. The partitions of $3$ are
+\[
+3, \qquad 2+1, \qquad 1+1+1.
+\]
+Adding back the initial baseline of $2$ DVDs per box gives, respectively,
+\[
+(5,2,2), \qquad (4,3,2), \qquad (3,3,3).
+\]
+These are all distinct and all valid. Hence there are exactly
+\[
+\boxed{3}
+\]
+possible packings.
+
+\end{document}

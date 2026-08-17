@@ -1,0 +1,1945 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 5 (Week 6) -- Problems \& Solutions}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- COMMON MACROS -------------
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Nullity}{nullity}
+\DeclareMathOperator{\Null}{nullity}
+\DeclareMathOperator{\tr}{trace}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item vector space structure on spaces of linear maps $\cL(V,W)$ and the matrix space $M_{n\times m}(\F)$;
+  \item linearity of the ``matrix-of-a-map'' operator and coordinate representations;
+  \item computing standard matrices, ranges, kernels, ranks, nullities, and (non-)direct sum decompositions;
+  \item degree properties of polynomials and linearity of substitution operators;
+  \item composition: how injectivity/surjectivity of $T\circ S$ constrains $S$ and $T$, and sharp counterexamples.
+\end{itemize}
+
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Vector space structure of $\cL(V,W)$)}
+\subsection{Problem}
+Let $V$ and $W$ be vector spaces over a field $\F$.
+Show that $\cL(V,W)$ is a vector space over $\F$ when equipped with
+\begin{itemize}[leftmargin=*]
+\item pointwise addition: $(S+T)(v)\coloneqq S(v)+T(v)$,
+\item pointwise scalar multiplication: $(aT)(v)\coloneqq a\,T(v)$,
+\end{itemize}
+for all $S,T\in\cL(V,W)$, $a\in\F$, and $v\in V$.
+
+\emph{Remark: You are requested to verify all eight axioms for a vector space.}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Verify the axioms directly (pointwise)}
+We first check \emph{closure} (so the operations are well-defined on $\cL(V,W)$), then verify the axioms.
+
+\medskip
+\noindent\textbf{Step 0: Closure under addition and scalar multiplication.}
+Let $S,T\in\cL(V,W)$ and $a\in\F$. We must show $S+T\in\cL(V,W)$ and $aT\in\cL(V,W)$.
+
+\begin{itemize}[leftmargin=*]
+\item For additivity: for all $u,v\in V$,
+\[
+(S+T)(u+v)=S(u+v)+T(u+v)=(S(u)+S(v))+(T(u)+T(v))=(S+T)(u)+(S+T)(v),
+\]
+using linearity of $S,T$ and associativity/commutativity of addition in $W$.
+Also, for all $c\in\F$ and $u\in V$,
+\[
+(S+T)(cu)=S(cu)+T(cu)=cS(u)+cT(u)=c(S(u)+T(u))=c(S+T)(u).
+\]
+Thus $S+T$ is linear.
+
+\item For scalar multiplication: for all $u,v\in V$,
+\[
+(aT)(u+v)=a\,T(u+v)=a(T(u)+T(v))=aT(u)+aT(v)=(aT)(u)+(aT)(v),
+\]
+and for all $c\in\F$,
+\[
+(aT)(cu)=a\,T(cu)=a(cT(u))=(ac)T(u)=c(aT)(u),
+\]
+using associativity and commutativity of scalar multiplication in the field. Thus $aT$ is linear.
+\end{itemize}
+
+Hence the operations stay inside $\cL(V,W)$.
+
+\medskip
+\noindent\textbf{Step 1: Verify the vector space axioms.}
+Let $R,S,T\in\cL(V,W)$ and $a,b\in\F$. Each axiom will be shown by evaluating at an arbitrary $v\in V$.
+
+\begin{enumerate}[label=\textbf{(A\arabic*)}, leftmargin=*]
+\item \textbf{Commutativity of addition:} For all $v\in V$,
+\[
+(S+T)(v)=S(v)+T(v)=T(v)+S(v)=(T+S)(v),
+\]
+so $S+T=T+S$.
+
+\item \textbf{Associativity of addition:} For all $v\in V$,
+\begin{align*}
+((R+S)+T)(v)
+&=(R+S)(v)+T(v)\\
+&=(R(v)+S(v))+T(v)\\
+&=R(v)+(S(v)+T(v))\\
+&=(R+(S+T))(v).
+\end{align*}
+So $(R+S)+T=R+(S+T)$.
+
+\item \textbf{Additive identity:} Define the \emph{zero map} $0\in\cL(V,W)$ by $0(v)\coloneqq 0_W$ for all $v\in V$.
+It is linear because $0(u+v)=0_W=0_W+0_W=0(u)+0(v)$ and $0(cv)=0_W=c0_W=c0(v)$.
+Moreover, for all $v$,
+\[
+(S+0)(v)=S(v)+0(v)=S(v)+0_W=S(v),
+\]
+so $S+0=S$.
+
+\item \textbf{Additive inverses:} For each $S\in\cL(V,W)$ define $(-S)(v)\coloneqq -S(v)$.
+This is linear since
+\[
+(-S)(u+v)=-S(u+v)=-(S(u)+S(v))=(-S(u))+(-S(v)),
+\]
+and $(-S)(cv)=-S(cv)=-cS(v)=c(-S)(v)$.
+Also, for all $v$,
+\[
+(S+(-S))(v)=S(v)+(-S(v))=0_W=0(v),
+\]
+so $S+(-S)=0$.
+
+\item \textbf{Compatibility with scalar multiplication (associativity):} For all $v$,
+\[
+((ab)S)(v)=(ab)S(v)=a(bS(v))=(a(bS))(v),
+\]
+so $(ab)S=a(bS)$.
+
+\item \textbf{Identity scalar:} For all $v$,
+\[
+(1S)(v)=1\cdot S(v)=S(v),
+\]
+so $1S=S$.
+
+\item \textbf{Distributivity over vector addition:} For all $v$,
+\[
+(a(S+T))(v)=a(S(v)+T(v))=aS(v)+aT(v)=((aS)+(aT))(v),
+\]
+so $a(S+T)=aS+aT$.
+
+\item \textbf{Distributivity over scalar addition:} For all $v$,
+\[
+((a+b)S)(v)=(a+b)S(v)=aS(v)+bS(v)=((aS)+(bS))(v),
+\]
+so $(a+b)S=aS+bS$.
+\end{enumerate}
+
+All required axioms hold. Therefore $\cL(V,W)$ is a vector space over $\F$ with these operations.
+
+\[
+\boxed{\,\cL(V,W)\ \text{is a vector space over }\F\text{ under pointwise operations.}\,}
+\]
+
+\subsubsection{Method 2: View $\cL(V,W)$ as a subspace of the function space $W^V$}
+Let $W^V$ denote the set of all functions $f:V\to W$. Define pointwise operations on $W^V$ by
+\[
+(f+g)(v)=f(v)+g(v),\qquad (af)(v)=a f(v).
+\]
+One checks the vector space axioms on $W^V$ exactly as in Method 1, using only that $W$ is a vector space.
+
+Now observe:
+\begin{itemize}[leftmargin=*]
+\item the zero function $0(v)=0_W$ is linear, hence $0\in\cL(V,W)$;
+\item if $S,T\in\cL(V,W)$ then $S+T$ is linear (closure under addition, shown in Method 1);
+\item if $T\in\cL(V,W)$ and $a\in\F$ then $aT$ is linear (closure under scalar multiplication, shown in Method 1).
+\end{itemize}
+Thus $\cL(V,W)$ is a \emph{subspace} of $W^V$. Hence it inherits the vector space axioms from $W^V$.
+
+\[
+\boxed{\,\cL(V,W)\le W^V\text{ (a subspace), hence a vector space.}\,}
+\]
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Linearity of the ``matrix of $T$'' map)}
+\subsection{Problem}
+Let $V$ and $W$ be finite-dimensional vector spaces over a field $\F$.
+Let $\alpha$ and $\beta$ be ordered bases for $V$ and $W$, respectively.
+Define a function
+\[
+M:\cL(V,W)\to \F^{\dim(W),\dim(V)}
+\]
+by
+\[
+\forall T\in\cL(V,W):\qquad M(T)\coloneqq [T]_{\beta}^{\alpha},
+\]
+the matrix of $T$ with respect to $\alpha$ (domain basis) and $\beta$ (codomain basis).
+Show that
+\[
+M\in \cL\bigl(\cL(V,W),\ \F^{\dim(W),\dim(V)}\bigr).
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Use columns $[T(v_i)]_\beta$ and check additivity/homogeneity}
+Let $\alpha=(v_1,\dots,v_m)$ with $m=\dim(V)$ and $\beta=(w_1,\dots,w_n)$ with $n=\dim(W)$.
+By definition, the matrix $[T]_\beta^\alpha\in \F^{n\times m}$ has $i$th column equal to the coordinate vector
+\[
+\bigl[T(v_i)\bigr]_\beta \in \F^n.
+\]
+
+Let $S,T\in\cL(V,W)$ and $a\in\F$.
+
+\medskip
+\noindent\textbf{Additivity.}
+For each $i\in\{1,\dots,m\}$,
+\[
+[(S+T)(v_i)]_\beta = [S(v_i)+T(v_i)]_\beta = [S(v_i)]_\beta + [T(v_i)]_\beta,
+\]
+since the coordinate map $[\ \cdot\ ]_\beta:W\to\F^n$ is linear.
+Thus, column-by-column,
+\[
+[S+T]_\beta^\alpha = [S]_\beta^\alpha + [T]_\beta^\alpha,
+\]
+so
+\[
+M(S+T)=M(S)+M(T).
+\]
+
+\medskip
+\noindent\textbf{Homogeneity.}
+Similarly, for each $i$,
+\[
+[(aT)(v_i)]_\beta = [aT(v_i)]_\beta = a[T(v_i)]_\beta.
+\]
+Hence
+\[
+[aT]_\beta^\alpha = a[T]_\beta^\alpha,
+\]
+so
+\[
+M(aT)=aM(T).
+\]
+
+Therefore $M$ is linear:
+\[
+\boxed{\,M\in \cL(\cL(V,W),\F^{n\times m})\,}.
+\]
+\subsubsection{Method 2: Using Coordinate Isomorphisms (Concise Version)}
+
+Let $\alpha$ and $\beta$ be ordered bases of $V$ and $W$ with
+$\dim V=m$ and $\dim W=n$.
+
+Define the coordinate isomorphisms
+\[
+C_\alpha: V \to \F^m, \qquad
+C_\beta: W \to \F^n
+\]
+by
+\[
+C_\alpha(v)=[v]_\alpha, \qquad
+C_\beta(w)=[w]_\beta.
+\]
+Both maps are linear isomorphisms.
+
+For $T\in\cL(V,W)$, define
+\[
+\widetilde{T}
+\coloneqq
+C_\beta \circ T \circ C_\alpha^{-1}
+:
+\F^m \to \F^n.
+\]
+Then $\widetilde{T}$ is linear, and by definition of matrix
+representation,
+\[
+M(T)
+=
+[T]_\beta^\alpha
+=
+[\widetilde{T}].
+\]
+
+Let $S,T\in\cL(V,W)$ and $a\in\F$.
+
+\paragraph{Additivity.}
+Using distributivity of composition over addition,
+\[
+\widetilde{S+T}
+=
+C_\beta (S+T) C_\alpha^{-1}
+=
+C_\beta S C_\alpha^{-1}
++
+C_\beta T C_\alpha^{-1}
+=
+\widetilde{S}+\widetilde{T}.
+\]
+Taking standard matrices gives
+\[
+M(S+T)
+=
+[\widetilde{S+T}]
+=
+[\widetilde{S}+\widetilde{T}]
+=
+[\widetilde{S}]+[\widetilde{T}]
+=
+M(S)+M(T).
+\]
+
+\paragraph{Homogeneity.}
+Similarly,
+\[
+\widetilde{aT}
+=
+C_\beta (aT) C_\alpha^{-1}
+=
+a(C_\beta T C_\alpha^{-1})
+=
+a\widetilde{T}.
+\]
+Hence
+\[
+M(aT)
+=
+[\widetilde{aT}]
+=
+[a\widetilde{T}]
+=
+a[\widetilde{T}]
+=
+aM(T).
+\]
+
+Therefore $M$ is linear, i.e.
+\[
+\boxed{
+M \in \cL\bigl(\cL(V,W),\F^{n\times m}\bigr).
+}
+\]
+
+
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (A linear map on \(\R^{2,2}\) defined using \(J\) and trace)}
+\subsection{Problem}
+Define a function \(T:\R^{2,2}\to\R^{2,2}\) by
+\[
+\forall A\in\R^{2,2}:\qquad
+T(A)\coloneqq A
+\begin{bmatrix}1&1\\1&1\end{bmatrix}
+-\tr(A)\cdot
+\begin{bmatrix}1&1\\1&1\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that \(T\in \cL(\R^{2,2})\).
+\item Determine the standard matrix representation of \(T\).
+\item Derive a basis for \(\Range(T)\) and hence determine \(\Rank(T)\).
+\item Derive a basis for \(\Null(T)\) and hence determine \(\Nullity(T)\).
+\item Determine whether or not \(\R^{2,2}=\Null(T)\oplus \Range(T)\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Compute \(T\) on a general matrix and read off all answers}
+Let
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix},
+\qquad
+J=\begin{bmatrix}1&1\\1&1\end{bmatrix}.
+\]
+Then
+\[
+AJ=
+\begin{bmatrix}
+a+b & a+b\\
+c+d & c+d
+\end{bmatrix},
+\qquad
+\tr(A)=a+d,
+\qquad
+\tr(A)\,J=
+\begin{bmatrix}
+a+d & a+d\\
+a+d & a+d
+\end{bmatrix}.
+\]
+Hence
+\begin{align*}
+T(A)
+&=AJ-\tr(A)\,J\\
+&=
+\begin{bmatrix}
+(a+b)-(a+d) & (a+b)-(a+d)\\
+(c+d)-(a+d) & (c+d)-(a+d)
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+b-d & b-d\\
+c-a & c-a
+\end{bmatrix}.
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+\item We show that \(T\) is linear.
+
+The map \(A\mapsto AJ\) is linear, since for all \(A,B\in \R^{2,2}\) and \(\lambda\in\R\),
+\[
+(A+B)J=AJ+BJ,
+\qquad
+(\lambda A)J=\lambda(AJ).
+\]
+Also, the trace map \(A\mapsto \tr(A)\) is linear, and the map \(x\mapsto xJ\) from \(\R\) to \(\R^{2,2}\) is linear. Therefore \(A\mapsto \tr(A)\,J\) is linear. Since \(T\) is the difference of two linear maps,
+\[
+T\in \cL(\R^{2,2}).
+\]
+
+\item We use the standard ordered basis
+\[
+(E_{11},E_{12},E_{21},E_{22}),
+\]
+where
+\[
+E_{11}=\begin{bmatrix}1&0\\0&0\end{bmatrix},\quad
+E_{12}=\begin{bmatrix}0&1\\0&0\end{bmatrix},\quad
+E_{21}=\begin{bmatrix}0&0\\1&0\end{bmatrix},\quad
+E_{22}=\begin{bmatrix}0&0\\0&1\end{bmatrix}.
+\]
+For
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix},
+\]
+its coordinate vector relative to this basis is
+\[
+[A]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}a\\b\\c\\d\end{bmatrix}.
+\]
+From the formula for \(T(A)\),
+\[
+[T(A)]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+b-d\\
+b-d\\
+c-a\\
+c-a
+\end{bmatrix}.
+\]
+Thus
+\[
+[T]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{
+[T]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.}
+\]
+
+\item From
+\[
+T(A)=
+\begin{bmatrix}
+u&u\\
+v&v
+\end{bmatrix}
+\quad\text{with}\quad
+u=b-d,\ v=c-a,
+\]
+we obtain
+\[
+\Range(T)=
+\left\{
+\begin{bmatrix}
+u&u\\
+v&v
+\end{bmatrix}:u,v\in\R
+\right\}.
+\]
+Hence
+\[
+\Range(T)
+=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\}.
+\]
+These two matrices are linearly independent, so they form a basis of \(\Range(T)\). Therefore
+\[
+\boxed{
+\Range(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\qquad
+\Rank(T)=2.}
+\]
+
+\item We have \(T(A)=0\) if and only if
+\[
+b-d=0,\qquad c-a=0,
+\]
+that is,
+\[
+d=b,\qquad c=a.
+\]
+Hence
+\[
+\Null(T)=
+\left\{
+\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\R
+\right\}
+=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\}.
+\]
+These two matrices are linearly independent, so they form a basis of \(\Null(T)\). Therefore
+\[
+\boxed{
+\Null(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\},
+\qquad
+\Nullity(T)=2.}
+\]
+
+\item To have
+\[
+\R^{2,2}=\Null(T)\oplus \Range(T),
+\]
+we would need
+\[
+\Null(T)\cap \Range(T)=\{0\}.
+\]
+However,
+\[
+J=\begin{bmatrix}1&1\\1&1\end{bmatrix}
+\]
+lies in \(\Range(T)\) (take \(u=v=1\)) and also lies in \(\Null(T)\) (its two rows are equal). Since \(J\neq 0\), we have
+\[
+\Null(T)\cap \Range(T)\neq \{0\}.
+\]
+Therefore the sum is not direct. Hence
+\[
+\boxed{\R^{2,2}\neq \Null(T)\oplus \Range(T).}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Equal-columns and equal-rows subspaces}
+Let
+\[
+U\coloneqq
+\left\{
+\begin{bmatrix}u&u\\v&v\end{bmatrix}:u,v\in\R
+\right\},
+\qquad
+S\coloneqq
+\left\{
+\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\R
+\right\}.
+\]
+Thus \(U\) is the subspace of matrices with equal columns, and \(S\) is the subspace of matrices with equal rows.
+
+Let
+\[
+\bm{1}=\begin{bmatrix}1\\1\end{bmatrix}.
+\]
+Since
+\[
+J=\bm{1}\bm{1}^{T},
+\]
+we have
+\[
+AJ=(A\bm{1})\bm{1}^{T}.
+\]
+Thus \(AJ\) always has equal columns, so \(AJ\in U\). Also \(\tr(A)J\in \operatorname{span}\{J\}\subseteq U\). Therefore
+\[
+T(A)=AJ-\tr(A)J\in U
+\qquad\text{for all }A\in\R^{2,2},
+\]
+and hence
+\[
+\Range(T)\subseteq U.
+\]
+
+Now let
+\[
+M=\begin{bmatrix}u&u\\v&v\end{bmatrix}\in U.
+\]
+Take
+\[
+A=\begin{bmatrix}0&u\\v&0\end{bmatrix}.
+\]
+Then \(\tr(A)=0\), and
+\[
+AJ=
+\begin{bmatrix}u&u\\v&v\end{bmatrix}=M.
+\]
+Hence
+\[
+T(A)=M.
+\]
+So every element of \(U\) lies in \(\Range(T)\), and therefore
+\[
+\Range(T)=U.
+\]
+Since
+\[
+U=\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\]
+we get
+\[
+\boxed{
+\Range(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\qquad
+\Rank(T)=2.}
+\]
+
+Next, \(T(A)=0\) if and only if
+\[
+AJ=\tr(A)J.
+\]
+Write
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}.
+\]
+Then
+\[
+AJ=
+\begin{bmatrix}
+a+b&a+b\\
+c+d&c+d
+\end{bmatrix},
+\qquad
+\tr(A)J=
+\begin{bmatrix}
+a+d&a+d\\
+a+d&a+d
+\end{bmatrix}.
+\]
+Equality of these matrices is equivalent to
+\[
+a+b=a+d,
+\qquad
+c+d=a+d.
+\]
+Hence
+\[
+b=d,
+\qquad
+c=a.
+\]
+Therefore
+\[
+\Null(T)=
+\left\{
+\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\R
+\right\}
+=S.
+\]
+Thus
+\[
+\boxed{
+\Null(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\},
+\qquad
+\Nullity(T)=2.}
+\]
+
+For linearity, the map \(A\mapsto AJ\) is linear and the map \(A\mapsto \tr(A)J\) is linear, so \(T\in\cL(\R^{2,2})\).
+
+For the standard matrix representation, since
+\[
+T(E_{11})=
+\begin{bmatrix}0&0\\-1&-1\end{bmatrix},
+\quad
+T(E_{12})=
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\quad
+T(E_{21})=
+\begin{bmatrix}0&0\\1&1\end{bmatrix},
+\quad
+T(E_{22})=
+\begin{bmatrix}-1&-1\\0&0\end{bmatrix},
+\]
+their coordinate columns relative to \((E_{11},E_{12},E_{21},E_{22})\) are
+\[
+\begin{bmatrix}0\\0\\-1\\-1\end{bmatrix},
+\quad
+\begin{bmatrix}1\\1\\0\\0\end{bmatrix},
+\quad
+\begin{bmatrix}0\\0\\1\\1\end{bmatrix},
+\quad
+\begin{bmatrix}-1\\-1\\0\\0\end{bmatrix},
+\]
+so
+\[
+\boxed{
+[T]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.}
+\]
+
+Finally, since
+\[
+J=\begin{bmatrix}1&1\\1&1\end{bmatrix}\in U\cap S
+\]
+and \(J\neq 0\), we have
+\[
+\Null(T)\cap \Range(T)\neq \{0\},
+\]
+so
+\[
+\boxed{\R^{2,2}\neq \Null(T)\oplus \Range(T).}
+\]
+
+\subsubsection{Method 3: Standard matrix, then rank--nullity}
+We again write
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}.
+\]
+As in Method 1,
+\[
+T(A)=
+\begin{bmatrix}
+b-d&b-d\\
+c-a&c-a
+\end{bmatrix}.
+\]
+Hence relative to the standard ordered basis \((E_{11},E_{12},E_{21},E_{22})\),
+\[
+[A]=\begin{bmatrix}a\\b\\c\\d\end{bmatrix},
+\qquad
+[T(A)]=\begin{bmatrix}b-d\\b-d\\c-a\\c-a\end{bmatrix},
+\]
+so
+\[
+[T]=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item Since matrix multiplication by \([T]\) defines a linear map on coordinate vectors, \(T\) is linear. Hence
+\[
+T\in\cL(\R^{2,2}).
+\]
+
+\item The standard matrix representation is
+\[
+\boxed{
+[T]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.}
+\]
+
+\item Row-reducing \([T]\),
+\[
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}
+\sim
+\begin{bmatrix}
+0&1&0&-1\\
+-1&0&1&0\\
+0&0&0&0\\
+0&0&0&0
+\end{bmatrix},
+\]
+so
+\[
+\rank([T])=2.
+\]
+Hence
+\[
+\Rank(T)=2.
+\]
+A basis for the column space of \([T]\) is given by the first and second columns of the original matrix:
+\[
+\begin{bmatrix}0\\0\\-1\\-1\end{bmatrix},
+\qquad
+\begin{bmatrix}1\\1\\0\\0\end{bmatrix}.
+\]
+Translating back to matrices gives the basis
+\[
+\begin{bmatrix}0&0\\-1&-1\end{bmatrix},
+\qquad
+\begin{bmatrix}1&1\\0&0\end{bmatrix}.
+\]
+Equivalently, one may use the basis
+\[
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\qquad
+\begin{bmatrix}0&0\\1&1\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+\Range(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\qquad
+\Rank(T)=2.}
+\]
+
+\item By the Rank--Nullity Theorem,
+\[
+\dim(\R^{2,2})=\Rank(T)+\Nullity(T).
+\]
+Since \(\dim(\R^{2,2})=4\) and \(\Rank(T)=2\), we obtain
+\[
+\Nullity(T)=2.
+\]
+To determine the null space explicitly, solve
+\[
+[T]\begin{bmatrix}a\\b\\c\\d\end{bmatrix}=0.
+\]
+This gives
+\[
+b-d=0,
+\qquad
+c-a=0.
+\]
+So
+\[
+d=b,\qquad c=a,
+\]
+and hence
+\[
+\Null(T)=
+\left\{
+\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\R
+\right\}
+=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\}.
+\]
+Therefore
+\[
+\boxed{
+\Null(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\},
+\qquad
+\Nullity(T)=2.}
+\]
+
+\item Since
+\[
+J=\begin{bmatrix}1&1\\1&1\end{bmatrix}
+\]
+belongs to both \(\Range(T)\) and \(\Null(T)\), the intersection is nontrivial. Hence
+\[
+\boxed{\R^{2,2}\neq \Null(T)\oplus \Range(T).}
+\]
+\end{enumerate}
+
+\subsubsection{Method 4: Factorization \(T(A)=x(A)\,[1\ 1]\)}
+Let
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}.
+\]
+From direct multiplication,
+\[
+T(A)=
+\begin{bmatrix}
+b-d&b-d\\
+c-a&c-a
+\end{bmatrix}.
+\]
+Therefore
+\[
+T(A)=
+\begin{bmatrix}
+b-d\\
+c-a
+\end{bmatrix}
+\begin{bmatrix}1&1\end{bmatrix}.
+\]
+Set
+\[
+x(A)\coloneqq
+\begin{bmatrix}
+b-d\\
+c-a
+\end{bmatrix}\in \R^2.
+\]
+Then
+\[
+T(A)=x(A)\begin{bmatrix}1&1\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item The map \(A\mapsto x(A)\) is linear in the entries of \(A\), and the map
+\[
+x\mapsto x\begin{bmatrix}1&1\end{bmatrix}
+\]
+from \(\R^2\) to \(\R^{2,2}\) is linear. Hence \(T\) is linear, so
+\[
+T\in\cL(\R^{2,2}).
+\]
+
+\item Relative to the standard basis \((E_{11},E_{12},E_{21},E_{22})\),
+\[
+[A]=\begin{bmatrix}a\\b\\c\\d\end{bmatrix},
+\qquad
+[T(A)]=\begin{bmatrix}b-d\\b-d\\c-a\\c-a\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+[T]_{(E_{11},E_{12},E_{21},E_{22})}
+=
+\begin{bmatrix}
+0&1&0&-1\\
+0&1&0&-1\\
+-1&0&1&0\\
+-1&0&1&0
+\end{bmatrix}.}
+\]
+
+\item Since every image has the form
+\[
+x\begin{bmatrix}1&1\end{bmatrix}
+=
+\begin{bmatrix}u\\v\end{bmatrix}\begin{bmatrix}1&1\end{bmatrix}
+=
+\begin{bmatrix}u&u\\v&v\end{bmatrix},
+\]
+we have
+\[
+\Range(T)=
+\left\{
+\begin{bmatrix}u&u\\v&v\end{bmatrix}:u,v\in\R
+\right\}.
+\]
+Hence
+\[
+\Range(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\]
+so
+\[
+\boxed{
+\Range(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&1\\0&0\end{bmatrix},
+\begin{bmatrix}0&0\\1&1\end{bmatrix}
+\right\},
+\qquad
+\Rank(T)=2.}
+\]
+
+\item We have
+\[
+T(A)=0
+\iff
+x(A)=0
+\iff
+\begin{bmatrix}
+b-d\\
+c-a
+\end{bmatrix}
+=
+\begin{bmatrix}0\\0\end{bmatrix}.
+\]
+Thus
+\[
+b=d,\qquad c=a.
+\]
+So
+\[
+\Null(T)=
+\left\{
+\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\R
+\right\}
+=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\}.
+\]
+Therefore
+\[
+\boxed{
+\Null(T)=
+\operatorname{span}\left\{
+\begin{bmatrix}1&0\\1&0\end{bmatrix},
+\begin{bmatrix}0&1\\0&1\end{bmatrix}
+\right\},
+\qquad
+\Nullity(T)=2.}
+\]
+
+\item Again
+\[
+J=\begin{bmatrix}1&1\\1&1\end{bmatrix}
+\]
+belongs to both \(\Range(T)\) and \(\Null(T)\), so
+\[
+\Null(T)\cap \Range(T)\neq \{0\}.
+\]
+Hence
+\[
+\boxed{\R^{2,2}\neq \Null(T)\oplus \Range(T).}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Polynomial degree identities and a substitution map)}
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+\item Let \(P,Q\in \cP(\F)\setminus\{0\}\) be nonzero polynomials.
+Prove:
+\begin{enumerate}[label=(\roman*)]
+\item \(\deg(PQ)=\deg(P)+\deg(Q)\).
+\item \(\deg(P(Q))=\deg(P)\cdot \deg(Q)\), where \(P(Q)\) is obtained by replacing each occurrence of \(X\) in \(P\) by \(Q\).
+\end{enumerate}
+\item Let \(n\in\mathbb{N}\) and \(Q\in\cP(\F)\). Define
+\[
+T:\cP_n(\F)\to \cP_{n\cdot \deg(Q)}(\F),\qquad T(P)\coloneqq P(Q).
+\]
+Show that \(T\in \cL\bigl(\cP_n(\F),\cP_{n\cdot\deg(Q)}(\F)\bigr)\).
+\end{enumerate}
+
+\subsection{Remark}
+The statement in part (a)(ii) requires \(Q\) to be nonconstant. Indeed, if \(Q\) is constant, then \(P(Q)\) may be the zero polynomial; for example,
+\[
+P(X)=X-1,\qquad Q(X)=1,
+\]
+gives \(P(Q)=0\). Thus the correct general statement is
+\[
+\deg(P(Q))\le \deg(P)\deg(Q),
+\]
+with equality when \(\deg(Q)\ge 1\).
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Leading term / leading coefficient argument}
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+\deg(P)=m,\qquad \deg(Q)=k,
+\]
+and write
+\[
+P(X)=a_mX^m+a_{m-1}X^{m-1}+\cdots+a_0,\qquad a_m\neq 0,
+\]
+\[
+Q(X)=b_kX^k+b_{k-1}X^{k-1}+\cdots+b_0,\qquad b_k\neq 0.
+\]
+
+\begin{enumerate}[label=(\roman*)]
+\item The highest-degree term of \(PQ\) is
+\[
+(a_mX^m)(b_kX^k)=a_mb_kX^{m+k}.
+\]
+Since \(\F\) is a field, \(a_mb_k\neq 0\). Hence the coefficient of \(X^{m+k}\) in \(PQ\) is nonzero, and no term of higher degree occurs. Therefore
+\[
+\boxed{\deg(PQ)=m+k=\deg(P)+\deg(Q).}
+\]
+
+\item Assume now that \(Q\) is nonconstant, so \(k=\deg(Q)\ge 1\).
+
+We have
+\[
+P(Q)=a_mQ^m+a_{m-1}Q^{m-1}+\cdots+a_0.
+\]
+By part (i),
+\[
+\deg(Q^m)=m\deg(Q)=mk.
+\]
+Hence the term \(a_mQ^m\) has degree \(mk\), with leading coefficient \(a_m(b_k)^m\neq 0\).
+
+For each \(i<m\),
+\[
+\deg(Q^i)=ik<mk.
+\]
+Thus every other summand has degree strictly less than \(mk\), so no cancellation can remove the leading term of \(a_mQ^m\). Therefore
+\[
+\boxed{\deg(P(Q))=mk=\deg(P)\deg(Q).}
+\]
+\end{enumerate}
+
+\item We show that
+\[
+T:\cP_n(\F)\to \cP_{n\deg(Q)}(\F),\qquad T(P)=P(Q),
+\]
+is linear.
+
+Let \(P_1,P_2\in \cP_n(\F)\) and \(c\in\F\). Then
+\[
+T(P_1+P_2)=(P_1+P_2)(Q)=P_1(Q)+P_2(Q)=T(P_1)+T(P_2),
+\]
+and
+\[
+T(cP_1)=(cP_1)(Q)=c\,P_1(Q)=c\,T(P_1).
+\]
+So \(T\) is linear.
+
+It remains to check that \(T(P)\in \cP_{n\deg(Q)}(\F)\) for every \(P\in \cP_n(\F)\). If \(P=0\), this is clear. If \(P\neq 0\), then
+\[
+\deg(P)\le n.
+\]
+If \(Q\) is nonconstant, then by part (a)(ii),
+\[
+\deg(P(Q))=\deg(P)\deg(Q)\le n\deg(Q).
+\]
+If \(Q\) is constant, then \(P(Q)\) is constant, hence has degree at most \(0=n\deg(Q)\). Therefore \(T(P)\in \cP_{n\deg(Q)}(\F)\).
+
+Thus
+\[
+\boxed{T\in \cL\bigl(\cP_n(\F),\cP_{n\deg(Q)}(\F)\bigr).}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Substitution as an \(\F\)-algebra homomorphism}
+\begin{enumerate}[label=(\alph*)]
+\item Define
+\[
+\Phi_Q:\F[X]\to\F[X],\qquad \Phi_Q(P)=P(Q).
+\]
+Then \(\Phi_Q\) is an \(\F\)-algebra homomorphism: for all \(P_1,P_2\in\F[X]\) and \(c\in\F\),
+\[
+\Phi_Q(P_1+P_2)=P_1(Q)+P_2(Q)=\Phi_Q(P_1)+\Phi_Q(P_2),
+\]
+\[
+\Phi_Q(cP_1)=cP_1(Q)=c\,\Phi_Q(P_1),
+\]
+and
+\[
+\Phi_Q(P_1P_2)=(P_1P_2)(Q)=P_1(Q)P_2(Q)=\Phi_Q(P_1)\Phi_Q(P_2).
+\]
+
+\begin{enumerate}[label=(\roman*)]
+\item Since \(\F[X]\) is an integral domain, the degree of a product of two nonzero polynomials adds:
+\[
+\boxed{\deg(PQ)=\deg(P)+\deg(Q).}
+\]
+
+\item Assume \(Q\) is nonconstant. Let \(\deg(P)=m\). Write
+\[
+P(X)=a_mX^m+\cdots+a_0,\qquad a_m\neq 0.
+\]
+Applying \(\Phi_Q\),
+\[
+P(Q)=a_mQ^m+\cdots+a_0.
+\]
+Now \(\deg(Q^m)=m\deg(Q)\) by repeated application of part (i), and for every \(i<m\),
+\[
+\deg(Q^i)=i\deg(Q)<m\deg(Q).
+\]
+Hence the term \(a_mQ^m\) uniquely contributes the highest degree, so
+\[
+\boxed{\deg(P(Q))=\deg(P)\deg(Q).}
+\]
+\end{enumerate}
+
+\item Since \(\Phi_Q\) is linear on \(\F[X]\), its restriction to the subspace \(\cP_n(\F)\) is also linear.
+
+It remains to check the codomain. If \(P\in \cP_n(\F)\), then \(\deg(P)\le n\). Therefore:
+\begin{itemize}[leftmargin=*]
+\item if \(Q\) is nonconstant, then
+\[
+\deg(P(Q))\le n\deg(Q);
+\]
+\item if \(Q\) is constant, then \(P(Q)\) is constant, so again
+\[
+\deg(P(Q))\le 0=n\deg(Q).
+\]
+\end{itemize}
+Hence
+\[
+\Phi_Q(\cP_n(\F))\subseteq \cP_{n\deg(Q)}(\F).
+\]
+Therefore
+\[
+T=\Phi_Q|_{\cP_n(\F)}\in \cL\bigl(\cP_n(\F),\cP_{n\deg(Q)}(\F)\bigr).
+\]
+
+Thus
+\[
+\boxed{T\in \cL\bigl(\cP_n(\F),\cP_{n\deg(Q)}(\F)\bigr).}
+\]
+\end{enumerate}
+
+\subsubsection{Method 3: Basis and degree-filtration viewpoint}
+\begin{enumerate}[label=(\alph*)]
+\item Let \(\deg(P)=m\) and \(\deg(Q)=k\).
+
+\begin{enumerate}[label=(\roman*)]
+\item Write
+\[
+P(X)=a_mX^m+\cdots+a_0,\qquad
+Q(X)=b_kX^k+\cdots+b_0
+\]
+with \(a_m,b_k\neq 0\). Then
+\[
+PQ=a_mb_kX^{m+k}+\text{(lower-degree terms)}.
+\]
+Since \(a_mb_k\neq 0\), we get
+\[
+\boxed{\deg(PQ)=m+k.}
+\]
+
+\item Assume \(Q\) is nonconstant. Express \(P\) in the basis \((1,X,\dots,X^m)\):
+\[
+P(X)=\sum_{i=0}^m a_iX^i,\qquad a_m\neq 0.
+\]
+Then
+\[
+P(Q)=\sum_{i=0}^m a_iQ^i.
+\]
+Since \(\deg(Q^i)=ik\), these summands have pairwise distinct degrees
+\[
+0,k,2k,\dots,mk.
+\]
+In particular, the term \(a_mQ^m\) has strictly larger degree than all the other terms, so it determines the degree of the sum.
+\[
+\boxed{\deg(P(Q))=mk=\deg(P)\deg(Q).}
+\]
+\end{enumerate}
+
+\item The space \(\cP_n(\F)\) has basis
+\[
+1,X,\dots,X^n.
+\]
+Define
+\[
+T(P)=P(Q).
+\]
+Then on basis elements,
+\[
+T(X^i)=Q^i\qquad (0\le i\le n).
+\]
+Hence \(T\) is linear by the theorem that a map defined on a basis extends uniquely to a linear map.
+
+Moreover, for each \(i\),
+\[
+\deg(Q^i)=i\deg(Q)\le n\deg(Q)
+\]
+when \(Q\) is nonconstant, while if \(Q\) is constant then each \(Q^i\) is constant. Therefore
+\[
+T(X^i)\in \cP_{n\deg(Q)}(\F)
+\qquad (0\le i\le n).
+\]
+So \(T\) indeed maps \(\cP_n(\F)\) into \(\cP_{n\deg(Q)}(\F)\). Therefore
+\[
+\boxed{T\in \cL\bigl(\cP_n(\F),\cP_{n\deg(Q)}(\F)\bigr).}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (A linear operator on \(\cP_2(\R)\) involving composition and differentiation)}
+\subsection{Problem}
+Define \(T\in \cL(\cP_2(\R))\) by
+\[
+\forall P\in\cP_2(\R):\qquad
+T(P)\coloneqq P(X+1)\;-\;\bigl(P(X^2)\bigr)^{\prime\prime}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Determine the standard matrix representation of \(T\) (with respect to the standard ordered basis \((1,X,X^2)\) of \(\cP_2(\R)\)).
+\item Determine whether or not \(T\) is bijective; if it is bijective, then find \(T^{-1}\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Compute \(T\) on the standard basis directly}
+We use the standard ordered basis
+\[
+(1,X,X^2)
+\]
+of \(\cP_2(\R)\).
+
+\begin{enumerate}[label=(\alph*)]
+\item We compute \(T\) on each basis vector.
+
+For \(1\),
+\[
+T(1)=1-\bigl(1\bigr)''=1.
+\]
+
+For \(X\),
+\[
+T(X)=(X+1)-\bigl(X^2\bigr)''
+=(X+1)-2
+=X-1.
+\]
+
+For \(X^2\),
+\[
+T(X^2)=(X+1)^2-\bigl(X^4\bigr)''
+=(X^2+2X+1)-12X^2
+=1+2X-11X^2.
+\]
+
+Hence the coordinate vectors relative to \((1,X,X^2)\) are
+\[
+[T(1)]_{(1,X,X^2)}=
+\begin{bmatrix}1\\0\\0\end{bmatrix},\qquad
+[T(X)]_{(1,X,X^2)}=
+\begin{bmatrix}-1\\1\\0\end{bmatrix},\qquad
+[T(X^2)]_{(1,X,X^2)}=
+\begin{bmatrix}1\\2\\-11\end{bmatrix}.
+\]
+Therefore the standard matrix representation of \(T\) is
+\[
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 &  1 & 2\\
+0 &  0 & -11
+\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 &  1 & 2\\
+0 &  0 & -11
+\end{bmatrix}.}
+\]
+
+\item Since \([T]_{(1,X,X^2)}\) is upper triangular, its determinant is the product of its diagonal entries:
+\[
+\det\bigl([T]_{(1,X,X^2)}\bigr)=1\cdot 1\cdot (-11)=-11\neq 0.
+\]
+Hence \([T]_{(1,X,X^2)}\) is invertible, so \(T\) is bijective.
+
+To determine \(T^{-1}\), let
+\[
+Q(X)=\alpha+\beta X+\gamma X^2\in\cP_2(\R),
+\]
+and seek
+\[
+P(X)=a+bX+cX^2\in\cP_2(\R)
+\]
+such that
+\[
+T(P)=Q.
+\]
+
+Using the values of \(T(1),T(X),T(X^2)\), we have
+\[
+T(a+bX+cX^2)
+=
+a\,T(1)+b\,T(X)+c\,T(X^2).
+\]
+Thus
+\begin{align*}
+T(P)
+&=a(1)+b(X-1)+c(1+2X-11X^2)\\
+&=(a-b+c)+(b+2c)X-11cX^2.
+\end{align*}
+Matching coefficients with
+\[
+Q(X)=\alpha+\beta X+\gamma X^2
+\]
+gives
+\[
+a-b+c=\alpha,\qquad
+b+2c=\beta,\qquad
+-11c=\gamma.
+\]
+We solve from the last equation upward:
+\[
+c=-\frac{\gamma}{11},
+\]
+\[
+b=\beta-2c=\beta+\frac{2\gamma}{11},
+\]
+\[
+a=\alpha+b-c
+=\alpha+\beta+\frac{3\gamma}{11}.
+\]
+Therefore
+\[
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.
+\]
+Hence
+\[
+\boxed{
+T \text{ is bijective, and }
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Coefficient chasing on a general quadratic}
+Let
+\[
+P(X)=a+bX+cX^2\in\cP_2(\R).
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item We first compute \(T(P)\).
+
+Since
+\begin{align*}
+P(X+1)
+&=a+b(X+1)+c(X+1)^2\\
+&=a+bX+b+c(X^2+2X+1)\\
+&=(a+b+c)+(b+2c)X+cX^2,
+\end{align*}
+and
+\[
+P(X^2)=a+bX^2+cX^4,
+\]
+we get
+\[
+\bigl(P(X^2)\bigr)'=2bX+4cX^3,
+\qquad
+\bigl(P(X^2)\bigr)''=2b+12cX^2.
+\]
+Therefore
+\begin{align*}
+T(P)
+&=P(X+1)-\bigl(P(X^2)\bigr)''\\
+&=\bigl((a+b+c)+(b+2c)X+cX^2\bigr)-\bigl(2b+12cX^2\bigr)\\
+&=(a-b+c)+(b+2c)X-11cX^2.
+\end{align*}
+
+Thus relative to the standard basis \((1,X,X^2)\),
+\[
+[T(P)]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+a-b+c\\
+b+2c\\
+-11c
+\end{bmatrix}.
+\]
+Hence
+\[
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 & 1 & 2\\
+0 & 0 & -11
+\end{bmatrix},
+\]
+since
+\[
+\begin{bmatrix}
+a-b+c\\
+b+2c\\
+-11c
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 & 1 & 2\\
+0 & 0 & -11
+\end{bmatrix}
+\begin{bmatrix}
+a\\b\\c
+\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 & 1 & 2\\
+0 & 0 & -11
+\end{bmatrix}.}
+\]
+\newpage
+\item Since the standard matrix is upper triangular with nonzero diagonal entries \(1,1,-11\), we have
+\[
+\det\bigl([T]_{(1,X,X^2)}\bigr)=-11\neq 0.
+\]
+Hence \(T\) is bijective.
+
+To compute \(T^{-1}\), let
+\[
+Q(X)=\alpha+\beta X+\gamma X^2.
+\]
+We solve
+\[
+T(a+bX+cX^2)=Q(X).
+\]
+Using
+\[
+T(a+bX+cX^2)=(a-b+c)+(b+2c)X-11cX^2,
+\]
+we obtain
+\[
+a-b+c=\alpha,\qquad
+b+2c=\beta,\qquad
+-11c=\gamma.
+\]
+Thus
+\[
+c=-\frac{\gamma}{11},\qquad
+b=\beta+\frac{2\gamma}{11},\qquad
+a=\alpha+\beta+\frac{3\gamma}{11}.
+\]
+So
+\[
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.
+\]
+Hence
+\[
+\boxed{
+T \text{ is bijective, and }
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Triangular operator viewpoint + back-substitution}
+We use the ordered basis
+\[
+(1,X,X^2)
+\]
+and the theorem that if a linear operator has an upper triangular matrix with respect to some basis, then its diagonal entries are the coefficients of the highest-degree basis vectors in the images of those basis vectors.
+
+\begin{enumerate}[label=(\alph*)]
+\item We first determine the leading-term behaviour of \(T\) on the basis vectors.
+
+For \(1\),
+\[
+T(1)=1,
+\]
+so the coefficient of the basis vector \(1\) is \(1\).
+
+For \(X\),
+\[
+T(X)=(X+1)-\bigl(X^2\bigr)''=X-1,
+\]
+so the coefficient of the basis vector \(X\) is \(1\), and only lower-degree terms are added.
+
+For \(X^2\),
+\[
+T(X^2)=(X+1)^2-\bigl(X^4\bigr)''
+=(X^2+2X+1)-12X^2
+=1+2X-11X^2,
+\]
+so the coefficient of the basis vector \(X^2\) is \(-11\), and only lower-degree terms are added.
+
+Hence the matrix of \(T\) relative to \((1,X,X^2)\) is upper triangular with diagonal entries
+\[
+1,\ 1,\ -11.
+\]
+To determine the full matrix, we record the exact images:
+\[
+T(1)=1,\qquad
+T(X)=X-1,\qquad
+T(X^2)=1+2X-11X^2.
+\]
+Therefore
+\[
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 & 1 & 2\\
+0 & 0 & -11
+\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+[T]_{(1,X,X^2)}
+=
+\begin{bmatrix}
+1 & -1 & 1\\
+0 & 1 & 2\\
+0 & 0 & -11
+\end{bmatrix}.}
+\]
+\newpage
+\item Since \(T\) has an upper triangular matrix with diagonal entries \(1,1,-11\), all of which are nonzero, the matrix is invertible. Hence \(T\) is bijective.
+
+To determine \(T^{-1}\), let
+\[
+Q(X)=\alpha+\beta X+\gamma X^2
+\]
+and seek
+\[
+P(X)=a+bX+cX^2
+\]
+such that
+\[
+T(P)=Q.
+\]
+Using the basis images,
+\[
+T(P)=a\,T(1)+b\,T(X)+c\,T(X^2),
+\]
+so
+\[
+T(P)=a(1)+b(X-1)+c(1+2X-11X^2).
+\]
+Hence
+\[
+T(P)=(a-b+c)+(b+2c)X-11cX^2.
+\]
+
+Because the matrix is triangular, we solve by back-substitution, starting from the highest-degree coefficient.
+
+Matching the \(X^2\)-coefficient:
+\[
+-11c=\gamma
+\quad\Longrightarrow\quad
+c=-\frac{\gamma}{11}.
+\]
+
+Matching the \(X\)-coefficient:
+\[
+b+2c=\beta
+\quad\Longrightarrow\quad
+b=\beta-2c=\beta+\frac{2\gamma}{11}.
+\]
+
+Matching the constant term:
+\[
+a-b+c=\alpha
+\quad\Longrightarrow\quad
+a=\alpha+b-c=\alpha+\beta+\frac{3\gamma}{11}.
+\]
+
+Therefore
+\[
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.
+\]
+Hence
+\[
+\boxed{
+T \text{ is bijective, and }
+T^{-1}(\alpha+\beta X+\gamma X^2)
+=
+\left(\alpha+\beta+\frac{3\gamma}{11}\right)
++
+\left(\beta+\frac{2\gamma}{11}\right)X
+-
+\frac{\gamma}{11}X^2.}
+\]
+\end{enumerate}
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Question 6 (Injectivity/surjectivity under composition)}
+\subsection{Problem}
+Let $U,V,W$ be vector spaces over the same field.
+Let $S\in\cL(U,V)$ and $T\in\cL(V,W)$.
+Establish:
+\begin{enumerate}[label=(\arabic*)]
+\item If $T\circ S$ is injective, then $S$ is injective.
+\item If $T\circ S$ is surjective onto $W$, then $T$ is surjective onto $W$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Directly from definitions (kernels and images)}
+\begin{enumerate}[label=(\arabic*)]
+\item Assume $T\circ S$ is injective. To prove $S$ is injective, let $u_1,u_2\in U$ and assume $S(u_1)=S(u_2)$.
+Apply $T$ to both sides:
+\[
+(T\circ S)(u_1)=T(S(u_1))=T(S(u_2))=(T\circ S)(u_2).
+\]
+Since $T\circ S$ is injective, $u_1=u_2$. Hence $S$ is injective.
+
+Equivalently, $\ker(S)\subseteq \ker(T\circ S)$, and if $\ker(T\circ S)=\{0\}$ then $\ker(S)=\{0\}$.
+
+\[
+\boxed{\,T\circ S\text{ injective } \Rightarrow S\text{ injective.}\,}
+\]
+
+\item Assume $T\circ S$ is surjective onto $W$. Let $w\in W$ be arbitrary.
+Since $T\circ S$ is surjective, there exists $u\in U$ such that
+\[
+(T\circ S)(u)=T(S(u))=w.
+\]
+Let $v=S(u)\in V$. Then $T(v)=w$. Since $w$ was arbitrary, $T$ is surjective onto $W$.
+
+Equivalently, $\Range(T\circ S)\subseteq \Range(T)$, and if $\Range(T\circ S)=W$ then $\Range(T)=W$.
+
+\[
+\boxed{\,T\circ S\text{ surjective onto }W \Rightarrow T\text{ surjective onto }W.\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Contrapositives (construct a failure of the composition)}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Contrapositive:} If $S$ is not injective, then $T\circ S$ is not injective.
+
+If $S$ is not injective, there exist $u_1\neq u_2$ such that $S(u_1)=S(u_2)$.
+Then
+\[
+(T\circ S)(u_1)=T(S(u_1))=T(S(u_2))=(T\circ S)(u_2),
+\]
+so $T\circ S$ is not injective. This proves the original statement.
+
+\item \textbf{Contrapositive:} If $T$ is not surjective onto $W$, then $T\circ S$ is not surjective onto $W$.
+
+If $T$ is not surjective, then $\Range(T)\subsetneq W$.
+But $\Range(T\circ S)\subseteq \Range(T)$ always (since outputs of $T\circ S$ are outputs of $T$),
+so $\Range(T\circ S)\subsetneq W$ as well. Hence $T\circ S$ is not surjective.
+\end{enumerate}
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Question 7 (Are the converses true?)}
+\subsection{Problem}
+Let $U,V,W$ be vector spaces over the same field.
+Let $S\in\cL(U,V)$ and $T\in\cL(V,W)$.
+\begin{enumerate}[label=(\alph*)]
+\item If $T\circ S$ is injective, is $T$ necessarily injective?
+\item If $T\circ S$ is surjective onto $W$, is $S$ necessarily surjective onto $V$?
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Explicit counterexamples (sharp ``no'' for both)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{No.} Take $U=\R$, $V=\R^2$, $W=\R$. Define
+\[
+S:\R\to\R^2,\quad S(t)=(t,0),
+\qquad
+T:\R^2\to\R,\quad T(x,y)=x.
+\]
+Then $S$ is injective. The composition is
+\[
+(T\circ S)(t)=T(t,0)=t,
+\]
+which is injective. However, $T$ is \emph{not} injective because $T(0,1)=0=T(0,0)$ while $(0,1)\neq(0,0)$.
+So $T\circ S$ injective does \emph{not} force $T$ injective.
+
+\[
+\boxed{\,\text{(a) No.}\,}
+\]
+
+\item \textbf{No.} Take $U=\R$, $V=\R^2$, $W=\R$. Define
+\[
+S:\R\to\R^2,\quad S(t)=(t,0),
+\qquad
+T:\R^2\to\R,\quad T(x,y)=x+y.
+\]
+Then $T$ is surjective (e.g.\ $T(w,0)=w$ for any $w\in\R$). The composition is
+\[
+(T\circ S)(t)=T(t,0)=t,
+\]
+which is surjective onto $\R$. But $S$ is \emph{not} surjective onto $\R^2$ because no $t$ satisfies $S(t)=(0,1)$.
+So surjectivity of $T\circ S$ does \emph{not} force $S$ surjective.
+
+\[
+\boxed{\,\text{(b) No.}\,}
+\]
+\end{enumerate}
+\newpage
+\subsubsection{Method 2: Conceptual explanation (why the converses fail)}
+\begin{enumerate}[label=(\alph*)]
+\item If $T$ has a nontrivial kernel, it can still happen that $S(U)$ avoids that kernel except at $0$.
+Then $T$ may fail to be injective on all of $V$, while $T$ restricted to $S(U)$ is injective, making $T\circ S$ injective.
+
+Formally, $T\circ S$ injective means: if $S(u)\in \ker(T)$ then $u=0$.
+This does \emph{not} imply $\ker(T)=\{0\}$; it only implies
+\[
+S(U)\cap \ker(T)=\{0\}.
+\]
+
+\item If $S$ is not surjective, then $S(U)$ is a proper subspace (or subset) of $V$.
+It is still possible that $T$ maps $S(U)$ \emph{onto} $W$, i.e.\ $T(S(U))=W$, even though $S(U)\neq V$.
+Thus $T\circ S$ can be surjective without $S$ being surjective.
+
+Formally, $T\circ S$ surjective means $T(S(U))=W$, which does not imply $S(U)=V$.
+\end{enumerate}
+
+\[
+\boxed{\,\text{Neither converse holds in general.}\,}
+\]
+
+\end{document}

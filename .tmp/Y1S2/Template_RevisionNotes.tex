@@ -1,0 +1,782 @@
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{draftwatermark}
+
+%==================================================
+% COURSE METADATA (EDIT THESE FOR EACH MODULE)
+%==================================================
+\newcommand{\CourseCode}{QRS1001}
+\newcommand{\CourseName}{Sample Course}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \AcademicYear
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+% ---------- DEFINITION: dark green, title in darker band ----------
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+ breakable,
+ colback=green!5!white,        % light interior
+ colframe=green!40!black,      % border
+ colbacktitle=green!50!black,  % dark title band
+ coltitle=white,               % title text colour
+ fonttitle=\bfseries,
+ title filled,                 % puts title inside the band
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{def}
+
+% ---------- THEOREM: blue, title in darker band ----------
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+ breakable,
+ colback=blue!3!white,
+ colframe=blue!40!black,
+ colbacktitle=blue!55!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{thm}
+
+% ---------- ENVIRONMENTS USING TCOLORBOXENVIRONMENT ----------
+\tcolorboxenvironment{identity}{
+  enhanced,
+  breakable,
+  colback=green!5!white,
+  colframe=green!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+\tcolorboxenvironment{principle}{
+  enhanced,
+  breakable,
+  colback=red!5!white,
+  colframe=red!60!black,
+  fonttitle=\bfseries,
+  boxrule=1pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=8pt, bottom=8pt,
+  before skip=12pt, after skip=12pt
+}
+
+%==================================================
+% CUSTOM TCOLORBOX ENVIRONMENTS (WITH NAMES)
+%==================================================
+% Optional argument [1][] lets you override the default title if needed:
+%   \begin{keyformula}[title={Key Formula: Demand Curve}] ... \end{keyformula}
+
+\newtcolorbox{keyformula}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Key Formula,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+% *** CHANGED TO BROWN AS REQUESTED ***
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    breakable,
+    colback=brown!5!white,
+    colframe=brown!75!black,
+    title=Worked Example,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+    enhanced,
+    breakable,
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Common Mistake,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{policynote}[1][]{
+    enhanced,
+    breakable,
+    colback=yellow!10!white,
+    colframe=orange!75!black,
+    title=Policy Application,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examtip}[1][]{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    title=Exam Focus,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+%==================================================
+% HEADER / FOOTER / WATERMARK
+%==================================================
+
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Watermark
+\SetWatermarkText{QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+ This document is provided for educational purposes and does not constitute an 
+ official question paper, answer key, or any formally authorised academic 
+ material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- HYPERREF METADATA -------------
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+    pdfauthor={Quantitative Research Society, NTU},
+    pdfsubject={\CourseName},
+    pdfkeywords={microeconomics, QRS@NTU, revision notes}
+}
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+Comprehensive revision notes for \CourseCode\ \CourseName, integrating theoretical concepts, key formulas, worked examples, and exam-focused applications.
+\end{abstract}
+
+\vspace{0.5cm}
+\tableofcontents
+\newpage
+
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10.5pt}{11.5pt}\selectfont
+\pagestyle{main}
+
+%====================================================================
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%====================================================================
+
+\subsection*{Structure of the Notes}
+
+These notes are designed to be used together with your lectures and tutorials. Each chapter is organised into:
+
+\begin{enumerate}
+    \item \textbf{Core Theory} — formal definitions, results and economic intuition.
+    \item \textbf{Mathematical Framework} — formulas, algebra and derivations.
+    \item \textbf{Worked Examples} — tutorial-style questions with full solutions.
+    \item \textbf{Applications} — policy or real-world interpretations where relevant.
+    \item \textbf{Exam Focus} — high-yield concepts, typical traps and checklist items.
+\end{enumerate}
+
+A good way to revise:
+\begin{itemize}
+    \item First pass: read Core Theory + Key Formula boxes.
+    \item Second pass: attempt Worked Examples yourself \emph{before} checking solutions.
+    \item Final pass: review Exam Focus and Common Mistake boxes the week before the exam.
+\end{itemize}
+
+\subsection*{Colour and Box System (Legend)}
+
+The document uses a colour-coded system. Each box has a \textbf{name} at the top so you can quickly recognise its purpose:
+
+\begin{center}
+\begin{tabular}{|l|l|p{7cm}|}
+\hline
+\textbf{Colour} & \textbf{Box Name} & \textbf{Use This For} \\
+\hline
+\colorbox{blue!5}{Blue}   & \textbf{Key Formula}      & Core equations and identities that you should memorise or be able to derive quickly. \\
+\hline
+\colorbox{brown!5}{Brown} & \textbf{Worked Example}   & Fully worked questions. Try on your own before reading the solution. \\
+\hline
+\colorbox{red!5}{Red}     & \textbf{Common Mistake}   & Typical errors, misleading shortcuts and conceptual traps to avoid in exams. \\
+\hline
+\colorbox{yellow!10}{Yellow} & \textbf{Policy Application} & Real-world or policy-related interpretations to help build intuition and essay points. \\
+\hline
+\colorbox{purple!5}{Purple} & \textbf{Exam Focus}      & High-yield checklists, ``must-know'' results and exam strategy tips. \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+When you print in black and white, you can still identify boxes by their \textbf{title text}:
+\begin{itemize}
+    \item Look for the name at the top: \textit{Key Formula}, \textit{Worked Example}, \textit{Common Mistake}, \textit{Policy Application}, \textit{Exam Focus}.
+    \item In digital version, use the colour + name; in printed version, rely mainly on the name.
+\end{itemize}
+
+\subsection*{Suggested Revision Flow}
+
+\begin{examtip}
+\begin{itemize}
+    \item Use the \textbf{Key Formula} boxes to build a one-page cheat sheet.
+    \item Re-do all \textbf{Worked Examples} at least once without looking at the solution.
+    \item Read \textbf{Common Mistake} boxes immediately before attempting past-year papers.
+    \item Use \textbf{Exam Focus} boxes as your final 1--2 day cram checklist.
+\end{itemize}
+\end{examtip}
+
+\newpage
+%==================================================
+\part{Sample Part Title}
+%==================================================
+
+\section{Sample Topic}
+
+This section shows how to use the different box environments in practice.
+
+\begin{definition}{Sample Definition}{sample-definition}
+A \emph{sample object} is anything you use here to test the formatting of this template. Replace this with your actual course content.
+\end{definition}
+
+\begin{theorem}{Sample Theorem}{sample-theorem}
+For every sample object in these notes, there exists at least one student who will replace it with real content.
+\end{theorem}
+
+\begin{keyformula}
+For a linear demand curve of the form
+\[
+Q = a - bP,
+\]
+the corresponding inverse demand and total revenue are
+\[
+P = \frac{a - Q}{b}, \qquad TR(Q) = P \cdot Q.
+\]
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example: Replace With Real Question}
+
+This is a placeholder example showing the brown \emph{Worked Example} box.
+
+\begin{enumerate}
+    \item State your question clearly.
+    \item Show all working step by step.
+    \item Box your final numerical or algebraic answer.
+\end{enumerate}
+\end{examplebox}
+
+\begin{commonmistake}
+Students often skip intermediate algebra steps because they ``can do it in their head'' and then lose marks due to sign errors or missing terms. In exam conditions, write at least one clear intermediate line for each non-trivial step.
+\end{commonmistake}
+
+\begin{policynote}
+When you see a result in microeconomics, always ask: \emph{``What real-world policy or market does this apply to?''} Linking theory to context makes it easier to recall under pressure.
+\end{policynote}
+
+\begin{examtip}
+Before the exam, make a list of:
+\begin{itemize}
+    \item Top 10 formulas you must know.
+    \item 3--5 ``classic'' Common Mistakes you personally tend to make.
+    \item 1--2 favourite examples you can write quickly if an open-ended question appears.
+\end{itemize}
+\end{examtip}
+
+\section{Hamilton--Jacobi--Bellman (HJB) Equation}
+\label{sec:hjb}
+%==========================================================
+
+\subsection{Stochastic Control Setup}
+
+We consider a controlled diffusion process $(X_t)_{t\ge 0}$ satisfying
+\[
+  dX_t = b(X_t,u_t)\,dt + \sigma(X_t,u_t)\,dW_t,
+\]
+where
+\begin{itemize}
+  \item $X_t$ is the \textbf{state} (e.g.\ wealth, capital, portfolio value),
+  \item $u_t \in \mathcal{U}$ is the \textbf{control} (e.g.\ portfolio weight, consumption rate),
+  \item $W_t$ is a standard Brownian motion.
+\end{itemize}
+
+Given a control policy $(u_t)_{t\ge 0}$, define the discounted performance criterion
+\[
+  J^{u}(x) = \mathbb{E}_x\Bigg[\int_0^\infty e^{-\rho t} f(X_t,u_t)\,dt\Bigg],
+\]
+where $\rho>0$ is a discount rate and $f$ is the running reward (or utility) function.
+
+\begin{definition}{Value function}{hjb_value}
+For an initial state $x$, the \textbf{value function} is
+\[
+  V(x) := \sup_{u \in \mathcal{A}} J^{u}(x),
+\]
+where $\mathcal{A}$ is the set of admissible control policies. It represents
+the maximal expected discounted reward achievable from state $x$.
+\end{definition}
+
+\subsection{HJB Equation (Informal Statement)}
+
+\begin{theorem}{Hamilton--Jacobi--Bellman Equation (Informal)}{hjb_informal}
+Suppose the control problem above is well behaved and $V$ is sufficiently smooth.
+Then $V$ satisfies the \textbf{stationary HJB equation}
+\[
+  \rho V(x)
+  = \sup_{u\in\mathcal{U}}
+    \Big\{ f(x,u)
+          + V_x(x)\,b(x,u)
+          + \tfrac12 V_{xx}(x)\,\sigma^2(x,u)
+    \Big\},
+\]
+where $V_x$ and $V_{xx}$ denote the first and second derivatives of $V$.
+\end{theorem}
+
+\begin{keyformula}
+\textbf{Stationary HJB (1D, infinite horizon)}
+
+\[
+  \rho V(x)
+  = \sup_{u\in\mathcal{U}}
+    \left[
+      f(x,u)
+      + V_x(x)\,b(x,u)
+      + \frac{1}{2} V_{xx}(x)\,\sigma^2(x,u)
+    \right].
+\]
+
+\begin{itemize}
+  \item LHS: \(\rho V(x)\) = ``required return'' on value.
+  \item RHS: instantaneous payoff \(f\) + expected capital gain
+        via drift and diffusion.
+  \item Optimal control \(u^\ast(x)\) maximizes the bracket term pointwise in \(u\).
+\end{itemize}
+\end{keyformula}
+
+\begin{examtip}
+When writing down the HJB:
+\begin{enumerate}
+  \item Write the SDE for \(X_t\) clearly.
+  \item Define the objective functional \(J^{u}(x)\).
+  \item State the value function \(V(x)\).
+  \item Then write the HJB as
+        \(\rho V = \sup_{u}\{\text{running reward} + \text{generator of }X\text{ applied to }V\}\).
+\end{enumerate}
+Marks are usually given for the structure even if you do not solve the PDE.
+\end{examtip}
+
+\subsection{Simple Deterministic HJB Example}
+
+To see the mechanics without stochastic noise, consider a \emph{deterministic}
+control problem:
+\[
+  \dot{x}(t) = u(t), \qquad x(0) = x,
+\]
+with cost functional
+\[
+  J^{u}(x) = \int_0^\infty e^{-\rho t}
+  \left( -\tfrac12 u(t)^2 \right)\,dt,
+\]
+where $\rho>0$ and $u(t)\in\mathbb{R}$.
+
+Here,
+\[
+  f(x,u) = -\tfrac12 u^2, \qquad b(x,u)=u, \qquad \sigma \equiv 0.
+\]
+
+\begin{examplebox}
+\textbf{Deterministic LQ Control: HJB and Optimal Control}
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{HJB equation.}  
+  The HJB becomes
+  \[
+    \rho V(x)
+    = \sup_{u\in\mathbb{R}}
+      \left\{
+        -\tfrac12 u^2 + V_x(x)\,u
+      \right\}.
+  \]
+
+  \item \textbf{Optimize over \(u\).}  
+  For fixed \(x\), we maximize
+  \[
+    g(u) = -\tfrac12 u^2 + V_x(x)\,u.
+  \]
+  First-order condition:
+  \[
+    g'(u) = -u + V_x(x) = 0
+    \quad\Rightarrow\quad
+    u^\ast(x) = V_x(x).
+  \]
+  Second derivative \(g''(u)=-1<0\) confirms a maximum.
+
+  \item \textbf{Plug back into HJB.}  
+  Substitute \(u^\ast(x)\) into the HJB:
+  \[
+    \rho V(x)
+    = -\tfrac12 (V_x(x))^2 + V_x(x)\,V_x(x)
+    = \tfrac12 \bigl(V_x(x)\bigr)^2.
+  \]
+  So \(V\) must satisfy the first-order ODE
+  \[
+    \rho V(x) = \frac{1}{2}\bigl(V_x(x)\bigr)^2.
+  \]
+
+  \item \textbf{Takeaway.}  
+  Even in this simple example, the HJB:
+  \begin{itemize}
+    \item comes from \(\rho V = \sup_u\{f + V_x b\}\),
+    \item yields an optimal feedback control \(u^\ast(x)\),
+    \item and reduces the dynamic optimization problem to solving a nonlinear ODE for \(V\).
+  \end{itemize}
+\end{enumerate}
+\end{examplebox}
+
+\begin{commonmistake}
+In exam settings, a very common mistake is to forget the discount term
+\(\rho V(x)\) on the left-hand side, or to accidentally write
+\(\rho V'(x)\) instead of \(\rho V(x)\). Always check:
+\[
+\boxed{\text{LHS is } \rho V, \text{ not } \rho V'.}
+\]
+\end{commonmistake}
+
+
+
+%==========================================================
+% (You can continue with more sections for your actual course here.)
+%==========================================================
+%====================================================
+\appendix
+%====================================================
+
+\section{Examination Preparation Guide}
+
+\subsection{Overview of Practice Resources}
+
+The Quantitative Research Society has compiled a focused preparation pack for
+the HJB / stochastic control component of the course. The aim is to give you
+\emph{structured, exam-style} practice on all major skills:
+
+\begin{center}
+\begin{tabular}{l|c|c|p{5.5cm}}
+\toprule
+\textbf{Resource} & \textbf{Type} & \textbf{Length} & \textbf{Description} \\
+\midrule
+Problem Set A & Short questions & 15--20 Qs & Concept checks on dynamic programming, value functions, Bellman principle \\
+Problem Set B & Calculations & 10--15 Qs & HJB derivations, simple SDEs, generators, verification arguments \\
+Problem Set C & Applications & 8--10 Qs & Portfolio / consumption problems, deterministic control, LQ examples \\
+Mock Exam 1 & Full paper & 90--120 min & Mixed conceptual and computational; similar to a typical final exam section \\
+Mock Exam 2 & Full paper & 90--120 min & Slightly more theoretical; emphasises proofs and derivations of HJB \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Suggested Study Sequence}
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Read}: Section~\ref{sec:hjb} of these notes once quickly to see the “big picture”.
+  \item \textbf{Drill}: Work through Problem Sets A and B with solutions closed.
+  \item \textbf{Consolidate}: Attempt Problem Set C to connect formulas to economic/financial intuition.
+  \item \textbf{Simulate exam}: Sit Mock Exam 1 under timed conditions.
+  \item \textbf{Refine}: Review your mistakes; then sit Mock Exam 2 for final tuning.
+\end{enumerate}
+
+\begin{examtip}
+In many exams, the HJB part is \emph{high-yield but template-based}. You typically
+receive marks for:
+\begin{enumerate}[noitemsep]
+  \item Stating the control problem clearly (state, control, objective).
+  \item Writing down the correct HJB equation with all terms present.
+  \item Identifying the optimal control via a first-order condition or maximisation step.
+  \item Simplifying the resulting ODE/PDE and, where required, solving it.
+\end{enumerate}
+Even if you cannot solve the equation completely, a \emph{correct HJB setup}
+usually secures a substantial portion of the marks.
+\end{examtip}
+
+%====================================================
+
+%====================================================
+
+\begingroup
+\newgeometry{left=0.7in,right=0.7in,top=1in,bottom=1in}
+\fontsize{10pt}{11pt}\selectfont
+\section{Formula \& Key Results Reference}
+\begin{multicols}{2}
+
+%--------------------------------------------
+\subsection*{Dynamic Programming and Value Functions}
+%--------------------------------------------
+
+\noindent\textbf{Value function (infinite horizon, discounted):}
+\[
+V(x) = \sup_{u\in\mathcal{A}}
+\mathbb{E}_x\!\left[\int_0^\infty e^{-\rho t} f(X_t,u_t)\,dt\right].
+\]
+
+\noindent\textbf{Dynamic programming principle (informal):}
+\[
+V(x) = \sup_{u}
+\mathbb{E}_x\!\left[
+  \int_0^h e^{-\rho t} f(X_t,u_t)\,dt
+  + e^{-\rho h} V(X_h)
+\right]\!.
+\]
+
+\noindent\textbf{Bellman recursion (discrete time):}
+\[
+V(x) = \sup_{u\in U(x)} \Big\{
+  r(x,u) + \beta\,\mathbb{E}\big[V(X' ) \mid x,u\big]
+\Big\}.
+\]
+
+%--------------------------------------------
+\subsection*{Controlled SDE and Generator}
+%--------------------------------------------
+
+\noindent\textbf{Controlled SDE (1D):}
+\[
+dX_t = b(X_t,u_t)\,dt + \sigma(X_t,u_t)\,dW_t.
+\]
+
+\noindent\textbf{Generator of $(X_t)$ under control $u$:}
+\[
+\mathcal{L}^u \phi(x)
+= b(x,u)\,\phi_x(x)
++ \frac12 \sigma^2(x,u)\,\phi_{xx}(x).
+\]
+
+\noindent\textbf{Key identity for HJB:}
+\[
+\mathcal{L}^u V(x)
+= V_x(x)\,b(x,u)
++ \tfrac12 V_{xx}(x)\,\sigma^2(x,u).
+\]
+
+%--------------------------------------------
+\subsection*{HJB Equations}
+%--------------------------------------------
+
+\noindent\textbf{Stationary (infinite-horizon) HJB:}
+\[
+\rho V(x) =
+\sup_{u\in\mathcal{U}}
+\left\{
+  f(x,u) + \mathcal{L}^u V(x)
+\right\}.
+\]
+
+\noindent\textbf{Finite-horizon HJB (backward in $t$):}
+\[
+\begin{cases}
+V_t(t,x)
++ \displaystyle \sup_{u\in\mathcal{U}}
+\bigl\{
+  f(t,x,u) + \mathcal{L}^u V(t,x)
+\bigr\}
+= 0,\\[0.4em]
+V(T,x) = g(x) \quad \text{(terminal condition)}.
+\end{cases}
+\]
+
+\noindent\textbf{Deterministic control (no noise):}
+If $\dot{x} = b(x,u)$ and cost rate $f(x,u)$, then
+\[
+V_t(t,x)
++ \sup_{u}
+\bigl\{ f(x,u) + V_x(t,x)\,b(x,u)\bigr\}
+= 0.
+\]
+
+%--------------------------------------------
+\subsection*{It\^o’s Lemma (Scalar Version)}
+%--------------------------------------------
+
+\noindent If
+\[
+dX_t = \mu(t,X_t)\,dt + \sigma(t,X_t)\,dW_t,
+\]
+and $Y_t = \phi(t,X_t)$, then
+\[
+dY_t
+= \left(
+    \phi_t
+    + \mu\,\phi_x
+    + \tfrac12 \sigma^2\,\phi_{xx}
+  \right)\!dt
++ \sigma\,\phi_x\,dW_t.
+\]
+
+\noindent\textbf{Shortcut memory:}
+\[
+\boxed{
+d\phi = \phi_t\,dt + \phi_x\,dX + \tfrac12 \phi_{xx}\,(dX)^2
+}
+\]
+and for an SDE, $(dW_t)^2 = dt$, all higher powers vanish.
+
+%--------------------------------------------
+\subsection*{Verification Theorem (Very Informal)}
+%--------------------------------------------
+
+\noindent\textbf{Template:}
+\begin{itemize}[noitemsep,leftmargin=*]
+  \item Guess a smooth candidate $V$.
+  \item Check that $V$ satisfies the HJB equation.
+  \item Show that the control $u^\ast(x)$ that attains the supremum in the HJB
+        is admissible.
+  \item Conclude: $V$ is the true value function and $u^\ast$ is optimal.
+\end{itemize}
+
+\noindent\textbf{Sign check:} For a \emph{maximum} problem, the HJB uses
+\(\sup\); for a \emph{minimum} problem, replace \(\sup\) by \(\inf\) and
+reverse inequalities accordingly.
+
+%--------------------------------------------
+\subsection*{Deterministic LQ-Control (Memory Hook)}
+%--------------------------------------------
+
+\noindent System:
+\[
+\dot{x}(t) = a x(t) + b u(t),
+\quad
+J(u) = \int_0^\infty e^{-\rho t}
+\bigl( q x(t)^2 + r u(t)^2 \bigr)\,dt.
+\]
+
+\noindent Ansatz:
+\[
+V(x) = K x^2
+\quad\Rightarrow\quad
+u^\ast(x) = -\frac{b}{r} V_x(x) = -\frac{2Kb}{r} x.
+\]
+
+\noindent HJB reduces to an algebraic Riccati equation for $K$:
+\[
+\rho K x^2
+=
+q x^2 +
+(2Kx)(a x + b u^\ast)
++ r \bigl(u^\ast\bigr)^2.
+\]
+
+\noindent\textbf{Key idea:} Quadratic cost $\Rightarrow$ quadratic value function
+$\Rightarrow$ \emph{linear} optimal feedback rule.
+
+%--------------------------------------------
+\subsection*{Concept Checklist (Typical Exam Questions)}
+%--------------------------------------------
+
+\begin{itemize}[noitemsep,leftmargin=*]
+  \item Can you \textbf{state} the control problem precisely
+        (state, control, objective, horizon)?
+  \item Can you write down the \textbf{generator} $\mathcal{L}^u$ of a given SDE?
+  \item Can you derive the correct \textbf{HJB} (finite or infinite horizon)?
+  \item Can you find $u^\ast(x)$ by \textbf{maximizing the Hamiltonian} /
+        the inner bracket in the HJB?
+  \item Can you explain in words what HJB / Bellman principle means
+        (``optimal policy is myopic with respect to $V$'')?
+  \item In deterministic problems, can you connect HJB and the
+        \textbf{Pontryagin maximum principle} (same spirit, different language)?
+\end{itemize}
+
+\end{multicols}
+
+\restoregeometry
+\endgroup
+
+
+\end{document}

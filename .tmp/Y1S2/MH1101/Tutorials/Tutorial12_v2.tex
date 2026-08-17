@@ -1,0 +1,2306 @@
+% Source files: Tutorial 12.pdf ; MH5200_ProblemSheet2.txt (style reference)
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 12 (Week 13) -- Problems \& Solutions}
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\dd}{\,\mathrm{d}}
+
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on Taylor/Maclaurin series and power series techniques (Topics 6.3--6.5): constructing Taylor series around nonzero centres, identifying radii of convergence, proving a Taylor series represents the target function, series-based limit evaluation, binomial series, and applications such as summing series and Fibonacci generating functions.
+
+\noindent
+\textbf{Question themes.}
+\begin{itemize}[leftmargin=*]
+  \item Taylor series about a point \(a\) using substitutions into standard series.
+  \item Radius of convergence from nearest singularity / ratio test.
+  \item Proving equality of a function with its Taylor series (global validity).
+  \item Maclaurin truncations for composite functions.
+  \item Series limits and cancellation to extract leading coefficients.
+  \item Binomial series expansions and convergence domains.
+  \item Recognising standard series (sine/arctan) to evaluate infinite sums.
+  \item Generating functions and Binet-type closed forms for Fibonacci numbers.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+\tableofcontents
+
+
+\newpage
+\section{Question 1 (Taylor series and radius of convergence)}
+
+\subsection{Problem}
+Find the Taylor series for \(f(x)\) centred at the given value of \(a\). Assume that
+\(f\) has a power series expansion. Do not show that \(R_n(x)\to 0\). Also find the
+associated radius of convergence.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \(f(x)=\ln x,\quad a=2.\)
+  \item \(f(x)=e^{2x},\quad a=3.\)
+  \item \(f(x)=\cos x,\quad a=\frac{\pi}{2}.\)
+  \item \(f(x)=\sqrt{x},\quad a=16.\)
+  \item \(f(x)=\frac{1}{7x-13},\quad a=2.\)
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+\subsubsection{Method 1: Direct Taylor coefficients and elementary root/ratio tests}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Let \(f(x)=\ln x\). For \(n\ge 1\),
+\[
+f^{(n)}(x)=(-1)^{n-1}\frac{(n-1)!}{x^n}.
+\]
+Hence
+\[
+f^{(n)}(2)=(-1)^{n-1}\frac{(n-1)!}{2^n},
+\]
+and the Taylor coefficient of \((x-2)^n\) is
+\[
+\frac{f^{(n)}(2)}{n!}=(-1)^{n-1}\frac{1}{n2^n}.
+\]
+Therefore
+\[
+\boxed{
+\ln x=\ln 2+\sum_{n=1}^{\infty}(-1)^{n-1}\frac{(x-2)^n}{n2^n}.
+}
+\]
+For the radius, apply the root test to the coefficient magnitude:
+\[
+\sqrt[n]{\frac{1}{n2^n}}=\frac{1}{2}\cdot \frac{1}{\sqrt[n]{n}}\to \frac12.
+\]
+Thus the root-test boundary is
+\[
+|x-2|\cdot \frac12<1,
+\]
+so
+\[
+\boxed{R=2.}
+\]
+
+\item
+Let \(f(x)=e^{2x}\). Then
+\[
+f^{(n)}(x)=2^n e^{2x},
+\]
+so
+\[
+f^{(n)}(3)=2^n e^6.
+\]
+Therefore
+\[
+\boxed{
+e^{2x}=\sum_{n=0}^{\infty}\frac{2^n e^6}{n!}(x-3)^n.
+}
+\]
+For the radius, use the ratio test on the terms
+\[
+u_n=\frac{2^n e^6}{n!}(x-3)^n.
+\]
+Then
+\[
+\left|\frac{u_{n+1}}{u_n}\right|
+=\frac{2|x-3|}{n+1}\to 0
+\]
+for every fixed \(x\). Hence the series converges for all \(x\), and
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+The derivatives of \(\cos x\) cycle:
+\[
+\cos x,\quad -\sin x,\quad -\cos x,\quad \sin x,\quad \cos x,\ldots.
+\]
+At \(a=\frac{\pi}{2}\), one obtains
+\[
+f\!\left(\frac{\pi}{2}\right)=0,\qquad
+f'\!\left(\frac{\pi}{2}\right)=-1,\qquad
+f''\!\left(\frac{\pi}{2}\right)=0,\qquad
+f^{(3)}\!\left(\frac{\pi}{2}\right)=1,
+\]
+and the pattern continues. Only odd powers survive. Thus
+\[
+\boxed{
+\cos x=\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}.
+}
+\]
+For the radius, the ratio test on consecutive nonzero terms gives
+\[
+\left|
+\frac{
+\left(x-\frac{\pi}{2}\right)^{2n+3}/(2n+3)!
+}{
+\left(x-\frac{\pi}{2}\right)^{2n+1}/(2n+1)!
+}
+\right|
+=
+\frac{\left|x-\frac{\pi}{2}\right|^2}{(2n+2)(2n+3)}
+\to 0.
+\]
+Thus the series converges for every \(x\), and
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+Let \(f(x)=x^{1/2}\). For \(n\ge 1\),
+\[
+f^{(n)}(x)=\left(\frac12\right)\left(\frac12-1\right)\cdots
+\left(\frac12-n+1\right)x^{1/2-n}.
+\]
+Hence
+\[
+f^{(n)}(16)=
+\left(\frac12\right)\left(\frac12-1\right)\cdots
+\left(\frac12-n+1\right)16^{1/2-n}.
+\]
+Therefore
+\[
+\boxed{
+\sqrt{x}
+=
+4+\sum_{n=1}^{\infty}
+\binom{1/2}{n}4\left(\frac{x-16}{16}\right)^n
+=
+4\sum_{n=0}^{\infty}\binom{1/2}{n}\left(\frac{x-16}{16}\right)^n.
+}
+\]
+Equivalently,
+\[
+\sqrt{x}
+=
+4+\frac18(x-16)
++
+\sum_{n=2}^{\infty}
+(-1)^{n-1}
+\frac{1\cdot 3\cdot 5\cdots (2n-3)}{2^{5n-2}n!}(x-16)^n.
+\]
+The ordinary ratio test for the binomial series in
+\[
+u=\frac{x-16}{16}
+\]
+gives convergence for \(|u|<1\). Hence
+\[
+|x-16|<16,
+\]
+so
+\[
+\boxed{R=16.}
+\]
+
+\item
+Let \(f(x)=(7x-13)^{-1}\). For \(n\ge 0\),
+\[
+f^{(n)}(x)=(-1)^n n! 7^n(7x-13)^{-n-1}.
+\]
+At \(x=2\), \(7(2)-13=1\), so
+\[
+f^{(n)}(2)=(-1)^n n!7^n.
+\]
+Thus
+\[
+\boxed{
+\frac{1}{7x-13}=\sum_{n=0}^{\infty}(-1)^n7^n(x-2)^n.
+}
+\]
+For the radius, use the root test:
+\[
+\sqrt[n]{|(-1)^n7^n|}=7.
+\]
+Thus convergence requires
+\[
+7|x-2|<1,
+\]
+so
+\[
+\boxed{R=\frac17.}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Standard-series substitution with Cauchy--Hadamard radius check}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Normalise the centre:
+\[
+\ln x=\ln 2+\ln\left(1+\frac{x-2}{2}\right).
+\]
+Using
+\[
+\ln(1+u)=\sum_{n=1}^{\infty}(-1)^{n+1}\frac{u^n}{n},
+\]
+with \(u=\frac{x-2}{2}\), we get
+\[
+\boxed{
+\ln x=\ln2+\sum_{n=1}^{\infty}(-1)^{n+1}\frac{(x-2)^n}{n2^n}.
+}
+\]
+Here
+\[
+c_n=(-1)^{n+1}\frac{1}{n2^n}.
+\]
+By the Cauchy--Hadamard form,
+\[
+R=\frac{1}{\limsup_{n\to\infty}\sqrt[n]{|c_n|}}
+=
+\frac{1}{\frac12}
+=
+\boxed{2}.
+\]
+
+\item
+Write
+\[
+e^{2x}=e^{6}e^{2(x-3)}.
+\]
+Therefore
+\[
+\boxed{
+e^{2x}=e^6\sum_{n=0}^{\infty}\frac{2^n(x-3)^n}{n!}
+=
+\sum_{n=0}^{\infty}\frac{2^ne^6}{n!}(x-3)^n.
+}
+\]
+Here \(c_n=\frac{2^ne^6}{n!}\). Since
+\[
+\limsup_{n\to\infty}\sqrt[n]{\frac{2^ne^6}{n!}}=0,
+\]
+the Cauchy--Hadamard form gives
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+Let \(h=x-\frac{\pi}{2}\). Then
+\[
+\cos x=\cos\left(\frac{\pi}{2}+h\right)=-\sin h.
+\]
+Using the sine series,
+\[
+\boxed{
+\cos x
+=
+-\sum_{n=0}^{\infty}(-1)^n\frac{h^{2n+1}}{(2n+1)!}
+=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}.
+}
+\]
+The factorial denominator gives
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}=0
+\]
+when the series is viewed as a power series in \(x-\frac{\pi}{2}\), so by the Cauchy--Hadamard form,
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+Write
+\[
+\sqrt{x}=4\left(1+\frac{x-16}{16}\right)^{1/2}.
+\]
+By the binomial series,
+\[
+\boxed{
+\sqrt{x}=4\sum_{n=0}^{\infty}\binom{1/2}{n}\left(\frac{x-16}{16}\right)^n.
+}
+\]
+Here
+\[
+c_n=4\binom{1/2}{n}16^{-n}.
+\]
+Since
+\[
+\limsup_{n\to\infty}\sqrt[n]{\left|\binom{1/2}{n}\right|}=1,
+\]
+the Cauchy--Hadamard form gives
+\[
+R=\frac{1}{1/16}=\boxed{16}.
+\]
+
+\item
+Rewrite
+\[
+7x-13=1+7(x-2),
+\]
+so
+\[
+\frac1{7x-13}
+=
+\frac1{1+7(x-2)}
+=
+\frac1{1-[-7(x-2)]}.
+\]
+Therefore
+\[
+\boxed{
+\frac1{7x-13}=\sum_{n=0}^{\infty}(-7)^n(x-2)^n.
+}
+\]
+Here \(c_n=(-7)^n\). By Cauchy--Hadamard,
+\[
+R=\frac{1}{\limsup_{n\to\infty}\sqrt[n]{7^n}}
+=
+\boxed{\frac17}.
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Centre-normalisation pattern recognition}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+For logarithms centred at \(a>0\), immediately use
+\[
+\ln x=\ln a+\ln\left(1+\frac{x-a}{a}\right).
+\]
+With \(a=2\),
+\[
+\ln x=\ln2+\ln\left(1+\frac{x-2}{2}\right).
+\]
+This directly gives
+\[
+\boxed{
+\ln x=\ln2+\sum_{n=1}^{\infty}(-1)^{n+1}\frac{(x-2)^n}{n2^n}},
+\qquad
+\boxed{R=2.}
+\]
+
+\item
+For exponentials centred at \(a\), split the exponent into a constant part plus a shifted part:
+\[
+e^{kx}=e^{ka}e^{k(x-a)}.
+\]
+With \(k=2,a=3\),
+\[
+\boxed{
+e^{2x}=\sum_{n=0}^{\infty}\frac{2^ne^6}{n!}(x-3)^n},
+\qquad
+\boxed{R=\infty.}
+\]
+
+\item
+For trigonometric functions centred at a special angle, use an angle shift:
+\[
+\cos x=\cos\left(\frac{\pi}{2}+\left(x-\frac{\pi}{2}\right)\right)
+=-\sin\left(x-\frac{\pi}{2}\right).
+\]
+Hence
+\[
+\boxed{
+\cos x=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}},
+\qquad
+\boxed{R=\infty.}
+\]
+
+\item
+For radicals centred at a perfect square, factor out the centre:
+\[
+\sqrt{x}=4\sqrt{1+\frac{x-16}{16}}.
+\]
+Thus
+\[
+\boxed{
+\sqrt{x}=4\sum_{n=0}^{\infty}\binom{1/2}{n}\left(\frac{x-16}{16}\right)^n},
+\qquad
+\boxed{R=16.}
+\]
+
+\item
+For reciprocal linear functions, normalise the denominator to \(1-u\):
+\[
+\frac1{7x-13}
+=
+\frac1{1-[-7(x-2)]}.
+\]
+Thus
+\[
+\boxed{
+\frac1{7x-13}=\sum_{n=0}^{\infty}(-7)^n(x-2)^n},
+\qquad
+\boxed{R=\frac17.}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 4: Nearest obstruction / singularity recognition for the radius}
+
+This method is a fast structural radius check. It should be used only if the course allows
+this interpretation of Taylor-series radii.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+The function \(\ln x\), centred at \(x=2\), has its nearest obstruction at \(x=0\).
+Thus
+\[
+R=|2-0|=\boxed{2}.
+\]
+
+\item
+The function \(e^{2x}\) has no finite obstruction, so
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+The function \(\cos x\) has no finite obstruction, so
+\[
+\boxed{R=\infty.}
+\]
+
+\item
+The function \(\sqrt{x}\), expanded about \(x=16\), has its nearest obstruction at \(x=0\).
+Thus
+\[
+R=|16-0|=\boxed{16}.
+\]
+
+\item
+The function \(\frac1{7x-13}\) has a pole at
+\[
+7x-13=0
+\quad\Longrightarrow\quad
+x=\frac{13}{7}.
+\]
+The centre is \(2=\frac{14}{7}\), so
+\[
+R=\left|2-\frac{13}{7}\right|=\boxed{\frac17}.
+\]
+
+\end{enumerate}
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\newpage
+\section{Question 2 (Global validity of the Taylor series for \(\cos x\))}
+
+\subsection{Problem}
+Prove that the series obtained in Question 1(c) represents \(\cos x\) for all \(x\).
+
+
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+The series obtained in Question 1(c) is
+\[
+S(x)=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}.
+\]
+
+\subsubsection{Method 1: Taylor theorem with a bounded remainder}
+
+Let \(a=\frac{\pi}{2}\). Taylor's theorem gives
+\[
+\cos x
+=
+\sum_{k=0}^{N}\frac{f^{(k)}(a)}{k!}(x-a)^k
++
+R_N(x),
+\]
+where
+\[
+R_N(x)=\frac{f^{(N+1)}(\xi)}{(N+1)!}(x-a)^{N+1}
+\]
+for some \(\xi\) between \(a\) and \(x\).
+
+For \(f(x)=\cos x\), every derivative is one of
+\[
+\pm \sin x,\qquad \pm \cos x.
+\]
+Hence
+\[
+|f^{(N+1)}(\xi)|\le 1.
+\]
+Therefore
+\[
+|R_N(x)|
+\le
+\frac{\left|x-\frac{\pi}{2}\right|^{N+1}}{(N+1)!}.
+\]
+For each fixed \(x\),
+\[
+\frac{\left|x-\frac{\pi}{2}\right|^{N+1}}{(N+1)!}\to 0
+\]
+as \(N\to\infty\), since factorial growth dominates any fixed power.
+
+Thus \(R_N(x)\to 0\), so the Taylor series represents \(\cos x\) for every real \(x\):
+\[
+\boxed{
+\cos x=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}
+\quad \text{for all }x\in\R.
+}
+\]
+
+\newpage
+\subsubsection{Method 2: Shifted sine-series identification}
+
+Let
+\[
+h=x-\frac{\pi}{2}.
+\]
+Then
+\[
+S(x)
+=
+\sum_{n=0}^{\infty}(-1)^{n+1}\frac{h^{2n+1}}{(2n+1)!}
+=
+-\sum_{n=0}^{\infty}(-1)^n\frac{h^{2n+1}}{(2n+1)!}.
+\]
+The sine Maclaurin series gives
+\[
+\sin h=\sum_{n=0}^{\infty}(-1)^n\frac{h^{2n+1}}{(2n+1)!}
+\]
+for all \(h\in\R\). Hence
+\[
+S(x)=-\sin h=-\sin\left(x-\frac{\pi}{2}\right).
+\]
+Using
+\[
+-\sin\left(x-\frac{\pi}{2}\right)=\cos x,
+\]
+we obtain
+\[
+\boxed{S(x)=\cos x\quad\text{for all }x\in\R.}
+\]
+
+The infinite radius of the sine series may also be justified by the Cauchy--Hadamard form,
+since the factorial denominator forces the relevant limsup of coefficient roots to be \(0\).
+
+\newpage
+\subsubsection{Method 3: Odd-power shifted-series recognition}
+
+The series
+\[
+S(x)=
+-\left(x-\frac{\pi}{2}\right)
++
+\frac{\left(x-\frac{\pi}{2}\right)^3}{3!}
+-
+\frac{\left(x-\frac{\pi}{2}\right)^5}{5!}
++\cdots
+\]
+has the exact sign, factorial, and odd-power pattern of
+\[
+-\sin\left(x-\frac{\pi}{2}\right).
+\]
+Therefore
+\[
+S(x)=-\sin\left(x-\frac{\pi}{2}\right).
+\]
+The shifted-angle identity gives
+\[
+-\sin\left(x-\frac{\pi}{2}\right)=\cos x.
+\]
+Hence
+\[
+\boxed{S(x)=\cos x\quad\text{for all }x.}
+\]
+
+\newpage
+\subsubsection{Method 4: Differential equation and initial conditions}
+
+Because the series has infinite radius of convergence, termwise differentiation is valid
+for all \(x\). Let
+\[
+S(x)=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n+1}}{(2n+1)!}.
+\]
+Then
+\[
+S'(x)=
+\sum_{n=0}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n}}{(2n)!}.
+\]
+Differentiating again,
+\[
+S''(x)=
+\sum_{n=1}^{\infty}(-1)^{n+1}
+\frac{\left(x-\frac{\pi}{2}\right)^{2n-1}}{(2n-1)!}.
+\]
+Reindex with \(m=n-1\):
+\[
+S''(x)=
+\sum_{m=0}^{\infty}(-1)^m
+\frac{\left(x-\frac{\pi}{2}\right)^{2m+1}}{(2m+1)!}
+=-S(x).
+\]
+Thus
+\[
+S''+S=0.
+\]
+Also
+\[
+S\left(\frac{\pi}{2}\right)=0,
+\]
+and in \(S'\left(\frac{\pi}{2}\right)\), only the \(n=0\) term survives, so
+\[
+S'\left(\frac{\pi}{2}\right)=-1.
+\]
+The function \(\cos x\) also satisfies
+\[
+y''+y=0,\qquad
+y\left(\frac{\pi}{2}\right)=0,\qquad
+y'\left(\frac{\pi}{2}\right)=-1.
+\]
+By uniqueness for this second-order initial value problem,
+\[
+\boxed{S(x)=\cos x\quad\text{for all }x\in\R.}
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\newpage
+\section{Question 3 (First three nonzero Maclaurin terms)}
+
+\subsection{Problem}
+Find the first three nonzero terms in the Maclaurin series for the function.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \(f(x)=\sec x.\)
+  \item \(f(x)=e^x\ln(1+x).\)
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct differentiation}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Let \(f(x)=\sec x\). Then
+\[
+f(0)=1.
+\]
+Also
+\[
+f'(x)=\sec x\tan x,
+\]
+so
+\[
+f'(0)=0.
+\]
+Next,
+\[
+f''(x)=\sec x\tan^2x+\sec^3x,
+\]
+so
+\[
+f''(0)=1.
+\]
+Since \(\sec x\) is even, the \(x^3\)-term vanishes. To find the \(x^4\)-term, one may continue differentiating directly; this gives
+\[
+f^{(4)}(0)=5.
+\]
+Thus
+\[
+\boxed{
+\sec x=1+\frac{x^2}{2!}+\frac{5x^4}{4!}+\cdots
+=
+1+\frac{x^2}{2}+\frac{5x^4}{24}+\cdots.
+}
+\]
+
+
+
+%\bigskip
+\newpage
+\item
+Let
+\[
+g(x)=e^x\ln(1+x).
+\]
+Then
+\[
+g(0)=0.
+\]
+Differentiate:
+\[
+g'(x)=e^x\ln(1+x)+\frac{e^x}{1+x}.
+\]
+Hence
+\[
+g'(0)=1.
+\]
+A direct computation gives
+\[
+g''(0)=1,\qquad g^{(3)}(0)=2.
+\]
+Therefore
+\[
+\boxed{
+e^x\ln(1+x)
+=
+x+\frac{x^2}{2!}+\frac{2x^3}{3!}+\cdots
+=
+x+\frac{x^2}{2}+\frac{x^3}{3}+\cdots.
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Coefficient matching from known series}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Since \(\sec x\) is even, write
+\[
+\sec x=1+Ax^2+Bx^4+O(x^6).
+\]
+Using
+\[
+\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6),
+\]
+and the identity
+\[
+\sec x\cos x=1,
+\]
+we get
+\[
+(1+Ax^2+Bx^4)
+\left(1-\frac{x^2}{2}+\frac{x^4}{24}\right)
+=
+1+\left(A-\frac12\right)x^2
++
+\left(B-\frac{A}{2}+\frac{1}{24}\right)x^4
++O(x^6).
+\]
+Matching with \(1\), we obtain
+\[
+A=\frac12,
+\qquad
+B=\frac{A}{2}-\frac{1}{24}
+=
+\frac14-\frac{1}{24}
+=
+\frac{5}{24}.
+\]
+Hence
+\[
+\boxed{
+\sec x=1+\frac{x^2}{2}+\frac{5x^4}{24}+O(x^6).
+}
+\]
+
+\item
+Use
+\[
+e^x=1+x+\frac{x^2}{2}+\frac{x^3}{6}+O(x^4),
+\]
+and
+\[
+\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+\]
+Then
+\begin{align*}
+e^x\ln(1+x)
+&=
+\left(1+x+\frac{x^2}{2}+\frac{x^3}{6}+O(x^4)\right)
+\left(x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4)\right)\\
+&=
+x+\left(-\frac12+1\right)x^2
++
+\left(\frac13-\frac12+\frac12\right)x^3
++O(x^4)\\
+&=
+x+\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+\end{align*}
+Therefore
+\[
+\boxed{
+e^x\ln(1+x)=x+\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Geometric inversion and minimal truncation recognition}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Write
+\[
+\cos x=1-\left(\frac{x^2}{2}-\frac{x^4}{24}+O(x^6)\right).
+\]
+Let
+\[
+u=\frac{x^2}{2}-\frac{x^4}{24}+O(x^6).
+\]
+Then
+\[
+\sec x=\frac{1}{\cos x}=\frac{1}{1-u}=1+u+u^2+O(u^3).
+\]
+Since \(u=O(x^2)\), we only need \(1+u+u^2\) up to \(x^4\):
+\[
+\sec x
+=
+1+\left(\frac{x^2}{2}-\frac{x^4}{24}\right)
++
+\left(\frac{x^2}{2}\right)^2
++O(x^6).
+\]
+Hence
+\[
+\sec x
+=
+1+\frac{x^2}{2}
++
+\left(-\frac1{24}+\frac14\right)x^4
++O(x^6)
+=
+\boxed{
+1+\frac{x^2}{2}+\frac{5x^4}{24}+O(x^6).
+}
+\]
+
+\item
+The key observation is that
+\[
+\ln(1+x)=O(x).
+\]
+Therefore, to find the product up to \(x^3\), it is enough to expand \(e^x\) only up
+to \(x^2\):
+\[
+e^x=1+x+\frac{x^2}{2}+O(x^3).
+\]
+Also
+\[
+\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+\]
+Thus
+\[
+e^x\ln(1+x)
+=
+\left(1+x+\frac{x^2}{2}\right)
+\left(x-\frac{x^2}{2}+\frac{x^3}{3}\right)
++O(x^4),
+\]
+so
+\[
+\boxed{
+e^x\ln(1+x)=x+\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 4: Cauchy product coefficient extraction}
+
+This method is most useful when more coefficients are required.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+For \(\sec x\), the product identity
+\[
+\sec x\cos x=1
+\]
+gives a recursive coefficient method. Write
+\[
+\sec x=\sum_{n=0}^{\infty}a_{2n}x^{2n},
+\qquad
+\cos x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}.
+\]
+The coefficient of \(x^{2m}\) in the product must be \(0\) for \(m\ge1\).
+For \(m=1\):
+\[
+a_2-\frac12a_0=0.
+\]
+Since \(a_0=1\), \(a_2=\frac12\). For \(m=2\):
+\[
+a_4-\frac12a_2+\frac1{24}a_0=0.
+\]
+Thus
+\[
+a_4=\frac12\cdot \frac12-\frac1{24}=\frac{5}{24}.
+\]
+Therefore
+\[
+\boxed{
+\sec x=1+\frac{x^2}{2}+\frac{5x^4}{24}+\cdots.
+}
+\]
+
+\item
+For
+\[
+e^x\ln(1+x),
+\]
+the coefficient of \(x^m\) is
+\[
+\sum_{k=1}^{m}
+\frac{(-1)^{k+1}}{k(m-k)!}.
+\]
+Hence the first coefficients are
+\[
+[x^1]:\quad 1,
+\]
+\[
+[x^2]:\quad
+\frac{1}{1\cdot 1!}-\frac{1}{2\cdot0!}
+=
+1-\frac12=\frac12,
+\]
+\[
+[x^3]:\quad
+\frac{1}{1\cdot2!}-\frac{1}{2\cdot1!}+\frac{1}{3\cdot0!}
+=
+\frac12-\frac12+\frac13=\frac13.
+\]
+Therefore
+\[
+\boxed{
+e^x\ln(1+x)=x+\frac{x^2}{2}+\frac{x^3}{3}+\cdots.
+}
+\]
+
+\end{enumerate}
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\newpage
+\section{Question 4 (Series limits)}
+
+\subsection{Problem}
+Use series to evaluate the limit.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \(\ds \lim_{x\to 0}\frac{2x-\ln(1+2x)}{x^2}.\)
+  \item \(\ds \lim_{x\to 0}\frac{\sqrt{1+x}-1-\frac12x}{x^2}.\)
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct series expansion and cancellation}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Use
+\[
+\ln(1+u)=u-\frac{u^2}{2}+\frac{u^3}{3}+O(u^4).
+\]
+With \(u=2x\),
+\[
+\ln(1+2x)
+=
+2x-\frac{(2x)^2}{2}+\frac{(2x)^3}{3}+O(x^4)
+=
+2x-2x^2+\frac83x^3+O(x^4).
+\]
+Therefore
+\[
+2x-\ln(1+2x)
+=
+2x-\left(2x-2x^2+\frac83x^3+O(x^4)\right)
+=
+2x^2-\frac83x^3+O(x^4).
+\]
+Hence
+\[
+\frac{2x-\ln(1+2x)}{x^2}
+=
+2-\frac83x+O(x^2).
+\]
+Taking \(x\to0\),
+\[
+\boxed{
+\lim_{x\to0}\frac{2x-\ln(1+2x)}{x^2}=2.
+}
+\]
+
+\item
+Use the binomial expansion
+\[
+(1+x)^{1/2}
+=
+1+\frac12x-\frac18x^2+O(x^3).
+\]
+Then
+\[
+\sqrt{1+x}-1-\frac12x
+=
+-\frac18x^2+O(x^3).
+\]
+Thus
+\[
+\frac{\sqrt{1+x}-1-\frac12x}{x^2}
+=
+-\frac18+O(x),
+\]
+so
+\[
+\boxed{
+\lim_{x\to0}\frac{\sqrt{1+x}-1-\frac12x}{x^2}
+=
+-\frac18.
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Taylor coefficient shortcut}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Let
+\[
+F(x)=2x-\ln(1+2x).
+\]
+Then
+\[
+F(0)=0,\qquad F'(x)=2-\frac{2}{1+2x},
+\]
+so
+\[
+F'(0)=0.
+\]
+Thus the numerator begins at order \(x^2\), and
+\[
+F(x)=\frac{F''(0)}{2}x^2+o(x^2).
+\]
+Now
+\[
+F''(x)=\frac{4}{(1+2x)^2},
+\]
+so
+\[
+F''(0)=4.
+\]
+Therefore
+\[
+\boxed{
+\lim_{x\to0}\frac{F(x)}{x^2}
+=
+\frac{F''(0)}{2}
+=
+2.
+}
+\]
+
+\item
+Let
+\[
+G(x)=\sqrt{1+x}-1-\frac12x.
+\]
+Then
+\[
+G(0)=0,\qquad
+G'(x)=\frac{1}{2\sqrt{1+x}}-\frac12,
+\]
+so
+\[
+G'(0)=0.
+\]
+Thus
+\[
+G(x)=\frac{G''(0)}{2}x^2+o(x^2).
+\]
+Since
+\[
+G''(x)=-\frac{1}{4(1+x)^{3/2}},
+\]
+we have
+\[
+G''(0)=-\frac14.
+\]
+Therefore
+\[
+\boxed{
+\lim_{x\to0}\frac{G(x)}{x^2}
+=
+\frac{G''(0)}{2}
+=
+-\frac18.
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: First surviving coefficient recognition}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+The expression
+\[
+2x-\ln(1+2x)
+\]
+is designed to cancel the linear term of \(\ln(1+2x)\). Since
+\[
+\ln(1+2x)=2x-2x^2+\cdots,
+\]
+we immediately get
+\[
+2x-\ln(1+2x)=2x^2+\cdots.
+\]
+Hence the limit is the coefficient of \(x^2\), namely
+\[
+\boxed{2.}
+\]
+
+\item
+The expression
+\[
+\sqrt{1+x}-1-\frac12x
+\]
+subtracts the constant and linear terms of \(\sqrt{1+x}\). Since
+\[
+\sqrt{1+x}=1+\frac12x-\frac18x^2+\cdots,
+\]
+the first surviving term is
+\[
+-\frac18x^2.
+\]
+Thus the limit is
+\[
+\boxed{-\frac18.}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 4: Rationalisation for the square-root expression}
+
+This method applies to part (b).
+
+\[
+\sqrt{1+x}-1
+=
+\frac{x}{\sqrt{1+x}+1}.
+\]
+Therefore
+\[
+\sqrt{1+x}-1-\frac12x
+=
+x\left(\frac1{\sqrt{1+x}+1}-\frac12\right).
+\]
+Now
+\[
+\frac1{\sqrt{1+x}+1}-\frac12
+=
+\frac{2-(\sqrt{1+x}+1)}{2(\sqrt{1+x}+1)}
+=
+\frac{1-\sqrt{1+x}}{2(\sqrt{1+x}+1)}.
+\]
+But
+\[
+1-\sqrt{1+x}
+=
+-\frac{x}{\sqrt{1+x}+1}.
+\]
+Thus
+\[
+\sqrt{1+x}-1-\frac12x
+=
+-\frac{x^2}{2(\sqrt{1+x}+1)^2}.
+\]
+Hence
+\[
+\frac{\sqrt{1+x}-1-\frac12x}{x^2}
+=
+-\frac{1}{2(\sqrt{1+x}+1)^2}.
+\]
+Taking \(x\to0\),
+\[
+\boxed{
+\lim_{x\to0}\frac{\sqrt{1+x}-1-\frac12x}{x^2}
+=
+-\frac18.
+}
+\]
+
+\newpage
+\subsubsection{Method 5: Integral representation for the logarithmic expression}
+
+This method applies to part (a).
+
+Since
+\[
+\ln(1+2x)=\int_0^{2x}\frac{1}{1+t}\dd t,
+\]
+we have
+\[
+2x-\ln(1+2x)
+=
+\int_0^{2x}1\dd t-\int_0^{2x}\frac{1}{1+t}\dd t
+=
+\int_0^{2x}\left(1-\frac{1}{1+t}\right)\dd t.
+\]
+Hence
+\[
+2x-\ln(1+2x)
+=
+\int_0^{2x}\frac{t}{1+t}\dd t.
+\]
+Substitute \(t=2xs\). Then \(\dd t=2x\dd s\), and
+\[
+2x-\ln(1+2x)
+=
+\int_0^1\frac{2xs}{1+2xs}\cdot 2x\dd s
+=
+4x^2\int_0^1\frac{s}{1+2xs}\dd s.
+\]
+Therefore
+\[
+\frac{2x-\ln(1+2x)}{x^2}
+=
+4\int_0^1\frac{s}{1+2xs}\dd s.
+\]
+Letting \(x\to0\),
+\[
+\lim_{x\to0}
+4\int_0^1\frac{s}{1+2xs}\dd s
+=
+4\int_0^1s\dd s
+=
+2.
+\]
+Thus
+\[
+\boxed{
+\lim_{x\to0}\frac{2x-\ln(1+2x)}{x^2}=2.
+}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+
+\newpage
+\section{Question 5 (Binomial series expansion)}
+
+\subsection{Problem}
+Use the binomial series to expand the function as a power series. State the radius of convergence.
+\[
+f(x)=\sqrt[3]{8+x}.
+\]
+
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct Taylor coefficients by derivatives}
+
+Let
+\[
+f(x)=(8+x)^{1/3}.
+\]
+For \(n\ge1\),
+\[
+f^{(n)}(x)
+=
+\left(\frac13\right)\left(\frac13-1\right)\cdots
+\left(\frac13-n+1\right)(8+x)^{1/3-n}.
+\]
+Hence
+\[
+f^{(n)}(0)
+=
+\left(\frac13\right)\left(\frac13-1\right)\cdots
+\left(\frac13-n+1\right)8^{1/3-n}.
+\]
+The Taylor coefficient is
+\[
+\frac{f^{(n)}(0)}{n!}
+=
+2\binom{1/3}{n}8^{-n}.
+\]
+Thus
+\[
+\boxed{
+(8+x)^{1/3}
+=
+2\sum_{n=0}^{\infty}\binom{1/3}{n}\left(\frac{x}{8}\right)^n.
+}
+\]
+For the radius, apply the ordinary ratio test to the binomial series in \(u=x/8\).
+It converges for \(|u|<1\), so
+\[
+|x|<8.
+\]
+Therefore
+\[
+\boxed{R=8.}
+\]
+
+\newpage
+\subsubsection{Method 2: Direct binomial-series substitution}
+
+Factor out the perfect cube:
+\[
+(8+x)^{1/3}
+=
+8^{1/3}\left(1+\frac{x}{8}\right)^{1/3}
+=
+2\left(1+\frac{x}{8}\right)^{1/3}.
+\]
+Using the binomial series,
+\[
+(1+u)^\alpha
+=
+\sum_{n=0}^{\infty}\binom{\alpha}{n}u^n,
+\qquad |u|<1,
+\]
+with
+\[
+\alpha=\frac13,\qquad u=\frac{x}{8},
+\]
+we get
+\[
+\boxed{
+\sqrt[3]{8+x}
+=
+2\sum_{n=0}^{\infty}\binom{1/3}{n}\left(\frac{x}{8}\right)^n.
+}
+\]
+By the Cauchy--Hadamard form, the radius is determined by the factor \(8^{-n}\), since
+\[
+\limsup_{n\to\infty}
+\sqrt[n]{\left|\binom{1/3}{n}\right|}
+=
+1.
+\]
+Hence
+\[
+R=\frac{1}{1/8}
+=
+\boxed{8.}
+\]
+
+\newpage
+
+%\bigskip
+%\newpage
+\subsubsection{Method 3: First few terms explicitly}
+
+Using
+\[
+\binom{1/3}{0}=1,
+\qquad
+\binom{1/3}{1}=\frac13,
+\]
+\[
+\binom{1/3}{2}
+=
+\frac{(1/3)(-2/3)}{2}
+=
+-\frac19,
+\]
+and
+\[
+\binom{1/3}{3}
+=
+\frac{(1/3)(-2/3)(-5/3)}{6}
+=
+\frac{5}{81},
+\]
+we obtain
+\[
+\sqrt[3]{8+x}
+=
+2\left[
+1+\frac13\left(\frac{x}{8}\right)
+-\frac19\left(\frac{x}{8}\right)^2
++\frac{5}{81}\left(\frac{x}{8}\right)^3
++\cdots
+\right].
+\]
+Therefore
+\[
+\boxed{
+\sqrt[3]{8+x}
+=
+2+\frac{x}{12}-\frac{x^2}{288}+\frac{5x^3}{20736}+\cdots,
+\qquad R=8.
+}
+\]
+
+\bigskip
+\subsubsection{Method 4: Nearest obstruction radius check}
+
+The function
+\[
+(8+x)^{1/3}
+\]
+is expanded about \(x=0\). The nearest obstruction occurs when
+\[
+8+x=0,
+\]
+namely
+\[
+x=-8.
+\]
+The distance from the centre \(0\) to this obstruction is \(8\). Hence the radius of
+convergence is
+\[
+\boxed{R=8.}
+\]
+This agrees with the binomial-series radius.
+
+%====================================================
+% QUESTION 6
+%====================================================
+
+\newpage
+\section{Question 6 (Summation via standard series)}
+
+\subsection{Problem}
+Find the sum of the series.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \(\ds \sum_{n=0}^{\infty}(-1)^n\frac{\pi^{2n+1}}{4^{\,2n+1}(2n+1)!}.\)
+  \item \(\ds \frac{1}{1\cdot 2}-\frac{1}{3\cdot 2^3}+\frac{1}{5\cdot 2^5}-\frac{1}{7\cdot 2^7}+\cdots.\)
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct recognition of standard series}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Recall
+\[
+\sin z
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{z^{2n+1}}{(2n+1)!}.
+\]
+Taking
+\[
+z=\frac{\pi}{4},
+\]
+we get
+\[
+z^{2n+1}=\left(\frac{\pi}{4}\right)^{2n+1}
+=
+\frac{\pi^{2n+1}}{4^{2n+1}}.
+\]
+Therefore
+\[
+\sum_{n=0}^{\infty}(-1)^n\frac{\pi^{2n+1}}{4^{\,2n+1}(2n+1)!}
+=
+\sin\frac{\pi}{4}
+=
+\boxed{\frac{1}{\sqrt2}}.
+\]
+
+\item
+The given series is
+\[
+\sum_{n=0}^{\infty}(-1)^n\frac{1}{(2n+1)2^{2n+1}}
+=
+\sum_{n=0}^{\infty}(-1)^n
+\frac{\left(\frac12\right)^{2n+1}}{2n+1}.
+\]
+Recall
+\[
+\arctan z
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{z^{2n+1}}{2n+1}.
+\]
+Taking \(z=\frac12\), we get
+\[
+\boxed{
+\frac{1}{1\cdot 2}-\frac{1}{3\cdot 2^3}
++\frac{1}{5\cdot 2^5}
+-\frac{1}{7\cdot 2^7}
++\cdots
+=
+\arctan\frac12.
+}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Derivation from geometric series and integration}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+The sine series can be derived from the exponential or differential-equation construction.
+Since
+\[
+\sin z
+=
+\sum_{n=0}^{\infty}(-1)^n\frac{z^{2n+1}}{(2n+1)!},
+\]
+substitution \(z=\frac{\pi}{4}\) gives
+\[
+\boxed{
+\sum_{n=0}^{\infty}(-1)^n\frac{\pi^{2n+1}}{4^{2n+1}(2n+1)!}
+=
+\frac{1}{\sqrt2}.
+}
+\]
+
+\item
+Start from the geometric series
+\[
+\frac{1}{1+t^2}
+=
+\sum_{n=0}^{\infty}(-1)^n t^{2n},
+\qquad |t|<1.
+\]
+Integrate from \(0\) to \(\frac12\):
+\[
+\int_0^{1/2}\frac{1}{1+t^2}\dd t
+=
+\sum_{n=0}^{\infty}(-1)^n
+\int_0^{1/2}t^{2n}\dd t.
+\]
+Therefore
+\[
+\arctan\frac12
+=
+\sum_{n=0}^{\infty}(-1)^n
+\frac{\left(\frac12\right)^{2n+1}}{2n+1}.
+\]
+Hence the required sum is
+\[
+\boxed{\arctan\frac12.}
+\]
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 3: Denominator and factorial pattern recognition}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+The pattern
+\[
+(-1)^n,\qquad (2n+1)!,\qquad \text{odd powers}
+\]
+is the sine pattern. The base is
+\[
+\frac{\pi}{4}.
+\]
+Thus the sum is
+\[
+\boxed{\sin\frac{\pi}{4}=\frac1{\sqrt2}.}
+\]
+
+\item
+The pattern
+\[
+(-1)^n,\qquad 2n+1,\qquad \text{odd powers but no factorial}
+\]
+is the arctangent pattern. The base is
+\[
+\frac12.
+\]
+Thus the sum is
+\[
+\boxed{\arctan\frac12.}
+\]
+
+\end{enumerate}
+
+
+\bigskip
+%\newpage
+\subsubsection{Method 4: Complex exponential recognition for part (a)}
+
+This method applies to part (a). By Euler's formula,
+\[
+e^{iz}=\cos z+i\sin z.
+\]
+Also,
+\[
+e^{iz}
+=
+\sum_{n=0}^{\infty}\frac{(iz)^n}{n!}.
+\]
+The imaginary part consists exactly of the odd powers:
+\[
+\operatorname{Im}(e^{iz})
+=
+z-\frac{z^3}{3!}+\frac{z^5}{5!}-\cdots
+=
+\sin z.
+\]
+Taking \(z=\frac{\pi}{4}\), the given series is
+\[
+\operatorname{Im}\left(e^{i\pi/4}\right)
+=
+\sin\frac{\pi}{4}
+=
+\boxed{\frac1{\sqrt2}}.
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+
+\newpage
+\section{Question 7 (Taylor formula for polynomials)}
+
+\subsection{Problem}
+Show that if \(p\) is an \(n\)-th degree polynomial, then
+\[
+p(x+1)=\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}.
+\]
+
+
+\bigskip
+%\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct proof on monomials and linearity}
+
+It suffices to prove the identity for
+\[
+p(x)=x^k,\qquad 0\le k\le n,
+\]
+because both sides are linear in \(p\).
+
+For \(p(x)=x^k\),
+\[
+p^{(i)}(x)=
+\begin{cases}
+\ds \frac{k!}{(k-i)!}x^{k-i}, & 0\le i\le k,\\[0.6em]
+0, & i>k.
+\end{cases}
+\]
+Hence
+\[
+\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}
+=
+\sum_{i=0}^{k}
+\frac{1}{i!}\frac{k!}{(k-i)!}x^{k-i}
+=
+\sum_{i=0}^{k}\binom{k}{i}x^{k-i}.
+\]
+By the binomial theorem,
+\[
+\sum_{i=0}^{k}\binom{k}{i}x^{k-i}
+=
+(x+1)^k
+=
+p(x+1).
+\]
+Thus the identity holds for all monomials \(x^k\), hence by linearity it holds for every
+polynomial \(p\) of degree at most \(n\):
+\[
+\boxed{
+p(x+1)=\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}.
+}
+\]
+
+\newpage
+\subsubsection{Method 2: Taylor theorem with zero remainder}
+
+Since \(p\) is a polynomial of degree \(n\),
+\[
+p^{(n+1)}(t)\equiv 0.
+\]
+Taylor's theorem about the point \(x\) gives, for any \(h\),
+\[
+p(x+h)=
+\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}h^i
++
+\frac{p^{(n+1)}(\xi)}{(n+1)!}h^{n+1}
+\]
+for some \(\xi\) between \(x\) and \(x+h\). Since \(p^{(n+1)}(\xi)=0\), the remainder vanishes:
+\[
+p(x+h)=
+\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}h^i.
+\]
+Set \(h=1\). Then
+\[
+\boxed{
+p(x+1)=\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}.
+}
+\]
+
+\newpage
+\subsubsection{Method 3: Translation pattern recognition}
+
+The expression
+\[
+p(x)+p'(x)+\frac{p''(x)}{2!}+\cdots+\frac{p^{(n)}(x)}{n!}
+\]
+has the exact form of Taylor's formula for shifting the input from \(x\) to \(x+1\):
+\[
+p(x+h)=
+p(x)+p'(x)h+\frac{p''(x)}{2!}h^2+\cdots+\frac{p^{(n)}(x)}{n!}h^n.
+\]
+Here \(h=1\), so
+\[
+p(x+1)
+=
+p(x)+p'(x)+\frac{p''(x)}{2!}+\cdots+\frac{p^{(n)}(x)}{n!}.
+\]
+Therefore
+\[
+\boxed{
+p(x+1)=\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}.
+}
+\]
+
+
+\bigskip
+%\newpage
+\subsubsection{Method 4: Translation operator viewpoint}
+
+Let
+\[
+D=\frac{\dd}{\dd x}.
+\]
+Formally, the shift operator satisfies
+\[
+p(x+h)=e^{hD}p(x).
+\]
+For \(h=1\),
+\[
+p(x+1)=e^D p(x).
+\]
+Since \(p\) has degree \(n\), we have
+\[
+D^{n+1}p=0.
+\]
+Thus the exponential operator truncates:
+\[
+e^D p
+=
+\left(
+1+D+\frac{D^2}{2!}+\cdots+\frac{D^n}{n!}
+\right)p.
+\]
+Therefore
+\[
+p(x+1)
+=
+p(x)+p'(x)+\frac{p''(x)}{2!}+\cdots+\frac{p^{(n)}(x)}{n!},
+\]
+so
+\[
+\boxed{
+p(x+1)=\sum_{i=0}^{n}\frac{p^{(i)}(x)}{i!}.
+}
+\]
+
+%====================================================
+% QUESTION 8
+%====================================================
+
+\newpage
+\section{Question 8 (Fibonacci generating function)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Show that the Maclaurin series of the function
+  \[
+  f(x)=\frac{x}{1-x-x^2}
+  \]
+  is
+  \[
+  \sum_{n=1}^{\infty} f_nx^n,
+  \]
+  where \(f_n\) is the \(n\)-th Fibonacci number, that is,
+  \[
+  f_1=1,\qquad f_2=1,\qquad f_n=f_{n-1}+f_{n-2}\quad(n\ge3).
+  \]
+
+  \item By writing \(f(x)\) as a sum of partial fractions and thereby obtaining the
+  Maclaurin series in a different way, find an explicit formula for the \(n\)-th
+  Fibonacci number.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Coefficient comparison from the generating function}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Assume
+\[
+f(x)=\sum_{n=1}^{\infty}a_nx^n
+\]
+for \(|x|\) sufficiently small. Since
+\[
+f(x)=\frac{x}{1-x-x^2},
+\]
+we have
+\[
+(1-x-x^2)f(x)=x.
+\]
+Substitute the series:
+\[
+(1-x-x^2)\sum_{n=1}^{\infty}a_nx^n=x.
+\]
+Thus
+\[
+\sum_{n=1}^{\infty}a_nx^n
+-
+\sum_{n=1}^{\infty}a_nx^{n+1}
+-
+\sum_{n=1}^{\infty}a_nx^{n+2}
+=
+x.
+\]
+Reindex:
+\[
+\sum_{n=1}^{\infty}a_nx^n
+-
+\sum_{n=2}^{\infty}a_{n-1}x^n
+-
+\sum_{n=3}^{\infty}a_{n-2}x^n
+=
+x.
+\]
+Compare coefficients.
+
+For \(x^1\):
+\[
+a_1=1.
+\]
+For \(x^2\):
+\[
+a_2-a_1=0,
+\]
+so
+\[
+a_2=1.
+\]
+For \(n\ge3\):
+\[
+a_n-a_{n-1}-a_{n-2}=0,
+\]
+so
+\[
+a_n=a_{n-1}+a_{n-2}.
+\]
+Therefore \(a_n=f_n\), the Fibonacci numbers. Hence
+\[
+\boxed{
+\frac{x}{1-x-x^2}
+=
+\sum_{n=1}^{\infty}f_nx^n.
+}
+\]
+
+\item
+Part (b) is obtained more cleanly by partial fractions in Method 2. Method 1 provides
+the coefficient recursion needed to identify the series as the Fibonacci generating function.
+
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Partial fractions in golden-ratio form}
+
+Let
+\[
+\varphi=\frac{1+\sqrt5}{2},
+\qquad
+\psi=\frac{1-\sqrt5}{2}.
+\]
+These satisfy
+\[
+\varphi+\psi=1,
+\qquad
+\varphi\psi=-1.
+\]
+Therefore
+\[
+(1-\varphi x)(1-\psi x)
+=
+1-(\varphi+\psi)x+\varphi\psi x^2
+=
+1-x-x^2.
+\]
+Hence
+\[
+\frac{x}{1-x-x^2}
+=
+\frac{x}{(1-\varphi x)(1-\psi x)}.
+\]
+We claim that
+\[
+\frac{x}{1-x-x^2}
+=
+\frac{1}{\sqrt5}
+\left(
+\frac{1}{1-\varphi x}
+-
+\frac{1}{1-\psi x}
+\right).
+\]
+Indeed,
+\[
+\frac{1}{\sqrt5}
+\left(
+\frac{1}{1-\varphi x}
+-
+\frac{1}{1-\psi x}
+\right)
+=
+\frac{1}{\sqrt5}
+\cdot
+\frac{(1-\psi x)-(1-\varphi x)}
+{(1-\varphi x)(1-\psi x)}.
+\]
+The numerator is
+\[
+(\varphi-\psi)x=\sqrt5\,x,
+\]
+so the expression equals
+\[
+\frac{x}{(1-\varphi x)(1-\psi x)}
+=
+\frac{x}{1-x-x^2}.
+\]
+Now use the geometric series:
+\[
+\frac{1}{1-\varphi x}
+=
+\sum_{n=0}^{\infty}\varphi^nx^n,
+\qquad
+\frac{1}{1-\psi x}
+=
+\sum_{n=0}^{\infty}\psi^nx^n.
+\]
+Thus
+\[
+\frac{x}{1-x-x^2}
+=
+\frac1{\sqrt5}
+\sum_{n=0}^{\infty}(\varphi^n-\psi^n)x^n.
+\]
+The \(n=0\) coefficient is \(0\), and comparing with
+\[
+\frac{x}{1-x-x^2}=\sum_{n=1}^{\infty}f_nx^n,
+\]
+we obtain
+\[
+\boxed{
+f_n=\frac{\varphi^n-\psi^n}{\sqrt5},
+\qquad
+\varphi=\frac{1+\sqrt5}{2},
+\qquad
+\psi=\frac{1-\sqrt5}{2}.
+}
+\]
+The radius of convergence is also obtained from the nearest geometric denominator, or
+by the Cauchy--Hadamard form, as
+\[
+R=\frac1{\varphi}=\frac{\sqrt5-1}{2}.
+\]
+
+\newpage
+\subsubsection{Method 3: Generating-function pattern recognition}
+
+The denominator
+\[
+1-x-x^2
+\]
+is the standard generating-function signature of a second-order recurrence.
+
+In general, if
+\[
+A(x)=\sum_{n\ge0}a_nx^n
+\]
+has a denominator of the form
+\[
+1-c_1x-c_2x^2,
+\]
+then the coefficients eventually satisfy
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}.
+\]
+Here
+\[
+1-x-x^2
+\]
+corresponds to
+\[
+a_n=a_{n-1}+a_{n-2}.
+\]
+The numerator \(x\) fixes the initial conditions:
+\[
+a_1=1,\qquad a_2=1.
+\]
+Therefore the coefficients are the Fibonacci numbers:
+\[
+\boxed{
+\frac{x}{1-x-x^2}
+=
+\sum_{n=1}^{\infty}f_nx^n.
+}
+\]
+For the closed form, the same pattern says to factor the denominator into geometric
+factors:
+\[
+1-x-x^2=(1-\varphi x)(1-\psi x).
+\]
+This immediately gives
+\[
+\boxed{
+f_n=\frac{\varphi^n-\psi^n}{\sqrt5}.
+}
+\]
+
+\newpage
+\subsubsection{Method 4: Characteristic equation from the recurrence}
+
+From part (a), the coefficients satisfy
+\[
+f_n=f_{n-1}+f_{n-2},\qquad f_1=f_2=1.
+\]
+Seek a solution of the form
+\[
+f_n=r^n.
+\]
+Substitution gives
+\[
+r^n=r^{n-1}+r^{n-2}.
+\]
+For \(r\ne0\), divide by \(r^{n-2}\):
+\[
+r^2=r+1.
+\]
+Thus
+\[
+r^2-r-1=0,
+\]
+with roots
+\[
+r=\frac{1\pm\sqrt5}{2}.
+\]
+Let
+\[
+\varphi=\frac{1+\sqrt5}{2},
+\qquad
+\psi=\frac{1-\sqrt5}{2}.
+\]
+Then
+\[
+f_n=C_1\varphi^n+C_2\psi^n.
+\]
+Use
+\[
+f_1=1,\qquad f_2=1.
+\]
+So
+\[
+C_1\varphi+C_2\psi=1,
+\]
+\[
+C_1\varphi^2+C_2\psi^2=1.
+\]
+Using \(\varphi^2=\varphi+1\) and \(\psi^2=\psi+1\), subtract the first equation from
+the second:
+\[
+C_1+C_2=0.
+\]
+Thus \(C_2=-C_1\). Then
+\[
+C_1(\varphi-\psi)=1.
+\]
+Since
+\[
+\varphi-\psi=\sqrt5,
+\]
+we get
+\[
+C_1=\frac1{\sqrt5},
+\qquad
+C_2=-\frac1{\sqrt5}.
+\]
+Therefore
+\[
+\boxed{
+f_n=\frac{\varphi^n-\psi^n}{\sqrt5}.
+}
+\]
+
+\newpage
+\subsubsection{Method 5: Tiling interpretation from the generating function}
+
+Start from
+\[
+\frac{x}{1-x-x^2}
+=
+x\cdot \frac1{1-(x+x^2)}.
+\]
+Using the geometric series,
+\[
+\frac1{1-(x+x^2)}
+=
+\sum_{k=0}^{\infty}(x+x^2)^k.
+\]
+Therefore
+\[
+\frac{x}{1-x-x^2}
+=
+x\sum_{k=0}^{\infty}(x+x^2)^k.
+\]
+The term \(x\) represents a tile of length \(1\), while \(x^2\) represents a tile of
+length \(2\). Hence \(f_n\) counts the number of ways to tile a board of length \(n-1\)
+using tiles of lengths \(1\) and \(2\).
+
+If exactly \(j\) tiles have length \(2\), then the remaining length is
+\[
+n-1-2j,
+\]
+so the number of length-\(1\) tiles is \(n-1-2j\), and the total number of tiles is
+\[
+(n-1-2j)+j=n-1-j.
+\]
+The number of ways to choose the positions of the \(j\) length-\(2\) tiles is
+\[
+\binom{n-1-j}{j}.
+\]
+Thus
+\[
+\boxed{
+f_n=
+\sum_{j=0}^{\lfloor (n-1)/2\rfloor}
+\binom{n-1-j}{j}.
+}
+\]
+This gives a combinatorial formula for the Fibonacci numbers and explains why the
+generating function
+\[
+\frac{x}{1-x-x^2}
+\]
+naturally encodes the recurrence \(f_n=f_{n-1}+f_{n-2}\).
+
+\end{document}

@@ -1,0 +1,123 @@
+You are generating a LaTeX revision-notes PROJECT for NTU MH1101 Calculus II (AY2025–2026).
+
+FILES PROVIDED WITH THIS PROMPT
+- Template_RevisionNotes.tex  (AUTHORITATIVE STYLE SOURCE; MUST FOLLOW EXACTLY)
+- (Optional) Any prior-notes .tex file I provide later (STRUCTURE REFERENCE ONLY; DO NOT COPY ITS STYLING)
+- MH1101 Calculus II Course Information PDF (CONTENT SOURCE for syllabus, chapter topics, assessment rules) :contentReference
+
+OUTPUT MODE (EXPLICIT)
+At the start of your response, choose ONE of the following modes:
+- MODE A — FILE CREATION: Create real, editable files with the exact filenames and directory structure specified.
+- MODE B — CODE OUTPUT: Output the full LaTeX source for each file, wrapped in fenced code blocks using triple backticks (```), clearly labelled with filenames.
+
+If MODE A is unavailable, default automatically to MODE B.
+Do NOT mix modes.
+
+ABSOLUTE STYLE REQUIREMENT (CRITICAL)
+- Follow Template_RevisionNotes.tex EXACTLY:
+  - Same documentclass options, packages, geometry, headers/footers, watermark behavior.
+  - Same tcolorbox environments and names (definition/theorem, keyformula, examplebox, commonmistake, policynote, examtip).
+  - Same spacing, typography, and visual hierarchy.
+- Only modify:
+  - Course metadata macros
+  - Mathematical content text
+- Do NOT invent new box environments or styling.
+
+COURSE METADATA (MANDATORY)
+Set:
+- \CourseCode = MH1101
+- \CourseName = Calculus II
+- \DocType = Revision Notes
+- \AcademicYear = Academic Year 2025--2026
+
+PROJECT STRUCTURE (SCOPE CONTROL)
+Create ONLY:
+1) MH1101_revision_notes.tex        (main file; must compile with pdflatex)
+2) chapters/ch01_integrals.tex      (sample Chapter 1 only)
+
+All appendix material MUST be written INLINE inside the main file.
+Do NOT create separate appendix .tex files.
+
+FRONT-MATTER ORDER (STRICT)
+Before any main content, include ONLY:
+1) Title block + abstract (as per Template)
+2) Table of Contents
+3) \section*{Course Overview \& Topic Map}
+4) \section*{How to Use This Document}
+
+No formulas, notation lists, or exam guides may appear before main content.
+
+COURSE OVERVIEW & TOPIC MAP (MANDATORY)
+Create a table with columns EXACTLY:
+Topic Area | Chapters | Key Concepts
+
+Populate using the official course content:
+
+- Chapter 1: Integrals  
+  Antiderivatives, area problem, definite integrals, Fundamental Theorem of Calculus, substitution rule, improper integrals, Mean Value Theorem for integrals
+
+- Chapter 2: Applications of Integrals  
+  Area between curves, volumes (disks/washers), cylindrical shells, arc length
+
+- Chapter 3: Techniques of Integration  
+  Integration by parts, trigonometric integrals, trigonometric substitution, partial fractions, numerical integration (midpoint, trapezoidal, Simpson’s rule)
+
+- Chapter 4: Sequences and Series  
+  Limits of sequences, monotone sequences, series
+
+- Chapter 5: Convergence Tests  
+  Integral test, comparison tests, absolute vs conditional convergence, ratio test, root test
+
+- Chapter 6: Power Series  
+  Power series, Taylor series, Maclaurin series, binomial series
+
+Under the table, include verbatim:
+“This revision guide follows the official MH1101 chapter structure while emphasizing problem-solving techniques and exam-relevant intuition.”
+
+MAIN CONTENT
+After front-matter:
+- Insert:
+  \part{Main Notes}
+- Include ONLY:
+  \input{chapters/ch01_integrals.tex}
+
+CHAPTER 1 FILE REQUIREMENTS (MANDATORY)
+chapters/ch01_integrals.tex must:
+- Begin with \section{Integrals}
+- Include subsections such as:
+  - Antiderivatives and Area
+  - Definite Integrals and the FTC
+  - Substitution Rule
+  - Improper Integrals
+- Demonstrate ALL template box types at least once:
+  - definition/theorem
+  - keyformula
+  - examplebox
+  - commonmistake
+  - examtip
+- Use concise placeholder math-accurate text (no full lecture notes yet).
+
+APPENDIX (INLINE IN MAIN FILE ONLY)
+After Chapter 1, insert:
+\appendix
+
+Then create these sections inline:
+1) \section{Formula \& Key Results Reference}
+   - Structured by chapter
+   - Bullet placeholders only
+
+2) \section{Notation}
+   - Table: Symbol | Meaning | Context
+
+3) \section{Exam \& Assessment Information}
+   - Assessment breakdown placeholders
+   - Midterm/final exam notes
+   - Allowed reference sheet reminder
+   - Revision checklist
+
+COPYRIGHT & CONTENT RULES
+- Do NOT copy textbook paragraphs.
+- Do NOT reproduce large syllabus text.
+- Use original phrasing and structured placeholders only.
+
+Now produce the output strictly according to the selected OUTPUT MODE, with no additional commentary.

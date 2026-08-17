@@ -1,0 +1,1041 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial --- Refined Practice --- MH1201}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Refined Practice Paper (With Solutions)}
+\newcommand{\ExamMeta}{AY2025-26, Semester 2}
+\newcommand{\ExamMetaShort}{Refined Practice}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+\fancyhead[R]{Unofficial Practice}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic practice only. This is an original practice paper written in a similar exam style, but with different questions and full solutions.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Range}{Range}
+\DeclareMathOperator{\Null}{Null}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\dimn}{\operatorname{dim}}
+\newcommand{\Ptwo}{\mathcal{P}_2(\R)}
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+\par\bigskip
+\begin{center}
+\rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+\textbf{Overview}\\[-0.2em]
+\rule{0.92\linewidth}{0.6pt}
+\end{center}
+\vspace{-0.3em}
+\begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+\end{itemize}
+\par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{4}
+
+% =========================
+% Title
+% =========================
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\ExamMeta
+}
+
+\date{\today}
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+\item \textbf{Time allowed:} 1 hour.
+\item \textbf{Total marks:} 60.
+\item \textbf{Difficulty:} Slightly harder than a standard midterm of this style.
+\item \textbf{Emphasis:} Extra weight is placed on linear transformations, matrix representations, kernels, ranges, direct-sum decompositions, and basis changes.
+\item \textbf{Originality policy:} The questions below are newly written and are not verbatim copies of the referenced sample midterm or tutorial sheet.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+% Question 1
+% ============================================================
+\section{Question 1 \hfill (15 marks)}
+
+\subsection{(a) Subspace tests}
+\subsubsection{Problem}
+
+For each of the following, determine with justification whether the given set is a vector subspace of the ambient vector space.
+
+\begin{enumerate}[label=(\roman*)]
+\item Let
+\[
+V\coloneqq \Pfour,
+\qquad
+W_1\coloneqq \{p\in \Pfour \mid p(1)=p'(0)\}.
+\]
+Determine whether or not \(W_1\le V\).
+\hfill (3 marks)
+
+\item Let
+\[
+V\coloneqq \R^{2,2},
+\qquad
+W_2\coloneqq \{A\in \R^{2,2}\mid A^2=A\}.
+\]
+Determine whether or not \(W_2\le V\).
+\hfill (3 marks)
+
+\item Let
+\[
+u=\begin{bmatrix}1\\2\\0\end{bmatrix},
+\qquad
+v=\begin{bmatrix}0\\1\\1\end{bmatrix},
+\qquad
+c=\begin{bmatrix}2\\5\\1\end{bmatrix},
+\]
+and define
+\[
+W_3\coloneqq \left\{au+bv+c\in \R^3 \mid a,b\in\R\right\}.
+\]
+Determine whether or not \(W_3\le \R^3\).
+\hfill (4 marks)
+\end{enumerate}
+
+\subsubsection{Solution}
+
+\paragraph{(i)}
+Define
+\[
+L:\Pfour \to \R,\qquad L(p)=p(1)-p'(0).
+\]
+The map \(p\mapsto p(1)\) is linear, and the map \(p\mapsto p'(0)\) is also linear. Hence \(L\) is linear.
+
+Now
+\[
+W_1=\{p\in \Pfour\mid L(p)=0\}=\Null(L).
+\]
+Since the kernel of a linear map is a subspace, it follows that
+\[
+\boxed{W_1\le \Pfour.}
+\]
+
+\paragraph{(ii)}
+The zero matrix belongs to \(W_2\), since \(0^2=0\). So \(W_2\neq\varnothing\).
+
+To test whether \(W_2\) is a subspace, we check closure under scalar multiplication. Let
+\[
+A=\begin{bmatrix}1&0\\0&0\end{bmatrix}.
+\]
+Then
+\[
+A^2=\begin{bmatrix}1&0\\0&0\end{bmatrix}=A,
+\]
+so \(A\in W_2\).
+
+But
+\[
+(2A)^2=4A^2=4A\neq 2A.
+\]
+Hence \(2A\notin W_2\). Therefore \(W_2\) is not closed under scalar multiplication, so it is not a vector subspace of \(\R^{2,2}\). Thus
+\[
+\boxed{W_2\not\le \R^{2,2}.}
+\]
+
+\paragraph{(iii)}
+We first observe that
+\[
+2u+v
+=
+2\begin{bmatrix}1\\2\\0\end{bmatrix}
++
+\begin{bmatrix}0\\1\\1\end{bmatrix}
+=
+\begin{bmatrix}2\\5\\1\end{bmatrix}
+=c.
+\]
+Hence \(c\in \Span\{u,v\}\).
+
+Therefore every element of \(W_3\) can be written as
+\[
+au+bv+c=au+bv+(2u+v)=(a+2)u+(b+1)v.
+\]
+So
+\[
+W_3\subseteq \Span\{u,v\}.
+\]
+Conversely, if \(\alpha,\beta\in\R\), then
+\[
+\alpha u+\beta v=(\alpha-2)u+(\beta-1)v+c\in W_3.
+\]
+Hence
+\[
+\Span\{u,v\}\subseteq W_3.
+\]
+Therefore
+\[
+W_3=\Span\{u,v\},
+\]
+which is a subspace of \(\R^3\). Thus
+\[
+\boxed{W_3\le \R^3.}
+\]
+
+\subsection{(b) Linear independence under a linear map}
+\subsubsection{Problem}
+
+Let \(V\) and \(W\) be vector spaces over the same field, let \(T\in L(V,W)\), and let \(v_1,\dots,v_n\in V\). Prove that if
+\[
+\{T(v_1),\dots,T(v_n)\}
+\]
+is linearly independent in \(W\), then
+\[
+\{v_1,\dots,v_n\}
+\]
+is linearly independent in \(V\).
+\hfill (5 marks)
+
+\subsubsection{Solution}
+
+Assume that \(\{T(v_1),\dots,T(v_n)\}\) is linearly independent in \(W\).
+
+To prove that \(\{v_1,\dots,v_n\}\) is linearly independent in \(V\), let \(\lambda_1,\dots,\lambda_n\) be scalars such that
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n=0_V.
+\]
+Apply the linear map \(T\) to both sides. Since \(T\) is linear,
+\[
+T(\lambda_1 v_1+\cdots+\lambda_n v_n)
+=
+\lambda_1 T(v_1)+\cdots+\lambda_n T(v_n)
+=
+T(0_V)=0_W.
+\]
+Hence
+\[
+\lambda_1 T(v_1)+\cdots+\lambda_n T(v_n)=0_W.
+\]
+But the vectors \(T(v_1),\dots,T(v_n)\) are linearly independent, so
+\[
+\lambda_1=\cdots=\lambda_n=0.
+\]
+Therefore \(v_1,\dots,v_n\) are linearly independent. Thus
+\[
+\boxed{\{v_1,\dots,v_n\}\text{ is linearly independent in }V.}
+\]
+
+\newpage
+
+% ============================================================
+% Question 2
+% ============================================================
+\section{Question 2 \hfill (18 marks)}
+
+\subsection{Problem}
+
+Define a function \(T:\R^{2,2}\to \R^{2,2}\) by
+\[
+\forall A\in \R^{2,2}:\qquad
+T(A)\coloneqq A+A^{\mathsf T}-\operatorname{tr}(A)I_2.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[3 points]} Show that \(T\in L(\R^{2,2})\).
+
+\item \textbf{[4 points]} Compute the standard matrix representation of \(T\) with respect to the ordered basis
+\[
+(E_{11},E_{12},E_{21},E_{22}).
+\]
+
+\item \textbf{[4 points]} Derive a basis for \(\Null(T)\).
+
+\item \textbf{[4 points]} Derive a basis for \(\Range(T)\).
+
+\item \textbf{[3 points]} Determine, with justification, whether or not
+\[
+\R^{2,2}=\Null(T)\oplus \Range(T).
+\]
+Your argument must include an explicit decomposition of an arbitrary matrix \(B\in \R^{2,2}\).
+\end{enumerate}
+
+\subsubsection{Solution}
+
+Let
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}.
+\]
+Then
+\[
+A^{\mathsf T}=\begin{bmatrix}a&c\\b&d\end{bmatrix},
+\qquad
+\operatorname{tr}(A)=a+d,
+\qquad
+\operatorname{tr}(A)I_2=
+\begin{bmatrix}a+d&0\\0&a+d\end{bmatrix}.
+\]
+Hence
+\[
+T(A)
+=
+\begin{bmatrix}a&b\\c&d\end{bmatrix}
++
+\begin{bmatrix}a&c\\b&d\end{bmatrix}
+-
+\begin{bmatrix}a+d&0\\0&a+d\end{bmatrix}
+=
+\begin{bmatrix}
+a-d & b+c\\
+b+c & d-a
+\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Linearity.}
+
+The maps
+\[
+A\mapsto A,\qquad A\mapsto A^{\mathsf T},\qquad A\mapsto \operatorname{tr}(A)I_2
+\]
+are all linear. Therefore
+\[
+T(A)=A+A^{\mathsf T}-\operatorname{tr}(A)I_2
+\]
+is a linear combination of linear maps, hence is linear. Thus
+\[
+\boxed{T\in L(\R^{2,2}).}
+\]
+
+\item \textbf{Standard matrix representation.}
+
+Using the standard basis \(E_{11},E_{12},E_{21},E_{22}\), we compute:
+\[
+T(E_{11})
+=
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\qquad
+T(E_{12})
+=
+\begin{bmatrix}0&1\\1&0\end{bmatrix},
+\]
+\[
+T(E_{21})
+=
+\begin{bmatrix}0&1\\1&0\end{bmatrix},
+\qquad
+T(E_{22})
+=
+\begin{bmatrix}-1&0\\0&1\end{bmatrix}.
+\]
+Identifying
+\[
+\begin{bmatrix}x&y\\z&w\end{bmatrix}\longleftrightarrow (x,y,z,w),
+\]
+the columns are
+\[
+[T(E_{11})]=(1,0,0,-1),\quad
+[T(E_{12})]=(0,1,1,0),\quad
+[T(E_{21})]=(0,1,1,0),\quad
+[T(E_{22})]=(-1,0,0,1).
+\]
+Hence
+\[
+[T]=
+\begin{bmatrix}
+1&0&0&-1\\
+0&1&1&0\\
+0&1&1&0\\
+-1&0&0&1
+\end{bmatrix}.
+\]
+Therefore
+\[
+\boxed{
+[T]=
+\begin{bmatrix}
+1&0&0&-1\\
+0&1&1&0\\
+0&1&1&0\\
+-1&0&0&1
+\end{bmatrix}.}
+\]
+
+\item \textbf{Basis for \(\Null(T)\).}
+
+We solve \(T(A)=0\). From
+\[
+T(A)=
+\begin{bmatrix}
+a-d & b+c\\
+b+c & d-a
+\end{bmatrix},
+\]
+we get the system
+\[
+a-d=0,\qquad b+c=0.
+\]
+Thus
+\[
+d=a,\qquad c=-b.
+\]
+So every matrix in the null space has the form
+\[
+\begin{bmatrix}a&b\\-b&a\end{bmatrix}
+=
+a\begin{bmatrix}1&0\\0&1\end{bmatrix}
++
+b\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+Hence
+\[
+\Null(T)=
+\Span\left\{
+\begin{bmatrix}1&0\\0&1\end{bmatrix},
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right\}.
+\]
+Therefore a basis for \(\Null(T)\) is
+\[
+\boxed{
+\left\{
+\begin{bmatrix}1&0\\0&1\end{bmatrix},
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right\}.}
+\]
+
+\item \textbf{Basis for \(\Range(T)\).}
+
+From the formula
+\[
+T(A)=
+\begin{bmatrix}
+a-d & b+c\\
+b+c & d-a
+\end{bmatrix},
+\]
+every output has the form
+\[
+\begin{bmatrix}x&y\\y&-x\end{bmatrix}.
+\]
+So
+\[
+\Range(T)\subseteq
+\left\{
+\begin{bmatrix}x&y\\y&-x\end{bmatrix}
+:x,y\in\R
+\right\}.
+\]
+Conversely, given any matrix
+\[
+Y=\begin{bmatrix}x&y\\y&-x\end{bmatrix},
+\]
+choose
+\[
+A=\begin{bmatrix}x&y\\0&0\end{bmatrix}.
+\]
+Then
+\[
+T(A)=
+\begin{bmatrix}
+x&y\\
+y&-x
+\end{bmatrix}
+=Y.
+\]
+Thus
+\[
+\Range(T)=
+\left\{
+\begin{bmatrix}x&y\\y&-x\end{bmatrix}
+:x,y\in\R
+\right\}.
+\]
+Hence
+\[
+\Range(T)
+=
+\Span\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\}.
+\]
+Therefore a basis for \(\Range(T)\) is
+\[
+\boxed{
+\left\{
+\begin{bmatrix}1&0\\0&-1\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix}
+\right\}.}
+\]
+
+\item \textbf{Direct sum decomposition.}
+
+Let
+\[
+B=\begin{bmatrix}p&q\\r&s\end{bmatrix}\in \R^{2,2}.
+\]
+Define
+\[
+R=
+\frac12
+\begin{bmatrix}
+p-s & q+r\\
+q+r & s-p
+\end{bmatrix},
+\qquad
+N=
+\frac12
+\begin{bmatrix}
+p+s & q-r\\
+r-q & p+s
+\end{bmatrix}.
+\]
+Then
+\[
+B=R+N.
+\]
+
+We check that \(R\in \Range(T)\). Indeed, \(R\) has the form
+\[
+\begin{bmatrix}x&y\\y&-x\end{bmatrix},
+\]
+so \(R\in \Range(T)\).
+
+We also check that \(N\in \Null(T)\). Indeed, \(N\) has the form
+\[
+\begin{bmatrix}a&b\\-b&a\end{bmatrix},
+\]
+so \(N\in \Null(T)\).
+
+Hence every \(B\in \R^{2,2}\) can be written as
+\[
+B=R+N
+\qquad\text{with }R\in \Range(T),\ N\in \Null(T).
+\]
+So
+\[
+\R^{2,2}=\Range(T)+\Null(T).
+\]
+
+Next, suppose \(X\in \Range(T)\cap \Null(T)\). Then \(X\) must have both forms
+\[
+X=\begin{bmatrix}x&y\\y&-x\end{bmatrix}
+\qquad\text{and}\qquad
+X=\begin{bmatrix}a&b\\-b&a\end{bmatrix}.
+\]
+Comparing entries gives
+\[
+x=a,\qquad y=b,\qquad y=-b,\qquad -x=a.
+\]
+Hence
+\[
+y=b=0,\qquad x=a=0.
+\]
+So \(X=0\). Therefore
+\[
+\Range(T)\cap \Null(T)=\{0\}.
+\]
+
+Thus
+\[
+\boxed{\R^{2,2}=\Null(T)\oplus \Range(T).}
+\]
+\end{enumerate}
+
+\newpage
+
+% ============================================================
+% Question 3
+% ============================================================
+\section{Question 3 \hfill (15 marks)}
+
+\subsection{Problem}
+
+Let \(\beta\) be the standard ordered basis of \(\Ptwo\), namely
+\[
+\beta=(1,X,X^2),
+\]
+and let
+\[
+\gamma=(1,\ X-1,\ (X-1)^2).
+\]
+Define \(S:\Ptwo\to \Ptwo\) by
+\[
+\forall p\in \Ptwo:\qquad S(p)\coloneqq p+(X-1)p'.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[3 points]} Compute the change-of-coordinates matrix
+\[
+[I_{\Ptwo}]^\beta_\gamma.
+\]
+
+\item \textbf{[5 points]} Compute
+\[
+[S]^\gamma_\gamma.
+\]
+
+\item \textbf{[4 points]} Determine whether \(S\) is injective and whether \(S\) is surjective.
+
+\item \textbf{[3 points]} Find the unique polynomial \(p\in \Ptwo\) such that
+\[
+S(p)=X^2+1.
+\]
+\end{enumerate}
+
+\subsubsection{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Compute \([I_{\Ptwo}]^\beta_\gamma\).}
+
+The columns of \([I_{\Ptwo}]^\beta_\gamma\) are the \(\beta\)-coordinates of the vectors in \(\gamma\).
+
+First,
+\[
+1=1,
+\]
+so
+\[
+[1]_\beta=\begin{bmatrix}1\\0\\0\end{bmatrix}.
+\]
+
+Next,
+\[
+X-1=-1+X,
+\]
+so
+\[
+[X-1]_\beta=\begin{bmatrix}-1\\1\\0\end{bmatrix}.
+\]
+
+Finally,
+\[
+(X-1)^2=X^2-2X+1,
+\]
+so
+\[
+[(X-1)^2]_\beta=\begin{bmatrix}1\\-2\\1\end{bmatrix}.
+\]
+
+Therefore
+\[
+[I_{\Ptwo}]^\beta_\gamma
+=
+\begin{bmatrix}
+1&-1&1\\
+0&1&-2\\
+0&0&1
+\end{bmatrix}.
+\]
+Hence
+\[
+\boxed{
+[I_{\Ptwo}]^\beta_\gamma
+=
+\begin{bmatrix}
+1&-1&1\\
+0&1&-2\\
+0&0&1
+\end{bmatrix}.}
+\]
+
+\item \textbf{Compute \([S]^\gamma_\gamma\).}
+
+Let
+\[
+u=X-1.
+\]
+Then the ordered basis \(\gamma\) is
+\[
+(1,u,u^2).
+\]
+We compute \(S\) on these basis vectors.
+
+Since \(1'=0\),
+\[
+S(1)=1+u\cdot 0=1.
+\]
+
+Since \(u'=1\),
+\[
+S(u)=u+u\cdot 1=2u.
+\]
+
+Since \((u^2)'=2u\),
+\[
+S(u^2)=u^2+u(2u)=3u^2.
+\]
+
+Thus
+\[
+[S(1)]_\gamma=\begin{bmatrix}1\\0\\0\end{bmatrix},\qquad
+[S(u)]_\gamma=\begin{bmatrix}0\\2\\0\end{bmatrix},\qquad
+[S(u^2)]_\gamma=\begin{bmatrix}0\\0\\3\end{bmatrix}.
+\]
+Therefore
+\[
+[S]^\gamma_\gamma=
+\begin{bmatrix}
+1&0&0\\
+0&2&0\\
+0&0&3
+\end{bmatrix}.
+\]
+Hence
+\[
+\boxed{
+[S]^\gamma_\gamma=
+\begin{bmatrix}
+1&0&0\\
+0&2&0\\
+0&0&3
+\end{bmatrix}.}
+\]
+
+\item \textbf{Determine injectivity and surjectivity.}
+
+The matrix
+\[
+[S]^\gamma_\gamma=
+\begin{bmatrix}
+1&0&0\\
+0&2&0\\
+0&0&3
+\end{bmatrix}
+\]
+has a pivot in every column and a pivot in every row. Therefore \(S\) is injective and surjective.
+
+Equivalently, since the diagonal entries are all nonzero, \([S]^\gamma_\gamma\) is invertible, so \(S\) is invertible. Thus
+\[
+\boxed{S\text{ is injective and surjective.}}
+\]
+
+\item \textbf{Solve \(S(p)=X^2+1\).}
+
+Again let \(u=X-1\). Then
+\[
+X=u+1,
+\qquad
+X^2+1=(u+1)^2+1=u^2+2u+2.
+\]
+So in the basis \(\gamma=(1,u,u^2)\),
+\[
+[X^2+1]_\gamma=\begin{bmatrix}2\\2\\1\end{bmatrix}.
+\]
+
+Suppose
+\[
+[p]_\gamma=\begin{bmatrix}a\\b\\c\end{bmatrix}.
+\]
+Then
+\[
+[S(p)]_\gamma=
+[S]^\gamma_\gamma [p]_\gamma
+=
+\begin{bmatrix}
+1&0&0\\
+0&2&0\\
+0&0&3
+\end{bmatrix}
+\begin{bmatrix}a\\b\\c\end{bmatrix}
+=
+\begin{bmatrix}a\\2b\\3c\end{bmatrix}.
+\]
+We want
+\[
+[S(p)]_\gamma=\begin{bmatrix}2\\2\\1\end{bmatrix}.
+\]
+Hence
+\[
+a=2,\qquad 2b=2,\qquad 3c=1,
+\]
+so
+\[
+a=2,\qquad b=1,\qquad c=\frac13.
+\]
+Therefore
+\[
+p=2+(X-1)+\frac13(X-1)^2.
+\]
+Expanding,
+\[
+p
+=
+2+X-1+\frac13(X^2-2X+1)
+=
+\frac13X^2+\frac13X+\frac43.
+\]
+Thus the unique polynomial is
+\[
+\boxed{
+p(X)=2+(X-1)+\frac13(X-1)^2
+=
+\frac13X^2+\frac13X+\frac43.}
+\]
+\end{enumerate}
+
+\newpage
+
+% ============================================================
+% Question 4
+% ============================================================
+\section{Question 4 \hfill (12 marks)}
+
+\subsection{Problem}
+
+Let \(V\) be a vector space over a field \(F\) with \(\operatorname{char}(F)\neq 2\), and let \(S\in L(V)\) satisfy
+\[
+S^2=I_V.
+\]
+Define
+\[
+U\coloneqq \{v\in V\mid S(v)=v\},
+\qquad
+W\coloneqq \{v\in V\mid S(v)=-v\}.
+\]
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{[3 points]} Show that \(U\) and \(W\) are vector subspaces of \(V\).
+
+\item \textbf{[3 points]} Show that
+\[
+U\cap W=\{0_V\}.
+\]
+
+\item \textbf{[6 points]} Prove that
+\[
+V=U\oplus W.
+\]
+Your proof must give an explicit decomposition of an arbitrary \(v\in V\).
+\end{enumerate}
+
+\subsubsection{Solution}
+
+\paragraph{(i) \(U\) and \(W\) are subspaces.}
+Define
+\[
+L_+=S-I_V,\qquad L_-=S+I_V.
+\]
+Since \(S\) and \(I_V\) are linear, both \(L_+\) and \(L_-\) are linear.
+
+Now
+\[
+U=\{v\in V\mid S(v)=v\}=\{v\in V\mid (S-I_V)(v)=0\}=\Null(L_+),
+\]
+and
+\[
+W=\{v\in V\mid S(v)=-v\}=\{v\in V\mid (S+I_V)(v)=0\}=\Null(L_-).
+\]
+Since kernels of linear maps are subspaces, both \(U\) and \(W\) are vector subspaces of \(V\). Therefore
+\[
+\boxed{U\le V\quad\text{and}\quad W\le V.}
+\]
+
+\paragraph{(ii) Trivial intersection.}
+Let \(x\in U\cap W\). Then
+\[
+S(x)=x
+\qquad\text{and}\qquad
+S(x)=-x.
+\]
+Hence
+\[
+x=-x.
+\]
+So
+\[
+2x=0.
+\]
+Since \(\operatorname{char}(F)\neq 2\), the scalar \(2\) is nonzero in \(F\), and therefore \(x=0\). Thus
+\[
+U\cap W=\{0_V\}.
+\]
+Hence
+\[
+\boxed{U\cap W=\{0_V\}.}
+\]
+
+\paragraph{(iii) Direct-sum decomposition.}
+Let \(v\in V\) be arbitrary. Define
+\[
+u\coloneqq \frac12(v+S(v)),
+\qquad
+w\coloneqq \frac12(v-S(v)).
+\]
+Then
+\[
+u+w
+=
+\frac12(v+S(v))+\frac12(v-S(v))
+=
+v.
+\]
+So it remains to show that \(u\in U\) and \(w\in W\).
+
+First,
+\[
+S(u)
+=
+S\left(\frac12(v+S(v))\right)
+=
+\frac12(S(v)+S^2(v))
+=
+\frac12(S(v)+v)
+=
+u,
+\]
+since \(S^2=I_V\). Hence \(u\in U\).
+
+Next,
+\[
+S(w)
+=
+S\left(\frac12(v-S(v))\right)
+=
+\frac12(S(v)-S^2(v))
+=
+\frac12(S(v)-v)
+=
+-\frac12(v-S(v))
+=
+-w.
+\]
+Hence \(w\in W\).
+
+Therefore every \(v\in V\) can be written as
+\[
+v=u+w
+\qquad\text{with }u\in U,\ w\in W.
+\]
+So
+\[
+V=U+W.
+\]
+Together with part (ii), which showed that \(U\cap W=\{0_V\}\), we conclude that
+\[
+\boxed{V=U\oplus W.}
+\]
+
+\newpage
+
+% ============================================================
+% Brief mark scheme
+% ============================================================
+\section{Brief Mark Scheme}
+
+\subsection{Question 1 \hfill (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a)(i) (3 marks)} Correct identification of a linear functional / kernel argument and conclusion.
+\item \textbf{(a)(ii) (3 marks)} Correct counterexample to closure under scalar multiplication or addition and conclusion.
+\item \textbf{(a)(iii) (4 marks)} Correct verification that \(c\in\Span\{u,v\}\), deduction that \(W_3=\Span\{u,v\}\), and conclusion.
+\item \textbf{(b) (5 marks)} Correct linear-independence proof using linearity of \(T\).
+\end{itemize}
+
+\subsection{Question 2 \hfill (18 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (3 marks)} Correct linearity argument.
+\item \textbf{(b) (4 marks)} Correct images of basis matrices and assembly of \([T]\).
+\item \textbf{(c) (4 marks)} Correct solution of \(T(A)=0\) and a valid basis of \(\Null(T)\).
+\item \textbf{(d) (4 marks)} Correct characterisation and basis of \(\Range(T)\).
+\item \textbf{(e) (3 marks)} Explicit decomposition, trivial intersection, and direct-sum conclusion.
+\end{itemize}
+
+\subsection{Question 3 \hfill (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (3 marks)} Correct change-of-coordinates matrix.
+\item \textbf{(b) (5 marks)} Correct computation of \([S]^\gamma_\gamma\).
+\item \textbf{(c) (4 marks)} Correct injective/surjective conclusion with justification.
+\item \textbf{(d) (3 marks)} Correct preimage polynomial.
+\end{itemize}
+
+\subsection{Question 4 \hfill (12 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(i) (3 marks)} Correct proof that \(U,W\) are subspaces.
+\item \textbf{(ii) (3 marks)} Correct proof that \(U\cap W=\{0_V\}\).
+\item \textbf{(iii) (6 marks)} Correct explicit decomposition \(v=\frac12(v+Sv)+\frac12(v-Sv)\) and direct-sum conclusion.
+\end{itemize}
+
+\end{document}

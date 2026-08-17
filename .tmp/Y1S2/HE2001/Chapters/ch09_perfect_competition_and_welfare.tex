@@ -1,0 +1,590 @@
+% chapters/ch09_perfect_competition_and_welfare.tex
+
+\section{Perfect Competition and Welfare}
+
+This chapter studies welfare in a more general market environment than the single-market partial-equilibrium framework of Chapter 8. Instead of measuring welfare by summing consumer and producer surplus in one market, we consider an exchange economy with multiple goods and multiple consumers, and use Pareto efficiency as the central efficiency concept. The chapter develops the simple exchange economy, the Edgeworth box, competitive equilibrium, the contract curve, envy-freeness, and the two fundamental welfare theorems.
+
+\subsection{The Simple Exchange Economy}
+
+We begin with a pure exchange economy: goods are redistributed across consumers, but there is no production.
+
+\begin{definition}{Simple exchange economy}{ch9-exchange-economy}
+A simple exchange economy consists of:
+\begin{itemize}
+    \item $N$ consumers, indexed by $i=1,\dots,N$;
+    \item $M$ goods, indexed by $j=1,\dots,M$;
+    \item for each consumer $i$, an endowment
+    \[
+    \omega^i = (\omega_1^i,\dots,\omega_M^i) \in \mathbb{R}_+^M;
+    \]
+    \item for each consumer $i$, preferences represented by a utility function
+    \[
+    U_i(x^i),
+    \qquad
+    x^i=(x_1^i,\dots,x_M^i)\in \mathbb{R}_+^M.
+    \]
+\end{itemize}
+There is no production, so goods cannot be transformed into one another.
+\end{definition}
+
+The total resource of each good is the sum of individual endowments.
+
+\begin{definition}{Aggregate resources and feasible allocations}{ch9-feasible-allocation}
+For each good $j$, total resources are
+\[
+e_j = \sum_{i=1}^N \omega_j^i.
+\]
+An allocation
+\[
+X=(x^1,\dots,x^N)
+\]
+is \emph{feasible} if for every good $j$,
+\[
+\sum_{i=1}^N x_j^i = e_j.
+\]
+That is, the allocation must exactly distribute the economy's total endowment.
+\end{definition}
+
+A feasible allocation need not respect individual endowments. A consumer may consume more than her own initial endowment of some good, provided other consumers consume less and total resources are preserved.
+
+\begin{examtip}
+In exchange-economy questions, always distinguish:
+\begin{itemize}
+    \item \emph{individual endowment} $\omega^i$,
+    \item \emph{individual allocation} $x^i$,
+    \item \emph{aggregate resources} $e$.
+\end{itemize}
+Feasibility is about aggregate resources, not about each person staying within their original bundle.
+\end{examtip}
+
+\subsection{Pareto Improvements and Pareto Efficiency}
+
+The chapter replaces the more subjective ``maximize $CS+PS$'' criterion with a more general efficiency concept.
+
+\begin{definition}{Pareto improvement}{ch9-pareto-improvement}
+Let
+\[
+X=(x^1,\dots,x^N)
+\quad \text{and} \quad
+Y=(y^1,\dots,y^N)
+\]
+be feasible allocations. We say that $Y$ \emph{Pareto improves on} $X$ if
+\[
+y^i \succeq_i x^i
+\quad \text{for all } i,
+\]
+and
+\[
+y^j \succ_j x^j
+\quad \text{for some } j.
+\]
+So $Y$ makes everyone weakly better off and at least one person strictly better off.
+\end{definition}
+
+\begin{definition}{Pareto efficient allocation}{ch9-pareto-efficient}
+A feasible allocation $X$ is \emph{Pareto efficient} if there is no other feasible allocation that Pareto improves on it.
+\end{definition}
+
+The logic is simple: if a feasible reallocation can make someone better off without hurting anyone else, then the original allocation wastes gains from trade.
+
+\begin{commonmistake}
+If an allocation $Y$ Pareto improves on $X$, it does \emph{not} follow that $Y$ is Pareto efficient. Another feasible allocation $Z$ may still Pareto improve on $Y$.
+\end{commonmistake}
+
+\begin{examplebox}[title={Worked Example: checking Pareto efficiency}]
+Suppose 10 apples and 10 oranges are split between consumers A and B.
+Consumer A has utility
+\[
+U_A = \#\text{apples},
+\]
+while consumer B has utility
+\[
+U_B = \#\text{apples} + \#\text{oranges}.
+\]
+
+Check the following allocations.
+
+\textbf{1. A gets 10 oranges, B gets 10 apples.}
+
+A's utility is $0$ and B's utility is $10$. This is not Pareto efficient because one can transfer some oranges from A to B:
+\begin{itemize}
+    \item A does not care about oranges;
+    \item B values oranges positively.
+\end{itemize}
+So B can be made strictly better off without hurting A.
+
+\textbf{2. A gets 10 apples, B gets 10 oranges.}
+
+A's utility is $10$ and B's utility is $10$. Any apple transferred from A to B hurts A, and A has no oranges to give B. So no Pareto improvement exists. This allocation is Pareto efficient.
+
+\textbf{3. A gets 5 apples, B gets 5 apples and 10 oranges.}
+
+A's utility is $5$ and B's utility is $15$. Since B already has all oranges, any move that gives A more apples must take apples away from B. That hurts B unless compensated, but A has no desirable oranges to offer. So this allocation is Pareto efficient.
+
+\textbf{4. A gets 0 apples, B gets 10 apples and 10 oranges.}
+
+A's utility is $0$ and B's utility is $20$. Although A is badly treated, any apple transferred from B to A lowers B's utility, and A has nothing valuable to compensate B with. Hence there is no Pareto improvement. This allocation is also Pareto efficient.
+
+Therefore:
+\[
+\boxed{\text{Allocation 1 is not Pareto efficient; allocations 2, 3, and 4 are Pareto efficient.}}
+\]
+This example shows that Pareto efficiency and fairness are different concepts.
+\end{examplebox}
+
+\subsection{The Edgeworth Box}
+
+For the two-good, two-consumer case, the key graphical tool is the Edgeworth box.
+
+\begin{definition}{Two-good, two-consumer exchange economy}{ch9-2x2-economy}
+Suppose there are two goods and two consumers, A and B. Let
+\[
+\omega^A=(\omega_1^A,\omega_2^A),
+\qquad
+\omega^B=(\omega_1^B,\omega_2^B).
+\]
+A feasible allocation consists of bundles
+\[
+x^A=(x_1^A,x_2^A),
+\qquad
+x^B=(x_1^B,x_2^B),
+\]
+satisfying
+\[
+x_1^A+x_1^B = \omega_1^A+\omega_1^B,
+\qquad
+x_2^A+x_2^B = \omega_2^A+\omega_2^B.
+\]
+\end{definition}
+
+\begin{definition}{Edgeworth box}{ch9-edgeworth-box}
+The \emph{Edgeworth box} is the rectangle with:
+\[
+\text{length } = \omega_1^A+\omega_1^B,
+\qquad
+\text{height } = \omega_2^A+\omega_2^B.
+\]
+Each point in the box represents a feasible allocation. The lower-left origin is consumer A's origin, while the upper-right origin is consumer B's origin.
+\end{definition}
+
+Thus every point in the box automatically satisfies feasibility. The endowment point
+\[
+(\omega_1^A,\omega_2^A)
+\]
+from A's perspective simultaneously determines B's endowment from the opposite origin.
+
+\begin{definition}{Contract curve}{ch9-contract-curve}
+The \emph{contract curve}, or \emph{Pareto set}, is the set of feasible allocations in the Edgeworth box that are Pareto efficient.
+\end{definition}
+
+At a smooth interior Pareto-efficient allocation, the consumers' indifference curves are tangent. Hence, for differentiable utilities,
+\[
+MRS_A = MRS_B
+\]
+at interior points of the contract curve.
+
+\begin{theorem}{Tangency characterization of interior Pareto efficiency}{ch9-tangency}
+Suppose preferences are locally nonsatiated and differentiable. If a feasible interior allocation in the Edgeworth box is Pareto efficient, then the indifference curves of A and B are tangent at that point. Equivalently,
+\[
+MRS_A = MRS_B.
+\]
+\end{theorem}
+
+\begin{proof}
+If the indifference curves cross rather than being tangent, then there is a local feasible direction that moves both consumers to higher indifference curves. This creates a Pareto improvement, contradicting Pareto efficiency. Therefore, at an interior Pareto-efficient point, the indifference curves must be tangent, so their slopes and hence their MRS values are equal.
+\end{proof}
+
+\begin{examtip}
+To identify Pareto improvements in an Edgeworth box:
+\begin{enumerate}
+    \item draw both consumers' indifference curves through the allocation;
+    \item find the region that each consumer weakly prefers;
+    \item take the overlap.
+\end{enumerate}
+If the overlap contains other feasible allocations, the original point is not Pareto efficient.
+\end{examtip}
+
+\subsection{Fairness and Envy-Freeness}
+
+Efficiency alone does not address distributional concerns.
+
+\begin{definition}{Envy and envy-freeness}{ch9-envy-free}
+In a two-consumer allocation $(x^A,x^B)$:
+\begin{itemize}
+    \item A envies B if
+    \[
+    x^B \succ_A x^A
+    \quad \text{or equivalently} \quad
+    U_A(x^B)>U_A(x^A);
+    \]
+    \item B envies A if
+    \[
+    x^A \succ_B x^B.
+    \]
+\end{itemize}
+The allocation is \emph{envy-free} if neither consumer envies the other:
+\[
+U_A(x^A)\ge U_A(x^B),
+\qquad
+U_B(x^B)\ge U_B(x^A).
+\]
+\end{definition}
+
+\begin{definition}{Fair allocation}{ch9-fair-allocation}
+A feasible allocation is called \emph{fair} if it is both:
+\begin{enumerate}
+    \item Pareto efficient, and
+    \item envy-free.
+\end{enumerate}
+\end{definition}
+
+So fairness is stricter than efficiency. A Pareto-efficient allocation can still be highly unequal or envied.
+
+\begin{commonmistake}
+Do not equate Pareto efficiency with fairness. An allocation can be Pareto efficient simply because no Pareto improvement is possible, even if one consumer receives almost everything.
+\end{commonmistake}
+
+\subsection{Competitive Equilibrium in the Exchange Economy}
+
+Markets now determine allocations through decentralized utility maximization.
+
+\begin{definition}{Competitive equilibrium in a pure exchange economy}{ch9-competitive-equilibrium}
+A \emph{competitive equilibrium} consists of a price vector
+\[
+p=(p_1,\dots,p_M)
+\]
+and a feasible allocation
+\[
+(x^1,\dots,x^N)
+\]
+such that:
+\begin{enumerate}
+    \item for each consumer $i$, $x^i$ maximizes utility subject to the budget constraint
+    \[
+    p\cdot x^i = p\cdot \omega^i;
+    \]
+    \item the allocation is feasible, i.e. markets clear:
+    \[
+    \sum_{i=1}^N x_j^i = \sum_{i=1}^N \omega_j^i
+    \qquad \text{for each good } j.
+    \]
+\end{enumerate}
+\end{definition}
+
+In the two-good, two-consumer Edgeworth box, the budget line passes through the endowment point and has slope
+\[
+-\frac{p_1}{p_2}
+\]
+from A's perspective. The same physical line is also B's budget line when drawn from B's origin.
+
+\begin{keyformula}[title={Key Formula: Budget Line in the Edgeworth Box}]
+Consumer A's budget line is
+\[
+p_1 x_1^A + p_2 x_2^A = p_1 \omega_1^A + p_2 \omega_2^A.
+\]
+Hence
+\[
+x_2^A
+=
+\frac{p_1}{p_2}\omega_1^A + \omega_2^A - \frac{p_1}{p_2}x_1^A,
+\]
+so the slope is
+\[
+-\frac{p_1}{p_2}.
+\]
+This same line also represents B's budget constraint after converting coordinates using feasibility.
+\end{keyformula}
+
+\begin{examtip}
+In exchange-equilibrium problems, only the \emph{price ratio} matters. If
+\[
+\frac{p_1^*}{p_2^*}=m,
+\]
+then any positive scalar multiple of $(p_1^*,p_2^*)$ gives the same budget-line slope and the same demand choices. One price is usually normalized to 1 as the numeraire.
+\end{examtip}
+
+\subsection{How to Solve for Competitive Equilibrium}
+
+The lecture's solution method is entirely standard.
+
+\begin{examtip}[title={Method Pattern: Solving a 2-good, 2-consumer equilibrium}]
+To solve a competitive equilibrium algebraically:
+\begin{enumerate}
+    \item Derive each consumer's demand as a function of prices and wealth:
+    \[
+    x^A(p,p\cdot \omega^A), \qquad x^B(p,p\cdot \omega^B).
+    \]
+    \item Write the market-clearing conditions:
+    \[
+    x_1^A + x_1^B = \omega_1^A+\omega_1^B,
+    \qquad
+    x_2^A + x_2^B = \omega_2^A+\omega_2^B.
+    \]
+    \item Substitute the demand functions and solve for the equilibrium price ratio.
+    \item Plug the equilibrium prices back into the demand functions to get the equilibrium allocation.
+\end{enumerate}
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: Solving for competitive equilibrium}]
+Consider a two-good, two-consumer exchange economy with endowments
+\[
+\omega^A=(4,8),
+\qquad
+\omega^B=(7,3).
+\]
+Consumer A has utility
+\[
+U_A(x_1,x_2)=\min\{x_1,x_2\},
+\]
+and consumer B has utility
+\[
+U_B(x_1,x_2)=x_1^{0.5}x_2^{0.5}.
+\]
+
+\textbf{Step 1: derive demands.}
+
+Consumer A has perfect-complements preferences, so she chooses
+\[
+x_1^A=x_2^A.
+\]
+Her wealth is
+\[
+m_A = 4p_1+8p_2.
+\]
+Hence
+\[
+x_1^A=x_2^A=\frac{4p_1+8p_2}{p_1+p_2}.
+\]
+
+Consumer B has Cobb--Douglas utility with equal exponents, so his demand is
+\[
+x_1^B=\frac{m_B}{2p_1},
+\qquad
+x_2^B=\frac{m_B}{2p_2},
+\]
+where
+\[
+m_B=7p_1+3p_2.
+\]
+Therefore
+\[
+x_1^B=\frac{7p_1+3p_2}{2p_1},
+\qquad
+x_2^B=\frac{7p_1+3p_2}{2p_2}.
+\]
+
+\textbf{Step 2: impose market clearing.}
+
+Total endowment is
+\[
+(11,11).
+\]
+Market 1 clearing requires
+\[
+\frac{4p_1+8p_2}{p_1+p_2}
++
+\frac{7p_1+3p_2}{2p_1}
+=
+11.
+\]
+Solving gives
+\[
+p_1=p_2.
+\]
+By symmetry of total resources, this also clears market 2.
+
+\textbf{Step 3: find the equilibrium allocation.}
+
+Normalize prices so that
+\[
+p_1=p_2=1.
+\]
+Then
+\[
+x_1^A=x_2^A=\frac{4+8}{2}=6,
+\]
+and
+\[
+x_1^B=x_2^B=\frac{7+3}{2}=5.
+\]
+
+Therefore a competitive equilibrium is
+\[
+\boxed{
+p_1^*=p_2^*,
+\qquad
+x^{A*}=(6,6),
+\qquad
+x^{B*}=(5,5).
+}
+\]
+\end{examplebox}
+
+\subsection{Competitive Equilibrium in the Edgeworth Box}
+
+The Edgeworth-box geometry gives a graphical proof of the welfare property of competitive equilibrium.
+
+At a competitive equilibrium:
+\begin{itemize}
+    \item each consumer maximizes utility subject to the common budget line through the endowment point, so each chosen bundle lies at a tangency between an indifference curve and that budget line;
+    \item market clearing means the two consumers choose the same feasible point in the box;
+    \item therefore both consumers' indifference curves are tangent to the same line at the same point.
+\end{itemize}
+
+Hence the equilibrium allocation lies on the contract curve.
+
+\begin{theorem}{First Fundamental Welfare Theorem in the exchange economy}{ch9-fwt}
+In the simple competitive exchange economy, a competitive equilibrium allocation is Pareto efficient.
+\end{theorem}
+
+\begin{proof}
+At a competitive equilibrium in the two-good, two-consumer Edgeworth box, both consumers maximize utility on the same budget line. Therefore each consumer's indifference curve is tangent to the budget line at the equilibrium allocation. Since the allocation is feasible and both tangencies occur at the same point, the two indifference curves are tangent to each other there. A feasible interior allocation where the indifference curves are tangent admits no local Pareto improvement. Hence the equilibrium allocation is Pareto efficient.
+\end{proof}
+
+The lecture emphasizes that this theorem is much less subjective than maximizing $CS+PS$: it does not require attaching interpersonal weights to utility.
+
+\subsection{Existence, Uniqueness, and the Role of Prices}
+
+The lecture notes that under standard convex preferences, the exchange economy has well-behaved equilibrium properties.
+
+\begin{theorem}{Standard existence and uniqueness statement used in this course}{ch9-existence}
+Under standard convex preferences in the exchange economy considered in the lecture, a competitive equilibrium exists, and the equilibrium price ratio is unique.
+\end{theorem}
+
+\begin{examtip}
+Be careful with the word \emph{unique}. In these exchange problems, the equilibrium \emph{price ratio} is unique, not the absolute price vector. If $(p_1^*,p_2^*)$ is an equilibrium price vector, then so is
+\[
+(\lambda p_1^*, \lambda p_2^*)
+\]
+for any $\lambda>0$.
+\end{examtip}
+
+\subsection{The Second Fundamental Welfare Theorem}
+
+The contract curve usually contains many Pareto-efficient allocations. Competitive equilibrium selects one of them depending on the initial endowment point. The second welfare theorem explains how any desired Pareto-efficient allocation can be supported as a market equilibrium after suitable redistribution.
+
+\begin{theorem}{Second Fundamental Welfare Theorem}{ch9-swt}
+Under the standard convexity assumptions, for any Pareto-efficient allocation, there exists a redistribution of endowments such that the resulting competitive equilibrium yields that allocation.
+\end{theorem}
+
+\begin{proof}
+Take a Pareto-efficient allocation in the Edgeworth box. At such a point, the consumers' indifference curves admit a common supporting tangent line. Choose a redistributed endowment point lying on this tangent budget line. At the prices corresponding to the slope of that line, each consumer can afford the Pareto-efficient allocation and optimally chooses it, since the line is tangent to the relevant indifference curve. Because the allocation is feasible, markets clear. Hence the Pareto-efficient allocation is decentralized as a competitive equilibrium from the redistributed endowment.
+\end{proof}
+
+So the theorem separates:
+\begin{itemize}
+    \item \textbf{efficiency}: achieved by competitive trade;
+    \item \textbf{distribution}: achieved by the initial redistribution of endowments.
+\end{itemize}
+
+This is one of the lecture's main messages: if society has a preferred Pareto-efficient allocation, it may be possible to reach it not by distorting trade itself, but by redistributing endowments first and then letting markets operate.
+
+\begin{examtip}
+A standard Edgeworth-box interpretation of the SWT is:
+\begin{itemize}
+    \item pick a Pareto-efficient point on the contract curve;
+    \item draw the common tangent budget line there;
+    \item any redistributed endowment lying on that line can support that Pareto-efficient point as competitive equilibrium.
+\end{itemize}
+\end{examtip}
+
+\subsection{Implicit Assumptions Behind the Welfare Theorems}
+
+The welfare theorems are powerful, but they do not hold without structure.
+
+\begin{definition}{Implicit assumptions emphasized in the lecture}{ch9-assumptions}
+The exchange model in this chapter relies on the following assumptions:
+\begin{itemize}
+    \item \textbf{Complete markets:} all relevant goods can be traded.
+    \item \textbf{No externalities:} each consumer's utility depends only on own consumption.
+    \item \textbf{Standard convex preferences:} needed for the clean welfare-theorem results.
+\end{itemize}
+\end{definition}
+
+If external effects exist but cannot be traded, or if some markets are missing, then the competitive equilibrium need not be Pareto efficient.
+
+\begin{commonmistake}
+Do not quote the welfare theorems without mentioning their assumptions. In particular, missing markets and externalities are standard reasons why competitive equilibrium can fail to be Pareto efficient.
+\end{commonmistake}
+
+\subsection{Standard Problem Types and Solution Patterns}
+
+\begin{examtip}[title={Method Pattern: Checking Pareto efficiency}]
+In allocation questions:
+\begin{enumerate}
+    \item identify total resources and feasibility;
+    \item ask whether one consumer can be made strictly better off without making the other worse off;
+    \item in Edgeworth-box settings, look for overlap of upper contour sets;
+    \item at smooth interior points, check tangency:
+    \[
+    MRS_A=MRS_B.
+    \]
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Exchange equilibrium algebra}]
+For two-good, two-consumer economies:
+\begin{enumerate}
+    \item compute each consumer's wealth from endowment:
+    \[
+    m_i = p_1 \omega_1^i + p_2 \omega_2^i;
+    \]
+    \item derive Marshallian demand from each utility function;
+    \item impose market clearing on one or both goods;
+    \item solve for the price ratio and allocations.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Fairness questions}]
+If asked whether an allocation is fair:
+\begin{enumerate}
+    \item test Pareto efficiency;
+    \item test envy-freeness:
+    \[
+    U_A(x^A)\ge U_A(x^B),
+    \qquad
+    U_B(x^B)\ge U_B(x^A).
+    \]
+\end{enumerate}
+Only if both hold is the allocation fair.
+\end{examtip}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 9 Summary}]
+\begin{align*}
+e_j &= \sum_{i=1}^N \omega_j^i, \\
+\sum_{i=1}^N x_j^i &= e_j
+\qquad \text{for each good } j, \\
+Y \text{ Pareto improves on } X
+&\iff
+y^i \succeq_i x^i \ \forall i
+\text{ and } y^j \succ_j x^j \text{ for some } j, \\
+X \text{ Pareto efficient}
+&\iff
+\text{no feasible allocation Pareto improves on } X, \\
+p\cdot x^i &= p\cdot \omega^i
+\qquad \text{for each consumer in equilibrium}, \\
+x_1^A+x_1^B &= \omega_1^A+\omega_1^B, \\
+x_2^A+x_2^B &= \omega_2^A+\omega_2^B, \\
+\text{interior Pareto efficiency} &\Rightarrow MRS_A=MRS_B, \\
+\text{competitive equilibrium} &\Rightarrow \text{Pareto efficiency (FWT)}, \\
+\text{any Pareto-efficient allocation}
+&\Rightarrow
+\text{can be decentralized after redistribution (SWT)}.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield takeaways from this chapter are:
+\begin{itemize}
+    \item feasibility in an exchange economy means total consumption equals total endowment good by good;
+    \item Pareto efficiency is about the impossibility of Pareto improvements, not about fairness;
+    \item the Edgeworth box turns a two-person, two-good exchange economy into a geometric object;
+    \item the contract curve is the set of Pareto-efficient allocations;
+    \item a competitive equilibrium is determined by utility maximization plus market clearing;
+    \item in equilibrium, only the price ratio matters;
+    \item the First Welfare Theorem says competitive equilibrium is Pareto efficient;
+    \item the Second Welfare Theorem says any Pareto-efficient allocation can be supported after suitable redistribution, under the standard assumptions.
+\end{itemize}
+\end{examtip}

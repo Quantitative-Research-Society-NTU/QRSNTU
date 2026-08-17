@@ -1,0 +1,95 @@
+%====================================================================
+\newpage
+\section{Notation Reference}
+%====================================================================
+
+This appendix provides a comprehensive notation table for the course. Use this section to clarify symbols and conventions.
+
+\vspace{0.3cm}
+
+\begin{center}
+\small
+% --- TABLE 1: Basic Structures ---
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Context} \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Fields and Vector Spaces}} \\
+\hline
+$\mathbb{F}$ & Field (usually $\mathbb{R}$ or $\mathbb{C}$) & General field notation \\
+$V, W, U$ & Vector spaces over $\mathbb{F}$ & Abstract spaces \\
+$\mathbb{R}^n, \mathbb{C}^n$ & $n$-dimensional real/complex vector space & Standard Euclidean space \\
+$P_n(\mathbb{F})$ & Vector space of polynomials of degree $\leq n$ & Polynomial spaces \\
+$M_{m \times n}(\mathbb{F})$ & Vector space of $m \times n$ matrices & Matrix spaces \\
+$0$ or $\mathbf{0}$ & Zero vector & General vector spaces \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Subspaces and Bases}} \\
+\hline
+$W \le V$ & $W$ is a subspace of $V$ & Subspace relation \\
+$\operatorname{Span}(S)$ & Span of set $S$ & Linear combinations of vectors in $S$ \\
+$\dim(V)$ & Dimension of vector space $V$ & Number of vectors in a basis \\
+$\mathcal{B}, \beta, \gamma$ & Ordered bases for vector spaces & Used for matrix representations \\
+$[v]_{\mathcal{B}}$ & Coordinate vector of $v$ relative to basis $\mathcal{B}$ & Column vector in $\mathbb{F}^{n,1}$ \\
+$V = U \oplus W$ & Internal direct sum & $V = U+W$ and $U \cap W = \{0\}$ \\
+\hline
+\end{tabularx}
+
+\vspace{0.5cm} % Adds breathing room between the tables if they end up on the same page
+
+% --- TABLE 2: Operators and Advanced Theory ---
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Context} \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Linear Maps and Matrices}} \\
+\hline
+$T: V \to W$ & Linear transformation from $V$ to $W$ & Function notation \\
+$\mathcal{L}(V, W)$ & $\mathcal{L}(V,W) \coloneqq \{T:V\to W \mid T\text{ is linear}\}$ & Space of all linear maps \\
+$\operatorname{Null}(T)$ or $\ker(T)$ & Null space (kernel) of $T$ & $\{ v \in V \mid T(v) = 0 \}$ \\
+$\range(T)$ or $\operatorname{im}(T)$ & Range (image) of $T$ & $\{ T(v) \mid v \in V \}$ \\
+$\operatorname{Nullity}(T)$ & Nullity of $T \coloneqq \dim(\operatorname{Null}(T))$ & Rank-Nullity Theorem \\
+$\operatorname{Rank}(T)$ & Rank of $T \coloneqq \dim(\range(T))$ & Rank-Nullity Theorem \\
+$I$ or $I_V$ & Identity transformation or matrix & $I(v) = v$ for all $v$ \\
+$S \circ T$ & Composition of $S$ and $T$ & $(S \circ T)(v) = S(T(v))$ \\
+$T^{-1}$ & Inverse transformation & Exists if $T$ is bijective \\
+$[T]_{\beta}^{\gamma}$ & Matrix of $T$ relative to bases $\beta$ and $\gamma$ & Matrix representation \\
+$[I_V]_{\beta}^{\gamma}$ & Change-of-coordinate matrix from $\beta$ to $\gamma$ & Transforms $[v]_\beta$ to $[v]_\gamma$ \\
+$A \sim B$ & $A$ is similar to $B$ & $\exists Q$ invertible: $B = Q^{-1} A Q$ \\
+$A^{\mathsf{T}}$ & Transpose of matrix $A$ & $(A^{\mathsf{T}})_{ij} = A_{ji}$ \\
+$A^*$ or $A^\dagger$ & Conjugate transpose (Hermitian adjoint) & $(A^*)_{ij} = \overline{A_{ji}}$ \\
+$\operatorname{tr}(A)$ & Trace of matrix $A$ & Sum of diagonal entries \\
+$\det(A)$ & Determinant of matrix $A$ & Scalar value \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Eigenvalues and Inner Products}} \\
+\hline
+$\lambda, v$ & Eigenvalue and Eigenvector & $T(v) = \lambda v, v \neq 0$ \\
+$E_{T,\lambda}$ & Eigenspace for eigenvalue $\lambda$ & $\operatorname{Null}(T - \lambda I_V)$ \\
+$p_T(\lambda)$ & Characteristic polynomial of $T$ & $\det([T]^{\beta}_{\beta} - \lambda I_n)$ \\
+$m_A(\lambda)$ & Minimal polynomial of $A$ & Least degree monic polynomial with $m_A(A) = 0$ \\
+$J_k(\lambda)$ & Jordan block of size $k$ with eigenvalue $\lambda$ & Jordan Canonical Form \\
+$\langle u, v \rangle$ & Inner product of $u$ and $v$ & Inner-product spaces \\
+$\|v\|$ & Norm of vector $v$ & $\sqrt{\langle v, v \rangle}$ \\
+$u \perp v$ & $u$ is orthogonal to $v$ & $\langle u, v \rangle = 0$ \\
+$W^\perp$ & Orthogonal complement of $W$ & $\{ v \in V \mid \langle v, w \rangle = 0 \text{ for all } w \in W \}$ \\
+$\text{proj}_W(v)$ & Orthogonal projection of $v$ onto $W$ & Projection operator \\
+$\{e_1, \ldots, e_n\}$ & Orthonormal basis & $\langle e_i, e_j \rangle = \delta_{ij}$ \\
+$\delta_{ij}$ & Kronecker delta & $1$ if $i = j$; $0$ otherwise \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Logic and Set Theory}} \\
+\hline
+$\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$ & Standard number sets & Mathematical domains \\
+$\iff$ & If and only if & Logical equivalence \\
+$\implies$ & Implies & Logical implication \\
+$\forall, \exists$ & For all, There exists & Quantifiers \\
+$\in, \subseteq$ & Element of, Subset of & Set relations \\
+$\cap, \cup, \emptyset$ & Intersection, Union, Empty set & Set operations \\
+\hline
+\end{tabularx}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Note:} Throughout this document, we use standard mathematical notation. When in doubt, refer to this table or consult your textbook.
+
+\newpage

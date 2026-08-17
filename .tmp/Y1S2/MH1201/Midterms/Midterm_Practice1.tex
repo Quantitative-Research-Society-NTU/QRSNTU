@@ -1,0 +1,2491 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Midterm Exam (Solutions)}
+\newcommand{\ExamMeta}{Practice Paper -- 1}
+\newcommand{\ExamMetaShort}{Practice 1}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\dimn}{\operatorname{dim}}
+\newcommand{\Pfour}{\mathcal{P}_4(\R)}
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{4}     % Ensures \subsubsection level shows in TOC
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+
+%========================================================
+
+\newpage
+\part{Subspace}
+
+%========================================================
+\newpage
+\section{Question 1 (Single Linear Constraint in $\mathbb R^3$) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(x,y,z)\in\mathbb R^3\mid x-2y+3z=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of a linear functional}
+
+Define
+\[
+T:\mathbb R^3\to\mathbb R,\qquad T(x,y,z)=(1,-2,3)\cdot(x,y,z).
+\]
+
+Then
+\[
+T(x,y,z)=x-2y+3z.
+\]
+
+Since the dot product with a fixed vector defines a linear functional, \(T\) is linear. Hence
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear map is a subspace, \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Parametrisation as a span}
+
+Let \(y=s\) and \(z=t\), where \(s,t\in\mathbb R\). Then
+\[
+x-2y+3z=0
+\quad\Longrightarrow\quad
+x=2s-3t.
+\]
+
+Thus every vector in \(W\) has the form
+\[
+(x,y,z)=(2s-3t,s,t)=s(2,1,0)+t(-3,0,1).
+\]
+
+Therefore
+\[
+W=\Span\{(2,1,0),(-3,0,1)\}.
+\]
+
+Since a span is always a subspace, \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 2 (Symmetric \(2\times2\) Matrices) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{A\in M_{2\times2}(\mathbb R)\mid A^T=A\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Closure under linear combinations}
+
+Let \(A,B\in W\). Then
+\[
+A^T=A,\qquad B^T=B.
+\]
+
+For any \(a,b\in\mathbb R\),
+\[
+(aA+bB)^T=aA^T+bB^T=aA+bB.
+\]
+
+Hence \(aA+bB\in W\). Therefore \(W\) is closed under linear combinations, so \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Explicit span description}
+
+Let
+\[
+A=\begin{pmatrix}x&y\\ z&t\end{pmatrix}\in M_{2\times2}(\mathbb R).
+\]
+
+The condition \(A^T=A\) is equivalent to
+\[
+y=z.
+\]
+
+Hence every element of \(W\) has the form
+\[
+\begin{pmatrix}x&y\\ y&t\end{pmatrix}
+=
+x\begin{pmatrix}1&0\\0&0\end{pmatrix}
++y\begin{pmatrix}0&1\\1&0\end{pmatrix}
++t\begin{pmatrix}0&0\\0&1\end{pmatrix}.
+\]
+
+Thus
+\[
+W=\Span\left\{
+\begin{pmatrix}1&0\\0&0\end{pmatrix},
+\begin{pmatrix}0&1\\1&0\end{pmatrix},
+\begin{pmatrix}0&0\\0&1\end{pmatrix}
+\right\}.
+\]
+
+Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 3 (Polynomials Vanishing at \(x=1\)) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p(x)\in\mathcal P_2(\mathbb R)\mid p(1)=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_2(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of the evaluation map}
+
+Define
+\[
+T:\mathcal P_2(\mathbb R)\to\mathbb R,\qquad T(p)=p(1).
+\]
+
+Evaluation at a fixed point defines a linear functional on \(\mathcal P_2(\mathbb R)\). Hence \(T\) is linear. Therefore
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(\mathcal P_2(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_2(\mathbb R)}
+\]
+
+\paragraph{Method 2: Factorisation}
+
+Let \(p\in W\). Then \(p(1)=0\), so \(x=1\) is a root of \(p(x)\). Hence \(x-1\) is a factor of \(p(x)\), and since \(p\) has degree at most \(2\), there exist \(a,b\in\mathbb R\) such that
+\[
+p(x)=(x-1)(ax+b).
+\]
+
+Expanding,
+\[
+p(x)=a x(x-1)+b(x-1).
+\]
+
+Thus
+\[
+W=\Span\{x(x-1),\,x-1\}.
+\]
+
+Therefore \(W\) is a subspace of \(\mathcal P_2(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_2(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 4 (Singular \(2\times2\) Matrices) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{A\in M_{2\times2}(\mathbb R)\mid \det(A)=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Failure of closure under addition}
+
+Let
+\[
+A=\begin{pmatrix}1&0\\0&0\end{pmatrix},
+\qquad
+B=\begin{pmatrix}0&0\\0&1\end{pmatrix}.
+\]
+
+Then
+\[
+\det(A)=0,\qquad \det(B)=0,
+\]
+so \(A,B\in W\). However,
+\[
+A+B=\begin{pmatrix}1&0\\0&1\end{pmatrix}=I,
+\]
+and
+\[
+\det(I)=1\neq0.
+\]
+
+Thus \(A+B\notin W\). Hence \(W\) is not closed under addition, so \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Union of one-dimensional subspaces}
+
+A \(2\times2\) matrix is singular if and only if its columns are linearly dependent. In particular, every matrix of the form
+\[
+\begin{pmatrix}a&\lambda a\\ b&\lambda b\end{pmatrix}
+\]
+is singular for any fixed \(\lambda\in\mathbb R\).
+
+For each fixed \(\lambda\), define
+\[
+U_\lambda=\left\{
+\begin{pmatrix}a&\lambda a\\ b&\lambda b\end{pmatrix}
+: a,b\in\mathbb R
+\right\}.
+\]
+
+Each \(U_\lambda\) is a subspace of \(M_{2\times2}(\mathbb R)\), and \(W\) is the union of many such subspaces together with the subspace of matrices whose second column is zero. Since \(W\) contains, for example,
+\[
+\begin{pmatrix}1&0\\0&0\end{pmatrix}
+\quad\text{and}\quad
+\begin{pmatrix}0&0\\0&1\end{pmatrix},
+\]
+which lie in different such subspaces, but their sum is invertible, \(W\) cannot itself be a subspace.
+
+Therefore
+\[
+\boxed{W\not\le M_{2\times2}(\mathbb R)}.
+\]
+
+%========================================================
+\newpage
+\section{Question 5 (One Linear Relation in \(\mathbb R^3\)) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(x,y,z)\in\mathbb R^3\mid x=2y\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Parametrisation}
+
+A vector \((x,y,z)\in W\) satisfies \(x=2y\). Let \(y=s\) and \(z=t\). Then
+\[
+(x,y,z)=(2s,s,t)=s(2,1,0)+t(0,0,1).
+\]
+
+Hence
+\[
+W=\Span\{(2,1,0),(0,0,1)\}.
+\]
+
+Therefore \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Kernel trick}
+
+Define
+\[
+T:\mathbb R^3\to\mathbb R,\qquad T(x,y,z)=(-1,2,0)\cdot(x,y,z).
+\]
+
+Then
+\[
+T(x,y,z)=-x+2y.
+\]
+
+Since the dot product with a fixed vector defines a linear functional, \(T\) is linear. Also,
+\[
+x=2y
+\quad\Longleftrightarrow\quad
+-x+2y=0
+\quad\Longleftrightarrow\quad
+T(x,y,z)=0.
+\]
+
+Thus
+\[
+W=\ker(T).
+\]
+
+Since kernels are subspaces, \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 6 (Affine Plane in \(\mathbb R^3\)) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(x,y,z)\in\mathbb R^3\mid x+2y+z=1\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Zero vector test}
+
+If \(W\) were a subspace, then it would contain the zero vector \((0,0,0)\). However,
+\[
+0+2\cdot 0+0=0\neq1.
+\]
+
+Thus
+\[
+(0,0,0)\notin W.
+\]
+
+Therefore \(W\) is not a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\not\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Affine translate of a kernel}
+
+Define
+\[
+T:\mathbb R^3\to\mathbb R,\qquad T(x,y,z)=(1,2,1)\cdot(x,y,z).
+\]
+
+Then
+\[
+T(x,y,z)=x+2y+z,
+\]
+so
+\[
+W=\{v\in\mathbb R^3\mid T(v)=1\}.
+\]
+
+Let
+\[
+U=\ker(T)=\{v\in\mathbb R^3\mid T(v)=0\}.
+\]
+
+Choose \(v_0=(1,0,0)\). Then \(T(v_0)=1\), so for any \(v\in W\),
+\[
+T(v-v_0)=T(v)-T(v_0)=1-1=0,
+\]
+hence \(v-v_0\in U\). Therefore
+\[
+W=v_0+U.
+\]
+
+So \(W\) is an affine translate of the subspace \(U\). Since \(v_0\neq0\), this affine set does not pass through the origin, and therefore it is not a subspace.
+
+\[
+\boxed{W\not\le \mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 7 (Trace-Zero Matrices) \hfill (8 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{A\in M_{n\times n}(\mathbb R)\mid \operatorname{tr}(A)=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{n\times n}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Linear combination test}
+
+Let \(A,B\in W\). Then
+\[
+\operatorname{tr}(A)=0,\qquad \operatorname{tr}(B)=0.
+\]
+
+For any \(a,b\in\mathbb R\),
+\[
+\operatorname{tr}(aA+bB)=a\operatorname{tr}(A)+b\operatorname{tr}(B)=0.
+\]
+
+Hence \(aA+bB\in W\). Therefore \(W\) is a subspace of \(M_{n\times n}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{n\times n}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Kernel of the trace map}
+
+Define
+\[
+T:M_{n\times n}(\mathbb R)\to\mathbb R,\qquad T(A)=\operatorname{tr}(A).
+\]
+
+Since
+\[
+\operatorname{tr}(A+B)=\operatorname{tr}(A)+\operatorname{tr}(B),
+\qquad
+\operatorname{tr}(cA)=c\,\operatorname{tr}(A),
+\]
+the map \(T\) is linear. Thus
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(M_{n\times n}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{n\times n}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 8 (Intersection of Two Subspaces) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(x,y,z)\in\mathbb R^3\mid x+y+z=0,\ x-y=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Intersection property}
+
+Define
+\[
+U_1=\{(x,y,z)\in\mathbb R^3\mid x+y+z=0\},
+\]
+and
+\[
+U_2=\{(x,y,z)\in\mathbb R^3\mid x-y=0\}.
+\]
+
+Each of \(U_1\) and \(U_2\) is a subspace, since each is the solution set of a homogeneous linear equation. Moreover,
+\[
+W=U_1\cap U_2.
+\]
+
+The intersection of subspaces is always a subspace. Therefore \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Explicit parametrisation}
+
+From
+\[
+x-y=0
+\]
+we get
+\[
+x=y.
+\]
+
+Substitute this into
+\[
+x+y+z=0.
+\]
+
+Then
+\[
+y+y+z=0
+\quad\Longrightarrow\quad
+2y+z=0
+\quad\Longrightarrow\quad
+z=-2y.
+\]
+
+Hence every vector in \(W\) has the form
+\[
+(x,y,z)=(y,y,-2y)=y(1,1,-2).
+\]
+
+Therefore
+\[
+W=\Span\{(1,1,-2)\},
+\]
+which is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 9 (Smallest Subspace Containing a Set) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+S=\{(1,0,1),(2,1,3),(3,1,4)\}\subset\mathbb R^3.
+\]
+
+Let \(W\) be the smallest subspace of \(\mathbb R^3\) containing \(S\).
+
+Determine \(W\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Use the definition of span}
+
+The smallest subspace containing a set is its span. Hence
+\[
+W=\Span(S)=\Span\{(1,0,1),(2,1,3),(3,1,4)\}.
+\]
+
+Observe that
+\[
+(3,1,4)=(1,0,1)+(2,1,3).
+\]
+
+Thus the third vector is redundant, so
+\[
+W=\Span\{(1,0,1),(2,1,3)\}.
+\]
+
+Therefore
+\[
+\boxed{W=\Span\{(1,0,1),(2,1,3)\}}.
+\]
+
+\paragraph{Method 2: Minimality argument}
+
+Let
+\[
+U=\Span\{(1,0,1),(2,1,3)\}.
+\]
+
+Then \(U\) is a subspace of \(\mathbb R^3\). Also,
+\[
+(1,0,1)\in U,\qquad (2,1,3)\in U,
+\]
+and since \(U\) is closed under addition,
+\[
+(3,1,4)=(1,0,1)+(2,1,3)\in U.
+\]
+
+Hence \(S\subseteq U\). Therefore \(U\) is a subspace containing \(S\).
+
+Now let \(V\) be any subspace containing \(S\). Then \(V\) contains \((1,0,1)\) and \((2,1,3)\), so by closure under linear combinations, \(V\) must contain
+\[
+\Span\{(1,0,1),(2,1,3)\}=U.
+\]
+
+Thus every subspace containing \(S\) contains \(U\). Therefore \(U\) is the smallest subspace containing \(S\), and so
+\[
+\boxed{W=\Span\{(1,0,1),(2,1,3)\}}.
+\]
+
+%========================================================
+\newpage
+\section{Question 10 (Derivative Constraint on \(\mathcal P_3(\mathbb R)\)) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p(x)\in\mathcal P_3(\mathbb R)\mid p'(1)=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of a linear map}
+
+Define
+\[
+T:\mathcal P_3(\mathbb R)\to\mathbb R,\qquad T(p)=p'(1).
+\]
+
+We first verify that \(T\) is linear. For \(p,q\in\mathcal P_3(\mathbb R)\) and \(a,b\in\mathbb R\),
+\[
+T(ap+bq)=(ap+bq)'(1)=(ap'+bq')(1)=a p'(1)+b q'(1)=aT(p)+bT(q).
+\]
+
+Hence \(T\) is linear. Therefore
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_3(\mathbb R)}
+\]
+
+\paragraph{Method 2: Explicit general form}
+
+Let
+\[
+p(x)=ax^3+bx^2+cx+d\in\mathcal P_3(\mathbb R).
+\]
+
+Then
+\[
+p'(x)=3ax^2+2bx+c,
+\]
+so
+\[
+p'(1)=3a+2b+c.
+\]
+
+Thus \(p\in W\) if and only if
+\[
+3a+2b+c=0.
+\]
+
+Solve for \(c\):
+\[
+c=-3a-2b.
+\]
+
+Hence
+\[
+p(x)=ax^3+bx^2-(3a+2b)x+d
+= a(x^3-3x)+b(x^2-2x)+d.
+\]
+
+Therefore
+\[
+W=\Span\{x^3-3x,\ x^2-2x,\ 1\}.
+\]
+
+Since a span is a subspace, \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_3(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 11 (Row-Sum-Zero Matrices) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\left\{
+A=\begin{pmatrix}
+a&b\\ c&d
+\end{pmatrix}\in M_{2\times2}(\mathbb R)
+\;\middle|\;
+a+b=0,\ c+d=0
+\right\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Linear combination test}
+
+Let
+\[
+A=\begin{pmatrix}a&b\\ c&d\end{pmatrix},\qquad
+B=\begin{pmatrix}e&f\\ g&h\end{pmatrix}\in W.
+\]
+
+Then
+\[
+a+b=0,\quad c+d=0,\quad e+f=0,\quad g+h=0.
+\]
+
+For any \(\lambda,\mu\in\mathbb R\),
+\[
+\lambda A+\mu B=
+\begin{pmatrix}
+\lambda a+\mu e & \lambda b+\mu f\\
+\lambda c+\mu g & \lambda d+\mu h
+\end{pmatrix}.
+\]
+
+Its first row sum is
+\[
+(\lambda a+\mu e)+(\lambda b+\mu f)
+=\lambda(a+b)+\mu(e+f)=0,
+\]
+and similarly its second row sum is
+\[
+(\lambda c+\mu g)+(\lambda d+\mu h)
+=\lambda(c+d)+\mu(g+h)=0.
+\]
+
+Hence \(\lambda A+\mu B\in W\). Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Kernel of a linear map}
+
+Define
+\[
+T:M_{2\times2}(\mathbb R)\to\mathbb R^2,\qquad
+T\!\left(\begin{pmatrix}a&b\\ c&d\end{pmatrix}\right)
+=(a+b,\ c+d).
+\]
+
+This map is linear, since each component is linear in the entries of the matrix. Moreover,
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 3: Explicit span description}
+
+The conditions
+\[
+a+b=0,\qquad c+d=0
+\]
+give
+\[
+b=-a,\qquad d=-c.
+\]
+
+Hence every matrix in \(W\) has the form
+\[
+\begin{pmatrix}
+a & -a\\
+c & -c
+\end{pmatrix}
+=
+a\begin{pmatrix}
+1 & -1\\
+0 & 0
+\end{pmatrix}
++
+c\begin{pmatrix}
+0 & 0\\
+1 & -1
+\end{pmatrix}.
+\]
+
+Thus
+\[
+W=\Span\left\{
+\begin{pmatrix}
+1 & -1\\
+0 & 0
+\end{pmatrix},
+\begin{pmatrix}
+0 & 0\\
+1 & -1
+\end{pmatrix}
+\right\}.
+\]
+
+Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 12 (Affine Hyperplane in \(\mathbb R^3\)) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(x,y,z)\in\mathbb R^3\mid x-y+2z=3\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Zero vector test}
+
+If \(W\) were a subspace, then it would contain \((0,0,0)\). However,
+\[
+0-0+2\cdot 0=0\neq 3.
+\]
+
+Thus \((0,0,0)\notin W\). Hence \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Affine translate of a kernel}
+
+Define
+\[
+T:\mathbb R^3\to\mathbb R,\qquad
+T(x,y,z)=(1,-1,2)\cdot(x,y,z)=x-y+2z.
+\]
+
+Then
+\[
+W=\{v\in\mathbb R^3\mid T(v)=3\}.
+\]
+
+Let
+\[
+U=\ker(T)=\{v\in\mathbb R^3\mid T(v)=0\}.
+\]
+
+Choose
+\[
+v_0=(3,0,0),
+\]
+so that \(T(v_0)=3\). For \(v\in W\),
+\[
+T(v-v_0)=T(v)-T(v_0)=3-3=0,
+\]
+hence \(v-v_0\in U\). Therefore
+\[
+W=v_0+U.
+\]
+
+So \(W\) is an affine translate of the subspace \(U\), not a subspace itself.
+
+\[
+\boxed{W\not\le \mathbb R^3}
+\]
+\newpage
+\paragraph{Method 3: Failure of closure under scalar multiplication}
+
+Take
+\[
+u=(3,0,0)\in W,
+\]
+since
+\[
+3-0+0=3.
+\]
+
+If \(W\) were a subspace, then \(\frac12 u\) would also lie in \(W\). But
+\[
+\frac12u=\left(\frac32,0,0\right),
+\]
+and
+\[
+\frac32-0+0=\frac32\neq 3.
+\]
+
+Thus \(W\) is not closed under scalar multiplication. Hence \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le \mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 13 (Polynomials Divisible by \((x-1)^2\)) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p(x)\in\mathcal P_4(\mathbb R)\mid p(1)=0,\ p'(1)=0\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of a linear map}
+
+Define
+\[
+T:\mathcal P_4(\mathbb R)\to\mathbb R^2,\qquad
+T(p)=\bigl(p(1),\,p'(1)\bigr).
+\]
+
+The map \(p\mapsto p(1)\) is linear, since evaluation at a fixed point defines a linear functional on \(\mathcal P_4(\mathbb R)\). Also, the map \(p\mapsto p'(1)\) is linear, because differentiation is a linear map from \(\mathcal P_4(\mathbb R)\) to \(\mathcal P_3(\mathbb R)\), and evaluation at the fixed point \(x=1\) is linear on \(\mathcal P_3(\mathbb R)\). Therefore \(T\) is linear.
+
+Now
+\[
+p\in W
+\quad\Longleftrightarrow\quad
+p(1)=0\ \text{and}\ p'(1)=0
+\quad\Longleftrightarrow\quad
+T(p)=(0,0)
+\quad\Longleftrightarrow\quad
+p\in\ker(T).
+\]
+
+Hence
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear map is a subspace, \(W\) is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+\paragraph{Method 2: Factorisation}
+
+Let \(p\in W\). Since \(p(1)=0\), the polynomial \(x-1\) divides \(p(x)\). Write
+\[
+p(x)=(x-1)q(x),
+\qquad q(x)\in \mathcal P_3(\mathbb R).
+\]
+
+Differentiate:
+\[
+p'(x)=q(x)+(x-1)q'(x).
+\]
+
+Evaluating at \(x=1\), we get
+\[
+p'(1)=q(1).
+\]
+
+But \(p'(1)=0\), so \(q(1)=0\). Hence \(x-1\) also divides \(q(x)\), and therefore
+\[
+p(x)=(x-1)^2r(x)
+\]
+for some \(r(x)\in\mathcal P_2(\mathbb R)\).
+
+Thus
+\[
+W=\{(x-1)^2r(x)\mid r\in\mathcal P_2(\mathbb R)\}
+=\Span\{(x-1)^2,\ x(x-1)^2,\ x^2(x-1)^2\}.
+\]
+
+Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+
+\paragraph{Method 3: Solve in coordinates}
+
+Let
+\[
+p(x)=ax^4+bx^3+cx^2+dx+e.
+\]
+
+Then
+\[
+p(1)=a+b+c+d+e,
+\]
+and
+\[
+p'(x)=4ax^3+3bx^2+2cx+d,
+\qquad
+p'(1)=4a+3b+2c+d.
+\]
+
+The conditions become
+\[
+a+b+c+d+e=0,
+\]
+\[
+4a+3b+2c+d=0.
+\]
+
+Solve for \(d\) and \(e\):
+\[
+d=-4a-3b-2c,
+\]
+\[
+e=3a+2b+c.
+\]
+
+Hence
+\[
+p(x)=a(x^4-4x+3)+b(x^3-3x+2)+c(x^2-2x+1).
+\]
+
+Therefore
+\[
+W=\Span\{x^4-4x+3,\ x^3-3x+2,\ x^2-2x+1\}.
+\]
+
+So \(W\) is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 14 (Intersection of Polynomial Subspaces) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+U=\{p(x)\in\mathcal P_3(\mathbb R)\mid p(1)=0\},
+\]
+and
+\[
+V=\{p(x)\in\mathcal P_3(\mathbb R)\mid p(-1)=0\}.
+\]
+
+Determine whether
+\[
+W=U\cap V
+\]
+is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Intersection property}
+
+Both \(U\) and \(V\) are subspaces of \(\mathcal P_3(\mathbb R)\), since each is the kernel of an evaluation map:
+\[
+U=\ker(p\mapsto p(1)),\qquad
+V=\ker(p\mapsto p(-1)).
+\]
+
+Therefore
+\[
+W=U\cap V
+\]
+is the intersection of two subspaces. Since the intersection of subspaces is always a subspace, \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_3(\mathbb R)}
+\]
+
+\paragraph{Method 2: Factorisation}
+
+If \(p\in W\), then
+\[
+p(1)=0,\qquad p(-1)=0.
+\]
+
+Hence both \(x-1\) and \(x+1\) divide \(p(x)\). Since these factors are distinct,
+\[
+(x-1)(x+1)=x^2-1
+\]
+divides \(p(x)\). Since \(p\in\mathcal P_3(\mathbb R)\), there exist \(a,b\in\mathbb R\) such that
+\[
+p(x)=(x^2-1)(ax+b).
+\]
+
+Thus
+\[
+W=\Span\{x(x^2-1),\,x^2-1\}.
+\]
+
+Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le \mathcal P_3(\mathbb R)}
+\]
+
+\paragraph{Method 3: Kernel of a vector-valued map}
+
+Define
+\[
+T:\mathcal P_3(\mathbb R)\to\mathbb R^2,\qquad
+T(p)=\bigl(p(1),\,p(-1)\bigr).
+\]
+
+This map is linear. Moreover,
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_3(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 15 (Image of a Linear Map) \hfill (10 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{(a+b,\ a-b,\ 2a)\in\mathbb R^3\mid a,b\in\mathbb R\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathbb R^3\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Image of a linear map}
+
+Define
+\[
+T:\mathbb R^2\to\mathbb R^3,\qquad
+T(a,b)=(a+b,\ a-b,\ 2a).
+\]
+
+This map is linear, since each coordinate is a linear expression in \(a\) and \(b\). By definition,
+\[
+W=\operatorname{im}(T).
+\]
+
+Since the image of a linear map is a subspace, \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+\paragraph{Method 2: Span description}
+
+We can rewrite
+\[
+(a+b,\ a-b,\ 2a)
+=
+a(1,1,2)+b(1,-1,0).
+\]
+
+Hence
+\[
+W=\Span\{(1,1,2),\ (1,-1,0)\}.
+\]
+
+Since a span is a subspace, \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+\paragraph{Method 3: Linear combination test}
+
+Let
+\[
+u=(a_1+b_1,\ a_1-b_1,\ 2a_1)\in W,
+\qquad
+v=(a_2+b_2,\ a_2-b_2,\ 2a_2)\in W.
+\]
+
+For \(\lambda,\mu\in\mathbb R\),
+\[
+\lambda u+\mu v
+=
+\bigl(
+(\lambda a_1+\mu a_2)+(\lambda b_1+\mu b_2),\ 
+(\lambda a_1+\mu a_2)-(\lambda b_1+\mu b_2),\ 
+2(\lambda a_1+\mu a_2)
+\bigr).
+\]
+
+Let
+\[
+a=\lambda a_1+\mu a_2,\qquad b=\lambda b_1+\mu b_2.
+\]
+
+Then
+\[
+\lambda u+\mu v=(a+b,\ a-b,\ 2a)\in W.
+\]
+
+Hence \(W\) is closed under linear combinations, so \(W\) is a subspace of \(\mathbb R^3\).
+
+\[
+\boxed{W\le \mathbb R^3}
+\]
+
+
+%========================================================
+\newpage
+\section{Question 16 (Matrices with Equal Row and Column Sums) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\left\{
+A=\begin{pmatrix}
+a&b\\ c&d
+\end{pmatrix}\in M_{2\times2}(\mathbb R)
+\;\middle|\;
+a+b=c+d,\ a+c=b+d
+\right\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of a linear map}
+
+Define
+\[
+T:M_{2\times2}(\mathbb R)\to\mathbb R^2,
+\qquad
+T\!\left(\begin{pmatrix}a&b\\ c&d\end{pmatrix}\right)
+=
+\bigl((a+b)-(c+d),\ (a+c)-(b+d)\bigr).
+\]
+
+Each component is a linear expression in the entries of the matrix, so \(T\) is linear. Observe that
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Solve the linear constraints}
+
+The defining equations are
+\[
+a+b=c+d,
+\qquad
+a+c=b+d.
+\]
+
+Subtracting the second from the first gives
+\[
+b-c=c-b,
+\]
+so
+\[
+b=c.
+\]
+
+Substituting \(c=b\) into \(a+b=c+d\) gives
+\[
+a+b=b+d,
+\]
+hence
+\[
+a=d.
+\]
+
+Therefore every matrix in \(W\) has the form
+\[
+\begin{pmatrix}
+a&b\\ b&a
+\end{pmatrix}
+=
+a\begin{pmatrix}
+1&0\\ 0&1
+\end{pmatrix}
++b\begin{pmatrix}
+0&1\\ 1&0
+\end{pmatrix}.
+\]
+
+Thus
+\[
+W=\Span\left\{
+\begin{pmatrix}
+1&0\\ 0&1
+\end{pmatrix},
+\begin{pmatrix}
+0&1\\ 1&0
+\end{pmatrix}
+\right\},
+\]
+so \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+\paragraph{Method 3: Intersection of two subspaces}
+
+Let
+\[
+U=\left\{
+\begin{pmatrix}
+a&b\\ c&d
+\end{pmatrix}
+\in M_{2\times2}(\mathbb R)
+\;\middle|\;
+a+b=c+d
+\right\},
+\]
+and
+\[
+V=\left\{
+\begin{pmatrix}
+a&b\\ c&d
+\end{pmatrix}
+\in M_{2\times2}(\mathbb R)
+\;\middle|\;
+a+c=b+d
+\right\}.
+\]
+
+Each of \(U\) and \(V\) is the solution set of a homogeneous linear equation in the entries of the matrix, so each is a subspace of \(M_{2\times2}(\mathbb R)\). Moreover,
+\[
+W=U\cap V.
+\]
+
+Since the intersection of subspaces is always a subspace, \(W\) is a subspace of \(M_{2\times2}(\mathbb R)\).
+
+\[
+\boxed{W\le M_{2\times2}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 17 (Affine Constraint in a Polynomial Space) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p(x)\in\mathcal P_3(\mathbb R)\mid p(1)+p'(1)=1\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Zero polynomial test}
+
+If \(W\) were a subspace, then it must contain the zero polynomial. However, for \(p(x)=0\),
+\[
+p(1)+p'(1)=0+0=0\neq1.
+\]
+
+Thus \(0\notin W\). Therefore \(W\) is not a subspace of \(\mathcal P_3(\mathbb R)\).
+
+\[
+\boxed{W\not\le \mathcal P_3(\mathbb R)}
+\]
+
+\paragraph{Method 2: Affine translate of a kernel}
+
+Define
+\[
+T:\mathcal P_3(\mathbb R)\to\mathbb R,\qquad T(p)=p(1)+p'(1).
+\]
+
+The map \(p\mapsto p(1)\) is linear, since evaluation at a fixed point is linear. The map \(p\mapsto p'(1)\) is also linear, since differentiation is linear and evaluation at a fixed point is linear. Hence \(T\) is linear.
+
+Then
+\[
+W=\{p\in\mathcal P_3(\mathbb R)\mid T(p)=1\}.
+\]
+
+Let
+\[
+U=\ker(T)=\{p\in\mathcal P_3(\mathbb R)\mid T(p)=0\}.
+\]
+
+Choose \(p_0(x)=1\). Then
+\[
+T(p_0)=p_0(1)+p_0'(1)=1+0=1.
+\]
+
+Hence for any \(p\in W\),
+\[
+T(p-p_0)=T(p)-T(p_0)=1-1=0,
+\]
+so \(p-p_0\in U\). Therefore
+\[
+W=p_0+U.
+\]
+
+Thus \(W\) is an affine translate of the subspace \(U\), not a subspace itself.
+
+\[
+\boxed{W\not\le \mathcal P_3(\mathbb R)}
+\]
+
+\paragraph{Method 3: Failure of closure under scalar multiplication}
+
+Take
+\[
+p(x)=1\in W,
+\]
+since
+\[
+p(1)+p'(1)=1+0=1.
+\]
+
+If \(W\) were a subspace, then \(2p(x)=2\) would also belong to \(W\). But
+\[
+(2p)(1)+(2p)'(1)=2+0=2\neq1.
+\]
+
+Thus \(W\) is not closed under scalar multiplication, so it is not a subspace.
+
+\[
+\boxed{W\not\le \mathcal P_3(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 18 (Polynomials with Equal Endpoint Values and Derivatives) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p(x)\in\mathcal P_4(\mathbb R)\mid p(1)=p(-1),\ p'(1)=p'(-1)\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Kernel of a linear map}
+
+Define
+\[
+T:\mathcal P_4(\mathbb R)\to\mathbb R^2,\qquad
+T(p)=\bigl(p(1)-p(-1),\ p'(1)-p'(-1)\bigr).
+\]
+
+The map \(p\mapsto p(1)-p(-1)\) is linear because it is the difference of two evaluation maps, each of which is linear. Similarly, \(p\mapsto p'(1)-p'(-1)\) is linear because differentiation is linear and evaluation at fixed points is linear. Hence \(T\) is linear.
+
+Now
+\[
+p\in W
+\quad\Longleftrightarrow\quad
+p(1)-p(-1)=0,\ p'(1)-p'(-1)=0
+\quad\Longleftrightarrow\quad
+T(p)=(0,0).
+\]
+
+Thus
+\[
+W=\ker(T).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+
+\paragraph{Method 2: Coefficient comparison}
+
+Let
+\[
+p(x)=ax^4+bx^3+cx^2+dx+e.
+\]
+
+Then
+\[
+p(1)=a+b+c+d+e,
+\qquad
+p(-1)=a-b+c-d+e.
+\]
+
+Hence
+\[
+p(1)=p(-1)
+\quad\Longleftrightarrow\quad
+2b+2d=0
+\quad\Longleftrightarrow\quad
+b+d=0.
+\]
+
+Also,
+\[
+p'(x)=4ax^3+3bx^2+2cx+d,
+\]
+so
+\[
+p'(1)=4a+3b+2c+d,
+\qquad
+p'(-1)=-4a+3b-2c+d.
+\]
+
+Thus
+\[
+p'(1)=p'(-1)
+\quad\Longleftrightarrow\quad
+8a+4c=0
+\quad\Longleftrightarrow\quad
+2a+c=0.
+\]
+
+Therefore
+\[
+d=-b,\qquad c=-2a.
+\]
+
+So
+\[
+p(x)=a(x^4-2x^2)+b(x^3-x)+e.
+\]
+
+Hence
+\[
+W=\Span\{x^4-2x^2,\ x^3-x,\ 1\}.
+\]
+
+Therefore \(W\) is a subspace.
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+
+\paragraph{Method 3: Even--odd decomposition}
+
+Every polynomial \(p\in\mathcal P_4(\mathbb R)\) can be written uniquely as
+\[
+p(x)=p_e(x)+p_o(x),
+\]
+where \(p_e\) is even and \(p_o\) is odd.
+
+For the first condition,
+\[
+p(1)=p(-1)
+\]
+means that the odd part contributes zero at \(x=1\), since
+\[
+p_o(-1)=-p_o(1).
+\]
+Hence this condition is equivalent to
+\[
+p_o(1)=0.
+\]
+
+For the second condition,
+\[
+p'(1)=p'(-1).
+\]
+Now the derivative of an even polynomial is odd, while the derivative of an odd polynomial is even. Thus this condition forces the odd part of \(p'\) to vanish at \(1\), equivalently
+\[
+p_e'(1)=0.
+\]
+
+Write
+\[
+p_e(x)=ax^4+cx^2+e,
+\qquad
+p_o(x)=bx^3+dx.
+\]
+
+Then
+\[
+p_o(1)=b+d=0,
+\qquad
+p_e'(x)=4ax^3+2cx,
+\quad
+p_e'(1)=4a+2c=0.
+\]
+
+Thus
+\[
+d=-b,\qquad c=-2a,
+\]
+so again
+\[
+p(x)=a(x^4-2x^2)+b(x^3-x)+e.
+\]
+
+Hence
+\[
+W=\Span\{x^4-2x^2,\ x^3-x,\ 1\},
+\]
+which is a subspace.
+
+\[
+\boxed{W\le \mathcal P_4(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 19 (Smallest Subspace Containing a Parametric Family) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+S=\{(1,t,t^2)\in\mathbb R^3\mid t\in\mathbb R\}.
+\]
+
+Let \(W\) be the smallest subspace of \(\mathbb R^3\) containing \(S\).
+
+Determine \(W\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Produce three independent vectors from the family}
+
+Since \(S\subseteq W\), the vectors corresponding to \(t=0,1,-1\) all lie in \(W\):
+\[
+(1,0,0),\qquad (1,1,1),\qquad (1,-1,1).
+\]
+
+Now
+\[
+(1,1,1)-(1,-1,1)=(0,2,0),
+\]
+so
+\[
+(0,1,0)\in W.
+\]
+
+Also,
+\[
+(1,1,1)-(1,0,0)=(0,1,1),
+\]
+hence
+\[
+(0,1,1)-(0,1,0)=(0,0,1)\in W.
+\]
+
+Therefore \(W\) contains
+\[
+(1,0,0),\ (0,1,0),\ (0,0,1),
+\]
+so \(W=\mathbb R^3\).
+
+\[
+\boxed{W=\mathbb R^3}
+\]
+
+\paragraph{Method 2: Span containment both ways}
+
+For any \(t\in\mathbb R\),
+\[
+(1,t,t^2)=(1,0,0)+t(0,1,0)+t^2(0,0,1).
+\]
+
+Thus
+\[
+S\subseteq \Span\{(1,0,0),(0,1,0),(0,0,1)\}=\mathbb R^3.
+\]
+
+So the smallest subspace containing \(S\) satisfies
+\[
+W\subseteq \mathbb R^3.
+\]
+
+Conversely, as shown above, the three standard basis vectors are in the span of elements of \(S\), so
+\[
+\mathbb R^3\subseteq W.
+\]
+
+Hence
+\[
+W=\mathbb R^3.
+\]
+
+\[
+\boxed{W=\mathbb R^3}
+\]
+
+\paragraph{Method 3: Use a contradiction via a nonzero linear functional}
+
+Suppose \(W\neq \mathbb R^3\). Then \(W\) is a proper subspace of \(\mathbb R^3\), so there exists a nonzero linear functional
+\[
+L(x,y,z)=ax+by+cz
+\]
+such that
+\[
+W\subseteq \ker(L).
+\]
+
+Since \(S\subseteq W\), we must have
+\[
+L(1,t,t^2)=a+bt+ct^2=0
+\qquad
+\text{for all }t\in\mathbb R.
+\]
+
+But a polynomial that vanishes for all \(t\in\mathbb R\) must be the zero polynomial. Hence
+\[
+a=b=c=0,
+\]
+contradicting that \(L\) is nonzero.
+
+Therefore \(W=\mathbb R^3\).
+
+\[
+\boxed{W=\mathbb R^3}
+\]
+
+%========================================================
+\newpage
+\section{Question 20 (Range of the Differentiation Operator) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{p'(x)\mid p(x)\in\mathcal P_4(\mathbb R),\ p(1)=0\}\subseteq \mathcal P_3(\mathbb R).
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\), and determine \(W\) explicitly.
+
+\subsection{Solution}
+
+\paragraph{Method 1: Image of a linear map}
+
+Let
+\[
+U=\{p(x)\in\mathcal P_4(\mathbb R)\mid p(1)=0\}.
+\]
+
+Since \(U\) is the kernel of the evaluation map \(p\mapsto p(1)\), it is a subspace of \(\mathcal P_4(\mathbb R)\).
+
+Now define
+\[
+D:U\to\mathcal P_3(\mathbb R),\qquad D(p)=p'.
+\]
+
+Differentiation is linear, so \(D\) is linear. By definition,
+\[
+W=\operatorname{im}(D).
+\]
+
+Since the image of a linear map is a subspace, \(W\) is a subspace of \(\mathcal P_3(\mathbb R)\).
+
+To determine \(W\), let
+\[
+q(x)\in\mathcal P_3(\mathbb R).
+\]
+
+Define
+\[
+p(x)=\int_1^x q(t)\,dt.
+\]
+
+Then \(p\in\mathcal P_4(\mathbb R)\), \(p(1)=0\), and
+\[
+p'(x)=q(x).
+\]
+
+So every \(q\in\mathcal P_3(\mathbb R)\) lies in \(W\). Hence
+\[
+W=\mathcal P_3(\mathbb R).
+\]
+
+Therefore
+\[
+\boxed{W=\mathcal P_3(\mathbb R)}.
+\]
+
+\newpage
+\paragraph{Method 2: Construct preimages of the standard basis}
+
+We show that the standard basis of \(\mathcal P_3(\mathbb R)\) lies in \(W\).
+
+First,
+\[
+1=(x-1)'.
+\]
+
+Since \(x-1\in\mathcal P_4(\mathbb R)\) and \((x-1)(1)=0\), we have \(1\in W\).
+
+Next,
+\[
+x=\left(\frac{x^2-1}{2}\right)',
+\]
+and \(\frac{x^2-1}{2}\in\mathcal P_4(\mathbb R)\) vanishes at \(x=1\), so \(x\in W\).
+
+Also,
+\[
+x^2=\left(\frac{x^3-1}{3}\right)',
+\]
+and \(\frac{x^3-1}{3}(1)=0\), so \(x^2\in W\).
+
+Similarly,
+\[
+x^3=\left(\frac{x^4-1}{4}\right)',
+\]
+and \(\frac{x^4-1}{4}(1)=0\), so \(x^3\in W\).
+
+Thus
+\[
+1,x,x^2,x^3\in W.
+\]
+
+Hence
+\[
+\mathcal P_3(\mathbb R)\subseteq W.
+\]
+
+Since \(W\subseteq \mathcal P_3(\mathbb R)\) by definition, it follows that
+\[
+W=\mathcal P_3(\mathbb R).
+\]
+
+Therefore \(W\) is a subspace and
+\[
+\boxed{W=\mathcal P_3(\mathbb R)}.
+\]
+
+\paragraph{Method 3: Coefficient chase}
+
+Let
+\[
+p(x)=ax^4+bx^3+cx^2+dx+e\in\mathcal P_4(\mathbb R),
+\]
+with
+\[
+p(1)=a+b+c+d+e=0.
+\]
+
+Then
+\[
+p'(x)=4ax^3+3bx^2+2cx+d.
+\]
+
+So every element of \(W\) has the form
+\[
+4ax^3+3bx^2+2cx+d
+\]
+for some \(a,b,c,d,e\in\mathbb R\) satisfying
+\[
+a+b+c+d+e=0.
+\]
+
+But for arbitrary \(a,b,c,d\in\mathbb R\), we may choose
+\[
+e=-(a+b+c+d),
+\]
+so the condition \(p(1)=0\) imposes no restriction on the derivative.
+
+Hence every polynomial of the form
+\[
+\alpha x^3+\beta x^2+\gamma x+\delta
+\]
+can occur as \(p'(x)\) for some \(p\in\mathcal P_4(\mathbb R)\) with \(p(1)=0\). Therefore
+\[
+W=\mathcal P_3(\mathbb R).
+\]
+
+So \(W\) is a subspace, and
+\[
+\boxed{W=\mathcal P_3(\mathbb R)}.
+\]
+
+%========================================================
+\newpage
+\section{Question 21 (Characteristic-Polynomial Constraint) \hfill (12 marks)}
+\subsection{Problem}
+
+Let
+\[
+W=\{A\in M_{n\times n}(\mathbb R)\mid \chi_A(A)=0\},
+\]
+where \(\chi_A(\lambda)=\det(\lambda I-A)\) is the characteristic polynomial of \(A\).
+
+Determine whether \(W\) is a subspace of \(M_{n\times n}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Cayley--Hamilton theorem}
+
+For every \(A\in M_{n\times n}(\mathbb R)\), the Cayley--Hamilton theorem states that
+\[
+\chi_A(A)=0.
+\]
+
+Hence every matrix \(A\in M_{n\times n}(\mathbb R)\) belongs to \(W\). Therefore
+\[
+W=M_{n\times n}(\mathbb R).
+\]
+
+Since the whole ambient space is a subspace of itself, \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{n\times n}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Identify the set immediately}
+
+The defining condition
+\[
+\chi_A(A)=0
+\]
+is not a restriction at all, because it is satisfied by every square matrix. Thus
+\[
+W=M_{n\times n}(\mathbb R),
+\]
+and so \(W\) is a subspace.
+
+\[
+\boxed{W\le M_{n\times n}(\mathbb R)}
+\]
+
+\paragraph{Method 3: Check by reinterpretation}
+
+The statement \(\chi_A(A)=0\) says that \(A\) is annihilated by its own characteristic polynomial. By Cayley--Hamilton, this holds for every square matrix \(A\). Hence the set \(W\) is exactly the whole space \(M_{n\times n}(\mathbb R)\), and therefore it is a subspace.
+
+\[
+\boxed{W\le M_{n\times n}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 22 (Operators Preserving a Fixed Subspace) \hfill (12 marks)}
+\subsection{Problem}
+
+Let \(V\) be a finite-dimensional real vector space, and let \(U\le V\) be fixed.
+
+Define
+\[
+W=\{T\in\mathcal L(V)\mid T(U)\subseteq U\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal L(V)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Quotient-map kernel trick}
+
+Let
+\[
+\iota:U\hookrightarrow V
+\]
+be the inclusion map, and let
+\[
+\pi:V\to V/U
+\]
+be the quotient map.
+
+For \(T\in\mathcal L(V)\), consider the map
+\[
+\Phi:\mathcal L(V)\to\mathcal L(U,V/U),\qquad
+\Phi(T)=\pi\circ T\circ \iota.
+\]
+
+Since composition of linear maps is linear in \(T\), the map \(\Phi\) is linear.
+
+Now
+\[
+\Phi(T)=0
+\quad\Longleftrightarrow\quad
+\pi(T(u))=0\ \text{for all }u\in U
+\quad\Longleftrightarrow\quad
+T(u)\in U\ \text{for all }u\in U.
+\]
+
+Thus
+\[
+W=\ker(\Phi).
+\]
+
+Since the kernel of a linear transformation is a subspace, \(W\) is a subspace of \(\mathcal L(V)\).
+
+\[
+\boxed{W\le \mathcal L(V)}
+\]
+
+\paragraph{Method 2: Block-matrix form relative to a decomposition}
+
+Choose a complementary subspace \(Z\) such that
+\[
+V=U\oplus Z.
+\]
+
+Relative to a basis adapted to this decomposition, every \(T\in\mathcal L(V)\) has block form
+\[
+T=
+\begin{pmatrix}
+A & B\\
+C & D
+\end{pmatrix},
+\]
+where \(A:U\to U\), \(B:Z\to U\), \(C:U\to Z\), and \(D:Z\to Z\).
+
+The condition \(T(U)\subseteq U\) is equivalent to saying that the \(Z\)-component of \(T(u)\) is zero for all \(u\in U\), that is,
+\[
+C=0.
+\]
+
+Hence
+\[
+W=
+\left\{
+\begin{pmatrix}
+A & B\\
+0 & D
+\end{pmatrix}
+\right\}.
+\]
+
+This set is closed under linear combinations, so it is a subspace of \(\mathcal L(V)\).
+
+\[
+\boxed{W\le \mathcal L(V)}
+\]
+
+\paragraph{Method 3: Direct linear-combination test}
+
+Let \(T_1,T_2\in W\), and let \(a,b\in\mathbb R\). For any \(u\in U\),
+\[
+(aT_1+bT_2)(u)=aT_1(u)+bT_2(u).
+\]
+
+Since \(T_1(u)\in U\) and \(T_2(u)\in U\), and since \(U\) is a subspace, it follows that
+\[
+aT_1(u)+bT_2(u)\in U.
+\]
+
+Hence \((aT_1+bT_2)(U)\subseteq U\), so \(aT_1+bT_2\in W\). Therefore \(W\) is a subspace of \(\mathcal L(V)\).
+
+\[
+\boxed{W\le \mathcal L(V)}
+\]
+
+%========================================================
+\newpage
+\section{Question 23 (Operators Acting as the Identity on a Fixed Subspace) \hfill (12 marks)}
+\subsection{Problem}
+
+Let \(V\) be a finite-dimensional real vector space, and let \(U\le V\) be fixed.
+
+Define
+\[
+W=\{T\in\mathcal L(V)\mid T(u)=u\ \text{for all }u\in U\}.
+\]
+
+Determine whether \(W\) is a subspace of \(\mathcal L(V)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Affine translate of a kernel}
+
+Define
+\[
+\Psi:\mathcal L(V)\to\mathcal L(U,V),\qquad
+\Psi(T)=T|_U.
+\]
+
+Restriction to \(U\) is linear, so \(\Psi\) is linear.
+
+Let
+\[
+I_U:U\to V,\qquad I_U(u)=u.
+\]
+
+Then
+\[
+W=\{T\in\mathcal L(V)\mid \Psi(T)=I_U\}.
+\]
+
+Thus \(W\) is not the kernel of a linear map, but the preimage of a nonzero vector under a linear map. Equivalently, if \(T_0=I_V\), then
+\[
+W=T_0+\ker(\Psi).
+\]
+
+So \(W\) is an affine translate of the subspace \(\ker(\Psi)\). Since it is translated by the nonzero operator \(I_V\), it is generally not a subspace.
+
+Indeed, \(0\notin W\), since \(0(u)=0\neq u\) for nonzero \(u\in U\). Therefore \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le \mathcal L(V)}
+\]
+
+\paragraph{Method 2: Zero operator test}
+
+If \(W\) were a subspace, then it would contain the zero operator. However, the zero operator satisfies
+\[
+0(u)=0
+\]
+for all \(u\in U\), whereas the defining condition for \(W\) is
+\[
+T(u)=u
+\]
+for all \(u\in U\).
+
+If \(U\neq\{0\}\), then these are not the same. Hence
+\[
+0\notin W.
+\]
+
+Therefore \(W\) is not a subspace of \(\mathcal L(V)\).
+
+\[
+\boxed{W\not\le \mathcal L(V)}
+\]
+
+\paragraph{Method 3: Failure of closure under scalar multiplication}
+
+Let \(T\in W\). Then \(T(u)=u\) for all \(u\in U\). If \(W\) were a subspace, then \(\frac12 T\in W\) should also hold. But for \(u\in U\),
+\[
+\left(\frac12 T\right)(u)=\frac12\,T(u)=\frac12 u\neq u
+\]
+for \(u\neq0\).
+
+Thus \(\frac12 T\notin W\). Hence \(W\) is not closed under scalar multiplication, so it is not a subspace.
+
+\[
+\boxed{W\not\le \mathcal L(V)}
+\]
+
+%========================================================
+\newpage
+\section{Question 24 (Zero Schur Complement Family) \hfill (12 marks)}
+\subsection{Problem}
+
+Fix an invertible matrix \(A_0\in M_{n\times n}(\mathbb R)\). Define
+\[
+W=
+\left\{
+\begin{pmatrix}
+0 & B\\
+C & D
+\end{pmatrix}
+\in M_{2n\times 2n}(\mathbb R)
+\;\middle|\;
+D-CA_0^{-1}B=0
+\right\}.
+\]
+
+Determine whether \(W\) is a subspace of \(M_{2n\times 2n}(\mathbb R)\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Schur-complement interpretation}
+
+For any blocks \(B,C,D\), consider the block matrix
+\[
+M=
+\begin{pmatrix}
+A_0 & B\\
+C & D
+\end{pmatrix}.
+\]
+
+Since \(A_0\) is invertible, the Schur complement of \(A_0\) in \(M\) is
+\[
+S_{A_0}=D-CA_0^{-1}B.
+\]
+
+Thus the defining condition for \(W\) is precisely that the Schur complement of \(A_0\) be zero.
+
+However, this condition is bilinear in \(B\) and \(C\), so it is not expected to define a linear subspace. We now give a concrete counterexample.
+
+Take
+\[
+X=
+\begin{pmatrix}
+0 & B\\
+0 & 0
+\end{pmatrix},
+\qquad
+Y=
+\begin{pmatrix}
+0 & 0\\
+C & 0
+\end{pmatrix},
+\]
+with nonzero \(B,C\). Then
+\[
+0-0\cdot A_0^{-1}B=0,
+\qquad
+0-C A_0^{-1}0=0,
+\]
+so \(X,Y\in W\).
+
+But
+\[
+X+Y=
+\begin{pmatrix}
+0 & B\\
+C & 0
+\end{pmatrix},
+\]
+and its defining condition would require
+\[
+0-CA_0^{-1}B=0.
+\]
+
+For suitable nonzero \(B,C\), this fails. For example, take \(B=C=I_n\). Then
+\[
+CA_0^{-1}B=A_0^{-1}\neq0.
+\]
+
+Hence \(X+Y\notin W\). Therefore \(W\) is not closed under addition, and so it is not a subspace.
+
+\[
+\boxed{W\not\le M_{2n\times 2n}(\mathbb R)}
+\]
+
+\paragraph{Method 2: Explicit counterexample with \(B=C=I_n\)}
+
+Let
+\[
+X=
+\begin{pmatrix}
+0 & I_n\\
+0 & 0
+\end{pmatrix},
+\qquad
+Y=
+\begin{pmatrix}
+0 & 0\\
+I_n & 0
+\end{pmatrix}.
+\]
+
+Then \(X\in W\) because its blocks satisfy
+\[
+D-CA_0^{-1}B=0-0\cdot A_0^{-1}I_n=0.
+\]
+
+Similarly,
+\[
+Y\in W
+\]
+because
+\[
+0-I_n A_0^{-1}0=0.
+\]
+
+But
+\[
+X+Y=
+\begin{pmatrix}
+0 & I_n\\
+I_n & 0
+\end{pmatrix},
+\]
+and here
+\[
+D-CA_0^{-1}B=0-I_nA_0^{-1}I_n=-A_0^{-1}\neq0.
+\]
+
+So \(X+Y\notin W\). Hence \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le M_{2n\times 2n}(\mathbb R)}
+\]
+
+\paragraph{Method 3: Structural reason}
+
+The condition
+\[
+D=CA_0^{-1}B
+\]
+is linear in \(D\), but bilinear in \(B\) and \(C\). A set defined by such a bilinear relation is generally not stable under addition. The explicit matrices above show that this failure really occurs, so \(W\) is not a subspace.
+
+\[
+\boxed{W\not\le M_{2n\times 2n}(\mathbb R)}
+\]
+
+%========================================================
+\newpage
+\section{Question 25 (Smallest Subspace Containing All Powers of a Matrix) \hfill (12 marks)}
+\subsection{Problem}
+
+Let \(A\in M_{n\times n}(\mathbb R)\) be fixed, and let \(W\) be the smallest subspace of \(M_{n\times n}(\mathbb R)\) containing
+\[
+\{I,A,A^2,A^3,\dots\}.
+\]
+
+Determine \(W\).
+
+\subsection{Solution}
+
+\paragraph{Method 1: Cayley--Hamilton reduction}
+
+By the Cayley--Hamilton theorem, \(A\) satisfies its characteristic polynomial. Thus there exist scalars \(c_0,c_1,\dots,c_{n-1}\) such that
+\[
+A^n=c_{n-1}A^{n-1}+\cdots+c_1A+c_0I.
+\]
+
+Hence \(A^n\in\Span\{I,A,\dots,A^{n-1}\}\).
+
+Multiplying the above relation by \(A\), we get
+\[
+A^{n+1}\in\Span\{A,A^2,\dots,A^n\}\subseteq \Span\{I,A,\dots,A^{n-1}\}.
+\]
+
+Repeating this argument inductively, we obtain
+\[
+A^k\in\Span\{I,A,\dots,A^{n-1}\}
+\qquad
+\text{for all }k\ge n.
+\]
+
+Therefore every power of \(A\) lies in \(\Span\{I,A,\dots,A^{n-1}\}\). Since \(W\) is the smallest subspace containing all powers of \(A\), it follows that
+\[
+W=\Span\{I,A,\dots,A^{n-1}\}.
+\]
+
+Thus
+\[
+\boxed{W=\Span\{I,A,\dots,A^{n-1}\}}.
+\]
+
+\paragraph{Method 2: Image of a polynomial-evaluation map}
+
+Define
+\[
+\Phi:\mathcal P(\mathbb R)\to M_{n\times n}(\mathbb R),\qquad \Phi(p)=p(A).
+\]
+
+This map is linear. The set of all powers of \(A\) is contained in \(\operatorname{im}(\Phi)\), and in fact
+\[
+\operatorname{im}(\Phi)=\Span\{I,A,A^2,\dots\}.
+\]
+
+By Cayley--Hamilton, every polynomial \(p(A)\) can be reduced modulo \(\chi_A\) to a polynomial of degree at most \(n-1\). Hence
+\[
+\operatorname{im}(\Phi)=\Span\{I,A,\dots,A^{n-1}\}.
+\]
+
+Therefore the smallest subspace containing all powers of \(A\) is
+\[
+\boxed{W=\Span\{I,A,\dots,A^{n-1}\}}.
+\]
+
+\paragraph{Method 3: Minimal-polynomial viewpoint}
+
+Let \(m_A(x)\) be the minimal polynomial of \(A\), and suppose
+\[
+\deg(m_A)=r.
+\]
+
+Then \(m_A(A)=0\), so \(A^r\) is a linear combination of \(I,A,\dots,A^{r-1}\). It follows that every higher power of \(A\) is also a linear combination of \(I,A,\dots,A^{r-1}\). Hence
+\[
+W=\Span\{I,A,\dots,A^{r-1}\}.
+\]
+
+In particular, since \(r\le n\), we certainly have
+\[
+W=\Span\{I,A,\dots,A^{n-1}\}.
+\]
+
+Thus
+\[
+\boxed{W=\Span\{I,A,\dots,A^{n-1}\}}.
+\]
+\end{document}

@@ -1,0 +1,1359 @@
+% Source files: Tutorial-10.pdf ; MH5200_ProblemSheet2.txt (style reference)
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Tutorial 10 (Week 11) -- Problems \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview of This Tutorial}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial covers absolute vs conditional convergence, factorial/growth comparisons (ratio and root tests), and two classical results: the Root Test and an a priori bound on the tail \(R_n=\sum_{m=n+1}^\infty a_m\) under ratio-type assumptions.
+
+\noindent
+\textbf{Question themes.}
+\begin{itemize}[leftmargin=*]
+  \item Classifying series as absolutely convergent / conditionally convergent / divergent.
+  \item Convergence depending on a parameter \(k\) (positive integer).
+  \item Showing \(\lim_{n\to\infty}\frac{x^n}{n!}=0\) via the Ratio Test.
+  \item Proving the Root Test rigorously.
+  \item Bounding the remainder \(R_n\) using monotonicity of ratio terms.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+\newpage
+\section*{Question 1 (Absolute / conditional / divergence)}
+\subsection*{Problem}
+Determine whether the following series is absolutely convergent, conditionally convergent, or divergent.
+\begin{enumerate}[label=(\alph*)]
+  \item \(\displaystyle \sum_{n=0}^{\infty}\frac{(-1)^n}{5n+1}\)
+  
+  \item \(\displaystyle \sum_{n=0}^{\infty}\frac{(-3)^n}{(2n+1)!}\)
+  
+  \item \(\displaystyle \sum_{n=1}^{\infty}\left(\frac{1-n}{2+3n}\right)^{n}\)
+  
+  \item \(\displaystyle \sum_{n=1}^{\infty}\frac{(-1)^n e^{1/n}}{n^{3}}\)
+  
+  \item \(\displaystyle \sum_{n=1}^{\infty}\frac{n\,5^{2n}}{10^{\,n+1}}\)
+\end{enumerate}
+
+\subsection*{Solution}
+We classify each series as absolutely convergent / conditionally convergent / divergent.
+
+\subsubsection*{Method 1: Direct absolute/alternating/comparison tests}
+
+\begin{enumerate}[label=(\alph*)]
+\item \(\displaystyle \sum_{n=0}^{\infty}\frac{(-1)^n}{5n+1}\).
+
+Let \(b_n=\frac{1}{5n+1}>0\). Then \(b_{n+1}<b_n\) and \(\lim_{n\to\infty} b_n=0\).  
+Hence \(\sum (-1)^n b_n\) converges by the Alternating Series Test.
+
+For absolute convergence,
+\[
+\sum_{n=0}^{\infty}\left|\frac{(-1)^n}{5n+1}\right|
+=\sum_{n=0}^{\infty}\frac{1}{5n+1}.
+\]
+Using limit comparison with \(\sum \frac{1}{n}\):
+\[
+\lim_{n\to\infty}\frac{\frac{1}{5n+1}}{\frac{1}{n}}
+=\lim_{n\to\infty}\frac{n}{5n+1}=\frac{1}{5}\neq 0.
+\]
+Since \(\sum \frac{1}{n}\) diverges, \(\sum \frac{1}{5n+1}\) diverges.  
+Therefore the series is \(\boxed{\text{conditionally convergent}}\).
+
+\item \(\displaystyle \sum_{n=0}^{\infty}\frac{(-3)^n}{(2n+1)!}\).
+
+Consider absolute values \(a_n=\frac{3^n}{(2n+1)!}\). Apply the Ratio Test:
+\[
+\frac{a_{n+1}}{a_n}
+=\frac{3^{n+1}}{(2n+3)!}\cdot \frac{(2n+1)!}{3^n}
+=\frac{3}{(2n+3)(2n+2)}.
+\]
+Thus
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+=\lim_{n\to\infty}\frac{3}{(2n+3)(2n+2)}=0<1,
+\]
+so \(\sum a_n\) converges. Hence the original series is
+\(\boxed{\text{absolutely convergent}}\).
+
+\item \(\displaystyle \sum_{n=1}^{\infty}\left(\frac{1-n}{2+3n}\right)^{n}\).
+
+Let \(u_n=\left(\frac{1-n}{2+3n}\right)^{n}\). Use the Root Test on \(\sum |u_n|\):
+\[
+\sqrt[n]{|u_n|}
+=\left|\frac{1-n}{2+3n}\right|
+=\frac{n-1}{3n+2}\xrightarrow[n\to\infty]{}\frac{1}{3}<1.
+\]
+Therefore \(\sum |u_n|\) converges, so the series is
+\(\boxed{\text{absolutely convergent}}\).
+
+\item \(\displaystyle \sum_{n=1}^{\infty}\frac{(-1)^n e^{1/n}}{n^{3}}\).
+
+Consider absolute values:
+\[
+\sum_{n=1}^{\infty}\left|\frac{(-1)^n e^{1/n}}{n^{3}}\right|
+=\sum_{n=1}^{\infty}\frac{e^{1/n}}{n^{3}}.
+\]
+Since \(e^{1/n}\le e\) for all \(n\ge 1\),
+\[
+0\le \frac{e^{1/n}}{n^3}\le \frac{e}{n^3}.
+\]
+Because \(\sum \frac{1}{n^3}\) converges (a \(p\)-series with \(p=3>1\)), by comparison
+\(\sum \frac{e^{1/n}}{n^3}\) converges. Hence the original series is
+\(\boxed{\text{absolutely convergent}}\).
+
+\item \(\displaystyle \sum_{n=1}^{\infty}\frac{n\,5^{2n}}{10^{\,n+1}}\).
+
+Simplify the general term:
+\[
+\frac{n\,5^{2n}}{10^{n+1}}
+=\frac{n\,25^{n}}{10\cdot 10^{n}}
+=\frac{n}{10}\left(\frac{25}{10}\right)^n
+=\frac{n}{10}\left(\frac{5}{2}\right)^n.
+\]
+Since \(\left(\frac{5}{2}\right)^n\) grows exponentially, the term does not tend to \(0\):
+indeed \(\frac{n}{10}\left(\frac{5}{2}\right)^n \to \infty\). Therefore the series
+\(\boxed{\text{diverges}}\) (by the term test).
+\end{enumerate}
+
+\subsubsection*{Method 2: Ratio/Root tests (quick classification checks)}
+\begin{enumerate}[label=(\alph*)]
+\item Alternating Series Test gives convergence, while \(\sum \frac{1}{5n+1}\) diverges by comparison to \(\sum \frac{1}{n}\) \(\Rightarrow\) \(\boxed{\text{conditional}}\).
+
+\item Ratio Test on \(\sum \left|\frac{(-3)^n}{(2n+1)!}\right|\) yields limit \(0<1\) \(\Rightarrow\) \(\boxed{\text{absolute}}\).
+
+\item Root Test: \(\lim\limits_{n\to\infty}\sqrt[n]{\left|\left(\frac{1-n}{2+3n}\right)^{n}\right|}
+=\lim\limits_{n\to\infty}\frac{n-1}{3n+2}=\frac{1}{3}<1\) \(\Rightarrow\) \(\boxed{\text{absolute}}\).
+
+\item Compare \(\frac{e^{1/n}}{n^3}\) to \(\frac{C}{n^3}\) (bounded multiplier) \(\Rightarrow\) \(\boxed{\text{absolute}}\).
+
+\item Root Test on \(\sum \left|\frac{n\,5^{2n}}{10^{n+1}}\right|\):
+\[
+\lim_{n\to\infty}\sqrt[n]{\frac{n\,5^{2n}}{10^{n+1}}}
+=\lim_{n\to\infty}\left(\sqrt[n]{\frac{n}{10}}\right)\cdot \frac{25}{10}
+=1\cdot \frac{5}{2}>1,
+\]
+so the series \(\boxed{\text{diverges}}\).
+\end{enumerate}
+
+
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Parameter \(k\) and convergence)}
+\subsection*{Problem}
+For which positive integers \(k\) is the following series convergent?
+\[
+\sum_{n=1}^{\infty} \frac{(n!)^2}{(kn)!}.
+\]
+\noindent
+
+\bigskip
+\subsection*{Solution}
+\subsubsection*{Method 1: Ratio Test with factorial cancellation}
+
+This is the most direct method. We compute
+\begin{align*}
+\frac{a_{n+1}}{a_n}
+&=
+\frac{((n+1)!)^2}{(k(n+1))!}
+\cdot
+\frac{(kn)!}{(n!)^2} \\
+&=
+(n+1)^2\cdot \frac{(kn)!}{(kn+k)!}.
+\end{align*}
+Since
+\[
+(kn+k)!=(kn)!(kn+1)(kn+2)\cdots(kn+k),
+\]
+we obtain
+\[
+\frac{a_{n+1}}{a_n}
+=
+\frac{(n+1)^2}{(kn+1)(kn+2)\cdots(kn+k)}
+=
+\frac{(n+1)^2}{\prod_{j=1}^{k}(kn+j)}.
+\]
+
+\paragraph{Case 1: \(k=1\).}
+If \(k=1\), then
+\[
+a_n=\frac{(n!)^2}{n!}=n!.
+\]
+Hence
+\[
+a_n=n!\not\to 0.
+\]
+Therefore the series diverges by the \(n\)-th term test.
+
+Equivalently, from the ratio formula,
+\[
+\frac{a_{n+1}}{a_n}
+=
+\frac{(n+1)^2}{n+1}
+=
+n+1\to\infty,
+\]
+so the terms certainly do not tend to \(0\).
+
+\newpage
+\paragraph{Case 2: \(k=2\).}
+If \(k=2\), then
+\[
+\frac{a_{n+1}}{a_n}
+=
+\frac{(n+1)^2}{(2n+1)(2n+2)}.
+\]
+Since \(2n+2=2(n+1)\), this becomes
+\[
+\frac{a_{n+1}}{a_n}
+=
+\frac{(n+1)^2}{(2n+1)2(n+1)}
+=
+\frac{n+1}{2(2n+1)}.
+\]
+Therefore,
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+=
+\lim_{n\to\infty}\frac{n+1}{2(2n+1)}
+=
+\frac14<1.
+\]
+By the Ratio Test,
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges when \(k=2\).
+
+\paragraph{Case 3: \(k\ge 3\).}
+For fixed \(k\ge 3\),
+\[
+\prod_{j=1}^{k}(kn+j)
+\sim
+(kn)^k
+=
+k^k n^k.
+\]
+Hence
+\[
+\frac{a_{n+1}}{a_n}
+=
+\frac{(n+1)^2}{\prod_{j=1}^{k}(kn+j)}
+\sim
+\frac{n^2}{k^k n^k}
+=
+\frac{1}{k^k n^{k-2}}.
+\]
+Since \(k\ge 3\), we have \(k-2\ge 1\), and so
+\[
+\frac{1}{k^k n^{k-2}}\to 0.
+\]
+Thus
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=0<1.
+\]
+By the Ratio Test, the series converges for every \(k\ge 3\).
+
+Combining the cases,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\text{ converges if and only if }k\ge 2.}
+\]
+
+\newpage
+\subsubsection*{Method 2: Central binomial coefficient comparison}
+
+This method avoids Stirling's formula and uses a combinatorial estimate.
+
+\paragraph{Case 1: \(k=1\).}
+If \(k=1\), then
+\[
+a_n=\frac{(n!)^2}{n!}=n!.
+\]
+Therefore
+\[
+a_n\not\to 0,
+\]
+so
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+diverges by the \(n\)-th term test.
+
+\paragraph{Case 2: \(k\ge 2\).}
+If \(k\ge 2\), then
+\[
+kn\ge 2n.
+\]
+Since the factorial function is increasing on the positive integers,
+\[
+(kn)!\ge (2n)!.
+\]
+Therefore,
+\[
+0<
+\frac{(n!)^2}{(kn)!}
+\le
+\frac{(n!)^2}{(2n)!}.
+\]
+Now observe that
+\[
+\binom{2n}{n}
+=
+\frac{(2n)!}{n!n!}.
+\]
+Hence
+\[
+\frac{(n!)^2}{(2n)!}
+=
+\frac{1}{\binom{2n}{n}}.
+\]
+Thus
+\[
+0<
+a_n
+\le
+\frac{1}{\binom{2n}{n}}.
+\]
+
+It remains to estimate the central binomial coefficient. We know that
+\[
+\sum_{j=0}^{2n}\binom{2n}{j}
+=
+2^{2n}
+=
+4^n.
+\]
+Also, \(\binom{2n}{n}\) is the largest coefficient among
+\[
+\binom{2n}{0},\binom{2n}{1},\ldots,\binom{2n}{2n}.
+\]
+There are \(2n+1\) terms in this sum. Therefore,
+\[
+4^n
+=
+\sum_{j=0}^{2n}\binom{2n}{j}
+\le
+(2n+1)\binom{2n}{n}.
+\]
+Hence
+\[
+\binom{2n}{n}
+\ge
+\frac{4^n}{2n+1}.
+\]
+Taking reciprocals gives
+\[
+\frac{1}{\binom{2n}{n}}
+\le
+\frac{2n+1}{4^n}.
+\]
+Therefore, for every \(k\ge 2\),
+\[
+0<
+a_n
+=
+\frac{(n!)^2}{(kn)!}
+\le
+\frac{2n+1}{4^n}.
+\]
+
+Finally,
+\[
+\sum_{n=1}^{\infty}\frac{2n+1}{4^n}
+\]
+converges, since it is a polynomial factor times a geometric term. Therefore, by the Comparison Test,
+\[
+\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\]
+converges for every \(k\ge 2\).
+
+Combining this with the divergent case \(k=1\), we get
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\text{ converges if and only if }k\ge 2.}
+\]
+
+\newpage
+\subsubsection*{Method 3: Beta-integral domination}
+
+This method rewrites the factorial expression using a beta integral.
+
+\paragraph{Case 1: \(k=1\).}
+If \(k=1\), then
+\[
+a_n=\frac{(n!)^2}{n!}=n!.
+\]
+Thus \(a_n\not\to 0\), so the series diverges by the \(n\)-th term test.
+
+\paragraph{Case 2: \(k\ge 2\).}
+Suppose \(k\ge 2\). Then
+\[
+(kn)!\ge (2n)!,
+\]
+and hence
+\[
+0<
+\frac{(n!)^2}{(kn)!}
+\le
+\frac{(n!)^2}{(2n)!}.
+\]
+We now estimate the right-hand side.
+
+Recall the beta integral formula:
+\[
+B(p,q)
+=
+\int_0^1 x^{p-1}(1-x)^{q-1}\,dx
+=
+\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}.
+\]
+Taking \(p=q=n+1\), and using \(\Gamma(n+1)=n!\), we get
+\[
+B(n+1,n+1)
+=
+\int_0^1 x^n(1-x)^n\,dx
+=
+\frac{n!n!}{(2n+1)!}.
+\]
+Therefore,
+\[
+\frac{(n!)^2}{(2n)!}
+=
+(2n+1)
+\int_0^1 x^n(1-x)^n\,dx.
+\]
+
+Now, for \(0\le x\le 1\),
+\[
+x(1-x)\le \frac14.
+\]
+Therefore,
+\[
+x^n(1-x)^n
+=
+[x(1-x)]^n
+\le
+\left(\frac14\right)^n.
+\]
+Hence
+\[
+\int_0^1 x^n(1-x)^n\,dx
+\le
+\int_0^1 \left(\frac14\right)^n\,dx
+=
+\frac1{4^n}.
+\]
+It follows that
+\[
+\frac{(n!)^2}{(2n)!}
+\le
+(2n+1)\cdot \frac1{4^n}
+=
+\frac{2n+1}{4^n}.
+\]
+Thus, for every \(k\ge 2\),
+\[
+0<
+\frac{(n!)^2}{(kn)!}
+\le
+\frac{2n+1}{4^n}.
+\]
+Since
+\[
+\sum_{n=1}^{\infty}\frac{2n+1}{4^n}
+\]
+converges, the Comparison Test gives convergence for every \(k\ge 2\).
+
+Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\text{ converges if and only if }k\ge 2.}
+\]
+
+\bigskip
+\subsubsection*{Method 4: Root Test using Stirling's formula}
+
+This method gives the sharp asymptotic scale of the summand.
+
+Using Stirling's formula,
+\[
+n!\sim \sqrt{2\pi n}\left(\frac ne\right)^n,
+\]
+we obtain
+\begin{align*}
+a_n
+=
+\frac{(n!)^2}{(kn)!}
+&\sim
+\frac{
+\left[\sqrt{2\pi n}\left(\frac ne\right)^n\right]^2
+}{
+\sqrt{2\pi kn}\left(\frac{kn}{e}\right)^{kn}
+} \\
+&=
+\frac{
+2\pi n\cdot n^{2n}e^{-2n}
+}{
+\sqrt{2\pi kn}\cdot (kn)^{kn}e^{-kn}
+} \\
+&=
+C_k n^{1/2}
+\cdot
+\frac{n^{2n}e^{-2n}}{k^{kn}n^{kn}e^{-kn}} \\
+&=
+C_k n^{1/2}
+\left(
+\frac{e^{k-2}}{k^k n^{k-2}}
+\right)^n,
+\end{align*}
+where
+\[
+C_k=\sqrt{\frac{2\pi}{k}}>0
+\]
+is a constant depending only on \(k\).
+
+Therefore,
+\[
+\sqrt[n]{a_n}
+\sim
+\sqrt[n]{C_k n^{1/2}}
+\cdot
+\frac{e^{k-2}}{k^k n^{k-2}}.
+\]
+Since
+\[
+\sqrt[n]{C_k n^{1/2}}\to 1,
+\]
+we get
+\[
+\sqrt[n]{a_n}
+\sim
+\frac{e^{k-2}}{k^k n^{k-2}}.
+\]
+
+\paragraph{Case 1: \(k=1\).}
+If \(k=1\), then
+\[
+\sqrt[n]{a_n}
+\sim
+\frac{e^{-1}}{n^{-1}}
+=
+\frac ne
+\to\infty.
+\]
+In particular, the terms do not tend to \(0\). Hence the series diverges.
+
+This agrees with the direct observation that when \(k=1\),
+\[
+a_n=n!.
+\]
+
+\paragraph{Case 2: \(k=2\).}
+If \(k=2\), then
+\[
+\sqrt[n]{a_n}
+\sim
+\frac{e^0}{2^2n^0}
+=
+\frac14.
+\]
+Therefore,
+\[
+\lim_{n\to\infty}\sqrt[n]{a_n}
+=
+\frac14<1.
+\]
+By the Root Test, the series converges.
+
+\paragraph{Case 3: \(k\ge 3\).}
+If \(k\ge 3\), then \(k-2\ge 1\), so
+\[
+\frac{e^{k-2}}{k^k n^{k-2}}\to 0.
+\]
+Hence
+\[
+\lim_{n\to\infty}\sqrt[n]{a_n}=0<1.
+\]
+By the Root Test, the series converges.
+
+Therefore,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\text{ converges if and only if }k\ge 2.}
+\]
+
+\newpage
+\subsubsection*{Method 5: Log-asymptotic phase transition}
+
+This method studies the logarithm of the summand. It is useful because factorials become easier to compare after taking logarithms.
+
+Let
+\[
+a_n=\frac{(n!)^2}{(kn)!}.
+\]
+Taking logarithms gives
+\[
+\ln a_n
+=
+2\ln(n!)-\ln((kn)!).
+\]
+We use the logarithmic form of Stirling's formula:
+\[
+\ln(n!)
+=
+n\ln n-n+O(\ln n).
+\]
+Therefore,
+\[
+\ln((kn)!)
+=
+kn\ln(kn)-kn+O(\ln n).
+\]
+Since
+\[
+\ln(kn)=\ln k+\ln n,
+\]
+we have
+\[
+kn\ln(kn)
+=
+kn\ln k+kn\ln n.
+\]
+Thus
+\begin{align*}
+\ln a_n
+&=
+2(n\ln n-n)
+-
+\bigl(kn\ln(kn)-kn\bigr)
++
+O(\ln n)\\
+&=
+2n\ln n-2n
+-
+kn\ln k
+-
+kn\ln n
++
+kn
++
+O(\ln n)\\
+&=
+(2-k)n\ln n
+-
+kn\ln k
++
+(k-2)n
++
+O(\ln n).
+\end{align*}
+
+\paragraph{Case 1: \(k=1\).}
+If \(k=1\), then
+\[
+a_n=\frac{(n!)^2}{n!}=n!.
+\]
+Therefore \(a_n\not\to0\), so the series diverges.
+
+Equivalently, from the logarithmic expression,
+\[
+\ln a_n
+=
+\ln(n!)
+=
+n\ln n-n+O(\ln n)\to\infty.
+\]
+Hence \(a_n\to\infty\), so the series diverges.
+
+\paragraph{Case 2: \(k=2\).}
+If \(k=2\), then the \(n\ln n\) term disappears:
+\[
+\ln a_n
+=
+-2n\ln 2
++
+O(\ln n).
+\]
+Thus there exist constants \(C>0\) and \(N\in\mathbb{N}\) such that, for all \(n\ge N\),
+\[
+\ln a_n
+\le
+-2n\ln2+C\ln n.
+\]
+Exponentiating both sides gives
+\[
+a_n
+\le
+n^C\cdot 4^{-n}
+\qquad (n\ge N).
+\]
+The series
+\[
+\sum_{n=N}^{\infty} n^C4^{-n}
+\]
+converges, because an exponential decay dominates any polynomial factor. Hence, by comparison,
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges when \(k=2\).
+
+\paragraph{Case 3: \(k\ge 3\).}
+If \(k\ge 3\), then \(k-2>0\). From
+\[
+\ln a_n
+=
+-(k-2)n\ln n
+-
+kn\ln k
++
+(k-2)n
++
+O(\ln n),
+\]
+the dominant term is
+\[
+-(k-2)n\ln n.
+\]
+More rigorously, since \(n\ln n\) dominates both \(n\) and \(\ln n\), there exists \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+\ln a_n
+\le
+-\frac{k-2}{2}n\ln n.
+\]
+Exponentiating gives
+\[
+a_n
+\le
+\exp\left(-\frac{k-2}{2}n\ln n\right)
+=
+\frac{1}{n^{(k-2)n/2}}
+\qquad (n\ge N).
+\]
+Since \(k\ge 3\), we have \((k-2)/2>0\). In particular, for sufficiently large \(n\),
+\[
+n^{(k-2)n/2}\ge 2^n.
+\]
+Therefore,
+\[
+a_n\le \frac1{2^n}
+\]
+for all sufficiently large \(n\). Since
+\[
+\sum_{n=1}^{\infty}\frac1{2^n}
+\]
+converges, the Comparison Test implies that
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges for every \(k\ge 3\).
+
+Combining the three cases,
+\[
+\boxed{\sum_{n=1}^{\infty}\frac{(n!)^2}{(kn)!}
+\text{ converges if and only if }k\ge 2.}
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (Limit \(\frac{x^n}{n!}\))}
+\subsection*{Problem}
+Prove that
+\[
+\lim_{n\to\infty} \frac{x^n}{n!}=0 \qquad \text{for all }x\in\R.
+\]
+(\emph{Hint:} Use the Ratio Test.)
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Ratio Test on the associated positive sequence}
+Fix \(x\in\R\). Consider the nonnegative sequence
+\[
+u_n=\left|\frac{x^n}{n!}\right|=\frac{|x|^n}{n!}\quad(n\ge 0).
+\]
+Compute the ratio:
+\[
+\frac{u_{n+1}}{u_n}
+=\frac{|x|^{n+1}/(n+1)!}{|x|^n/n!}
+=\frac{|x|}{n+1}.
+\]
+Then
+\[
+\lim_{n\to\infty}\frac{u_{n+1}}{u_n}=\lim_{n\to\infty}\frac{|x|}{n+1}=0<1.
+\]
+Hence, by the ratio test for sequences (or simply by the standard result that if \(u_{n+1}/u_n\to L<1\) then \(u_n\to 0\)), we conclude
+\[
+\lim_{n\to\infty}u_n=0,
+\]
+i.e.
+\[
+\boxed{\lim_{n\to\infty}\frac{x^n}{n!}=0\ \text{for all }x\in\R.}
+\]
+
+\subsubsection*{Method 2: Explicit domination by a geometric sequence}
+Fix \(x\in\R\). Choose \(N\in\N\) such that \(N\ge 2|x|\). Then for all \(n\ge N\),
+\[
+\frac{u_{n+1}}{u_n}=\frac{|x|}{n+1}\le \frac{|x|}{N+1}\le \frac{|x|}{2|x|}=\frac12,
+\]
+(with the understanding that if \(x=0\), the claim is immediate since \(x^n/n!=0\) for \(n\ge 1\)).
+Therefore, for all \(m\ge 0\),
+\[
+u_{N+m}\le \left(\frac12\right)^m u_N.
+\]
+Since \(\left(\frac12\right)^m u_N\to 0\) as \(m\to\infty\), it follows that \(u_n\to 0\). Hence
+\[
+\boxed{\lim_{n\to\infty}\frac{x^n}{n!}=0\ \text{for all }x\in\R.}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section*{Question 4 (Prove the Root Test)}
+\subsection*{Problem}
+Prove the Root Test. Let \((a_n)_{n\ge 1}\) be a sequence and assume that the following limit exists:
+\[
+L=\lim_{n\to\infty}\sqrt[n]{|a_n|}.
+\]
+\begin{enumerate}[label=(\roman*)]
+  \item If \(L<1\), then \(\sum_{n=1}^\infty a_n\) converges absolutely.
+  \item If \(L>1\) or \(L=\infty\), then \(\sum_{n=1}^\infty a_n\) diverges.
+  \item If \(L=1\), the Root Test is inconclusive.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Comparison with a geometric series}
+Assume the limit \(L=\lim_{n\to\infty}\sqrt[n]{|a_n|}\) exists.
+
+\paragraph{(i) Case \(L<1\).}
+Pick any number \(r\) such that
+\[
+L<r<1.
+\]
+By the definition of limit, there exists \(N\in\N\) such that for all \(n\ge N\),
+\[
+\left|\sqrt[n]{|a_n|}-L\right|<r-L.
+\]
+Then for \(n\ge N\),
+\[
+\sqrt[n]{|a_n|}<L+(r-L)=r
+\quad\Longrightarrow\quad
+|a_n|<r^n.
+\]
+Hence,
+\[
+\sum_{n=N}^{\infty}|a_n|\le \sum_{n=N}^{\infty} r^n,
+\]
+and the right-hand side is a convergent geometric series (since \(0<r<1\)).
+Therefore \(\sum_{n=1}^\infty |a_n|\) converges, i.e. \(\sum a_n\) converges absolutely:
+\[
+\boxed{L<1\ \Longrightarrow\ \sum_{n=1}^\infty a_n\ \text{converges absolutely}.}
+\]
+
+\paragraph{(ii) Case \(L>1\) or \(L=\infty\).}
+First suppose \(L>1\). Choose \(r\) such that
+\[
+1<r<L.
+\]
+Then by the limit definition, there exists \(N\) such that for all \(n\ge N\),
+\[
+\sqrt[n]{|a_n|}>r
+\quad\Longrightarrow\quad
+|a_n|>r^n.
+\]
+In particular, since \(r^n\to\infty\), we certainly have \(|a_n|\not\to 0\). Thus \(a_n\not\to 0\), so the series \(\sum a_n\) diverges by the \(n\)-th term test.
+
+If \(L=\infty\), then for example take \(r=2\). By the meaning of \(\sqrt[n]{|a_n|}\to\infty\), there exists \(N\) such that for all \(n\ge N\),
+\[
+\sqrt[n]{|a_n|}>2 \quad\Longrightarrow\quad |a_n|>2^n,
+\]
+so again \(|a_n|\not\to 0\) and \(\sum a_n\) diverges.
+
+Hence
+\[
+\boxed{L>1\ \text{or}\ L=\infty\ \Longrightarrow\ \sum_{n=1}^\infty a_n\ \text{diverges}.}
+\]
+
+\paragraph{(iii) Case \(L=1\) (inconclusive).}
+Provide two examples:
+\begin{itemize}[leftmargin=*]
+  \item \(a_n=\frac{1}{n}\): then \(\sqrt[n]{|a_n|}=\sqrt[n]{1/n}\to 1\), but \(\sum \frac{1}{n}\) diverges.
+  \item \(a_n=\frac{1}{n^2}\): then \(\sqrt[n]{|a_n|}=\sqrt[n]{1/n^2}\to 1\), but \(\sum \frac{1}{n^2}\) converges.
+\end{itemize}
+Thus \(L=1\) does not determine convergence:
+\[
+\boxed{L=1\ \Longrightarrow\ \text{Root Test is inconclusive}.}
+\]
+
+\newpage
+\subsubsection*{Method 2: Logarithms and exponential comparison}
+Assume \(L=\lim_{n\to\infty}\sqrt[n]{|a_n|}\) exists and \(L\in[0,\infty]\).
+
+\paragraph{Key rewrite.}
+For \(a_n\neq 0\), define
+\[
+\ell_n=\frac{1}{n}\ln|a_n|.
+\]
+Then
+\[
+\sqrt[n]{|a_n|}=e^{\ell_n}.
+\]
+Thus \(e^{\ell_n}\to L\). When \(L\in(0,\infty)\), we have \(\ell_n\to \ln L\).
+
+\paragraph{(i) If \(L<1\).}
+Then \(\ln L<0\). Choose \(\varepsilon>0\) so that \(\ln L+\varepsilon<0\).
+For sufficiently large \(n\),
+\[
+\ell_n<\ln L+\varepsilon.
+\]
+Exponentiating:
+\[
+|a_n|=e^{n\ell_n}\le e^{n(\ln L+\varepsilon)}=(Le^\varepsilon)^n.
+\]
+Since \(L<1\), we can choose \(\varepsilon\) small enough that \(q:=Le^\varepsilon\in(0,1)\).
+Hence \(|a_n|\le q^n\) for all \(n\ge N\), so \(\sum |a_n|\) converges by comparison with a geometric series.
+
+\paragraph{(ii) If \(L>1\) or \(L=\infty\).}
+If \(L>1\), then \(\ln L>0\). Choose \(\varepsilon>0\) with \(\ln L-\varepsilon>0\). Then for large \(n\),
+\[
+\ell_n>\ln L-\varepsilon>0 \quad\Rightarrow\quad |a_n|=e^{n\ell_n}\ge e^{n(\ln L-\varepsilon)}=(Le^{-\varepsilon})^n,
+\]
+and the right-hand side does not tend to \(0\), so \(a_n\not\to 0\), implying divergence of \(\sum a_n\).
+If \(L=\infty\), then \(\sqrt[n]{|a_n|}\to\infty\) implies eventually \(\sqrt[n]{|a_n|}>2\), so \(|a_n|>2^n\), again \(a_n\not\to 0\), so divergence.
+
+\paragraph{(iii) If \(L=1\).}
+Same two counterexamples as in Method 1 show inconclusiveness.
+
+Thus the Root Test is proved:
+\[
+\boxed{\text{(i) }L<1\Rightarrow \text{absolute convergence;\quad (ii) }L>1 \text{ or } \infty \Rightarrow \text{divergence;\quad (iii) }L=1\Rightarrow \text{inconclusive.}}
+\]
+
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section*{Question 5 (Tail bound under ratio assumptions)}
+
+\subsection*{Problem}
+Let \(\sum_{n=1}^\infty a_n\) be a series with positive terms, and let
+\[
+r_n=\frac{a_{n+1}}{a_n}.
+\]
+Suppose
+\[
+\lim_{n\to\infty}r_n=L<1.
+\]
+Let
+\[
+R_n=a_{n+1}+a_{n+2}+a_{n+3}+\cdots.
+\]
+If \((r_n)\) is a decreasing sequence and \(r_{n+1}<1\), show that
+\[
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+\]
+
+\subsection*{Solution}
+Since \(a_n>0\), each ratio
+\[
+r_n=\frac{a_{n+1}}{a_n}
+\]
+is positive. The key idea is that, since \((r_n)\) is decreasing, every ratio after \(r_{n+1}\) is at most \(r_{n+1}\). Thus the tail beginning at \(a_{n+1}\) is bounded above by the geometric tail
+\[
+a_{n+1}+a_{n+1}r_{n+1}+a_{n+1}r_{n+1}^2+\cdots.
+\]
+Because \(r_{n+1}<1\), this geometric tail has finite sum
+\[
+\frac{a_{n+1}}{1-r_{n+1}}.
+\]
+Hence we expect
+\[
+\boxed{
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+}
+\]
+
+\newpage
+\subsubsection*{Method 1: Termwise geometric domination}
+
+Let
+\[
+q=r_{n+1}.
+\]
+Since \(a_n>0\), we have \(q>0\). Since \(r_{n+1}<1\), we also have
+\[
+0<q<1.
+\]
+Because \((r_n)\) is decreasing, for every \(j\ge n+1\),
+\[
+r_j\le r_{n+1}=q.
+\]
+
+For \(k\ge 1\), express \(a_{n+1+k}\) in terms of \(a_{n+1}\):
+\[
+a_{n+1+k}
+=
+a_{n+1}\prod_{j=n+1}^{n+k}r_j.
+\]
+Indeed,
+\[
+a_{n+2}=a_{n+1}r_{n+1},
+\]
+\[
+a_{n+3}=a_{n+1}r_{n+1}r_{n+2},
+\]
+and so on. Since each factor satisfies \(r_j\le q\), we get
+\[
+\prod_{j=n+1}^{n+k}r_j
+\le
+q^k.
+\]
+Therefore,
+\[
+a_{n+1+k}\le a_{n+1}q^k.
+\]
+
+Now estimate the tail:
+\begin{align*}
+R_n
+&=
+a_{n+1}+a_{n+2}+a_{n+3}+\cdots\\
+&=
+a_{n+1}+\sum_{k=1}^{\infty}a_{n+1+k}\\
+&\le
+a_{n+1}+\sum_{k=1}^{\infty}a_{n+1}q^k\\
+&=
+a_{n+1}\sum_{k=0}^{\infty}q^k.
+\end{align*}
+Since \(0<q<1\),
+\[
+\sum_{k=0}^{\infty}q^k=\frac1{1-q}.
+\]
+Thus
+\[
+R_n
+\le
+\frac{a_{n+1}}{1-q}
+=
+\frac{a_{n+1}}{1-r_{n+1}}.
+\]
+Therefore,
+\[
+\boxed{
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+}
+\]
+
+\newpage
+\subsubsection*{Method 2: Recursive tail inequality}
+
+Let
+\[
+q=r_{n+1}.
+\]
+As before,
+\[
+0<q<1.
+\]
+Since \((r_n)\) is decreasing, for every \(m\ge n+1\),
+\[
+r_m\le r_{n+1}=q.
+\]
+Therefore,
+\[
+a_{m+1}=r_m a_m\le q a_m
+\qquad (m\ge n+1).
+\]
+
+Now compare the two consecutive tails:
+\[
+R_n=a_{n+1}+a_{n+2}+a_{n+3}+\cdots,
+\]
+and
+\[
+R_{n+1}=a_{n+2}+a_{n+3}+a_{n+4}+\cdots.
+\]
+Using \(a_{m+1}\le q a_m\) for all \(m\ge n+1\), we obtain
+\begin{align*}
+R_{n+1}
+&=
+a_{n+2}+a_{n+3}+a_{n+4}+\cdots\\
+&\le
+q a_{n+1}+q a_{n+2}+q a_{n+3}+\cdots\\
+&=
+qR_n.
+\end{align*}
+But
+\[
+R_n=a_{n+1}+R_{n+1}.
+\]
+Hence
+\[
+R_n
+=
+a_{n+1}+R_{n+1}
+\le
+a_{n+1}+qR_n.
+\]
+Rearranging,
+\[
+(1-q)R_n\le a_{n+1}.
+\]
+Since \(0<q<1\), we may divide by \(1-q>0\), giving
+\[
+R_n\le \frac{a_{n+1}}{1-q}.
+\]
+Substituting back \(q=r_{n+1}\), we obtain
+\[
+\boxed{
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+}
+\]
+
+\newpage
+\subsubsection*{Method 3: Constructed geometric majorant}
+
+Let
+\[
+q=r_{n+1}.
+\]
+Then
+\[
+0<q<1.
+\]
+Define a geometric comparison sequence \((g_k)_{k\ge 0}\) by
+\[
+g_k=a_{n+1}q^k.
+\]
+Thus
+\[
+g_0=a_{n+1},\qquad
+g_1=a_{n+1}q,\qquad
+g_2=a_{n+1}q^2,
+\]
+and generally
+\[
+g_k=a_{n+1}q^k.
+\]
+
+We claim that
+\[
+a_{n+1+k}\le g_k
+\qquad(k\ge 0).
+\]
+For \(k=0\), this is equality:
+\[
+a_{n+1}=g_0.
+\]
+For \(k\ge 1\),
+\[
+a_{n+1+k}
+=
+a_{n+1}\prod_{j=n+1}^{n+k}r_j.
+\]
+Since \((r_n)\) is decreasing, for every \(j\ge n+1\),
+\[
+r_j\le r_{n+1}=q.
+\]
+Hence
+\[
+a_{n+1+k}
+=
+a_{n+1}\prod_{j=n+1}^{n+k}r_j
+\le
+a_{n+1}q^k
+=
+g_k.
+\]
+Therefore the original tail is dominated term by term by the geometric series with terms \(g_k\):
+\[
+R_n
+=
+\sum_{k=0}^{\infty}a_{n+1+k}
+\le
+\sum_{k=0}^{\infty}g_k.
+\]
+Since \(0<q<1\),
+\[
+\sum_{k=0}^{\infty}g_k
+=
+\sum_{k=0}^{\infty}a_{n+1}q^k
+=
+a_{n+1}\sum_{k=0}^{\infty}q^k
+=
+\frac{a_{n+1}}{1-q}.
+\]
+Thus
+\[
+R_n
+\le
+\frac{a_{n+1}}{1-q}
+=
+\frac{a_{n+1}}{1-r_{n+1}}.
+\]
+Therefore,
+\[
+\boxed{
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+}
+\]
+
+\newpage
+\subsubsection*{Method 4: Finite-tail version and passage to the limit}
+
+This method first proves the desired estimate for finite tails, then passes to the infinite tail.
+
+Let
+\[
+q=r_{n+1}.
+\]
+Since \(r_{n+1}<1\) and \(r_{n+1}>0\), we have
+\[
+0<q<1.
+\]
+For \(N\ge 0\), define the finite tail sum
+\[
+R_{n,N}=a_{n+1}+a_{n+2}+\cdots+a_{n+1+N}.
+\]
+Equivalently,
+\[
+R_{n,N}=\sum_{k=0}^{N}a_{n+1+k}.
+\]
+
+For \(k\ge 0\), we have
+\[
+a_{n+1+k}
+=
+a_{n+1}\prod_{j=n+1}^{n+k}r_j,
+\]
+where the empty product for \(k=0\) is interpreted as \(1\). Since \((r_n)\) is decreasing,
+\[
+r_j\le r_{n+1}=q
+\qquad(j\ge n+1).
+\]
+Therefore,
+\[
+\prod_{j=n+1}^{n+k}r_j\le q^k,
+\]
+and hence
+\[
+a_{n+1+k}\le a_{n+1}q^k.
+\]
+
+Summing from \(k=0\) to \(N\), we get
+\begin{align*}
+R_{n,N}
+&=
+\sum_{k=0}^{N}a_{n+1+k}\\
+&\le
+\sum_{k=0}^{N}a_{n+1}q^k\\
+&=
+a_{n+1}\sum_{k=0}^{N}q^k.
+\end{align*}
+Using the finite geometric sum formula,
+\[
+\sum_{k=0}^{N}q^k
+=
+\frac{1-q^{N+1}}{1-q}.
+\]
+Thus
+\[
+R_{n,N}
+\le
+a_{n+1}\frac{1-q^{N+1}}{1-q}
+\le
+\frac{a_{n+1}}{1-q}.
+\]
+
+Now let \(N\to\infty\). Since all terms \(a_n\) are positive, the finite tail sums \(R_{n,N}\) increase to \(R_n\):
+\[
+R_{n,N}\uparrow R_n.
+\]
+Therefore,
+\[
+R_n\le \frac{a_{n+1}}{1-q}.
+\]
+Substituting \(q=r_{n+1}\), we obtain
+\[
+\boxed{
+R_n\le \frac{a_{n+1}}{1-r_{n+1}}.
+}
+\]
+\end{document}

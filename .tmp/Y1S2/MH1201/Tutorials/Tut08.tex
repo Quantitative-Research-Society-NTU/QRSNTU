@@ -1,0 +1,776 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 8 (Week 10) -- Problems \& Solutions}
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- COMMON MACROS -------------
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cPtwo}{\mathcal{P}_2}
+\newcommand{\df}{\coloneqq}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\tr}{trace}
+\DeclareMathOperator{\diag}{diag}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item diagonalization as a computational tool for iterates $T^n$ and for explicit closed forms (Fibonacci/Binet);
+  \item eigenvalues/eigenspaces and diagonalizability for operators on $\cP_2(\R)$;
+  \item functional calculus: eigenvalues of $p(A)$ and determinants of $\sum_{k=1}^n A^k$;
+  \item similarity of diagonalizable operators with the same distinct eigenvalues;
+  \item invertibility of $T-\lambda I$ when $\lambda$ is not an eigenvalue, and solving affine equations $T(v)=8v+b$.
+\end{itemize}
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Question 1 (Diagonalization of $F$ and Fibonacci)}
+\subsection{Problem}
+Recall the linear transformation $F\in \cL(\R^{2,1})$ defined in Problem 5 of Tutorial Problem Set 7:
+\[
+\forall x,y\in\R:\qquad
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)\df
+=
+\begin{bmatrix}
+y\\
+x+y
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Derive an ordered basis $\beta$ for $\R^{2,1}$ such that $[F]^{\beta}_{\beta}\in\R^{2,2}$ is a diagonal matrix.\\
+\textit{Hint:} Use your work for Part (b) of Problem 5 of Tutorial Problem Set 7.
+\item Derive, for any $n\in\mathbb{N}_0$ and any $x,y\in\R$, an explicit formula for
+\[
+F^n\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right).
+\]
+\textit{Hint:} Use your work for Part (a) of this problem.
+\item Letting $(F_n)_{n\in\mathbb{N}_0}$ denote the Fibonacci sequence (with $F_0=0$ and $F_1=1$), show that
+\[
+\forall n\in\mathbb{N}_0:\qquad
+F^n\!\left(\begin{bmatrix}F_0\\F_1\end{bmatrix}\right)
+=
+\begin{bmatrix}F_n\\F_{n+1}\end{bmatrix}.
+\]
+\textit{Hint:} Apply the Principle of Mathematical Induction.
+\item Hence, derive an explicit formula for the members of the Fibonacci sequence.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Eigen-decomposition (diagonalize $F$ and compute $F^n$)}
+With respect to the standard basis of $\R^{2,1}$, $F$ has matrix
+\[
+A=\begin{bmatrix}0&1\\1&1\end{bmatrix},
+\qquad
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)=A\begin{bmatrix}x\\y\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Diagonalize $A$.}
+Compute the characteristic polynomial:
+\[
+\chi_A(\lambda)=\det(A-\lambda I_2)=
+\det\begin{bmatrix}-\lambda&1\\1&1-\lambda\end{bmatrix}
+=\lambda^2-\lambda-1.
+\]
+Hence the (real) eigenvalues are
+\[
+\varphi\coloneqq \frac{1+\sqrt5}{2},
+\qquad
+\psi\coloneqq \frac{1-\sqrt5}{2}.
+\]
+For an eigenvalue $\lambda$, solve $(A-\lambda I_2)\binom{x}{y}=0$:
+\[
+-\lambda x+y=0\ \Rightarrow\ y=\lambda x.
+\]
+Thus an eigenvector is $\binom{1}{\lambda}$. Therefore an eigenbasis is
+\[
+\beta=\left(
+\begin{bmatrix}1\\ \varphi\end{bmatrix},
+\begin{bmatrix}1\\ \psi\end{bmatrix}
+\right).
+\]
+In this basis,
+\[
+[F]^{\beta}_{\beta}=\diag(\varphi,\psi).
+\]
+\[
+\boxed{\,
+\beta=\left(
+\begin{bmatrix}1\\ \varphi\end{bmatrix},
+\begin{bmatrix}1\\ \psi\end{bmatrix}
+\right),\qquad
+[F]^{\beta}_{\beta}=
+\begin{bmatrix}\varphi&0\\0&\psi\end{bmatrix}
+\,}.
+\]
+
+\item \textbf{Explicit formula for $F^n\!\binom{x}{y}$.}
+Write the vector in the eigenbasis:
+\[
+\begin{bmatrix}x\\y\end{bmatrix}
+=
+a\begin{bmatrix}1\\ \varphi\end{bmatrix}
++b\begin{bmatrix}1\\ \psi\end{bmatrix}.
+\]
+Solving
+\[
+x=a+b,\qquad y=a\varphi+b\psi
+\]
+gives
+\[
+a=\frac{y-\psi x}{\varphi-\psi},\qquad b=\frac{\varphi x-y}{\varphi-\psi},
+\qquad \varphi-\psi=\sqrt5.
+\]
+Since $F$ scales eigenvectors,
+\[
+F^n\!\left(\begin{bmatrix}1\\ \varphi\end{bmatrix}\right)=\varphi^n\begin{bmatrix}1\\ \varphi\end{bmatrix},
+\qquad
+F^n\!\left(\begin{bmatrix}1\\ \psi\end{bmatrix}\right)=\psi^n\begin{bmatrix}1\\ \psi\end{bmatrix}.
+\]
+Therefore
+\[
+F^n\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+=
+a\varphi^n\begin{bmatrix}1\\ \varphi\end{bmatrix}
++
+b\psi^n\begin{bmatrix}1\\ \psi\end{bmatrix}.
+\]
+Equivalently, componentwise,
+\[
+F^n\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+=
+\begin{bmatrix}
+a\varphi^n+b\psi^n\\
+a\varphi^{n+1}+b\psi^{n+1}
+\end{bmatrix},
+\quad
+a=\frac{y-\psi x}{\sqrt5},\ b=\frac{\varphi x-y}{\sqrt5}.
+\]
+\[
+\boxed{
+\,
+F^n\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+=
+\begin{bmatrix}
+\frac{y-\psi x}{\sqrt5}\,\varphi^n+\frac{\varphi x-y}{\sqrt5}\,\psi^n\\[0.4em]
+\frac{y-\psi x}{\sqrt5}\,\varphi^{n+1}+\frac{\varphi x-y}{\sqrt5}\,\psi^{n+1}
+\end{bmatrix}
+\,}.
+\]
+
+\item \textbf{Show $F^n\binom{F_0}{F_1}=\binom{F_n}{F_{n+1}}$ by induction.}
+Here $\binom{F_0}{F_1}=\binom{0}{1}$.
+
+\emph{Base case $n=0$.} $F^0=\mathrm{id}$, so
+\[
+F^0\!\left(\begin{bmatrix}0\\1\end{bmatrix}\right)=\begin{bmatrix}0\\1\end{bmatrix}
+=
+\begin{bmatrix}F_0\\F_1\end{bmatrix}.
+\]
+
+\emph{Inductive step.} Assume for some $n\in\mathbb{N}_0$ that
+\[
+F^n\!\left(\begin{bmatrix}0\\1\end{bmatrix}\right)=\begin{bmatrix}F_n\\F_{n+1}\end{bmatrix}.
+\]
+Apply $F$ to both sides:
+\[
+F^{n+1}\!\left(\begin{bmatrix}0\\1\end{bmatrix}\right)
+=
+F\!\left(\begin{bmatrix}F_n\\F_{n+1}\end{bmatrix}\right)
+=
+\begin{bmatrix}F_{n+1}\\F_n+F_{n+1}\end{bmatrix}
+=
+\begin{bmatrix}F_{n+1}\\F_{n+2}\end{bmatrix},
+\]
+using the Fibonacci recursion $F_{n+2}=F_{n+1}+F_n$.
+Thus the statement holds for $n+1$, and by induction it holds for all $n\in\mathbb{N}_0$.
+
+\[
+\boxed{\,\forall n\in\mathbb{N}_0:\ 
+F^n\!\left(\begin{bmatrix}F_0\\F_1\end{bmatrix}\right)
+=
+\begin{bmatrix}F_n\\F_{n+1}\end{bmatrix}\, }.
+\]
+
+\item \textbf{Explicit Fibonacci formula (Binet).}
+Apply the boxed formula in (b) with $(x,y)=(0,1)$.
+Then $a=\frac{1-\psi\cdot 0}{\sqrt5}=\frac{1}{\sqrt5}$ and $b=\frac{\varphi\cdot 0-1}{\sqrt5}=-\frac{1}{\sqrt5}$, hence
+\[
+F^n\!\left(\begin{bmatrix}0\\1\end{bmatrix}\right)
+=
+\begin{bmatrix}
+\frac{\varphi^n-\psi^n}{\sqrt5}\\[0.2em]
+\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}
+\end{bmatrix}.
+\]
+By part (c), the first component equals $F_n$. Therefore
+\[
+\boxed{\,\forall n\in\mathbb{N}_0:\quad
+F_n=\frac{\varphi^n-\psi^n}{\sqrt5}
+\quad\text{where}\quad
+\varphi=\frac{1+\sqrt5}{2},\ \psi=\frac{1-\sqrt5}{2}.
+\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Fibonacci matrix powers and a second route to (b)--(d)}
+Still let $A=\begin{bmatrix}0&1\\1&1\end{bmatrix}$ so that $F(v)=Av$.
+
+\medskip
+\noindent\textbf{Claim.} For all $n\in\mathbb{N}$,
+\[
+A^n=
+\begin{bmatrix}
+F_{n-1} & F_n\\
+F_n & F_{n+1}
+\end{bmatrix},
+\]
+where $(F_n)$ is the Fibonacci sequence with $F_0=0$, $F_1=1$.
+
+\emph{Proof (induction).}
+For $n=1$, $A=\begin{bmatrix}0&1\\1&1\end{bmatrix}=\begin{bmatrix}F_0&F_1\\F_1&F_2\end{bmatrix}$ since $F_2=1$.
+Assume the identity holds for $n$. Then
+\[
+A^{n+1}=A^nA=
+\begin{bmatrix}
+F_{n-1} & F_n\\
+F_n & F_{n+1}
+\end{bmatrix}
+\begin{bmatrix}0&1\\1&1\end{bmatrix}
+=
+\begin{bmatrix}
+F_n & F_{n-1}+F_n\\
+F_{n+1} & F_n+F_{n+1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+F_n & F_{n+1}\\
+F_{n+1} & F_{n+2}
+\end{bmatrix},
+\]
+which is the desired form for $n+1$. This completes the induction.
+
+Consequently, for any $x,y\in\R$ and $n\in\mathbb{N}$,
+\[
+F^n\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)
+=
+A^n\begin{bmatrix}x\\y\end{bmatrix}
+=
+\begin{bmatrix}
+F_{n-1}x+F_n y\\
+F_n x+F_{n+1}y
+\end{bmatrix}.
+\]
+This provides another explicit formula for $F^n(\binom{x}{y})$ (and immediately yields part (c) by taking $(x,y)=(0,1)$).
+Combining this with the diagonalization from Method 1 recovers Binet's formula in part (d).
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Question 2 (Diagonalization and iterates of an operator on $\cP_2(\R)$)}
+\subsection{Problem}
+Define $T\in\cL(\cP_2(\R))$ as follows:
+\[
+\forall P\in\cP_2(\R):\qquad
+T(P)\df = P(1) + P'(0)X + \bigl(P'(0)+P''(0)\bigr)X^2.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Compute the eigenvalues of $T$.
+\item For each eigenvalue $\lambda$ of $T$, determine its corresponding eigenspace $E_{T,\lambda}$.
+\item Explain why $T$ is diagonalizable.
+\item Derive an ordered basis $\beta$ for $\cP_2(\R)$ such that $[T]^{\beta}_{\beta}\in\R^{3,3}$ is a diagonal matrix.
+\item Hence, derive, for any $n\in\mathbb{N}_0$ and any $a,b,c\in\R$, an explicit formula for
+\[
+T^n\!\bigl(a+bX+cX^2\bigr).
+\]
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Compute the matrix of $T$ in the standard basis and diagonalize}
+Let $P(X)=a+bX+cX^2\in\cP_2(\R)$. Then
+\[
+P(1)=a+b+c,\qquad P'(X)=b+2cX\Rightarrow P'(0)=b,\qquad P''(X)=2c\Rightarrow P''(0)=2c.
+\]
+Hence
+\[
+T(P)=(a+b+c)+bX+(b+2c)X^2.
+\]
+Relative to the standard ordered basis $(1,X,X^2)$, the coordinate map $(a,b,c)^{\mathsf T}\mapsto (a',b',c')^{\mathsf T}$ is
+\[
+\begin{bmatrix}a'\\b'\\c'\end{bmatrix}
+=
+\begin{bmatrix}
+1&1&1\\
+0&1&0\\
+0&1&2
+\end{bmatrix}
+\begin{bmatrix}a\\b\\c\end{bmatrix}.
+\]
+So
+\[
+[T]_{(1,X,X^2)}^{(1,X,X^2)}
+=
+M\coloneqq
+\begin{bmatrix}
+1&1&1\\
+0&1&0\\
+0&1&2
+\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Eigenvalues.}
+Compute $\chi_M(\lambda)=\det(M-\lambda I_3)$:
+\[
+\chi_M(\lambda)=
+\det\begin{bmatrix}
+1-\lambda&1&1\\
+0&1-\lambda&0\\
+0&1&2-\lambda
+\end{bmatrix}
+=(1-\lambda)\det\begin{bmatrix}1-\lambda&0\\1&2-\lambda\end{bmatrix}
+=(1-\lambda)^2(2-\lambda).
+\]
+Thus the eigenvalues are
+\[
+\boxed{\,\lambda=1\ (\text{algebraic multiplicity }2),\quad \lambda=2\, }.
+\]
+
+\item \textbf{Eigenspaces.}
+Solve $(M-\lambda I_3)\bm{v}=0$.
+
+\medskip
+\noindent\underline{Case $\lambda=2$.}
+\[
+M-2I_3=
+\begin{bmatrix}
+-1&1&1\\
+0&-1&0\\
+0&1&0
+\end{bmatrix}
+\Rightarrow
+b=0,\ a=c.
+\]
+So a basis vector is $(1,0,1)^{\mathsf T}$, which corresponds to polynomial $1+X^2$.
+Hence
+\[
+\boxed{\,E_{T,2}=\Span\{\,1+X^2\,\}\, }.
+\]
+
+\medskip
+\noindent\underline{Case $\lambda=1$.}
+\[
+M-I_3=
+\begin{bmatrix}
+0&1&1\\
+0&0&0\\
+0&1&1
+\end{bmatrix}
+\Rightarrow b=-c,\ a\ \text{free}.
+\]
+So eigenvectors are $(a,-c,c)^{\mathsf T}=a(1,0,0)^{\mathsf T}+c(0,-1,1)^{\mathsf T}$, corresponding to
+\[
+1,\qquad X^2-X.
+\]
+Therefore
+\[
+\boxed{\,E_{T,1}=\Span\{\,1,\ X^2-X\,\}\, }.
+\]
+
+\item \textbf{Diagonalizability.}
+We have
+\[
+\dim(E_{T,1})+\dim(E_{T,2})=2+1=3=\dim(\cP_2(\R)).
+\]
+Hence $\cP_2(\R)$ has a basis of eigenvectors, so $T$ is diagonalizable.
+
+\[
+\boxed{\,T\ \text{is diagonalizable since eigenspaces span }\cP_2(\R).\,}
+\]
+
+\item \textbf{An eigenbasis $\beta$ making $[T]_{\beta}^{\beta}$ diagonal.}
+Take
+\[
+\beta=(\,1,\ X^2-X,\ 1+X^2\,).
+\]
+Then $T$ acts by $1$ on the first two basis vectors and by $2$ on the third, so
+\[
+[T]_{\beta}^{\beta}=\diag(1,1,2).
+\]
+\[
+\boxed{\,\beta=(1,\ X^2-X,\ 1+X^2),\qquad [T]_{\beta}^{\beta}=
+\begin{bmatrix}1&0&0\\0&1&0\\0&0&2\end{bmatrix}\, }.
+\]
+
+\item \textbf{Explicit formula for $T^n(a+bX+cX^2)$.}
+Decompose $P=a+bX+cX^2$ in the eigenbasis:
+\[
+a+bX+cX^2 = \alpha\cdot 1 + \beta\cdot (X^2-X) + \gamma\cdot(1+X^2).
+\]
+Expanding the right-hand side gives
+\[
+(\alpha+\gamma) + (-\beta)X + (\beta+\gamma)X^2.
+\]
+Matching coefficients yields
+\[
+\beta=-b,\qquad \gamma=b+c,\qquad \alpha=a-\gamma=a-b-c.
+\]
+Since eigenvalues are $1,1,2$ on $(1,\ X^2-X,\ 1+X^2)$, we get
+\[
+T^n(P)=\alpha\cdot 1^n\cdot 1+\beta\cdot 1^n\cdot (X^2-X)+\gamma\cdot 2^n\cdot (1+X^2).
+\]
+Thus
+\[
+T^n(a+bX+cX^2)
+=
+(a-b-c) + (-b)(X^2-X) + (b+c)2^n(1+X^2).
+\]
+In the standard form,
+\[
+T^n(a+bX+cX^2)
+=
+\bigl(a-b-c+(b+c)2^n\bigr)
++bX
++\bigl(-b+(b+c)2^n\bigr)X^2.
+\]
+\[
+\boxed{
+\,
+T^n(a+bX+cX^2)
+=
+\bigl(a-b-c+(b+c)2^n\bigr)
++bX
++\bigl(-b+(b+c)2^n\bigr)X^2
+\quad(n\in\mathbb{N}_0).
+\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Functional viewpoint (eigen-decomposition without explicit $3\times 3$ determinants)}
+From the formula
+\[
+T(a+bX+cX^2)=(a+b+c)+bX+(b+2c)X^2,
+\]
+observe directly:
+\[
+T(1)=1,\qquad T(X^2-X)=X^2-X,\qquad T(1+X^2)=2(1+X^2).
+\]
+Thus $1$ and $X^2-X$ are eigenvectors with eigenvalue $1$, and $1+X^2$ is an eigenvector with eigenvalue $2$.
+These three polynomials are linearly independent (their coefficient vectors are independent), hence form a basis; therefore $T$ is diagonalizable.
+The iterate formula in (e) follows immediately by expanding $a+bX+cX^2$ in this eigenbasis (as done in Method 1).
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Question 3 (Determinant of $\sum_{k=1}^n A^k$)}
+\subsection{Problem}
+Let $A\in \C^{3,3}$ satisfy the property that $A-I_3$, $A-eI_3$, and $A-iI_3$ are not invertible.
+Derive, for any $n\in\mathbb{N}$, an explicit formula for
+\[
+\det\!\left(\sum_{k=1}^{n}A^k\right).
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Diagonalize $A$ and evaluate the geometric sum on eigenvalues}
+Since $A-\lambda I_3$ is not invertible iff $\lambda$ is an eigenvalue, the hypotheses imply that
+\[
+1,\ e,\ i
+\]
+are eigenvalues of $A$. They are distinct complex numbers, and $A$ is $3\times 3$, so the characteristic polynomial has degree $3$ and hence
+the eigenvalues of $A$ are exactly $\{1,e,i\}$ (each with algebraic multiplicity $1$). Therefore $A$ is diagonalizable over $\C$.
+
+Thus there exists an invertible $P\in\C^{3,3}$ such that
+\[
+A=PDP^{-1},
+\qquad
+D=\diag(1,e,i)
+\]
+(after a suitable ordering of the eigenvectors).
+
+Define
+\[
+S_n\coloneqq \sum_{k=1}^{n}A^k.
+\]
+Then
+\[
+S_n=\sum_{k=1}^n (P D^k P^{-1}) = P\left(\sum_{k=1}^n D^k\right)P^{-1}.
+\]
+Taking determinants and using $\det(PBP^{-1})=\det(B)$ gives
+\[
+\det(S_n)=\det\!\left(\sum_{k=1}^n D^k\right).
+\]
+But $\sum_{k=1}^n D^k$ is diagonal:
+\[
+\sum_{k=1}^n D^k=\diag\!\left(\sum_{k=1}^n 1^k,\ \sum_{k=1}^n e^k,\ \sum_{k=1}^n i^k\right)
+=\diag\!\left(n,\ \sum_{k=1}^n e^k,\ \sum_{k=1}^n i^k\right).
+\]
+Hence
+\[
+\det(S_n)=n\left(\sum_{k=1}^n e^k\right)\left(\sum_{k=1}^n i^k\right).
+\]
+Evaluate the scalar geometric sums (valid since $e\neq 1$ and $i\neq 1$):
+\[
+\sum_{k=1}^n e^k=\frac{e^{n+1}-e}{e-1},
+\qquad
+\sum_{k=1}^n i^k=\frac{i^{n+1}-i}{i-1}.
+\]
+Therefore
+\[
+\boxed{
+\,
+\det\!\left(\sum_{k=1}^{n}A^k\right)
+=
+n\cdot \frac{e^{n+1}-e}{e-1}\cdot \frac{i^{n+1}-i}{i-1}
+\quad (n\in\mathbb{N}).
+\,}
+\]
+
+\subsubsection{Method 2: Polynomial functional calculus (eigenvalues of $p(A)$)}
+Let
+\[
+p_n(t)\coloneqq \sum_{k=1}^n t^k.
+\]
+Then $\sum_{k=1}^n A^k = p_n(A)$. For any eigenpair $A v=\lambda v$ with $v\neq 0$,
+\[
+p_n(A)v=\left(\sum_{k=1}^n A^k\right)v=\sum_{k=1}^n A^k v=\sum_{k=1}^n \lambda^k v=p_n(\lambda)v.
+\]
+Hence $p_n(\lambda)$ is an eigenvalue of $p_n(A)$ for each eigenvalue $\lambda$ of $A$.
+Since $A$ has three distinct eigenvalues $1,e,i$ (thus $A$ is diagonalizable), $p_n(A)$ is also diagonalizable in the same eigenbasis,
+so the eigenvalues of $p_n(A)$ are exactly $p_n(1),p_n(e),p_n(i)$.
+
+Therefore,
+\[
+\det\!\left(\sum_{k=1}^n A^k\right)=\det(p_n(A))=p_n(1)\,p_n(e)\,p_n(i)
+=n\left(\sum_{k=1}^n e^k\right)\left(\sum_{k=1}^n i^k\right),
+\]
+and evaluating the scalar sums yields the same boxed formula as in Method 1.
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Question 4 (Similarity from shared distinct eigenvalues in dimension $3$)}
+\subsection{Problem}
+Let $V$ be a $3$-dimensional vector space over $\R$.
+Let $S,T\in\cL(V)$ each have $2$, $6$, and $7$ as eigenvalues.
+Show that there exists an invertible $R\in\cL(V)$ such that
+\[
+S=R^{-1}\circ T\circ R.
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Build $R$ from aligned eigenbases}
+Since $2,6,7$ are distinct real eigenvalues, both $S$ and $T$ are diagonalizable over $\R$.
+
+\medskip
+\noindent\textbf{Step 1: Choose eigenbases with matched eigenvalue order.}
+Choose nonzero eigenvectors $s_2,s_6,s_7\in V$ such that
+\[
+S(s_\lambda)=\lambda s_\lambda\quad (\lambda\in\{2,6,7\}),
+\]
+and similarly choose nonzero eigenvectors $t_2,t_6,t_7\in V$ such that
+\[
+T(t_\lambda)=\lambda t_\lambda\quad (\lambda\in\{2,6,7\}).
+\]
+Because eigenvalues are distinct, each eigenspace is $1$-dimensional, and the three eigenvectors for each operator form a basis:
+\[
+\beta_S=(s_2,s_6,s_7)\ \text{is a basis of }V,\qquad
+\beta_T=(t_2,t_6,t_7)\ \text{is a basis of }V.
+\]
+
+\medskip
+\noindent\textbf{Step 2: Define $R$ by sending the $T$-eigenbasis to the $S$-eigenbasis.}
+Define $R:V\to V$ by its action on the basis $\beta_T$:
+\[
+R(t_2)=s_2,\qquad R(t_6)=s_6,\qquad R(t_7)=s_7,
+\]
+and extend linearly. Then $R\in\cL(V)$ and is invertible because it maps a basis to a basis.
+
+\medskip
+\noindent\textbf{Step 3: Verify the conjugacy identity on a basis.}
+It suffices to verify $S\circ R=R\circ T$ on the basis vectors $t_\lambda$:
+\[
+(S\circ R)(t_\lambda)=S(s_\lambda)=\lambda s_\lambda,\qquad
+(R\circ T)(t_\lambda)=R(\lambda t_\lambda)=\lambda R(t_\lambda)=\lambda s_\lambda.
+\]
+Hence $(S\circ R)(t_\lambda)=(R\circ T)(t_\lambda)$ for $\lambda\in\{2,6,7\}$, so $S\circ R=R\circ T$ on $V$.
+Right-compose by $R^{-1}$ to obtain
+\[
+S=R\circ T\circ R^{-1}.
+\]
+Equivalently,
+\[
+S=R^{-1}\circ T\circ R
+\]
+after renaming $R\leftarrow R^{-1}$ (both are invertible). Therefore such an invertible operator exists.
+
+\[
+\boxed{\,\exists\,R\in\cL(V)\text{ invertible such that }S=R^{-1}\circ T\circ R.\,}
+\]
+
+\subsubsection{Method 2: Reduce both operators to the same diagonal matrix}
+Because $S$ is diagonalizable with eigenvalues $2,6,7$, there exists an ordered basis $\beta_S$ of $V$ such that
+\[
+[S]_{\beta_S}^{\beta_S}=\diag(2,6,7).
+\]
+Similarly, there exists an ordered basis $\beta_T$ such that
+\[
+[T]_{\beta_T}^{\beta_T}=\diag(2,6,7).
+\]
+Let $C:V\to V$ be the change-of-basis isomorphism that maps $\beta_T$-coordinates to $\beta_S$-coordinates.
+Then the matrices satisfy the similarity relation
+\[
+[S]_{\beta_S}^{\beta_S}= [C]_{\beta_S}^{\beta_T}\,[T]_{\beta_T}^{\beta_T}\,[C]_{\beta_T}^{\beta_S}.
+\]
+Translating back to operators gives $S=C\circ T\circ C^{-1}$, i.e.\ $S$ is conjugate to $T$ by an invertible map.
+
+\[
+\boxed{\,S\sim T\ \text{since both are similar to }\diag(2,6,7).\,}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Question 5 (Solving $T(v)=8v+b$ using $8\notin \sigma(T)$)}
+\subsection{Problem}
+Let $T\in\cL(\R^3)$ be non-diagonalizable with $6$ and $7$ as its only eigenvalues.
+Show that there exist $x,y,z\in\R$ such that
+\[
+T(x,y,z)=(6+8x,\ 7+8y,\ 13+8z).
+\]
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Invertibility of $T-8I$ (since $8$ is not an eigenvalue)}
+Let $b\coloneqq (6,7,13)\in\R^3$. The desired conclusion
+\[
+T(x,y,z)=(6+8x,\ 7+8y,\ 13+8z)
+\]
+is equivalent to: there exists $v=(x,y,z)\in\R^3$ such that
+\[
+T(v)=8v+b
+\quad\Longleftrightarrow\quad
+(T-8I_3)v=b.
+\]
+Thus it suffices to prove that $T-8I_3$ is invertible (so its range is all of $\R^3$ and every $b$ is attained).
+
+If $T-8I_3$ were not invertible, then $\det(T-8I_3)=0$, i.e.\ $8$ would be an eigenvalue of $T$.
+But we are told the \emph{only} eigenvalues of $T$ are $6$ and $7$, so $8$ is not an eigenvalue.
+Therefore $T-8I_3$ is invertible. Hence there exists a (unique) $v\in\R^3$ such that $(T-8I_3)v=b$.
+
+Writing $v=(x,y,z)$ yields the required statement.
+
+\[
+\boxed{\,\exists (x,y,z)\in\R^3:\ T(x,y,z)=(6+8x,\ 7+8y,\ 13+8z).\,}
+\]
+
+\subsubsection{Method 2: Determinant via the characteristic polynomial (nonzero at $8$)}
+Let $\chi_T(\lambda)$ be the characteristic polynomial of $T$ (degree $3$).
+Since the only eigenvalues are $6$ and $7$, the characteristic polynomial must be
+\[
+\chi_T(\lambda)=(\lambda-6)^m(\lambda-7)^{3-m}
+\quad\text{for some }m\in\{1,2\}.
+\]
+(Indeed, $T$ is non-diagonalizable, so one of the eigenvalues has algebraic multiplicity $2$ and geometric multiplicity $1$,
+but the following argument does not require specifying which one.)
+
+Now use
+\[
+\det(T-8I_3)=(-1)^3\,\chi_T(8)=-\chi_T(8).
+\]
+Compute:
+\[
+\chi_T(8)=(8-6)^m(8-7)^{3-m}=2^m\cdot 1^{3-m}\neq 0.
+\]
+Hence $\det(T-8I_3)\neq 0$, so $T-8I_3$ is invertible. Therefore, for $b=(6,7,13)$, the linear system
+\[
+(T-8I_3)v=b
+\]
+has a solution $v=(x,y,z)$, which rearranges to the required identity $T(v)=8v+b$.
+
+\[
+\boxed{\,\det(T-8I_3)\neq 0\ \Rightarrow\ \exists v\in\R^3:\ (T-8I_3)v=(6,7,13)\, }.
+\]
+
+\end{document}

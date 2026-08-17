@@ -1,0 +1,660 @@
+% chapters/ch10_social_choice.tex
+
+\section{Social Choice}
+
+This chapter studies how a society should choose among alternatives when different individuals have different preferences. In earlier chapters, we developed efficiency concepts such as Pareto efficiency and showed that competitive equilibrium can support efficient allocations under standard assumptions. However, efficiency alone often does not determine a unique social choice. This chapter introduces social decision mechanisms, their desirable properties, Arrow's impossibility theorem, and social welfare functions. The main conceptual distinction is between:
+\begin{itemize}
+    \item \textbf{ordinal aggregation:} using only rankings of alternatives;
+    \item \textbf{cardinal aggregation:} using utility levels or utility intensities.
+\end{itemize}
+
+\subsection{Alternatives and Individual Preferences}
+
+A social choice problem begins with a set of alternatives and a collection of individual preferences over those alternatives.
+
+\begin{definition}{Alternatives}{ch10-alternatives}
+An \emph{alternative} is one feasible option from which society may choose. Examples include:
+\begin{itemize}
+    \item possible lunch venues;
+    \item political candidates or parties;
+    \item feasible allocations in an Edgeworth box;
+    \item policy regimes such as different tax schedules.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Individual preferences}{ch10-individual-preferences}
+Let the set of alternatives be $A$. For individual $i$:
+\begin{itemize}
+    \item $x \succeq_i y$ means $i$ weakly prefers $x$ to $y$;
+    \item $x \succ_i y$ means $i$ strictly prefers $x$ to $y$;
+    \item $x \sim_i y$ means $i$ is indifferent between $x$ and $y$.
+\end{itemize}
+When the lecture restricts attention to strict preferences for simplicity, each individual can rank all alternatives from most preferred to least preferred.
+\end{definition}
+
+\begin{definition}{Rational preferences}{ch10-rational-preferences}
+Preferences are \emph{well-defined} or \emph{rational} if they satisfy:
+\begin{itemize}
+    \item \textbf{Completeness:} for any two alternatives $x,y$, either $x \succeq_i y$ or $y \succeq_i x$ (or both);
+    \item \textbf{Transitivity:} if $x \succeq_i y$ and $y \succeq_i z$, then $x \succeq_i z$.
+\end{itemize}
+\end{definition}
+
+\begin{examtip}
+In this chapter, many examples are written using \emph{strict} rankings only. When that happens, completeness means that the individual can rank every pair of alternatives, and transitivity means the ranking contains no cycles.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: Checking completeness and transitivity}]
+Suppose individual $j$ has preferences over $\{a,b,c,d\}$:
+\[
+a \succ_j b,\qquad a \succ_j c,\qquad a \succ_j d,\qquad b \succ_j c,\qquad c \succ_j d.
+\]
+
+These comparisons imply:
+\[
+a \succ_j b \succ_j c \succ_j d,
+\]
+and therefore also
+\[
+b \succ_j d,\qquad a \succ_j d,\qquad a \succ_j c.
+\]
+So the ranking is complete and transitive.
+
+Now suppose individual $k$ has:
+\[
+a \succ_k b,\qquad a \succ_k c,\qquad a \succ_k d,\qquad b \succ_k c,\qquad d \succ_k b,\qquad c \succ_k d.
+\]
+Then we have
+\[
+b \succ_k c,\qquad c \succ_k d,\qquad d \succ_k b,
+\]
+which forms a cycle. Hence transitivity fails.
+
+So:
+\[
+\boxed{\text{$j$'s preferences are complete and transitive, while $k$'s are not transitive.}}
+\]
+\end{examplebox}
+
+\subsection{The Social Choice Problem}
+
+Once individual preferences are specified, the next problem is to aggregate them into a social ranking.
+
+\begin{definition}{Social choice problem}{ch10-social-choice-problem}
+A social choice problem consists of:
+\begin{itemize}
+    \item a set of individuals $\{1,2,\dots,n\}$;
+    \item a set of alternatives $A$;
+    \item for each individual $i$, a preference ordering over $A$.
+\end{itemize}
+The objective is to use these individual preferences to generate a social preference or social choice.
+\end{definition}
+
+\begin{definition}{Social decision mechanism}{ch10-sdm}
+A \emph{social decision mechanism} (SDM) is a rule that takes individual preference orderings
+\[
+\succ_1,\dots,\succ_n
+\]
+as inputs and outputs a social preference ordering
+\[
+\succ^*.
+\]
+\end{definition}
+
+The key point is that an SDM uses only individuals' rankings of alternatives. It does \emph{not} use utility intensities.
+
+\begin{examtip}
+A social decision mechanism is an \emph{ordinal} aggregator. It uses rankings such as
+\[
+x \succ_i y \succ_i z,
+\]
+not numerical statements such as ``$i$ cares twice as much about $x$ as about $y$.'' This distinction becomes central when the chapter moves to social welfare functions.
+\end{examtip}
+
+\subsection{Examples of Social Decision Mechanisms}
+
+\subsubsection{Pairwise majority voting}
+
+\begin{definition}{Pairwise majority voting}{ch10-pairwise-majority}
+For each pair of alternatives $(x,y)$, compare how many individuals prefer $x$ to $y$ and how many prefer $y$ to $x$. The socially preferred alternative is the one that wins the majority vote in that pairwise comparison.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Pairwise majority voting}]
+Suppose three individuals have rankings:
+\[
+\text{Harry: } X \succ Y \succ Z,
+\qquad
+\text{Ron: } Z \succ Y \succ X,
+\qquad
+\text{Hermione: } Z \succ X \succ Y.
+\]
+
+Compare pairwise:
+\begin{itemize}
+    \item $X$ vs $Y$: Harry and Hermione prefer $X$, so
+    \[
+    X \succ^* Y.
+    \]
+    \item $X$ vs $Z$: Ron and Hermione prefer $Z$, so
+    \[
+    Z \succ^* X.
+    \]
+    \item $Y$ vs $Z$: Ron and Hermione prefer $Z$, so
+    \[
+    Z \succ^* Y.
+    \]
+\end{itemize}
+
+Thus the social ordering is
+\[
+\boxed{Z \succ^* X \succ^* Y.}
+\]
+\end{examplebox}
+
+\subsubsection{Borda count}
+
+\begin{definition}{Borda count}{ch10-borda}
+Under the Borda count, each individual assigns rank-points to alternatives. With $m$ alternatives, the top-ranked alternative gets 1 point, the next gets 2 points, and so on until the last gets $m$ points. The social ranking orders alternatives from lowest total point score to highest.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Borda count}]
+Suppose 100 individuals fall into three preference types:
+\[
+40\%: X \succ Y \succ Z,
+\qquad
+25\%: Z \succ Y \succ X,
+\qquad
+35\%: Z \succ X \succ Y.
+\]
+With three alternatives, ranks 1, 2, and 3 correspond to 1, 2, and 3 points.
+
+Compute total points:
+\[
+X: 40(1)+25(3)+35(2)=40+75+70=185,
+\]
+\[
+Y: 40(2)+25(2)+35(3)=80+50+105=235,
+\]
+\[
+Z: 40(3)+25(1)+35(1)=120+25+35=180.
+\]
+Lower points are better, so the social ranking is
+\[
+\boxed{Z \succ^* X \succ^* Y.}
+\]
+\end{examplebox}
+
+\subsubsection{Plurality voting}
+
+\begin{definition}{Plurality voting}{ch10-plurality}
+Plurality voting ranks first the alternative that is placed top by the largest number of individuals. After assigning that rank, remove the chosen alternative and repeat the procedure among the remaining alternatives.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Plurality voting}]
+Using the same preference profile:
+\[
+40\%: X \succ Y \succ Z,
+\qquad
+25\%: Z \succ Y \succ X,
+\qquad
+35\%: Z \succ X \succ Y,
+\]
+the top-choice shares are:
+\[
+X:40\%,\qquad Y:0\%,\qquad Z:60\%.
+\]
+So $Z$ is ranked first. Remove $Z$ and compare $X$ and $Y$:
+\begin{itemize}
+    \item the first group prefers $X$ to $Y$;
+    \item the second group prefers $Y$ to $X$;
+    \item the third group prefers $X$ to $Y$.
+\end{itemize}
+Thus $X$ beats $Y$ by $75\%$ to $25\%$.
+
+So the social ranking is
+\[
+\boxed{Z \succ^* X \succ^* Y.}
+\]
+\end{examplebox}
+
+\subsection{Why Social Decision Mechanisms Can Fail}
+
+An arbitrary rule that outputs a social ranking need not respect individual preferences or even produce a well-defined ordering.
+
+\begin{commonmistake}
+Do not assume that every rule taking rankings as inputs is a sensible social decision mechanism. The chapter's central message is precisely that many apparently reasonable rules fail some basic desiderata.
+\end{commonmistake}
+
+\subsubsection{Condorcet cycles}
+
+\begin{definition}{Condorcet cycle}{ch10-condorcet}
+A \emph{Condorcet cycle} occurs when pairwise majority comparisons produce a cycle such as
+\[
+X \succ^* Y,\qquad Y \succ^* Z,\qquad Z \succ^* X.
+\]
+This means the social ranking is not transitive.
+\end{definition}
+
+\begin{examplebox}[title={Worked Example: Condorcet cycle under pairwise majority voting}]
+Suppose three individuals have preferences:
+\[
+\text{Type 1: } X \succ Z \succ Y,
+\qquad
+\text{Type 2: } Z \succ Y \succ X,
+\qquad
+\text{Type 3: } Y \succ X \succ Z.
+\]
+
+Then:
+\begin{itemize}
+    \item $Y$ beats $X$ because types 2 and 3 prefer $Y$ to $X$:
+    \[
+    Y \succ^* X.
+    \]
+    \item $X$ beats $Z$ because types 1 and 3 prefer $X$ to $Z$:
+    \[
+    X \succ^* Z.
+    \]
+    \item $Z$ beats $Y$ because types 1 and 2 prefer $Z$ to $Y$:
+    \[
+    Z \succ^* Y.
+    \]
+\end{itemize}
+
+Hence
+\[
+Y \succ^* X,\qquad X \succ^* Z,\qquad Z \succ^* Y,
+\]
+which is a cycle. Therefore pairwise majority voting does not produce a well-defined transitive social ordering in this case.
+\end{examplebox}
+
+\subsubsection{Vote splitting and spoiling}
+
+Some mechanisms are sensitive to the presence of other alternatives.
+
+\begin{examplebox}[title={Worked Example: Plurality voting and vote splitting}]
+Suppose preference types are:
+\[
+40\%: X \succ Y \succ Z,
+\qquad
+25\%: Z \succ Y \succ X,
+\qquad
+35\%: Y \succ X \succ Z.
+\]
+Under plurality voting, the top-choice shares are:
+\[
+X:40\%,\qquad Y:35\%,\qquad Z:25\%.
+\]
+So plurality ranks
+\[
+X \succ^* Y \succ^* Z.
+\]
+
+However, a direct comparison between $X$ and $Y$ gives:
+\begin{itemize}
+    \item the first type prefers $X$ to $Y$;
+    \item the second and third types prefer $Y$ to $X$.
+\end{itemize}
+So $60\%$ prefer $Y$ to $X$.
+
+Thus plurality makes $X$ the winner even though a majority would prefer $Y$ to $X$ in a head-to-head contest. The reason is that $Z$ splits support away from $Y$.
+\end{examplebox}
+
+\subsection{Desirable Properties of Social Decision Mechanisms}
+
+The lecture focuses on three benchmark properties.
+
+\begin{definition}{Pareto property for an SDM}{ch10-pareto-sdm}
+An SDM satisfies \emph{Pareto} if whenever every individual prefers $x$ to $y$, the social ranking also prefers $x$ to $y$:
+\[
+x \succ_i y \ \text{for all } i
+\quad \Longrightarrow \quad
+x \succ^* y.
+\]
+\end{definition}
+
+\begin{definition}{Universal Domain}{ch10-ud}
+An SDM satisfies \emph{Universal Domain} if for every possible profile of well-defined individual preferences, the resulting social preference ordering is itself well-defined.
+\end{definition}
+
+\begin{definition}{Independence of Irrelevant Alternatives}{ch10-iia}
+An SDM satisfies \emph{Independence of Irrelevant Alternatives} (IIA) if for any two alternatives $A$ and $B$, the social ranking of $A$ versus $B$ depends only on individuals' rankings of $A$ versus $B$, and not on how they rank other alternatives.
+\end{definition}
+
+\begin{examtip}
+To check IIA:
+\begin{itemize}
+    \item keep every individual's ranking of $A$ versus $B$ fixed;
+    \item change rankings involving other alternatives;
+    \item see whether the social ranking of $A$ versus $B$ changes.
+\end{itemize}
+If it changes, IIA fails.
+\end{examtip}
+
+\subsection{How to Check Whether a Property Holds}
+
+A property must hold for the \emph{entire multiverse} of possible preference profiles.
+
+\begin{examtip}[title={Method Pattern: verifying SDM properties}]
+To show a property \emph{does not hold}, it is enough to give a single counterexample.
+
+To show a property \emph{does hold}, one must give a general logical argument explaining why no counterexample can exist.
+\end{examtip}
+
+\begin{examplebox}[title={Worked Example: Pairwise majority voting and the three properties}]
+Consider pairwise majority voting.
+
+\textbf{Pareto:} If every individual prefers $x$ to $y$, then in the pairwise vote between $x$ and $y$, every individual votes for $x$. Hence
+\[
+x \succ^* y.
+\]
+So pairwise majority voting satisfies Pareto.
+
+\textbf{Universal Domain:} The Condorcet-cycle example gives well-defined individual preferences but produces a non-transitive social ordering. Hence pairwise majority voting does \emph{not} satisfy Universal Domain.
+
+\textbf{IIA:} In pairwise majority voting, the social ranking of $x$ versus $y$ depends only on how individuals rank $x$ against $y$ in the pairwise contest. Changing rankings involving other alternatives does not affect that contest. Hence pairwise majority voting satisfies IIA.
+
+Therefore:
+\[
+\boxed{\text{Pairwise majority voting satisfies Pareto and IIA, but not Universal Domain.}}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: Pairwise minority voting}]
+Define the pairwise minority voting rule as follows: for each pair of alternatives, the socially preferred alternative is the one that \emph{loses} the majority vote.
+
+Check the three properties.
+
+\textbf{Pareto:} If everyone prefers $x$ to $y$, then majority voting selects $x$, so minority voting selects $y$. Hence the social preference contradicts unanimous preference. So Pareto fails.
+
+\textbf{Universal Domain:} Since pairwise minority voting simply reverses pairwise-majority outcomes, a Condorcet cycle under majority voting becomes another cycle under minority voting. Hence Universal Domain fails.
+
+\textbf{IIA:} For any pair $(x,y)$, the minority-voting outcome depends only on individuals' rankings of $x$ versus $y$. So IIA holds.
+
+Therefore:
+\[
+\boxed{\text{Pairwise minority voting satisfies IIA only; Pareto and Universal Domain both fail.}}
+\]
+\end{examplebox}
+
+\subsection{Arrow's Impossibility Theorem}
+
+The three conditions above are all plausible. Arrow's theorem shows that they are jointly incompatible with non-dictatorial social choice once there are at least three alternatives.
+
+\begin{definition}{Dictatorship}{ch10-dictatorship}
+An SDM is a \emph{dictatorship} if there exists some individual $d$ such that for every pair of alternatives $x,y$,
+\[
+x \succ_d y
+\quad \Longrightarrow \quad
+x \succ^* y.
+\]
+That is, the social ordering always follows the dictator's preferences.
+\end{definition}
+
+\begin{theorem}{Arrow's Impossibility Theorem}{ch10-arrow}
+Suppose there are at least three alternatives. If a social decision mechanism satisfies:
+\begin{enumerate}
+    \item Pareto,
+    \item Universal Domain,
+    \item Independence of Irrelevant Alternatives,
+\end{enumerate}
+then it must be a dictatorship.
+\end{theorem}
+
+The lecture uses this theorem as a negative result: there is no perfect democratic ordinal rule satisfying all three desiderata for all preference profiles.
+
+\begin{commonmistake}
+Arrow's theorem does \emph{not} say that every voting rule is a dictatorship. It says that any SDM satisfying all three listed properties on the full domain of preferences must be dictatorial.
+\end{commonmistake}
+
+\begin{examtip}
+A common interpretation is:
+\begin{quote}
+With at least three alternatives, one cannot have a social decision mechanism that is simultaneously fully general, respects unanimity, ignores irrelevant alternatives, and is non-dictatorial.
+\end{quote}
+So at least one condition must be weakened if one wants a non-dictatorial rule.
+\end{examtip}
+
+\subsection{Social Welfare Functions}
+
+One way to escape Arrow's impossibility is to use more information than ordinal rankings alone.
+
+\begin{definition}{Social welfare function}{ch10-swf}
+A \emph{social welfare function} (SWF) is a function
+\[
+W(u_1,u_2,\dots,u_n)
+\]
+that takes individuals' utility levels as inputs and outputs a real number used to rank social outcomes. The function is increasing in each argument.
+\end{definition}
+
+This differs from an SDM:
+\begin{itemize}
+    \item an SDM aggregates \emph{ordinal} preference rankings;
+    \item an SWF aggregates \emph{cardinal} utilities, and so can reflect preference intensities.
+\end{itemize}
+
+\begin{definition}{Common examples of SWFs}{ch10-swf-examples}
+Common examples include:
+\begin{itemize}
+    \item \textbf{Utilitarian:}
+    \[
+    W(u_1,\dots,u_n)=\sum_{i=1}^n u_i;
+    \]
+    \item \textbf{Weighted utilitarian:}
+    \[
+    W(u_1,\dots,u_n)=\sum_{i=1}^n \alpha_i u_i,
+    \qquad \alpha_i>0;
+    \]
+    \item \textbf{Rawlsian:}
+    \[
+    W(u_1,\dots,u_n)=\min\{u_1,\dots,u_n\}.
+    \]
+\end{itemize}
+\end{definition}
+
+\begin{examtip}
+An SWF can be sensitive to \emph{preference intensities}. This is exactly what an IIA-style ordinal SDM rules out. That is one reason the SWF approach can bypass Arrow's impossibility.
+\end{examtip}
+
+\subsection{Utility Possibility Set and Social Optima}
+
+To connect social welfare to Pareto efficiency, the lecture introduces the utility possibility set.
+
+\begin{definition}{Utility possibility set}{ch10-ups}
+The \emph{utility possibility set} is the set of utility vectors
+\[
+(u_A,u_B)
+\]
+that can be achieved by feasible allocations in the economy.
+\end{definition}
+
+\begin{definition}{Utility possibility frontier}{ch10-upf}
+The \emph{utility possibility frontier} (UPF) is the boundary of the utility possibility set consisting of efficient utility pairs.
+\end{definition}
+
+A social optimum is obtained by maximizing a social welfare function over the utility possibility set.
+
+\begin{definition}{Social optimum}{ch10-social-optimum}
+A feasible allocation is \emph{socially optimal} for a given SWF if it maximizes
+\[
+W(u_1,\dots,u_n)
+\]
+over the feasible set of utility outcomes.
+\end{definition}
+
+Graphically, a social optimum occurs where the highest attainable iso-welfare curve touches the utility possibility frontier.
+
+\begin{theorem}{Social optimum implies Pareto efficiency}{ch10-so-implies-pe}
+If an allocation is socially optimal for some increasing social welfare function, then it is Pareto efficient.
+\end{theorem}
+
+\begin{proof}
+Suppose a socially optimal allocation were not Pareto efficient. Then there would exist another feasible allocation that makes everyone weakly better off and at least one person strictly better off. Since the social welfare function is increasing in each individual's utility, the second allocation would yield strictly higher social welfare. This contradicts social optimality. Hence every social optimum must be Pareto efficient.
+\end{proof}
+
+\begin{theorem}{Pareto efficiency implies social optimality for some SWF}{ch10-pe-implies-so}
+Under the regularity conditions assumed in the lecture, every Pareto-efficient allocation is socially optimal for some social welfare function.
+\end{theorem}
+
+The lecture emphasizes this as a positive converse: one need not fear that a Pareto-efficient allocation is unsupported by all welfare criteria. Some SWF can always rationalize it.
+
+\subsection{Weighted Utilitarianism and Supporting Pareto-Efficient Points}
+
+For two consumers, weighted utilitarian welfare takes the form
+\[
+W(u_A,u_B)=\gamma_A u_A + \gamma_B u_B,
+\qquad
+\gamma_A,\gamma_B>0.
+\]
+Its iso-welfare curves are straight lines.
+
+\begin{keyformula}[title={Key Formula: Iso-Welfare Slope under Weighted Utilitarianism}]
+For
+\[
+W(u_A,u_B)=\gamma_A u_A+\gamma_B u_B,
+\]
+an iso-welfare curve satisfies
+\[
+\gamma_A u_A+\gamma_B u_B=\bar W.
+\]
+Hence
+\[
+u_B=\frac{\bar W}{\gamma_B}-\frac{\gamma_A}{\gamma_B}u_A,
+\]
+so the slope is
+\[
+-\frac{\gamma_A}{\gamma_B}.
+\]
+At a smooth social optimum, this slope equals the slope of the utility possibility frontier.
+\end{keyformula}
+
+\begin{examplebox}[title={Worked Example: Which weights support a given social optimum?}]
+Suppose point $X$ on the utility possibility frontier has tangent slope
+\[
+-\frac{1}{2}.
+\]
+A weighted utilitarian social welfare function supports $X$ if
+\[
+-\frac{\gamma_A}{\gamma_B}=-\frac12
+\quad \Longrightarrow \quad
+\frac{\gamma_A}{\gamma_B}=\frac12.
+\]
+So any positive weights in the ratio
+\[
+\gamma_A:\gamma_B=1:2
+\]
+work. Hence both
+\[
+(\gamma_A,\gamma_B)=(1,2)
+\quad \text{and} \quad
+(\gamma_A,\gamma_B)=(2,4)
+\]
+support $X$.
+
+Now suppose point $Y$ has tangent slope
+\[
+-2.
+\]
+Then
+\[
+-\frac{\gamma_A}{\gamma_B}=-2
+\quad \Longrightarrow \quad
+\frac{\gamma_A}{\gamma_B}=2.
+\]
+So any positive weights in the ratio
+\[
+\gamma_A:\gamma_B=2:1
+\]
+work. Hence both
+\[
+(\gamma_A,\gamma_B)=(2,1)
+\quad \text{and} \quad
+(\gamma_A,\gamma_B)=(4,2)
+\]
+support $Y$.
+
+Therefore:
+\[
+\boxed{X \text{ is supported by weights proportional to } (1,2),}
+\]
+\[
+\boxed{Y \text{ is supported by weights proportional to } (2,1).}
+\]
+\end{examplebox}
+
+\subsection{Relation to the Welfare Theorems}
+
+Chapter 9 established that, under the standard assumptions:
+\begin{itemize}
+    \item competitive equilibrium is Pareto efficient;
+    \item every Pareto-efficient allocation can be supported by a suitable redistribution of endowments followed by competitive trade.
+\end{itemize}
+
+This chapter adds:
+\begin{itemize}
+    \item every social optimum is Pareto efficient;
+    \item every Pareto-efficient allocation is socially optimal for some SWF.
+\end{itemize}
+
+Combining the two chapters gives a bridge:
+\begin{quote}
+Under the standard assumptions and in the absence of externalities, one can connect competitive equilibria, Pareto-efficient allocations, and social optima.
+\end{quote}
+
+\begin{policynote}
+The important limitation is that society must still choose \emph{which} social welfare function to use. The mathematical existence of an SWF supporting a Pareto-efficient point does not by itself solve the normative problem of deciding which efficient point is morally or politically preferable.
+\end{policynote}
+
+\subsection{Common Mistakes and Exam Traps}
+
+\begin{commonmistake}
+Do not confuse a social decision mechanism with a social welfare function. An SDM takes rankings as input; an SWF takes utility levels as input.
+\end{commonmistake}
+
+\begin{commonmistake}
+Arrow's theorem is about SDMs defined on ordinal preference profiles. It does not directly rule out social welfare functions based on utility levels.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not say that Pareto-efficient allocations are automatically fair or socially optimal for every SWF. The theorem says they are socially optimal for \emph{some} SWF.
+\end{commonmistake}
+
+\begin{commonmistake}
+When checking IIA, do not change individuals' rankings of the pair being tested. The point is to keep their ranking of $A$ versus $B$ fixed and change only preferences involving other alternatives.
+\end{commonmistake}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 10 Summary}]
+\begin{align*}
+x \succeq_i y &\quad \text{weak preference}, \\
+x \succ_i y &\quad \text{strict preference}, \\
+x \sim_i y &\quad \text{indifference}, \\
+\text{Pareto for SDM: } 
+x \succ_i y \ \forall i &\implies x \succ^* y, \\
+\text{Universal Domain} &:\ \text{all well-defined individual preferences yield a well-defined social ranking}, \\
+\text{IIA} &:\ \text{social ranking of } A \text{ vs } B \text{ depends only on rankings of } A \text{ vs } B, \\
+W(u_1,\dots,u_n) &\quad \text{social welfare function}, \\
+W(u_1,\dots,u_n)=\sum_i \alpha_i u_i &\quad \text{weighted utilitarian SWF}, \\
+\text{iso-welfare slope} &= -\frac{\gamma_A}{\gamma_B}, \\
+\text{social optimum} &\implies \text{Pareto efficiency}, \\
+\text{Pareto efficiency} &\implies \text{social optimum for some SWF}.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield takeaways from this chapter are:
+\begin{itemize}
+    \item know the definitions of weak preference, strict preference, indifference, completeness, and transitivity;
+    \item know the difference between SDMs and SWFs;
+    \item be able to test Pareto, Universal Domain, and IIA;
+    \item know why pairwise majority voting fails Universal Domain;
+    \item understand Arrow's Impossibility Theorem and what it does \emph{not} say;
+    \item understand why social optima lie on the Pareto frontier;
+    \item be able to connect weighted utilitarian slopes
+    \[
+    -\frac{\gamma_A}{\gamma_B}
+    \]
+    to tangencies on the utility possibility frontier.
+\end{itemize}
+\end{examtip}

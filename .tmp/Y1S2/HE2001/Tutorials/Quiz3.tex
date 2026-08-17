@@ -1,0 +1,389 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Quiz 3}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This quiz tests core concepts in uncertainty, intertemporal choice, and asset pricing:
+\begin{itemize}[leftmargin=*]
+  \item state-contingent commodities, endowments, and net buyer/seller status under price changes;
+  \item intertemporal present value and the Fisher separation logic with perfect capital markets;
+  \item arbitrage and equilibrium in well-functioning asset markets;
+  \item simple one-period asset valuation with consumption (``dividend'') services;
+  \item expected utility with kinked (piecewise linear / discontinuous) utility;
+  \item optimal portfolio choice under log utility across two states;
+  \item expected utility computations and interpretation under CRRA utility \(U(c)=\sqrt{c}\).
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+\newpage
+\section*{Question 1 (State prices and ``net buyer'' after a price increase)}
+\subsection*{Problem}
+Suppose there are two states of the world. A consumer is endowed with contingent consumption bundle \((3,3)\).
+The consumer can buy contingent consumption directly at prices \((p_1,p_2)\).
+The consumer is a net buyer of consumption in state 1 when prices are \((p_1,p_2)\) and when the consumer has \(m\) to spend.
+The price of consumption in state 1 increases. The consumer must continue to be a net buyer of contingent consumption in state 1.
+
+\emph{True or False?}
+
+\subsection*{Solution}
+\subsubsection*{Answer: False (counterexample)}
+Let contingent consumption be \(c=(c_1,c_2)\in\mathbb{R}^2_+\), endowment \(\omega=(3,3)\), prices \(p=(p_1,p_2)\in\mathbb{R}^2_{++}\), and additional cash \(m\ge 0\).
+We write the budget set as
+\[
+p_1 c_1 + p_2 c_2 \le p\cdot \omega + m = 3p_1 + 3p_2 + m.
+\]
+Being a \emph{net buyer} in state 1 means \(c_1>\omega_1=3\).
+
+Choose linear (perfect-substitutes) utility:
+\[
+u(c_1,c_2)=c_1+c_2,
+\]
+and parameters
+\[
+(p_1,p_2)=(1,10),\qquad m=0.
+\]
+Then wealth is \(W=3(1)+3(10)=33\). Since good 1 is cheaper, the optimal choice is
+\[
+c_2^*=0,\qquad c_1^*=\frac{33}{1}=33>3,
+\]
+so the consumer is initially a net buyer in state 1.
+
+Now increase the state-1 price to \(p_1'=20\) (keeping \(p_2=10\)). New wealth is
+\[
+W' = 3(20)+3(10)=90.
+\]
+Now good 2 is cheaper, so the optimal choice is
+\[
+c_1'=0,\qquad c_2'=\frac{90}{10}=9,
+\]
+hence \(c_1'=0<3\): the consumer becomes a net \emph{seller} of state-1 consumption.
+
+\[
+\boxed{\text{False. A price increase in state 1 can flip the consumer from net buyer to net seller.}}
+\]
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section*{Question 2 (Present value dominance in intertemporal choice)}
+\subsection*{Problem}
+A consumer who can borrow and lend at the same interest rate should prefer an endowment with a higher present value
+to an endowment with a lower present value no matter how he plans to allocate consumption over the course of his life.
+
+\emph{True or False?}
+
+\subsection*{Solution}
+\subsubsection*{Answer: True}
+Consider two periods \(t=1,2\) with interest rate \(r>-1\). Let endowment be \(\omega=(\omega_1,\omega_2)\) and consumption \(c=(c_1,c_2)\).
+If the consumer can borrow and lend freely at the same rate \(r\), then the intertemporal budget constraint is
+\[
+c_1+\frac{c_2}{1+r}=\omega_1+\frac{\omega_2}{1+r}\eqqcolon PV(\omega),
+\]
+where \(PV(\omega)\) is the present value of the endowment.
+
+Let \(\omega^A,\omega^B\) satisfy \(PV(\omega^A)>PV(\omega^B)\). Then the feasible set under \(\omega^A\) strictly contains the feasible set under \(\omega^B\):
+\[
+\Bigl\{c:\ c_1+\frac{c_2}{1+r}\le PV(\omega^B)\Bigr\}
+\subset
+\Bigl\{c:\ c_1+\frac{c_2}{1+r}\le PV(\omega^A)\Bigr\}.
+\]
+If preferences are (weakly) increasing in both goods (standard assumption), a strict expansion of the budget set implies weakly higher maximal utility, and under strict monotonicity it implies strictly higher maximal utility.
+
+\[
+\boxed{\text{True. With perfect capital markets, only present value matters for attainable consumption.}}
+\]
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section*{Question 3 (No-arbitrage in equilibrium)}
+\subsection*{Problem}
+If everybody has the same information, then a well-functioning market for assets would, in equilibrium, leave no opportunities for arbitrage.
+
+\emph{True or False?}
+
+\subsection*{Solution}
+\subsubsection*{Answer: True}
+An \emph{arbitrage} is a portfolio \(x\) with (weakly) nonpositive cost today and nonnegative state-contingent payoffs, strictly positive in at least one state:
+\[
+p\cdot x \le 0,\qquad Rx\ge 0,\qquad Rx\neq 0.
+\]
+If such an \(x\) exists in a frictionless competitive market, then every agent would demand an arbitrarily large scale multiple \(\lambda x\) for \(\lambda\to\infty\), because it increases wealth in every state without requiring positive initial expenditure.
+Thus demand is unbounded and markets cannot clear at those prices. Hence arbitrage is incompatible with competitive equilibrium.
+
+\[
+\boxed{\text{True. In a well-functioning equilibrium, arbitrage opportunities are ruled out.}}
+\]
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section*{Question 4 (Valuing an antique with consumption services)}
+\subsection*{Problem}
+The price of an antique is expected to rise by \(9\%\) during the next year. The interest rate is \(11\%\).
+You are thinking of buying an antique and selling it a year from now.
+You would be willing to pay a total of 900 dollars for the pleasure of owning the antique for a year.
+How much would you be willing to pay to buy this antique?
+
+\subsection*{Solution}
+Let \(P_0\) be the price today and \(P_1\) the (expected) resale price next year. The expected capital gain is \(9\%\), so
+\[
+P_1 = 1.09P_0.
+\]
+Owning the antique yields a non-pecuniary benefit (a ``dividend'') of 900 next year. Thus the total next-year benefit is
+\[
+P_1 + 900 = 1.09P_0 + 900.
+\]
+Indifference with investing in the risk-free asset at interest rate \(r=0.11\) requires the gross return to match:
+\[
+(1+r)P_0 = 1.11P_0 = 1.09P_0 + 900.
+\]
+Solve:
+\[
+1.11P_0 - 1.09P_0 = 900
+\quad\Longrightarrow\quad
+0.02P_0 = 900
+\quad\Longrightarrow\quad
+P_0 = \frac{900}{0.02} = 45{,}000.
+\]
+\[
+\boxed{45{,}000\ \text{dollars}}
+\]
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section*{Question 5 (Kinked utility and betting behaviour)}
+\subsection*{Problem}
+Sally Kink is an expected utility maximizer with utility function \(p u(c_1)+(1-p)u(c_2)\), where for any \(x<1000\),
+\[
+u(x)=2x,
+\]
+and for \(x\ge 1000\),
+\[
+u(x)=2000+x.
+\]
+Which of the following statements is correct?
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Sally will be risk averse if her income is less than \$1{,}000 but risk loving if her income is more than \$1{,}000.
+\item Sally will never take a bet if there is a chance that it leaves her with wealth less than \$2{,}000.
+\item Sally will be risk neutral if her income is less than \$1{,}000 and risk averse if her income is more than \$1{,}000.
+\item For bets that involve no chance of her wealth exceeding \$1{,}000, Sally will take any bet that has a positive expected net payoff.
+\item None of the above.
+\end{enumerate}
+
+\subsection*{Solution}
+\subsubsection*{Answer: (d)}
+On the domain \(x<1000\), \(u(x)=2x\) is linear (affine), hence Sally is \emph{risk neutral} for lotteries whose outcomes stay entirely below 1000.
+Formally, if a bet results in wealth \(W\) with \(\mathbb{P}(W<1000)=1\), then
+\[
+\mathbb{E}[u(W)] = \mathbb{E}[2W]=2\mathbb{E}[W].
+\]
+Thus Sally prefers the bet to the status quo \(W_0\) iff
+\[
+2\mathbb{E}[W] \ge 2W_0
+\quad\Longleftrightarrow\quad
+\mathbb{E}[W]\ge W_0,
+\]
+i.e.\ iff the expected net payoff is nonnegative (strictly positive expected net payoff implies strict preference).
+
+Options (a) and (c) are false because utility is linear on each region (not strictly concave/convex), and (b) is unrelated to the kink point \(1000\).
+
+\[
+\boxed{\text{Correct option: (d).}}
+\]
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section*{Question 6 (Optimal betting under log utility with two state-contingent tickets)}
+\subsection*{Problem}
+Clancy has \$1{,}800. He plans to bet on a boxing match between Sullivan and Flanagan.
+He can buy coupons for \$9 each that pay \$10 each if Sullivan wins.
+He can also buy coupons for \$1 each that pay \$10 each if Flanagan wins.
+Clancy believes each fighter has probability \(1/2\) of winning.
+Clancy maximizes expected utility with \(U(W)=\ln W\).
+Which strategy maximizes expected utility?
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+\item Don't gamble at all.
+\item Buy 100 Sullivan tickets and 900 Flanagan tickets.
+\item Buy exactly as many Flanagan tickets as Sullivan tickets.
+\item Buy 50 Sullivan tickets and 450 Flanagan tickets.
+\item Buy 50 Sullivan tickets and 900 Flanagan tickets.
+\end{enumerate}
+
+\subsection*{Solution}
+Let \(x\) be the number of Sullivan tickets and \(y\) the number of Flanagan tickets. The budget constraint is
+\[
+9x+y \le 1800,\qquad x\ge 0,\ y\ge 0.
+\]
+Initial cash left after purchase is \(1800-(9x+y)\).
+
+If Sullivan wins (state \(S\)), payoff is \(10x\), so final wealth is
+\[
+W_S = 1800-(9x+y)+10x = 1800 + x - y.
+\]
+If Flanagan wins (state \(F\)), payoff is \(10y\), so final wealth is
+\[
+W_F = 1800-(9x+y)+10y = 1800 - 9x + 9y.
+\]
+Expected utility:
+\[
+EU(x,y)=\frac12\ln(1800+x-y)+\frac12\ln(1800-9x+9y).
+\]
+
+\paragraph{Reduction to a single variable.}
+Let \(d\coloneqq y-x\). Then
+\[
+W_S = 1800-d,\qquad W_F = 1800+9d,
+\]
+so
+\[
+EU(d)=\frac12\ln(1800-d)+\frac12\ln(1800+9d),
+\]
+with feasibility \(1800-d>0\) and \(1800+9d>0\), i.e.\ \(d\in(-200,1800)\).
+
+Differentiate:
+\[
+EU'(d)=\frac12\left(\frac{-1}{1800-d}+\frac{9}{1800+9d}\right).
+\]
+Set \(EU'(d)=0\):
+\[
+\frac{9}{1800+9d}=\frac{1}{1800-d}
+\quad\Longrightarrow\quad
+9(1800-d)=1800+9d.
+\]
+Solve:
+\[
+16200-9d = 1800+9d
+\quad\Longrightarrow\quad
+14400=18d
+\quad\Longrightarrow\quad
+d=800.
+\]
+Thus the optimum satisfies
+\[
+y-x=800.
+\]
+
+\paragraph{Match to choices.}
+Option (b) has \(x=100\), \(y=900\), hence \(y-x=800\), which matches the optimum exactly. The other options do not.
+
+\[
+\boxed{\text{Correct option: (b) Buy 100 Sullivan tickets and 900 Flanagan tickets.}}
+\]
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section*{Question 7 (Expected utility with \(U(c)=\sqrt{c}\))}
+\subsection*{Problem}
+Billy Pigskin has von Neumann--Morgenstern utility \(U(c)=c^{1/2}\).
+If Billy is not injured this season, he will receive an income of \$16 million.
+If he is injured, his income will be only \$10{,}000.
+The probability that he will be injured is \(0.1\) and the probability that he will not be injured is \(0.9\).
+Compute Billy's expected utility.
+
+\subsection*{Solution}
+There are two states:
+\[
+c_N=16{,}000{,}000 \quad (\text{not injured, prob }0.9), 
+\qquad
+c_I=10{,}000 \quad (\text{injured, prob }0.1).
+\]
+Utility in each state:
+\[
+U(c_N)=\sqrt{16{,}000{,}000}
+=\sqrt{16\cdot 10^6}
+=4\cdot 10^3
+=4000,
+\]
+\[
+U(c_I)=\sqrt{10{,}000}=100.
+\]
+Expected utility:
+\[
+EU = 0.9\cdot 4000 + 0.1\cdot 100
+=3600+10
+=3610.
+\]
+\[
+\boxed{3610.}
+\]
+
+\end{document}

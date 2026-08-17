@@ -1,0 +1,1301 @@
+% Chapter 3 (Weeks 5--8) — Linear Transformations
+% Sources for Weeks 7--8: :contentReference[oaicite:0]{index=0} :contentReference[oaicite:1]{index=1} :contentReference[oaicite:2]{index=2} :contentReference[oaicite:3]{index=3}
+%====================================================================
+
+\section{Linear Transformations}
+
+%====================================================================
+
+\subsection{Definitions, linearity tests, and core examples (Week 5)}
+
+\begin{definition}{Linear transformation}{def:linear-transformation}
+Let $V$ and $W$ be vector spaces over the same field $\mathbb{F}$.
+A function $T:V\to W$ is a \emph{linear transformation} if for all $u,v\in V$ and all $\lambda\in\mathbb{F}$,
+\[
+T(u+v)=T(u)+T(v)
+\quad\text{and}\quad
+T(\lambda u)=\lambda\,T(u).
+\]
+Equivalently, $T$ is linear if and only if for all $u,v\in V$ and all $\alpha,\beta\in\mathbb{F}$,
+\[
+T(\alpha u+\beta v)=\alpha\,T(u)+\beta\,T(v).
+\]
+\end{definition}
+
+Intuitively, a linear transformation is a ``structure-preserving'' map: it respects the two operations that define a vector space (addition and scalar multiplication).
+An equivalent one-shot test is to check
+\[
+\forall v_1,\dots,v_k\in V,\ \forall \lambda_1,\dots,\lambda_k\in\mathbb{F}:\qquad
+T\!\left(\sum_{i=1}^k \lambda_i v_i\right)=\sum_{i=1}^k \lambda_i\,T(v_i),
+\]
+i.e.\ $T$ commutes with \emph{all} finite linear combinations.
+This general form follows by induction from the two-vector case and is often what you actually use in proofs.
+Two immediate consequences that serve as quick sanity checks:
+\begin{itemize}
+\item $T(0_V)=0_W$ always (set $\lambda=0$ in homogeneity). If $T(0)\neq 0$, then $T$ is \emph{not} linear.
+\item $T(-v)=-T(v)$ for all $v\in V$ (set $\lambda=-1$).
+\end{itemize}
+
+\begin{keyformula}
+\textbf{Linearity test (one line).}
+To prove $T:V\to W$ is linear, show
+\[
+\forall u,v\in V,\ \forall \alpha,\beta\in\mathbb{F}:\qquad
+T(\alpha u+\beta v)=\alpha\,T(u)+\beta\,T(v).
+\]
+To disprove linearity, it suffices to find one counterexample to additivity or homogeneity.
+\end{keyformula}
+
+\begin{definition}{The vector space of linear maps}{def:space-of-linear-maps}
+Let $V$ and $W$ be vector spaces over $\mathbb{F}$. Define
+\[
+\mathcal{L}(V,W)\coloneqq \{T:V\to W \mid T\text{ is linear}\},
+\qquad
+\mathcal{L}(V)\coloneqq \mathcal{L}(V,V).
+\]
+For $S,T\in\mathcal{L}(V,W)$ and $\lambda\in\mathbb{F}$, define pointwise operations:
+\[
+(S+T)(v)\coloneqq S(v)+T(v),\qquad (\lambda T)(v)\coloneqq \lambda\,T(v)\qquad(\forall v\in V).
+\]
+\end{definition}
+
+\begin{theorem}{$\mathcal{L}(V,W)$ is a vector space}{thm:LVW-vector-space}
+Let $V,W$ be vector spaces over $\mathbb{F}$. Then $\mathcal{L}(V,W)$ is a vector space over $\mathbb{F}$
+under pointwise addition and scalar multiplication.
+\end{theorem}
+
+\begin{proof}
+We verify closure; the remaining axioms follow pointwise from those in $W$.
+
+Let $S,T\in\mathcal{L}(V,W)$ and $\lambda\in\mathbb{F}$. For all $u,v\in V$,
+\[
+(S+T)(u+v)=S(u+v)+T(u+v)=S(u)+S(v)+T(u)+T(v)=(S+T)(u)+(S+T)(v),
+\]
+and similarly $(S+T)(\lambda u)=\lambda(S+T)(u)$, hence $S+T\in\mathcal{L}(V,W)$.
+Also,
+\[
+(\lambda T)(u+v)=\lambda T(u+v)=\lambda T(u)+\lambda T(v)=(\lambda T)(u)+(\lambda T)(v),
+\qquad
+(\lambda T)(\mu u)=\mu(\lambda T)(u),
+\]
+so $\lambda T\in\mathcal{L}(V,W)$.
+\end{proof}
+
+When both $V$ and $W$ are finite-dimensional with $\dim(V)=m$ and $\dim(W)=n$, we will later show that $\mathcal{L}(V,W)\cong \mathbb{F}^{n\times m}$ as vector spaces (see the extension box in Section~\ref{def:change-of-coordinates}ff.), hence
+\[
+\dim(\mathcal{L}(V,W))=mn.
+\]
+This matches the dimension of $\mathbb{F}^{n\times m}$ and reinforces the idea that choosing bases turns abstract linear maps into concrete matrices.
+
+\begin{examtip}
+\textbf{Tutorial 5, Question 1 note.}
+When asked to show $\mathcal{L}(V,W)$ is a vector space, you can either
+(i) verify all eight axioms directly (pointwise, borrowing from $W$), or
+(ii) show $\mathcal{L}(V,W)$ is a subspace of the function space $W^V$ by checking closure under addition and scalar multiplication plus containing the zero map. Method (ii) is usually faster on exams because the axioms are inherited automatically.
+\end{examtip}
+
+\begin{examplebox}
+\textbf{Worked Example: linear vs.\ non-linear maps on $\mathbb{R}^2$.}
+Let $T_1,T_2:\mathbb{R}^2\to\mathbb{R}^2$ be defined by
+\[
+T_1(x,y)=(x+2y,\,3x-y),
+\qquad
+T_2(x,y)=(x^2,\,y).
+\]
+\begin{itemize}
+\item $T_1$ is linear: both additivity and homogeneity follow by direct expansion.
+\item $T_2$ is not linear: homogeneity fails since $T_2(2,0)=(4,0)\neq 2(1,0)=2T_2(1,0)$.
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example: common linear maps (from Week~5 lectures).}
+\begin{itemize}
+\item \textbf{Derivative operator:} $D:\mathcal{P}(\mathbb{F})\to\mathcal{P}(\mathbb{F})$, $D(P)=P'$, is linear because $(P+Q)'=P'+Q'$ and $(\lambda P)'=\lambda P'$.
+\item \textbf{Multiplication operator:} Fix $Q\in\mathcal{P}(\mathbb{F})$; then $M_Q:\mathcal{P}(\mathbb{F})\to\mathcal{P}(\mathbb{F})$, $M_Q(P)=QP$, is linear because polynomial multiplication distributes over addition and commutes with scalar multiplication.
+\item \textbf{Matrix operator:} Fix $A\in\mathbb{F}^{m\times n}$; then $T_A:\mathbb{F}^{n\times 1}\to\mathbb{F}^{m\times 1}$, $T_A(x)=Ax$, is linear by properties of matrix multiplication.
+\item \textbf{Backward-shift:} On $\mathbb{F}^\infty$, $\sigma_\leftarrow(x_1,x_2,x_3,\dots)=(x_2,x_3,x_4,\dots)$ is linear (check componentwise).
+\end{itemize}
+These examples illustrate how linearity appears across many settings: polynomials, matrices, and sequence spaces.
+\end{examplebox}
+
+%====================================================================
+
+\subsection{Kernel (null space) and range (image) (Week 5)}
+
+\begin{definition}{Null space and range}{def:null-range}
+Let $V,W$ be vector spaces over $\mathbb{F}$ and let $T\in\mathcal{L}(V,W)$.
+\[
+\begin{aligned}
+\operatorname{Null}(T)&\coloneqq \{v\in V \mid T(v)=0\}
+\quad(\text{also written }\ker(T)),\\
+\operatorname{Range}(T)&\coloneqq \{T(v)\in W \mid v\in V\}
+\quad(\text{also written }\operatorname{im}(T)).
+\end{aligned}
+\]
+\end{definition}
+
+The null space measures ``how far $T$ is from being injective'': elements of $\operatorname{Null}(T)$ are the vectors that $T$ cannot distinguish from $0$.
+The range measures ``how much of $W$ does $T$ reach'': it is the set of all possible outputs.
+Together with the Rank--Nullity Theorem (next subsection), these two subspaces completely determine the ``information loss'' and ``coverage'' of $T$.
+
+\begin{theorem}{Null space and range are subspaces}{thm:null-range-subspaces}
+Let $V,W$ be vector spaces over $\mathbb{F}$ and $T\in\mathcal{L}(V,W)$.
+Then $\operatorname{Null}(T)$ is a subspace of $V$, and $\operatorname{Range}(T)$ is a subspace of $W$.
+\end{theorem}
+
+\begin{proof}
+\textbf{Null space.} Since $T(0)=0$, we have $0\in\operatorname{Null}(T)$.
+If $v,\tilde v\in\operatorname{Null}(T)$ and $\lambda\in\mathbb{F}$, then
+\[
+T(v+\tilde v)=T(v)+T(\tilde v)=0+0=0,\qquad T(\lambda v)=\lambda T(v)=\lambda\cdot 0=0,
+\]
+so $v+\tilde v,\lambda v\in\operatorname{Null}(T)$.
+
+\textbf{Range.} Since $0=T(0)\in\operatorname{Range}(T)$, it is nonempty.
+If $w=T(v)$ and $w'=T(v')$ are in the range, then for $\lambda\in\mathbb{F}$,
+\[
+w+w'=T(v)+T(v')=T(v+v')\in\operatorname{Range}(T),\qquad
+\lambda w=\lambda T(v)=T(\lambda v)\in\operatorname{Range}(T).
+\]
+Thus $\operatorname{Range}(T)$ is a subspace of $W$.
+\end{proof}
+
+\begin{extension}[title={Extension (Beyond Syllabus: Preimages preserve subspaces)}]
+\textbf{Syllabus link:} MH1201 Weeks 5--6 — Kernel and range.
+
+\textbf{Lemma.} Let $T:V\to W$ be linear and let $U\le W$ be a subspace. Then
+\[
+T^{-1}(U)\coloneqq \{v\in V \mid T(v)\in U\}
+\]
+is a subspace of $V$.
+
+\textbf{Proof.} Since $0\in U$ and $T(0)=0$, we have $0\in T^{-1}(U)$.
+Let $v,\tilde v\in T^{-1}(U)$ and $\lambda\in\mathbb{F}$. Then $T(v),T(\tilde v)\in U$.
+Because $U$ is a subspace, $T(v)+T(\tilde v)\in U$ and $\lambda T(v)\in U$.
+By linearity,
+\[
+T(v+\tilde v)=T(v)+T(\tilde v)\in U,\qquad T(\lambda v)=\lambda T(v)\in U,
+\]
+so $v+\tilde v,\lambda v\in T^{-1}(U)$. Hence $T^{-1}(U)$ is a subspace. \qed
+\end{extension}
+
+\begin{examplebox}
+\textbf{Worked Example: kernel and range of a polynomial map.}
+Let $T:\mathcal{P}_2(\mathbb{R})\to\mathbb{R}^2$ be defined by
+\[
+\forall a,b,c\in\mathbb{R}:\qquad T(a+bX+cX^2)=(a+c,\ a-b).
+\]
+\textbf{Kernel.} Solve $a+c=0$ and $a-b=0$, giving $(a,b,c)=(a,a,-a)$.
+Thus
+\[
+\operatorname{Null}(T)=\{a(1+X-X^2)\mid a\in\mathbb{R}\}=\operatorname{span}\{1+X-X^2\}.
+\]
+\textbf{Range.} For any $(u,v)\in\mathbb{R}^2$, take $a=0$, $b=-v$, $c=u$, giving $T(uX^2-vX)=(u,v)$.
+Hence $\operatorname{Range}(T)=\mathbb{R}^2$.
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 5, Question 3 style): kernel, range, and non-direct-sum.}
+Define $T:\mathbb{R}^{2,2}\to\mathbb{R}^{2,2}$ by $T(A)=AJ-\operatorname{tr}(A)\,J$ where $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$.
+Explicit computation on $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$ gives
+\[
+T(A)=\begin{bmatrix}b-d&b-d\\c-a&c-a\end{bmatrix}.
+\]
+\textbf{Range:} Every output has equal columns, and any such matrix is attainable. Thus
+$\operatorname{Range}(T)=\Bigl\{\begin{bmatrix}u&u\\v&v\end{bmatrix}\Bigr\}$, with $\operatorname{Rank}(T)=2$.
+\textbf{Kernel:} $T(A)=0$ iff $b=d$ and $c=a$, so
+$\operatorname{Null}(T)=\Bigl\{\begin{bmatrix}a&b\\a&b\end{bmatrix}\Bigr\}$, with $\operatorname{Nullity}(T)=2$.
+\textbf{Sanity check:} $\operatorname{Rank}+\operatorname{Nullity}=2+2=4=\dim(\mathbb{R}^{2,2})$. \checkmark
+
+\textbf{Non-direct-sum:} $J=\begin{bmatrix}1&1\\1&1\end{bmatrix}$ lies in both $\operatorname{Null}(T)$ and $\operatorname{Range}(T)$, so $\operatorname{Null}(T)\cap\operatorname{Range}(T)\neq\{0\}$ and the sum is \emph{not} direct.
+This shows that $\mathbb{R}^{2,2}=\operatorname{Null}(T)\oplus\operatorname{Range}(T)$ does \emph{not} hold in general.
+\end{examplebox}
+
+%====================================================================
+
+\subsection{Rank--Nullity theorem and injective/surjective criteria (Weeks 5--6)}
+
+\begin{definition}{Rank and nullity}{def:rank-nullity-def}
+Let $V,W$ be vector spaces over $\mathbb{F}$ with $V$ finite-dimensional, and let $T\in\mathcal{L}(V,W)$.
+Define
+\[
+\operatorname{Nullity}(T)\coloneqq \dim(\operatorname{Null}(T)),
+\qquad
+\operatorname{Rank}(T)\coloneqq \dim(\operatorname{Range}(T)).
+\]
+\end{definition}
+
+\begin{theorem}{Rank--Nullity Theorem}{thm:rank-nullity}
+Let $V,W$ be vector spaces over $\mathbb{F}$ with $V$ finite-dimensional, and let $T\in\mathcal{L}(V,W)$.
+Then
+\[
+\dim(V)=\operatorname{Rank}(T)+\operatorname{Nullity}(T).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $m\coloneqq \dim(\operatorname{Null}(T))$ and choose a basis $(b_1,\dots,b_m)$ of $\operatorname{Null}(T)$.
+Extend it to a basis of $V$:
+\[
+(b_1,\dots,b_m,v_1,\dots,v_{n-m}),
+\qquad n\coloneqq \dim(V).
+\]
+We claim $(T(v_1),\dots,T(v_{n-m}))$ is a basis of $\operatorname{Range}(T)$.
+
+\textbf{Independence.} If $\sum_{i=1}^{n-m}\lambda_i T(v_i)=0$, then
+$T(\sum_{i=1}^{n-m}\lambda_i v_i)=0$, so $\sum_{i=1}^{n-m}\lambda_i v_i\in\operatorname{Null}(T)$.
+But it also lies in $\operatorname{span}\{v_1,\dots,v_{n-m}\}$; by uniqueness of coordinates in the displayed basis, this forces
+$\sum_{i=1}^{n-m}\lambda_i v_i=0$, hence all $\lambda_i=0$.
+
+\textbf{Spanning.} If $w\in\operatorname{Range}(T)$, then $w=T(v)$ for some $v\in V$.
+Write $v=\sum_{j=1}^m\alpha_j b_j+\sum_{i=1}^{n-m}\beta_i v_i$. Since $T(b_j)=0$,
+\[
+w=T(v)=\sum_{i=1}^{n-m}\beta_i T(v_i)\in \operatorname{span}\{T(v_1),\dots,T(v_{n-m})\}.
+\]
+Thus $\operatorname{Rank}(T)=n-m$ and $\operatorname{Nullity}(T)=m$, giving $n=(n-m)+m$.
+
+\end{proof}
+
+The Rank--Nullity Theorem is one of the most frequently used results in linear algebra.
+It says that the ``dimensions consumed by the kernel'' plus the ``dimensions captured in the range'' always add up to the dimension of the domain.
+
+\begin{examtip}
+\textbf{Using Rank--Nullity on exams.}
+\begin{itemize}
+\item If you know any two of $\{\dim(V),\operatorname{Rank}(T),\operatorname{Nullity}(T)\}$, you can deduce the third.
+\item To show a map is injective, it suffices to show $\operatorname{Nullity}(T)=0$. To show surjectivity onto $W$, show $\operatorname{Rank}(T)=\dim(W)$.
+\item Always state the hypothesis ``$V$ is finite-dimensional'' before applying the theorem.
+\item Sanity check: after computing kernel and range independently, verify $\operatorname{Rank}+\operatorname{Nullity}=\dim(V)$.
+\end{itemize}
+\end{examtip}
+
+\begin{definition}{Injective, surjective, bijective}{def:inj-surj-bij}
+Let $T\in\mathcal{L}(V,W)$.
+\begin{itemize}
+\item $T$ is \emph{injective} if $T(v)=T(\tilde v)\Rightarrow v=\tilde v$.
+\item $T$ is \emph{surjective onto $W$} if $\forall w\in W,\ \exists v\in V:\ T(v)=w$.
+\item $T$ is \emph{bijective} if it is both injective and surjective.
+\end{itemize}
+
+\end{definition}
+
+Injectivity means distinct inputs yield distinct outputs (no information loss); surjectivity means every element of the codomain is reached (full coverage).
+For linear maps, the null-space test (Theorem~\ref{thm:null-space-test-injective}) provides a more efficient check for injectivity: instead of comparing all pairs, you only need to check that the kernel is trivial.
+
+\begin{keyformula}
+\textbf{RREF criteria for injectivity/surjectivity (Tutorial 6, Question 2).}
+Let $V,W$ be finite-dimensional with ordered bases $\beta,\gamma$. Let $T\in\mathcal{L}(V,W)$ and $A=[T]^{\gamma}_{\beta}\in\mathbb{F}^{n\times m}$.
+\begin{itemize}
+\item $T$ injective $\Longleftrightarrow$ RREF of $A$ has a pivot in every column ($\Leftrightarrow \operatorname{Rank}(A)=m$, no free variables).
+\item $T$ surjective onto $W$ $\Longleftrightarrow$ RREF of $A$ has a pivot in every row ($\Leftrightarrow \operatorname{Rank}(A)=n$).
+\end{itemize}
+These translate injectivity/surjectivity into concrete row-reduction checks that are fast to perform on exams.
+\end{keyformula}
+
+\begin{keyformula}
+\textbf{Equal-dimension criterion (Tutorial 6, Question 3).}
+If $\dim(V)=\dim(W)=n$ and $T\in\mathcal{L}(V,W)$, then
+\[
+T\text{ injective}\ \Longleftrightarrow\ T\text{ surjective onto }W\ \Longleftrightarrow\ T\text{ bijective}\ \Longleftrightarrow\ [T]^{\gamma}_{\beta}\text{ invertible}.
+\]
+This is because Rank--Nullity forces $\operatorname{Rank}(T)=n-\operatorname{Nullity}(T)$, so nullity $0$ is equivalent to rank $n=\dim(W)$.
+\end{keyformula}
+
+\begin{theorem}{Null-space test for injectivity}{null-space-test-injective}
+Let $T\in\mathcal{L}(V,W)$. Then $T$ is injective if and only if $\operatorname{Null}(T)=\{0\}$.
+\end{theorem}
+
+\begin{proof}
+If $T$ is injective, then $T(v)=0=T(0)$ implies $v=0$, so $\operatorname{Null}(T)=\{0\}$.
+Conversely, if $\operatorname{Null}(T)=\{0\}$ and $T(v)=T(\tilde v)$, then $T(v-\tilde v)=0$, hence $v-\tilde v=0$ and $v=\tilde v$.
+\end{proof}
+
+\begin{keyformula}
+\textbf{Finite-dimensional shortcuts (state hypotheses!).}
+Assume $V,W$ are finite-dimensional.
+\begin{itemize}
+\item $T$ injective $\Longleftrightarrow \operatorname{Nullity}(T)=0 \Longleftrightarrow \operatorname{Rank}(T)=\dim(V)$.
+\item $T$ surjective onto $W$ $\Longleftrightarrow \operatorname{Rank}(T)=\dim(W)$.
+\item If $\dim(V)=\dim(W)$, then injective $\Longleftrightarrow$ surjective $\Longleftrightarrow$ bijective.
+\end{itemize}
+\end{keyformula}
+
+\begin{definition}{Invertible linear transformation}{def:invertible-linear-map}
+Let $T\in\mathcal{L}(V,W)$. We say $T$ is \emph{invertible} if there exists a function $S:W\to V$ such that
+\[
+S\circ T=I_V\quad\text{and}\quad T\circ S=I_W.
+\]
+In that case, $S$ is unique and is denoted by $T^{-1}$.
+\end{definition}
+
+\begin{theorem}{Invertibility $\Longleftrightarrow$ bijectivity; inverse is linear}{thm:invertible-bijective}
+Let $T\in\mathcal{L}(V,W)$. Then $T$ is invertible if and only if $T$ is bijective.
+Moreover, if $T$ is invertible, then $T^{-1}\in\mathcal{L}(W,V)$.
+\end{theorem}
+
+\begin{proof}
+If $T$ has inverse $T^{-1}$, then injectivity and surjectivity are immediate from $T^{-1}\circ T=I_V$ and $T\circ T^{-1}=I_W$.
+Conversely, if $T$ is bijective, define $T^{-1}(w)$ to be the unique $v$ with $T(v)=w$; then $T^{-1}\circ T=I_V$ and $T\circ T^{-1}=I_W$.
+
+To show $T^{-1}$ is linear: let $w_1,w_2\in W$ and set $v_i=T^{-1}(w_i)$. Then $T(v_1+v_2)=w_1+w_2$, so
+$T^{-1}(w_1+w_2)=v_1+v_2$, and similarly $T^{-1}(\lambda w_1)=\lambda v_1$. Hence $T^{-1}$ is linear.
+
+\end{proof}
+
+\begin{keyformula}
+\textbf{Composition, injectivity, and surjectivity (Tutorial 5, Questions 6--7; Tutorial 6, Question 4).}
+Let $U,V,W$ be vector spaces and $S\in\mathcal{L}(U,V)$, $T\in\mathcal{L}(V,W)$.
+\begin{itemize}
+\item If $T\circ S$ is injective, then $S$ is injective (but $T$ need not be).
+\item If $T\circ S$ is surjective onto $W$, then $T$ is surjective onto $W$ (but $S$ need not be).
+\item If $S$ and $T$ are both invertible, then $T\circ S$ is invertible and $(T\circ S)^{-1}=S^{-1}\circ T^{-1}$.
+\item The converse fails: $T\circ S$ invertible does \emph{not} imply both $S,T$ invertible individually.
+\end{itemize}
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 5, Question 7): counterexamples for converses.}
+Take $U=\mathbb{R}$, $V=\mathbb{R}^2$, $W=\mathbb{R}$.
+Define $S(t)=(t,0)$ and $T(x,y)=x$.
+Then $(T\circ S)(t)=t$ is bijective.
+\begin{itemize}
+\item $T\circ S$ is injective, but $T$ is \emph{not} injective (since $T(0,1)=0=T(0,0)$).
+\item $T\circ S$ is surjective, but $S$ is \emph{not} surjective onto $\mathbb{R}^2$ (since $(0,1)\notin S(\mathbb{R})$).
+\end{itemize}
+The key insight: $T\circ S$ injective only forces $\operatorname{Range}(S)\cap\ker(T)=\{0\}$, not $\ker(T)=\{0\}$.
+\end{examplebox}
+
+%====================================================================
+
+\subsection{Matrix representations and composition (Week 6)}
+
+\begin{definition}{Matrix of a linear map}{matrix-rep}
+Let $V,W$ be finite-dimensional over $\mathbb{F}$ with ordered bases
+\[
+\beta=(b_1,\dots,b_n)\ \text{for }V,\qquad \gamma=(c_1,\dots,c_m)\ \text{for }W,
+\]
+and let $T\in\mathcal{L}(V,W)$.
+Define $[T]^{\gamma}_{\beta}\in \mathbb{F}^{m\times n}$ by taking the $i$-th column to be $[T(b_i)]_\gamma$:
+\[
+[T]^{\gamma}_{\beta}\coloneqq
+\begin{bmatrix}
+\big| &        & \big|\\
+[T(b_1)]_\gamma & \cdots & [T(b_n)]_\gamma\\
+\big| &        & \big|
+\end{bmatrix}.
+\]
+
+\end{definition}
+
+The matrix $[T]^{\gamma}_{\beta}$ encodes $T$ completely (relative to the chosen bases): the $j$-th column tells you what $T$ does to the $j$-th basis vector of the domain, expressed in the codomain basis.
+Changing bases will change the matrix, but the underlying linear map stays the same.
+This is why matrix representations depend on \emph{two} ordered bases: one for the domain and one for the codomain.
+
+\begin{commonmistake}
+\begin{itemize}
+\item Confusing $[T]^{\gamma}_{\beta}$ (a matrix in $\mathbb{F}^{m\times n}$) with $T$ (an abstract linear map). The matrix is a \emph{representation} that depends on the basis choice.
+\item Forgetting to use the correct basis for each side: the input vector must be in $\beta$-coordinates, and the output is in $\gamma$-coordinates.
+\item Dimension mismatch: $[T]^{\gamma}_{\beta}$ is $\dim(W)\times\dim(V)$, not $\dim(V)\times\dim(W)$.
+\end{itemize}
+\end{commonmistake}
+
+\begin{theorem}{Fundamental coordinate identity}{fundamental-coordinate-identity}
+With the notation of Definition~\ref{def:matrix-rep}, for every $v\in V$,
+\[
+[T(v)]_\gamma = [T]^{\gamma}_{\beta}\,[v]_\beta.
+\]
+\end{theorem}
+
+\begin{proof}
+Write $v=\sum_{i=1}^n \lambda_i b_i$, so $[v]_\beta=(\lambda_1,\dots,\lambda_n)^{\mathsf T}$.
+By linearity, $T(v)=\sum_{i=1}^n \lambda_i T(b_i)$, hence
+\[
+[T(v)]_\gamma=\sum_{i=1}^n \lambda_i [T(b_i)]_\gamma
+=
+\begin{bmatrix}
+\big| &        & \big|\\
+[T(b_1)]_\gamma & \cdots & [T(b_n)]_\gamma\\
+\big| &        & \big|
+\end{bmatrix}
+\begin{bmatrix}\lambda_1\\ \vdots\\ \lambda_n\end{bmatrix}
+=[T]^{\gamma}_{\beta}\,[v]_\beta.
+\]
+\end{proof}
+
+\begin{theorem}{Composition corresponds to matrix multiplication}{composition-matrix-multiplication}
+Let $U,V,W$ be finite-dimensional over $\mathbb{F}$ with ordered bases
+$\alpha$ for $U$, $\beta$ for $V$, and $\gamma$ for $W$.
+Let $S\in\mathcal{L}(U,V)$ and $T\in\mathcal{L}(V,W)$. Then
+\[
+[T\circ S]^{\gamma}_{\alpha} = [T]^{\gamma}_{\beta}\,[S]^{\beta}_{\alpha}.
+\]
+\end{theorem}
+
+\begin{proof}
+For all $u\in U$,
+\[
+[(T\circ S)(u)]_\gamma=[T(S(u))]_\gamma=[T]^{\gamma}_{\beta}[S(u)]_\beta
+=[T]^{\gamma}_{\beta}[S]^{\beta}_{\alpha}[u]_\alpha.
+\]
+Also $[(T\circ S)(u)]_\gamma=[T\circ S]^{\gamma}_{\alpha}[u]_\alpha$.
+Since this holds for all $u$, the matrices must be equal.
+
+\end{proof}
+
+The composition formula $[T\circ S]^{\gamma}_{\alpha}=[T]^{\gamma}_{\beta}[S]^{\beta}_{\alpha}$ requires the ``inner'' basis $\beta$ to match: $S$ outputs $\beta$-coordinates, and $T$ reads $\beta$-coordinates. If the intermediate bases do not match, the formula fails.
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 5, Question 5 style): operator on $\mathcal{P}_2(\mathbb{R})$.}
+Define $T\in\mathcal{L}(\mathcal{P}_2(\mathbb{R}))$ by $T(P)=P(X+1)-(P(X^2))''$.
+Write $P=a+bX+cX^2$.
+\begin{itemize}
+\item $P(X+1)=(a+b+c)+(b+2c)X+cX^2$.
+\item $(P(X^2))''=(a+bX^2+cX^4)''=2b+12cX^2$.
+\end{itemize}
+Thus $T(P)=(a-b+c)+(b+2c)X-11cX^2$, giving the standard matrix
+\[
+[T]_{(1,X,X^2)}=\begin{bmatrix}1&-1&1\\0&1&2\\0&0&-11\end{bmatrix}.
+\]
+This is upper triangular with diagonal entries $1,1,-11$ (all nonzero), so $\det=-11\neq 0$ and $T$ is bijective.
+\end{examplebox}
+
+%====================================================================
+
+\subsection{Change of coordinates and change of matrix representations (Week 7)}
+
+\begin{definition}{Change-of-coordinate matrix}{change-of-coordinates}
+Let $V$ be a finite-dimensional vector space over $\mathbb{F}$.
+Let $\beta$ and $\gamma$ be ordered bases for $V$.
+The \textbf{change-of-coordinate matrix from $\beta$ to $\gamma$} is
+\[
+[I_V]^{\gamma}_{\beta}\ \coloneqq\ [I_V]^{\gamma}_{\beta},
+\]
+i.e.\ the matrix representation of the identity map $I_V:V\to V$ with domain basis $\beta$ and codomain basis $\gamma$.
+
+\end{definition}
+
+Why is this natural? Suppose you have a vector $v\in V$ whose $\beta$-coordinates you know, and you want its $\gamma$-coordinates.
+The identity map $I_V$ does not change the vector itself, but different bases ``see'' the same vector differently.
+The matrix $[I_V]^{\gamma}_{\beta}$ is the translator: it converts $\beta$-coordinates to $\gamma$-coordinates.
+Its inverse $[I_V]^{\beta}_{\gamma}=([I_V]^{\gamma}_{\beta})^{-1}$ translates in the opposite direction.
+
+\begin{examtip}
+\textbf{Practical computation of $[I_V]^{\gamma}_{\beta}$ (Week 7).}
+If $V$ has a convenient ``standard'' basis $\sigma$, form the matrices $P_\beta=[I_V]^{\sigma}_{\beta}$ and $P_\gamma=[I_V]^{\sigma}_{\gamma}$ by stacking basis vectors as columns, then
+\[
+[I_V]^{\gamma}_{\beta}=P_\gamma^{-1}P_\beta.
+\]
+An efficient row-reduction approach: form $[\,P_\gamma\mid P_\beta\,]$ and row-reduce to $[\,I_n\mid P_\gamma^{-1}P_\beta\,]$.
+\end{examtip}
+
+\begin{theorem}{Changing coordinate vectors}{thm:change-coordinate-vectors}
+Let $V$ be finite-dimensional with ordered bases $\beta$ and $\gamma$.
+Then for every $v\in V$,
+\[
+[v]_\gamma = [I_V]^{\gamma}_{\beta}\,[v]_\beta.
+\]
+\end{theorem}
+
+\begin{proof}
+Apply Theorem~\ref{thm:fundamental-coordinate-identity} to $T=I_V$:
+\[
+[I_V(v)]_\gamma = [I_V]^{\gamma}_{\beta}\,[v]_\beta.
+\]
+Since $I_V(v)=v$, the result follows.
+\end{proof}
+
+\begin{theorem}{Inverse map and inverse matrix (Week 7)}{thm:inverse-matrix-representation}
+Let $V,W$ be finite-dimensional over $\mathbb{F}$ with ordered bases $\beta$ for $V$ and $\gamma$ for $W$.
+Let $T\in\mathcal{L}(V,W)$. Then $T$ is invertible from $V$ to $W$ if and only if $[T]^{\gamma}_{\beta}$ is an invertible square matrix,
+in which case
+\[
+[T^{-1}]^{\beta}_{\gamma}=\bigl([T]^{\gamma}_{\beta}\bigr)^{-1}.
+\]
+\end{theorem}
+
+\begin{proof}
+($\Rightarrow$) If $T$ is invertible, then $\dim(V)=\dim(W)=n$.
+Using composition--multiplication (Theorem~\ref{thm:composition-matrix-multiplication}),
+\[
+[I_V]^{\beta}_{\beta}=[T^{-1}\circ T]^{\beta}_{\beta}=[T^{-1}]^{\beta}_{\gamma}[T]^{\gamma}_{\beta},
+\quad
+[I_W]^{\gamma}_{\gamma}=[T\circ T^{-1}]^{\gamma}_{\gamma}=[T]^{\gamma}_{\beta}[T^{-1}]^{\beta}_{\gamma}.
+\]
+Thus $[T]^{\gamma}_{\beta}$ is invertible with inverse $[T^{-1}]^{\beta}_{\gamma}$.
+
+($\Leftarrow$) Suppose $[T]^{\gamma}_{\beta}\in\mathbb{F}^{n\times n}$ is invertible.
+Let $A\coloneqq([T]^{\gamma}_{\beta})^{-1}$.
+By the standard existence-and-uniqueness result for a linear map specified on a basis (Weeks 5--6),
+there exists $S\in\mathcal{L}(W,V)$ with $[S]^{\beta}_{\gamma}=A$.
+Then
+\[
+[S\circ T]^{\beta}_{\beta}=[S]^{\beta}_{\gamma}[T]^{\gamma}_{\beta}=A[T]^{\gamma}_{\beta}=I_n=[I_V]^{\beta}_{\beta},
+\]
+and similarly $[T\circ S]^{\gamma}_{\gamma}=I_n=[I_W]^{\gamma}_{\gamma}$.
+Hence $S\circ T=I_V$ and $T\circ S=I_W$, so $T$ is invertible and $S=T^{-1}$.
+\end{proof}
+
+\begin{theorem}{Change of matrix representations under a change of coordinates (Week 7)}{change-of-matrix-rep}
+Let $V$ be finite-dimensional and let $\beta,\gamma$ be ordered bases for $V$.
+Let $T\in\mathcal{L}(V)$. Then
+\[
+[T]^{\gamma}_{\gamma} = [I_V]^{\gamma}_{\beta}\,[T]^{\beta}_{\beta}\,[I_V]^{\beta}_{\gamma}.
+\]
+\end{theorem}
+
+\begin{proof}
+For any $v\in V$,
+\[
+[T(v)]_\gamma = [I_V]^{\gamma}_{\beta}[T(v)]_\beta
+\quad\text{and}\quad
+[T(v)]_\beta = [T]^{\beta}_{\beta}[v]_\beta
+\quad\text{and}\quad
+[v]_\beta = [I_V]^{\beta}_{\gamma}[v]_\gamma.
+\]
+Substitute the last two into the first:
+\[
+[T(v)]_\gamma
+=[I_V]^{\gamma}_{\beta}[T]^{\beta}_{\beta}[I_V]^{\beta}_{\gamma}[v]_\gamma.
+\]
+But also $[T(v)]_\gamma=[T]^{\gamma}_{\gamma}[v]_\gamma$.
+Since this holds for all $v$, the matrices are equal.
+
+\end{proof}
+
+This formula says: to change the basis from $\beta$ to $\gamma$, you ``sandwich'' the $\beta$-representation between the change-of-coordinate matrices.
+Read right-to-left: first convert $\gamma$-coordinates to $\beta$-coordinates (multiply by $[I_V]^{\beta}_{\gamma}$), then apply $T$ in $\beta$-coordinates, then convert back to $\gamma$-coordinates (multiply by $[I_V]^{\gamma}_{\beta}$).
+This is exactly the similarity relation $[T]^{\gamma}_{\gamma}=Q^{-1}[T]^{\beta}_{\beta}Q$ with $Q=[I_V]^{\beta}_{\gamma}$.
+
+\begin{keyformula}
+\textbf{Computing $[I_V]^{\gamma}_{\beta}$ via a standard basis $\sigma$ (Week 7).}
+Let $\sigma$ be a standard ordered basis for $V$ (e.g.\ the standard basis in $\mathbb{F}^n$).
+Then
+\[
+[I_V]^{\gamma}_{\beta} = \bigl([I_V]^{\sigma}_{\gamma}\bigr)^{-1}[I_V]^{\sigma}_{\beta},
+\qquad
+[I_V]^{\beta}_{\gamma} = \bigl([I_V]^{\sigma}_{\beta}\bigr)^{-1}[I_V]^{\sigma}_{\gamma},
+\]
+where $[I_V]^{\sigma}_{\beta}=\bigl[\, [b_1]_\sigma\ \cdots\ [b_n]_\sigma\,\bigr]$ is formed by stacking basis vectors (in $\sigma$-coordinates) as columns.
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 7 problem): compute $[I_V]^{\alpha}_{\beta}$ and coordinates.}
+
+Let $\alpha=(a_1,a_2,a_3)$ and $\beta=(b_1,b_2,b_3)$ be ordered bases of $V$ such that
+\[
+b_1=2a_1-a_2+a_3,\qquad b_2=3a_2+a_3,\qquad b_3=-3a_1+2a_3.
+\]
+\textbf{(1) Compute $[I_V]^{\alpha}_{\beta}$.}
+By definition, the $i$-th column of $[I_V]^{\alpha}_{\beta}$ is $[b_i]_\alpha$.
+Thus
+\[
+[b_1]_\alpha=\begin{bmatrix}2\\-1\\1\end{bmatrix},\quad
+[b_2]_\alpha=\begin{bmatrix}0\\3\\1\end{bmatrix},\quad
+[b_3]_\alpha=\begin{bmatrix}-3\\0\\2\end{bmatrix},
+\]
+so
+\[
+[I_V]^{\alpha}_{\beta}=
+\begin{bmatrix}
+2 & 0 & -3\\
+-1 & 3 & 0\\
+1 & 1 & 2
+\end{bmatrix}.
+\]
+\textbf{(2) Compute $[b_1-2b_2+2b_3]_\alpha$.}
+Using linearity of coordinate expansion in the basis $\alpha$,
+\[
+[b_1-2b_2+2b_3]_\alpha=[b_1]_\alpha-2[b_2]_\alpha+2[b_3]_\alpha
+=
+\begin{bmatrix}2\\-1\\1\end{bmatrix}
+-2\begin{bmatrix}0\\3\\1\end{bmatrix}
++2\begin{bmatrix}-3\\0\\2\end{bmatrix}
+=
+\begin{bmatrix}-4\\-7\\3\end{bmatrix}.
+\]
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 7 problem): compute change-of-coordinate matrices in $\mathbb{R}^2$.}
+
+Let $\beta=(({-9},1),({-5},{-1}))$ and $\gamma=((1,{-4}),(3,{-5}))$ be ordered bases for $\mathbb{R}^2$.
+Let $\sigma$ be the standard basis. Then
+\[
+[I_{\mathbb{R}^2}]^{\sigma}_{\beta}
+=
+\begin{bmatrix}
+-9 & -5\\
+1 & -1
+\end{bmatrix},
+\qquad
+[I_{\mathbb{R}^2}]^{\sigma}_{\gamma}
+=
+\begin{bmatrix}
+1 & 3\\
+-4 & -5
+\end{bmatrix}.
+\]
+Hence
+\[
+[I_{\mathbb{R}^2}]^{\gamma}_{\beta}
+=\bigl([I_{\mathbb{R}^2}]^{\sigma}_{\gamma}\bigr)^{-1}[I_{\mathbb{R}^2}]^{\sigma}_{\beta}
+=
+\begin{bmatrix}
+6 & 4\\
+-5 & -3
+\end{bmatrix},
+\qquad
+[I_{\mathbb{R}^2}]^{\beta}_{\gamma}
+=\bigl([I_{\mathbb{R}^2}]^{\sigma}_{\beta}\bigr)^{-1}[I_{\mathbb{R}^2}]^{\sigma}_{\gamma}
+=
+\begin{bmatrix}
+-\tfrac{3}{2} & -2\\
+\tfrac{5}{2} & 3
+\end{bmatrix}.
+\]
+(Indeed $[I]^{\gamma}_{\beta}[I]^{\beta}_{\gamma}=I_2$.)
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 6, Question 7): compute $[T]^{\gamma}_{\gamma}$ by similarity.}
+Define $T\in\mathcal{L}(\mathbb{R}^3)$ by $T(v)=Av$ where
+$A=\begin{bmatrix}2&1&0\\1&1&3\\0&-1&0\end{bmatrix}$.
+Let $\gamma=(g_1,g_2,g_3)$ with
+$g_1=\begin{bmatrix}-1\\0\\0\end{bmatrix}$, $g_2=\begin{bmatrix}2\\1\\0\end{bmatrix}$, $g_3=\begin{bmatrix}1\\1\\1\end{bmatrix}$.
+
+Form $P=[g_1\; g_2\; g_3]=\begin{bmatrix}-1&2&1\\0&1&1\\0&0&1\end{bmatrix}$. Then
+\[
+[T]^{\gamma}_{\gamma}=P^{-1}AP=\begin{bmatrix}0&2&8\\-1&4&6\\0&-1&-1\end{bmatrix}.
+\]
+\textbf{Sanity check:} $\operatorname{tr}([T]^{\gamma}_{\gamma})=0+4+(-1)=3=\operatorname{tr}(A)=2+1+0$ \checkmark, and $\det([T]^{\gamma}_{\gamma})=\det(A)$ (both can be verified numerically).
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 7/8 problem): diagonalizing a map via a tailored basis.}
+
+Define $T\in\mathcal{L}(\mathbb{R}^3)$ by
+\[
+T(x,y,z)=(2x+y,\ 5y+3z,\ 8z).
+\]
+Let $\beta=(b_1,b_2,b_3)$ with $b_1=(1,0,0)$, $b_2=(1,3,0)$, $b_3=(1,6,6)$.
+\begin{enumerate}
+\item Compute $[T]^{\beta}_{\beta}$.
+\item Compute $T^{4}(0,-3,6)$.
+\end{enumerate}
+
+\medskip
+\textbf{Solution.}
+\textbf{(1)} Compute $T(b_i)$ and express in the basis $\beta$:
+\[
+T(b_1)=(2,0,0)=2b_1,\qquad
+T(b_2)=(5,15,0)=5b_2,\qquad
+T(b_3)=(8,48,48)=8b_3.
+\]
+Thus
+\[
+[T]^{\beta}_{\beta}=
+\begin{bmatrix}
+2&0&0\\
+0&5&0\\
+0&0&8
+\end{bmatrix}.
+\]
+\textbf{(2)} First compute $[(0,-3,6)]_\beta$. Solve
+\[
+(0,-3,6)=\alpha b_1+\beta b_2+\gamma b_3=(\alpha+\beta+\gamma,\ 3\beta+6\gamma,\ 6\gamma),
+\]
+giving $\gamma=1$, $\beta=-3$, $\alpha=2$. Hence $[(0,-3,6)]_\beta=(2,-3,1)^{\mathsf T}$.
+Then
+\[
+[T^4(0,-3,6)]_\beta=\bigl([T]^{\beta}_{\beta}\bigr)^4[(0,-3,6)]_\beta
+=\mathrm{diag}(2^4,5^4,8^4)\begin{bmatrix}2\\-3\\1\end{bmatrix}
+=\begin{bmatrix}32\\-1875\\4096\end{bmatrix}.
+\]
+Convert back:
+\[
+T^4(0,-3,6)=32b_1-1875b_2+4096b_3=(2253,\ 18951,\ 24576).
+\]
+\end{examplebox}
+
+\begin{extension}[title={Extension (Beyond Syllabus: the coordinate isomorphism $[\,\cdot\,]_\beta$ packages everything)}]
+\textbf{Syllabus link:} MH1201 Weeks 7--8 — Change of coordinates.
+
+\textbf{Theorem.} Let $U,V$ be finite-dimensional over $\mathbb{F}$ with ordered bases $\alpha$ (for $U$) and $\beta$ (for $V$).
+Define the map
+\[
+\Phi_{\beta,\alpha}:\mathcal{L}(U,V)\to \mathbb{F}^{\dim(V)\times \dim(U)},\qquad
+\Phi_{\beta,\alpha}(S)=[S]^{\beta}_{\alpha}.
+\]
+Then $\Phi_{\beta,\alpha}$ is an isomorphism of vector spaces. Moreover, for $S\in\mathcal{L}(U,V)$ and $T\in\mathcal{L}(V,W)$
+(with ordered bases $\gamma$ for $W$),
+\[
+[T\circ S]^{\gamma}_{\alpha}=[T]^{\gamma}_{\beta}[S]^{\beta}_{\alpha}.
+\]
+
+\textbf{Proof.}
+\emph{Linearity:} For any $S_1,S_2\in\mathcal{L}(U,V)$ and $\lambda\in\mathbb{F}$ and any $u\in U$,
+\[
+[(S_1+S_2)(u)]_\beta=[S_1(u)+S_2(u)]_\beta=[S_1(u)]_\beta+[S_2(u)]_\beta,
+\]
+so by the fundamental identity (Theorem~\ref{thm:fundamental-coordinate-identity}) applied to each map,
+\[
+[S_1+S_2]^{\beta}_{\alpha}[u]_\alpha=[S_1]^{\beta}_{\alpha}[u]_\alpha+[S_2]^{\beta}_{\alpha}[u]_\alpha.
+\]
+Since this holds for all $u$, $[S_1+S_2]^{\beta}_{\alpha}=[S_1]^{\beta}_{\alpha}+[S_2]^{\beta}_{\alpha}$.
+Similarly $[\lambda S_1]^{\beta}_{\alpha}=\lambda [S_1]^{\beta}_{\alpha}$.
+
+\emph{Injective:} If $[S]^{\beta}_{\alpha}=0$, then for all $u$, $[S(u)]_\beta=0$, hence $S(u)=0$. So $S=0$.
+
+\emph{Surjective:} Given any matrix $A\in\mathbb{F}^{\dim(V)\times \dim(U)}$, define $S$ on the basis $\alpha=(a_1,\dots,a_n)$ by
+requiring $[S(a_j)]_\beta$ to be the $j$-th column of $A$, then extend linearly.
+This produces a linear map with matrix $[S]^{\beta}_{\alpha}=A$ (uniqueness/existence from basis specification).
+
+Finally, the composition identity is exactly Theorem~\ref{thm:composition-matrix-multiplication}. \qed
+\end{extension}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Swapping the direction of $[I_V]^{\gamma}_{\beta}$: it converts \emph{$\beta$-coordinates to $\gamma$-coordinates} via $[v]_\gamma=[I_V]^{\gamma}_{\beta}[v]_\beta$.
+\item Forgetting that $[I_V]^{\beta}_{\gamma}=\bigl([I_V]^{\gamma}_{\beta}\bigr)^{-1}$ (invertibility holds because $I_V$ is invertible).
+\end{itemize}
+\end{commonmistake}
+
+%====================================================================
+
+\subsection{Similarity of square matrices (Week 8)}
+
+\begin{definition}{Similarity}{similarity}
+Let $\mathbb{F}$ be a field and $n\in\mathbb{N}$.
+For $A,B\in\mathbb{F}^{n\times n}$, we say \textbf{$A$ is similar to $B$}, written $A\sim B$, if there exists an invertible
+$Q\in\mathbb{F}^{n\times n}$ such that
+\[
+B=Q^{-1}AQ.
+\]
+\end{definition}
+
+\begin{theorem}{Similarity is an equivalence relation}{similarity-equivalence}
+Let $\mathbb{F}$ be a field and $n\in\mathbb{N}$. The relation $\sim$ on $\mathbb{F}^{n\times n}$ is an equivalence relation.
+\end{theorem}
+
+\begin{proof}
+\textbf{Reflexive.} For any $A$, take $Q=I_n$, then $A=I_n^{-1}AI_n$, so $A\sim A$.
+
+\textbf{Symmetric.} If $A\sim B$, then $B=Q^{-1}AQ$ for some invertible $Q$.
+Multiply by $Q$ on the left and $Q^{-1}$ on the right to get $A=QBQ^{-1}$, so $B\sim A$.
+
+\textbf{Transitive.} If $A\sim B$ and $B\sim C$, then $B=Q^{-1}AQ$ and $C=P^{-1}BP$ for invertible $P,Q$.
+Substitute:
+\[
+C=P^{-1}(Q^{-1}AQ)P=(QP)^{-1}A(QP),
+\]
+so $A\sim C$.
+
+\end{proof}
+
+Similarity partitions $\mathbb{F}^{n\times n}$ into equivalence classes.
+Each class consists of all matrices that represent the \emph{same} linear operator under various basis choices.
+This is why similarity invariants (determinant, trace, eigenvalues, characteristic polynomial) are really properties of the underlying operator $T$, not of any particular matrix.
+
+\begin{theorem}{Determinant and trace are similarity invariants}{similarity-invariants}
+Let $\mathbb{F}$ be a field and $A,B\in\mathbb{F}^{n\times n}$ with $A\sim B$. Then
+\[
+\det(A)=\det(B)\qquad\text{and}\qquad \operatorname{tr}(A)=\operatorname{tr}(B).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $B=Q^{-1}AQ$ with $Q$ invertible.
+Using multiplicativity of determinant,
+\[
+\det(B)=\det(Q^{-1}AQ)=\det(Q^{-1})\det(A)\det(Q)=\det(Q)^{-1}\det(A)\det(Q)=\det(A).
+\]
+For trace, use $\operatorname{tr}(XY)=\operatorname{tr}(YX)$ (valid for square matrices of the same size):
+\[
+\operatorname{tr}(B)=\operatorname{tr}(Q^{-1}AQ)=\operatorname{tr}(AQQ^{-1})=\operatorname{tr}(A).
+\]
+\end{proof}
+
+\begin{theorem}{Matrix representations under different ordered bases are similar}{matrix-rep-similar}
+Let $V$ be finite-dimensional over $\mathbb{F}$, and let $\beta,\gamma$ be ordered bases for $V$.
+Let $T\in\mathcal{L}(V)$. Then
+\[
+[T]^{\beta}_{\beta}\sim [T]^{\gamma}_{\gamma}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:change-of-matrix-rep},
+\[
+[T]^{\gamma}_{\gamma}=[I_V]^{\gamma}_{\beta}[T]^{\beta}_{\beta}[I_V]^{\beta}_{\gamma}.
+\]
+Since $[I_V]^{\beta}_{\gamma}=\bigl([I_V]^{\gamma}_{\beta}\bigr)^{-1}$ (because $I_V$ is invertible),
+this is exactly the form $Q^{-1}AQ$ with $Q=[I_V]^{\beta}_{\gamma}$ (equivalently $Q^{-1}=[I_V]^{\gamma}_{\beta}$).
+Thus the two matrices are similar.
+\end{proof}
+
+\begin{commonmistake}
+\begin{itemize}
+\item Confusing similarity with equality: $A\sim B$ means they represent the \emph{same linear operator} in different coordinates (bases), not that $A=B$.
+\item When proving invariants, do not assume $\operatorname{tr}(XY)=\operatorname{tr}(X)\operatorname{tr}(Y)$ (false). The correct identity is $\operatorname{tr}(XY)=\operatorname{tr}(YX)$.
+\end{itemize}
+\end{commonmistake}
+
+%====================================================================
+
+\subsection{Eigenvalues, eigenvectors, eigenspaces (Week 8)}
+
+\begin{definition}{Eigenvalue}{def:eigenvalue}
+Let $V$ be a vector space over a field $\mathbb{F}$ and let $T\in\mathcal{L}(V)$.
+A scalar $\lambda\in\mathbb{F}$ is an \textbf{eigenvalue} of $T$ if any (hence all) of the following equivalent statements hold:
+\begin{enumerate}
+\item $\operatorname{Null}(T-\lambda I_V)\neq \{0\}$;
+\item $\{0\}\subsetneq \operatorname{Null}(T-\lambda I_V)$;
+\item $T-\lambda I_V$ is not injective.
+\end{enumerate}
+
+\end{definition}
+
+Eigenvalues are ``field-specific'': they must come from the base field $\mathbb{F}$ of the vector space.
+The same matrix can have eigenvalues over $\mathbb{C}$ but none over $\mathbb{R}$ (see the rotation example below).
+This is why the problem statement should always specify the field.
+
+Intuitively, $\lambda$ is an eigenvalue if $T-\lambda I_V$ ``collapses'' some nonzero vector to zero, i.e.\ $T$ acts on some direction simply as scaling by $\lambda$.
+
+\begin{keyformula}
+\textbf{Field-specific warning (Week 8).}
+Eigenvalues must lie in the base field $\mathbb{F}$ of the vector space.
+The same linear map can have no eigenvalues over $\mathbb{R}$ but have eigenvalues over $\mathbb{C}$.
+\end{keyformula}
+
+\begin{theorem}{Zero eigenvalue $\Longleftrightarrow$ non-injectivity}{zero-eig-noninj}
+Let $V$ be a vector space over $\mathbb{F}$ and $T\in\mathcal{L}(V)$.
+Then $0\in\mathbb{F}$ is an eigenvalue of $T$ if and only if $T$ is not injective.
+\end{theorem}
+
+\begin{proof}
+$0$ is an eigenvalue $\Longleftrightarrow \operatorname{Null}(T-0\cdot I_V)=\operatorname{Null}(T)\neq\{0\}
+\Longleftrightarrow T$ is not injective by Theorem~\ref{thm:null-space-test-injective}.
+\end{proof}
+
+\begin{definition}{Eigenvector and eigenspace}{def:eigenvector-eigenspace}
+Let $V$ be a vector space over $\mathbb{F}$ and let $T\in\mathcal{L}(V)$.
+A nonzero vector $v\in V$ is an \textbf{eigenvector} of $T$ if there exists $\lambda\in\mathbb{F}$ such that
+\[
+T(v)=\lambda v.
+\]
+For an eigenvalue $\lambda$ of $T$, the \textbf{eigenspace} of $T$ for $\lambda$ is
+\[
+E_{T,\lambda}\coloneqq \operatorname{Null}(T-\lambda I_V).
+\]
+Then the eigenvectors for $\lambda$ are exactly $E_{T,\lambda}\setminus\{0\}$.
+
+\end{definition}
+
+The eigenspace $E_{T,\lambda}$ is a subspace of $V$ (it is the null space of $T-\lambda I_V$).
+Its nonzero elements are the eigenvectors for $\lambda$.
+The zero vector is in $E_{T,\lambda}$ but is \emph{never} called an eigenvector (by convention, eigenvectors must be nonzero).
+Note that the eigenvalue associated to a given eigenvector $v$ is unique: if $T(v)=\lambda v$ and $T(v)=\mu v$ with $v\neq 0$, then $(\lambda-\mu)v=0$ implies $\lambda=\mu$.
+
+\begin{theorem}{Eigenvector--kernel equivalence}{thm:eig-kernel}
+Let $T\in\mathcal{L}(V)$ and $\lambda\in\mathbb{F}$. For $v\in V$,
+\[
+v\in E_{T,\lambda}\ \Longleftrightarrow\ (T-\lambda I_V)(v)=0\ \Longleftrightarrow\ T(v)=\lambda v.
+\]
+\end{theorem}
+
+\begin{proof}
+Immediate from expanding $(T-\lambda I_V)(v)=T(v)-\lambda I_V(v)=T(v)-\lambda v$.
+\end{proof}
+
+\begin{theorem}{Computing eigenvalues via a matrix representation (finite-dimensional)}{thm:eig-det}
+Let $V$ be finite-dimensional over $\mathbb{F}$ with $\dim(V)=n$, and let $T\in\mathcal{L}(V)$.
+Let $\beta$ be any ordered basis for $V$.
+Then $\lambda\in\mathbb{F}$ is an eigenvalue of $T$ if and only if
+\[
+\det\bigl([T]^{\beta}_{\beta}-\lambda I_n\bigr)=0.
+\]
+\end{theorem}
+
+\begin{proof}
+$\lambda$ is an eigenvalue $\Longleftrightarrow T-\lambda I_V$ is not injective
+$\Longleftrightarrow [T-\lambda I_V]^{\beta}_{\beta}$ is not invertible
+$\Longleftrightarrow [T]^{\beta}_{\beta}-\lambda[I_V]^{\beta}_{\beta}$ is not invertible
+$\Longleftrightarrow [T]^{\beta}_{\beta}-\lambda I_n$ is not invertible
+$\Longleftrightarrow \det([T]^{\beta}_{\beta}-\lambda I_n)=0$.
+\end{proof}
+
+\begin{definition}{Characteristic polynomial function}{charpoly}
+Let $V$ be finite-dimensional over $\mathbb{F}$ with $\dim(V)=n$ and let $T\in\mathcal{L}(V)$.
+Fix any ordered basis $\beta$ of $V$.
+Define the \textbf{characteristic polynomial function} of $T$ by
+\[
+p_T(\lambda)\coloneqq \det\bigl([T]^{\beta}_{\beta}-\lambda I_n\bigr)\qquad(\lambda\in\mathbb{F}).
+\]
+
+\end{definition}
+
+For an $n\times n$ matrix $A$, the characteristic polynomial $p_T(\lambda)=\det(A-\lambda I_n)$ is a polynomial of degree $n$ in $\lambda$.
+\begin{itemize}
+\item For $n=2$: $\det\begin{bmatrix}a-\lambda&b\\c&d-\lambda\end{bmatrix}=\lambda^2-(a+d)\lambda+(ad-bc)=\lambda^2-\operatorname{tr}(A)\lambda+\det(A)$.
+\item For $n=3$: expand using cofactor expansion along a row or column.
+\end{itemize}
+The roots of $p_T$ in $\mathbb{F}$ are the eigenvalues. If $\mathbb{F}=\mathbb{R}$ and the polynomial has no real roots, then $T$ has no eigenvalues over $\mathbb{R}$.
+
+\begin{theorem}{Basis-independence of $p_T$}{charpoly-basis-indep}
+Let $V$ be finite-dimensional and $T\in\mathcal{L}(V)$.
+If $\beta$ and $\gamma$ are two ordered bases of $V$, then for all $\lambda\in\mathbb{F}$,
+\[
+\det\bigl([T]^{\beta}_{\beta}-\lambda I_n\bigr)=\det\bigl([T]^{\gamma}_{\gamma}-\lambda I_n\bigr).
+\]
+Hence $p_T$ is well-defined (independent of the chosen ordered basis).
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:matrix-rep-similar}, there exists invertible $Q$ such that
+$[T]^{\gamma}_{\gamma}=Q^{-1}[T]^{\beta}_{\beta}Q$.
+Then for every $\lambda$,
+\[
+[T]^{\gamma}_{\gamma}-\lambda I_n = Q^{-1}\bigl([T]^{\beta}_{\beta}-\lambda I_n\bigr)Q,
+\]
+so the two matrices are similar. By Theorem~\ref{thm:similarity-invariants}, similar matrices have equal determinants.
+\end{proof}
+
+\begin{keyformula}
+\textbf{Eigenvalues = roots of $p_T$ (finite-dimensional).}
+If $\dim(V)=n$, then eigenvalues of $T$ are exactly the $\mathbb{F}$-roots of $p_T$.
+In particular, $T$ has at most $n$ distinct eigenvalues in $\mathbb{F}$.
+\end{keyformula}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 8): eigenvalues of $0_{V\to V}$ and $I_V$.}
+Let $V$ be nonzero over $\mathbb{F}$.
+\begin{itemize}
+\item For the zero map $0_{V\to V}$, we have $0_{V\to V}(v)=0$ for all $v$, so every nonzero $v$ satisfies $0(v)=0\cdot v$.
+Thus the only eigenvalue is $\lambda=0$.
+\item For the identity $I_V$, we have $I_V(v)=1\cdot v$ for all $v\neq 0$, so the only eigenvalue is $\lambda=1$.
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 8): rotation matrix over $\mathbb{R}$ vs $\mathbb{C}$.}
+Let $A=\begin{bmatrix}0&1\\-1&0\end{bmatrix}$ and define $T(v)=Av$.
+Then
+\[
+\det(A-\lambda I_2)=\det\begin{bmatrix}-\lambda&1\\-1&-\lambda\end{bmatrix}=\lambda^2+1.
+\]
+Over $\mathbb{R}$, $\lambda^2+1=0$ has no roots, so $T$ has no real eigenvalues.
+Over $\mathbb{C}$, the roots are $\lambda=\pm i$, so $T$ has eigenvalues $\pm i$ in $\mathbb{C}$.
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 8): verify an eigenvector quickly.}
+Let $T(v)=Av$ on $\mathbb{R}^3$ where
+\[
+A=\begin{bmatrix}
+0&6&8\\[2pt]
+\frac12&0&0\\[2pt]
+0&\frac12&0
+\end{bmatrix}.
+\]
+Check $v=\begin{bmatrix}16\\4\\1\end{bmatrix}$:
+\[
+Av=
+\begin{bmatrix}
+0\cdot 16+6\cdot 4+8\cdot 1\\
+\frac12\cdot 16\\
+\frac12\cdot 4
+\end{bmatrix}
+=
+\begin{bmatrix}32\\8\\2\end{bmatrix}
+=2\begin{bmatrix}16\\4\\1\end{bmatrix}.
+\]
+Hence $v$ is an eigenvector with eigenvalue $\lambda=2$.
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 8): two eigenvectors without heavy computation.}
+Let $T(v)=Av$ on $\mathbb{R}^3$ where
+\[
+A=\begin{bmatrix}
+1&2&3\\
+1&2&3\\
+1&2&3
+\end{bmatrix}.
+\]
+Let $u=(1,1,1)^{\mathsf T}$. Then
+\[
+Au=\begin{bmatrix}6\\6\\6\end{bmatrix}=6u,
+\]
+so $u$ is an eigenvector for $\lambda=6$.
+Now take any nonzero $w$ with $(1,2,3)\cdot w=0$, e.g.\ $w=(2,-1,0)^{\mathsf T}$.
+Then $Aw=u\,(1,2,3)\cdot w=0$, so $w$ is an eigenvector for $\lambda=0$.
+Thus we found two eigenvectors for distinct eigenvalues $6$ and $0$.
+\end{examplebox}
+
+\begin{theorem}{Eigenvectors for distinct eigenvalues are linearly independent}{distinct-eigs-LI}
+Let $V$ be a vector space over $\mathbb{F}$ and let $T\in\mathcal{L}(V)$.
+Let $\lambda_1,\dots,\lambda_n$ be distinct eigenvalues of $T$ and let $v_i\neq 0$ be an eigenvector for $\lambda_i$.
+Then $\{v_1,\dots,v_n\}$ is linearly independent.
+\end{theorem}
+
+\begin{proof}
+We use induction on $n$.
+
+For $n=1$, $\{v_1\}$ is independent since $v_1\neq 0$.
+
+Assume the statement true for $n-1$ and consider a relation
+\[
+\mu_1 v_1+\cdots+\mu_n v_n=0.
+\]
+Apply $T$:
+\[
+0=T(0)=\mu_1 T(v_1)+\cdots+\mu_n T(v_n)=\mu_1\lambda_1 v_1+\cdots+\mu_n\lambda_n v_n.
+\]
+Multiply the original relation by $\lambda_n$ and subtract:
+\[
+0=\mu_1(\lambda_1-\lambda_n)v_1+\cdots+\mu_{n-1}(\lambda_{n-1}-\lambda_n)v_{n-1}.
+\]
+By distinctness, each $(\lambda_i-\lambda_n)\neq 0$, so by the induction hypothesis $\{v_1,\dots,v_{n-1}\}$ is independent and hence
+\[
+\mu_1(\lambda_1-\lambda_n)=\cdots=\mu_{n-1}(\lambda_{n-1}-\lambda_n)=0 \ \Longrightarrow\ \mu_1=\cdots=\mu_{n-1}=0.
+\]
+Then the original relation becomes $\mu_n v_n=0$, so $\mu_n=0$ since $v_n\neq 0$.
+Thus all coefficients are zero, proving independence.
+\end{proof}
+
+\begin{theorem}{Sum of distinct eigenspaces is a direct sum}{eigenspaces-direct-sum}
+Let $V$ be a vector space over $\mathbb{F}$ and let $T\in\mathcal{L}(V)$.
+Let $\lambda_1,\dots,\lambda_n$ be distinct eigenvalues. Then
+\[
+E_{T,\lambda_1}+\cdots+E_{T,\lambda_n}=E_{T,\lambda_1}\oplus\cdots\oplus E_{T,\lambda_n}.
+\]
+\end{theorem}
+
+\begin{proof}
+We show uniqueness of zero decomposition. Let $v_i\in E_{T,\lambda_i}$ and suppose
+\[
+v_1+\cdots+v_n=0.
+\]
+If all $v_i=0$ we are done. Otherwise remove the zero terms and keep a nonempty sub-list of nonzero vectors,
+still satisfying a linear combination equal to $0$:
+\[
+v_{i_1}+\cdots+v_{i_k}=0,\qquad v_{i_j}\neq 0.
+\]
+But each $v_{i_j}$ is an eigenvector for the distinct eigenvalue $\lambda_{i_j}$, so by
+Theorem~\ref{thm:distinct-eigs-LI} the set $\{v_{i_1},\dots,v_{i_k}\}$ is linearly independent, contradicting
+a nontrivial dependence relation. Hence all $v_i=0$, so the sum is direct.
+
+\end{proof}
+
+This theorem is the foundation of diagonalization: if the eigenspaces span the whole space, then we can choose a basis of eigenvectors.
+The direct-sum property ensures that eigenvectors from different eigenspaces never ``interfere'' with each other, so combining bases of individual eigenspaces always yields a linearly independent set.
+
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 8): eigenvalues/eigenspaces of a ``swap'' operator on $\mathbb{R}^{2,2}$.}
+Define $T\in\mathcal{L}(\mathbb{R}^{2,2})$ by
+\[
+T\!\left(\begin{bmatrix}a&b\\c&d\end{bmatrix}\right)=
+\begin{bmatrix}c&d\\a&b\end{bmatrix}.
+\]
+Then $T^2=I$, so any eigenvalue $\lambda$ must satisfy $\lambda^2=1$, hence $\lambda\in\{1,-1\}$.
+
+\textbf{Eigenspace for $\lambda=1$.} Solve $T(A)=A$:
+\[
+\begin{bmatrix}c&d\\a&b\end{bmatrix}=\begin{bmatrix}a&b\\c&d\end{bmatrix}
+\Longleftrightarrow a=c,\ b=d,
+\]
+so
+\[
+E_{T,1}=\left\{\begin{bmatrix}a&b\\a&b\end{bmatrix}:a,b\in\mathbb{R}\right\}.
+\]
+\textbf{Eigenspace for $\lambda=-1$.} Solve $T(A)=-A$:
+\[
+\begin{bmatrix}c&d\\a&b\end{bmatrix}=\begin{bmatrix}-a&-b\\-c&-d\end{bmatrix}
+\Longleftrightarrow c=-a,\ d=-b,
+\]
+so
+\[
+E_{T,-1}=\left\{\begin{bmatrix}a&b\\-a&-b\end{bmatrix}:a,b\in\mathbb{R}\right\}.
+\]
+Moreover, $\mathbb{R}^{2,2}=E_{T,1}\oplus E_{T,-1}$ by Theorem~\ref{thm:eigenspaces-direct-sum}.
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 7, Question 5): eigenvalues/eigenspaces of $F(x,y)=(y,x+y)$.}
+Define $F\in\mathcal{L}(\mathbb{R}^{2,1})$ by
+\[
+F\!\left(\begin{bmatrix}x\\y\end{bmatrix}\right)=\begin{bmatrix}y\\x+y\end{bmatrix}
+=\begin{bmatrix}0&1\\1&1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}.
+\]
+Let $A=\begin{bmatrix}0&1\\1&1\end{bmatrix}$. Then
+\[
+\det(A-\lambda I_2)=\det\begin{bmatrix}-\lambda&1\\1&1-\lambda\end{bmatrix}=\lambda^2-\lambda-1,
+\]
+so eigenvalues are
+\[
+\lambda_{\pm}=\frac{1\pm\sqrt{5}}{2}.
+\]
+For $\lambda=\lambda_{\pm}$, solve $(A-\lambda I_2)v=0$:
+\[
+\begin{bmatrix}-\lambda&1\\1&1-\lambda\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0
+\Longleftrightarrow y=\lambda x.
+\]
+Hence
+\[
+E_{F,\lambda}=\operatorname{span}\left\{\begin{bmatrix}1\\ \lambda\end{bmatrix}\right\}
+\quad\text{for }\lambda\in\left\{\frac{1+\sqrt5}{2},\frac{1-\sqrt5}{2}\right\}.
+\]
+\end{examplebox}
+
+\begin{extension}[title={Extension (Tutorial 7, Question 4, Method 2)}]
+\textbf{Syllabus link:} MH1201 Weeks 7--8 — Eigenvalues and eigenvectors.
+
+\textbf{Lemma (rotation eigenvalues over $\mathbb{R}$).}
+Fix $\theta\in\mathbb{R}$ and define $R_\theta\in\mathcal{L}(\mathbb{R}^2)$ by
+\[
+R_\theta(x,y)=(x\cos\theta-y\sin\theta,\ x\sin\theta+y\cos\theta).
+\]
+If $\theta\notin\mathbb{Z}\pi$, then $R_\theta$ has no real eigenvalues.
+
+\textbf{Proof.}
+Suppose for contradiction that $\lambda\in\mathbb{R}$ is an eigenvalue with eigenvector $u\neq 0$.
+Then $R_\theta(u)=\lambda u$ implies $R_\theta(u)$ is a scalar multiple of $u$, hence $R_\theta(u)$ is parallel to $u$.
+But geometrically $R_\theta$ rotates every nonzero vector by angle $\theta$.
+A rotation maps a nonzero vector to a parallel vector if and only if the rotation angle is $0$ or $\pi$ modulo $2\pi$,
+i.e.\ $\theta\in\mathbb{Z}\pi$. This contradicts $\theta\notin\mathbb{Z}\pi$.
+Hence no real eigenvalue exists. \qed
+\end{extension}
+
+\begin{extension}[title={Extension (Tutorial 7, Question 6, Method 2)}]
+\textbf{Syllabus link:} MH1201 Weeks 7--8 — Eigenvalues and eigenspaces as invariant subspaces.
+
+\textbf{Lemma (invariant decomposition yields eigenstructure).}
+Let $T\in\mathcal{L}(\mathbb{R}^{2,2})$ be defined by
+\[
+T(A)=A^{\mathsf T}+2\,\operatorname{tr}(A)\,I_2.
+\]
+Define
+\[
+\mathrm{Sym}_2=\{A:A^{\mathsf T}=A\},\qquad \mathrm{Skew}_2=\{A:A^{\mathsf T}=-A\}.
+\]
+Then $\mathbb{R}^{2,2}=\mathrm{Sym}_2\oplus \mathrm{Skew}_2$, and:
+\[
+E_{T,-1}=\mathrm{Skew}_2,\qquad
+E_{T,5}=\mathbb{R}I_2,\qquad
+E_{T,1}=\{A\in\mathrm{Sym}_2:\operatorname{tr}(A)=0\}.
+\]
+In particular, $\mathbb{R}^{2,2}$ has a basis of eigenvectors of $T$.
+
+\textbf{Proof.}
+\emph{Step 1: direct sum decomposition.}
+For any $A$, write
+\[
+A=\frac12(A+A^{\mathsf T})+\frac12(A-A^{\mathsf T}),
+\]
+where $\frac12(A+A^{\mathsf T})\in\mathrm{Sym}_2$ and $\frac12(A-A^{\mathsf T})\in\mathrm{Skew}_2$.
+Also $\mathrm{Sym}_2\cap \mathrm{Skew}_2=\{0\}$, so $\mathbb{R}^{2,2}=\mathrm{Sym}_2\oplus\mathrm{Skew}_2$.
+
+\emph{Step 2: eigenvalue on $\mathrm{Skew}_2$.}
+If $A\in\mathrm{Skew}_2$, then $A^{\mathsf T}=-A$ and $\operatorname{tr}(A)=0$, hence
+\[
+T(A)=A^{\mathsf T}+2\,\operatorname{tr}(A)I_2=-A.
+\]
+Thus every nonzero $A\in\mathrm{Skew}_2$ is an eigenvector with eigenvalue $-1$, and $E_{T,-1}=\mathrm{Skew}_2$.
+
+\emph{Step 3: reduce on $\mathrm{Sym}_2$ and split by trace.}
+If $A\in\mathrm{Sym}_2$, then $A^{\mathsf T}=A$, so $T(A)=A+2\,\operatorname{tr}(A)I_2$.
+Now decompose
+\[
+\mathrm{Sym}_2=\mathbb{R}I_2\oplus \mathrm{Sym}_2^0,\qquad \mathrm{Sym}_2^0\coloneqq\{A\in\mathrm{Sym}_2:\operatorname{tr}(A)=0\}.
+\]
+This is a direct sum since $\operatorname{tr}(I_2)=2\neq 0$ and $\operatorname{tr}(\cdot)=0$ on $\mathrm{Sym}_2^0$.
+If $A\in\mathrm{Sym}_2^0$, then $T(A)=A$, so $A\in E_{T,1}$ and $E_{T,1}=\mathrm{Sym}_2^0$.
+If $A=tI_2$, then $\operatorname{tr}(A)=2t$ and
+\[
+T(A)=tI_2+2(2t)I_2=5tI_2,
+\]
+so $\mathbb{R}I_2\subseteq E_{T,5}$ and equality holds by the decomposition (no other symmetric trace-nonzero directions remain).
+
+\emph{Step 4: eigenbasis.}
+Choose bases of $\mathrm{Skew}_2$, $\mathbb{R}I_2$, and $\mathrm{Sym}_2^0$; their union is an eigenbasis because the sum is direct and spans $\mathbb{R}^{2,2}$.
+For example,
+\[
+\mathrm{Skew}_2=\operatorname{span}\!\left\{\begin{bmatrix}0&1\\-1&0\end{bmatrix}\right\},\quad
+\mathbb{R}I_2=\operatorname{span}\!\left\{\begin{bmatrix}1&0\\0&1\end{bmatrix}\right\},\quad
+\mathrm{Sym}_2^0=\operatorname{span}\!\left\{\begin{bmatrix}1&0\\0&-1\end{bmatrix},\begin{bmatrix}0&1\\1&0\end{bmatrix}\right\}.
+\]
+\qed
+\end{extension}
+
+\begin{examtip}
+\textbf{Weeks 7--8 exam patterns.}
+\begin{itemize}
+\item \textbf{Change-of-coordinates:} compute $[I_V]^{\gamma}_{\beta}$ by stacking basis vectors in a standard basis and inverting once.
+Then convert coordinates via $[v]_\gamma=[I_V]^{\gamma}_{\beta}[v]_\beta$.
+\item \textbf{Change of representation:} use $[T]^{\gamma}_{\gamma}=[I_V]^{\gamma}_{\beta}[T]^{\beta}_{\beta}[I_V]^{\beta}_{\gamma}$.
+\item \textbf{Similarity proofs:} show $B=Q^{-1}AQ$; for invariants use $\det(Q^{-1}AQ)=\det(A)$ and $\operatorname{tr}(Q^{-1}AQ)=\operatorname{tr}(A)$.
+\item \textbf{Eigenvalues:} compute $p_T(\lambda)=\det([T]-\lambda I)$ and solve $p_T(\lambda)=0$ over the \emph{base field}.
+\item \textbf{Eigenspaces:} for each eigenvalue $\lambda$, solve $(T-\lambda I)v=0$ (a kernel computation).
+\end{itemize}
+\end{examtip}
+
+\begin{extension}[title={Extension (Tutorial 6, Question 5): existence of polynomial solutions via triangularity}]
+\textbf{Syllabus link:} MH1201 Weeks 5--6 — Rank--Nullity and invertibility.
+
+\textbf{Theorem.} Let $n\in\mathbb{N}_0$ and $Q\in\mathcal{P}_n(\mathbb{R})$. Then there exists $P\in\mathcal{P}_n(\mathbb{R})$ such that
+\[
+Q=(X^2+X)P''+2XP'+P(3).
+\]
+
+\textbf{Proof strategy.}
+Define $L:\mathcal{P}_n(\mathbb{R})\to\mathcal{P}_n(\mathbb{R})$ by $L(P)=(X^2+X)P''+2XP'+P(3)$.
+Compute $L(X^k)$ for each $k$: the leading term of $L(X^k)$ has degree $k$ with coefficient $k(k+1)$ (for $k\ge 1$) and $L(1)=1$.
+Hence the matrix of $L$ w.r.t.\ the standard basis $(1,X,\dots,X^n)$ is \emph{lower triangular} with diagonal entries $1,2,6,12,\dots,n(n+1)$, all nonzero.
+A triangular matrix with nonzero diagonal is invertible, so $L$ is an isomorphism and in particular surjective. Therefore, for every $Q$, the equation $L(P)=Q$ has a solution.
+
+\textbf{Key technique:} When an operator on a polynomial space has a triangular matrix representation with nonzero diagonal, it is automatically invertible. This is a common pattern on MH1201 exams.
+\end{extension}
+
+\begin{extension}[title={Extension (Tutorial 6, Question 6): isomorphism between upper-triangular and symmetric matrices}]
+\textbf{Syllabus link:} MH1201 Weeks 5--6 — Invertibility and isomorphisms.
+
+\textbf{Theorem.} Let $V=\{M\in\mathbb{R}^{n\times n}\mid M\text{ upper triangular}\}$ and $W=\{M\in\mathbb{R}^{n\times n}\mid M\text{ symmetric}\}$. Then $V\cong W$.
+
+\textbf{Proof.} Both $V$ and $W$ have dimension $\frac{n(n+1)}{2}$ (each is determined by the upper-triangular entries).
+An explicit isomorphism $\Phi:V\to W$ is given by ``mirror the upper triangle'':
+\[
+\Phi(U)_{ij}\coloneqq \begin{cases}u_{ij},& i\le j,\\u_{ji},& i>j.\end{cases}
+\]
+This is linear (entrywise), and its inverse $\Psi:W\to V$ extracts the upper-triangular part: $\Psi(S)_{ij}=s_{ij}$ for $i\le j$ and $0$ otherwise. Both compositions are the identity on their respective spaces.
+\end{extension}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 5, Question 4): substitution operator on polynomials.}
+Let $Q\in\mathcal{P}(\mathbb{F})$ and define $T:\mathcal{P}_n(\mathbb{F})\to\mathcal{P}_{n\cdot\deg(Q)}(\mathbb{F})$ by $T(P)=P(Q)$.
+Then $T$ is linear because
+\[
+T(P_1+P_2)=(P_1+P_2)(Q)=P_1(Q)+P_2(Q)=T(P_1)+T(P_2),\quad T(cP)=(cP)(Q)=cP(Q)=cT(P).
+\]
+To verify $T$ maps into $\mathcal{P}_{n\cdot\deg(Q)}(\mathbb{F})$: if $\deg(P)\le n$ and $P\neq 0$, then $\deg(P(Q))=\deg(P)\cdot\deg(Q)\le n\cdot\deg(Q)$ (using the identity $\deg(P(Q))=\deg(P)\cdot\deg(Q)$ for nonzero polynomials).
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 5, Question 2): linearity of the matrix-of-a-map operator.}
+The map $M:\mathcal{L}(V,W)\to\mathbb{F}^{n\times m}$, $M(T)=[T]^{\beta}_{\alpha}$, is linear.
+\textbf{Proof sketch:} Column $i$ of $M(T)$ is $[T(v_i)]_\beta$. Since the coordinate map $[\,\cdot\,]_\beta$ is linear,
+\[
+M(S+T)_{*,i}=[(S+T)(v_i)]_\beta=[S(v_i)]_\beta+[T(v_i)]_\beta=M(S)_{*,i}+M(T)_{*,i}.
+\]
+Similarly $M(aT)=aM(T)$. Hence $M$ is linear.
+This result underlies the isomorphism $\mathcal{L}(V,W)\cong\mathbb{F}^{n\times m}$.
+\end{examplebox}
+
+%==================================================
+% USER COMMENTS (EDITABLE)
+%==================================================
+% - (Write personal reminders, TODOs, or links here.)
+% - (E.g., "Re-derive the Rank-Nullity proof before midterm", "Memorize the rank-nullity equivalences", etc.)
+% - (Review Tutorial 5 Q3 for non-direct-sum examples.)
+% - (Practice change-of-basis computations from Tutorial 6 Q7.)
+% - (Remember: eigenvalues are field-specific!)

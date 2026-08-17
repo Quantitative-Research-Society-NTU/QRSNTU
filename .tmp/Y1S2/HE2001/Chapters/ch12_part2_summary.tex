@@ -1,0 +1,659 @@
+% chapters/ch12_part2_summary.tex
+
+\section{Part II Summary}
+
+Part II develops a sequence of welfare frameworks that become progressively broader. Lecture 7 begins at the level of the individual and asks how utility changes can be measured in money. Lecture 8 aggregates consumer and producer welfare in a single market and studies taxes, tax incidence, and deadweight loss. Lecture 9 then moves beyond partial equilibrium to the exchange economy, where Pareto efficiency and competitive equilibrium become the central concepts. Lecture 10 asks how society should rank alternatives or utility outcomes, introducing social decision mechanisms, social welfare functions, and the utility possibility frontier. Finally, Lecture 11 shows that once utility is quasi-linear in money and balanced transfers are feasible, Pareto-efficient policies correspond to utilitarian allocations.
+
+This summary is designed for revision rather than first exposure. The emphasis is therefore on the main objects, the highest-yield results, the links across topics, and the standard patterns behind common exam questions.
+
+\subsection{Part II at a Glance}
+
+\begin{policynote}[title={Part II in one conceptual chain}]
+The broad logic of Part II is:
+\begin{enumerate}
+    \item measure individual welfare in money;
+    \item aggregate welfare in a market;
+    \item generalize efficiency beyond a single market;
+    \item distinguish efficiency from social choice;
+    \item show when transfers make utilitarianism the efficiency criterion for policies.
+\end{enumerate}
+In short, Part II moves from \emph{how much one person gains or loses}, to \emph{how a market performs}, to \emph{which allocations are efficient}, to \emph{which efficient allocations society may want}, and finally to \emph{when money transfers let us separate efficiency from distribution}.
+\end{policynote}
+
+\subsection{Core Frameworks and Definitions}
+
+\subsubsection{Monetary welfare at the individual level}
+
+Lecture 7 asks how utility changes can be expressed in dollars.
+
+\begin{definition}{Core monetary welfare measures}{ch12-monetary-measures}
+The main individual monetary welfare measures are:
+\begin{itemize}
+    \item \emph{reservation price}: the maximum amount a consumer is willing to pay for a good or marginal unit;
+    \item \emph{consumer surplus}:
+    \[
+    CS=\int_0^{x(p)} P(q)\,dq-p\,x(p);
+    \]
+    \item \emph{compensating variation (CV)}: the income needed at the \emph{new} prices to restore the \emph{old} utility level;
+    \item \emph{equivalent variation (EV)}: the income removable at the \emph{old} prices that leaves the consumer at the \emph{new} utility level;
+    \item \emph{producer surplus}:
+    \[
+    PS=\int_0^q \bigl(p-MC(\tilde q)\bigr)\,d\tilde q.
+    \]
+\end{itemize}
+\end{definition}
+
+The key distinction is that consumer surplus is usually convenient but approximate, whereas CV and EV are exact welfare measures for price changes. Consumer surplus becomes exact under quasi-linear utility.
+
+\subsubsection{Aggregate welfare in a single market}
+
+Lecture 8 aggregates consumer and producer welfare.
+
+\begin{definition}{Single-market social welfare}{ch12-market-sw}
+In the standard one-good market with inverse demand \(P_D(Q)\) and inverse supply \(P_S(Q)\), social welfare is
+\[
+SW(Q)=CS(Q)+PS(Q)=\int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq.
+\]
+The competitive quantity maximizes this expression under the standard downward-sloping demand and upward-sloping supply assumptions.
+\end{definition}
+
+This framework is still partial equilibrium: it is powerful for one-market tax questions, but it is not yet the general notion of efficiency used in exchange economies.
+
+\subsubsection{Pareto efficiency in the exchange economy}
+
+Lecture 9 replaces \(CS+PS\) with Pareto efficiency as the central efficiency concept.
+
+\begin{definition}{Feasibility, Pareto improvement, and Pareto efficiency}{ch12-pe-core}
+In a pure exchange economy:
+\begin{itemize}
+    \item an allocation is \emph{feasible} if total consumption equals total endowment good by good;
+    \item a \emph{Pareto improvement} makes everyone weakly better off and at least one person strictly better off;
+    \item an allocation is \emph{Pareto efficient} if no feasible Pareto improvement exists.
+\end{itemize}
+In the two-good, two-consumer case, the Edgeworth box is the main graphical tool, and at a smooth interior Pareto-efficient point,
+\[
+MRS_A=MRS_B.
+\]
+\end{definition}
+
+This chapter separates efficiency from fairness: a Pareto-efficient allocation need not be envy-free or otherwise equitable.
+
+\subsubsection{Social choice and social welfare}
+
+Lecture 10 asks how society ranks alternatives or utility outcomes.
+
+\begin{definition}{SDM, SWF, and social optimum}{ch12-sdm-swf}
+A \emph{social decision mechanism} (SDM) takes individuals' rankings over alternatives as input and outputs a social ranking. A \emph{social welfare function} (SWF) takes utility levels as input and assigns a social value
+\[
+W(u_1,\dots,u_n).
+\]
+A \emph{social optimum} is a feasible allocation that maximizes the chosen SWF over the feasible utility set.
+\end{definition}
+
+This is the chapter where the course explicitly turns from positive efficiency analysis to normative aggregation.
+
+\subsubsection{Policies with transfers}
+
+Lecture 11 adds money transfers to the allocation problem.
+
+\begin{definition}{Allocation, policy, and balanced transfers}{ch12-policy-transfers}
+An \emph{allocation} specifies who gets the goods. A \emph{policy} specifies both an allocation \(A\) and transfers \(t=(t_1,\dots,t_n)\). Transfers are \emph{balanced} if
+\[
+\sum_{i=1}^n t_i=0.
+\]
+Under quasi-linear utility,
+\[
+U_i(A,t_i)=v_i(A)+t_i,
+\]
+so money can redistribute utility directly across individuals.
+\end{definition}
+
+This is the final conceptual step of Part II: once balanced transfers are feasible and utility is quasi-linear in money, one can separate the choice of the allocation from the choice of who ultimately bears the gains and losses.
+
+\subsection{Key Results from Part II}
+
+\begin{keyformula}[title={Key Formula: Part II Master Summary}]
+\begin{align*}
+CS &= \int_0^{x(p)} P(q)\,dq-p\,x(p), \\
+V(p,I) &= \max_x U(x)\ \text{s.t.}\ p\cdot x\le I, \\
+V(\text{new prices},I+CV) &= V(\text{old prices},I), \\
+V(\text{old prices},I-EV) &= V(\text{new prices},I), \\
+SW(Q) &= \int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq, \\
+DWL &= \int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq, \\
+\text{interior Pareto efficiency} &\Rightarrow MRS_A=MRS_B, \\
+\text{competitive equilibrium} &\Rightarrow \text{Pareto efficiency}, \\
+\text{social optimum} &\Rightarrow \text{Pareto efficiency}, \\
+W(u_A,u_B)=\gamma_A u_A+\gamma_B u_B &\Rightarrow \text{iso-welfare slope } -\frac{\gamma_A}{\gamma_B}, \\
+U_i(A,t_i)=v_i(A)+t_i,\ \sum_i t_i=0
+&\Rightarrow
+(A,t)\text{ is Pareto efficient} \iff A\text{ is utilitarian.}
+\end{align*}
+\end{keyformula}
+
+The main examinable results can be organized as follows.
+
+\begin{theorem}{High-yield results across Lectures 7--11}{ch12-main-results}
+The central results of Part II are:
+\begin{enumerate}
+    \item Under quasi-linear utility,
+    \[
+    U(x,m)=v(x)+m,
+    \]
+    demand for \(x\) has no income effect and consumer surplus is an exact welfare measure.
+    \item In the standard single-good market, the competitive quantity maximizes
+    \[
+    CS+PS.
+    \]
+    Taxes reduce quantity, create a wedge between buyer and seller prices, and generally generate deadweight loss.
+    \item In the exchange economy, a competitive equilibrium allocation is Pareto efficient, and under the standard convexity assumptions any Pareto-efficient allocation can be decentralized after suitable redistribution of endowments.
+    \item For any increasing SWF, a social optimum is Pareto efficient; conversely, under the regularity assumptions emphasized in the course, each Pareto-efficient point can be supported by some SWF.
+    \item No non-dictatorial SDM can simultaneously satisfy Universal Domain, the Pareto property, and IIA while always producing a transitive social ranking.
+    \item Under quasi-linear utility in money and balanced transfers, Pareto-efficient policies are exactly those built from utilitarian allocations.
+\end{enumerate}
+\end{theorem}
+
+\begin{examtip}
+A useful way to memorize the architecture of Part II is to attach one question to each lecture:
+\begin{itemize}
+    \item \textbf{Lecture 7:} how do I measure welfare?
+    \item \textbf{Lecture 8:} what quantity is efficient in a market?
+    \item \textbf{Lecture 9:} what allocation is Pareto efficient?
+    \item \textbf{Lecture 10:} which Pareto-efficient point should society choose?
+    \item \textbf{Lecture 11:} when do transfers make utilitarianism the relevant efficiency criterion?
+\end{itemize}
+\end{examtip}
+
+\subsection{Cross-Topic Comparisons}
+
+\subsubsection{Consumer surplus versus EV and CV}
+
+Lecture 7 contains one of the most important distinctions in the course.
+
+\begin{itemize}
+    \item \(CS\) is computed from Marshallian demand and is usually easy to obtain.
+    \item \(EV\) and \(CV\) are defined through indirect utility and are exact.
+    \item In general,
+    \[
+    \min\{|CV|,|EV|\} \le |\Delta CS| \le \max\{|CV|,|EV|\}.
+    \]
+    \item Under quasi-linear utility, all three coincide.
+\end{itemize}
+
+This distinction matters again in Lecture 11, because quasi-linearity is exactly the assumption that turns willingness to pay into a clean monetary measure of utility difference.
+
+\subsubsection{Market welfare versus Pareto efficiency}
+
+Lecture 8 and Lecture 9 use different welfare languages.
+
+\begin{itemize}
+    \item In Lecture 8, welfare is
+    \[
+    CS+PS,
+    \]
+    which is especially useful in a single-market demand--supply diagram.
+    \item In Lecture 9, welfare is not summarized by a single market-area formula. Instead, efficiency means the absence of feasible Pareto improvements.
+\end{itemize}
+
+The conceptual link is that both frameworks are trying to identify unrealized gains from trade. In Lecture 8 this appears as lost surplus triangles. In Lecture 9 it appears as allocations inside the Edgeworth-box improvement lens rather than on the contract curve.
+
+\subsubsection{Efficiency versus fairness versus social choice}
+
+Part II repeatedly warns against collapsing these concepts into one another.
+
+\begin{itemize}
+    \item A Pareto-efficient allocation need not be fair.
+    \item An envy-free allocation need not be the competitive-equilibrium allocation from the given endowment.
+    \item A social optimum depends on the chosen SWF.
+    \item An SDM need not produce a transitive or stable ranking, as Condorcet cycles show.
+\end{itemize}
+
+So the course does \emph{not} say that efficiency settles all normative questions. Instead, it shows exactly where efficiency analysis ends and social-choice or distributive judgments begin.
+
+\subsubsection{Redistribution before trade versus transfers after allocation}
+
+Lecture 9 and Lecture 11 solve a similar problem in different ways.
+
+\begin{itemize}
+    \item In Lecture 9, the Second Welfare Theorem says that if society wants a particular Pareto-efficient allocation, it may be supported by first redistributing endowments and then allowing competitive trade.
+    \item In Lecture 11, if utility is quasi-linear in money, society can instead choose the utilitarian allocation and then use balanced money transfers to determine the final distribution of welfare.
+\end{itemize}
+
+The common logic is the separation of \emph{efficiency} from \emph{distribution}. The technical difference is that Lecture 9 works through endowment redistribution in the exchange economy, whereas Lecture 11 works through utility-transferable money.
+
+\subsubsection{SDMs versus SWFs}
+
+Lecture 10 introduces two very different aggregation objects.
+
+\begin{itemize}
+    \item An SDM uses \emph{ordinal rankings} over alternatives.
+    \item An SWF uses \emph{utility levels} and therefore supports geometric analysis using the utility possibility frontier.
+\end{itemize}
+
+Arrow's theorem is about SDMs on ordinal preference profiles. It does not directly invalidate the SWF analysis used later in Lecture 10 or in Lecture 11.
+
+\subsection{Standard Problem Types and Solution Patterns}
+
+\begin{examtip}[title={Method Pattern: Welfare-measure questions}]
+If the question is about reservation price, \(CS\), \(EV\), or \(CV\):
+\begin{enumerate}
+    \item identify whether the object is discrete, continuous, or a price change;
+    \item if exact monetary welfare is needed, derive indirect utility and solve for \(EV\) or \(CV\);
+    \item check whether utility is quasi-linear, because that may let you use consumer surplus exactly;
+    \item keep the reference point straight:
+    \[
+    CV=\text{new prices, old utility},
+    \qquad
+    EV=\text{old prices, new utility}.
+    \]
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Tax and deadweight-loss questions}]
+If the question is about a per-unit or ad-valorem tax:
+\begin{enumerate}
+    \item define buyer price \(p_b\) and seller price \(p_s\);
+    \item write the wedge condition;
+    \item solve demand equals supply using the correct post-tax prices;
+    \item compare with the no-tax benchmark;
+    \item compute tax revenue, incidence, and deadweight loss separately.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Exchange-economy questions}]
+If the question is about Pareto efficiency or competitive equilibrium in an exchange economy:
+\begin{enumerate}
+    \item write total resources and feasibility conditions;
+    \item derive each consumer's demand from utility and endowment wealth;
+    \item solve for the equilibrium price ratio using market clearing;
+    \item if checking efficiency, use either the improvement-lens logic or
+    \[
+    MRS_A=MRS_B
+    \]
+    at smooth interior allocations;
+    \item if fairness is asked, test envy-freeness separately.
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Social-choice questions}]
+If the question is about an SDM or SWF:
+\begin{enumerate}
+    \item distinguish immediately whether the object is an SDM or an SWF;
+    \item for an SDM, compute the social ranking methodically and then test properties such as Pareto, Universal Domain, and IIA;
+    \item for an SWF over a utility possibility set, look for the highest attainable iso-welfare curve on the frontier;
+    \item for weighted utilitarianism in two dimensions, match the frontier slope to
+    \[
+    -\frac{\gamma_A}{\gamma_B}.
+    \]
+\end{enumerate}
+\end{examtip}
+
+\begin{examtip}[title={Method Pattern: Lecture 11 utilitarianism questions}]
+If the question involves money transfers:
+\begin{enumerate}
+    \item distinguish allocation from policy;
+    \item check that transfers are balanced;
+    \item check whether utility is quasi-linear in money:
+    \[
+    U_i(A,t_i)=v_i(A)+t_i;
+    \]
+    \item compute willingness to pay as
+    \[
+    v_i(B)-v_i(A);
+    \]
+    \item identify the allocation that maximizes
+    \[
+    \sum_i v_i(A).
+    \]
+\end{enumerate}
+\end{examtip}
+
+\subsection{Common Mistakes and Exam Traps}
+
+\begin{commonmistake}
+Do not confuse the reservation price curve with the inverse demand curve. They coincide only under special assumptions, especially quasi-linear utility.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not confuse the statutory side of a quantity tax with its economic incidence. The side that formally remits the tax need not be the side that bears more of the burden.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not say that a Pareto-efficient allocation is automatically fair. Pareto efficiency rules out mutually beneficial reallocation; it does not say anything by itself about envy, equality, or justice.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not confuse an SDM with an SWF. Arrow's theorem concerns SDMs defined on ordinal rankings, not every possible welfare criterion used in economics.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not confuse the \emph{contrapositive}
+\[
+A \to B
+\quad \Longleftrightarrow \quad
+\neg B \to \neg A
+\]
+with the \emph{converse}
+\[
+B \to A.
+\]
+Lecture 11 uses contraposition repeatedly, and losing this distinction can collapse an otherwise correct proof.
+\end{commonmistake}
+
+\begin{commonmistake}
+Do not confuse an allocation with a policy in Lecture 11. Pareto efficiency there is applied to policies \((A,t)\), not merely to allocations \(A\) in isolation.
+\end{commonmistake}
+
+\subsection{Integrated Worked Review Examples}
+
+\begin{examplebox}[title={Worked Review Example 1: When is consumer surplus exact?}]
+Suppose a consumer has quasi-linear utility
+\[
+U(x,m)=2\sqrt{x}+m,
+\]
+income is high enough that the interior optimum is affordable, and the price of \(x\) rises from
+\[
+p'=1 \quad \text{to} \quad p''=2.
+\]
+
+Because utility is quasi-linear in money, the optimal quantity solves
+\[
+\frac{d}{dx}\bigl(2\sqrt{x}-px\bigr)=0
+\quad \Longrightarrow \quad
+\frac{1}{\sqrt{x}}=p.
+\]
+Hence
+\[
+x(p)=\frac{1}{p^2}.
+\]
+So
+\[
+x(1)=1,
+\qquad
+x(2)=\frac14.
+\]
+
+The loss in consumer surplus from the price increase is
+\[
+\Delta CS_{\text{loss}}
+=
+\int_{1}^{2} x(p)\,dp
+=
+\int_1^2 \frac{1}{p^2}\,dp
+=
+\left[-\frac{1}{p}\right]_1^2
+=
+\frac12.
+\]
+
+Under quasi-linear utility, consumer surplus is exact, so
+\[
+\boxed{\Delta CS=EV=CV=\frac12.}
+\]
+
+This is the key revisional lesson from Lecture 7: whenever the utility function is quasi-linear in money, the distinction between \(CS\), \(EV\), and \(CV\) disappears.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 2: Linear tax incidence and deadweight loss}]
+Suppose
+\[
+Q^D=20-p_b,
+\qquad
+Q^S=p_s,
+\]
+and a per-unit tax of
+\[
+t=4
+\]
+is imposed.
+
+\textbf{Without tax:}
+\[
+20-p=p
+\quad \Longrightarrow \quad
+p^*=10,
+\qquad
+Q^*=10.
+\]
+
+\textbf{With tax:}
+\[
+p_b=p_s+4,
+\qquad
+20-p_b=p_s.
+\]
+Substituting gives
+\[
+20-(p_s+4)=p_s
+\quad \Longrightarrow \quad
+16=2p_s
+\quad \Longrightarrow \quad
+p_s=8.
+\]
+Hence
+\[
+p_b=12,
+\qquad
+Q'=8.
+\]
+
+So buyers' price rises by
+\[
+12-10=2,
+\]
+while sellers' price falls by
+\[
+10-8=2.
+\]
+Thus the tax burden is shared equally in this case.
+
+Deadweight loss is
+\[
+DWL=\frac12 \times 4 \times (10-8)=4.
+\]
+
+Therefore
+\[
+\boxed{p_b=12,\quad p_s=8,\quad Q'=8,\quad DWL=4.}
+\]
+
+This example consolidates the Lecture 8 pattern: write the wedge condition carefully, solve for the post-tax equilibrium, then keep incidence and deadweight loss conceptually separate.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 3: Competitive equilibrium, efficiency, and fairness}]
+Consider a two-good, two-consumer exchange economy with total resources
+\[
+(12,12),
+\]
+endowments
+\[
+\omega^A=(4,8),
+\qquad
+\omega^B=(8,4),
+\]
+and utilities
+\[
+U_A(x_1,x_2)=x_1^{1/2}x_2^{1/2},
+\qquad
+U_B(x_1,x_2)=x_1^{1/2}x_2^{1/2}.
+\]
+
+Normalize prices so that
+\[
+p_2=1,
+\qquad
+p_1=p.
+\]
+Each consumer has Cobb--Douglas demand with equal expenditure shares, so
+\[
+x_1^i=\frac{m_i}{2p},
+\qquad
+x_2^i=\frac{m_i}{2},
+\]
+where
+\[
+m_A=4p+8,
+\qquad
+m_B=8p+4.
+\]
+
+Market clearing for good 1 requires
+\[
+\frac{4p+8}{2p}+\frac{8p+4}{2p}=12,
+\]
+so
+\[
+\frac{12p+12}{2p}=12
+\quad \Longrightarrow \quad
+12p+12=24p
+\quad \Longrightarrow \quad
+p=1.
+\]
+
+Thus
+\[
+m_A=m_B=12,
+\]
+and each consumer chooses
+\[
+x^{A*}=x^{B*}=(6,6).
+\]
+
+Hence the competitive equilibrium allocation is
+\[
+\boxed{x^{A*}=x^{B*}=(6,6).}
+\]
+
+Because this is a competitive equilibrium, Lecture 9 implies it is Pareto efficient. It is also envy-free here because both consumers receive the same bundle and have identical preferences. The revisional point is that these are distinct properties:
+\[
+\text{competitive equilibrium} \Rightarrow \text{Pareto efficiency},
+\]
+but envy-freeness is an additional fairness test, not part of the First Welfare Theorem itself.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 4: Condorcet cycles under pairwise majority voting}]
+Suppose three voters have preferences
+\[
+\text{Voter 1: } X \succ Z \succ Y,
+\qquad
+\text{Voter 2: } Z \succ Y \succ X,
+\qquad
+\text{Voter 3: } Y \succ X \succ Z.
+\]
+
+Pairwise comparisons give:
+\begin{itemize}
+    \item \(Y\) beats \(X\), because voters 2 and 3 prefer \(Y\) to \(X\);
+    \item \(X\) beats \(Z\), because voters 1 and 3 prefer \(X\) to \(Z\);
+    \item \(Z\) beats \(Y\), because voters 1 and 2 prefer \(Z\) to \(Y\).
+\end{itemize}
+
+Therefore
+\[
+Y \succ^* X,
+\qquad
+X \succ^* Z,
+\qquad
+Z \succ^* Y.
+\]
+
+So the social ranking cycles:
+\[
+\boxed{Y \succ^* X \succ^* Z \succ^* Y.}
+\]
+
+This example captures the core Lecture 10 warning: a seemingly natural voting rule can fail to produce a transitive social ranking on an unrestricted domain.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Review Example 5: Utilitarian allocation with balanced transfers}]
+Suppose a single indivisible ticket must be assigned to either Ann or Ben. Their willingness to pay is
+\[
+WTP_A=10,
+\qquad
+WTP_B=16.
+\]
+
+\textbf{Without transfers:} if Ann initially has the ticket, giving it to Ben harms Ann, so the initial allocation may already be Pareto efficient relative to allocations alone.
+
+\textbf{With balanced transfers and quasi-linear utility:} giving the ticket to Ben and making Ben pay Ann an amount \(x\) with
+\[
+10 \le x \le 16
+\]
+makes Ann weakly willing to give up the ticket and Ben weakly willing to receive it.
+
+Hence any transfer in that interval supports a Pareto improvement, and the allocation that gives the ticket to Ben is the utilitarian one because it maximizes total willingness to pay.
+
+So the efficient policy is built from the allocation
+\[
+\boxed{\text{ticket to Ben}}
+\]
+together with a balanced transfer \(x\) from Ben to Ann.
+
+This is the core Lecture 11 insight: once quasi-linear money transfers are feasible, the efficient allocation sends the object to the person with the highest willingness to pay, while transfers determine distribution.
+\end{examplebox}
+
+\subsection{Lecture 11 Final Synthesis}
+
+Lecture 11 is the endpoint of Part II, so it is worth stating its conceptual role explicitly. Chapters 7--10 gradually build the machinery needed for the final theorem.
+
+\begin{itemize}
+    \item Lecture 7 develops monetary welfare measures and shows why quasi-linearity matters.
+    \item Lecture 8 shows how monetary measures can be aggregated into market welfare.
+    \item Lecture 9 shows that efficiency can be defined without relying on a single-market surplus diagram.
+    \item Lecture 10 distinguishes efficiency from the separate problem of social ranking.
+    \item Lecture 11 then proves that under quasi-linear utility in money and balanced transfers, the efficient policy problem collapses to a utilitarian allocation problem.
+\end{itemize}
+
+\begin{policynote}[title={Efficiency then distribution}]
+The final message of Part II is:
+\begin{enumerate}
+    \item choose the allocation that maximizes
+    \[
+    \sum_{i=1}^n v_i(A);
+    \]
+    \item then use balanced transfers to determine how the resulting utility pie is divided.
+\end{enumerate}
+Thus, under the Lecture 11 assumptions, different allocations determine the \emph{size} of the pie, while transfers determine only its \emph{division}.
+\end{policynote}
+
+\begin{examtip}
+If an exam question asks why utilitarianism appears in Lecture 11, the correct answer is not simply ``because it is morally attractive.'' The lecture's actual argument is structural:
+\begin{itemize}
+    \item utility is quasi-linear in money;
+    \item transfers are balanced;
+    \item willingness to pay equals utility difference in money terms;
+    \item therefore Pareto-efficient policies are exactly those based on utilitarian allocations.
+\end{itemize}
+\end{examtip}
+
+\subsection{Part II Revision Checklist}
+
+\begin{examtip}[title={What you should be able to do before the exam}]
+By the end of revision for Part II, you should be able to:
+\begin{enumerate}
+    \item compute reservation prices, consumer surplus, producer surplus, \(EV\), and \(CV\), and state when consumer surplus is exact;
+    \item solve linear tax problems with buyer price, seller price, tax revenue, incidence, and deadweight loss all clearly distinguished;
+    \item interpret an Edgeworth box, identify Pareto improvements, and solve basic two-good, two-consumer competitive-equilibrium problems;
+    \item explain the First and Second Welfare Theorems and state the assumptions under which they are used in the course;
+    \item distinguish SDMs from SWFs, identify Condorcet-type failures, and interpret tangency on the utility possibility frontier;
+    \item state Arrow's theorem accurately without overclaiming what it proves;
+    \item distinguish allocations from policies in Lecture 11, compute willingness to pay under quasi-linear utility, and identify utilitarian allocations;
+    \item explain clearly how Part II separates efficiency questions from distributional or social-choice questions.
+\end{enumerate}
+\end{examtip}
+
+\begin{keyformula}[title={Key Formula: Part II Final Recall Sheet}]
+\begin{align*}
+CS &= \int_0^{x(p)} P(q)\,dq-px(p), \\
+PS &= \int_0^q \bigl(p-MC(\tilde q)\bigr)\,d\tilde q, \\
+V(\text{new},I+CV) &= V(\text{old},I), \\
+V(\text{old},I-EV) &= V(\text{new},I), \\
+SW(Q) &= \int_0^Q \bigl(P_D(q)-P_S(q)\bigr)\,dq, \\
+DWL &= \int_{Q'}^{Q^*} \bigl(P_D(q)-P_S(q)\bigr)\,dq, \\
+\text{interior PE} &\Rightarrow MRS_A=MRS_B, \\
+\text{CE} &\Rightarrow \text{PE}, \\
+\text{PE} &\Rightarrow \text{social optimum for some SWF}, \\
+\text{weighted utilitarian slope} &= -\frac{\gamma_A}{\gamma_B}, \\
+U_i(A,t_i)&=v_i(A)+t_i,\qquad \sum_i t_i=0, \\
+(A,t)\text{ PE policy} &\iff A\text{ utilitarian.}
+\end{align*}
+\end{keyformula}

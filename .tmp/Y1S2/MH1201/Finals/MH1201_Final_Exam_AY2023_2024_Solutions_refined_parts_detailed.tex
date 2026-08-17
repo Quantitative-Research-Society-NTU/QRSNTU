@@ -1,0 +1,1352 @@
+
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Final Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2023/2024, Semester 2}
+\newcommand{\ExamMetaShort}{Final AY23-24}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\Ppoly}{\mathcal{P}}
+\newcommand{\Null}{\operatorname{null}}
+\newcommand{\Range}{\operatorname{range}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\allowdisplaybreaks
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+
+\begin{overview}
+  \item Topics: linear maps on matrix spaces, diagonalisation, eigenspaces, Gram--Schmidt, QR decomposition, matrix-induced inner products, and dimension arguments.
+  \item Strategy: the shortest exam-efficient method is placed first; a second method is included when it gives a genuinely different viewpoint.
+  \item Notation: $\Null(T)$ and $\Range(T)$ denote the kernel and image of a linear map $T$.
+  \item Mark schemes are unofficial but designed to reflect reasonable allocation of method, computation, justification, and final conclusion marks.
+\end{overview}
+
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Question 1 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $n$ be a positive integer. Consider the function
+\[
+T:\M_{n\times n}(\R)\to \M_{n\times n}(\R),\qquad T(M)=M+M^T.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that $T$ is a linear map.
+  \item Fix $n=2$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Determine the standard matrix for $T$.
+    \item Determine a basis for $\Null(T)$.
+    \item Determine a basis for $\Range(T)$.
+  \end{enumerate}
+  \item Show that
+  \[
+  \dim\Null(T)=\frac{n(n-1)}2,\qquad
+  \dim\Range(T)=\frac{n(n+1)}2
+  \]
+  for all $n$.
+\end{enumerate}
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Direct coordinate solution}
+
+\paragraph{(a)}
+For $M,N\in \M_{n\times n}(\R)$ and $c\in\R$, we check the two linearity conditions separately.
+First, using $(M+N)^T=M^T+N^T$, we have
+\[
+T(M+N)=(M+N)+(M+N)^T
+=M+N+M^T+N^T.
+\]
+Rearranging the terms gives
+\[
+T(M+N)=(M+M^T)+(N+N^T)=T(M)+T(N).
+\]
+Next, using $(cM)^T=cM^T$, we get
+\[
+T(cM)=cM+(cM)^T=cM+cM^T=c(M+M^T)=cT(M).
+\]
+Hence $T$ is additive and homogeneous, so
+\[
+\boxed{T\text{ is a linear map}.}
+\]
+
+\paragraph{(b)(i)}
+Now fix $n=2$ and use the ordered standard basis
+\[
+(E_{11},E_{12},E_{21},E_{22}).
+\]
+For
+\[
+M=\begin{bmatrix}a&b\\c&d\end{bmatrix},
+\]
+we have
+\[
+M^T=\begin{bmatrix}a&c\\b&d\end{bmatrix},
+\qquad
+T(M)=M+M^T=
+\begin{bmatrix}2a&b+c\\b+c&2d\end{bmatrix}.
+\]
+Thus, if $M$ has coordinate vector $(a,b,c,d)^T$, then $T(M)$ has coordinate vector
+\[
+(2a,\ b+c,\ b+c,\ 2d)^T.
+\]
+Therefore the standard matrix of $T$ is
+\[
+\boxed{
+[T]=
+\begin{bmatrix}
+2&0&0&0\\
+0&1&1&0\\
+0&1&1&0\\
+0&0&0&2
+\end{bmatrix}.}
+\]
+Equivalently, this matrix may be read column-by-column from
+\[
+T(E_{11})=2E_{11},\quad
+T(E_{12})=E_{12}+E_{21},\quad
+T(E_{21})=E_{12}+E_{21},\quad
+T(E_{22})=2E_{22}.
+\]
+
+\paragraph{(b)(ii)}
+We need to solve $T(M)=0$, i.e.
+\[
+M+M^T=0.
+\]
+Using the expression above,
+\[
+\begin{bmatrix}2a&b+c\\b+c&2d\end{bmatrix}
+=
+\begin{bmatrix}0&0\\0&0\end{bmatrix}.
+\]
+Hence
+\[
+2a=0,\qquad b+c=0,\qquad 2d=0.
+\]
+So
+\[
+a=0,\qquad d=0,\qquad c=-b.
+\]
+Therefore every matrix in the null space has the form
+\[
+M=\begin{bmatrix}0&b\\-b&0\end{bmatrix}
+=b\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+Thus
+\[
+\boxed{
+\Null(T)=\Span\left\{
+\begin{bmatrix}0&1\\-1&0\end{bmatrix}
+\right\}.}
+\]
+
+\paragraph{(b)(iii)}
+For any matrix $M$, the matrix $T(M)=M+M^T$ is symmetric, because
+\[
+T(M)^T=(M+M^T)^T=M^T+M=T(M).
+\]
+So
+\[
+\Range(T)\subseteq\{\text{symmetric }2\times2\text{ matrices}\}.
+\]
+Conversely, if $S$ is symmetric, then $S^T=S$, and
+\[
+T\left(\frac12S\right)=\frac12S+\left(\frac12S\right)^T
+=\frac12S+\frac12S=S.
+\]
+Hence every symmetric $2\times2$ matrix lies in the range. Therefore
+\[
+\Range(T)=\{\text{symmetric }2\times2\text{ matrices}\}.
+\]
+A general symmetric $2\times2$ matrix has the form
+\[
+\begin{bmatrix}x&y\\y&z\end{bmatrix}
+=x\begin{bmatrix}1&0\\0&0\end{bmatrix}
++y\begin{bmatrix}0&1\\1&0\end{bmatrix}
++z\begin{bmatrix}0&0\\0&1\end{bmatrix}.
+\]
+Hence
+\[
+\boxed{
+\Range(T)=\Span\left\{
+\begin{bmatrix}1&0\\0&0\end{bmatrix},
+\begin{bmatrix}0&1\\1&0\end{bmatrix},
+\begin{bmatrix}0&0\\0&1\end{bmatrix}
+\right\}.}
+\]
+
+\paragraph{(c)}
+For general $n$, the null space is the set of all matrices satisfying
+\[
+M+M^T=0.
+\]
+This means $M^T=-M$, so $M$ is skew-symmetric. A skew-symmetric matrix has zero diagonal entries, because
+\[
+m_{ii}=-m_{ii}\quad\Longrightarrow\quad m_{ii}=0.
+\]
+For each pair $i<j$, the entry $m_{ij}$ may be chosen freely, while the entry below the diagonal is then forced to be
+\[
+m_{ji}=-m_{ij}.
+\]
+There are
+\[
+\binom n2=\frac{n(n-1)}2
+\]
+such pairs. Therefore
+\[
+\boxed{\dim\Null(T)=\frac{n(n-1)}2.}
+\]
+
+Similarly, the range is the space of symmetric matrices. A symmetric matrix is determined by its $n$ diagonal entries and its entries above the diagonal. There are $n$ diagonal entries and $\binom n2$ entries above the diagonal, so
+\[
+\dim\Range(T)=n+\binom n2
+=n+\frac{n(n-1)}2
+=\boxed{\frac{n(n+1)}2}.
+\]
+
+\subsubsection{Method 2: Decomposition into symmetric and skew-symmetric parts}
+
+\paragraph{(a)}
+Linearity also follows from the fact that transposition is linear and the identity map is linear. Since
+\[
+T=I+S,
+\]
+where $S(M)=M^T$, the map $T$ is a sum of linear maps and is therefore linear.
+
+\paragraph{(b) and (c)}
+Every matrix $M\in\M_{n\times n}(\R)$ has the unique decomposition
+\[
+M=\frac{M+M^T}{2}+\frac{M-M^T}{2},
+\]
+where
+\[
+\frac{M+M^T}{2}\text{ is symmetric},
+\qquad
+\frac{M-M^T}{2}\text{ is skew-symmetric}.
+\]
+Under $T$,
+\[
+T(M)=M+M^T=2\left(\frac{M+M^T}{2}\right).
+\]
+Thus $T$ doubles the symmetric part and kills the skew-symmetric part. Therefore
+\[
+\Null(T)=\{\text{skew-symmetric matrices}\},
+\qquad
+\Range(T)=\{\text{symmetric matrices}\}.
+\]
+For $n=2$, this gives exactly the bases found in Method 1. For general $n$, counting free entries gives
+\[
+\boxed{\dim\Null(T)=\frac{n(n-1)}2,
+\qquad
+\dim\Range(T)=\frac{n(n+1)}2.}
+\]
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Linearity (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly proves additivity using $(M+N)^T=M^T+N^T$.
+    \item (1) Correctly proves homogeneity using $(cM)^T=cM^T$.
+    \item (1) States the conclusion that $T$ is linear.
+  \end{itemize}
+  \item \textbf{(b) Case $n=2$ (9 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correct standard matrix in the ordered basis $(E_{11},E_{12},E_{21},E_{22})$.
+    \item (3) Correctly solves $M+M^T=0$ and gives a valid basis for $\Null(T)$.
+    \item (3) Identifies the range as the symmetric $2\times2$ matrices and gives a valid basis.
+  \end{itemize}
+  \item \textbf{(c) General dimension formulae (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correctly identifies $\Null(T)$ as the space of skew-symmetric matrices and counts $\binom n2$ free entries.
+    \item (3) Correctly identifies $\Range(T)$ as the space of symmetric matrices and counts $n+\binom n2$ free entries.
+    \item (1) Presents both final dimension formulae clearly.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 2 \hfill (20 Marks)}
+
+\subsection{Problem}
+Let $a$ and $b$ be real numbers such that $b\neq0$. Consider
+\[
+A=\begin{bmatrix}
+0&1&b\\
+4&0&2b\\
+0&0&a
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that the characteristic polynomial for $A$ is $-(a-\lambda)(4-\lambda^2)$. Hence determine the eigenvalues of $A$ in terms of $a$ and $b$.
+  \item Let $b$ be nonzero. Show that $A$ is diagonalizable if and only if $a\neq \beta$. Determine $\beta$.
+  \item Fix $a=-2$, with $b\neq0$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Find a diagonal matrix $D$ and an invertible matrix $P$ such that $A=PDP^{-1}$.
+    \item Determine $A^{20}$.
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Eigenvalue and eigenspace computation}
+
+\paragraph{(a)}
+We compute the characteristic polynomial using $\det(A-\lambda I)$. We have
+\[
+A-\lambda I=
+\begin{bmatrix}
+-\lambda&1&b\\
+4&-\lambda&2b\\
+0&0&a-\lambda
+\end{bmatrix}.
+\]
+This matrix is block upper triangular, so its determinant is the product of the determinant of the top-left $2\times2$ block and the bottom-right entry:
+\[
+\det(A-\lambda I)
+=(a-\lambda)
+\det\begin{bmatrix}-\lambda&1\\4&-\lambda\end{bmatrix}.
+\]
+Now
+\[
+\det\begin{bmatrix}-\lambda&1\\4&-\lambda\end{bmatrix}
+=(-\lambda)(-\lambda)-4
+=\lambda^2-4.
+\]
+Hence
+\[
+\det(A-\lambda I)=(a-\lambda)(\lambda^2-4)
+=-(a-\lambda)(4-\lambda^2).
+\]
+Therefore the eigenvalues are the roots of this polynomial, namely
+\[
+\boxed{a,\ 2,\ -2.}
+\]
+Notice that the eigenvalues do not depend on $b$, although the eigenspaces may depend on $b$.
+
+\paragraph{(b)}
+We are given $b\neq0$. If $a\notin\{2,-2\}$, then the eigenvalues $a,2,-2$ are three distinct real eigenvalues. A $3\times3$ matrix with three distinct eigenvalues has three linearly independent eigenvectors, so $A$ is diagonalizable.
+
+It remains to examine the repeated-eigenvalue cases $a=2$ and $a=-2$.
+
+First suppose $a=2$. Then $\lambda=2$ has algebraic multiplicity $2$. We check the dimension of its eigenspace:
+\[
+A-2I=
+\begin{bmatrix}
+-2&1&b\\
+4&-2&2b\\
+0&0&0
+\end{bmatrix}.
+\]
+The first two rows are independent when $b\neq0$. Indeed, if the second row were a multiple of the first row, then comparing the first entry gives the multiplier $-2$, but then the third entry would have to be $-2b$, not $2b$. Since $b\neq0$, this is impossible. Hence
+\[
+\rank(A-2I)=2,
+\qquad
+\dim E_2=3-2=1.
+\]
+But $\lambda=2$ has algebraic multiplicity $2$ and geometric multiplicity $1$, so $A$ is not diagonalizable when $a=2$.
+
+Next suppose $a=-2$. Then $\lambda=-2$ has algebraic multiplicity $2$. We compute
+\[
+A+2I=
+\begin{bmatrix}
+2&1&b\\
+4&2&2b\\
+0&0&0
+\end{bmatrix}.
+\]
+Here the second row is exactly twice the first row, so
+\[
+\rank(A+2I)=1,
+\qquad
+\dim E_{-2}=3-1=2.
+\]
+Thus the repeated eigenvalue $-2$ has a two-dimensional eigenspace. The remaining eigenvalue $2$ contributes one more independent eigenvector. Therefore $A$ has three linearly independent eigenvectors and is diagonalizable when $a=-2$.
+
+Combining the cases, the only value of $a$ for which diagonalizability fails is $a=2$. Therefore
+\[
+\boxed{\beta=2,
+\qquad
+A\text{ is diagonalizable if and only if }a\neq2.}
+\]
+
+\paragraph{(c)(i)}
+Now fix $a=-2$ with $b\neq0$. Then
+\[
+A=
+\begin{bmatrix}
+0&1&b\\
+4&0&2b\\
+0&0&-2
+\end{bmatrix}.
+\]
+We find eigenvectors for the eigenvalues $2$ and $-2$.
+
+For $\lambda=2$,
+\[
+A-2I=
+\begin{bmatrix}
+-2&1&b\\
+4&-2&2b\\
+0&0&-4
+\end{bmatrix}.
+\]
+Solving $(A-2I)x=0$ gives from the third row
+\[
+-4x_3=0\quad\Longrightarrow\quad x_3=0.
+\]
+Then the first row gives
+\[
+-2x_1+x_2=0
+\quad\Longrightarrow\quad x_2=2x_1.
+\]
+Taking $x_1=1$, we get the eigenvector
+\[
+v_1=\begin{bmatrix}1\\2\\0\end{bmatrix}.
+\]
+
+For $\lambda=-2$,
+\[
+A+2I=
+\begin{bmatrix}
+2&1&b\\
+4&2&2b\\
+0&0&0
+\end{bmatrix}.
+\]
+The second row is twice the first, so the eigenspace is determined by the single equation
+\[
+2x_1+x_2+bx_3=0.
+\]
+Two convenient independent choices are:
+\[
+\begin{array}{c|ccc}
+ &x_1&x_2&x_3\\ \hline
+v_2&1&-2&0\\
+v_3&0&-b&1
+\end{array}
+\]
+Thus
+\[
+v_2=\begin{bmatrix}1\\-2\\0\end{bmatrix},
+\qquad
+v_3=\begin{bmatrix}0\\-b\\1\end{bmatrix}.
+\]
+Taking these eigenvectors as the columns of $P$, in the order corresponding to eigenvalues $2,-2,-2$, gives
+\[
+\boxed{
+P=
+\begin{bmatrix}
+1&1&0\\
+2&-2&-b\\
+0&0&1
+\end{bmatrix},
+\qquad
+D=\diag(2,-2,-2).}
+\]
+Since the columns of $P$ are linearly independent eigenvectors, $P$ is invertible. Therefore
+\[
+\boxed{A=PDP^{-1}.}
+\]
+
+\paragraph{(c)(ii)}
+Using the diagonalisation from part (c)(i),
+\[
+A^{20}=(PDP^{-1})^{20}=PD^{20}P^{-1}.
+\]
+Now
+\[
+D^{20}
+=\diag(2^{20},(-2)^{20},(-2)^{20}).
+\]
+Since $20$ is even,
+\[
+(-2)^{20}=2^{20}.
+\]
+Therefore
+\[
+D^{20}=2^{20}I_3.
+\]
+Hence
+\[
+A^{20}=P(2^{20}I_3)P^{-1}=2^{20}PP^{-1}=2^{20}I_3.
+\]
+Thus
+\[
+\boxed{A^{20}=2^{20}I_3=1{,}048{,}576I_3.}
+\]
+
+\subsubsection{Method 2: Minimal-polynomial viewpoint for the power}
+
+\paragraph{(c)(ii)}
+For $a=-2$, part (b) shows that $A$ is diagonalizable and its only eigenvalues are $2$ and $-2$. Hence its minimal polynomial has no repeated factors and divides
+\[
+(x-2)(x+2)=x^2-4.
+\]
+Therefore
+\[
+A^2-4I_3=0,
+\qquad\text{so}\qquad
+A^2=4I_3.
+\]
+Raising both sides to the tenth power gives
+\[
+A^{20}=(A^2)^{10}=(4I_3)^{10}=4^{10}I_3=2^{20}I_3.
+\]
+This gives the same final answer without explicitly multiplying $P$, $D$, and $P^{-1}$.
+
+\subsection{Mark Scheme (20 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Characteristic polynomial and eigenvalues (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Recognises or uses block upper-triangular determinant structure.
+    \item (2) Computes $\det(A-\lambda I)=-(a-\lambda)(4-\lambda^2)$ correctly.
+    \item (1) States eigenvalues $a,2,-2$.
+  \end{itemize}
+  \item \textbf{(b) Diagonalizability condition (6 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (1) Notes that distinct eigenvalues imply diagonalizability when $a\neq\pm2$.
+    \item (2) Correctly shows the case $a=2$ is defective using $\dim E_2=1$.
+    \item (2) Correctly shows the case $a=-2$ has enough eigenvectors using $\dim E_{-2}=2$.
+    \item (1) Concludes $\beta=2$ and states the iff condition.
+  \end{itemize}
+  \item \textbf{(c) Diagonalisation and power when $a=-2$ (9 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Finds correct eigenvectors for $\lambda=2$ and $\lambda=-2$.
+    \item (2) Forms valid $P$ and $D$ with $A=PDP^{-1}$.
+    \item (2) Uses $A^{20}=PD^{20}P^{-1}$ or an equivalent minimal-polynomial argument.
+    \item (2) Gives $A^{20}=2^{20}I_3=1{,}048{,}576I_3$.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 3 \hfill (15 Marks)}
+
+\subsection{Problem}
+Consider
+\[
+A=\begin{bmatrix}
+8&-2&-3\\
+-6&4&3\\
+-6&2&5
+\end{bmatrix}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that both $(1,3,0)^T$ and $(1,0,2)^T$ are eigenvectors of $A$. Furthermore, show that the eigenvalues corresponding to these eigenvectors are the same.
+  \item Let $B$ be another $3\times3$ matrix with eigenvalue $\lambda$. Suppose that the eigenspace of $B$ corresponding to $\lambda$ has dimension two. Show that $A+B$ has an eigenvalue $2+\lambda$.
+\end{enumerate}
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Dimension-count intersection argument}
+
+\paragraph{(a)}
+Let
+\[
+v_1=\begin{bmatrix}1\\3\\0\end{bmatrix},
+\qquad
+v_2=\begin{bmatrix}1\\0\\2\end{bmatrix}.
+\]
+We verify the eigenvector condition directly.
+
+For $v_1$,
+\[
+Av_1=
+\begin{bmatrix}
+8&-2&-3\\
+-6&4&3\\
+-6&2&5
+\end{bmatrix}
+\begin{bmatrix}1\\3\\0\end{bmatrix}
+=
+\begin{bmatrix}
+8-6+0\\
+-6+12+0\\
+-6+6+0
+\end{bmatrix}
+=
+\begin{bmatrix}2\\6\\0\end{bmatrix}.
+\]
+Since
+\[
+\begin{bmatrix}2\\6\\0\end{bmatrix}
+=2\begin{bmatrix}1\\3\\0\end{bmatrix}=2v_1,
+\]
+$v_1$ is an eigenvector of $A$ with eigenvalue $2$.
+
+For $v_2$,
+\[
+Av_2=
+\begin{bmatrix}
+8&-2&-3\\
+-6&4&3\\
+-6&2&5
+\end{bmatrix}
+\begin{bmatrix}1\\0\\2\end{bmatrix}
+=
+\begin{bmatrix}
+8+0-6\\
+-6+0+6\\
+-6+0+10
+\end{bmatrix}
+=
+\begin{bmatrix}2\\0\\4\end{bmatrix}.
+\]
+Since
+\[
+\begin{bmatrix}2\\0\\4\end{bmatrix}
+=2\begin{bmatrix}1\\0\\2\end{bmatrix}=2v_2,
+\]
+$v_2$ is also an eigenvector of $A$ with eigenvalue $2$.
+Therefore both given vectors are eigenvectors corresponding to the same eigenvalue
+\[
+\boxed{2.}
+\]
+
+\paragraph{(b)}
+From part (a), both $v_1$ and $v_2$ lie in the eigenspace of $A$ corresponding to the eigenvalue $2$. They are linearly independent because neither is a scalar multiple of the other. Hence
+\[
+E_A:=\Span\{v_1,v_2\}
+\]
+is a two-dimensional subspace of $\R^3$, and every nonzero vector $x\in E_A$ satisfies
+\[
+Ax=2x.
+\]
+
+Let $E_B(\lambda)$ be the eigenspace of $B$ corresponding to $\lambda$. By assumption,
+\[
+\dim E_B(\lambda)=2.
+\]
+Both $E_A$ and $E_B(\lambda)$ are subspaces of $\R^3$. We use the dimension formula
+\[
+\dim(E_A+E_B(\lambda))
+=\dim E_A+
+\dim E_B(\lambda)-\dim(E_A\cap E_B(\lambda)).
+\]
+Since $E_A+E_B(\lambda)$ is a subspace of $\R^3$,
+\[
+\dim(E_A+E_B(\lambda))\le3.
+\]
+Therefore
+\[
+3\ge 2+2-\dim(E_A\cap E_B(\lambda)).
+\]
+Rearranging gives
+\[
+\dim(E_A\cap E_B(\lambda))\ge1.
+\]
+Thus there exists a nonzero vector
+\[
+0\neq x\in E_A\cap E_B(\lambda).
+\]
+Because $x\in E_A$,
+\[
+Ax=2x.
+\]
+Because $x\in E_B(\lambda)$,
+\[
+Bx=\lambda x.
+\]
+Hence
+\[
+(A+B)x=Ax+Bx=2x+\lambda x=(2+\lambda)x.
+\]
+Since $x\neq0$, this shows that $2+\lambda$ is an eigenvalue of $A+B$. Therefore
+\[
+\boxed{2+
+\lambda\text{ is an eigenvalue of }A+B.}
+\]
+
+\subsubsection{Method 2: Geometric viewpoint}
+
+\paragraph{(b)}
+The eigenspace
+\[
+E_A=\Span\{v_1,v_2\}
+\]
+is a plane through the origin in $\R^3$. The eigenspace $E_B(\lambda)$ is also a plane through the origin, because it has dimension two. Two planes through the origin in $\R^3$ must intersect in at least a line, so they share a nonzero vector $x$.
+
+For this common nonzero vector,
+\[
+Ax=2x
+\qquad\text{and}\qquad
+Bx=\lambda x.
+\]
+Therefore
+\[
+(A+B)x=(2+
+\lambda)x,
+\]
+which proves that $2+
+\lambda$ is an eigenvalue of $A+B$.
+
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Eigenvector verification (5 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly computes $A(1,3,0)^T=2(1,3,0)^T$.
+    \item (2) Correctly computes $A(1,0,2)^T=2(1,0,2)^T$.
+    \item (1) States that the common eigenvalue is $2$.
+  \end{itemize}
+  \item \textbf{(b) Existence of eigenvalue $2+\lambda$ (10 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Defines or identifies the two-dimensional eigenspace $E_A=\Span\{v_1,v_2\}$.
+     \item (3) Correctly argues that $E_A$ and $E_B(\lambda)$ have a nonzero intersection.
+    \item (2) Chooses a nonzero vector $x$ in the intersection and states $Ax=2x$, $Bx=\lambda x$.
+    \item (2) Computes $(A+B)x=(2+\lambda)x$.
+    \item (1) Concludes that $2+\lambda$ is an eigenvalue.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 4 \hfill (15 Marks)}
+
+\subsection{Problem}
+\begin{enumerate}[label=(\alph*)]
+  \item Consider the following vectors in $\R^3$ with the usual Euclidean inner product:
+  \[
+  u_1=\begin{bmatrix}0\\1\\0\end{bmatrix},
+  \qquad
+  u_2=\begin{bmatrix}0\\4\\8\end{bmatrix},
+  \qquad
+  u_3=\begin{bmatrix}5\\7\\6\end{bmatrix}.
+  \]
+  Apply the Gram--Schmidt procedure to $\{u_1,u_2,u_3\}$ to obtain an orthonormal basis for $\R^3$.
+  \item Let
+  \[
+  A=\begin{bmatrix}0&0&5\\1&4&7\\0&8&6\end{bmatrix}.
+  \]
+  Find the QR-decomposition for $A$, i.e. find an orthogonal matrix $Q$ and an upper-triangular matrix $R$ such that $A=QR$.
+\end{enumerate}
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Gram--Schmidt on the columns}
+
+\paragraph{(a)}
+We apply Gram--Schmidt to
+\[
+u_1=\begin{bmatrix}0\\1\\0\end{bmatrix},
+\qquad
+u_2=\begin{bmatrix}0\\4\\8\end{bmatrix},
+\qquad
+u_3=\begin{bmatrix}5\\7\\6\end{bmatrix}.
+\]
+
+First,
+\[
+\|u_1\|=\sqrt{0^2+1^2+0^2}=1.
+\]
+Hence
+\[
+e_1=\frac{u_1}{\|u_1\|}
+=\begin{bmatrix}0\\1\\0\end{bmatrix}.
+\]
+
+Next, subtract the projection of $u_2$ onto $e_1$:
+\[
+u_2\cdot e_1=
+\begin{bmatrix}0\\4\\8\end{bmatrix}\cdot
+\begin{bmatrix}0\\1\\0\end{bmatrix}=4.
+\]
+Thus
+\[
+\operatorname{proj}_{e_1}(u_2)=(u_2\cdot e_1)e_1=4e_1
+=\begin{bmatrix}0\\4\\0\end{bmatrix}.
+\]
+So
+\[
+w_2=u_2-4e_1
+=\begin{bmatrix}0\\4\\8\end{bmatrix}
+-\begin{bmatrix}0\\4\\0\end{bmatrix}
+=\begin{bmatrix}0\\0\\8\end{bmatrix}.
+\]
+Since
+\[
+\|w_2\|=8,
+\]
+we get
+\[
+e_2=\frac{w_2}{\|w_2\|}
+=\begin{bmatrix}0\\0\\1\end{bmatrix}.
+\]
+
+Finally, subtract the projections of $u_3$ onto both $e_1$ and $e_2$:
+\[
+u_3\cdot e_1=
+\begin{bmatrix}5\\7\\6\end{bmatrix}\cdot
+\begin{bmatrix}0\\1\\0\end{bmatrix}=7,
+\qquad
+u_3\cdot e_2=
+\begin{bmatrix}5\\7\\6\end{bmatrix}\cdot
+\begin{bmatrix}0\\0\\1\end{bmatrix}=6.
+\]
+Therefore
+\[
+w_3=u_3-7e_1-6e_2
+=\begin{bmatrix}5\\7\\6\end{bmatrix}
+-\begin{bmatrix}0\\7\\0\end{bmatrix}
+-\begin{bmatrix}0\\0\\6\end{bmatrix}
+=\begin{bmatrix}5\\0\\0\end{bmatrix}.
+\]
+Since
+\[
+\|w_3\|=5,
+\]
+we obtain
+\[
+e_3=\frac{w_3}{\|w_3\|}
+=\begin{bmatrix}1\\0\\0\end{bmatrix}.
+\]
+Thus an orthonormal basis for $\R^3$ is
+\[
+\boxed{\left\{
+\begin{bmatrix}0\\1\\0\end{bmatrix},
+\begin{bmatrix}0\\0\\1\end{bmatrix},
+\begin{bmatrix}1\\0\\0\end{bmatrix}
+\right\}.}
+\]
+
+\paragraph{(b)}
+The columns of $A$ are precisely
+\[
+u_1,\ u_2,\ u_3.
+\]
+From part (a), the orthonormal vectors are
+\[
+e_1=\begin{bmatrix}0\\1\\0\end{bmatrix},
+\qquad
+e_2=\begin{bmatrix}0\\0\\1\end{bmatrix},
+\qquad
+e_3=\begin{bmatrix}1\\0\\0\end{bmatrix}.
+\]
+Therefore
+\[
+Q=[e_1\ e_2\ e_3]
+=\begin{bmatrix}
+0&0&1\\
+1&0&0\\
+0&1&0
+\end{bmatrix}.
+\]
+Since the columns of $Q$ are orthonormal, $Q$ is an orthogonal matrix, i.e.
+\[
+Q^TQ=I.
+\]
+
+To form $R$, write each original column $u_j$ in terms of the orthonormal basis $e_1,e_2,e_3$:
+\[
+u_1=e_1,
+\]
+\[
+u_2=4e_1+8e_2,
+\]
+\[
+u_3=7e_1+6e_2+5e_3.
+\]
+Therefore the coordinate columns form
+\[
+R=
+\begin{bmatrix}
+1&4&7\\
+0&8&6\\
+0&0&5
+\end{bmatrix}.
+\]
+Equivalently, since $Q$ is orthogonal,
+\[
+R=Q^TA.
+\]
+Thus
+\[
+\boxed{
+A=QR,
+\qquad
+Q=\begin{bmatrix}0&0&1\\1&0&0\\0&1&0\end{bmatrix},
+\qquad
+R=\begin{bmatrix}1&4&7\\0&8&6\\0&0&5\end{bmatrix}.}
+\]
+
+\subsubsection{Method 2: Reading $R$ from inner products}
+
+\paragraph{(b)}
+After obtaining $e_1,e_2,e_3$ in part (a), the entries of $R$ may be found from
+\[
+R_{ij}=e_i\cdot u_j\qquad (1\le i\le j\le3),
+\]
+with $R_{ij}=0$ for $i>j$ because $R$ is upper triangular.
+Computing these inner products gives
+\[
+R_{11}=e_1\cdot u_1=1,
+\qquad
+R_{12}=e_1\cdot u_2=4,
+\qquad
+R_{13}=e_1\cdot u_3=7,
+\]
+\[
+R_{22}=e_2\cdot u_2=8,
+\qquad
+R_{23}=e_2\cdot u_3=6,
+\qquad
+R_{33}=e_3\cdot u_3=5.
+\]
+Hence
+\[
+R=
+\begin{bmatrix}
+1&4&7\\
+0&8&6\\
+0&0&5
+\end{bmatrix},
+\]
+which is the same result as in Method 1.
+
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Gram--Schmidt (8 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correctly obtains $e_1=(0,1,0)^T$.
+    \item (2) Correctly subtracts the projection of $u_2$ and obtains $e_2=(0,0,1)^T$.
+    \item (3) Correctly subtracts projections of $u_3$ onto $e_1,e_2$ and obtains $e_3=(1,0,0)^T$.
+    \item (1) Presents the final orthonormal basis clearly.
+  \end{itemize}
+  \item \textbf{(b) QR decomposition (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Forms an orthogonal matrix $Q$ using the orthonormal vectors as columns.
+    \item (3) Computes the correct upper-triangular matrix $R$.
+    \item (1) Checks or states that $A=QR$.
+    \item (1) Ensures $R$ is upper triangular and the dimensions are correct.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 5 \hfill (15 Marks)}
+
+\subsection{Problem}
+Consider the vector space $\R^2$. Fix $c$ and consider
+\[
+A=\begin{bmatrix}25&5\\5&c\end{bmatrix}.
+\]
+Define
+\[
+\ip{u}{v}=u^TAv,
+\qquad u,v\in\R^2.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that the product is both additive and homogeneous in the first slot.
+  \item Show that the product is symmetric.
+  \item Determine the values of $c$ for which the product is an inner product.
+\end{enumerate}
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Positive-definite matrix criterion}
+
+\paragraph{(a)}
+Let $u_1,u_2,v\in\R^2$ and $\alpha\in\R$. We prove additivity and homogeneity in the first slot.
+
+For additivity,
+\[
+\ip{u_1+u_2}{v}=(u_1+u_2)^TAv.
+\]
+Using $(u_1+u_2)^T=u_1^T+u_2^T$, we get
+\[
+\ip{u_1+u_2}{v}
+=(u_1^T+u_2^T)Av
+=u_1^TAv+u_2^TAv
+=\ip{u_1}{v}+\ip{u_2}{v}.
+\]
+For homogeneity,
+\[
+\ip{\alpha u}{v}=(\alpha u)^TAv
+=\alpha u^TAv
+=\alpha\ip{u}{v}.
+\]
+Hence the product is additive and homogeneous in the first slot.
+
+\paragraph{(b)}
+We show that the product is symmetric. Since
+\[
+A=\begin{bmatrix}25&5\\5&c\end{bmatrix},
+\]
+we have
+\[
+A^T=A.
+\]
+Also, $u^TAv$ is a $1\times1$ scalar, so it is equal to its transpose. Therefore
+\[
+\ip{u}{v}=u^TAv=(u^TAv)^T.
+\]
+Using $(XYZ)^T=Z^TY^TX^T$, we get
+\[
+(u^TAv)^T=v^TA^T u.
+\]
+Since $A^T=A$,
+\[
+v^TA^Tu=v^TAu=\ip{v}{u}.
+\]
+Thus
+\[
+\boxed{\ip{u}{v}=\ip{v}{u}.}
+\]
+
+\paragraph{(c)}
+For the product to be an inner product on $\R^2$, after parts (a) and (b), the remaining essential condition is positive definiteness:
+\[
+\ip{u}{u}>0\quad\text{for all }u\neq0.
+\]
+Because $A$ is real symmetric, the product $u^TAv$ defines an inner product exactly when $A$ is positive definite.
+
+For a real symmetric $2\times2$ matrix, Sylvester's criterion says that $A$ is positive definite iff its leading principal minors are positive. Here the first leading principal minor is
+\[
+25>0.
+\]
+The determinant is
+\[
+\det A=25c-5\cdot5=25c-25=25(c-1).
+\]
+Thus $A$ is positive definite iff
+\[
+25(c-1)>0.
+\]
+This is equivalent to
+\[
+c>1.
+\]
+Therefore the product is an inner product exactly when
+\[
+\boxed{c>1.}
+\]
+
+\subsubsection{Method 2: Completing the square}
+
+\paragraph{(c)}
+Let $u=(x,y)^T$. Then
+\[
+\ip{u}{u}
+=\begin{bmatrix}x&y\end{bmatrix}
+\begin{bmatrix}25&5\\5&c\end{bmatrix}
+\begin{bmatrix}x\\y\end{bmatrix}.
+\]
+First compute
+\[
+\begin{bmatrix}25&5\\5&c\end{bmatrix}
+\begin{bmatrix}x\\y\end{bmatrix}
+=
+\begin{bmatrix}25x+5y\\5x+cy\end{bmatrix}.
+\]
+Hence
+\[
+\ip{u}{u}=x(25x+5y)+y(5x+cy)
+=25x^2+10xy+cy^2.
+\]
+Completing the square,
+\[
+25x^2+10xy+cy^2
+=(5x+y)^2+(c-1)y^2.
+\]
+If $c>1$, then for any nonzero $(x,y)$:
+\begin{itemize}[leftmargin=1.6em]
+  \item if $y\neq0$, then $(c-1)y^2>0$;
+  \item if $y=0$ and $x\neq0$, then $(5x+y)^2=25x^2>0$.
+\end{itemize}
+Thus $\ip{u}{u}>0$ for all nonzero $u$.
+
+If $c=1$, choose $u=(1,-5)^T$. Then
+\[
+\ip{u}{u}=(5-5)^2+0=0
+\]
+even though $u\neq0$, so positive definiteness fails.
+
+If $c<1$, choose again $u=(1,-5)^T$. Then
+\[
+\ip{u}{u}=(5-5)^2+(c-1)(-5)^2=25(c-1)<0,
+\]
+so positive definiteness also fails. Hence the necessary and sufficient condition is
+\[
+\boxed{c>1.}
+\]
+
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{(a) Linearity in the first slot (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Correct proof of additivity.
+    \item (2) Correct proof of homogeneity.
+  \end{itemize}
+  \item \textbf{(b) Symmetry (4 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Notes that $A$ is symmetric or uses $A^T=A$.
+    \item (2) Correctly proves $u^TAv=v^TAu$.
+  \end{itemize}
+  \item \textbf{(c) Inner product condition (7 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (2) Recognises that positive definiteness is the remaining condition.
+    \item (3) Correctly applies the $2\times2$ positive-definite criterion or completes the square.
+    \item (1) Handles the failure when $c\le1$ or explains necessity.
+    \item (1) States the final answer $c>1$.
+  \end{itemize}
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Question 6 \hfill (15 Marks)}
+
+\subsection{Problem}
+Let $V$ be a vector space, and let $\{v_1,v_2,\ldots,v_{2024}\}$ be a set of linearly independent vectors in $V$. Pick any $w\in V$ and set
+\[
+U=\Span\{v_1+w,v_2+w,\ldots,v_{2024}+w\}.
+\]
+Show that
+\[
+\dim(U)\ge 2023.
+\]
+
+\subsection{Solution}
+
+
+\subsubsection{Method 1: Use differences inside the span}
+
+This question has one main part: prove the lower bound $\dim(U)\ge2023$.
+
+For each $i=1,2,\ldots,2023$, consider the difference
+\[
+(v_i+w)-(v_{2024}+w).
+\]
+The vector $v_i+w$ is one of the spanning vectors of $U$, and $v_{2024}+w$ is also one of the spanning vectors of $U$. Since $U$ is a subspace, it is closed under subtraction. Therefore
+\[
+(v_i+w)-(v_{2024}+w)\in U.
+\]
+But
+\[
+(v_i+w)-(v_{2024}+w)=v_i-v_{2024}.
+\]
+Hence
+\[
+v_1-v_{2024},\ v_2-v_{2024},\ \ldots,\ v_{2023}-v_{2024}\in U.
+\]
+
+We now show that these $2023$ vectors are linearly independent. Suppose
+\[
+\sum_{i=1}^{2023}c_i(v_i-v_{2024})=0.
+\]
+Expanding the left-hand side gives
+\[
+\sum_{i=1}^{2023}c_i v_i-\sum_{i=1}^{2023}c_i v_{2024}=0.
+\]
+Since $v_{2024}$ is fixed, this can be written as
+\[
+\sum_{i=1}^{2023}c_i v_i-
+\left(\sum_{i=1}^{2023}c_i\right)v_{2024}=0.
+\]
+This is a linear relation among the linearly independent vectors
+\[
+v_1,v_2,\ldots,v_{2024}.
+\]
+Therefore every coefficient in this relation must be zero. In particular, the coefficients of $v_1,v_2,\ldots,v_{2023}$ give
+\[
+c_1=c_2=\cdots=c_{2023}=0.
+\]
+Hence
+\[
+v_1-v_{2024},\ v_2-v_{2024},\ \ldots,\ v_{2023}-v_{2024}
+\]
+are linearly independent.
+
+Since $U$ contains these $2023$ linearly independent vectors, its dimension must be at least $2023$. Therefore
+\[
+\boxed{\dim(U)\ge2023.}
+\]
+
+\subsubsection{Method 2: Rank--nullity contradiction}
+
+Define
+\[
+F:\R^{2024}\to U,
+\qquad
+F(c_1,\ldots,c_{2024})=\sum_{i=1}^{2024}c_i(v_i+w).
+\]
+By construction, the range of $F$ is exactly $U$, so
+\[
+\rank(F)=\dim(U).
+\]
+Suppose for contradiction that
+\[
+\dim(U)\le2022.
+\]
+Then by rank--nullity,
+\[
+\dim\Null(F)=2024-
+ank(F)
+=2024-
+\dim(U)
+\ge2.
+\]
+Now consider the hyperplane
+\[
+H=\left\{c=(c_1,\ldots,c_{2024})\in\R^{2024}:\sum_{i=1}^{2024}c_i=0\right\}.
+\]
+This is a subspace of $\R^{2024}$ of dimension $2023$. Since
+\[
+\dim\Null(F)\ge2
+\qquad\text{and}\qquad
+\dim H=2023,
+\]
+the dimension formula gives
+\[
+\dim(\Null(F)\cap H)
+\ge \dim\Null(F)+\dim H-2024
+\ge 2+2023-2024=1.
+\]
+So there exists a nonzero vector
+\[
+0\neq c=(c_1,\ldots,c_{2024})\in\Null(F)\cap H.
+\]
+Because $c\in\Null(F)$,
+\[
+0=F(c)=\sum_{i=1}^{2024}c_i(v_i+w).
+\]
+Expanding this gives
+\[
+0=\sum_{i=1}^{2024}c_i v_i+
+\left(\sum_{i=1}^{2024}c_i\right)w.
+\]
+Because $c\in H$,
+\[
+\sum_{i=1}^{2024}c_i=0.
+\]
+Thus
+\[
+\sum_{i=1}^{2024}c_i v_i=0.
+\]
+Since $v_1,\ldots,v_{2024}$ are linearly independent, all coefficients must be zero:
+\[
+c_1=c_2=\cdots=c_{2024}=0.
+\]
+This contradicts $c\neq0$. Hence our assumption was false, and therefore
+\[
+\boxed{\dim(U)\ge2023.}
+\]
+
+\subsection{Mark Scheme (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{Proof using differences (15 marks)}
+  \begin{itemize}[leftmargin=1.6em]
+    \item (3) Correctly observes that $v_i-v_{2024}=(v_i+w)-(v_{2024}+w)$ lies in $U$ for $1\le i\le2023$.
+    \item (4) Sets up a linear relation among the vectors $v_i-v_{2024}$.
+    \item (4) Converts it into a linear relation among $v_1,\ldots,v_{2024}$.
+    \item (3) Uses the linear independence of $v_1,
+\ldots,v_{2024}$ to show all coefficients are zero.
+    \item (1) Concludes $U$ contains $2023$ linearly independent vectors and hence $\dim(U)\ge2023$.
+  \end{itemize}
+  \item Alternative rank--nullity/intersection arguments should receive full credit if they establish the same lower bound rigorously.
+\end{itemize}
+
+\end{document}

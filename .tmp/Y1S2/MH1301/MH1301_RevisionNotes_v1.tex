@@ -1,0 +1,1163 @@
+\documentclass[12pt]{article}
+
+%==================== PACKAGES ====================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{draftwatermark}
+
+%==================================================
+% COURSE METADATA
+%==================================================
+\newcommand{\CourseCode}{MH1301}
+\newcommand{\CourseName}{Discrete Mathematics}
+\newcommand{\DocType}{Revision Notes}
+\newcommand{\AcademicYear}{Academic Year 2025--2026}
+
+%==================================================
+% TCOLORBOX THEOREM STYLES
+%==================================================
+
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{enhanced,
+ breakable=false,
+ colback=green!5!white,
+ colframe=green!40!black,
+ colbacktitle=green!50!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{def}
+
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{enhanced,
+ breakable=false,
+ colback=blue!3!white,
+ colframe=blue!40!black,
+ colbacktitle=blue!55!black,
+ coltitle=white,
+ fonttitle=\bfseries,
+ title filled,
+ boxed title style={
+   size=small,
+   top=2pt, bottom=2pt,
+   left=6pt, right=6pt,
+   arc=1pt, outer arc=1pt
+ },
+ boxrule=0.9pt,
+ arc=1pt,
+ left=8pt, right=8pt, top=10pt, bottom=8pt,
+ before skip=12pt, after skip=12pt
+}{thm}
+
+\newtcolorbox{keyformula}[1][]{
+    enhanced,
+    breakable=false,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Key Formula,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    breakable=false,
+    colback=brown!5!white,
+    colframe=brown!75!black,
+    title=Worked Example,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{commonmistake}[1][]{
+    enhanced,
+    breakable=false,
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Common Mistake,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{policynote}[1][]{
+    enhanced,
+    breakable=false,
+    colback=yellow!10!white,
+    colframe=orange!75!black,
+    title=Policy Application,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{examtip}[1][]{
+    enhanced,
+    breakable=false,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    title=Exam Focus,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+\newtcolorbox{extension}[1][]{
+    enhanced,
+    breakable=false,
+    colback=cyan!5!white,
+    colframe=cyan!75!black,
+    title=Extension,
+    fonttitle=\bfseries,
+    boxrule=0.9pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    #1
+}
+
+%==================================================
+% TITLE / HEADER / FOOTER / WATERMARK
+%==================================================
+
+\title{%
+    \vspace{-0.5cm}
+    {\Large\bfseries \CourseCode\ \CourseName{} -- \DocType}
+}
+
+\author{\AcademicYear \\[0.3em]
+\textit{\href{https://qrsntu.org}{\color{black}Quantitative Research Society @ NTU}}}
+\date{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+\fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\SetWatermarkText{QRS@NTU --- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName{} -- \DocType}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only.
+ This document is provided for educational purposes and does not constitute an
+ official question paper, answer key, or any formally authorised academic
+ material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={\CourseCode\ \CourseName{} -- \DocType},
+    pdfauthor={Quantitative Research Society, NTU},
+    pdfsubject={\CourseName},
+    pdfkeywords={MH1301, discrete mathematics, counting, recurrence relations, graph theory, QRS@NTU}
+}
+
+\setcounter{tocdepth}{3}
+\allowdisplaybreaks
+
+%==================================================
+% DOCUMENT
+%==================================================
+\begin{document}
+\maketitle
+\thispagestyle{plainfirst}
+
+\begin{abstract}
+\noindent
+These revision notes are organised around the official MH1301 handout sequence for AY2025/2026. The main body is split by part and handout, while the appendix collects compact reference material: notation, core identities, proof patterns, revision checklists, and common pitfalls. Chapter-level mathematical development remains inside dedicated chapter files so that the project can grow cleanly across the whole module.
+\end{abstract}
+
+\vspace{0.5cm}
+
+\newpage
+\tableofcontents
+\newpage
+
+\newgeometry{left=0.72in,right=0.72in,top=0.95in,bottom=0.95in}
+\fontsize{10.5pt}{11.9pt}\selectfont
+\pagestyle{main}
+
+%==================================================
+\section*{How to Use This Document}
+\addcontentsline{toc}{section}{How to Use This Document}
+%==================================================
+
+\subsection*{1. Purpose of the notes}
+
+These notes are designed to be more than a typed copy of lecture material and less than a full textbook. Their purpose is to give a \emph{revision-oriented working version} of MH1301: each handout is reorganised so that definitions, standard counting mechanisms, proof patterns, and common traps appear in a form that is useful both during the semester and during exam preparation.
+
+The guiding principle is that discrete mathematics is not well revised by memorising isolated answers. Most questions in this module are solved by choosing a correct representation of the objects being counted or analysed. For that reason, the notes repeatedly emphasise the following workflow:
+\[
+\begin{aligned}
+\text{identify the objects}
+&\ \longrightarrow\ \text{decide the right model}\\
+&\ \longrightarrow\ \text{choose the right counting/proof tool}\\
+&\ \longrightarrow\ \text{check edge cases and overlap.}
+\end{aligned}
+\]
+
+A useful way to think about the document is the following.
+\begin{itemize}[leftmargin=*]
+    \item The \textbf{main exposition} tells you what the formal statements mean and when they should be used.
+    \item The \textbf{worked examples} show how those statements appear in actual MH1301-style questions.
+    \item The \textbf{common mistake} boxes tell you where students usually lose marks.
+    \item The \textbf{exam focus} boxes isolate high-yield checks, recognition patterns, or revision routines.
+    \item The \textbf{extension} boxes provide concise structural viewpoints that are valuable once the core syllabus statement is already understood.
+\end{itemize}
+
+Used properly, the notes should help you move from passive recognition (``I have seen this formula before'') to active control (``I can recognise the type of problem, justify the method, and reproduce the argument myself'').
+
+\subsection*{2. Structure by part and handout}
+
+The document follows the module handout structure rather than reorganising the entire course by topic. This is deliberate. In revision, it is useful to preserve the same broad sequencing as lectures while making the internal structure of each handout more explicit.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Part I: Counting.} These handouts develop the modelling language of the course: product rule, sum rule, inclusion--exclusion, permutations, combinations, binomial ideas, and related methods. Much of the rest of the module still relies on the same discipline of representing objects carefully.
+    \item \textbf{Part II: Recurrence Relations.} These handouts shift from static counting formulas to recursively defined sequences. When revising this part, it is especially important to distinguish the recurrence itself, the initial conditions, and the method used to derive a closed form.
+    \item \textbf{Part III: Graph Theory.} These handouts introduce graph language, degree arguments, connectivity, paths, cycles, and trees. Here the emphasis moves from counting choices to verifying definitions and applying structural theorems correctly.
+\end{itemize}
+
+Within each chapter file, the intended reading order is usually:
+\begin{enumerate}[leftmargin=*]
+    \item definitions and basic notation;
+    \item main theorems or counting rules;
+    \item short examples showing immediate use;
+    \item higher-value techniques or interpretations;
+    \item end-of-section reminders and pitfalls.
+\end{enumerate}
+
+This order matters. If you read examples without first knowing exactly what a theorem says, you tend to remember the surface story of the example rather than the reusable method.
+
+\subsection*{3. How to read the different box types}
+
+These notes use a box system to separate different kinds of information. The boxes are not decorative; they are intended to change how you read.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.18\textwidth}p{0.72\textwidth}@{}}
+\toprule
+\textbf{Box type} & \textbf{How to use it} \\
+\midrule
+Definition & Read slowly enough that you could restate the definition in your own words and also recognise a disguised use of it in a question. \\
+Theorem & Learn both the formal statement and the trigger for using it. A theorem is useful only when you can recognise its hypotheses in a new problem. \\
+Key Formula & Use as a compact memory anchor only after you understand why the formula is true and what assumptions make it valid. \\
+Worked Example & Cover the solution first and try to predict the method. When reading the solution, focus on the decision points rather than the final algebra. \\
+Common Mistake & Treat as a pre-commitment check. Before attempting tutorial questions, scan the nearby mistake boxes and actively avoid those errors. \\
+Exam Focus & Use as a high-yield checklist. These boxes are especially useful in the week before a test, when you want rapid reminders of recognition patterns and final checks. \\
+Extension & Read only after the core argument is secure. Extensions are intended to sharpen understanding, not replace the main route through the material. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A common bad habit is to treat boxed material as content to memorise and ordinary paragraphs as content to skip. That is usually backwards. The ordinary paragraphs explain why the box exists, what kind of question it answers, and what limitation it has.
+
+\subsection*{4. Four stages of revision}
+
+\textbf{First learning.}
+During the first pass through a handout, the goal is not speed. Read definitions carefully, rewrite the main theorem statements by hand, and pause before each worked example to ask what information in the question tells you which tool is appropriate. At this stage, the notes should be read with the lecture slides or tutorial sheet nearby.
+
+\textbf{Weekly consolidation.}
+At the end of each teaching week, revisit the relevant section and reduce it to a shorter personal summary. For counting material, list the standard recognition cues: when a problem is sequential, when cases are disjoint, when overlap forces inclusion--exclusion, when a bijection is more natural than direct counting, and when complement counting is cleaner than direct counting. For recurrence material, summarise which class of recurrence you have seen and which solving mechanism belongs to it. For graph theory, list the definitions and theorem triggers that are easiest to confuse.
+
+\textbf{Pre-midterm review.}
+At this stage the notes should no longer be read linearly from page 1 onward. Instead, revise by question type. For example, in the counting part, group together all questions that rely primarily on product rule, all questions that rely on sum rule with disjoint partition, and all questions where overlap detection is the real issue. Use the worked examples as checkpoints, not as reading material. You should be able to reconstruct their structure without copying them line by line.
+
+\textbf{Pre-final review.}
+Before the final, the priority is integration. You should be able to move across parts of the course and identify differences in proof style. Counting questions often demand careful modelling; recurrence questions demand algebra plus indexing discipline; graph theory questions demand precise use of definitions and theorem hypotheses. At this stage, the notes are most useful when used diagnostically: identify which theorem statements you can still recognise but not reproduce, which examples you understand only after reading, and which common mistakes you still make under time pressure.
+
+\begin{examtip}[title={A productive revision cycle}]
+For any section, a strong short revision cycle is:
+\begin{enumerate}[leftmargin=*]
+    \item read the definitions and theorem statements once without looking at examples;
+    \item close the notes and restate the main ideas from memory;
+    \item attempt one tutorial-style question cold;
+    \item reopen the notes only to check the exact step where your reasoning diverged.
+\end{enumerate}
+This is substantially more effective than rereading the same worked solution several times.
+\end{examtip}
+
+\subsection*{5. How to read theorem statements productively}
+
+A theorem should not be read as a sentence to be memorised mechanically. For revision purposes, every theorem in MH1301 should be read with four questions in mind:
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{What are the hypotheses?} What must be true before the theorem can be used?
+    \item \textbf{What is the conclusion?} What exactly does the theorem allow me to claim?
+    \item \textbf{What class of problem does this theorem solve?} In practice, what does a question look like when this theorem is the right tool?
+    \item \textbf{What goes wrong if a hypothesis fails?} Is there a standard overcounting, missing-case, or false-conclusion trap?
+\end{enumerate}
+
+For example, the sum rule is not ``add counts whenever you see an \emph{or}.'' It is a statement about \emph{disjoint} unions. Similarly, inclusion--exclusion is not merely a correction formula to memorise; it is the right response when classes overlap in a controlled way. Reading the theorem with its hypotheses foregrounded prevents many routine mistakes.
+
+\subsection*{6. How to use worked examples without becoming passive}
+
+Worked examples are most valuable when they are used actively. A good procedure is:
+\begin{enumerate}[leftmargin=*]
+    \item Cover the solution.
+    \item Read only the question and identify the combinatorial objects involved.
+    \item Decide which rule, theorem, or representation is most likely to be relevant.
+    \item Write the first two or three lines yourself.
+    \item Only then compare with the notes.
+\end{enumerate}
+
+When comparing with the written solution, do not ask only whether the final answer matches. Ask instead:
+\begin{itemize}[leftmargin=*]
+    \item Did I partition the cases in the same way?
+    \item Did I justify why the chosen rule applies?
+    \item Did I ignore an overlap or edge case?
+    \item Could I produce the same argument again tomorrow without seeing it?
+\end{itemize}
+
+If an example feels easy only when the solution is visible, then it is not yet learned.
+
+\subsection*{7. How to use special techniques and extensions properly}
+
+Special techniques and extension boxes are included because exam-level understanding often requires more than the shortest syllabus statement. However, they should be used in the right order. The core path is always:
+\[
+\text{definition} \longrightarrow \text{main theorem/rule} \longrightarrow \text{standard example}.
+\]
+Only after that should you use the extensions to deepen or compress your thinking.
+
+Typical uses of extension material include:
+\begin{itemize}[leftmargin=*]
+    \item seeing why a bijection is canonical rather than ad hoc;
+    \item understanding inclusion--exclusion through indicator-style reasoning;
+    \item recognising a more elegant derivation after mastering the standard derivation;
+    \item seeing how one theorem packages several simpler observations into one structural statement.
+\end{itemize}
+
+Used properly, extensions improve retention because they connect ideas. Used too early, they can make the notes look more advanced than they are. The right test is simple: if you cannot yet do the core example unassisted, return to the main exposition first.
+
+\subsection*{8. Do not treat the notes as a formula sheet}
+
+These notes contain formulas and compact summaries, but MH1301 is not a formula-substitution module. Many wrong answers in discrete mathematics arise not because a formula is forgotten, but because the student counts the wrong set, assumes cases are disjoint when they are not, forgets that order matters, or applies a theorem outside its valid setting.
+
+For that reason, every time you use a formula, you should still ask:
+\begin{itemize}[leftmargin=*]
+    \item What set is being counted?
+    \item Why does this object decompose into stages or cases in the way I claim?
+    \item Is the representation ordered or unordered?
+    \item Is repetition allowed?
+    \item Are the cases disjoint, or must I correct overlap?
+\end{itemize}
+
+The formula then becomes the final compression of a correct model, not a substitute for one.
+
+\subsection*{9. How to cross-check understanding}
+
+A reliable test of understanding is whether you can reproduce an argument without immediately looking back at the notes. Useful self-checks include:
+\begin{itemize}[leftmargin=*]
+    \item restating a theorem from memory and identifying its hypotheses;
+    \item reconstructing the proof idea of a short result, even if not every word matches the written version;
+    \item solving a nearby tutorial question using the same core method but with different numbers or conditions;
+    \item explaining aloud why a tempting incorrect method fails.
+\end{itemize}
+
+In practical use, the notes should be paired with tutorial questions, short self-quizzes, and timed practice. After reading a section, attempt at least one question for which you do \emph{not} already know the answer. The objective is not to finish the notes; it is to become able to produce the reasoning independently.
+
+\begin{extension}[title={Using these notes at high intensity near an exam}]
+When time is short, do not reread whole chapters uniformly. Instead, scan the theorem statements and exam-focus boxes, then choose only the sections where you cannot immediately answer the question: \emph{Could I reconstruct the main argument here on a blank page?} This triages revision toward genuine weaknesses rather than familiar pages.
+\end{extension}
+
+\newpage
+
+%==================================================
+\section*{Course Roadmap}
+\addcontentsline{toc}{section}{Course Roadmap}
+%==================================================
+
+\subsection*{Part I: Counting}
+\begin{itemize}[leftmargin=*]
+    \item Handout 01 --- Basics of Counting
+    \item Handout 02 --- Pigeonhole Principle, Permutations and Combination
+    \item Handout 03 --- Binomial Theorem, Generalized Permutations and Combination
+\end{itemize}
+
+\subsection*{Part II: Recurrence Relations}
+\begin{itemize}[leftmargin=*]
+    \item Handout 04 --- Recurrence Relations
+    \item Handout 05 --- Linear Homogeneous Recurrence Relations
+    \item Handout 06 --- Linear Non-Homogeneous Recurrence Relations
+\end{itemize}
+
+\subsection*{Part III: Graph Theory}
+\begin{itemize}[leftmargin=*]
+    \item Handout 07 --- Graph Theory (1)
+    \item Handout 08 --- Graph Theory (2)
+    \item Handout 09 --- Graph Theory (3)
+    \item Handout 10 --- Graph Theory (4)
+    \item Handout 11 --- Graph Theory (5)
+    \item Handout 12 --- Trees
+\end{itemize}
+
+\begin{examtip}[title={What changes across the three parts}]
+In Part I, most questions are solved by modelling and counting. In Part II, the main challenge is setting up and solving recurrences with the correct indexing and initial conditions. In Part III, precision of definitions becomes even more important: many graph questions are easy to state informally but require exact theorem use to solve cleanly.
+\end{examtip}
+
+\newpage
+
+%==================================================
+% CHAPTERS
+%==================================================
+
+\IfFileExists{chapters/handout01.tex}{\input{chapters/handout01.tex}}{}
+\IfFileExists{chapters/handout02.tex}{\input{chapters/handout02.tex}}{}
+\IfFileExists{chapters/handout03.tex}{\input{chapters/handout03.tex}}{}
+\IfFileExists{chapters/handout04.tex}{\input{chapters/handout04.tex}}{}
+\IfFileExists{chapters/handout05.tex}{\input{chapters/handout05.tex}}{}
+\IfFileExists{chapters/handout06.tex}{\input{chapters/handout06.tex}}{}
+\IfFileExists{chapters/handout07.tex}{\input{chapters/handout07.tex}}{}
+\IfFileExists{chapters/handout08.tex}{\input{chapters/handout08.tex}}{}
+\IfFileExists{chapters/handout09.tex}{\input{chapters/handout09.tex}}{}
+\IfFileExists{chapters/handout10.tex}{\input{chapters/handout10.tex}}{}
+\IfFileExists{chapters/handout11.tex}{\input{chapters/handout11.tex}}{}
+\IfFileExists{chapters/handout12.tex}{\input{chapters/handout12.tex}}{}
+
+\newpage
+
+%==================================================
+\appendix
+\addcontentsline{toc}{part}{Appendix}
+%==================================================
+\section{Formula \& Key Theorems Reference}
+
+\subsection{Counting Fundamentals}
+
+\subsubsection{Product Rule}
+If an object is built in \(k\) stages with \(n_1,n_2,\dots,n_k\) valid choices at each stage, then
+\[
+N=n_1n_2\cdots n_k.
+\]
+
+\subsubsection{Sum Rule}
+If \(A_1,\dots,A_k\) are pairwise disjoint finite sets, then
+\[
+\left|A_1\cup\cdots\cup A_k\right|
+=
+|A_1|+\cdots+|A_k|.
+\]
+
+\subsubsection{Inclusion--Exclusion (Two Sets)}
+\[
+|A\cup B|=|A|+|B|-|A\cap B|.
+\]
+
+\subsubsection{Inclusion--Exclusion (Three Sets)}
+\[
+|A\cup B\cup C|
+=
+|A|+|B|+|C|
+-|A\cap B|-|A\cap C|-|B\cap C|
++|A\cap B\cap C|.
+\]
+
+\subsubsection{General Inclusion--Exclusion}
+For finite sets \(A_1,\dots,A_n\),
+\[
+\left|\bigcup_{i=1}^n A_i\right|
+=
+\sum_i |A_i|
+-\sum_{i<j}|A_i\cap A_j|
++\sum_{i<j<k}|A_i\cap A_j\cap A_k|
+-\cdots
++(-1)^{n+1}\left|\bigcap_{i=1}^n A_i\right|.
+\]
+
+\subsubsection{Counting All Functions}
+If \(|X|=m\) and \(|Y|=n\), then the number of functions \(f:X\to Y\) is
+\[
+n^m.
+\]
+
+\subsubsection{Injective / Surjective / Bijective Constraints}
+If \(f:X\to Y\) with \(|X|=m\), \(|Y|=n\), then
+\[
+f\text{ injective } \Longrightarrow m\le n,
+\qquad
+f\text{ surjective } \Longrightarrow m\ge n,
+\qquad
+f\text{ bijective } \Longrightarrow m=n.
+\]
+Also,
+\[
+\#\{\text{injective }f:X\to Y\}=P(n,m)\quad (m\le n),
+\qquad
+\#\{\text{bijections }X\to Y\}=n!\quad (m=n).
+\]
+
+\subsubsection{Division Rule}
+If \(f:X\to Y\) is \(k\)-to-\(1\) and \(X,Y\) are finite, then
+\[
+|Y|=\frac{|X|}{k}.
+\]
+
+\subsubsection{Binary Strings}
+The number of binary strings of length \(n\) is
+\[
+2^n.
+\]
+
+\subsubsection{Subsets of an \(n\)-Element Set}
+\[
+\#\{A:A\subseteq S\}=2^n
+\qquad (|S|=n).
+\]
+
+\subsection{Pigeonhole Principle}
+
+\subsubsection{Basic Form}
+If \(k+1\) or more objects are placed into \(k\) boxes, then some box contains at least two objects.
+
+\subsubsection{Generalized Form}
+If \(N\) objects are placed into \(k\) boxes, then some box contains at least
+\[
+\left\lceil \frac{N}{k}\right\rceil
+\]
+objects.
+
+\subsection{Permutations, Combinations, and Binomial Identities}
+
+\subsubsection{Permutations of \(n\) Distinct Objects}
+\[
+n!.
+\]
+
+\subsubsection{\(r\)-Permutations}
+For \(0\le r\le n\),
+\[
+P(n,r)=n(n-1)\cdots(n-r+1)=\frac{n!}{(n-r)!}.
+\]
+
+\subsubsection{\(r\)-Combinations}
+For \(0\le r\le n\),
+\[
+\binom{n}{r}=\frac{n!}{r!(n-r)!}.
+\]
+
+\subsubsection{Choose--Then--Order Identity}
+\[
+P(n,r)=\binom{n}{r}r!.
+\]
+
+\subsubsection{Symmetry of Binomial Coefficients}
+\[
+\binom{n}{r}=\binom{n}{n-r}.
+\]
+
+\subsubsection{Pascal's Identity}
+For \(n\ge r\ge 1\),
+\[
+\binom{n+1}{r}=\binom{n}{r}+\binom{n}{r-1}.
+\]
+
+\subsubsection{Binomial Theorem}
+For \(n\in\mathbb{Z}_{\ge 0}\),
+\[
+(x+y)^n=\sum_{i=0}^{n}\binom{n}{i}x^{\,n-i}y^i.
+\]
+
+\subsubsection{Coefficient in a Binomial Expansion}
+In
+\[
+(x+y)^n=\sum_{i=0}^{n}\binom{n}{i}x^{\,n-i}y^i,
+\]
+the coefficient of \(x^{n-i}y^i\) is
+\[
+\binom{n}{i}.
+\]
+More generally, in \((ax+by)^n\), the coefficient of \(x^{n-i}y^i\) is
+\[
+\binom{n}{i}a^{\,n-i}b^i.
+\]
+
+\subsubsection{Sum of Binomial Coefficients}
+\[
+\sum_{i=0}^{n}\binom{n}{i}=2^n.
+\]
+
+\subsubsection{Cyclic Arrangements}
+The number of ways to choose \(r\) elements from an \(n\)-element set and arrange them around a circle is
+\[
+\frac{1}{r}P(n,r)=\frac{n!}{r(n-r)!}.
+\]
+
+\subsubsection{Ordered Selections with Repetition}
+The number of length-\(r\) strings from \(n\) symbols is
+\[
+n^r.
+\]
+
+\subsubsection{Unordered Selections with Repetition}
+The number of \(r\)-combinations from \(n\) types with repetition allowed is
+\[
+\binom{n+r-1}{r}=\binom{n+r-1}{n-1}.
+\]
+
+\subsubsection{Stars and Bars / Nonnegative Integer Solutions}
+The number of solutions in nonnegative integers to
+\[
+x_1+x_2+\cdots+x_n=r
+\]
+is
+\[
+\binom{n+r-1}{r}.
+\]
+
+\subsubsection{Permutations of Indistinguishable Objects}
+If \(n=n_1+\cdots+n_k\), then the number of distinct permutations of a multiset with multiplicities \(n_1,\dots,n_k\) is
+\[
+\frac{n!}{n_1!n_2!\cdots n_k!}.
+\]
+
+\subsubsection{Specified Occupancy Distribution}
+The number of ways to distribute \(n\) distinct objects into \(k\) distinct boxes so that box \(i\) receives \(n_i\) objects \((n_1+\cdots+n_k=n)\) is
+\[
+\frac{n!}{n_1!n_2!\cdots n_k!}.
+\]
+
+\subsection{Recurrence Relations}
+
+\subsubsection{General Form}
+A recurrence relation of degree \(k\) has the form
+\[
+a_n=F(a_{n-1},a_{n-2},\dots,a_{n-k}),
+\]
+together with enough initial conditions to determine the sequence.
+
+\subsubsection{Standard Modelling Examples}
+\[
+H_1=1,\qquad H_n=2H_{n-1}+1
+\qquad\text{(Tower of Hanoi)},
+\]
+\[
+H_n=2^n-1,
+\]
+\[
+f_0=0,\quad f_1=1,\quad f_n=f_{n-1}+f_{n-2}
+\qquad\text{(Fibonacci / graduate-student model)},
+\]
+\[
+a_1=2,\quad a_2=3,\quad a_n=a_{n-1}+a_{n-2}
+\qquad\text{(bit strings with no consecutive zeros)},
+\]
+\[
+a_0=1,\quad a_n=8a_{n-1}+10^{n-1}
+\qquad\text{(decimal strings with an even number of zeros)}.
+\]
+
+\subsubsection{Linear Homogeneous Recurrence with Constant Coefficients}
+A degree-\(k\) linear homogeneous recurrence has the form
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k},
+\qquad c_k\ne 0.
+\]
+
+\subsubsection{Characteristic Equation}
+Associate
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_{k-1}r-c_k=0.
+\]
+
+\subsubsection{Degree \(2\): Distinct Roots}
+If
+\[
+r^2-c_1r-c_2=0
+\]
+has distinct roots \(r_1,r_2\), then
+\[
+a_n=h_1r_1^n+h_2r_2^n.
+\]
+
+\subsubsection{Degree \(2\): Repeated Root}
+If the characteristic equation has repeated root \(r_0\), then
+\[
+a_n=(h_1+h_2n)r_0^n.
+\]
+
+\subsubsection{Degree \(k\): Distinct Roots}
+If the characteristic equation has \(k\) distinct roots \(r_1,\dots,r_k\), then
+\[
+a_n=h_1r_1^n+\cdots+h_kr_k^n.
+\]
+
+\subsubsection{Multiplicity Form}
+If \(r_i\) is a root of multiplicity \(m_i\), then the corresponding contribution is
+\[
+(h_{i,0}+h_{i,1}n+\cdots+h_{i,m_i-1}n^{m_i-1})\,r_i^n.
+\]
+
+\subsubsection{Non-Homogeneous Recurrence}
+A degree-\(k\) linear non-homogeneous recurrence has the form
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k}+F(n).
+\]
+
+\subsubsection{Associated Homogeneous Recurrence}
+Remove the forcing term:
+\[
+b_n=c_1b_{n-1}+c_2b_{n-2}+\cdots+c_kb_{n-k}.
+\]
+
+\subsubsection{Structure Theorem}
+If \(a_n^{(p)}\) is one particular solution, then every solution is
+\[
+a_n=a_n^{(p)}+b_n,
+\]
+where \(b_n\) is a solution of the associated homogeneous recurrence.
+
+\subsubsection{Polynomial Forcing Rule}
+If \(F(n)\) is a polynomial of degree \(t\), then try
+\[
+a_n^{(p)}=p_tn^t+p_{t-1}n^{t-1}+\cdots+p_0
+\]
+if \(1\) is not a root of the characteristic equation, and try
+\[
+a_n^{(p)}=n\bigl(p_tn^t+p_{t-1}n^{t-1}+\cdots+p_0\bigr)
+\]
+if \(1\) is a root.
+
+\subsubsection{Exponential Forcing Rule}
+If \(F(n)=s^n\), then try
+\[
+a_n^{(p)}=c\,s^n
+\]
+if \(s\) is not a root of the characteristic equation, and try
+\[
+a_n^{(p)}=c\,n\,s^n
+\]
+if \(s\) is a root.
+
+\subsection{Graph Theory}
+
+\subsubsection{Simple Graph Edge Bound}
+If \(G=(V,E)\) is a simple graph with \(|V|=n\), then
+\[
+0\le |E|\le \binom{n}{2}.
+\]
+
+\subsubsection{Degree Sum Formula / Handshaking Lemma}
+For any finite undirected graph,
+\[
+\sum_{v\in V}\deg(v)=2|E|.
+\]
+
+\subsubsection{Parity of Odd-Degree Vertices}
+In any finite undirected graph, the number of vertices of odd degree is even.
+
+\subsubsection{Complete Graph}
+For \(K_n\),
+\[
+\deg(v)=n-1 \quad (\forall v),
+\qquad
+|E(K_n)|=\binom{n}{2}.
+\]
+
+\subsubsection{Cycle Graph}
+For \(C_n\) \((n\ge 3)\),
+\[
+\deg(v)=2 \quad (\forall v),
+\qquad
+|E(C_n)|=n.
+\]
+
+\subsubsection{Subgraph and Induced Subgraph}
+If \(H=(W,F)\) is a subgraph of \(G=(V,E)\), then
+\[
+W\subseteq V,\qquad F\subseteq E.
+\]
+If \(H\) is induced on \(W\), then \(F\) contains all edges of \(G\) whose endpoints both lie in \(W\).
+
+\subsubsection{Graph Isomorphism}
+Graphs \(G_1=(V_1,E_1)\) and \(G_2=(V_2,E_2)\) are isomorphic iff there exists a bijection
+\[
+f:V_1\to V_2
+\]
+such that
+\[
+\{u,v\}\in E_1 \iff \{f(u),f(v)\}\in E_2.
+\]
+
+\subsubsection{Graph Invariants}
+If \(G_1\cong G_2\), then invariants such as the following agree:
+\[
+|V_1|=|V_2|,
+\qquad
+|E_1|=|E_2|,
+\]
+and the degree sequence is preserved.
+
+\section{Special Techniques (Beyond Syllabus but Useful)}
+
+\subsection{Counting}
+
+\subsubsection{Binary Encoding of Subsets}
+Encode \(A\subseteq\{1,\dots,n\}\) by its characteristic string
+\[
+(\chi_A(1),\dots,\chi_A(n))\in\{0,1\}^n.
+\]
+This converts subset problems into bit-string problems.
+
+\subsubsection{Count the Complement}
+When “bad” objects are easier to count,
+\[
+\#(\text{good})=\#(\text{all})-\#(\text{bad}).
+\]
+Example:
+\[
+\#(\text{at least one property})
+=
+\#(\text{all})-\#(\text{none}).
+\]
+
+\subsubsection{Partition into Disjoint Cases Before Adding}
+Use the sum rule only after producing a genuine partition.
+A common split is by length, by first position, by last symbol, or by whether a distinguished element is chosen.
+
+\subsubsection{Choose Then Order}
+When the final object is ordered but the underlying selected set is easier to count,
+\[
+P(n,r)=\binom{n}{r}r!.
+\]
+This is often the cleanest way to avoid overcounting.
+
+\subsubsection{Count First, Then Divide}
+If several linear descriptions represent the same final object, compute the easier linear count and divide by the symmetry factor.
+Examples:
+\[
+\text{cyclic arrangements}=\frac{P(n,r)}{r},
+\qquad
+\text{multiset permutations}=\frac{n!}{n_1!\cdots n_k!}.
+\]
+
+\subsubsection{Stars and Bars with Lower Bounds}
+For
+\[
+x_1+\cdots+x_n=r,
+\qquad x_i\ge \ell_i,
+\]
+set
+\[
+x_i=\ell_i+y_i,\qquad y_i\ge 0.
+\]
+Then
+\[
+y_1+\cdots+y_n=r-(\ell_1+\cdots+\ell_n),
+\]
+after which stars and bars applies.
+
+\subsubsection{Inclusion--Exclusion for Surjections}
+To count surjections \(f:X\to Y\) with \(|X|=m\), \(|Y|=n\), exclude functions missing at least one codomain value:
+\[
+\#\{\text{surjections }X\to Y\}
+=
+\sum_{j=0}^{n}(-1)^j\binom{n}{j}(n-j)^m.
+\]
+This is a direct high-value application of inclusion--exclusion.
+
+\subsubsection{Coefficient Targeting}
+In binomial expansions, do not expand fully; match exponents directly.
+Example:
+\[
+(2x-3y)^{25}
+=
+\sum_{i=0}^{25}\binom{25}{i}(2x)^{25-i}(-3y)^i.
+\]
+For \(x^{12}y^{13}\), go straight to \(i=13\).
+
+\subsubsection{Worst-Case Pigeonhole Modelling}
+For existence problems, choose boxes so that avoiding the target phenomenon makes each box as full as possible. If the total still exceeds capacity, the desired conclusion is forced.
+
+\subsection{Recurrence Relations}
+
+\subsubsection{Define the State Precisely}
+A recurrence is only as good as its state variable.
+State exactly what \(a_n\) counts or measures before writing any recurrence.
+
+\subsubsection{Split by the Last Step / Last Symbol}
+For combinatorial recurrences, classify objects by how they end.
+Example: for bit strings with no consecutive zeros,
+\[
+a_n=a_{n-1}+a_{n-2},
+\]
+according as the string ends in \(1\) or in \(01\).
+
+\subsubsection{Use Auxiliary States When One State Is Awkward}
+If a single recurrence is hard to write, split into complementary states.
+Example: even-zero / odd-zero codewords, then combine the two states afterward.
+
+\subsubsection{Separate Homogeneous Part from Forcing Term}
+For
+\[
+a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}+F(n),
+\]
+first solve the associated homogeneous recurrence, then find one particular solution, then add them.
+
+\subsubsection{Diagnose Root Structure Before Writing the General Form}
+Do not write the solution template until the characteristic roots and multiplicities are known:
+distinct roots \(\Rightarrow\) exponential sum,
+repeated roots \(\Rightarrow\) multiply by powers of \(n\).
+
+\subsubsection{Resonance Test for Particular Solutions}
+If the guessed particular form overlaps with the homogeneous solution, multiply by \(n\).
+Typical cases:
+\[
+1\text{ root } \Rightarrow \text{polynomial forcing needs an extra }n,
+\]
+\[
+s\text{ root } \Rightarrow s^n\text{ forcing needs an extra }n.
+\]
+
+\subsubsection{Use Initial Conditions Last}
+Keep the constants \(h_1,h_2,\dots\) until the full general solution is assembled; only then substitute the initial values.
+
+\subsection{Graph Theory}
+
+\subsubsection{Ignore the Drawing; Read the Adjacency}
+Two pictures may look different but define the same graph.
+Always reduce to vertex set, edge set, adjacency, and degree data.
+
+\subsubsection{Use the Handshaking Lemma Early}
+Whenever degrees and edges appear together, immediately test
+\[
+\sum_{v\in V}\deg(v)=2|E|.
+\]
+This often gives the shortest contradiction or the missing parameter.
+
+\subsubsection{Use Parity Arguments}
+Since the total degree sum is even, odd-degree vertices must come in pairs.
+This is a standard quick contradiction device.
+
+\subsubsection{Use Extremal Degree Arguments}
+Examples:
+a simple graph on \(n\) vertices cannot contain both a degree-\(0\) vertex and a degree-\((n-1)\) vertex;
+hence \(n\) vertices realize at most \(n-1\) distinct degree values.
+
+\subsubsection{Disprove Isomorphism with Invariants First}
+Before attempting an explicit bijection, compare easy invariants:
+\[
+|V|,\quad |E|,\quad \text{degree sequence},\quad \text{number of isolated vertices},\quad \text{local adjacency patterns}.
+\]
+If any invariant differs, the graphs are not isomorphic.
+
+\subsubsection{Build Isomorphisms by Matching Rigid Structure}
+When graphs might be isomorphic, start with vertices of unique degree or unusual neighbourhood type, map those first, then extend the bijection to adjacent vertices.
+%==================================================
+\newpage
+\section{Notation Summary}
+%==================================================
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.17\textwidth}p{0.28\textwidth}p{0.45\textwidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Typical MH1301 use} \\
+\midrule
+$A,B,C,\dots$ & sets & classes of objects, event-like subsets, graph vertex/edge sets \\
+$|A|$ & cardinality of $A$ & number of elements in a finite set \\
+$A\cup B$ & union & objects satisfying at least one of two conditions \\
+$A\cap B$ & intersection & objects satisfying both conditions \\
+$A\setminus B$ & set difference & complement-style counting inside a universe \\
+$A^c$ & complement of $A$ & count the easier excluded set first \\
+$\varnothing$ & empty set & impossible class / no common element \\
+$[n]$ & $\{1,2,\dots,n\}$ & standard labelled finite set \\
+$\mathcal{P}(S)$ & power set of $S$ & family of all subsets of $S$ \\
+$f:X\to Y$ & function from $X$ to $Y$ & assignments, injections, surjections, bijections \\
+$f^{-1}(y)$ & fibre / preimage of $y$ & surjectivity and image counting viewpoints \\
+$n!$ & factorial & permutations and arrangements \\
+$\binom{n}{k}$ & binomial coefficient & choosing $k$ objects from $n$ \\
+$\sum$ & finite sum & disjoint case counts or indexed totals \\
+$\prod$ & finite product & sequential independent choices \\
+$V(G),E(G)$ & vertex and edge sets of a graph & graph theory handouts \\
+$a_n$ & sequence term & recurrence relations \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{commonmistake}[title={Notation errors are often conceptual errors}]
+When a counting solution is unclear, the underlying problem is often that the objects were not defined precisely. Writing down the set, the domain/codomain of a function, or the indexing of a sequence is not cosmetic; it is part of the mathematical solution.
+\end{commonmistake}
+
+%==================================================
+\section{Key Counting Identities}
+%==================================================
+
+\begin{keyformula}[title={Core identities from Part I}]
+For finite sets and standard counting situations,
+\[
+|A\cup B|=|A|+|B|-|A\cap B|,
+\]
+\[
+|A\cup B\cup C|
+=
+|A|+|B|+|C|
+-|A\cap B|-|A\cap C|-|B\cap C|
++|A\cap B\cap C|,
+\]
+\[
+\#\{\text{functions }X\to Y\}=|Y|^{|X|},
+\qquad
+\#\{\text{$n$-bit strings}\}=2^n,
+\qquad
+|\mathcal{P}(S)|=2^{|S|}.
+\]
+\end{keyformula}
+
+\begin{extension}[title={Alternating signs in inclusion--exclusion}]
+If an element belongs to exactly $r$ of the sets $A_1,\dots,A_n$, then its total contribution to the inclusion--exclusion sum is
+\[
+\binom{r}{1}-\binom{r}{2}+\binom{r}{3}-\cdots+(-1)^{r-1}\binom{r}{r}=1.
+\]
+This is the structural reason the formula counts every element of the union exactly once.
+\end{extension}
+
+%==================================================
+\section{Recurrence Solving Checklist}
+%==================================================
+
+\begin{enumerate}[leftmargin=*]
+    \item Define the sequence and state its initial conditions explicitly.
+    \item Decide whether the recurrence is first-order, linear, homogeneous, or non-homogeneous.
+    \item For linear recurrences, write the characteristic equation carefully.
+    \item Distinguish distinct roots, repeated roots, and forcing terms.
+    \item Solve for the constants using the initial values.
+    \item Check the resulting formula against the first few terms.
+    \item If the recurrence came from counting, interpret the formula combinatorially to catch indexing mistakes.
+\end{enumerate}
+
+\begin{commonmistake}[title={Closed form without correct indexing}]
+A formally correct characteristic-root calculation can still lead to a wrong answer if the indexing convention is misread. Always check whether the recurrence is stated from $n\ge 1$, $n\ge 2$, or another starting point, and match the initial data accordingly.
+\end{commonmistake}
+
+%==================================================
+\section{Graph Theory Theorem Checklist}
+%==================================================
+
+\begin{itemize}[leftmargin=*]
+    \item Distinguish carefully between walk, trail, path, circuit, and cycle.
+    \item Check the Handshaking Lemma early whenever degree information appears.
+    \item Separate local degree constraints from global connectedness claims.
+    \item In bipartite questions, test parity and odd-cycle obstructions.
+    \item In tree questions, remember the standard equivalences: connected and acyclic; unique simple path; $n-1$ edges.
+    \item When proving impossibility, cite the necessary theorem rather than relying only on a picture.
+\end{itemize}
+
+\begin{extension}[title={Why graph theory revision feels different from counting revision}]
+In counting, the main difficulty is often choosing the right representation. In graph theory, the main difficulty is often choosing the right \emph{definition} or theorem trigger. Many graph questions become short once the correct structural fact is recognised.
+\end{extension}
+
+%==================================================
+\section{Proof Strategies Across the Module}
+%==================================================
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.26\textwidth}p{0.66\textwidth}@{}}
+\toprule
+\textbf{Strategy} & \textbf{Typical use} \\
+\midrule
+Direct counting & build an object stage by stage and multiply \\
+Disjoint partition & split a set into mutually exclusive classes and add \\
+Complement counting & count the whole universe and subtract the easier bad set \\
+Counting by bijection & replace awkward objects by easier coded objects \\
+Two-way counting & count the same set in two different ways to obtain an identity \\
+Induction & prove recurrence or general inclusion--exclusion style statements \\
+Contradiction / obstruction & show that a configuration cannot exist, often in graph theory \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}[title={What a polished MH1301 solution usually contains}]
+A strong solution usually identifies the set or structure precisely, chooses a method for a reason, shows the main counting or proof step cleanly, and states the final result in a way that makes the role of hypotheses visible.
+\end{examtip}
+
+%==================================================
+\section{Common Pitfalls}
+%==================================================
+
+\begin{commonmistake}[title={Order versus no order}]
+A sequence and a set are not the same object. Passwords, strings, line-ups, and permutations are ordered objects. Subsets and committees are usually unordered unless the question says otherwise.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Applying the sum rule without disjointness}]
+The sum rule is a statement about disjoint unions. If an object can satisfy two case descriptions simultaneously, raw addition overcounts and inclusion--exclusion or a finer partition is needed.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Counting functions as though they were permutations}]
+If $|X|=m$ and $|Y|=n$, then the number of functions $X\to Y$ is $n^m$, because each domain element independently chooses one image. This is a different problem from arranging distinct elements without repetition.
+\end{commonmistake}
+
+\begin{commonmistake}[title={Using complements without fixing the universe}]
+The expression $A^c$ is meaningless until the ambient universe is understood. When using complement counting, state clearly what the total universe is.
+\end{commonmistake}
+
+%==================================================
+\section{One-Page Revision Workflow}
+%==================================================
+
+\begin{policynote}[title={A compact working checklist}]
+Before finishing a solution, ask:
+\begin{enumerate}[leftmargin=*]
+    \item What exactly is the set, sequence, function, or graph object under discussion?
+    \item Does order matter?
+    \item Is repetition allowed?
+    \item Are the cases disjoint?
+    \item If not, where does overlap enter?
+    \item Is there a better coding or bijection?
+    \item Have I checked initial conditions, special cases, or impossible configurations?
+\end{enumerate}
+\end{policynote}
+
+\end{document}

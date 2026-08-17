@@ -1,0 +1,1281 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{Unofficial --- Refined Practice --- MH1101}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.985}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Refined Practice Test (With Solutions)}
+\newcommand{\ExamMeta}{AY2025-26, Semester 2}
+\newcommand{\ExamMetaShort}{Refined Practice}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+\fancyhf{}
+\fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+\fancyhead[R]{Unofficial Practice}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic practice only. This is an original practice paper written in a similar format to the reference file, but with newly written, more difficult calculus questions and full solutions.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\sech}{sech}
+
+% =========================
+% Overview block
+% =========================
+\newenvironment{overview}{
+\par\bigskip
+\begin{center}
+\rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+\textbf{Overview}\\[-0.2em]
+\rule{0.92\linewidth}{0.6pt}
+\end{center}
+\vspace{-0.3em}
+\begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+\end{itemize}
+\par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.32em, topsep=0.32em}
+\setlist[itemize]{itemsep=0.22em, topsep=0.22em}
+
+\titleformat{\subsubsection}[block]
+{\normalfont\large\bfseries}
+{}
+{0pt}
+{}
+
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+
+\titlespacing*{\paragraph}
+{0pt}
+{1.2ex}
+{0.6ex}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{4}
+
+% =========================
+% Title
+% =========================
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType \\[0.3em]
+\ExamMeta
+}
+\date{\today}
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+\item \textbf{Time allowed:} 1 hour.
+\item \textbf{Total marks:} 60.
+\item \textbf{Difficulty:} Intentionally set above the level of the provided test papers and Tutorial 6.
+\item \textbf{Coverage:} Riemann sums; FTC and Leibniz-rule differentiation; area and volume by both disk-washer and shell methods; improper integrals; nontrivial substitutions and integration by parts; numerical quadrature and error bounds; exactness of Simpson's Rule.
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+% Question 1
+% ============================================================
+\section{Question 1 \hfill (15 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[5 marks]} Evaluate
+\[
+L=\lim_{n\to\infty}\sum_{i=1}^n \frac{2i}{n^2}\ln\!\left(1+\frac{i^2}{n^2}\right).
+\]
+
+\item \textbf{[5 marks]} Define
+\[
+F(x)=\cos x\int_{x^2}^{\,1+\sin x}(1+t^2)\dd t.
+\]
+Find \(F'(0)\).
+
+\item \textbf{[5 marks]} Let \(b:[0,\infty)\to\R\) be differentiable on \((0,\infty)\), with \(b(x)\ge 0\) for all \(x\ge 0\) and \(b(0)=1\). Suppose that
+\[
+\frac{\dd}{\dd x}\int_0^{b(x)}\frac{2t}{1+t^2}\dd t=\frac{4x}{1+x^2}
+\qquad (x>0).
+\]
+Find \(b(x)\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{(a) The limit}
+
+\paragraph{Method 1: Direct Riemann-sum recognition}
+Write
+\[
+\frac{2i}{n^2}\ln\!\left(1+\frac{i^2}{n^2}\right)
+=
+2\left(\frac{i}{n}\right)\ln\!\left(1+\left(\frac{i}{n}\right)^2\right)\frac{1}{n}.
+\]
+Hence, with
+\[
+f(x)=2x\ln(1+x^2),
+\]
+we obtain
+\[
+L=\int_0^1 2x\ln(1+x^2)\dd x.
+\]
+Now let \(u=1+x^2\). Then \(\dd u=2x\dd x\), so
+\[
+L=\int_1^2 \ln u \dd u
+=
+\left[u\ln u-u\right]_1^2
+=
+(2\ln2-2)-(-1).
+\]
+Therefore
+\[
+\boxed{L=2\ln2-1.}
+\]
+
+\paragraph{Method 2: Spot an antiderivative first}
+Again,
+\[
+L=\int_0^1 2x\ln(1+x^2)\dd x.
+\]
+Observe that
+\[
+\frac{\dd}{\dd x}\Big((1+x^2)\ln(1+x^2)-x^2\Big)=2x\ln(1+x^2).
+\]
+Therefore
+\[
+L=\left[(1+x^2)\ln(1+x^2)-x^2\right]_0^1
+=
+(2\ln2-1)-0.
+\]
+Thus
+\[
+\boxed{L=2\ln2-1.}
+\]
+
+\bigskip
+
+\subsubsection{(b) Differentiation under the integral sign}
+
+\paragraph{Method 1: Product rule + Leibniz rule}
+Let
+\[
+G(x)=\int_{x^2}^{\,1+\sin x}(1+t^2)\dd t.
+\]
+Then
+\[
+F(x)=\cos x\, G(x),
+\]
+so
+\[
+F'(x)=-\sin x\,G(x)+\cos x\,G'(x).
+\]
+By Leibniz's Rule,
+\[
+G'(x)=(1+(1+\sin x)^2)\cos x-(1+x^4)(2x).
+\]
+Hence
+\[
+F'(0)
+=
+-\sin 0\int_0^1(1+t^2)\dd t
++
+\cos 0\left[(1+(1+\sin0)^2)\cos0-(1+0^4)(2\cdot0)\right].
+\]
+Since
+\[
+\int_0^1(1+t^2)\dd t=1+\frac13=\frac43,
+\]
+we get
+\[
+F'(0)=0+1\cdot(1+1)=2.
+\]
+Therefore
+\[
+\boxed{F'(0)=2.}
+\]
+
+\paragraph{Method 2: Write the integral explicitly first}
+By the Fundamental Theorem of Calculus,
+\[
+\int (1+t^2)\dd t=t+\frac{t^3}{3}.
+\]
+Hence
+\[
+G(x)=\left[t+\frac{t^3}{3}\right]_{t=x^2}^{t=1+\sin x}
+=
+1+\sin x+\frac{(1+\sin x)^3}{3}-x^2-\frac{x^6}{3}.
+\]
+So
+\[
+F(x)=\cos x\left(1+\sin x+\frac{(1+\sin x)^3}{3}-x^2-\frac{x^6}{3}\right).
+\]
+Differentiate directly:
+\[
+F'(x)
+=
+-\sin x\left(1+\sin x+\frac{(1+\sin x)^3}{3}-x^2-\frac{x^6}{3}\right)
++\cos x\left(\cos x+(1+\sin x)^2\cos x-2x-2x^5\right).
+\]
+At \(x=0\),
+\[
+F'(0)=0+1\cdot(1+1)=2.
+\]
+Thus
+\[
+\boxed{F'(0)=2.}
+\]
+
+\bigskip
+
+\subsubsection{(c) Solving the integral differential equation}
+
+\paragraph{Method 1: FTC + chain rule}
+By the Fundamental Theorem of Calculus and the chain rule,
+\[
+\frac{\dd}{\dd x}\int_0^{b(x)}\frac{2t}{1+t^2}\dd t
+=
+\frac{2b(x)b'(x)}{1+b(x)^2}.
+\]
+So the given equation becomes
+\[
+\frac{2b(x)b'(x)}{1+b(x)^2}=\frac{4x}{1+x^2}.
+\]
+But
+\[
+\frac{\dd}{\dd x}\ln(1+b(x)^2)=\frac{2b(x)b'(x)}{1+b(x)^2},
+\qquad
+\frac{\dd}{\dd x}\bigl(2\ln(1+x^2)\bigr)=\frac{4x}{1+x^2}.
+\]
+Hence
+\[
+\ln(1+b(x)^2)=2\ln(1+x^2)+C.
+\]
+Using \(b(0)=1\), we get
+\[
+\ln(1+1^2)=2\ln 1+C \quad\Rightarrow\quad \ln 2=C.
+\]
+Therefore
+\[
+\ln(1+b(x)^2)=2\ln(1+x^2)+\ln2
+=
+\ln\bigl(2(1+x^2)^2\bigr).
+\]
+Exponentiating,
+\[
+1+b(x)^2=2(1+x^2)^2.
+\]
+So
+\[
+b(x)^2=2(1+2x^2+x^4)-1=1+4x^2+2x^4.
+\]
+Since \(b(x)\ge 0\),
+\[
+\boxed{b(x)=\sqrt{1+4x^2+2x^4}.}
+\]
+
+\paragraph{Method 2: Identify the inside antiderivative first}
+Since
+\[
+\int \frac{2t}{1+t^2}\dd t=\ln(1+t^2)+C,
+\]
+we have
+\[
+\int_0^{b(x)}\frac{2t}{1+t^2}\dd t
+=
+\ln(1+b(x)^2)-\ln 1
+=
+\ln(1+b(x)^2).
+\]
+Thus the hypothesis is simply
+\[
+\frac{\dd}{\dd x}\ln(1+b(x)^2)=\frac{4x}{1+x^2}.
+\]
+Integrating with respect to \(x\),
+\[
+\ln(1+b(x)^2)=2\ln(1+x^2)+C.
+\]
+Now use \(b(0)=1\) to get \(C=\ln 2\). Therefore
+\[
+1+b(x)^2=2(1+x^2)^2,
+\]
+and hence
+\[
+\boxed{b(x)=\sqrt{1+4x^2+2x^4}.}
+\]
+
+\newpage
+
+% ============================================================
+% Question 2
+% ============================================================
+\section{Question 2 \hfill (18 marks)}
+
+\subsection{Problem}
+
+Let \(R\) be the region enclosed by the curves
+\[
+y=x^{1/3},
+\qquad
+y=x^2,
+\qquad
+x\ge 0.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[4 marks]} Find the area of \(R\).
+
+\item \textbf{[4 marks]} Use the disk-washer method to find the volume obtained when \(R\) is revolved about the \(x\)-axis.
+
+\item \textbf{[4 marks]} Re-compute the volume in part (b) using cylindrical shells.
+
+\item \textbf{[6 marks]} Let \(S\) be the region enclosed by the \(x\)-axis and the curve
+\[
+y=x^2-x^5
+\qquad (0\le x\le 1).
+\]
+Find the volume generated when \(S\) is revolved about the \(y\)-axis, and explain clearly why the disk-washer method is not the efficient method here.
+\end{enumerate}
+
+\subsection{Solution}
+
+First, solve the intersection points of \(x^{1/3}\) and \(x^2\):
+\[
+x^{1/3}=x^2
+\quad\Longrightarrow\quad
+x^{1/3}(1-x^{5/3})=0
+\quad\Longrightarrow\quad
+x=0 \text{ or } x=1.
+\]
+On \([0,1]\), we have \(x^{1/3}\ge x^2\).
+
+\subsubsection{(a) Area of \(R\)}
+
+\paragraph{Method 1: Integrate with respect to \(x\)}
+\[
+A=\int_0^1 \bigl(x^{1/3}-x^2\bigr)\dd x
+=
+\left[\frac{3}{4}x^{4/3}-\frac{x^3}{3}\right]_0^1
+=
+\frac34-\frac13
+=
+\frac{5}{12}.
+\]
+Thus
+\[
+\boxed{A=\frac{5}{12}.}
+\]
+
+\paragraph{Method 2: Integrate with respect to \(y\)}
+From
+\[
+y=x^{1/3}\quad\Longrightarrow\quad x=y^3,
+\qquad
+y=x^2\quad\Longrightarrow\quad x=\sqrt{y},
+\]
+and \(0\le y\le 1\), the horizontal width is
+\[
+\sqrt y-y^3.
+\]
+So
+\[
+A=\int_0^1 (\sqrt y-y^3)\dd y
+=
+\left[\frac{2}{3}y^{3/2}-\frac{y^4}{4}\right]_0^1
+=
+\frac23-\frac14
+=
+\frac{5}{12}.
+\]
+Hence
+\[
+\boxed{A=\frac{5}{12}.}
+\]
+
+\bigskip
+
+\subsubsection{(b) Volume about the \(x\)-axis by washers}
+
+\paragraph{Method 1: Direct washer setup}
+Outer radius:
+\[
+R(x)=x^{1/3}.
+\]
+Inner radius:
+\[
+r(x)=x^2.
+\]
+Therefore
+\[
+V
+=
+\pi\int_0^1\bigl(R(x)^2-r(x)^2\bigr)\dd x
+=
+\pi\int_0^1\bigl(x^{2/3}-x^4\bigr)\dd x.
+\]
+So
+\[
+V
+=
+\pi\left[\frac35 x^{5/3}-\frac{x^5}{5}\right]_0^1
+=
+\pi\left(\frac35-\frac15\right)
+=
+\frac{2\pi}{5}.
+\]
+Thus
+\[
+\boxed{V=\frac{2\pi}{5}.}
+\]
+
+\paragraph{Method 2: Reduce to a known shell answer}
+Part (c) below computes the same solid by shells and gives
+\[
+V=2\pi\int_0^1 y(\sqrt y-y^3)\dd y
+=
+2\pi\left[\frac{2}{5}y^{5/2}-\frac{y^5}{5}\right]_0^1
+=
+2\pi\left(\frac25-\frac15\right)
+=
+\frac{2\pi}{5}.
+\]
+Hence the washer answer must be
+\[
+\boxed{V=\frac{2\pi}{5}.}
+\]
+
+\bigskip
+
+\subsubsection{(c) Volume about the \(x\)-axis by shells}
+
+\paragraph{Method 1: Horizontal shells}
+Using \(y\)-integration, radius \(=y\), and shell height
+\[
+\sqrt y-y^3,
+\]
+we get
+\[
+V
+=
+2\pi\int_0^1 y(\sqrt y-y^3)\dd y
+=
+2\pi\int_0^1 \bigl(y^{3/2}-y^4\bigr)\dd y.
+\]
+Thus
+\[
+V
+=
+2\pi\left[\frac{2}{5}y^{5/2}-\frac{y^5}{5}\right]_0^1
+=
+2\pi\left(\frac25-\frac15\right)
+=
+\frac{2\pi}{5}.
+\]
+Therefore
+\[
+\boxed{V=\frac{2\pi}{5}.}
+\]
+
+\paragraph{Method 2: Compare with the washer integral}
+From part (b),
+\[
+V=\pi\int_0^1 \bigl(x^{2/3}-x^4\bigr)\dd x=\frac{2\pi}{5}.
+\]
+Since both formulas compute the volume of the same solid, the shell method must also give
+\[
+\boxed{V=\frac{2\pi}{5}.}
+\]
+
+\bigskip
+
+\subsubsection{(d) Volume about the \(y\)-axis for \(y=x^2-x^5\)}
+
+\paragraph{Method 1: Cylindrical shells}
+Since \(x^2-x^5=x^2(1-x^3)\ge 0\) on \([0,1]\), the shell radius is \(x\) and the shell height is
+\[
+x^2-x^5.
+\]
+Hence
+\[
+V
+=
+2\pi\int_0^1 x(x^2-x^5)\dd x
+=
+2\pi\int_0^1 (x^3-x^6)\dd x.
+\]
+Therefore
+\[
+V
+=
+2\pi\left[\frac{x^4}{4}-\frac{x^7}{7}\right]_0^1
+=
+2\pi\left(\frac14-\frac17\right)
+=
+2\pi\cdot\frac{3}{28}
+=
+\frac{3\pi}{14}.
+\]
+Thus
+\[
+\boxed{V=\frac{3\pi}{14}.}
+\]
+
+The shell method is efficient because it uses the graph directly as \(y=f(x)\).
+
+\paragraph{Method 2: Why washers are not efficient}
+If we try the disk-washer method about the \(y\)-axis, then we must write \(x\) as a function of \(y\) from
+\[
+y=x^2-x^5.
+\]
+Equivalently,
+\[
+x^5-x^2+y=0,
+\]
+which is a quintic equation in \(x\). In general, this does not lead to a useful elementary inverse formula for the inner and outer radii as functions of \(y\). Therefore the washer method is not the efficient choice here, whereas shells work immediately.
+
+So the required volume is
+\[
+\boxed{V=\frac{3\pi}{14}.}
+\]
+
+\newpage
+
+% ============================================================
+% Question 3
+% ============================================================
+\section{Question 3 \hfill (15 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[5 marks]} Evaluate the improper integral
+\[
+I=\int_0^\infty \frac{1}{e^x+e^{-x}+2}\dd x.
+\]
+
+\item \textbf{[4 marks]} Evaluate
+\[
+\int \cos(\ln x)\dd x
+\qquad (x>0).
+\]
+
+\item \textbf{[6 marks]} Prove that for every \(a>0\),
+\[
+\int_0^a f''(x)(a-x)\dd x=f(a)-f(0)-af'(0),
+\]
+assuming \(f''\) is continuous on \([0,a]\). Then use the identity with \(f(x)=e^x\) to show that
+\[
+e^a\ge 1+a.
+\]
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{(a) The improper integral}
+
+\paragraph{Method 1: Exponential substitution}
+Let
+\[
+u=e^x.
+\]
+Then \(\dd u=e^x\dd x=u\dd x\), so \(\dd x=\frac{1}{u}\dd u\). As \(x:0\to\infty\), we have \(u:1\to\infty\). Also
+\[
+e^x+e^{-x}+2=u+\frac{1}{u}+2=\frac{(u+1)^2}{u}.
+\]
+Hence
+\[
+I
+=
+\int_1^\infty \frac{1}{(u+1)^2/u}\cdot \frac{1}{u}\dd u
+=
+\int_1^\infty \frac{1}{(u+1)^2}\dd u.
+\]
+Thus
+\[
+I=\left[-\frac{1}{u+1}\right]_1^\infty
+=0-\left(-\frac12\right)=\frac12.
+\]
+Therefore
+\[
+\boxed{I=\frac12.}
+\]
+
+\paragraph{Method 2: Hyperbolic simplification}
+Observe that
+\[
+e^x+e^{-x}=2\cosh x.
+\]
+So
+\[
+e^x+e^{-x}+2=2(\cosh x+1)=4\cosh^2(x/2),
+\]
+using
+\[
+\cosh x+1=2\cosh^2(x/2).
+\]
+Therefore
+\[
+I=\int_0^\infty \frac{1}{4\cosh^2(x/2)}\dd x
+=
+\frac14\int_0^\infty \sech^2(x/2)\dd x.
+\]
+Now let \(u=x/2\). Then \(\dd x=2\dd u\), so
+\[
+I=\frac12\int_0^\infty \sech^2 u \dd u
+=
+\frac12\left[\tanh u\right]_0^\infty
+=
+\frac12(1-0)
+=
+\frac12.
+\]
+Hence
+\[
+\boxed{I=\frac12.}
+\]
+
+\bigskip
+
+\subsubsection{(b) The integral \(\int \cos(\ln x)\dd x\)}
+
+\paragraph{Method 1: Substitution \(u=\ln x\)}
+Let
+\[
+u=\ln x.
+\]
+Then \(x=e^u\) and \(\dd x=e^u\dd u\). Hence
+\[
+\int \cos(\ln x)\dd x
+=
+\int e^u\cos u \dd u.
+\]
+Using the standard formula
+\[
+\int e^u\cos u\dd u=\frac{e^u}{2}(\sin u+\cos u)+C,
+\]
+we get
+\[
+\int \cos(\ln x)\dd x
+=
+\frac{x}{2}\bigl(\sin(\ln x)+\cos(\ln x)\bigr)+C.
+\]
+Therefore
+\[
+\boxed{\int \cos(\ln x)\dd x=\frac{x}{2}\bigl(\sin(\ln x)+\cos(\ln x)\bigr)+C.}
+\]
+
+\paragraph{Method 2: Integration by parts twice on the original variable}
+Let
+\[
+I=\int \cos(\ln x)\dd x.
+\]
+Integrate by parts with
+\[
+u=\cos(\ln x),\qquad \dd v=\dd x.
+\]
+Then
+\[
+\dd u=-\frac{\sin(\ln x)}{x}\dd x,\qquad v=x.
+\]
+Hence
+\[
+I=x\cos(\ln x)+\int \sin(\ln x)\dd x.
+\]
+Let
+\[
+J=\int \sin(\ln x)\dd x.
+\]
+Again integrate by parts:
+\[
+u=\sin(\ln x),\qquad \dd v=\dd x.
+\]
+Then
+\[
+\dd u=\frac{\cos(\ln x)}{x}\dd x,\qquad v=x,
+\]
+so
+\[
+J=x\sin(\ln x)-\int \cos(\ln x)\dd x=x\sin(\ln x)-I.
+\]
+Substitute into the first equation:
+\[
+I=x\cos(\ln x)+x\sin(\ln x)-I.
+\]
+Thus
+\[
+2I=x\bigl(\sin(\ln x)+\cos(\ln x)\bigr),
+\]
+hence
+\[
+I=\frac{x}{2}\bigl(\sin(\ln x)+\cos(\ln x)\bigr)+C.
+\]
+Therefore
+\[
+\boxed{\int \cos(\ln x)\dd x=\frac{x}{2}\bigl(\sin(\ln x)+\cos(\ln x)\bigr)+C.}
+\]
+
+\bigskip
+
+\subsubsection{(c) An identity and an application}
+
+\paragraph{Method 1: Integration by parts}
+Let
+\[
+J=\int_0^a f''(x)(a-x)\dd x.
+\]
+Integrate by parts with
+\[
+u=a-x,\qquad \dd v=f''(x)\dd x.
+\]
+Then
+\[
+\dd u=-\dd x,\qquad v=f'(x).
+\]
+So
+\[
+J=\left[f'(x)(a-x)\right]_0^a+\int_0^a f'(x)\dd x.
+\]
+Now
+\[
+\left[f'(x)(a-x)\right]_0^a=f'(a)\cdot 0-f'(0)\cdot a=-af'(0),
+\]
+and
+\[
+\int_0^a f'(x)\dd x=f(a)-f(0).
+\]
+Hence
+\[
+J=-af'(0)+f(a)-f(0).
+\]
+Therefore
+\[
+\boxed{\int_0^a f''(x)(a-x)\dd x=f(a)-f(0)-af'(0).}
+\]
+
+Now set \(f(x)=e^x\). Then \(f''(x)=e^x\), \(f(0)=1\), \(f'(0)=1\). So
+\[
+\int_0^a e^x(a-x)\dd x=e^a-1-a.
+\]
+For \(a>0\), we have \(e^x>0\) and \(a-x\ge 0\) on \([0,a]\), so the integral is nonnegative. Hence
+\[
+e^a-1-a\ge 0.
+\]
+Therefore
+\[
+\boxed{e^a\ge 1+a \qquad (a>0).}
+\]
+The same conclusion also holds for \(a=0\) by equality.
+
+\paragraph{Method 2: Define an auxiliary function}
+Define
+\[
+H(a)=f(a)-f(0)-af'(0)-\int_0^a f''(x)(a-x)\dd x.
+\]
+We show that \(H(a)\equiv 0\).
+
+First,
+\[
+H(0)=f(0)-f(0)-0-\int_0^0 \cdots \dd x=0.
+\]
+Now differentiate with respect to \(a\). By Leibniz's Rule,
+\[
+\frac{\dd}{\dd a}\int_0^a f''(x)(a-x)\dd x
+=
+\int_0^a f''(x)\dd x,
+\]
+since the upper-endpoint term is \(f''(a)(a-a)=0\). Therefore
+\[
+H'(a)=f'(a)-f'(0)-\int_0^a f''(x)\dd x.
+\]
+By the Fundamental Theorem of Calculus,
+\[
+\int_0^a f''(x)\dd x=f'(a)-f'(0).
+\]
+Hence
+\[
+H'(a)=0.
+\]
+So \(H\) is constant, and since \(H(0)=0\), we get \(H(a)=0\) for all \(a\ge 0\). Thus
+\[
+\boxed{\int_0^a f''(x)(a-x)\dd x=f(a)-f(0)-af'(0).}
+\]
+
+Applying \(f(x)=e^x\) again yields
+\[
+e^a-1-a=\int_0^a e^x(a-x)\dd x\ge 0,
+\]
+since the integrand is nonnegative on \([0,a]\). Hence
+\[
+\boxed{e^a\ge 1+a.}
+\]
+
+\newpage
+
+% ============================================================
+% Question 4
+% ============================================================
+\section{Question 4 \hfill (12 marks)}
+
+\subsection{Problem}
+
+Let
+\[
+I=\int_0^1 e^x\dd x.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{[4 marks]} Compute \(T_4\), \(M_4\), and \(S_4\), where \(T_n\), \(M_n\), and \(S_n\) are the composite Trapezoidal, Midpoint, and Simpson approximations, respectively.
+
+\item \textbf{[4 marks]} Find values of \(n\) which guarantee that \(T_n\), \(M_n\), and \(S_n\) approximate \(I\) with error at most \(10^{-4}\).
+
+\item \textbf{[4 marks]} Prove that Simpson's Rule with \(n=2\) is exact for every cubic polynomial
+\[
+p(x)=ax^3+bx^2+cx+d
+\]
+on every interval \([A,B]\).
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{(a) Computing \(T_4\), \(M_4\), and \(S_4\)}
+
+Here \(h=\frac{1-0}{4}=\frac14\).
+
+\paragraph{Method 1: Use the standard formulas directly}
+For the Trapezoidal Rule,
+\[
+T_4=\frac{h}{2}\left[f(0)+2f\!\left(\frac14\right)+2f\!\left(\frac12\right)+2f\!\left(\frac34\right)+f(1)\right].
+\]
+Since \(f(x)=e^x\),
+\[
+T_4
+=
+\frac18\left(1+2e^{1/4}+2e^{1/2}+2e^{3/4}+e\right).
+\]
+
+For the Midpoint Rule, the midpoints are
+\[
+\frac18,\ \frac38,\ \frac58,\ \frac78,
+\]
+so
+\[
+M_4
+=
+\frac14\left(e^{1/8}+e^{3/8}+e^{5/8}+e^{7/8}\right).
+\]
+
+For Simpson's Rule,
+\[
+S_4=\frac{h}{3}\left[f(0)+4f\!\left(\frac14\right)+2f\!\left(\frac12\right)+4f\!\left(\frac34\right)+f(1)\right],
+\]
+hence
+\[
+S_4
+=
+\frac{1}{12}\left(1+4e^{1/4}+2e^{1/2}+4e^{3/4}+e\right).
+\]
+
+Therefore
+\[
+\boxed{
+T_4=\frac18\left(1+2e^{1/4}+2e^{1/2}+2e^{3/4}+e\right),
+}
+\]
+\[
+\boxed{
+M_4=\frac14\left(e^{1/8}+e^{3/8}+e^{5/8}+e^{7/8}\right),
+}
+\]
+\[
+\boxed{
+S_4=\frac1{12}\left(1+4e^{1/4}+2e^{1/2}+4e^{3/4}+e\right).
+}
+\]
+
+\paragraph{Method 2: Build each rule from subinterval averages}
+For \(T_4\), average the endpoint values on each of the four subintervals and multiply by \(h=1/4\):
+\[
+T_4
+=
+\frac14\left[
+\frac{1+e^{1/4}}{2}
++
+\frac{e^{1/4}+e^{1/2}}{2}
++
+\frac{e^{1/2}+e^{3/4}}{2}
++
+\frac{e^{3/4}+e}{2}
+\right],
+\]
+which simplifies to
+\[
+T_4=\frac18\left(1+2e^{1/4}+2e^{1/2}+2e^{3/4}+e\right).
+\]
+
+For \(M_4\), take the midpoint value on each subinterval:
+\[
+M_4
+=
+\frac14\left(e^{1/8}+e^{3/8}+e^{5/8}+e^{7/8}\right).
+\]
+
+For \(S_4\), apply Simpson on the two pairs of subintervals:
+\[
+S_4
+=
+\frac{1/2}{6}\left(1+4e^{1/4}+e^{1/2}\right)
++
+\frac{1/2}{6}\left(e^{1/2}+4e^{3/4}+e\right),
+\]
+so
+\[
+S_4=\frac1{12}\left(1+4e^{1/4}+2e^{1/2}+4e^{3/4}+e\right).
+\]
+Hence the same formulas follow.
+
+\bigskip
+
+\subsubsection{(b) Error bounds}
+
+\paragraph{Method 1: Apply the standard composite-rule bounds}
+Since
+\[
+f(x)=e^x,
+\qquad
+f''(x)=e^x,
+\qquad
+f^{(4)}(x)=e^x,
+\]
+we may take
+\[
+K_2=\max_{0\le x\le 1}|f''(x)|=e,
+\qquad
+K_4=\max_{0\le x\le 1}|f^{(4)}(x)|=e.
+\]
+
+For the Trapezoidal Rule,
+\[
+|E_T|\le \frac{K_2(b-a)^3}{12n^2}
+=
+\frac{e}{12n^2}.
+\]
+We require
+\[
+\frac{e}{12n^2}\le 10^{-4},
+\]
+so
+\[
+n^2\ge \frac{e}{12\times 10^{-4}}\approx 2265.23.
+\]
+Hence it suffices to choose
+\[
+\boxed{n=48}
+\]
+(or any larger integer).
+
+For the Midpoint Rule,
+\[
+|E_M|\le \frac{K_2(b-a)^3}{24n^2}
+=
+\frac{e}{24n^2}.
+\]
+We require
+\[
+\frac{e}{24n^2}\le 10^{-4},
+\]
+so
+\[
+n^2\ge \frac{e}{24\times 10^{-4}}\approx 1132.62.
+\]
+Hence it suffices to choose
+\[
+\boxed{n=34}.
+\]
+
+For Simpson's Rule,
+\[
+|E_S|\le \frac{K_4(b-a)^5}{180n^4}
+=
+\frac{e}{180n^4},
+\]
+with \(n\) even. We require
+\[
+\frac{e}{180n^4}\le 10^{-4},
+\]
+so
+\[
+n^4\ge \frac{e}{180\times 10^{-4}}\approx 151.02.
+\]
+Thus
+\[
+n\ge 3.50\ldots
+\]
+and the smallest even choice is
+\[
+\boxed{n=4}.
+\]
+
+\paragraph{Method 2: Compare orders before computing}
+For \(e^x\) on \([0,1]\), all second and fourth derivatives are bounded by \(e\). Therefore:
+\[
+|E_T|=O(n^{-2}),\qquad |E_M|=O(n^{-2}),\qquad |E_S|=O(n^{-4}).
+\]
+So Simpson should require a much smaller \(n\) than the other two.
+
+Using the exact constants:
+\[
+|E_T|\le \frac{e}{12n^2},\qquad
+|E_M|\le \frac{e}{24n^2},\qquad
+|E_S|\le \frac{e}{180n^4},
+\]
+we solve each inequality against \(10^{-4}\) exactly as above to obtain
+\[
+\boxed{n=48 \text{ for } T_n,\qquad n=34 \text{ for } M_n,\qquad n=4 \text{ for } S_n.}
+\]
+
+\bigskip
+
+\subsubsection{(c) Simpson exactness for cubics}
+
+Recall that Simpson's Rule on \([A,B]\) with \(n=2\) uses
+\[
+m=\frac{A+B}{2},
+\qquad
+S_2=\frac{B-A}{6}\bigl(p(A)+4p(m)+p(B)\bigr).
+\]
+
+\paragraph{Method 1: Basis-polynomial verification}
+It suffices to prove exactness for the basis
+\[
+1,\ x,\ x^2,\ x^3,
+\]
+since Simpson's Rule and the definite integral are both linear in the function.
+
+For \(p(x)=1\),
+\[
+\int_A^B 1\dd x=B-A,
+\qquad
+S_2=\frac{B-A}{6}(1+4+1)=B-A.
+\]
+
+For \(p(x)=x\),
+\[
+S_2=\frac{B-A}{6}\left(A+4\frac{A+B}{2}+B\right)
+=
+\frac{B-A}{6}(3A+3B)
+=
+\frac{B^2-A^2}{2}
+=
+\int_A^B x\dd x.
+\]
+
+For \(p(x)=x^2\),
+\[
+S_2
+=
+\frac{B-A}{6}\left(A^2+4\left(\frac{A+B}{2}\right)^2+B^2\right)
+=
+\frac{B-A}{6}\left(A^2+(A+B)^2+B^2\right).
+\]
+So
+\[
+S_2
+=
+\frac{B-A}{6}\bigl(2A^2+2AB+2B^2\bigr)
+=
+\frac{B-A}{3}(A^2+AB+B^2)
+=
+\frac{B^3-A^3}{3}
+=
+\int_A^B x^2\dd x.
+\]
+
+For \(p(x)=x^3\),
+\[
+S_2
+=
+\frac{B-A}{6}\left(A^3+4\left(\frac{A+B}{2}\right)^3+B^3\right)
+=
+\frac{B-A}{6}\left(A^3+\frac{(A+B)^3}{2}+B^3\right).
+\]
+Expand:
+\[
+A^3+\frac{(A+B)^3}{2}+B^3
+=
+A^3+\frac{A^3+3A^2B+3AB^2+B^3}{2}+B^3
+=
+\frac{3}{2}(A^3+A^2B+AB^2+B^3).
+\]
+Hence
+\[
+S_2
+=
+\frac{B-A}{4}(A^3+A^2B+AB^2+B^3).
+\]
+But
+\[
+B^4-A^4=(B-A)(B^3+B^2A+BA^2+A^3),
+\]
+so
+\[
+S_2=\frac{B^4-A^4}{4}=\int_A^B x^3\dd x.
+\]
+
+Therefore Simpson's Rule is exact for every cubic polynomial. Thus
+\[
+\boxed{S_2=\int_A^B p(x)\dd x \quad \text{for every cubic } p.}
+\]
+
+\paragraph{Method 2: Shift to the midpoint}
+Let
+\[
+m=\frac{A+B}{2},
+\qquad
+h=\frac{B-A}{2},
+\]
+so that \(A=m-h\) and \(B=m+h\). Any cubic polynomial can be written in the shifted form
+\[
+p(x)=\alpha+\beta(x-m)+\gamma(x-m)^2+\delta(x-m)^3.
+\]
+
+Now Simpson's Rule on \([m-h,m+h]\) gives
+\[
+S_2=\frac{2h}{6}\bigl(p(m-h)+4p(m)+p(m+h)\bigr).
+\]
+Substitute the shifted form:
+
+\[
+p(m)=\alpha,
+\]
+\[
+p(m-h)=\alpha-\beta h+\gamma h^2-\delta h^3,
+\qquad
+p(m+h)=\alpha+\beta h+\gamma h^2+\delta h^3.
+\]
+Hence
+\[
+p(m-h)+4p(m)+p(m+h)=6\alpha+2\gamma h^2.
+\]
+Therefore
+\[
+S_2=\frac{2h}{6}(6\alpha+2\gamma h^2)=2\alpha h+\frac{2}{3}\gamma h^3.
+\]
+
+Now compute the exact integral:
+\[
+\int_{m-h}^{m+h} p(x)\dd x
+=
+\int_{-h}^{h} (\alpha+\beta u+\gamma u^2+\delta u^3)\dd u
+\qquad (u=x-m).
+\]
+The odd terms integrate to zero, so
+\[
+\int_{m-h}^{m+h} p(x)\dd x
+=
+\int_{-h}^{h}\alpha\dd u+\int_{-h}^{h}\gamma u^2\dd u
+=
+2\alpha h+\gamma\cdot \frac{2h^3}{3}.
+\]
+Hence
+\[
+\int_{m-h}^{m+h} p(x)\dd x=2\alpha h+\frac{2}{3}\gamma h^3=S_2.
+\]
+Therefore
+\[
+\boxed{S_2=\int_A^B p(x)\dd x \text{ for every cubic polynomial }p.}
+\]
+
+\newpage
+
+% ============================================================
+% Brief mark guidance
+% ============================================================
+\section{Brief Mark Guidance}
+
+\subsection{Question 1 \hfill (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (5 marks)} Correct Riemann-sum identification; correct integral; correct evaluation.
+\item \textbf{(b) (5 marks)} Correct use of product rule and Leibniz rule or equivalent explicit antiderivative method; correct evaluation at \(x=0\).
+\item \textbf{(c) (5 marks)} Correct FTC/chain-rule setup; correct integration and use of \(b(0)=1\); correct nonnegative branch.
+\end{itemize}
+
+\subsection{Question 2 \hfill (18 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (4 marks)} Correct intersection points and area integral.
+\item \textbf{(b) (4 marks)} Correct washer radii and final volume.
+\item \textbf{(c) (4 marks)} Correct shell radius/height and final volume.
+\item \textbf{(d) (6 marks)} Correct shell integral; correct final answer; clear explanation of why the washer method is not efficient.
+\end{itemize}
+
+\subsection{Question 3 \hfill (15 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (5 marks)} Correct improper-integral setup and limit handling.
+\item \textbf{(b) (4 marks)} Correct substitution or repeated integration by parts; correct antiderivative.
+\item \textbf{(c) (6 marks)} Correct proof of the identity and correct application to \(f(x)=e^x\).
+\end{itemize}
+
+\subsection{Question 4 \hfill (12 marks)}
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(a) (4 marks)} Correct formulas and correct substitution of nodes.
+\item \textbf{(b) (4 marks)} Correct error bounds and smallest valid \(n\).
+\item \textbf{(c) (4 marks)} Valid proof that Simpson's Rule with \(n=2\) is exact for every cubic.
+\end{itemize}
+
+\end{document}

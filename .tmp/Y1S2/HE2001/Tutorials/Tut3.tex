@@ -1,0 +1,524 @@
+% 
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{HE2001 }
+\newcommand{\CourseName}{Microeconomics II}
+\newcommand{\DocType}{Tutorial 3}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{[https://qrsntu.org](https://qrsntu.org)}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+%------------------------------------
+
+%------------- SHORTCUTS -------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_+}
+\newcommand{\dotp}{\cdot}
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on:
+\begin{itemize}[leftmargin=*]
+  \item Slutsky vs Hicksian compensation and the relationship between the two;
+  \item utility maximization: marginal utilities, MRS, Marshallian demands, and endowment-income demand;
+  \item net demand and Walras' Law (\(p\dotp z(p)=0\));
+  \item Slutsky income and substitution effects for standard preferences and perfect complements.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% 1 SLUTSKY AND HICKSIAN COMPENSATION
+%====================================================
+\newpage
+\section{Slutsky and Hicksian Compensation}
+A utility maximizing consumer has demand function \(x(p_1,p_2,m)\). The price is \(p=(p_1,p_2)\). The price of good 1 rises to \(p_1'>p_1\). Show that the Slutsky compensation \(m_s\) lies above the Hicksian compensation \(m_h\). That is, show that \(m_s \le m_h\).
+
+\subsection*{Solution}
+Let the new price vector be \(p'=(p_1',p_2)\). Let the initial chosen bundle be
+\[
+x^0:=x(p_1,p_2,m),\qquad u_0:=U(x^0).
+\]
+Define the Slutsky compensation
+\[
+m_s:=p'\dotp x^0,
+\]
+and the Hicksian compensation (minimum expenditure at new prices to reach the original utility level)
+\[
+m_h:=e(p',u_0)=\min\{\,p'\dotp y:\ y\in\Rp^2,\ U(y)\ge u_0\,\}.
+\]
+\emph{Remark.} The phrase ``\(m_s\) lies above \(m_h\)'' corresponds to \(m_s\ge m_h\) (equivalently \(m_h\le m_s\)). We prove this inequality below.
+
+\subsubsection*{Method 1: Feasibility in the expenditure-minimisation problem}
+By definition,
+\[
+m_h=\min\{\,p'\dotp y:\ y\in\Rp^2,\ U(y)\ge u_0\,\}.
+\]
+Since \(U(x^0)=u_0\), the bundle \(x^0\) is feasible for this minimisation, hence
+\[
+m_h \le p'\dotp x^0 = m_s.
+\]
+Therefore \(m_s\ge m_h\).
+
+\[
+\boxed{\,m_s \ge m_h\,}
+\]
+
+\subsubsection*{Method 2: Indirect utility and the least income needed to reach \(u_0\)}
+Let the indirect utility be
+\[
+v(p,m):=\max\{U(x): x\in\Rp^2,\ p\dotp x\le m\}.
+\]
+Since \(x^0\) is chosen at \((p,m)\), \(v(p,m)=U(x^0)=u_0\).
+At prices \(p'\), income \(m_s=p'\dotp x^0\) makes \(x^0\) affordable, so
+\[
+v(p',m_s)\ge U(x^0)=u_0.
+\]
+Define
+\[
+m_h:=\inf\{\,m'\ge 0:\ v(p',m')\ge u_0\,\}.
+\]
+Because \(v(p',m)\) is nondecreasing in \(m\), the inequality \(v(p',m_s)\ge u_0\) implies \(m_s\ge m_h\).
+
+\[
+\boxed{\,m_s \ge m_h\,}
+\]
+
+%====================================================
+% 2 UTILITY MAXIMIZATION
+%====================================================
+\newpage
+\section{Utility maximization}
+
+\subsection{Cobb-Douglas Utility and Constant Income Shares}
+Suppose \(U(x_1,x_2)=x_1x_2\).
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item Calculate the marginal utility for good 1 and 2: \(MU_1\) and \(MU_2\).
+  \item Calculate the marginal rate of substitution for goods 1 and 2: \(MRS_{12}\).
+  \item How much of good 1 will the consumer demand when prices are \((p_1,p_2)=(2,1)\) and the expenditure is \(m=1\). Hint: use the budget constraint \(p_1x_1+p_2x_2=m\).
+  \item Calculate the demand function \(x(p_1,p_2,m)\).
+  \item Suppose endowment is \(\omega=(3,1)\). How much will the consumer demand when \((p_1,p_2)=(1,3)\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Lagrangian (interior optimum) + plug-in}
+Maximise \(x_1x_2\) subject to \(p_1x_1+p_2x_2=m\), \(x_1,x_2\ge 0\). Since the objective is strictly increasing on \(\Rp^2\) and \(m>0\), the optimum is interior (\(x_1,x_2>0\)) and the budget binds.
+
+Lagrangian:
+\[
+\mathcal{L}=x_1x_2+\lambda(m-p_1x_1-p_2x_2).
+\]
+FOCs:
+\[
+\frac{\partial\mathcal{L}}{\partial x_1}=x_2-\lambda p_1=0,\qquad
+\frac{\partial\mathcal{L}}{\partial x_2}=x_1-\lambda p_2=0.
+\]
+From these:
+\[
+\lambda=\frac{x_2}{p_1}=\frac{x_1}{p_2}\quad\Rightarrow\quad \frac{x_2}{x_1}=\frac{p_1}{p_2}.
+\]
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item Marginal utilities:
+\[
+MU_1=\frac{\partial}{\partial x_1}(x_1x_2)=x_2,\qquad
+MU_2=\frac{\partial}{\partial x_2}(x_1x_2)=x_1.
+\]
+\[
+\boxed{\,MU_1=x_2,\quad MU_2=x_1\,}
+\]
+
+\item
+\[
+MRS_{12}=\frac{MU_1}{MU_2}=\frac{x_2}{x_1}.
+\]
+\[
+\boxed{\,MRS_{12}=\dfrac{x_2}{x_1}\,}
+\]
+
+\item For \((p_1,p_2,m)=(2,1,1)\), we have \(x_2/x_1=p_1/p_2=2\), so \(x_2=2x_1\).
+Budget: \(2x_1+x_2=1\Rightarrow 2x_1+2x_1=1\Rightarrow x_1=\tfrac14\).
+\[
+\boxed{\,x_1=\dfrac14\,}
+\]
+
+\item Using \(x_2=\frac{p_1}{p_2}x_1\) in the budget:
+\[
+p_1x_1+p_2\left(\frac{p_1}{p_2}x_1\right)=2p_1x_1=m
+\Rightarrow x_1=\frac{m}{2p_1},\quad x_2=\frac{m}{2p_2}.
+\]
+\[
+\boxed{\,x(p_1,p_2,m)=\left(\dfrac{m}{2p_1},\ \dfrac{m}{2p_2}\right)\,}
+\]
+
+\item With endowment \(\omega=(3,1)\) and prices \((p_1,p_2)=(1,3)\), expenditure is
+\[
+m=p\dotp\omega=1\cdot 3+3\cdot 1=6.
+\]
+Thus
+\[
+x(1,3,6)=\left(\frac{6}{2\cdot 1},\frac{6}{2\cdot 3}\right)=(3,1).
+\]
+\[
+\boxed{\,x=(3,1)\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: MRS = price ratio + budget}
+At an interior optimum,
+\[
+MRS_{12}=\frac{x_2}{x_1}=\frac{p_1}{p_2}
+\quad\Rightarrow\quad
+x_2=\frac{p_1}{p_2}x_1.
+\]
+Plugging into \(p_1x_1+p_2x_2=m\) gives \(2p_1x_1=m\), hence \(x_1=m/(2p_1)\) and \(x_2=m/(2p_2)\).
+All numerical cases follow immediately.
+
+\[
+\boxed{\,x(p_1,p_2,m)=\left(\dfrac{m}{2p_1},\ \dfrac{m}{2p_2}\right)\,}
+\]
+\newpage
+\subsection{Quasilinear Utility and Corner Solutions}
+
+Suppose \(U(x_1,x_2)=x_1+2\sqrt{x_2}\). The marginal utility is \(MU_1=1\) and \(MU_2=x_2^{-1/2}\).
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item Calculate the marginal rate of substitution for goods 1 and 2: \(MRS_{12}\).
+  \item How much of good 1 will the consumer demand when prices are \((p_1,p_2)=(2,1)\) and the expenditure is \(m=1\).
+  \item Calculate the demand function \(x(p_1,p_2,m)\).
+  \item Suppose endowment is \(\omega=(3,1)\). How much will the consumer demand when \((p_1,p_2)=(2,1)\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+
+\subsubsection*{Method 1: Tangency candidate + corner verification}
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item Since \(MU_1=1\) and \(MU_2=x_2^{-1/2}=1/\sqrt{x_2}\),
+\[
+MRS_{12}=\frac{MU_1}{MU_2}=\frac{1}{1/\sqrt{x_2}}=\sqrt{x_2}.
+\]
+\[
+\boxed{\,MRS_{12}=\sqrt{x_2}\,}
+\]
+
+\item At an interior optimum, tangency requires \(MRS_{12}=p_1/p_2\), i.e.
+\[
+\sqrt{x_2}=\frac{p_1}{p_2}.
+\]
+At \((p_1,p_2)=(2,1)\), this gives \(x_2=4\), which is infeasible under the budget \(2x_1+x_2\le 1\).
+Hence the optimum is a corner.
+
+Since \(U\) is increasing in both goods, the budget binds: \(2x_1+x_2=1\).
+Write \(x_1=(1-x_2)/2\) with \(x_2\in[0,1]\), and maximise
+\[
+f(x_2)=\frac{1-x_2}{2}+2\sqrt{x_2}.
+\]
+Derivative for \(x_2\in(0,1]\):
+\[
+f'(x_2)=-\frac12+\frac{1}{\sqrt{x_2}}.
+\]
+For \(x_2\in(0,1]\), \(1/\sqrt{x_2}\ge 1\), so \(f'(x_2)\ge \tfrac12>0\). Thus \(f\) is increasing, and the maximiser is \(x_2^*=1\), hence \(x_1^*=0\).
+\[
+\boxed{\,x_1=0\,}
+\]
+
+\item Interior candidate from tangency:
+\[
+\sqrt{x_2}=\frac{p_1}{p_2}\ \Rightarrow\ x_2^\circ=\left(\frac{p_1}{p_2}\right)^2,
+\qquad
+x_1^\circ=\frac{m-p_2x_2^\circ}{p_1}
+=\frac{m}{p_1}-\frac{p_1}{p_2}.
+\]
+This is feasible with \(x_1^\circ\ge 0\) iff \(m\ge p_1^2/p_2\).
+If \(m<p_1^2/p_2\), the optimum is the corner \(x_1^*=0\), \(x_2^*=m/p_2\).
+
+\[
+\boxed{\,x(p_1,p_2,m)=
+\begin{cases}
+\left(\dfrac{m}{p_1}-\dfrac{p_1}{p_2},\ \left(\dfrac{p_1}{p_2}\right)^2\right), & m\ge \dfrac{p_1^2}{p_2},\\[1.0em]
+\left(0,\ \dfrac{m}{p_2}\right), & m< \dfrac{p_1^2}{p_2}.
+\end{cases}}
+\]
+
+\item With endowment \(\omega=(3,1)\) and prices \((p_1,p_2)=(2,1)\),
+\[
+m=p\dotp\omega=2\cdot 3+1\cdot 1=7.
+\]
+Since \(7\ge 2^2/1=4\), the interior case applies:
+\[
+x_2=\left(\frac{2}{1}\right)^2=4,\qquad
+x_1=\frac{7}{2}-\frac{2}{1}=\frac{3}{2}.
+\]
+\[
+\boxed{\,x=\left(\dfrac{3}{2},\,4\right)\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: One-dimensional maximisation on the budget set (for the corner case)}
+For \((p_1,p_2,m)=(2,1,1)\), the feasible set is \(\{(x_1,x_2): 2x_1+x_2\le 1,\ x_1,x_2\ge 0\}\).
+Because \(U\) is increasing, the constraint binds, so \(x_1=(1-x_2)/2\) with \(x_2\in[0,1]\).
+Define
+\[
+f(x_2)=U\Bigl(\frac{1-x_2}{2},x_2\Bigr)=\frac{1-x_2}{2}+2\sqrt{x_2}.
+\]
+As computed above,
+\[
+f'(x_2)=-\frac12+\frac{1}{\sqrt{x_2}}>0\quad \text{for all }x_2\in(0,1],
+\]
+so the maximiser is \(x_2^*=1\), hence \(x_1^*=0\). Therefore \(x_1(2,1,1)=0\).
+
+\[
+\boxed{\,x_1(2,1,1)=0\,}
+\]
+
+%====================================================
+% 3 DEMAND EXAMPLE
+%====================================================
+\newpage
+\section{Demand example}
+Consider the utility function
+\[
+U(x)=\sqrt{x_1}+\sqrt{x_2}.
+\]
+This \(U\) generates the demand function
+\[
+x(p_1,p_2,m)=\frac{m}{p_1+p_2}\left(\frac{p_2}{p_1},\ \frac{p_1}{p_2}\right).
+\]
+Suppose the consumer with utility function \(U\) has endowment \(\omega=(3,1)\).
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item Show that \(p\dotp z(p)=0\) where \(z\) is the net demand function (i.e.\ \(z(p)=x(p,p\dotp \omega)-\omega\)).
+  \item What is the consumer's net demand \(z(p)\) at \(p=(1,1)\)? Is the consumer a net buyer or seller of good 1?
+  \item Prices change to \(p'=(2,1)\). What is the net demand \(z(p')\) at the new price level?
+  \item Calculate the income and substitution effects for good 1 for this price change.
+\end{enumerate}
+
+\subsection*{Solution}
+\subsubsection*{Method 1: Direct calculation}
+Let \(m(p):=p\dotp \omega\). Then \(z(p)=x(p,m(p))-\omega\).
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item Since the demand exhausts the budget,
+\[
+p\dotp x(p,m)=m.
+\]
+Setting \(m=m(p)=p\dotp\omega\) gives \(p\dotp x(p,p\dotp\omega)=p\dotp\omega\). Hence
+\[
+p\dotp z(p)=p\dotp\bigl(x(p,p\dotp\omega)-\omega\bigr)=0.
+\]
+\[
+\boxed{\,p\dotp z(p)=0\,}
+\]
+
+\item At \(p=(1,1)\), income is \(m=(1,1)\dotp(3,1)=4\). Then
+\[
+x(1,1,4)=\frac{4}{2}(1,1)=(2,2),
+\]
+so
+\[
+z(1,1)=(2,2)-(3,1)=(-1,1).
+\]
+Thus \(z_1(1,1)=-1<0\), so the consumer is a net seller of good 1.
+\[
+\boxed{\,z(1,1)=(-1,1)\ \text{and net seller of good 1.}\,}
+\]
+
+\item At \(p'=(2,1)\), income is \(m'=(2,1)\dotp(3,1)=7\). Then
+\[
+x(2,1,7)=\frac{7}{3}\left(\frac12,2\right)=\left(\frac{7}{6},\frac{14}{3}\right),
+\]
+so
+\[
+z(2,1)=\left(\frac{7}{6},\frac{14}{3}\right)-(3,1)=\left(-\frac{11}{6},\frac{11}{3}\right).
+\]
+\[
+\boxed{\,z(2,1)=\left(-\dfrac{11}{6},\dfrac{11}{3}\right)\,}
+\]
+
+\item Initial prices \(p=(1,1)\), initial income \(m_0=4\), initial bundle \(x^0=x(p,m_0)=(2,2)\), so \(x_1^0=2\).
+New prices \(p'=(2,1)\), new income \(m_1=7\), new bundle \(x^1=x(p',m_1)=(7/6,14/3)\), so \(x_1^1=7/6\).
+
+Slutsky (compensated) income:
+\[
+m_s:=p'\dotp x^0=(2,1)\dotp(2,2)=6.
+\]
+Compensated bundle:
+\[
+x^c:=x(p',m_s)=x(2,1,6)=\frac{6}{3}\left(\frac12,2\right)=(1,4),
+\]
+so \(x_1^c=1\). Therefore
+\[
+\Delta x_1^{\,s}:=x_1^c-x_1^0=1-2=-1,
+\qquad
+\Delta x_1^{\,n}:=x_1^1-x_1^c=\frac{7}{6}-1=\frac{1}{6}.
+\]
+\[
+\boxed{\,\Delta x_1^{\,s}=-1,\qquad \Delta x_1^{\,n}=\dfrac{1}{6}\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Three-point evaluation of \(x_1\)}
+Compute \(x_1\) at three points:
+\[
+x_1(p,m_0)=2,\qquad x_1(p',m_s)=1,\qquad x_1(p',m_1)=\frac{7}{6}.
+\]
+Then
+\[
+\Delta x_1^{\,s}=1-2=-1,\qquad
+\Delta x_1^{\,n}=\frac{7}{6}-1=\frac{1}{6}.
+\]
+\[
+\boxed{\,\Delta x_1^{\,s}=-1,\qquad \Delta x_1^{\,n}=\dfrac{1}{6}\,}
+\]
+
+%====================================================
+% 4 PERFECT COMPLEMENTS
+%====================================================
+\newpage
+\section{Perfect Complements}
+Consider the utility function
+\[
+U(x_1,x_2)=\min\{x_1,x_2\}.
+\]
+So, \(U(2,3)=2\), \(U(6,1)=1\), \(U(100,3)=3\) and so on. The demand function is
+\[
+x(p_1,p_2,m)=\left(\frac{m}{p_1+p_2},\ \frac{m}{p_1+p_2}\right),
+\]
+and the consumer has endowment \(\omega=(3,1)\).
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item Show that \(p\dotp z(p)=0\) where \(z\) is the net demand function (i.e.\ \(z(p)=x(p,p\dotp \omega)-\omega\)).
+  \item What is the consumer's net demand \(z(p)\) at \(p=(1,1)\)? Is the consumer a net buyer or seller of good 1?
+  \item Prices change to \(p'=(2,1)\). What is the net demand \(z(p')\) at the new price level?
+  \item Calculate the income and substitution effects for good 1 for this price change.
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Direct calculation from the demand function}
+Let \(m(p):=p\dotp\omega\). Then \(z(p)=x(p,m(p))-\omega\).
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item For any \(m\),
+\[
+p\dotp x(p,m)=p_1\frac{m}{p_1+p_2}+p_2\frac{m}{p_1+p_2}=m.
+\]
+Setting \(m=p\dotp\omega\) gives \(p\dotp x(p,p\dotp\omega)=p\dotp\omega\), hence \(p\dotp z(p)=0\).
+\[
+\boxed{\,p\dotp z(p)=0\,}
+\]
+
+\item At \(p=(1,1)\), income is \(m=(1,1)\dotp(3,1)=4\). Demand:
+\[
+x(1,1,4)=\left(\frac{4}{2},\frac{4}{2}\right)=(2,2).
+\]
+Net demand:
+\[
+z(1,1)=(2,2)-(3,1)=(-1,1).
+\]
+Thus \(z_1(1,1)=-1<0\), so the consumer is a net seller of good 1.
+\[
+\boxed{\,z(1,1)=(-1,1)\ \text{and net seller of good 1.}\,}
+\]
+
+\item At \(p'=(2,1)\), income is \(m'=(2,1)\dotp(3,1)=7\). Demand:
+\[
+x(2,1,7)=\left(\frac{7}{3},\frac{7}{3}\right).
+\]
+Net demand:
+\[
+z(2,1)=\left(\frac{7}{3},\frac{7}{3}\right)-(3,1)=\left(-\frac{2}{3},\frac{4}{3}\right).
+\]
+\[
+\boxed{\,z(2,1)=\left(-\dfrac{2}{3},\dfrac{4}{3}\right)\,}
+\]
+
+\item Initial prices \(p=(1,1)\), initial income \(m_0=4\), initial bundle \(x^0=(2,2)\), so \(x_1^0=2\).
+New prices \(p'=(2,1)\), new income \(m_1=7\), new bundle \(x^1=(7/3,7/3)\), so \(x_1^1=7/3\).
+
+Slutsky income:
+\[
+m_s:=p'\dotp x^0=(2,1)\dotp(2,2)=6.
+\]
+Compensated bundle:
+\[
+x^c:=x(p',m_s)=x(2,1,6)=\left(\frac{6}{3},\frac{6}{3}\right)=(2,2),
+\]
+so \(x_1^c=2\). Therefore
+\[
+\Delta x_1^{\,s}:=x_1^c-x_1^0=2-2=0,
+\qquad
+\Delta x_1^{\,m}:=x_1^1-x_1^c=\frac{7}{3}-2=\frac{1}{3}.
+\]
+\[
+\boxed{\,\Delta x_1^{\,s}=0,\qquad \Delta x_1^{\,m}=\dfrac{1}{3}\,}
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Perfect complements imply zero substitution effect}
+With \(U(x_1,x_2)=\min\{x_1,x_2\}\), utility depends only on matched pairs, so the compensated (utility-held-constant) bundle does not move away from the kink.
+For the initial bundle \(x^0=(2,2)\), the relevant kink level is \(2\), and the least-cost way to achieve this level at any prices is still to consume equal quantities.
+Thus the compensated demand at \(p'=(2,1)\) remains \((2,2)\), giving \(\Delta x_1^{\,s}=0\). The remaining change from \(2\) to \(7/3\) is the income effect \(1/3\).
+
+\[
+\boxed{\,\Delta x_1^{\,s}=0,\qquad \Delta x_1^{\,m}=\dfrac{1}{3}\,}
+\]
+
+\end{document}

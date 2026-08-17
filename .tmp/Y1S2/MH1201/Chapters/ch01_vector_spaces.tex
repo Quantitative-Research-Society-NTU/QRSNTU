@@ -1,0 +1,1255 @@
+%====================================================================
+
+\section{Vector Spaces and Subspaces}
+
+\label{sec:vector-spaces}
+
+%====================================================================
+
+This chapter collects the core definitions and proof templates for \emph{vector spaces}, \emph{subspaces}, \emph{span}, and basic subspace operations. The material corresponds to Study Weeks 1--2 and addresses ILO~1.
+
+%--------------------------------------------------------------------
+
+\subsection{Definition of a Vector Space}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Vector Space}{vspace}
+
+Let $\mathbb{F}$ be a field (in MH1201, typically $\mathbb{R}$ or $\mathbb{C}$).
+
+A \emph{vector space over $\mathbb{F}$} is a set $V$ equipped with
+
+\begin{itemize}[leftmargin=*]
+
+\item a binary operation $+_V : V\times V \to V$ (vector addition), and
+
+\item a scalar multiplication $\cdot_V : \mathbb{F}\times V \to V$,
+
+\end{itemize}
+
+such that for all $u,v,w\in V$ and all $c,d\in \mathbb{F}$, the following axioms hold:
+
+\begin{enumerate}[label=(VS\arabic*), leftmargin=*]
+
+\item $(u+_V v)+_V w = u+_V (v+_V w)$ \hfill (associativity of $+_V$)
+
+\item $u+_V v = v+_V u$ \hfill (commutativity of $+_V$)
+
+\item $c\cdot_V (u+_V v) = (c\cdot_V u)+_V (c\cdot_V v)$ \hfill (left distributivity)
+
+\item $(c+d)\cdot_V u = (c\cdot_V u)+_V (d\cdot_V u)$ \hfill (right distributivity)
+
+\item $c\cdot_V (d\cdot_V u) = (cd)\cdot_V u$ \hfill (compatibility with field multiplication)
+
+\item $1_{\mathbb{F}}\cdot_V u = u$ \hfill (scalar identity)
+
+\item There exists $0_V\in V$ such that $u+_V 0_V=u$ for all $u\in V$ \hfill (additive identity)
+
+\item For each $u\in V$ there exists $(-u)\in V$ such that $u+_V (-u)=0_V$. \hfill (additive inverse)
+
+\end{enumerate}
+
+\end{definition}
+
+% --- ADDED: Intuition for the vector space definition ---
+The definition of a vector space distills two fundamental ideas: (i)~you can \emph{add} objects together, and (ii)~you can \emph{scale} objects by elements of a field.
+The eight axioms guarantee that these two operations interact in a ``reasonable'' way---exactly the way they do for arrows in $\mathbb{R}^n$.
+In particular, axioms~(VS1)--(VS2) and (VS7)--(VS8) ensure that $(V,+_V)$ is an \emph{abelian group}, while axioms~(VS3)--(VS6) tie scalar multiplication to the field structure.
+
+\begin{examtip}
+\textbf{Exam strategy for verifying a vector space from scratch.}
+In most exam situations you will \emph{not} verify all eight axioms.  Instead, you verify that $V$ is a subspace of a known vector space (see Theorem~\ref{thm:subspace-test}) or recognise $V$ as one of the standard examples ($\mathbb{F}^n$, $\mathbb{F}^{m,n}$, $P_n(\mathbb{F})$, $\mathbb{F}^S$).
+The only time you need all eight axioms is when the operations are \emph{non-standard} (e.g.\ a ``weird'' addition or scalar multiplication).
+\end{examtip}
+
+\begin{policynote}
+
+\textbf{Terminology and notation.}
+
+When the ambient space $V$ is clear, we usually write $u+v$ and $cu$ instead of $u+_V v$ and $c\cdot_V u$.
+
+Likewise, we write $0$ for $0_V$ when there is no ambiguity.
+
+\end{policynote}
+
+\begin{keyformula}
+
+\textbf{Standard derived identities in any vector space.}
+
+Let $V$ be a vector space over $\mathbb{F}$. For all $u\in V$ and $c\in \mathbb{F}$,
+
+\[
+-(-u)=u,\qquad 0_{\mathbb{F}}\,u = 0_V,\qquad (-1_{\mathbb{F}})\,u = -u,\qquad c\,0_V = 0_V.
+\]
+
+\emph{How to prove:} each follows from the axioms via cancellation (add the same vector to both sides) and distributivity.
+
+\end{keyformula}
+
+% --- ADDED: Detailed proof of one derived identity ---
+\begin{examplebox}
+\textbf{Worked Example: Proving $0_{\mathbb{F}}\,u = 0_V$ from the axioms.}
+
+We want to show that multiplying any vector by the field zero gives the vector-space zero.
+
+\emph{Step 1.}  Observe that $0_{\mathbb{F}} = 0_{\mathbb{F}} + 0_{\mathbb{F}}$ in $\mathbb{F}$.
+
+\emph{Step 2.}  Using (VS4) (right distributivity):
+\[
+0_{\mathbb{F}}\,u = (0_{\mathbb{F}}+0_{\mathbb{F}})\,u = 0_{\mathbb{F}}\,u + 0_{\mathbb{F}}\,u.
+\]
+
+\emph{Step 3.}  Add the additive inverse $-(0_{\mathbb{F}}\,u)$ to both sides:
+\[
+0_V = 0_{\mathbb{F}}\,u.
+\]
+
+The proofs of the other three identities follow a similar pattern: exploit a trivial identity in $\mathbb{F}$ (or in $V$), distribute, and cancel.
+\end{examplebox}
+
+\begin{definition}{Vector Subtraction}{vsub}
+
+Let $V$ be a vector space. The \emph{vector subtraction} operation is defined by
+
+\[
+u - v := u + (-v).
+\]
+
+\end{definition}
+
+\begin{examplebox}
+
+\textbf{Worked Example: A "shifted" subset can fail to be a vector space.}
+
+Let $V=\mathbb{R}^3$ with the usual operations, and let
+
+\[
+W=\{(a,b,c)\in\mathbb{R}^3 \mid a+2b+3c=4\}.
+\]
+
+Then $W$ is \emph{not} a vector subspace of $\mathbb{R}^3$ because the zero vector is not in $W$:
+
+\[
+(0,0,0)\notin W \quad\text{since}\quad 0\neq 4.
+\]
+
+(Geometrically, $W$ is an affine plane not passing through the origin.)
+
+\end{examplebox}
+
+\begin{commonmistake}
+
+\textbf{"I checked closure, so it is a subspace."}
+
+Closure under addition and scalar multiplication \emph{must} be accompanied by non-emptiness (equivalently, $0\in W$).
+
+A fast disproof for subspaces is: check whether $0$ belongs.
+
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Examples of Vector Spaces}
+
+%--------------------------------------------------------------------
+
+Unless stated otherwise, the operations below are the usual entry-wise addition and scalar multiplication.
+
+\begin{itemize}[leftmargin=*]
+
+\item $\mathbb{F}^n$ for $n\in\mathbb{N}$.
+
+\item $\mathbb{F}^{m,n}$: the set of all $m\times n$ matrices with entries in $\mathbb{F}$.
+
+\item $P_n(\mathbb{F})$: polynomials with coefficients in $\mathbb{F}$ of degree $\le n$.
+
+\item $\mathbb{F}^{\mathbb{F}}$ (or $\mathbb{R}^{\mathbb{R}}$): functions $\mathbb{F}\to\mathbb{F}$ under pointwise operations.
+
+\item Non-example: view $\mathbb{R}$ as a vector space over $\mathbb{R}$. Then $\mathbb{Q}\subseteq \mathbb{R}$ is \emph{not} a subspace since it is not closed under scalar multiplication by irrational scalars (e.g.\ $\sqrt{2}\cdot 1\notin\mathbb{Q}$).
+
+\end{itemize}
+
+% --- ADDED: Clarifying note on the role of the field ---
+\begin{policynote}
+\textbf{The field matters.}
+Whether a set is a vector space (or subspace) can depend on \emph{which field} you use.
+For instance, $\mathbb{Q}$ is \emph{not} a subspace of $\mathbb{R}$ over $\mathbb{R}$ (scalar closure fails), but $\mathbb{Q}$ \emph{is} a vector space over $\mathbb{Q}$ (with usual addition and multiplication).
+Always check what field the problem specifies.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example: $P_3(\mathbb{R})$ is a vector space.}
+
+Let $P_3(\mathbb{R})=\{a_0+a_1X+a_2X^2+a_3X^3 : a_i\in\mathbb{R}\}$ with the usual polynomial addition and scalar multiplication.
+
+\begin{itemize}[leftmargin=*]
+
+\item \emph{Closure:} if $p,q\in P_3(\mathbb{R})$, then $p+q$ has degree $\le 3$, and if $c\in\mathbb{R}$ then $cp$ has degree $\le 3$.
+
+\item The remaining axioms reduce to the corresponding properties of real numbers, verified coefficient-wise.
+
+\end{itemize}
+
+Hence $P_3(\mathbb{R})$ is a vector space over $\mathbb{R}$.
+
+\end{examplebox}
+
+% --- ADDED: Additional example from Week 2 lectures ---
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 2): A differential-equation solution set as a subspace.}
+
+Consider the set
+\[
+S = \{P\in P(\mathbb{R}) : P'' + 7P' - 3P = 0\}.
+\]
+
+Define $T:P(\mathbb{R})\to P(\mathbb{R})$ by $T(P)=P''+7P'-3P$.  Then $T$ is linear (differentiation and scalar multiplication are linear operations), and $S=\ker(T)$.  Since the kernel of a linear map is always a subspace, $S$ is a subspace of $P(\mathbb{R})$.
+
+\medskip
+\emph{Key idea (kernel viewpoint):} whenever a subset is defined by setting a \emph{linear} expression equal to zero, recognise it as a kernel and conclude it is a subspace immediately.
+\end{examplebox}
+
+%--------------------------------------------------------------------
+
+\subsection{Vector Subspaces}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Vector Subspace}{subspace}
+
+Let $V$ be a vector space over $\mathbb{F}$, and let $W\subseteq V$.
+
+We say that $W$ is a \emph{vector subspace of $V$} if $W$ becomes a vector space over $\mathbb{F}$
+
+when equipped with the \emph{restricted} operations inherited from $V$.
+
+\end{definition}
+
+% --- ADDED: Intuition for vector subspaces ---
+Intuitively, a subspace is a ``flat'' subset of $V$ that passes through the origin and is ``closed'' under the ambient operations.  In $\mathbb{R}^3$, subspaces are: $\{0\}$, lines through the origin, planes through the origin, and $\mathbb{R}^3$ itself.  A line or plane that does \emph{not} pass through the origin is \emph{not} a subspace (it is an \emph{affine} subspace).
+
+\begin{theorem}{Subspace Test}{subspace-test}
+
+Let $V$ be a vector space over $\mathbb{F}$ and let $W\subseteq V$.
+
+Then $W$ is a vector subspace of $V$ if and only if:
+
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+
+\item $W\neq \emptyset$;
+
+\item for all $u,v\in W$, we have $u+v\in W$;
+
+\item for all $c\in\mathbb{F}$ and $u\in W$, we have $cu\in W$.
+
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+
+($\Rightarrow$) If $W$ is a vector space under the inherited operations, then it contains its additive identity (so $W\neq\emptyset$) and is closed under its own addition and scalar multiplication; since these coincide with those of $V$, (2) and (3) hold.
+
+($\Leftarrow$) If (1)--(3) hold, then the restricted operations map $W\times W\to W$ and $\mathbb{F}\times W\to W$.
+
+All vector space axioms for $W$ follow because they hold in $V$ and all terms appearing remain in $W$ by (2)--(3).
+
+\end{proof}
+
+% --- ADDED: Why we don't need to check all 8 axioms ---
+\begin{policynote}
+\textbf{Why only three conditions?}
+The Subspace Test works because six of the eight vector space axioms (associativity, commutativity, distributivities, compatibility, scalar identity) are \emph{inherited} from the ambient space $V$---they hold for \emph{all} vectors in $V$, so they certainly hold for vectors restricted to $W$.
+The only conditions that can fail are: (i)~the operations might not map back into $W$ (closure), and (ii)~the identity/inverse elements might not lie in $W$ (non-emptiness).
+But once $W\neq\emptyset$ and closure holds, picking any $w\in W$ gives $0=0_{\mathbb{F}}\,w\in W$ (by scalar closure), and $-w=(-1)w\in W$ (by scalar closure), so the identity and inverses are automatic.
+\end{policynote}
+
+% --- ADDED: One-line subspace test variant ---
+\begin{keyformula}
+\textbf{Combined one-line subspace test.}
+$W$ is a subspace of $V$ if and only if $W\neq\emptyset$ and for all $u,v\in W$ and $c\in\mathbb{F}$:
+\[
+cu+v\in W.
+\]
+This single condition combines closure under scalar multiplication and addition.  It is sometimes faster in proofs.
+\end{keyformula}
+
+\begin{keyformula}
+
+\textbf{Non-subspace test (fast disproof).}
+
+If $0_V\notin W$, then $W$ is \emph{not} a vector subspace of $V$.
+
+\medskip
+
+\textbf{Useful "kernel viewpoint".}
+
+If $T:V\to U$ is a linear map, then $\ker(T)=\{v\in V:T(v)=0\}$ is a vector subspace of $V$.
+
+In particular, solution sets of \emph{homogeneous} linear equations are subspaces.
+
+\end{keyformula}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 1, Question 1): Subspace test + describing the set.}
+
+Consider
+
+\[
+U=\{(a,b,c)\in\mathbb{R}^3 \mid a=5c\}.
+\]
+
+\emph{Subspace test.}
+
+The set is non-empty because $(0,0,0)\in U$.
+
+If $(a_1,b_1,c_1),(a_2,b_2,c_2)\in U$, then $a_1=5c_1$ and $a_2=5c_2$, so
+
+\[
+a_1+a_2 = 5(c_1+c_2),
+\]
+
+hence $(a_1+a_2,b_1+b_2,c_1+c_2)\in U$ (closure under addition).
+
+If $(a,b,c)\in U$ and $\lambda\in\mathbb{R}$, then $\lambda a=5(\lambda c)$, so $(\lambda a,\lambda b,\lambda c)\in U$ (closure under scalar multiplication).
+
+Thus $U$ is a subspace.
+
+\medskip
+
+\emph{Describe $U$ as a span.}
+
+Any $(a,b,c)\in U$ satisfies $a=5c$, so
+
+\[
+(a,b,c)=(5c,b,c)=c(5,0,1)+b(0,1,0)\in \operatorname{Span}\{(5,0,1),(0,1,0)\}.
+\]
+
+Conversely, any linear combination $c(5,0,1)+b(0,1,0)=(5c,b,c)$ satisfies $a=5c$, so it lies in $U$.
+
+Therefore
+
+\[
+U=\operatorname{Span}\{(5,0,1),(0,1,0)\}.
+\]
+
+(This is a typical \emph{double-inclusion} proof of subspace equality.)
+
+\end{examplebox}
+
+% --- ADDED: Alternative "kernel" method for Tutorial 1 Q1 ---
+\begin{extension}[title={Extension (Tutorial 1, Question 1, Method 2: Kernel viewpoint)}]
+Define $L:\mathbb{R}^3\to\mathbb{R}$ by $L(a,b,c)=a-5c$.
+Then $L$ is linear because:
+\[
+L\bigl((a_1,b_1,c_1)+(a_2,b_2,c_2)\bigr)=(a_1+a_2)-5(c_1+c_2)=L(a_1,b_1,c_1)+L(a_2,b_2,c_2),
+\]
+and $L(\lambda(a,b,c))=\lambda a-5\lambda c=\lambda L(a,b,c)$.
+Since $U=\{(a,b,c):L(a,b,c)=0\}=\ker(L)$, and the kernel of a linear map is always a subspace, $U$ is a subspace.
+
+\medskip
+\emph{When to use the kernel viewpoint:} whenever a subset is defined by setting a linear expression (in the coordinates/entries) to zero, you can define the corresponding linear map and immediately conclude the set is a subspace as its kernel.  This avoids checking closure conditions manually.
+\end{extension}
+
+\begin{keyformula}
+
+\textbf{Immediate consequences for subspaces.}
+
+If $W$ is a subspace of $V$, then:
+
+\begin{itemize}[leftmargin=*]
+
+\item $0\in W$;
+
+\item if $u\in W$, then $-u\in W$ (take scalar $-1_{\mathbb{F}}$);
+
+\item if $u,v\in W$, then $u-v\in W$ (since $u-v=u+(-v)$).
+
+\end{itemize}
+
+These are often used to simplify subspace proofs.
+
+\end{keyformula}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 1, Question 2): A subspace inside a function space.}
+
+Let $\mathcal{D}$ be the set of differentiable functions $f:\mathbb{R}\to\mathbb{R}$, viewed as a subspace of $\mathbb{R}^{\mathbb{R}}$ under pointwise operations.
+
+Consider
+
+\[
+W=\{f\in\mathcal{D} : f'(1)=3f(2)\}.
+\]
+
+\emph{Non-empty:} the zero function $f\equiv 0$ lies in $W$ because $0=3\cdot 0$.
+
+\emph{Closure under addition:} if $f,g\in W$, then using linearity of differentiation and evaluation,
+
+\[
+(f+g)'(1)=f'(1)+g'(1)=3f(2)+3g(2)=3(f+g)(2),
+\]
+
+so $f+g\in W$.
+
+\emph{Closure under scalar multiplication:} if $c\in\mathbb{R}$ and $f\in W$, then
+
+\[
+(cf)'(1)=c f'(1)=c\cdot 3 f(2)=3(cf)(2),
+\]
+
+so $cf\in W$. Hence $W$ is a subspace of $\mathbb{R}^{\mathbb{R}}$ (and of $\mathcal{D}$).
+
+\end{examplebox}
+
+% --- ADDED: Kernel method for Tutorial 1 Q2 ---
+\begin{extension}[title={Extension (Tutorial 1, Question 2, Method 2: Kernel of a linear functional)}]
+Define $L:\mathcal{D}\to\mathbb{R}$ by $L(f)=f'(1)-3f(2)$.  We verify linearity:
+\begin{align*}
+L(f+g) &= (f+g)'(1)-3(f+g)(2) = (f'(1)-3f(2))+(g'(1)-3g(2))=L(f)+L(g),\\
+L(\lambda f)&=(\lambda f)'(1)-3(\lambda f)(2)=\lambda(f'(1)-3f(2))=\lambda L(f).
+\end{align*}
+Since $W=\ker(L)$ and the kernel of a linear map is a subspace, $W$ is a subspace.
+
+\medskip
+\emph{Takeaway:} the kernel viewpoint generalises to \emph{any} subset defined by a condition of the form ``\emph{linear expression} $=0$.''  For function spaces, common linear operations include evaluation ($f\mapsto f(a)$), differentiation ($f\mapsto f'(a)$), and integration.
+\end{extension}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 1, Question 6): Disproving a subspace via the zero element.}
+
+Let
+
+\[
+S=\left\{
+\begin{pmatrix}
+a & b\\
+3b-4c & a+2
+\end{pmatrix}
+\in \mathbb{R}^{2,2}
+\ \middle|\ a,b,c\in\mathbb{R}
+\right\}.
+\]
+
+If $S$ were a subspace, it must contain the zero matrix.
+
+But the $(2,2)$-entry is always $a+2$, so for any matrix in $S$ we have $(2,2)=a+2$.
+
+To get the zero matrix, we would need $a+2=0$ and simultaneously the $(1,1)$-entry $a=0$, which is impossible.
+
+Therefore $0\notin S$ and $S$ is \emph{not} a subspace.
+
+\end{examplebox}
+
+\begin{examplebox}
+
+\textbf{Worked Example: Homogeneous vs.\ non-homogeneous constraints.}
+
+Let
+
+\[
+W_0=\{(a,b,c)\in\mathbb{R}^3 \mid a+2b+3c=0\},\qquad
+W_4=\{(a,b,c)\in\mathbb{R}^3 \mid a+2b+3c=4\}.
+\]
+
+Define $L:\mathbb{R}^3\to\mathbb{R}$ by $L(a,b,c)=a+2b+3c$.
+
+Then $W_0=\ker(L)$ is a subspace (kernel viewpoint).
+
+In contrast, $W_4$ is \emph{not} a subspace since $0\notin W_4$.
+
+\end{examplebox}
+
+% --- ADDED: Affine subspace theorem from Week 1 lectures ---
+\begin{keyformula}
+\textbf{When is an affine subset a subspace? (Lecture Week 1)}
+
+Let $a_1,\dots,a_n,b\in V$.  Then
+\[
+\{\lambda_1 a_1+\cdots+\lambda_n a_n+b : \lambda_i\in\mathbb{F}\}
+\]
+is a subspace of $V$ if and only if $b\in\operatorname{Span}\{a_1,\dots,a_n\}$.
+
+\medskip
+\emph{Intuition:} if $b$ already lies in the span of the $a_i$'s, then the ``$+b$'' shift does not move the set away from the origin---the set is the same as $\operatorname{Span}\{a_1,\dots,a_n\}$.  Otherwise, the set is a genuine affine translate and misses the origin.
+\end{keyformula}
+
+% --- ADDED: Concrete micro-example for the affine criterion ---
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 1): Affine subset test.}
+
+Is the set
+$\displaystyle S=\left\{\lambda\begin{pmatrix}1\\0\\-1\end{pmatrix}+\mu\begin{pmatrix}1\\2\\3\end{pmatrix}+\begin{pmatrix}0\\1\\0\end{pmatrix}\;\middle|\;\lambda,\mu\in\mathbb{R}\right\}$
+a subspace of $\mathbb{R}^{3,1}$?
+
+We need to check if $b=(0,1,0)^T\in\operatorname{Span}\{(1,0,-1)^T,(1,2,3)^T\}$.
+Solving $\lambda(1,0,-1)^T+\mu(1,2,3)^T=(0,1,0)^T$ gives the system $\lambda+\mu=0$, $2\mu=1$, $-\lambda+3\mu=0$.
+From the second equation $\mu=\tfrac{1}{2}$, so $\lambda=-\tfrac{1}{2}$.
+Check the third: $\tfrac{1}{2}+\tfrac{3}{2}=2\neq 0$.  Contradiction.
+
+Hence $b\notin\operatorname{Span}\{a_1,a_2\}$, so $S$ is \emph{not} a subspace.
+\end{examplebox}
+
+\begin{commonmistake}
+
+\textbf{Confusing "subset" with "subspace".}
+
+Even if $W\subseteq V$, $W$ need not inherit the vector space structure unless it is closed under \emph{both}
+
+addition and scalar multiplication and contains $0$.
+
+\medskip
+
+\textbf{Example (Tutorial 1, Question 3):} a set may be closed under addition and additive inverses, yet fail scalar closure (e.g.\ integer lattices in $\mathbb{R}^2$).
+
+\end{commonmistake}
+
+% --- ADDED: Expanded detail on Tutorial 1 Q3 ---
+\begin{policynote}
+\textbf{Detail on the $\mathbb{Z}^2$ non-example (Tutorial 1, Question 3).}
+$\mathbb{Z}^2=\{(m,n):m,n\in\mathbb{Z}\}$ is closed under addition (sums of integers are integers) and additive inverses (negatives of integers are integers).
+However, $\frac{1}{2}(1,0)=(\frac{1}{2},0)\notin\mathbb{Z}^2$, so it fails scalar closure over $\mathbb{R}$.
+This shows that closure under addition and inverses alone is \emph{not sufficient} for the subspace property---you must also verify scalar closure.
+\end{policynote}
+
+\begin{examtip}
+
+\begin{itemize}[leftmargin=*]
+
+\item \textbf{Fast subspace proof templates:}
+
+(i) use the Subspace Test; or
+
+(ii) recognize $W$ as a kernel / solution set to homogeneous linear equations; or
+
+(iii) write $W=\operatorname{Span}(S)$ for some set $S$.
+
+\item \textbf{Fast disproof:} check whether $0\in W$. If not, you are done.
+
+\item \textbf{Do not claim "closed under subtraction" in place of scalar closure:}
+
+closure under subtraction implies closure under addition \emph{only if} you already know closure under additive inverses, but it still does not give scalar closure.
+
+\end{itemize}
+
+\end{examtip}
+
+%--------------------------------------------------------------------
+
+\subsection{Span, Generating Sets, and Linear Combinations}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Linear Combination and Span}{span}
+
+Let $V$ be a vector space over $\mathbb{F}$.
+
+\begin{itemize}[leftmargin=*]
+
+\item Given vectors $v_1,\dots,v_n\in V$ ($n\in\mathbb{N}_0$), a \emph{linear combination} of $v_1,\dots,v_n$ is a vector of the form
+
+\[
+\lambda_1 v_1+\cdots+\lambda_n v_n
+\qquad(\lambda_i\in\mathbb{F}).
+\]
+
+By convention, the "empty" linear combination (when $n=0$) equals $0_V$.
+
+\item Given a subset $S\subseteq V$ (not necessarily finite), the \emph{span} of $S$ is
+
+\[
+\operatorname{Span}(S)=\{\text{all linear combinations of finitely many vectors in }S\}.
+\]
+
+\end{itemize}
+
+We say that $S$ \emph{spans} $V$ if $\operatorname{Span}(S)=V$, and call $S$ a \emph{generating set} of $V$.
+
+\end{definition}
+
+% --- ADDED: Intuition for span ---
+The span of a set $S$ captures \emph{all vectors reachable} from $S$ using only addition and scaling.  It is the ``smallest sandbox'' containing $S$ that is closed under the vector space operations.
+A key subtlety: even if $S$ is infinite, each individual element of $\operatorname{Span}(S)$ uses only \emph{finitely many} vectors from $S$ (infinite sums are not defined in a general vector space without topology).
+
+\begin{keyformula}
+
+\textbf{What is $\operatorname{Span}(\emptyset)$?} \quad $\operatorname{Span}(\emptyset)=\{0_V\}$.
+
+\medskip
+
+Reason: the only linear combination using no vectors is $0_V$.
+
+\end{keyformula}
+
+\begin{theorem}{The span of a set is a vector subspace}{span-subspace}
+
+Let $V$ be a vector space over $\mathbb{F}$ and let $S\subseteq V$.
+
+Then $\operatorname{Span}(S)$ is a vector subspace of $V$.
+
+\end{theorem}
+
+\begin{proof}
+
+\emph{Non-empty:} $0_V\in \operatorname{Span}(S)$ as the empty linear combination.
+
+\emph{Closed under addition:} if $u=\sum_{i=1}^m \alpha_i s_i$ and $v=\sum_{j=1}^n \beta_j t_j$
+
+with $s_i,t_j\in S$, then
+
+\[
+u+v=\sum_{i=1}^m \alpha_i s_i + \sum_{j=1}^n \beta_j t_j
+\]
+
+is a linear combination of finitely many vectors in $S$, hence is in $\operatorname{Span}(S)$.
+
+\emph{Closed under scalar multiplication:} for $c\in\mathbb{F}$,
+
+\[
+c\,u=c\sum_{i=1}^m \alpha_i s_i = \sum_{i=1}^m (c\alpha_i)s_i \in \operatorname{Span}(S).
+\]
+
+Thus $\operatorname{Span}(S)$ is a subspace by the Subspace Test.
+
+\end{proof}
+
+\begin{theorem}{Smallest subspace containing a set}{span-smallest}
+
+Let $V$ be a vector space over $\mathbb{F}$ and $S\subseteq V$.
+
+Then $\operatorname{Span}(S)$ is the \emph{smallest} vector subspace of $V$ that contains $S$:
+
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+
+\item $S\subseteq \operatorname{Span}(S)$;
+
+\item if $W$ is a subspace of $V$ with $S\subseteq W$, then $\operatorname{Span}(S)\subseteq W$.
+
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+
+(1) For any $s\in S$, we have $s=1_{\mathbb{F}}\,s$, hence $s\in \operatorname{Span}(S)$.
+
+(2) Let $W$ be a subspace with $S\subseteq W$. Any element of $\operatorname{Span}(S)$ is a finite linear combination of elements of $S$, hence of elements of $W$; since $W$ is closed under addition and scalar multiplication, that combination lies in $W$.
+
+Thus $\operatorname{Span}(S)\subseteq W$.
+
+\end{proof}
+
+% --- ADDED: Intuition for "smallest subspace" ---
+\begin{policynote}
+\textbf{Two equivalent ways to think about $\operatorname{Span}(S)$.}
+\begin{itemize}[leftmargin=*]
+\item \emph{Bottom-up (constructive):} $\operatorname{Span}(S)$ consists of all \emph{finite} linear combinations of vectors in $S$.
+\item \emph{Top-down (minimality):} $\operatorname{Span}(S)$ is the intersection of \emph{all} subspaces that contain $S$.
+\end{itemize}
+The bottom-up view is useful for computations; the top-down view is useful for abstract proofs (e.g.\ proving that a subspace containing $S$ must contain $\operatorname{Span}(S)$).
+\end{policynote}
+
+\begin{extension}[title={Extension (Lecture Week 2: Span as an intersection)}]
+
+Let $\mathcal{W}=\{\,W\subseteq V:\ W\text{ is a subspace and }S\subseteq W\,\}$.
+
+Then
+
+\[
+\operatorname{span}(S)=\bigcap_{W\in\mathcal{W}} W.
+\]
+
+Indeed, $\operatorname{span}(S)\subseteq W$ for every such $W$ (smallest-subspace property), so $\operatorname{span}(S)$ is contained in the intersection; conversely, $\operatorname{span}(S)\in\mathcal{W}$, so the intersection is contained in $\operatorname{span}(S)$.
+
+\end{extension}
+
+\begin{theorem}{Basic properties of spans}{span-properties}
+
+Let $V$ be a vector space, and let $A,B\subseteq V$.
+
+\begin{enumerate}[label=(\alph*), leftmargin=*]
+
+\item $A\subseteq \operatorname{Span}(A)$.
+
+\item If $A\subseteq B$, then $\operatorname{Span}(A)\subseteq \operatorname{Span}(B)$.
+
+\item $\operatorname{Span}(A\cup B)=\operatorname{Span}(A)+\operatorname{Span}(B)$.
+
+\item $\operatorname{Span}(\operatorname{Span}(A))=\operatorname{Span}(A)$.
+
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+
+(a) is Theorem~\ref{thm:span-smallest}(1).
+
+(b) If $A\subseteq B$, then $\operatorname{Span}(B)$ is a subspace containing $A$; apply Theorem~\ref{thm:span-smallest}(2).
+
+(c) ($\subseteq$) Any element of $\operatorname{Span}(A\cup B)$ is a finite linear combination of vectors from $A\cup B$. Group the terms coming from $A$ and from $B$ to write it as $u+v$ with $u\in \operatorname{Span}(A)$ and $v\in \operatorname{Span}(B)$. Hence it lies in $\operatorname{Span}(A)+\operatorname{Span}(B)$.
+
+($\supseteq$) If $u\in \operatorname{Span}(A)$ and $v\in \operatorname{Span}(B)$, then both $u$ and $v$ are linear combinations of vectors in $A\cup B$, so $u+v$ is also such a linear combination; hence $u+v\in \operatorname{Span}(A\cup B)$.
+
+(d) Since $A\subseteq \operatorname{Span}(A)$, (b) gives $\operatorname{Span}(A)\subseteq \operatorname{Span}(\operatorname{Span}(A))$.
+
+Conversely, $\operatorname{Span}(A)$ is already a subspace containing $\operatorname{Span}(A)$, so Theorem~\ref{thm:span-smallest}(2) gives $\operatorname{Span}(\operatorname{Span}(A))\subseteq \operatorname{Span}(A)$.
+
+\end{proof}
+
+% --- ADDED: Why idempotence matters ---
+\begin{policynote}
+\textbf{Why does property~(d) (idempotence) matter?}
+It says ``spanning an already-spanned set gives nothing new.''  Formally, $\operatorname{Span}$ is a \emph{closure operator} on subsets of $V$: it is extensive ($A\subseteq\operatorname{Span}(A)$), monotone ($A\subseteq B\Rightarrow\operatorname{Span}(A)\subseteq\operatorname{Span}(B)$), and idempotent ($\operatorname{Span}(\operatorname{Span}(A))=\operatorname{Span}(A)$).  The fixed points of this operator are precisely the subspaces of $V$.
+\end{policynote}
+
+\begin{examplebox}
+
+\textbf{Worked Example: Describing $\operatorname{Span}$ geometrically in $\mathbb{R}^2$.}
+
+Let $S=\{(1,2),(2,4)\}\subseteq \mathbb{R}^2$.
+
+Since $(2,4)=2(1,2)$, any linear combination of vectors in $S$ is a scalar multiple of $(1,2)$:
+
+\[
+\lambda(1,2)+\mu(2,4)=(\lambda+2\mu)(1,2).
+\]
+
+Thus
+
+\[
+\operatorname{Span}(S)=\{t(1,2): t\in\mathbb{R}\},
+\]
+
+the line through the origin in direction $(1,2)$.
+
+\end{examplebox}
+
+% --- ADDED: Example from Week 2 lecture on spanning P_3(R) ---
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 2): Does a set span $P_3(\mathbb{R})$?}
+
+Determine whether $S=\{4-X+X^3,\; 1+2X-3X^2,\; 3-3X+3X^2+X^3,\; X-X^3\}$ spans $P_3(\mathbb{R})$.
+
+\emph{Strategy:} express each element of $S$ in the standard basis $\{1,X,X^2,X^3\}$ and check if the coefficient vectors span $\mathbb{R}^4$.
+
+The coefficient vectors (reading off powers $1, X, X^2, X^3$) are:
+\[
+(4,-1,0,1),\quad (1,2,-3,0),\quad (3,-3,3,1),\quad (0,1,0,-1).
+\]
+
+Row-reducing the $4\times 4$ matrix formed by these rows determines whether they span all of $\mathbb{R}^4$.  If the rank is $4$, then $S$ spans $P_3(\mathbb{R})$; otherwise it does not.
+
+(The full row reduction is left as an exercise; the key point is the \emph{method}: reduce a spanning question to a rank computation.)
+\end{examplebox}
+
+\begin{commonmistake}
+
+\textbf{Forgetting "finitely many" in the definition of span.}
+
+Even if $S$ is infinite, each element of $\operatorname{Span}(S)$ must be a linear combination of \emph{finitely many} vectors from $S$.
+
+\end{commonmistake}
+
+%--------------------------------------------------------------------
+
+\subsection{Subspace Operations}
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Intersection and Sum of Subspaces}{subspace-ops}
+
+Let $V$ be a vector space over $\mathbb{F}$, and let $V_1,\dots,V_n$ be subspaces of $V$.
+
+\begin{itemize}[leftmargin=*]
+
+\item The \emph{intersection} $\bigcap_{i=1}^n V_i$ is the set of vectors lying in every $V_i$.
+
+\item The \emph{sum} $V_1+\cdots+V_n$ is defined by
+
+\[
+V_1+\cdots+V_n=\{v_1+\cdots+v_n \in V : v_i\in V_i \text{ for each }i\}.
+\]
+
+\end{itemize}
+
+\end{definition}
+
+% --- ADDED: Intuition for intersection and sum ---
+\begin{policynote}
+\textbf{Geometric intuition for intersection and sum.}
+\begin{itemize}[leftmargin=*]
+\item The \emph{intersection} $V_1\cap V_2$ is the largest subspace contained in \emph{both} $V_1$ and $V_2$.  In $\mathbb{R}^3$, the intersection of two distinct planes through the origin is typically a line through the origin.
+\item The \emph{sum} $V_1+V_2$ is the smallest subspace containing \emph{both} $V_1$ and $V_2$.  If $V_1$ is the $xy$-plane and $V_2$ is the $z$-axis, then $V_1+V_2=\mathbb{R}^3$.
+\end{itemize}
+Note the duality: intersection makes spaces \emph{smaller}, sums make spaces \emph{larger}.
+\end{policynote}
+
+\begin{theorem}{Intersection of subspaces is a subspace}{subspace-intersection}
+
+Let $V$ be a vector space over $\mathbb{F}$ and let $V_1,\dots,V_n$ be subspaces of $V$.
+
+Then $\bigcap_{i=1}^n V_i$ is a vector subspace of $V$.
+
+\end{theorem}
+
+\begin{proof}
+
+Non-empty: $0\in V_i$ for all $i$, hence $0\in \bigcap_i V_i$.
+
+If $u,v$ lie in every $V_i$, then $u+v$ lies in every $V_i$ by closure, so $u+v\in \bigcap_i V_i$.
+
+Similarly, for $c\in\mathbb{F}$, $cu\in V_i$ for all $i$, so $cu\in \bigcap_i V_i$.
+
+\end{proof}
+
+% --- ADDED: Warning about unions ---
+\begin{commonmistake}
+\textbf{Intersection is a subspace, but union generally is not.}
+The intersection of any collection of subspaces is always a subspace (the proof above works for \emph{arbitrary} intersections, even infinite).
+In contrast, the \emph{union} of two subspaces is almost never a subspace (see Theorem~\ref{thm:union-subspace} below).
+The correct ``additive'' counterpart of intersection is the \emph{sum}, not the union.
+\end{commonmistake}
+
+\begin{theorem}{Sum of subspaces is a subspace}{subspace-sum}
+
+Let $V$ be a vector space over $\mathbb{F}$ and let $V_1,\dots,V_n$ be subspaces of $V$.
+
+Then $V_1+\cdots+V_n$ is a vector subspace of $V$.
+
+\end{theorem}
+
+\begin{proof}
+
+Non-empty: $0=0+\cdots+0\in V_1+\cdots+V_n$.
+
+If $x=v_1+\cdots+v_n$ and $y=w_1+\cdots+w_n$ with $v_i,w_i\in V_i$, then
+
+\[
+x+y=(v_1+w_1)+\cdots+(v_n+w_n)\in V_1+\cdots+V_n
+\]
+
+since each $V_i$ is closed under addition.
+
+For $c\in\mathbb{F}$,
+
+\[
+cx=(cv_1)+\cdots+(cv_n)\in V_1+\cdots+V_n
+\]
+
+since each $V_i$ is closed under scalar multiplication.
+
+\end{proof}
+
+% --- ADDED: Worked example from lecture Week 2 (sum of subspaces in R^4) ---
+\begin{examplebox}
+\textbf{Worked Example (Lecture Week 2): Sum of subspaces in $\mathbb{R}^4$.}
+
+Let
+\[
+U=\{(x,x,y,y)\in\mathbb{R}^4:x,y\in\mathbb{R}\},\qquad
+V=\{(x,x,x,y)\in\mathbb{R}^4:x,y\in\mathbb{R}\}.
+\]
+
+\emph{Find $U+V$.}  A generic element of $U+V$ is
+\[
+(a,a,b,b)+(c,c,c,d)=(a+c,\,a+c,\,b+c,\,b+d).
+\]
+
+Set $s=a+c$ (the first coordinate).  Then the second coordinate is also $s$, the third is $b+c$, and the fourth is $b+d$.  Since $a,b,c,d$ range freely over $\mathbb{R}$, the third and fourth coordinates can be any real numbers independently, while the first two are always equal.
+
+Hence
+\[
+U+V=\{(s,s,t,u)\in\mathbb{R}^4 : s,t,u\in\mathbb{R}\}.
+\]
+\end{examplebox}
+
+\begin{keyformula}
+
+\textbf{Relationship between sum and span.}
+
+For subspaces $W_1,W_2\le V$,
+
+\[
+W_1+W_2=\operatorname{Span}(W_1\cup W_2).
+\]
+
+(This is Theorem~\ref{thm:span-properties}(c) specialized to subspaces.)
+
+\end{keyformula}
+
+\begin{examplebox}
+
+\textbf{Worked Example: Computing a sum of subspaces in $\mathbb{R}^3$.}
+
+Let
+
+\[
+U=\{(x,0,0)\in\mathbb{R}^3: x\in\mathbb{R}\},\qquad
+V=\{(0,y,0)\in\mathbb{R}^3: y\in\mathbb{R}\}.
+\]
+
+Then any element of $U+V$ has the form $(x,0,0)+(0,y,0)=(x,y,0)$, hence
+
+\[
+U+V=\{(x,y,0)\in\mathbb{R}^3: x,y\in\mathbb{R}\},
+\]
+
+the $xy$-plane.
+
+\end{examplebox}
+
+\begin{examplebox}
+
+\textbf{Worked Example (Tutorial 1, Question 4): Union of subspaces need not be a subspace.}
+
+Let
+
+\[
+W_1=\{(x,0)\in\mathbb{R}^2:x\in\mathbb{R}\},\qquad
+W_2=\{(0,y)\in\mathbb{R}^2:y\in\mathbb{R}\}.
+\]
+
+Both are subspaces, but $W_1\cup W_2$ is not: $(1,0)\in W_1$ and $(0,1)\in W_2$, yet
+
+\[
+(1,0)+(0,1)=(1,1)\notin W_1\cup W_2.
+\]
+
+\end{examplebox}
+
+\begin{theorem}{When is $W_1\cup W_2$ a subspace?}{union-subspace}
+
+Let $V$ be a vector space and let $W_1,W_2$ be subspaces of $V$.
+
+Then $W_1\cup W_2$ is a subspace of $V$ if and only if $W_1\subseteq W_2$ or $W_2\subseteq W_1$.
+
+\end{theorem}
+
+\begin{proof}
+
+($\Leftarrow$) If $W_1\subseteq W_2$, then $W_1\cup W_2=W_2$ is a subspace (and similarly if $W_2\subseteq W_1$).
+
+($\Rightarrow$) Suppose $W_1\cup W_2$ is a subspace but neither contains the other.
+
+Pick $u\in W_1\setminus W_2$ and $v\in W_2\setminus W_1$.
+
+Then $u,v\in W_1\cup W_2$ but $u+v\in W_1\cup W_2$ by closure.
+
+If $u+v\in W_1$, then $v=(u+v)-u\in W_1$ (since $W_1$ is closed under subtraction), contradicting $v\notin W_1$.
+
+Similarly $u+v\notin W_2$. Contradiction. Hence one subspace must contain the other.
+
+\end{proof}
+
+\begin{extension}[title={Extension (Tutorial 1, Question 5, Method 2)}]
+
+Assume $W_1\cup W_2$ is a subspace and pick $u\in W_1$, $v\in W_2$.
+
+Since a subspace containing $u$ and $v$ must contain $\operatorname{span}\{u,v\}$, we have $\operatorname{span}\{u,v\}\subseteq W_1\cup W_2$.
+
+If $u\notin W_2$ and $v\notin W_1$, then $\{u,v\}$ is linearly independent, so $u+v\in\operatorname{span}\{u,v\}$ but $u+v\notin W_1$ and $u+v\notin W_2$ (otherwise subtract to force $v\in W_1$ or $u\in W_2$), contradiction.
+
+Therefore one of $W_1,W_2$ must contain the other.
+
+\end{extension}
+
+%--------------------------------------------------------------------
+
+% Direct sum (only as introduced in the Week 2 lecture)
+
+%--------------------------------------------------------------------
+
+\begin{definition}{Direct Sum of Subspaces}{direct-sum}
+
+Let $V$ be a vector space and let $V_1,\dots,V_n$ be subspaces of $V$.
+
+A subspace $W$ is said to be the \emph{direct sum} of $V_1,\dots,V_n$, written
+
+\[
+W=V_1\oplus\cdots\oplus V_n,
+\]
+
+if and only if:
+
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+
+\item $W=V_1+\cdots+V_n$;
+
+\item every $w\in W$ can be written in \emph{precisely one} way as $w=v_1+\cdots+v_n$ with $v_i\in V_i$.
+
+\end{enumerate}
+
+\end{definition}
+
+% --- ADDED: Intuition for direct sums ---
+A direct sum is a sum with ``no redundancy.''  Condition~(1) says the summands $V_i$ together generate $W$; condition~(2) says they do so \emph{without overlap} (each vector has a unique ``address'' given by its components).  Think of it as a coordinate system for $W$ built from the $V_i$'s.
+
+\begin{theorem}{Necessary and sufficient condition for a sum to be a direct sum}{direct-sum-ns}
+
+Let $V$ be a vector space and let $V_1,\dots,V_n$ be subspaces of $V$.
+
+Then
+
+\[
+V_1+\cdots+V_n = V_1\oplus\cdots\oplus V_n
+\]
+
+if and only if whenever $v_i\in V_i$ satisfy $v_1+\cdots+v_n=0$, we must have $v_1=\cdots=v_n=0$.
+
+\end{theorem}
+
+\begin{proof}
+
+($\Rightarrow$) If the sum is direct, then $0$ has a unique representation as $0=0+\cdots+0$ with $0\in V_i$.
+
+So if $0=v_1+\cdots+v_n$, uniqueness forces $v_i=0$ for all $i$.
+
+($\Leftarrow$) Suppose the stated condition holds. Let $w\in V_1+\cdots+V_n$ and assume
+
+\[
+w=v_1+\cdots+v_n=\tilde v_1+\cdots+\tilde v_n
+\qquad (v_i,\tilde v_i\in V_i).
+\]
+
+Then $0=(v_1-\tilde v_1)+\cdots+(v_n-\tilde v_n)$ with $v_i-\tilde v_i\in V_i$.
+
+By the condition, each $v_i-\tilde v_i=0$, hence $v_i=\tilde v_i$ for all $i$.
+
+Thus the representation is unique, so the sum is direct.
+
+\end{proof}
+
+% --- ADDED: The Direct-Sum Criterion (intersection version) from lecture ---
+\begin{theorem}{The Direct-Sum Criterion (intersection form)}{direct-sum-criterion}
+
+Let $V$ be a vector space and let $V_1,\dots,V_n$ be subspaces of $V$.
+Let $W$ be a subspace of $V$.
+
+Then $W=V_1\oplus\cdots\oplus V_n$ if and only if both of the following hold:
+\begin{enumerate}[label=(\arabic*), leftmargin=*]
+\item $W=V_1+\cdots+V_n$.
+\item For every $i\in\{1,\dots,n\}$: $V_i\cap(V_1+\cdots+V_{i-1}+V_{i+1}+\cdots+V_n)=\{0\}$.
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+($\Rightarrow$) Suppose $W=V_1\oplus\cdots\oplus V_n$.  Then $W=V_1+\cdots+V_n$ by definition.
+Let $v\in V_i\cap(V_1+\cdots+V_{i-1}+V_{i+1}+\cdots+V_n)$.
+Then $v=v_1+\cdots+v_{i-1}+v_{i+1}+\cdots+v_n$ for some $v_j\in V_j$.
+Rearranging: $0=v_1+\cdots+v_{i-1}+(-v)+v_{i+1}+\cdots+v_n$, where each summand lies in the corresponding $V_j$ (and $-v\in V_i$).  By uniqueness of decomposition (Theorem~\ref{thm:direct-sum-ns}), all summands are zero.  In particular $v=0$.
+
+($\Leftarrow$) Suppose (1) and (2) hold.
+Let $v_1+\cdots+v_n=\tilde{v}_1+\cdots+\tilde{v}_n$ with $v_i,\tilde{v}_i\in V_i$.
+For each $i$: $v_i-\tilde{v}_i = \sum_{j\neq i}(\tilde{v}_j-v_j)\in V_i\cap(\sum_{j\neq i}V_j)=\{0\}$.
+Hence $v_i=\tilde{v}_i$ for all $i$, so the decomposition is unique.
+\end{proof}
+
+% --- ADDED: When to use which criterion ---
+\begin{examtip}
+\textbf{Which direct-sum test to use?}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Theorem~\ref{thm:direct-sum-ns}} (``zero-sum test''): best for \emph{disproving} directness (exhibit a non-trivial $0=v_1+\cdots+v_n$) or for \emph{abstract proofs}.
+\item \textbf{Theorem~\ref{thm:direct-sum-criterion}} (``intersection test''): best for \emph{two} subspaces, where it reduces to checking $V_1\cap V_2=\{0\}$.  For $n\ge 3$, the intersection conditions are more involved (you check each $V_i$ against the sum of the others).
+\end{itemize}
+\end{examtip}
+
+% --- ADDED: Special case for two subspaces ---
+\begin{keyformula}
+\textbf{Direct sum of two subspaces (special case).}
+
+$W=V_1\oplus V_2$ if and only if $W=V_1+V_2$ and $V_1\cap V_2=\{0\}$.
+
+\medskip
+This is the most commonly tested scenario.  The intersection condition $V_1\cap V_2=\{0\}$ is equivalent to: every $w\in W$ has a \emph{unique} decomposition $w=v_1+v_2$ with $v_1\in V_1$, $v_2\in V_2$.
+\end{keyformula}
+
+\begin{extension}[title={Extension (Lecture Week 2: Direct sums via the sum map)}]
+
+Define the linear map $\phi:U\times W\to V$ by $\phi(u,w)=u+w$.
+
+Then $\operatorname{Im}(\phi)=U+W$ and
+
+\[
+\ker(\phi)=\{(u,w):u=-w\} \cong U\cap W.
+\]
+
+In particular, $U\cap W=\{0\}$ iff $\ker(\phi)=\{(0,0)\}$ iff $\phi$ is injective.
+
+If additionally $V=U+W$, then $\phi$ is bijective, so every $v\in V$ has a \emph{unique} representation $v=u+w$.
+
+\end{extension}
+
+% --- ADDED: Extension from Tutorial 2 Q1 Method 2 ---
+\begin{extension}[title={Extension (Tutorial 2, Question 1, Method 2: Sum map for $n$ subspaces)}]
+For the general case with $n$ subspaces, define
+\[
+T:V_1\times\cdots\times V_n\to V,\qquad T(v_1,\dots,v_n)=v_1+\cdots+v_n.
+\]
+Then $T$ is linear, $\operatorname{Im}(T)=V_1+\cdots+V_n$, and
+\[
+\ker(T)=\{(v_1,\dots,v_n)\in V_1\times\cdots\times V_n : v_1+\cdots+v_n=0\}.
+\]
+The sum is direct if and only if $T$ is injective, which holds if and only if $\ker(T)=\{(0,\dots,0)\}$.
+This gives a clean reformulation: \emph{direct sum $\iff$ the canonical sum map is injective}.
+\end{extension}
+
+\begin{examplebox}
+
+\textbf{Worked Example: Sum equals $\mathbb{R}^3$ but is not direct.}
+
+Let
+
+\[
+U=\{(x,y,0)\in\mathbb{R}^3:x,y\in\mathbb{R}\},\quad
+V=\{(0,0,z)\in\mathbb{R}^3:z\in\mathbb{R}\},\quad
+W=\{(0,y,y)\in\mathbb{R}^3:y\in\mathbb{R}\}.
+\]
+
+\emph{(1) Show $\mathbb{R}^3=U+V+W$.}
+
+Given $(a,b,c)\in\mathbb{R}^3$, write
+
+\[
+(a,b,c)=(a,b-c,0)+(0,0,c-b)+(0,b,b),
+\]
+
+where the three summands lie in $U$, $V$, and $W$ respectively. Hence $\mathbb{R}^3\subseteq U+V+W$, and the reverse inclusion is obvious.
+
+\medskip
+
+\emph{(2) Show $\mathbb{R}^3\neq U\oplus V\oplus W$.}
+
+We have a non-trivial zero decomposition:
+
+\[
+0=(0,1,0)+(0,0,1)+(0,-1,-1),
+\]
+
+where $(0,1,0)\in U$, $(0,0,1)\in V$, and $(0,-1,-1)\in W$.
+
+By Theorem~\ref{thm:direct-sum-ns}, the sum cannot be direct.
+
+\end{examplebox}
+
+% --- ADDED: How to find the non-trivial decomposition systematically ---
+\begin{policynote}
+\textbf{How to find a non-trivial zero decomposition (disproof strategy).}
+Look for vectors that live in the ``overlap'' between the subspaces.  For the example above, $V$ and $W$ both involve the second and third coordinates.  In particular, $(0,1,1)\in W$ and $(0,0,1)\in V$ share the third-coordinate direction, so their interaction with $U$ (which controls the second coordinate) creates redundancy.
+
+A systematic approach: check whether $V_i\cap(\sum_{j\neq i}V_j)\neq\{0\}$ for some $i$.  If so, any non-zero vector in that intersection yields a non-trivial zero decomposition.
+\end{policynote}
+
+\begin{commonmistake}
+
+\textbf{"$\oplus$ just means $+$."}\
+
+Direct sum is \emph{stronger} than sum: you must also have uniqueness of decomposition (equivalently, no non-trivial way to sum to $0$ across the summands).
+
+\end{commonmistake}
+
+% --- ADDED: Warning about pairwise intersection for n >= 3 ---
+\begin{commonmistake}
+\textbf{``I checked $V_i\cap V_j=\{0\}$ for all pairs, so the sum is direct.''}
+
+For $n\ge 3$ subspaces, pairwise trivial intersections do \emph{not} guarantee a direct sum.  The correct condition (Theorem~\ref{thm:direct-sum-criterion}) requires each $V_i$ to intersect the \emph{sum of all the others} trivially.
+
+\medskip
+\emph{Example:} in $\mathbb{R}^2$, let $V_1=\operatorname{Span}\{(1,0)\}$, $V_2=\operatorname{Span}\{(0,1)\}$, $V_3=\operatorname{Span}\{(1,1)\}$.  Then $V_i\cap V_j=\{0\}$ for all pairs $i\neq j$, but $V_1+V_2=\mathbb{R}^2\supseteq V_3$, so $(1,1)=(1,0)+(0,1)+(0,0)=(0,0)+(0,0)+(1,1)$ gives two different decompositions of $(1,1)$.  The sum is \emph{not} direct.
+\end{commonmistake}
+
+% --- ADDED: Tutorial 1 Q7 worked example (direct sum complement) ---
+\begin{examplebox}
+\textbf{Worked Example (Tutorial 1, Question 7): Finding a direct-sum complement in $\mathbb{R}^5$.}
+
+Let
+\[
+V=\{(a,b,a+b,a-b,2a)\in\mathbb{R}^5 : a,b\in\mathbb{R}\}=\operatorname{Span}\{(1,0,1,1,2),(0,1,1,-1,0)\}.
+\]
+
+\emph{Goal:} find $W$ such that $\mathbb{R}^5=V\oplus W$.
+
+\emph{Step 1 (choose $W$):}  Since $V$ is determined by its first two coordinates, a natural complement is $W=\{(0,0,s,t,u):s,t,u\in\mathbb{R}\}=\operatorname{Span}\{e_3,e_4,e_5\}$.
+
+\emph{Step 2 (check $V\cap W=\{0\}$):}  If $x\in V\cap W$, then $x=(a,b,a+b,a-b,2a)$ with $a=0$ and $b=0$ (since $x\in W$ forces the first two coordinates to be zero).  So $x=0$.
+
+\emph{Step 3 (check $V+W=\mathbb{R}^5$):}  For any $(x_1,x_2,x_3,x_4,x_5)\in\mathbb{R}^5$, set $v=(x_1,x_2,x_1+x_2,x_1-x_2,2x_1)\in V$ and $w=(0,0,x_3-x_1-x_2,x_4-x_1+x_2,x_5-2x_1)\in W$.  Then $v+w=(x_1,x_2,x_3,x_4,x_5)$.
+
+Hence $\mathbb{R}^5=V\oplus W$.
+
+\medskip
+\emph{General strategy:}  if $V$ has dimension $k$ in $\mathbb{R}^n$, any complementary subspace $W$ must have dimension $n-k$.  A common approach is to extend a basis for $V$ to a basis for $\mathbb{R}^n$; the span of the added vectors gives $W$.
+\end{examplebox}
+
+\begin{examtip}
+
+\begin{itemize}[leftmargin=*]
+
+\item For \textbf{sum} questions, start from the definition: take a generic element $v_1+\cdots+v_n$ and simplify the description.
+
+\item For \textbf{direct sum} questions, the quickest test is often Theorem~\ref{thm:direct-sum-ns}:
+
+\begin{itemize}[leftmargin=*]
+
+\item to \emph{disprove} directness, exhibit a non-trivial decomposition $0=v_1+\cdots+v_n$;
+
+\item to \emph{prove} directness, assume $v_1+\cdots+v_n=0$ and force each $v_i=0$.
+
+\end{itemize}
+
+\end{itemize}
+
+\end{examtip}
+
+% --- ADDED: Three-Concepts-in-One Theorem from Week 2 lecture ---
+\begin{theorem}{Three-Concepts-in-One Theorem (Lecture Week 2)}{three-in-one}
+
+Let $V$ be a vector space and let $S$ be a linearly independent subset of $V$.
+Let $\{A,B\}$ be a partition of $S$ (i.e.\ $A\cup B=S$ and $A\cap B=\emptyset$).
+
+Then $\operatorname{Span}(S)=\operatorname{Span}(A)\oplus\operatorname{Span}(B)$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:span-properties}(c), $\operatorname{Span}(S)=\operatorname{Span}(A\cup B)=\operatorname{Span}(A)+\operatorname{Span}(B)$.
+
+It remains to show $\operatorname{Span}(A)\cap\operatorname{Span}(B)=\{0\}$.
+Let $v\in\operatorname{Span}(A)\cap\operatorname{Span}(B)$.  Write
+\[
+v=\sum_{i=1}^m \lambda_i a_i = \sum_{j=1}^n \mu_j b_j
+\]
+with distinct $a_i\in A$ and distinct $b_j\in B$.  Then
+\[
+0=\sum_{i=1}^m \lambda_i a_i + \sum_{j=1}^n (-\mu_j) b_j.
+\]
+Since $A\cap B=\emptyset$, the vectors $a_1,\dots,a_m,b_1,\dots,b_n$ are all distinct elements of $S$.  By linear independence of $S$, all coefficients are zero: $\lambda_i=0$ and $\mu_j=0$.  Hence $v=0$.
+
+By the Direct-Sum Criterion (two subspaces), $\operatorname{Span}(S)=\operatorname{Span}(A)\oplus\operatorname{Span}(B)$.
+\end{proof}
+
+% --- ADDED: Why this theorem is powerful ---
+\begin{policynote}
+\textbf{Why the name ``Three-Concepts-in-One''?}
+This single result connects three core notions:
+\begin{itemize}[leftmargin=*]
+\item \emph{Linear independence} (the hypothesis on $S$),
+\item \emph{Span} (the building blocks $\operatorname{Span}(A)$ and $\operatorname{Span}(B)$),
+\item \emph{Direct sum} (the conclusion).
+\end{itemize}
+It is especially useful for constructing direct-sum decompositions in practice: take a linearly independent set that spans your space, partition it, and the spans of the parts give a direct sum.
+\end{policynote}
+
+%==================================================
+
+% - (Write personal reminders, TODOs, or links here.)
+% - (E.g., "Re-derive this proof before midterm", "Memorize the rank-nullity equivalences", etc.)
+% - TODO: Practice finding direct-sum complements in R^n (Tutorial 1 Q7 style).
+% - TODO: Memorize the three fast subspace proof templates (Subspace Test / kernel / span).
+% - TODO: Remember that pairwise V_i ∩ V_j = {0} does NOT imply direct sum for n >= 3.
+% - Midterm: March 11, 2026. Final: April 27, 2026.

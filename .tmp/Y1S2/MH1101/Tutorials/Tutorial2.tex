@@ -1,0 +1,561 @@
+% Typeset tutorial generated in MH5200-style template. Source tutorial text: Tutorial-2.pdf [file:7]. Reference LaTeX style: MH5200_ProblemSheet2.tex [file:6].
+
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA -------------
+
+\newcommand{\CourseCode}{MH1101 }
+\newcommand{\CourseName} {Calculus II}
+\newcommand{\DocType}{Tutorial 2 (Week 3) -- Questions \& Solutions}
+
+\title{
+\CourseCode \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%----------------------------------------------
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------------------------------------------------
+
+%------------- WATERMARK -------------
+
+\SetWatermarkText{Unofficial — Typeset Copy}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------------------------------
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\bigskip
+
+%====================================================
+% OVERVIEW
+%====================================================
+
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}\\[4pt]
+\textbf{Overview of This Tutorial}\\[2pt]
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial focuses on the Fundamental Theorem of Calculus, definite integrals with absolute values and piecewise functions, substitution techniques, symmetry identities, and average value / mean value theorems for integrals.
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Q1:} Differentiation of integral-defined functions (FTC Part 1 + Leibniz rule).
+\item \textbf{Q2:} Definite integrals with \(|x|\) and piecewise functions.
+\item \textbf{Q3:} Rewriting integrals using an antiderivative function \(f\).
+\item \textbf{Q4:} Substitution practice (six integrals).
+\item \textbf{Q5:} Symmetry identity \(\int_0^\pi x f(\sin x)\,dx\) and a target evaluation.
+\item \textbf{Q6--7:} Average value and weighted-average property across subintervals.
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 1
+%====================================================
+
+\newpage
+
+\section*{Question 1}
+
+\subsection*{Problem}
+
+Use the Fundamental Theorem of Calculus (Part 1) to find the derivative of the following functions:
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle g(x)=\int_{1}^{x}\cos(t^2)\,dt.\)
+\item \(\displaystyle F(s)=\int_{s}^{0}\sqrt{1+\sec t}\,dt.\)
+\item \(\displaystyle R(y)=\int_{2y}^{3y}\frac{u^2-1}{u^2+1}\,du.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: FTC Part 1 + sign handling + Leibniz rule}
+
+\begin{enumerate}[label=(\roman*)]
+\item By FTC Part 1,
+\[
+g'(x)=\cos(x^2).
+\]
+
+\item First rewrite to standard orientation:
+\[
+F(s)=\int_{s}^{0}\sqrt{1+\sec t}\,dt = -\int_{0}^{s}\sqrt{1+\sec t}\,dt.
+\]
+Then by FTC Part 1,
+\[
+F'(s)=-\sqrt{1+\sec s}.
+\]
+
+\item Use Leibniz rule for variable limits:
+\[
+\frac{d}{dy}\int_{a(y)}^{b(y)} f(u)\,du = f(b(y))b'(y)-f(a(y))a'(y).
+\]
+Here \(f(u)=\frac{u^2-1}{u^2+1}\), \(a(y)=2y\), \(b(y)=3y\). Thus
+\[
+R'(y)=f(3y)\cdot 3 - f(2y)\cdot 2
+=3\cdot\frac{(3y)^2-1}{(3y)^2+1}-2\cdot\frac{(2y)^2-1}{(2y)^2+1}.
+\]
+So
+\[
+R'(y)=3\cdot\frac{9y^2-1}{9y^2+1}-2\cdot\frac{4y^2-1}{4y^2+1}.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Differential-quotient intuition (brief) / consistency check}
+
+\begin{enumerate}[label=(\roman*)]
+\item Increasing the upper limit \(x\) by \(h\) adds approximately \(\cos(x^2)h\) to the integral, so the derivative is \(\cos(x^2)\).
+
+\item Since \(s\) appears as a \emph{lower} limit, increasing \(s\) reduces the integral by approximately \(\sqrt{1+\sec s}\,h\), giving \(F'(s)=-\sqrt{1+\sec s}\).
+
+\item A change \(y\mapsto y+h\) shifts both bounds; the net effect is approximately ``(integrand at top)\(\times\)change in top'' minus ``(integrand at bottom)\(\times\)change in bottom'', matching the Leibniz formula above.
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 2
+%====================================================
+
+\newpage
+
+\section*{Question 2}
+
+\subsection*{Problem}
+
+Evaluate the following definite integrals:
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle \int_{-1}^{2}\bigl(x-2|x|\bigr)\,dx.\)
+\item \(\displaystyle \int_{-2}^{2} f(x)\,dx,\) where
+\[
+f(x)=
+\begin{cases}
+x^3, & x\ge 0,\\
+-x, & x<0.
+\end{cases}
+\]
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Split at sign changes (piecewise evaluation)}
+
+\begin{enumerate}[label=(\roman*)]
+\item Split at \(x=0\) since \(|x|\) changes form:
+\[
+\int_{-1}^{2}(x-2|x|)\,dx
+=\int_{-1}^{0}\bigl(x-2(-x)\bigr)\,dx+\int_{0}^{2}(x-2x)\,dx.
+\]
+So
+\[
+\int_{-1}^{0} (3x)\,dx+\int_{0}^{2}(-x)\,dx
+=\left[\frac{3x^2}{2}\right]_{-1}^{0}+\left[-\frac{x^2}{2}\right]_{0}^{2}
+= \left(0-\frac{3}{2}\right)+\left(-2-0\right)=-\frac{7}{2}.
+\]
+
+\item Split at \(x=0\):
+\[
+\int_{-2}^{2} f(x)\,dx=\int_{-2}^{0}(-x)\,dx+\int_{0}^{2}x^3\,dx.
+\]
+Compute:
+\[
+\int_{-2}^{0}(-x)\,dx=\left[-\frac{x^2}{2}\right]_{-2}^{0}=2,
+\qquad
+\int_{0}^{2}x^3\,dx=\left[\frac{x^4}{4}\right]_{0}^{2}=4.
+\]
+Thus
+\[
+\int_{-2}^{2} f(x)\,dx = 2+4=6.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Symmetry + quick checks}
+
+\begin{enumerate}[label=(\roman*)]
+\item On \([0,2]\), the integrand is \(-x\) (negative area), while on \([-1,0]\) it is \(3x\) (also negative). The computed value \(-7/2\) is consistent with net negativity.
+
+\item On \([-2,0]\), \(f(x)=-x>0\) contributes positive area; on \([0,2]\), \(f(x)=x^3>0\) contributes positive area as well, so a positive result like \(6\) is plausible.
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 3
+%====================================================
+
+\newpage
+
+\section*{Question 3}
+
+\subsection*{Problem}
+
+Express the given indefinite integrals in terms of the function \(f\) (assume \(f\) is an antiderivative of \(f'\)):
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle \int f'(5x)\,dx.\)
+\item \(\displaystyle \int x\,f'(3x^2)\,dx.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: \(u\)-substitution}
+
+\begin{enumerate}[label=(\roman*)]
+\item Let \(u=5x\), so \(du=5\,dx\) and \(dx=\frac{1}{5}du\):
+\[
+\int f'(5x)\,dx=\frac{1}{5}\int f'(u)\,du=\frac{1}{5}f(u)+C=\frac{1}{5}f(5x)+C.
+\]
+
+\item Let \(u=3x^2\), so \(du=6x\,dx\) and \(x\,dx=\frac{1}{6}du\):
+\[
+\int x\,f'(3x^2)\,dx=\frac{1}{6}\int f'(u)\,du=\frac{1}{6}f(u)+C=\frac{1}{6}f(3x^2)+C.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Reverse chain rule recognition}
+
+\begin{enumerate}[label=(\roman*)]
+\item Since \(\frac{d}{dx}f(5x)=5f'(5x)\), the integrand is \(\frac{1}{5}\frac{d}{dx}f(5x)\).
+
+\item Since \(\frac{d}{dx}f(3x^2)=f'(3x^2)\cdot 6x\), the integrand \(x f'(3x^2)\) is \(\frac{1}{6}\frac{d}{dx}f(3x^2)\).
+\end{enumerate}
+
+\bigskip
+
+%====================================================
+% QUESTION 4
+%====================================================
+
+\newpage
+
+\section*{Question 4}
+
+\subsection*{Problem}
+
+Evaluate the integral by making a suitable substitution.
+\begin{enumerate}[label=(\roman*)]
+\item \(\displaystyle \int \frac{x}{\sqrt{1-x^2}}\,dx.\)
+\item \(\displaystyle \int x^2\sin(x^3)\,dx.\)
+\item \(\displaystyle \int_{-5/2}^{-2} x(2x+5)^8\,dx.\)
+\item \(\displaystyle \int \frac{\sin\sqrt{x}}{\sqrt{x}}\,dx.\)
+\item \(\displaystyle \int \frac{1}{\cos^2 t\,\sqrt{1+\tan t}}\,dt.\)
+\item \(\displaystyle \int_{\pi/3}^{2\pi/3}\csc^2\!\left(\frac{t}{2}\right)\,dt.\)
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Standard substitutions (show main steps)}
+
+\begin{enumerate}[label=(\roman*)]
+\item Let \(u=1-x^2\), so \(du=-2x\,dx\):
+\[
+\int \frac{x}{\sqrt{1-x^2}}\,dx
+= -\frac{1}{2}\int u^{-1/2}\,du
+= -u^{1/2}+C
+= -\sqrt{1-x^2}+C.
+\]
+Equivalently,
+\[
+-\sqrt{1-x^2}+C = -\frac{1}{3}(1-x^2)^{3/2}{}' \text{ up to constant,}
+\]
+and one common antiderivative form is
+\[
+-\frac{1}{3}(1-x^2)^{3/2}+C',
+\]
+since \(\frac{d}{dx}(1-x^2)^{3/2}=-3x\sqrt{1-x^2}\). Hence
+\[
+\int \frac{x}{\sqrt{1-x^2}}\,dx = -\sqrt{1-x^2}+C
+\quad\text{(simplest form).}
+\]
+
+\item Let \(u=x^3\), \(du=3x^2\,dx\):
+\[
+\int x^2\sin(x^3)\,dx=\frac{1}{3}\int \sin u\,du = -\frac{1}{3}\cos u + C = -\frac{1}{3}\cos(x^3)+C.
+\]
+
+\item Let \(u=2x+5\), so \(du=2\,dx\) and \(x=\frac{u-5}{2}\):
+\[
+\int_{-5/2}^{-2} x(2x+5)^8\,dx
+=\int_{0}^{1} \frac{u-5}{2}\,u^8 \cdot \frac{1}{2}\,du
+=\frac{1}{4}\int_0^1 (u^9-5u^8)\,du.
+\]
+Compute:
+\[
+\frac{1}{4}\left[\frac{u^{10}}{10}-5\frac{u^9}{9}\right]_0^1
+=\frac{1}{4}\left(\frac{1}{10}-\frac{5}{9}\right)
+=\frac{1}{4}\cdot\frac{9-50}{90}
+=-\frac{41}{360}.
+\]
+
+\item Let \(u=\sqrt{x}\), so \(x=u^2\), \(dx=2u\,du\):
+\[
+\int \frac{\sin\sqrt{x}}{\sqrt{x}}\,dx
+=\int \frac{\sin u}{u}\cdot 2u\,du
+=2\int \sin u\,du
+=-2\cos u + C
+=-2\cos(\sqrt{x})+C.
+\]
+
+\item Let \(u=1+\tan t\), so \(du=\sec^2 t\,dt=\frac{1}{\cos^2 t}\,dt\):
+\[
+\int \frac{1}{\cos^2 t\,\sqrt{1+\tan t}}\,dt
+=\int u^{-1/2}\,du
+=2u^{1/2}+C
+=2\sqrt{1+\tan t}+C.
+\]
+
+\item Let \(u=\frac{t}{2}\), so \(dt=2\,du\). When \(t=\pi/3\), \(u=\pi/6\); when \(t=2\pi/3\), \(u=\pi/3\):
+\[
+\int_{\pi/3}^{2\pi/3}\csc^2\!\left(\frac{t}{2}\right)\,dt
+=2\int_{\pi/6}^{\pi/3}\csc^2(u)\,du
+=2\left[-\cot u\right]_{\pi/6}^{\pi/3}
+=2\left(-\cot\frac{\pi}{3}+\cot\frac{\pi}{6}\right).
+\]
+Since \(\cot(\pi/3)=\frac{1}{\sqrt{3}}\) and \(\cot(\pi/6)=\sqrt{3}\),
+\[
+=2\left(-\frac{1}{\sqrt{3}}+\sqrt{3}\right)
+=2\cdot\frac{2}{\sqrt{3}}
+=\frac{4}{\sqrt{3}}
+=\frac{4\sqrt{3}}{3}.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Reverse chain rule / derivative matching (brief)}
+
+Each part follows from recognizing the integrand as (a constant multiple of) the derivative of a composite:
+\begin{itemize}[leftmargin=*]
+\item (i) derivative of \(\sqrt{1-x^2}\).
+\item (ii) derivative of \(\cos(x^3)\).
+\item (iii) substitution \(u=2x+5\) converts to a polynomial integral on \([0,1]\).
+\item (iv) substitution \(u=\sqrt{x}\) removes the \(\sqrt{x}\) from denominator.
+\item (v) substitution \(u=1+\tan t\) uses \(du=\sec^2 t\,dt\).
+\item (vi) substitution \(u=t/2\) turns the integral into \(\int \csc^2 u\,du\).
+\end{itemize}
+
+\bigskip
+
+%====================================================
+% QUESTION 5
+%====================================================
+
+\newpage
+
+\section*{Question 5}
+
+\subsection*{Problem}
+
+If \(f\) is continuous on \([0,1]\), show that
+\[
+\int_{0}^{\pi} x f(\sin x)\,dx = \frac{\pi}{2}\int_{0}^{\pi} f(\sin x)\,dx.
+\]
+\textit{Hint:} Substitute \(u=\pi-x\).
+
+Hence, evaluate the integral
+\[
+\int_{0}^{\pi}\frac{x\sin x}{1+\cos^2 x}\,dx.
+\]
+You may assume that \(\displaystyle \int \frac{1}{1+x^2}\,dx=\tan^{-1}x + C\).
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Symmetry substitution \(u=\pi-x\)}
+
+Let
+\[
+I=\int_{0}^{\pi} x f(\sin x)\,dx.
+\]
+Substitute \(u=\pi-x\), so \(x=\pi-u\), \(dx=-du\), and \(\sin x=\sin(\pi-u)=\sin u\):
+\[
+I=\int_{\pi}^{0} (\pi-u) f(\sin u)(-du)=\int_{0}^{\pi} (\pi-u) f(\sin u)\,du.
+\]
+Rename \(u\) back to \(x\):
+\[
+I=\int_{0}^{\pi} (\pi-x) f(\sin x)\,dx
+=\pi\int_{0}^{\pi} f(\sin x)\,dx - \int_{0}^{\pi} x f(\sin x)\,dx
+=\pi\int_{0}^{\pi} f(\sin x)\,dx - I.
+\]
+Hence
+\[
+2I=\pi\int_{0}^{\pi} f(\sin x)\,dx
+\quad\Rightarrow\quad
+I=\frac{\pi}{2}\int_{0}^{\pi} f(\sin x)\,dx.
+\]
+
+For the target integral, take
+\[
+f(\sin x)=\frac{\sin x}{1+\cos^2 x}.
+\]
+Then
+\[
+\int_{0}^{\pi}\frac{x\sin x}{1+\cos^2 x}\,dx
+=\frac{\pi}{2}\int_{0}^{\pi}\frac{\sin x}{1+\cos^2 x}\,dx.
+\]
+Evaluate the remaining integral with \(u=\cos x\), \(du=-\sin x\,dx\):
+\[
+\int_{0}^{\pi}\frac{\sin x}{1+\cos^2 x}\,dx
+=\int_{u=1}^{u=-1}\frac{-1}{1+u^2}\,du
+=\int_{-1}^{1}\frac{1}{1+u^2}\,du
+=\left[\arctan u\right]_{-1}^{1}
+=\frac{\pi}{4}-\left(-\frac{\pi}{4}\right)
+=\frac{\pi}{2}.
+\]
+Therefore
+\[
+\int_{0}^{\pi}\frac{x\sin x}{1+\cos^2 x}\,dx
+=\frac{\pi}{2}\cdot \frac{\pi}{2}
+=\frac{\pi^2}{4}.
+\]
+
+\subsubsection*{Method 2: Pairing \(x\) and \(\pi-x\) directly}
+
+Write
+\[
+\int_{0}^{\pi} x f(\sin x)\,dx
+=\frac{1}{2}\int_{0}^{\pi}\Bigl(x f(\sin x)+(\pi-x)f(\sin(\pi-x))\Bigr)\,dx.
+\]
+Since \(\sin(\pi-x)=\sin x\), the integrand becomes
+\[
+\frac{1}{2}\int_{0}^{\pi}\Bigl(x+(\pi-x)\Bigr)f(\sin x)\,dx
+=\frac{\pi}{2}\int_{0}^{\pi}f(\sin x)\,dx,
+\]
+giving the same identity, and thus the same evaluation \(\pi^2/4\) for the ``hence'' integral.
+
+\bigskip
+
+%====================================================
+% QUESTION 6
+%====================================================
+
+\newpage
+
+\section*{Question 6}
+
+\subsection*{Problem}
+
+Let \(f(x)=\frac{1}{\sqrt{x}}\).
+\begin{enumerate}[label=(\roman*)]
+\item Find the average value of \(f\) on the interval \([1,4]\).
+\item Find the value of \(c\) guaranteed by the Mean Value Theorem for Integrals such that \(f_{\text{ave}}=f(c)\).
+\end{enumerate}
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Average value formula + solve \(f(c)=f_{\text{ave}}\)}
+
+\begin{enumerate}[label=(\roman*)]
+\item
+\[
+f_{\text{ave}}=\frac{1}{4-1}\int_{1}^{4}x^{-1/2}\,dx
+=\frac{1}{3}\left[2x^{1/2}\right]_{1}^{4}
+=\frac{1}{3}\cdot 2(2-1)=\frac{2}{3}.
+\]
+
+\item Solve \(f(c)=\frac{2}{3}\):
+\[
+\frac{1}{\sqrt{c}}=\frac{2}{3}
+\quad\Rightarrow\quad
+\sqrt{c}=\frac{3}{2}
+\quad\Rightarrow\quad
+c=\frac{9}{4}.
+\]
+\end{enumerate}
+
+\subsubsection*{Method 2: Geometry/monotonicity check}
+
+Since \(f(x)=1/\sqrt{x}\) is continuous and decreasing on \([1,4]\), the average value must lie between \(f(4)=1/2\) and \(f(1)=1\), and \(\frac{2}{3}\) satisfies this. The equation \(f(c)=2/3\) has a unique solution in \((1,4)\), namely \(c=9/4\).
+
+\bigskip
+
+%====================================================
+% QUESTION 7
+%====================================================
+
+\newpage
+
+\section*{Question 7}
+
+\subsection*{Problem}
+
+If \(f_{\text{ave}}[a,b]\) denotes the average value of \(f\) on \([a,b]\) and \(a<c<b\), show that
+\[
+f_{\text{ave}}[a,b]
+=\left(\frac{c-a}{b-a}\right)f_{\text{ave}}[a,c]
++\left(\frac{b-c}{b-a}\right)f_{\text{ave}}[c,b].
+\]
+
+\subsection*{Solution}
+
+\subsubsection*{Method 1: Expand using the definition of average value}
+
+By definition,
+\[
+f_{\text{ave}}[a,b]=\frac{1}{b-a}\int_a^b f(x)\,dx.
+\]
+Split the integral at \(c\):
+\[
+\int_a^b f(x)\,dx=\int_a^c f(x)\,dx+\int_c^b f(x)\,dx.
+\]
+Hence
+\[
+f_{\text{ave}}[a,b]=\frac{1}{b-a}\int_a^c f(x)\,dx+\frac{1}{b-a}\int_c^b f(x)\,dx.
+\]
+Now rewrite each term in terms of averages:
+\[
+\frac{1}{b-a}\int_a^c f
+=\frac{c-a}{b-a}\cdot \frac{1}{c-a}\int_a^c f
+=\frac{c-a}{b-a} f_{\text{ave}}[a,c],
+\]
+\[
+\frac{1}{b-a}\int_c^b f
+=\frac{b-c}{b-a}\cdot \frac{1}{b-c}\int_c^b f
+=\frac{b-c}{b-a} f_{\text{ave}}[c,b].
+\]
+Combine to obtain the required identity.
+
+\subsubsection*{Method 2: Weighted-average interpretation}
+
+The total area under \(f\) on \([a,b]\) is the sum of areas on \([a,c]\) and \([c,b]\). Dividing by the total width \((b-a)\), the overall ``height'' (average value) is a convex combination of the subinterval averages, weighted by their relative lengths \((c-a)\) and \((b-c)\), giving exactly the stated formula.
+
+\end{document}

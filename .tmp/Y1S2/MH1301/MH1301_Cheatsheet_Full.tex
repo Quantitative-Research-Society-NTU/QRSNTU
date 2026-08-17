@@ -1,0 +1,448 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[a4paper,landscape,margin=0.28in,includehead]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage[hidelinks]{hyperref}
+
+% =========================
+% Watermark
+% =========================
+\SetWatermarkText{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}
+\SetWatermarkScale{0.9}
+\SetWatermarkLightness{0.995}
+
+% =========================
+% Header
+% =========================
+\setlength{\headheight}{12pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\normalsize\textbf{MH1301 Discrete Mathematics - Cheat Sheet (Full Course)}}
+\fancyhead[R]{\normalsize\textbf{\href{https://qrsntu.org}{QRS@NTU \,|\, qrsntu.org}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\tiny\thepage}
+
+% =========================
+% Tight typography
+% =========================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=1.05em}
+\setlength{\abovedisplayskip}{1.5pt}
+\setlength{\belowdisplayskip}{1.5pt}
+\setlength{\abovedisplayshortskip}{1.5pt}
+\setlength{\belowdisplayshortskip}{1.5pt}
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{0.91}
+\setlength{\columnsep}{9pt}
+
+% =========================
+% Headings
+% =========================
+\titleformat{\section}
+  {\bfseries\normalsize}
+  {}
+  {0pt}
+  {\underline}
+\titleformat{\subsection}
+  {\bfseries\small}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
+
+% =========================
+% Macros
+% =========================
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\falsebinom}[2]{\binom{#1}{#2}}
+
+\begin{document}
+
+\begin{multicols*}{3}
+\scriptsize
+\raggedcolumns
+
+% =====================================================
+\section*{Proof Toolkit}
+% =====================================================
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Implication: \(P\Rightarrow Q\) is equivalent to contrapositive \(\neg Q\Rightarrow \neg P\), not to converse \(Q\Rightarrow P\). For \(P\Longleftrightarrow Q\), prove both directions.\\
+Direct proof: unpack definitions and chain implications. Contradiction: assume the bad configuration and force parity/edge/cycle/count impossibility.\\
+Induction: state \(P(n)\), prove enough base cases, assume earlier case(s), prove \(P(n)\). Use strong induction when size \(n\) can split into many smaller sizes.\\
+Extremal method: choose longest/shortest/largest/cheapest object; show failure creates a more extreme object. Useful for paths, planar bounds, MST exchange.\\
+Invariant: quantity preserved or forced, e.g. degree parity, component count, complement edge count, settled Dijkstra distances.\\
+Double counting: count one finite set in two ways. If one side is a sum, the index usually classifies by size/largest element/cases.\\
+Existence: construct object explicitly. Non-existence: find invariant obstruction. Exact value: prove upper bound and lower bound.\\
+\end{tabular}
+
+\subsection*{High-yield proof templates}
+\begin{tabular}{@{}p{0.32\columnwidth}@{\hspace{0.02\columnwidth}}p{0.62\columnwidth}@{}}
+\toprule
+Goal & Fast template\\
+\midrule
+Bijection & define \(f\), prove injective + surjective, or give inverse.\\
+Combin. identity & choose same objects directly vs by cases.\\
+Pigeonhole & choose boxes so avoiding target gives max capacity \(r\) per box.\\
+IE proof & define bad sets \(A_i\), count union or complement.\\
+Graph non-iso & compare invariants; stop at first mismatch.\\
+\(\chi(G)=k\) & exhibit \(k\)-coloring; prove no \((k-1)\)-coloring.\\
+Planar/nonplanar & draw embedding / violate valid bound / find Kuratowski obstruction.\\
+Tree & pick best equivalence: connected+acyclic, \(m=n-1\), unique path, bridges.\\
+\bottomrule
+\end{tabular}
+
+% =====================================================
+\section*{Counting Principles}
+% =====================================================
+\subsection*{Objects and encodings}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Set: unordered, no repeats. Sequence/string: ordered, repeats may occur. Function \(f:X\to Y\): each \(x\in X\) chooses exactly one \(y\in Y\).\\
+Subset \(A\subseteq[n]\) \(\Longleftrightarrow\) binary string \((\chi_A(1),\dots,\chi_A(n))\). Thus \(|\Pow(S)|=2^{|S|}\).\\
+Labelled simple graph on \(n\) vertices \(\Longleftrightarrow\) subset of the \(\binom n2\) possible edges.\\
+\end{tabular}
+
+\subsection*{Core rules}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Product rule: successive stages with \(n_1,\dots,n_k\) choices give \(n_1\cdots n_k\).\\
+Sum rule: if \(A_i\) are pairwise disjoint, then \(|\bigcup_i A_i|=\sum_i |A_i|\). Split into a genuine partition before adding.\\
+Bijection: \(X\cong Y\Rightarrow |X|=|Y|\). Division rule: if every final object is represented exactly \(k\) times, final count \(=|X|/k\).\\
+Complement: \(\#\text{good}=\#U-\#\text{bad}\). Always fix universe \(U\).\\
+\end{tabular}
+
+\subsection*{Inclusion--exclusion}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\(|A\cup B|=|A|+|B|-|A\cap B|\).\\
+\(|A\cup B\cup C|=|A|+|B|+|C|-|AB|-|AC|-|BC|+|ABC|\).\\
+General:
+\(\left|\bigcup_{i=1}^n A_i\right|
+=\sum |A_i|-\sum |A_iA_j|+\sum |A_iA_jA_k|-\cdots+(-1)^{n-1}|A_1\cdots A_n|\).\\
+Use for overlapping bad events: surjections, upper bounds, divisibility, forbidden strings. If an element lies in exactly \(r\) sets, IE contribution is \(\binom r1-\binom r2+\cdots+(-1)^{r-1}\binom rr=1\).\\
+\end{tabular}
+
+\subsection*{Pigeonhole}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+If \(N\) objects enter \(k\) boxes, some box has at least \(\lceil N/k\rceil\). Equiv.: if \(N>rk\), some box has at least \(r+1\).\\
+Common boxes: residues mod \(m\), parity classes, complementary pairs, graph degree values, geometric cells.\\
+Simple graph degree PHP: on \(n\ge2\) vertices, two vertices have same degree because possible degrees \(0,\dots,n-1\), but \(0\) and \(n-1\) cannot coexist.\\
+Ramsey \(R(3,3)=6\): fix a vertex; among 5 incident edges, 3 same color; those endpoints either contain same-color edge or give opposite-color triangle.\\
+\end{tabular}
+
+% =====================================================
+\section*{Functions / Selections}
+% =====================================================
+\subsection*{Functions}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Let \(|X|=m,\ |Y|=n\). All functions \(X\to Y\): \(n^m\).\\
+Injective functions: possible iff \(m\le n\), count \(P(n,m)=n!/(n-m)!\).\\
+Bijective functions: possible iff \(m=n\), count \(n!\).\\
+Surjective functions: possible iff \(m\ge n\),
+\[
+\#\mathrm{Surj}(X,Y)=\sum_{j=0}^{n}(-1)^j\binom nj(n-j)^m.
+\]
+\end{tabular}
+
+\subsection*{Permutations / combinations}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Permutations of \(n\) distinct objects: \(n!\).\\
+\(r\)-permutations: \(P(n,r)=n(n-1)\cdots(n-r+1)=\dfrac{n!}{(n-r)!}\).\\
+\(r\)-combinations: \(\binom nr=\dfrac{n!}{r!(n-r)!}\). Choose then order: \(P(n,r)=\binom nr r!\).\\
+\end{tabular}
+
+\subsection*{Circular / block / gap tools}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Circular arrangements of \(n\) distinct objects: \((n-1)!\). If reflections also identified: \((n-1)!/2\) for \(n\ge3\).\\
+Choose \(r\) from \(n\), arrange around a cycle: \(P(n,r)/r=\dfrac{n!}{r(n-r)!}\).\\
+Burnside symmetry count: \(\#\text{orbits}=\dfrac1{|G|}\sum_{g\in G}|\Fix(g)|\). Ordinary division by \(|G|\) is valid only when every orbit has size \(|G|\).\\
+Required together: merge into block. Required apart: total minus together, or place in gaps.\\
+Choose \(r\) nonadjacent positions from \(n\) in a line: \(\binom{n-r+1}{r}\). Around a circle: \(\dfrac{n}{n-r}\binom{n-r}{r}\) when valid.\\
+If block placements overlap, refine by positions or use IE.\\
+\end{tabular}
+
+\subsection*{Repetition / indistinguishable objects}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Ordered selections with repetition: \(n^r\). Strings length \(r\) over alphabet size \(n\): \(n^r\).\\
+Unordered selections with repetition: \(\binom{n+r-1}{r}=\binom{n+r-1}{n-1}\).\\
+Multiset permutations with multiplicities \(n_1+\cdots+n_k=n\):
+\(\dfrac{n!}{n_1!\cdots n_k!}\).\\
+Multinomial: \((x_1+\cdots+x_m)^n=\sum_{n_1+\cdots+n_m=n}\dfrac{n!}{n_1!\cdots n_m!}x_1^{n_1}\cdots x_m^{n_m}\).\\
+Distinct objects into distinct boxes with sizes \(n_i\): \(\dfrac{n!}{n_1!\cdots n_k!}\). Identical objects into indistinguishable boxes: integer partitions, not stars-and-bars.\\
+Distinct objects into \(j\) indistinguishable nonempty boxes: \(S(n,j)=\dfrac1{j!}\sum_{i=0}^{j-1}(-1)^i\binom ji(j-i)^n\) (optional Stirling-number viewpoint).\\
+\end{tabular}
+
+% =====================================================
+\section*{Stars, Bars, Identities}
+% =====================================================
+\subsection*{Integer solutions}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\(x_1+\cdots+x_k=N,\ x_i\ge0:\ \binom{N+k-1}{k-1}\).\\
+\(x_i\ge1:\ \binom{N-1}{k-1}\). Lower bounds \(x_i\ge \ell_i\): set \(x_i=\ell_i+y_i\), count \(\binom{N-\sum\ell_i+k-1}{k-1}\).\\
+Inequality \(x_1+\cdots+x_k\le N\): add slack \(x_{k+1}\ge0\). Count \(\binom{N+k}{k}\).\\
+Upper bounds \(0\le x_i\le u_i\):
+\[
+\sum_{S\subseteq[k]}(-1)^{|S|}\binom{N-\sum_{i\in S}(u_i+1)+k-1}{k-1},
+\]
+with impossible binomial terms treated as \(0\).\\
+\end{tabular}
+
+\subsection*{Binomial theorem / coefficients}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\((x+y)^n=\sum_{k=0}^{n}\binom nk x^{n-k}y^k\). Coefficient in \((ax+by)^n\) of \(x^{n-k}y^k\): \(\binom nk a^{n-k}b^k\).\\
+\([x^r](1+x)^n=\binom nr\). For coefficient extraction, match exponents; do not expand.\\
+Generating functions: allowed values of \(x_i\) become factors. \(x_i\ge0\mapsto(1-x)^{-1}\), \(0\le x_i\le b\mapsto1+x+\cdots+x^b\), \(x_i\ge a\mapsto x^a/(1-x)\). Count \(=[x^N]\prod_i F_i(x)\).\\
+\end{tabular}
+
+\subsection*{Binomial identities}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\(\binom nr=\binom n{n-r}\), \(\binom{n+1}{r}=\binom nr+\binom n{r-1}\).\\
+\(\sum_{k=0}^{n}\binom nk=2^n\), \(\sum_{k=0}^{n}(-1)^k\binom nk=0\ (n\ge1)\).\\
+Hockey-stick: \(\sum_{k=r}^{n}\binom kr=\binom{n+1}{r+1}\).\\
+Vandermonde: \(\sum_k\binom mk\binom n{r-k}=\binom{m+n}{r}\). Special: \(\sum_{k=0}^{n}\binom nk^2=\binom{2n}{n}\).\\
+\(\sum_k k\binom nk=n2^{n-1}\), \(\sum_k k(k-1)\binom nk=n(n-1)2^{n-2}\), \(\sum_k k^2\binom nk=n(n+1)2^{n-2}\).\\
+\end{tabular}
+
+% =====================================================
+\section*{Recurrence Modelling}
+% =====================================================
+\subsection*{Setup}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+A recurrence specifies \(a_n\) using earlier terms and enough initial conditions. Degree/order \(k\) usually needs \(k\) initial values.\\
+Modelling workflow: define \(a_n\); split by first/last step, last symbol, final tile, or state; prove cases disjoint/exhaustive; translate to smaller terms; state valid \(n\)-range and initial values; check small \(n\).\\
+If one state loses information, introduce auxiliary states, derive coupled recurrences, then add/eliminate.\\
+\end{tabular}
+
+\subsection*{Standard models}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Tower of Hanoi: \(H_1=1,\ H_n=2H_{n-1}+1\Rightarrow H_n=2^n-1\).\\
+Fibonacci-type: \(f_0=0,\ f_1=1,\ f_n=f_{n-1}+f_{n-2}\).\\
+Bit strings no consecutive \(0\)'s: \(a_1=2,\ a_2=3,\ a_n=a_{n-1}+a_{n-2}\) by ending \(1\) or \(01\).\\
+Ternary strings no consecutive \(0\)'s: \(a_n=2a_{n-1}+2a_{n-2}\).\\
+Even number of zero digits in decimal strings: \(a_0=1,\ a_n=8a_{n-1}+10^{n-1}\).\\
+Tiling: classify by last/first tile width. Empty tiling often \(a_0=1\).\\
+\end{tabular}
+
+\subsection*{Linear homogeneous recurrences}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Degree \(k\):
+\[
+a_n=c_1a_{n-1}+\cdots+c_ka_{n-k},\quad c_k\ne0.
+\]
+Characteristic equation:
+\[
+r^k-c_1r^{k-1}-c_2r^{k-2}-\cdots-c_k=0.
+\]
+Distinct roots \(r_1,\dots,r_k\): \(a_n=h_1r_1^n+\cdots+h_kr_k^n\).\\
+Root \(r\) of multiplicity \(m\): contribution \((h_0+h_1n+\cdots+h_{m-1}n^{m-1})r^n\).\\
+Order 2: \(a_n=Aa_{n-1}+Ba_{n-2}\), characteristic \(r^2-Ar-B=0\). Distinct \(r_1,r_2\): \(C_1r_1^n+C_2r_2^n\). Repeated \(r\): \((C_1+C_2n)r^n\).\\
+Complex roots \(\rho(\cos\theta\pm i\sin\theta)\): \(\rho^n(C_1\cos n\theta+C_2\sin n\theta)\).\\
+\end{tabular}
+
+% =====================================================
+\section*{Non-Homogeneous Recurrences}
+% =====================================================
+\subsection*{Structure}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Non-homogeneous:
+\[
+a_n=c_1a_{n-1}+\cdots+c_ka_{n-k}+F(n).
+\]
+If \(a_n^{(p)}\) is one particular solution and \(b_n\) solves the associated homogeneous recurrence, then \(a_n=a_n^{(p)}+b_n\).\\
+Use initial conditions last, after homogeneous + particular parts are assembled.\\
+First-order affine: \(a_n=Aa_{n-1}+B\). If \(A\ne1\), \(a_n=CA^n+\dfrac{B}{1-A}\); if \(A=1\), \(a_n=a_0+nB\).\\
+\end{tabular}
+
+\subsection*{Trial forms}
+\begin{center}
+\begin{tabular}{@{}p{0.35\columnwidth}@{\hspace{0.02\columnwidth}}p{0.57\columnwidth}@{}}
+\toprule
+Forcing \(F(n)\) & Try \(a_n^{(p)}\)\\
+\midrule
+constant \(c\) & \(A\)\\
+polynomial \(P_t(n)\) & general polynomial \(Q_t(n)\)\\
+\(s^n\) & \(As^n\)\\
+\(P_t(n)s^n\) & \(Q_t(n)s^n\)\\
+\(\cos\theta n,\sin\theta n\) & \(A\cos\theta n+B\sin\theta n\)\\
+sum of terms & sum of corresponding trials\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Resonance rule: if natural trial \(Q_t(n)s^n\) overlaps because \(s\) is a homogeneous root of multiplicity \(m\), multiply the whole trial by \(n^m\). For polynomial forcing, \(s=1\).\\
+Linearity: if \(L(a)=F\), then handle sums of forcing terms separately and add particular solutions.\\
+Systems: eliminate one variable, or use vector form \(v_n=Mv_{n-1}\); eigenmode \(vr^n\) when \(Mv=rv\).\\
+Generating functions: \(A(x)=\sum_{n\ge0}a_nx^n\); multiply recurrence by \(x^n\), sum over valid \(n\), solve for \(A(x)\), extract coefficients.\\
+\end{tabular}
+
+% =====================================================
+\section*{Graph Basics}
+% =====================================================
+\subsection*{Definitions / counts}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Undirected graph \(G=(V,E)\): edges unordered pairs. Directed graph: ordered edges. Simple graph: no loops, no multiple edges.\\
+Simple graph on \(n\) vertices: \(0\le m\le\binom n2\). Labelled simple graphs: \(2^{\binom n2}\); with exactly \(m\) edges: \(\binom{\binom n2}{m}\).\\
+Subgraph \(H=(W,F)\): \(W\subseteq V,\ F\subseteq E\). Induced subgraph \(G[W]\): all edges of \(G\) with both endpoints in \(W\).\\
+On chosen \(k\) vertices of \(K_n\): \(\binom nk2^{\binom k2}\) subgraphs. Copies of \(K_r\) in \(K_n\): \(\binom nr\). Labelled \(n\)-cycles on fixed vertex set: \((n-1)!/2\) for \(n\ge3\).\\
+\end{tabular}
+
+\subsection*{Degree / special graphs}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Degree \(\deg(v)\): incident edges; loop counts twice. Graph degree \(\deg(G)\) / \(\Delta(G)\): maximum vertex degree. \(k\)-regular: all degrees \(k\), so \(2m=nk\).\\
+Handshaking: \(\sum_{v\in V}\deg(v)=2m\); number of odd-degree vertices is even.\\
+Directed handshaking: \(\sum_v\deg^+(v)=\sum_v\deg^-(v)=m\).\\
+\(K_n\): \(m=\binom n2,\ \deg=n-1,\ \chi=n\). \(C_n\): \(m=n,\ \deg=2,\ \chi=2\) if \(n\) even, \(3\) if \(n\) odd.\\
+\(K_{p,q}\): \(p+q\) vertices, \(pq\) edges, degrees \(q\) on one side and \(p\) on the other; bipartite. \(K_n\) is bipartite iff \(n=1,2\).\\
+Complement: \(\overline G\) has \(uv\in E(\overline G)\iff uv\notin E(G)\), \(m+\overline m=\binom n2\), \(\deg_{\overline G}(v)=n-1-\deg_G(v)\). If \(G\cong H\), then \(\overline G\cong\overline H\). Self-complementary needs \(2m=\binom n2\).\\
+Self-complementary vertex count necessary: \(\binom n2\) even, so \(n\equiv0,1\pmod4\). \(C_n\) self-complementary iff \(n=5\).\\
+\end{tabular}
+
+\subsection*{Isomorphism}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\(G_1\cong G_2\) iff there is a bijection \(f:V_1\to V_2\) with \(\{u,v\}\in E_1\Longleftrightarrow\{f(u),f(v)\}\in E_2\).\\
+Non-isomorphism invariants: \(|V|,|E|\), degree sequence, components, isolated/pendant vertices, triangles, cycle counts, cut vertices, local neighbourhoods, complement data. Same degree sequence is not sufficient.\\
+To build isomorphism: map unique/rare degrees first, then neighbourhoods; verify adjacency and non-adjacency.\\
+Degree sequence warning: even total degree is necessary but not sufficient for graphicality. Havel--Hakimi check: repeatedly delete largest degree \(d\), subtract \(1\) from next \(d\) degrees, sort; success iff reach all zeros without negative/impossible entries.\\
+\end{tabular}
+
+% =====================================================
+\section*{Connectivity / Traversal}
+% =====================================================
+\subsection*{Paths and components}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Path: consecutive vertices adjacent; directed path follows arrows. Course convention: simple path \(=\) no repeated edge. Circuit: closed path. Connected: path between every pair. Components: maximal connected subgraphs.\\
+A shortest path can be chosen without redundant cycles; if a vertex-repeat creates a removable cycle, delete it to shorten or simplify.\\
+Directed graph: strongly connected means directed paths both ways between all ordered pairs; weakly connected means underlying undirected graph connected.\\
+Simple graph with \(n\) vertices and \(c\) connected components: if acyclic, \(m=n-c\). Minimum edges with \(c\) components: \(n-c\). Maximum: \(\binom{n-c+1}{2}\) by concentrating vertices in one component and isolating \(c-1\).\\
+\end{tabular}
+
+\subsection*{Euler vs Hamilton}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Euler path/circuit uses every edge exactly once. Hamilton path/circuit visits every vertex exactly once.\\
+Hamilton path on \(n\) vertices has \(n-1\) edges; Hamilton circuit has \(n\) edges.\\
+Euler criteria for connected graph after ignoring isolated vertices:
+\[
+\begin{array}{c|c}
+\text{Euler circuit} & \text{all degrees even}\\
+\text{Euler path} & \text{exactly }0\text{ or }2\text{ odd-degree vertices}\\
+\text{Euler path but no circuit} & \text{exactly }2\text{ odd-degree vertices}
+\end{array}
+\]
+Odd vertices, if present, are endpoints of an open Euler path. Connectivity is required.\\
+\(K_n\) has an Euler circuit iff \(n\) is odd. Every \(C_n\ (n\ge3)\) has an Euler circuit.\\
+Hamilton: no parity test. Prove by explicit ordering or disprove via bridge, cut vertex/component separation, forced edges, or impossible degree/local structure. A graph with a bridge has no Hamilton circuit.\\
+In connected graphs, any two longest simple paths intersect; otherwise a shortest connector between them creates a longer path.\\
+\end{tabular}
+
+% =====================================================
+\section*{Coloring / Planarity}
+% =====================================================
+\subsection*{Coloring and bipartite graphs}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+\(k\)-coloring: \(f:V\to\{1,\dots,k\}\), adjacent vertices get different colors. \(\chi(G)=\min k\).\\
+Clique lower bound: if \(K_r\subseteq G\), then \(\chi(G)\ge r\). Coloring gives upper bound. Exact \(\chi\): upper + lower.\\
+Deleting a vertex changes chromatic number by at most \(1\): \(\chi(G)-1\le\chi(G-v)\le\chi(G)\).\\
+Bipartite:
+\[
+G\text{ bipartite}\Longleftrightarrow G\text{ is }2\text{-colorable}\Longleftrightarrow G\text{ has no odd cycle}.
+\]
+\(K_{p,q}\) has \(\chi=2\) for \(p,q\ge1\). A tree with at least one edge is bipartite.\\
+Course wheel \(W_n\) has rim \(C_{n-1}\): \(\chi(W_n)=\chi(C_{n-1})+1\), so \(W_n\) needs \(3\) colors if \(n\) odd and \(4\) if \(n\) even.\\
+\end{tabular}
+
+\subsection*{Planar graphs}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Planar: can be drawn with crossings only at common endpoints. A bad drawing is not proof of non-planarity; one crossing-free drawing proves planarity.\\
+Connected planar graph with \(n\) vertices, \(m\) edges, \(r\) regions:
+\[
+n-m+r=2,\qquad \sum_R\deg(R)=2m.
+\]
+Disconnected planar with \(c\) components: \(n-m+r=1+c\).\\
+If connected simple planar and \(n\ge3\): \(m\le3n-6\). If triangle-free/bipartite: \(m\le2n-4\). If girth \(\ge g\): \(m\le \dfrac{g}{g-2}(n-2)\).\\
+\(K_5\) non-planar: \(10>9\). \(K_{3,3}\) non-planar: bipartite and \(9>8\).\\
+\(K_{2,n}\) is planar for all \(n\): put the \(n\) vertices on a line and draw the two other vertices in opposite half-planes.\\
+Kuratowski: non-planar iff contains a subdivision of \(K_5\) or \(K_{3,3}\). Four-color theorem: simple planar \(\Rightarrow \chi(G)\le4\).\\
+Planar edge bounds are one-way tests: violating proves non-planar; satisfying does not prove planar. Region degree counts edge-boundary occurrences, so a bridge can appear twice on one face boundary. Map coloring: regions sharing only a corner are not adjacent.\\
+\end{tabular}
+
+% =====================================================
+\section*{Trees}
+% =====================================================
+\subsection*{Tree equivalences}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Tree: connected acyclic graph. Forest: components are trees. Spanning tree of connected \(G\): tree subgraph with \(V(T)=V(G)\).\\
+For finite simple \(T\) on \(n\) vertices, equivalent: connected+acyclic; connected and \(m=n-1\); acyclic and \(m=n-1\); unique simple path between each pair; connected and every edge is a bridge.\\
+Forest with \(n\) vertices and \(c\) components: \(m=n-c\). Tree: \(m=n-1\).\\
+Every nontrivial tree has at least two leaves. Removing a leaf from a tree leaves a smaller tree.\\
+\end{tabular}
+
+\subsection*{Rooted / binary trees}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Rooted tree: root, parent, child, siblings, ancestors, descendants, leaf, internal vertex, level, height.\\
+Full binary tree: every internal vertex has exactly two children. If \(I\) internal vertices, leaves \(L=I+1\), total vertices \(2I+1\), edges \(2I\).\\
+Complete/perfect binary tree of height \(h\): level \(k\) has \(2^k\) vertices; leaves \(2^h\); total vertices \(2^{h+1}-1\).\\
+Complete bipartite graph \(K_{p,q}\) is a tree iff \(p=1\) or \(q=1\): \(pq=p+q-1\iff(p-1)(q-1)=0\).\\
+\end{tabular}
+
+% =====================================================
+\section*{MST / Shortest Paths}
+% =====================================================
+\subsection*{Minimum spanning trees}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Weighted connected graph \(G=(V,E,W)\). Spanning tree has all vertices and \(n-1\) edges. MST minimizes \(\sum_{e\in T}W(e)\).\\
+Cut: partition \((S,V\setminus S)\). Edge crosses if endpoints lie on opposite sides.\\
+Cut property: a unique lightest edge crossing a cut belongs to every MST. Safe edge can be added without preventing completion to an MST.\\
+Cycle property: a unique heaviest edge on a cycle belongs to no MST.\\
+Distinct edge weights \(\Rightarrow\) unique MST. Equal weights can give multiple MSTs; Kruskal/Prim choices may differ but total weight is minimum.\\
+\end{tabular}
+
+\subsection*{Algorithms}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Kruskal: sort all edges by increasing weight; add next edge iff it does not create a cycle; stop after \(n-1\) accepted edges. Invariant: accepted edges form a forest.\\
+Prim: start with vertex set \(S=\{s\}\); repeatedly add cheapest edge crossing \(S,V\setminus S\); add the new vertex. Invariant: selected edges form one growing tree.\\
+Kruskal uses global edge order; Prim grows from a start vertex. Both solve MST, not shortest path.\\
+\end{tabular}
+
+\subsection*{Shortest paths / Dijkstra}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Path length: sum of edge lengths. Distance \(\dist(s,v)\): minimum path length, or \(\infty\) if unreachable. Every subpath of a shortest path is shortest between its endpoints.\\
+Dijkstra requires nonnegative edge lengths. Initialize \(d(s)=0\), \(d(v)=\infty\). Repeatedly settle unsettled vertex \(u\) with smallest \(d(u)\), then relax:
+\[
+d(v)\leftarrow\min\{d(v),d(u)+\ell(u,v)\}.
+\]
+Invariant: settled distances are final. Store predecessor \(\pi(v)\) to reconstruct paths. Stop early only after target is settled.\\
+MST vs shortest-path tree: MST minimizes total connection cost; SPT minimizes distances from a source. They may be different.\\
+Minimum bottleneck spanning tree (MBST): minimizes largest selected edge. Every MST is MBST, not conversely. Bottleneck \(\le B\) iff subgraph of edges with weight \(\le B\) is connected.\\
+\end{tabular}
+
+% =====================================================
+\section*{Exam Traps / Fast Checks}
+% =====================================================
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+Counting: ordered vs unordered; distinct vs identical; labelled vs unlabelled boxes; repetition allowed? cases disjoint? complement universe fixed? symmetry counted equally before dividing? upper bounds included? leading zeros allowed?\\
+Identity: define the counted set before algebra. For sums, identify what the summation index classifies.\\
+Recurrence: define state; give initial conditions and valid range; repeated roots need powers of \(n\); non-homogeneous needs particular solution; resonance needs extra \(n^m\); check first terms.\\
+Graphs: read adjacency, not drawing. Degree sequence is only a necessary invariant. Euler criteria need connectedness. Hamilton is not Euler. Planar edge bounds are necessary only. Dijkstra needs nonnegative weights. MST is not shortest path.\\
+\end{tabular}
+
+\subsection*{One-line theorem triggers}
+\begin{tabular}{@{}p{0.97\columnwidth}@{}}
+``At least one'' often means complement or IE. ``Guaranteed'' often means PHP. ``Prove identity'' often means double count. ``No consecutive'' often means last-symbol recurrence or gaps. ``All vertices/edges degrees'' means handshaking. ``Use every edge'' means Euler. ``Visit every vertex'' means Hamilton. ``Two colors'' means bipartite/no odd cycle. ``No crossings'' means Euler formula/planar bounds/Kuratowski. ``Minimum total connection'' means MST. ``Shortest route from source'' means Dijkstra.\\
+\end{tabular}
+
+\end{multicols*}
+
+\end{document}

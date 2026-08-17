@@ -1,0 +1,686 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+
+\usepackage{geometry}
+
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+
+\fancyhf{}
+
+\rfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+
+\textbf{Mathematical Foundations} \\
+
+MFE Spring 2026 \\
+
+Assignment 2 \\
+
+Due: Tuesday, January 20, \\
+
+9 am P.T.
+
+\end{center}
+
+\vspace{1em}
+
+\noindent \textbf{Student name:} Yuhe Sui \hspace{3.54cm} \textbf{Student ID:} job@yuhesui.com
+
+\vspace{1em}
+
+\noindent \textbf{Solved in team with another student (please underline):} \hspace{1cm} Yes \hspace{1cm} \underline{No}
+
+\vspace{1em}
+
+\noindent \textbf{Name of team member:} \hspace{3cm} \textbf{ID of team member:}
+
+\vspace{1em}
+
+\noindent \textbf{Instructions:} You should submit this assignment electronically via bCourses, as a PDF file. The preferred format is to use a text editor or other program with formula handling capacity, e.g., Scientific Word, MikTex, or MS Word with installed equation package, to create a an electronic document, and then save as PDF. We also accept handwritten, scanned, solutions, but these must be extremely clear and well written, or they will receive point deductions (see available sample files on bCourses).
+
+\vspace{1em}
+
+\noindent Please contact us at \texttt{HAASMFE.MATH@gmail.com} if you have any questions about the submission format!
+
+\vspace{1em}
+
+\noindent You should receive a confirmation e-mail within 24 hours of sending your solution. Assignments received up to 24 hours late will get a point deduction of $50\%$ of the points. Assignments received more than 24 hours late get a $100\%$ point deduction.
+
+\vspace{1em}
+
+\noindent You can send questions to \texttt{HAASMFE.MATH@gmail.com} if you get stuck.
+
+\vspace{1em}
+
+\noindent All answers need to be justified!
+
+\newpage
+
+In this assignment you will work on stochastic matrices and multi-dimensional optimization. Specifically, you will solve problems from portfolio optimization theory and asset pricing theory, at the same time practicing using matrix and vector notation for such optimization problems.
+
+\section{Stochastic matrices}
+
+The following 1-year transition matrix of corporate bond ratings was estimated by Standard \& Poor's:
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}
+\hline
+& AAA & AA & A & BBB & BB & B & CCC & Default \\
+\hline
+AAA & 90.788\% & 8.291\% & 0.716\% & 0.102\% & 0.102\% & 0 & 0 & 0 \\
+AA & 0.103\% & 91.219\% & 7.851\% & 0.620\% & 0.103\% & 0.103\% & 0 & 0 \\
+A & 0.924\% & 2.361\% & 90.041\% & 5.441\% & 0.719\% & 0.308\% & 0.103\% & 0.103\% \\
+BBB & 0 & 0.318\% & 5.938\% & 86.947\% & 5.302\% & 1.1166\% & 0.117\% & 0.212\% \\
+BB & 0 & 0.110\% & 0.659\% & 7.692\% & 80.549\% & 8.791\% & 0.989\% & 1.209\% \\
+B & 0 & 0.114\% & 0.227\% & 0.454\% & 6.470\% & 82.747\% & 4.086\% & 5.902\% \\
+CCC & 0 & 0 & 0.456\% & 1.251\% & 2.275\% & 12.856\% & 60.637\% & 22.526\% \\
+Default & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100\% \\
+\hline
+\end{tabular}
+\end{center}
+
+Assume that corporate bond ratings follow a time invariant Markov process with the above transition matrix, $\Phi$, and states $\{$AAA, AA, A, BBB, BB, B, CCC, Default$\}$, represented by the state $s \in \{1, \ldots, 8\}$, where $s = 4$, e.g., represents a BBB rating.
+
+\begin{enumerate}
+
+\item[(a)] What is the probability that a bond over two years moves from an AAA rating to Default, with the above transition matrix?
+
+\item[(b)] What is the long-term (stationary) distribution, $p$ of ratings for a corporate bond with the above transition matrix (assuming that it has a very long maturity)?
+
+\end{enumerate}
+\bigskip
+
+\subsection*{Solution}
+
+\subsection*{(a) Two-year probability of going from AAA to Default}
+
+Order the states as
+\[
+(1,2,3,4,5,6,7,8)=(\mathrm{AAA},\mathrm{AA},\mathrm{A},\mathrm{BBB},\mathrm{BB},\mathrm{B},\mathrm{CCC},\mathrm{Default}),
+\]
+and let $\Phi$ denote the given one-year transition matrix.
+
+For a time-homogeneous Markov chain, the two-year transition matrix is $\Phi^2$. Hence,
+\[
+\mathbb{P}(X_{t+2}=8\mid X_t=1)=(\Phi^2)_{1,8}
+=\sum_{k=1}^8 \Phi_{1k}\Phi_{k8}.
+\]
+
+From the AAA row, the only nonzero one-year transitions out of AAA are to
+AAA, AA, A, BBB, BB, and moreover $\Phi_{\mathrm{AAA},8}=0$. Also, from the Default column
+we have $\Phi_{\mathrm{AAA},8}=0$ and $\Phi_{\mathrm{AA},8}=0$. Therefore only the intermediate
+states A, BBB, and BB contribute:
+\[
+(\Phi^2)_{1,8}
+=\Phi_{1,3}\Phi_{3,8}+\Phi_{1,4}\Phi_{4,8}+\Phi_{1,5}\Phi_{5,8}.
+\]
+
+Plugging in the numbers (converting percentages to decimals),
+\[
+(\Phi^2)_{1,8}
+=(0.00716)(0.00103) + (0.00102)(0.00212) + (0.00102)(0.01209).
+\]
+Compute each term:
+\[
+(0.00716)(0.00103)=7.3748\times 10^{-6},\quad
+(0.00102)(0.00212)=2.1624\times 10^{-6},\quad
+(0.00102)(0.01209)=1.23318\times 10^{-5}.
+\]
+Thus,
+\[
+(\Phi^2)_{1,8}=2.1869\times 10^{-5}.
+\]
+Therefore,
+\[
+\boxed{\mathbb{P}(\mathrm{AAA}\to\mathrm{Default}\ \text{in 2 years})
+=(\Phi^2)_{1,8}\approx 2.1869\times 10^{-5}\approx 0.0021869\%.}
+\]
+
+\subsection*{(b) Long-term (stationary) distribution}
+
+A stationary distribution $p=(p_1,\dots,p_8)$ satisfies
+\[
+p=p\Phi,\qquad \sum_{i=1}^8 p_i=1,\qquad p_i\ge 0.
+\]
+
+From the matrix, Default is an \emph{absorbing state} since
+\[
+\Phi_{8,8}=1,\qquad \Phi_{8,j}=0\ \text{for } j\neq 8.
+\]
+In addition, Default is reachable (directly or indirectly) from the non-default ratings
+because there are strictly positive one-year default probabilities from several non-default states,
+and the chain allows transitions into those states.
+
+Hence, in the long run all probability mass accumulates in the absorbing Default state, and the
+(unique) stationary distribution is
+\[
+\boxed{p=(0,0,0,0,0,0,0,1).}
+\]
+
+
+
+
+\newpage
+\section{Portfolio optimization with only risky assets}
+
+Consider a market in which there are $N$ risky assets, which, as before, we assume are traded at $t = 0$ and $t = 1$. The return of the assets between $t = 0$ and $t = 1$ can be summarized by a vector $\tilde{\mu} \in \mathbb{R}^N$, where $\tilde{\mu}_n$ represents the return of asset $n$. Here, the ``tilde'' represents that returns are random. The expected return of asset $n$ is $\mu_n = \mathbb{E}[\tilde{\mu}_n]$, and the return vector $\mu \in \mathbb{R}^N$ summarizes the expected returns of all the assets. We can for example think of the time period as being a year.
+
+An asset portfolio can be represented by a vector $\mathbf{h}$, where $h_n$ represents the fraction of the total portfolio value that is invested in asset $n$. Thus, the sum of the portfolio weights is 100\%, i.e.,
+
+\[
+\mathbf{h}^T \mathbf{1} = 1
+\]
+
+Here, $\mathbf{1} \in \mathbb{R}^N$ is a vector of ones. The realized returns of portfolio $\mathbf{h}$ is $\tilde{\mu}_h = \mathbf{h}^T \tilde{\mu}$, and it follows from the linearity of expectations that the expected returns of a portfolio of the assets can be calculated as
+
+\[
+\mu_h = \mathbb{E}[\tilde{\mu}_h] = \mathbf{h}^T \mu
+\]
+
+As an example, consider a market with 2 assets with expected returns of 8\% and 24\%, respectively, represented by the vector $\mu = (0.08, 0.24)^T$. A portfolio with 75\% of the capital invested in the first asset and 25\% in the second can then be represented by the vector $\mathbf{h} = (0.75, 0.25)^T$, and the expected return of this portfolio is 20\%, since $\mu_h = (0.75, 0.25)(0.08, 0.24)^T = 0.2$.
+
+A natural and very common assumption within finance is that investors like portfolios with high expected returns, i.e., it is in an investor's interest to choose a portfolio with as high $\mu_h$ as possible. In the previous example, this would lead an investor to only invest in the second asset or, if possible, to ``borrow'' money from the first asset by holding a negative fraction in it, and investing more than 100\% in asset 2. With no restrictions on portfolio investments other than $\mathbf{h}^T \mathbf{1} = 1$, the investor could generate arbitrarily high expected returns by choosing the portfolio $\mathbf{h} = (-x, 1 + x)^T$, for arbitrarily large $x$, since the expected returns of this portfolio would be $(-x, 1 + x)(0.08, 0.24)^T = -0.08x + 0.24(1 + x) = 0.24 + 0.16x$, which is higher the larger $x$ is.
+
+A richer approach (e.g., taken in Markowitz (1952)) is to assume that although investors like high expected returns, they dislike risk, especially in the form of variance of portfolio returns. Recall that the variance of returns on asset $n$ is $\sigma_n^2 = \text{Var}(\tilde{\mu}_n) = \mathbb{E}[({\tilde{\mu}_n - \mu_n})^2]$. A way to model the ``value''---or using a fancier word, the utility---that an investor at $t = 0$ associates with investing all capital in asset $n$ is to assume that it is
+
+\[
+U = \mu_n - \frac{\gamma}{2} \sigma_n^2
+\]
+
+Here, $\gamma \in \mathbb{R}^+$ represent the investor's risk aversion. The higher $\gamma$ is, the more risk averse the agent is, and the more the portfolio's riskiness drags down her utility below the expectation of its returns. If $\gamma = 0$, the investor is risk neutral and only cares about the expectation, but we shall henceforth assume that $\gamma > 0$. Under this assumption, any investment in a risky asset thus comes with a trade-off, where expected return is weighed against riskiness. We say that the investor has mean-variance preferences.
+
+Extending this intuition to portfolios, it follows that the utility for an agent of investing in portfolio $\mathbf{h}$ is
+
+\[
+U = \mu_h - \frac{\gamma}{2} \text{Var}(\mathbf{h}^T \tilde{\mu})
+\]
+
+We need a formula for the variance of portfolio $\mathbf{h}^T \tilde{\mu}$. Recall that the covariance between the returns of assets $n$ and $m$ is $\sigma_{nm} = \text{Cov}(\tilde{\mu}_n, \tilde{\mu}_m) = \mathbb{E}[(\tilde{\mu}_n - \mu_n)(\tilde{\mu}_m - \mu_m)]$. We now define the matrix $\Sigma \in \mathbb{R}^{N \times N}$, with elements $\Sigma_{nm} = \sigma_{nm}$. By definition, $\Sigma$ is a symmetric matrix. The variance of portfolio $\mathbf{h}$ can now conveniently be written as a quadratic form:
+
+\[
+\text{Var}(\mathbf{h}^T \tilde{\mu}) = \mathbf{h}^T \Sigma \mathbf{h}
+\]
+
+Since variances are nonnegative, it follows that $\Sigma$ is positive semidefinite. We make the additional assumption that the returns of the assets are not linearly dependent, implying that $\Sigma$ is positive definite.
+
+We can now write the objective function that an investor under our assumption wishes to maximize as
+
+\[
+U(\mathbf{h}) = \mathbf{h}^T \mu - \frac{\gamma}{2} \mathbf{h}^T \Sigma \mathbf{h}
+\]
+
+This is the objective function that an investor under our assumption wishes to maximize, i.e., the utility maximizing investor chooses a portfolio that solves $\max_{\mathbf{h}} U(\mathbf{h})$ among all $\mathbf{h}$ that satisfy $\mathbf{h}^T \mathbf{1} = 1$.
+
+Note that, as when analyzing the law of one price, we have transformed the problem from an economic formulation (agents like high returns, but dislike risk) to a purely linear algebraic one that can be analyzed with our mathematical toolbox. Being able to go back and forth between these two ``languages'' is actually much of what Financial Economics is about!
+
+Consider a utility maximizing risk-averse ($\gamma > 0$) investor, who has decided to invest in a portfolio with expected returns $\mu_0$, i.e., in a portfolio such that
+
+\[
+\mu_0 = \mathbf{h}^T \mu
+\]
+
+Define the scalar numbers $A = \mathbf{1}^T \Sigma^{-1} \mathbf{1}$, $B = \mathbf{1}^T \Sigma^{-1} \mu$, $C = \mu^T \Sigma^{-1} \mu$, and $\Delta = AC - B^2 > 0$ (positivity implied by the fact that $\Sigma$ is positive definite). Moreover, define the portfolios
+
+\[
+\mathbf{w}_A = \frac{1}{A} \Sigma^{-1} \mathbf{1} \quad \text{and} \quad \mathbf{w}_B = \frac{1}{B} \Sigma^{-1} \mu
+\]
+
+\begin{enumerate}
+
+\item[(a)] Derive a formula for the optimal portfolio, $\mathbf{h}$, satisfying $\mathbf{h}^T \mathbf{1} = 1$ and $\mathbf{h}^T \mu = \mu_0$, and maximizing $U(\mathbf{h})$. Express the formula as a function of $A$, $B$, $C$, $\Delta$, $\mu_0$, $\mathbf{w}_A$ and $\mathbf{w}_B$.
+
+\item[(b)] Use your results from (a) to write $\sigma_h^2$ as a quadratic function of $\mu_0$, using only the additional parameters $A$, $B$, $C$, and $\Delta$. This function is known as the minimum variance frontier.
+
+\item[(c)] Now assume that the investor actually chooses $\mu_0$ to maximize $U(\mathbf{h})$, given risk aversion coefficient $\gamma$. Use your previous results to write the optimal $\mu_0$ as a function of the previous parameters and $\gamma$.
+
+\end{enumerate}
+
+A consequence of the above results is that there is so-called two fund separation in the market in the sense that all investors (regardless of their risk aversion) will choose some combination of the two portfolios (funds) $\mathbf{w}_A$ and $\mathbf{w}_B$. This is a classical result!
+
+
+\subsection*{Solution}
+
+Recall
+\[
+U(\mathbf h)=\mathbf h^{T}\mu-\frac{\gamma}{2}\mathbf h^{T}\Sigma \mathbf h,\qquad \gamma>0,
+\]
+and the constraints
+\[
+\mathbf h^{T}\mathbf 1=1,\qquad \mathbf h^{T}\mu=\mu_0.
+\]
+Also define
+\[
+A=\mathbf 1^{T}\Sigma^{-1}\mathbf 1,\qquad
+B=\mathbf 1^{T}\Sigma^{-1}\mu,\qquad
+C=\mu^{T}\Sigma^{-1}\mu,\qquad
+\Delta=AC-B^{2}>0,
+\]
+and
+\[
+\mathbf w_A=\frac{1}{A}\Sigma^{-1}\mathbf 1,\qquad
+\mathbf w_B=\frac{1}{B}\Sigma^{-1}\mu.
+\]
+
+\subsection*{(a) Optimal portfolio for fixed $\mu_0$}
+
+Since $\mathbf h^{T}\mu=\mu_0$ is fixed, maximizing $U(\mathbf h)$ is equivalent to minimizing
+$\mathbf h^{T}\Sigma \mathbf h$ subject to the same constraints. Consider the problem
+\[
+\min_{\mathbf h}\ \frac12\,\mathbf h^{T}\Sigma \mathbf h
+\quad\text{s.t.}\quad
+\mathbf h^{T}\mathbf 1=1,\ \mathbf h^{T}\mu=\mu_0.
+\]
+Form the Lagrangian
+\[
+\mathcal L(\mathbf h,\lambda_1,\lambda_2)
+=\frac12\,\mathbf h^{T}\Sigma \mathbf h
+-\lambda_1(\mathbf h^{T}\mathbf 1-1)
+-\lambda_2(\mathbf h^{T}\mu-\mu_0).
+\]
+The first-order condition with respect to $\mathbf h$ is
+\[
+\nabla_{\mathbf h}\mathcal L
+=\Sigma \mathbf h-\lambda_1\mathbf 1-\lambda_2\mu=\mathbf 0,
+\]
+so (since $\Sigma$ is invertible)
+\[
+\mathbf h=\lambda_1\Sigma^{-1}\mathbf 1+\lambda_2\Sigma^{-1}\mu.
+\]
+Impose the constraints:
+\begin{align*}
+1=\mathbf h^{T}\mathbf 1
+&=\lambda_1\,\mathbf 1^{T}\Sigma^{-1}\mathbf 1+\lambda_2\,\mathbf 1^{T}\Sigma^{-1}\mu
+=\lambda_1 A+\lambda_2 B,\\
+\mu_0=\mathbf h^{T}\mu
+&=\lambda_1\,\mu^{T}\Sigma^{-1}\mathbf 1+\lambda_2\,\mu^{T}\Sigma^{-1}\mu
+=\lambda_1 B+\lambda_2 C.
+\end{align*}
+Thus
+\[
+\begin{pmatrix}
+A & B\\
+B & C
+\end{pmatrix}
+\begin{pmatrix}
+\lambda_1\\
+\lambda_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\\
+\mu_0
+\end{pmatrix}.
+\]
+Using $\Delta=AC-B^2$,
+\[
+\lambda_1=\frac{C-B\mu_0}{\Delta},\qquad
+\lambda_2=\frac{A\mu_0-B}{\Delta}.
+\]
+Therefore
+\[
+\boxed{
+\mathbf h(\mu_0)=\frac{C-B\mu_0}{\Delta}\Sigma^{-1}\mathbf 1
++\frac{A\mu_0-B}{\Delta}\Sigma^{-1}\mu.
+}
+\]
+Equivalently, since $\Sigma^{-1}\mathbf 1=A\mathbf w_A$ and $\Sigma^{-1}\mu=B\mathbf w_B$,
+\[
+\boxed{
+\mathbf h(\mu_0)=\frac{A(C-B\mu_0)}{\Delta}\mathbf w_A
++\frac{B(A\mu_0-B)}{\Delta}\mathbf w_B.
+}
+\]
+
+\subsection*{(b) Minimum variance frontier}
+
+Let $\sigma_h^2(\mu_0)=\mathbf h(\mu_0)^{T}\Sigma \mathbf h(\mu_0)$. From the FOC,
+\[
+\Sigma \mathbf h(\mu_0)=\lambda_1\mathbf 1+\lambda_2\mu.
+\]
+Hence
+\[
+\sigma_h^2(\mu_0)
+=\mathbf h^{T}\Sigma \mathbf h
+=\mathbf h^{T}(\lambda_1\mathbf 1+\lambda_2\mu)
+=\lambda_1(\mathbf h^{T}\mathbf 1)+\lambda_2(\mathbf h^{T}\mu)
+=\lambda_1+\lambda_2\mu_0.
+\]
+Substituting $\lambda_1,\lambda_2$ from part (a) gives
+\[
+\sigma_h^2(\mu_0)
+=\frac{C-B\mu_0}{\Delta}+\mu_0\frac{A\mu_0-B}{\Delta}
+=\boxed{\frac{A\mu_0^2-2B\mu_0+C}{\Delta}}.
+\]
+
+\subsection*{(c) Optimal $\mu_0$ given $\gamma$}
+
+When the investor can choose $\mu_0$, she will select $\mu_0$ to maximize
+\[
+\mathcal U(\mu_0)=\mu_0-\frac{\gamma}{2}\sigma_h^2(\mu_0)
+=\mu_0-\frac{\gamma}{2}\cdot\frac{A\mu_0^2-2B\mu_0+C}{\Delta}.
+\]
+Differentiate and set equal to zero:
+\[
+\mathcal U'(\mu_0)
+=1-\frac{\gamma}{2\Delta}(2A\mu_0-2B)
+=1-\gamma\frac{A\mu_0-B}{\Delta}=0.
+\]
+Thus
+\[
+A\mu_0-B=\frac{\Delta}{\gamma}
+\quad\Longrightarrow\quad
+\boxed{\mu_0^{\ast}=\frac{B}{A}+\frac{\Delta}{A\gamma}}.
+\]
+Moreover,
+\[
+\mathcal U''(\mu_0)=-\frac{\gamma A}{\Delta}<0,
+\]
+so this critical point is indeed a maximum.
+
+\newpage
+\section{Portfolio optimization with risk-free asset}
+
+Now assume that in addition to the risky assets described above with expected return vector $\mu$ and positive definite variance-covariance matrix $\Sigma$, there is a risk-free asset with deterministic return $R > 0$. We can think of this asset as a one-year treasury bond, or alternatively as a certificate of deposit (CD) in a bank.
+
+Consider a portfolio of $\mathbf{h} \in \mathbb{R}^N$ in the risky assets, and the remaining $1 - \mathbf{h}^T \mathbf{1}$ in the risk-free asset. You can verify that the expected return on this portfolio is
+
+\[
+R + \mathbf{h}^T (\mu - R \mathbf{1})
+\]
+
+and that the variance is (as before)
+
+\[
+\mathbf{h}^T \Sigma \mathbf{h}
+\]
+
+The case when $\mathbf{h}^T \mathbf{1} > 1$ corresponds to a situation when money is borrowed from the bank to invest in the market. The case when $\mathbf{h}^T \mathbf{1} < 0$ corresponds to short-selling assets in the market and depositing the money in the bank. Thus, $\mathbf{h} \in \mathbb{R}^N$ is completely unconstrained in this case with a risk-free asset.
+
+The risk averse investor's optimization problem when the risky asset is present is then
+
+\[
+U(\mathbf{h}) = \max_{\mathbf{h} \in \mathbb{R}^N} \left[ R + \mathbf{h}^T (\mu - R \mathbf{1}) - \frac{\gamma}{2} \mathbf{h}^T \Sigma \mathbf{h} \right]
+\]
+
+with no restrictions on $\mathbf{h} \in \mathbb{R}^N$.
+
+\begin{enumerate}
+
+\item[(a)] Show that there is so-called one-fund separation in the market in this case, in that all investors, regardless of their $\gamma$, will hold the same stock market portfolio
+
+\[
+\mathbf{w}^* = \frac{1}{B - AR} \Sigma^{-1} (\mu - R \mathbf{1})
+\]
+
+and only differ in the amount of money they deposit in the bank. This is another classical result!
+
+\item[(b)] What is the relationship between an investor's $\gamma$ and the expected return of the chosen portfolio (including the bond) in this case?
+
+\end{enumerate}
+
+\subsection*{Solution}
+
+Let $\mu\in\mathbb{R}^N$ be the vector of expected returns of the risky assets, let $\Sigma\in\mathbb{R}^{N\times N}$ be their (positive definite) covariance matrix, and let $R>0$ be the (deterministic) risk-free return. The investor chooses risky positions $\mathbf h\in\mathbb{R}^N$ and invests the remainder $1-\mathbf h^T\mathbf 1$ in the risk-free asset.
+
+The expected return and variance of the total portfolio are
+\[
+\mathbb{E}[\tilde{\mu}_p]=R+\mathbf h^T(\mu-R\mathbf 1),
+\qquad
+\mathrm{Var}(\tilde{\mu}_p)=\mathbf h^T\Sigma\mathbf h.
+\]
+The mean--variance objective is
+\[
+\max_{\mathbf h\in\mathbb{R}^N}
+U(\mathbf h)
+=
+R+\mathbf h^T(\mu-R\mathbf 1)-\frac{\gamma}{2}\mathbf h^T\Sigma\mathbf h,
+\qquad \gamma>0.
+\]
+
+\subsection*{(a) One-fund separation and the market portfolio}
+
+Since $\Sigma\succ 0$ and $\gamma>0$, the Hessian of $U$ is
+\[
+\nabla_{\mathbf h}^2 U(\mathbf h)=-\gamma \Sigma,
+\]
+which is negative definite. Hence $U$ is strictly concave in $\mathbf h$ and the maximizer is unique and characterized by the first-order condition.
+
+Compute the gradient:
+\[
+\nabla_{\mathbf h}U(\mathbf h)=(\mu-R\mathbf 1)-\gamma \Sigma \mathbf h.
+\]
+Set it equal to zero:
+\[
+(\mu-R\mathbf 1)-\gamma \Sigma \mathbf h=\mathbf 0
+\quad\Longleftrightarrow\quad
+\gamma \Sigma \mathbf h=\mu-R\mathbf 1
+\quad\Longleftrightarrow\quad
+\boxed{
+\mathbf h^\*(\gamma)=\frac{1}{\gamma}\Sigma^{-1}(\mu-R\mathbf 1).
+}
+\]
+Thus every investor holds the same \emph{direction} in risky-asset space, differing only by the scalar factor $1/\gamma$.
+
+Define the (common) stock-market portfolio as the normalized risky portfolio that sums to one:
+\[
+\mathbf w^\*
+:=
+\frac{\mathbf h^\*(\gamma)}{\mathbf 1^T\mathbf h^\*(\gamma)}
+=
+\frac{\Sigma^{-1}(\mu-R\mathbf 1)}{\mathbf 1^T\Sigma^{-1}(\mu-R\mathbf 1)}.
+\]
+Introduce the constants (as defined in the previous problem)
+\[
+A=\mathbf 1^T\Sigma^{-1}\mathbf 1,
+\qquad
+B=\mathbf 1^T\Sigma^{-1}\mu.
+\]
+Then
+\[
+\mathbf 1^T\Sigma^{-1}(\mu-R\mathbf 1)
+=
+\mathbf 1^T\Sigma^{-1}\mu
+-
+R\,\mathbf 1^T\Sigma^{-1}\mathbf 1
+=
+B-AR,
+\]
+so
+\[
+\boxed{
+\mathbf w^\*=\frac{1}{B-AR}\,\Sigma^{-1}(\mu-R\mathbf 1),
+}
+\]
+which is independent of $\gamma$. Therefore, all investors hold the same risky mutual fund $\mathbf w^\*$ and differ only in how much they place in (or borrow from) the risk-free asset.
+
+Moreover, the total fraction invested in risky assets is
+\[
+\mathbf 1^T\mathbf h^\*(\gamma)
+=
+\frac{1}{\gamma}\mathbf 1^T\Sigma^{-1}(\mu-R\mathbf 1)
+=
+\frac{B-AR}{\gamma},
+\]
+so the risk-free position is
+\[
+1-\mathbf 1^T\mathbf h^\*(\gamma)
+=
+1-\frac{B-AR}{\gamma}.
+\]
+
+\subsection*{(b) Relationship between $\gamma$ and the expected return}
+
+The expected return of the optimal total portfolio (including the risk-free asset) is
+\[
+\mathbb{E}[\tilde{\mu}_p^\*(\gamma)]
+=
+R+\big(\mathbf h^\*(\gamma)\big)^T(\mu-R\mathbf 1).
+\]
+Substitute $\mathbf h^\*(\gamma)=\frac{1}{\gamma}\Sigma^{-1}(\mu-R\mathbf 1)$:
+\[
+\mathbb{E}[\tilde{\mu}_p^\*(\gamma)]
+=
+R+\frac{1}{\gamma}(\mu-R\mathbf 1)^T\Sigma^{-1}(\mu-R\mathbf 1).
+\]
+Hence the excess expected return over the risk-free rate satisfies
+\[
+\boxed{
+\mathbb{E}[\tilde{\mu}_p^\*(\gamma)]-R
+=
+\frac{1}{\gamma}\,(\mu-R\mathbf 1)^T\Sigma^{-1}(\mu-R\mathbf 1),
+}
+\]
+so it is inversely proportional to risk aversion $\gamma$.
+
+
+
+
+\newpage
+\section{The Capital Asset Pricing Model (CAPM)}
+
+The CAPM may be the most influential asset pricing model of all time, relating the expected returns of an asset with how much its returns covary with the stock market. Specifically, given that the random return of stock $n$ is $\tilde{\mu}_n$ and the return of the stock market is $\tilde{\mu}_{\text{market}}$, with variance $\sigma_{\text{market}}^2$ and expected returns $\mu_{\text{market}}$, the CAPM predicts that
+
+\[
+\mu_n - R = \beta_n (\mu_{\text{market}} - R)
+\]
+
+where $\beta_n = \frac{\text{Cov}(\tilde{\mu}_n, \tilde{\mu}_{\text{market}})}{\sigma_{\text{market}}^2}$.
+
+In our model with investors with mean-variance preferences, everyone invests in portfolio $\mathbf{w}^*$, given by the equation in Problem 3(a), so $\mathbf{w}^*$ must be the stock market portfolio, leading to $\mu_{\text{market}} = (\mathbf{w}^*)^T \mu$, and $\sigma_{\text{market}}^2 = (\mathbf{w}^*)^T \Sigma \mathbf{w}^*$. Moreover, it is straightforward to show that the vector $\beta = (\beta_1, \ldots, \beta_N)^T \in \mathbb{R}^N$ of covariances between stocks and the market, normalized by the market's variance, is
+
+\[
+\beta = \frac{1}{(\mathbf{w}^*)^T \Sigma \mathbf{w}^*} \Sigma \mathbf{w}^*
+\]
+
+We can therefore rewrite the CAPM relationship in vector form as
+
+\[
+\mu - R \mathbf{1} = \beta (\mathbf{w}^*)^T (\mu - R \mathbf{1})
+\]
+
+\begin{enumerate}
+
+\item[(a)] Using the formula for $\mathbf{w}^*$ from Problem 3(a) and the other relations we have derived, show that the CAPM relationship holds. Hint: It may be helpful to show that
+
+\[
+\frac{(\mathbf{w}^*)^T (\mu - R \mathbf{1})}{(B - AR) (\mathbf{w}^*)^T \Sigma \mathbf{w}^*} = 1
+\]
+
+as part of the proof.
+
+\end{enumerate}
+
+\subsection*{Solution}
+
+We are given the (vector) CAPM relationship
+\[
+\mu - R\mathbf 1 \;=\; \beta\,(\mathbf w^\ast)^T(\mu - R\mathbf 1),
+\qquad
+\beta \;=\; \frac{1}{(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}\,\Sigma \mathbf w^\ast.
+\]
+From Problem 3(a), using
+\[
+A=\mathbf 1^T\Sigma^{-1}\mathbf 1,
+\qquad
+B=\mathbf 1^T\Sigma^{-1}\mu,
+\]
+the market portfolio is
+\[
+\mathbf w^\ast=\frac{1}{B-AR}\,\Sigma^{-1}(\mu-R\mathbf 1).
+\]
+Equivalently,
+\begin{equation}
+\label{eq:wstar_equiv}
+(B-AR)\mathbf w^\ast=\Sigma^{-1}(\mu-R\mathbf 1).
+\end{equation}
+
+\subsection*{(a)}
+
+Multiplying \eqref{eq:wstar_equiv} by $\Sigma$ gives
+\[
+(B-AR)\Sigma \mathbf w^\ast=\mu-R\mathbf 1
+\quad\Longrightarrow\quad
+\Sigma \mathbf w^\ast=\frac{1}{B-AR}(\mu-R\mathbf 1).
+\]
+Therefore, using the definition of $\beta$,
+\[
+\beta
+=
+\frac{1}{(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}\,\Sigma \mathbf w^\ast
+=
+\frac{1}{(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}\cdot \frac{1}{B-AR}(\mu-R\mathbf 1),
+\]
+so
+\begin{equation}
+\label{eq:beta_form}
+\beta
+=
+\frac{1}{(B-AR)(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}\,(\mu-R\mathbf 1).
+\end{equation}
+Multiplying \eqref{eq:beta_form} by $(\mathbf w^\ast)^T(\mu-R\mathbf 1)$ yields
+\[
+\beta(\mathbf w^\ast)^T(\mu-R\mathbf 1)
+=
+\left(
+\frac{(\mathbf w^\ast)^T(\mu-R\mathbf 1)}{(B-AR)(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}
+\right)(\mu-R\mathbf 1).
+\]
+Thus the CAPM equation holds if and only if
+\[
+\frac{(\mathbf w^\ast)^T(\mu-R\mathbf 1)}{(B-AR)(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}=1,
+\]
+which is exactly the hinted identity.
+
+Now compute the numerator:
+\[
+(\mathbf w^\ast)^T(\mu-R\mathbf 1)
+=
+\left(\frac{1}{B-AR}(\mu-R\mathbf 1)^T\Sigma^{-1}\right)(\mu-R\mathbf 1)
+=
+\frac{1}{B-AR}(\mu-R\mathbf 1)^T\Sigma^{-1}(\mu-R\mathbf 1).
+\]
+Compute the denominator term $(\mathbf w^\ast)^T\Sigma \mathbf w^\ast$:
+\begin{align*}
+(\mathbf w^\ast)^T\Sigma \mathbf w^\ast
+&=
+\left(\frac{1}{B-AR}(\mu-R\mathbf 1)^T\Sigma^{-1}\right)\Sigma
+\left(\frac{1}{B-AR}\Sigma^{-1}(\mu-R\mathbf 1)\right)\\
+&=
+\frac{1}{(B-AR)^2}(\mu-R\mathbf 1)^T\Sigma^{-1}\Sigma\Sigma^{-1}(\mu-R\mathbf 1)\\
+&=
+\frac{1}{(B-AR)^2}(\mu-R\mathbf 1)^T\Sigma^{-1}(\mu-R\mathbf 1).
+\end{align*}
+Let $X:=(\mu-R\mathbf 1)^T\Sigma^{-1}(\mu-R\mathbf 1)$. Then
+\[
+\frac{(\mathbf w^\ast)^T(\mu-R\mathbf 1)}{(B-AR)(\mathbf w^\ast)^T\Sigma \mathbf w^\ast}
+=
+\frac{\frac{1}{B-AR}X}{(B-AR)\cdot \frac{1}{(B-AR)^2}X}
+=
+\frac{\frac{1}{B-AR}X}{\frac{1}{B-AR}X}
+=
+1.
+\]
+Hence
+\[
+\beta(\mathbf w^\ast)^T(\mu-R\mathbf 1)=\mu-R\mathbf 1,
+\]
+i.e.
+\[
+\boxed{
+\mu - R\mathbf 1 \;=\; \beta\,(\mathbf w^\ast)^T(\mu - R\mathbf 1).
+}
+\]
+
+\end{document}

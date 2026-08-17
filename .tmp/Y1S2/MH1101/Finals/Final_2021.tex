@@ -1,0 +1,1773 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial -- QRS@NTU -- qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata
+% =========================
+\newcommand{\CourseCode}{MH1101}
+\newcommand{\CourseName}{Calculus II}
+\newcommand{\DocType}{Final Examination Solutions}
+\newcommand{\ExamMeta}{AY 2020/2021, Semester II}
+\newcommand{\ExamMetaShort}{Final Examination AY20/21}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+% =========================
+% Header/footer styles
+% =========================
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% Overview block
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+\setlist[enumerate]{itemsep=0.35em, topsep=0.35em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{3}
+\allowdisplaybreaks
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item This document contains full worked solutions for the MH1101 Calculus II Semester II Examination, AY 2020/2021.
+  \item The main topics tested are sequence limits by definition, Riemann sums, the Fundamental Theorem of Calculus, reduction formulae, volumes by shells, convergence tests, power series, and Maclaurin-series coefficient extraction.
+  \item Standard MH1101 methods are used first. Where useful, a second method is included for a cleaner recognition, a power-series shortcut, or a structural verification.
+\end{overview}
+
+\newpage
+\tableofcontents
+
+% ============================================================
+\newpage
+\section{Question 1 (Sequence limits and counterexample, 20 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Use the definition of limit to prove that
+\[
+\lim_{n\to\infty}\frac{2n^2-3n}{3n^2+1}=\frac23.
+\]
+
+\item Suppose the sequence $\{a_n\}$ is convergent, where $a_n>0$ for all $n$ and
+\[
+\lim_{n\to\infty}a_n=4.
+\]
+Prove, by definition of limit, that
+\[
+\lim_{n\to\infty}\frac1{\sqrt{a_n}}=\frac12.
+\]
+
+\item Let $\{b_n\}$ and $\{c_n\}$ be two sequences where $\{b_n\}$ is divergent and
+\[
+|c_n|\ge |b_n|
+\qquad\text{for all }n.
+\]
+Is it true that $\{c_n\}$ is divergent? Justify your answer. Prove it if it is true, and give a counter-example if it is false.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct $\varepsilon$--$N$ proof and explicit counterexample}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $\varepsilon>0$ be given. We estimate
+\begin{align*}
+\left|
+\frac{2n^2-3n}{3n^2+1}-\frac23
+\right|
+&=
+\left|
+\frac{3(2n^2-3n)-2(3n^2+1)}{3(3n^2+1)}
+\right|\\
+&=
+\left|
+\frac{6n^2-9n-6n^2-2}{3(3n^2+1)}
+\right|\\
+&=
+\frac{9n+2}{3(3n^2+1)}.
+\end{align*}
+For $n\ge 2$, we have $2\le n$, so
+\[
+9n+2\le 9n+n=10n.
+\]
+Also,
+\[
+3n^2+1\ge 3n^2.
+\]
+Hence, for $n\ge 2$,
+\[
+\frac{9n+2}{3(3n^2+1)}
+\le
+\frac{10n}{3(3n^2)}
+=
+\frac{10}{9n}.
+\]
+We want
+\[
+\frac{10}{9n}<\varepsilon,
+\]
+which is guaranteed if
+\[
+n>\frac{10}{9\varepsilon}.
+\]
+Choose
+\[
+N=\max\left\{2,\left\lceil\frac{10}{9\varepsilon}\right\rceil\right\}.
+\]
+Then, whenever $n>N$, we have $n\ge 2$ and $n>10/(9\varepsilon)$, so
+\[
+\left|
+\frac{2n^2-3n}{3n^2+1}-\frac23
+\right|
+\le
+\frac{10}{9n}
+<
+\varepsilon.
+\]
+Therefore, by the definition of sequence limit,
+\[
+\boxed{\displaystyle \lim_{n\to\infty}\frac{2n^2-3n}{3n^2+1}=\frac23.}
+\]
+
+\item We prove directly that
+\[
+\frac1{\sqrt{a_n}}\to\frac12.
+\]
+First note that
+\begin{align*}
+\left|
+\frac1{\sqrt{a_n}}-\frac12
+\right|
+&=
+\left|
+\frac{2-\sqrt{a_n}}{2\sqrt{a_n}}
+\right|\\
+&=
+\left|
+\frac{(2-\sqrt{a_n})(2+\sqrt{a_n})}{2\sqrt{a_n}(2+\sqrt{a_n})}
+\right|\\
+&=
+\left|
+\frac{4-a_n}{2\sqrt{a_n}(2+\sqrt{a_n})}
+\right|\\
+&=
+\frac{|a_n-4|}{2\sqrt{a_n}(2+\sqrt{a_n})}.
+\end{align*}
+Since $a_n\to 4$, there exists $N_1\in\N$ such that
+\[
+n>N_1
+\quad\Longrightarrow\quad
+|a_n-4|<3.
+\]
+For such $n$,
+\[
+1<a_n<7,
+\]
+and hence
+\[
+\sqrt{a_n}>1.
+\]
+Thus, for $n>N_1$,
+\[
+2\sqrt{a_n}(2+\sqrt{a_n})
+>
+2(1)(2+1)
+=
+6.
+\]
+Therefore,
+\[
+\left|
+\frac1{\sqrt{a_n}}-\frac12
+\right|
+<
+\frac{|a_n-4|}{6}
+\qquad(n>N_1).
+\]
+Now let $\varepsilon>0$ be given. Since $a_n\to4$, there exists $N_2\in\N$ such that
+\[
+n>N_2
+\quad\Longrightarrow\quad
+|a_n-4|<6\varepsilon.
+\]
+Choose
+\[
+N=\max\{N_1,N_2\}.
+\]
+Then, whenever $n>N$,
+\[
+\left|
+\frac1{\sqrt{a_n}}-\frac12
+\right|
+<
+\frac{|a_n-4|}{6}
+<
+\frac{6\varepsilon}{6}
+=
+\varepsilon.
+\]
+Therefore, by the definition of sequence limit,
+\[
+\boxed{\displaystyle \lim_{n\to\infty}\frac1{\sqrt{a_n}}=\frac12.}
+\]
+
+\item The statement is false.
+
+Take
+\[
+b_n=(-1)^n.
+\]
+The sequence $\{b_n\}$ is divergent because its even subsequence is
+\[
+b_{2m}=1,
+\]
+while its odd subsequence is
+\[
+b_{2m-1}=-1.
+\]
+These two subsequences have different limits, so $\{b_n\}$ does not converge.
+
+Now define
+\[
+c_n=2+\frac1{n^2}.
+\]
+Then
+\[
+c_n\to 2,
+\]
+so $\{c_n\}$ is convergent. Also, for every $n\ge1$,
+\[
+|b_n|=1,
+\]
+whereas
+\[
+|c_n|=2+\frac1{n^2}>2>1.
+\]
+Hence
+\[
+|c_n|\ge |b_n|
+\qquad\text{for all }n,
+\]
+but $\{c_n\}$ is convergent. Therefore the proposed implication is false:
+\[
+\boxed{\text{No, it is not true that }\{c_n\}\text{ must be divergent}.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (20 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(7 marks)}
+\begin{itemize}
+\item 2 marks: Correctly computes the absolute difference from $2/3$.
+\item 2 marks: Correctly bounds the expression by a multiple of $1/n$.
+\item 2 marks: Correctly chooses an appropriate $N$ depending on $\varepsilon$.
+\item 1 mark: Correct final $\varepsilon$--$N$ conclusion.
+\end{itemize}
+
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correct rationalisation of $\left|1/\sqrt{a_n}-1/2\right|$.
+\item 2 marks: Correctly uses $a_n\to4$ to obtain an eventual positive lower bound for $\sqrt{a_n}$.
+\item 2 marks: Correctly relates the expression to $|a_n-4|$.
+\item 2 marks: Correct $\varepsilon$--$N$ conclusion.
+\end{itemize}
+
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correctly identifies that the statement is false.
+\item 2 marks: Gives a valid counterexample satisfying $|c_n|\ge |b_n|$.
+\item 1 mark: Correctly verifies divergence of $\{b_n\}$ and convergence of $\{c_n\}$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 2 (Riemann sum and Fundamental Theorem of Calculus, 15 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Evaluate the following limit by expressing it as a definite integral
+\[
+\int_0^4 f(x)\dd x
+\]
+for some function $f$:
+\[
+\lim_{n\to\infty}\sum_{k=1}^n
+\frac{8k}{4k^2+n^2}.
+\]
+Leave your answer in exact value.
+
+\item Find the $x$-coordinates of all stationary points of the function
+\[
+F(x)=\int_1^{x^2-\pi x} t\ee^{\sqrt{t^4+9}}\dd t.
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Riemann-sum identification and chain-rule differentiation}
+
+\begin{enumerate}[label=(\alph*)]
+\item We want to express the sum as a Riemann sum over $[0,4]$. Let
+\[
+\Delta x=\frac4n,
+\qquad
+x_k=0+k\Delta x=\frac{4k}{n}.
+\]
+Then
+\[
+k=\frac{nx_k}{4}.
+\]
+We rewrite the summand:
+\begin{align*}
+\frac{8k}{4k^2+n^2}
+&=
+\frac{8(nx_k/4)}{4(n^2x_k^2/16)+n^2}\\
+&=
+\frac{2nx_k}{n^2x_k^2/4+n^2}\\
+&=
+\frac{2nx_k}{n^2\left(x_k^2/4+1\right)}\\
+&=
+\frac{2x_k}{n\left(x_k^2/4+1\right)}\\
+&=
+\frac{8x_k}{n(x_k^2+4)}\\
+&=
+\frac4n\cdot \frac{2x_k}{x_k^2+4}.
+\end{align*}
+Since $\Delta x=4/n$, the sum becomes
+\[
+\sum_{k=1}^n
+\frac{8k}{4k^2+n^2}
+=
+\sum_{k=1}^n
+\frac{2x_k}{x_k^2+4}\Delta x.
+\]
+Thus
+\[
+f(x)=\frac{2x}{x^2+4},
+\]
+and therefore
+\[
+\lim_{n\to\infty}\sum_{k=1}^n
+\frac{8k}{4k^2+n^2}
+=
+\int_0^4\frac{2x}{x^2+4}\dd x.
+\]
+Evaluate the integral using the substitution
+\[
+u=x^2+4,
+\qquad
+\dd u=2x\dd x.
+\]
+When $x=0$, $u=4$. When $x=4$, $u=20$. Hence
+\begin{align*}
+\int_0^4\frac{2x}{x^2+4}\dd x
+&=
+\int_4^{20}\frac1u\dd u\\
+&=
+\left[\ln u\right]_4^{20}\\
+&=
+\ln 20-\ln 4\\
+&=
+\ln 5.
+\end{align*}
+Therefore
+\[
+\boxed{\displaystyle
+\lim_{n\to\infty}\sum_{k=1}^n
+\frac{8k}{4k^2+n^2}
+=
+\ln 5.}
+\]
+
+\item Define
+\[
+g(x)=x^2-\pi x.
+\]
+Then
+\[
+F(x)=\int_1^{g(x)} t\ee^{\sqrt{t^4+9}}\dd t.
+\]
+By the Fundamental Theorem of Calculus and the chain rule,
+\[
+F'(x)
+=
+g'(x)\cdot g(x)\ee^{\sqrt{g(x)^4+9}}.
+\]
+Since
+\[
+g'(x)=2x-\pi,
+\]
+we have
+\[
+F'(x)
+=
+(2x-\pi)(x^2-\pi x)
+\ee^{\sqrt{(x^2-\pi x)^4+9}}.
+\]
+The exponential factor is always positive, so
+\[
+F'(x)=0
+\]
+if and only if
+\[
+(2x-\pi)(x^2-\pi x)=0.
+\]
+Factor
+\[
+x^2-\pi x=x(x-\pi).
+\]
+Thus
+\[
+(2x-\pi)x(x-\pi)=0.
+\]
+Therefore
+\[
+x=\frac{\pi}{2},\qquad x=0,\qquad x=\pi.
+\]
+Hence the $x$-coordinates of all stationary points are
+\[
+\boxed{x=0,\ \frac{\pi}{2},\ \pi.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correctly identifies $\Delta x=4/n$ and $x_k=4k/n$.
+\item 2 marks: Correctly rewrites the summand as $\frac{2x_k}{x_k^2+4}\Delta x$.
+\item 2 marks: Correctly identifies the limiting integral $\int_0^4\frac{2x}{x^2+4}\dd x$.
+\item 2 marks: Correctly evaluates the integral as $\ln 5$.
+\end{itemize}
+
+\item \textbf{(7 marks)}
+\begin{itemize}
+\item 2 marks: Correctly applies the Fundamental Theorem of Calculus with a variable upper limit.
+\item 2 marks: Correctly includes the chain-rule factor $2x-\pi$.
+\item 2 marks: Correctly solves $(2x-\pi)(x^2-\pi x)=0$.
+\item 1 mark: Correct final list of stationary $x$-coordinates.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 3 (Reduction formula and volume by shells, 15 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+I_n=\int_{\pi/2}^x \frac{\cos^{2n}t}{\sin t}\dd t,
+\]
+where $n$ is an integer such that $n\ge 0$, and
+\[
+\frac{\pi}{2}\le x\le \frac{3\pi}{4}.
+\]
+Prove the following reduction formula for $I_n$:
+\[
+(2n+1)I_{n+1}=(2n+1)I_n+\cos^{2n+1}x,
+\qquad n\ge0.
+\]
+
+\item Let $R$ be the region bounded by
+\[
+y=x
+\qquad\text{and}\qquad
+y=x(4-x).
+\]
+Find the volume of the solid obtained by rotating the region $R$ about the line
+\[
+x=-1
+\]
+by one revolution. Leave your answer in exact value.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Trigonometric identity for reduction and cylindrical shells}
+
+\begin{enumerate}[label=(\alph*)]
+\item Starting from the definition,
+\[
+I_{n+1}
+=
+\int_{\pi/2}^x \frac{\cos^{2n+2}t}{\sin t}\dd t.
+\]
+Rewrite
+\[
+\cos^{2n+2}t=\cos^{2n}t\cos^2t.
+\]
+Using
+\[
+\cos^2t=1-\sin^2t,
+\]
+we get
+\begin{align*}
+I_{n+1}
+&=
+\int_{\pi/2}^x
+\frac{\cos^{2n}t(1-\sin^2t)}{\sin t}\dd t\\
+&=
+\int_{\pi/2}^x
+\frac{\cos^{2n}t}{\sin t}\dd t
+-
+\int_{\pi/2}^x
+\cos^{2n}t\sin t\dd t\\
+&=
+I_n
+-
+\int_{\pi/2}^x
+\cos^{2n}t\sin t\dd t.
+\end{align*}
+For the remaining integral, use the substitution
+\[
+u=\cos t,
+\qquad
+\dd u=-\sin t\dd t.
+\]
+Equivalently,
+\[
+\int \cos^{2n}t\sin t\dd t
+=
+-\frac{\cos^{2n+1}t}{2n+1}.
+\]
+Thus
+\begin{align*}
+\int_{\pi/2}^x
+\cos^{2n}t\sin t\dd t
+&=
+\left[-\frac{\cos^{2n+1}t}{2n+1}\right]_{\pi/2}^{x}\\
+&=
+-\frac{\cos^{2n+1}x}{2n+1}
++
+\frac{\cos^{2n+1}(\pi/2)}{2n+1}.
+\end{align*}
+Since
+\[
+\cos\frac{\pi}{2}=0,
+\]
+we have
+\[
+\cos^{2n+1}\frac{\pi}{2}=0.
+\]
+Therefore
+\[
+\int_{\pi/2}^x
+\cos^{2n}t\sin t\dd t
+=
+-\frac{\cos^{2n+1}x}{2n+1}.
+\]
+Substituting back,
+\begin{align*}
+I_{n+1}
+&=
+I_n
+-
+\left(
+-\frac{\cos^{2n+1}x}{2n+1}
+\right)\\
+&=
+I_n+\frac{\cos^{2n+1}x}{2n+1}.
+\end{align*}
+Multiplying both sides by $2n+1$ gives
+\[
+\boxed{(2n+1)I_{n+1}=(2n+1)I_n+\cos^{2n+1}x.}
+\]
+
+\item First find the intersection points:
+\[
+x=x(4-x).
+\]
+Bring all terms to one side:
+\[
+x(4-x)-x=0.
+\]
+Thus
+\[
+4x-x^2-x=0,
+\]
+so
+\[
+3x-x^2=0.
+\]
+Factor:
+\[
+x(3-x)=0.
+\]
+Therefore
+\[
+x=0
+\qquad\text{or}\qquad
+x=3.
+\]
+On $0\le x\le3$,
+\[
+x(4-x)-x=3x-x^2=x(3-x)\ge0,
+\]
+so the upper curve is
+\[
+y=x(4-x)
+\]
+and the lower curve is
+\[
+y=x.
+\]
+
+We rotate the region about the vertical line $x=-1$. Using cylindrical shells, a vertical strip at position $x$ has radius
+\[
+r=x-(-1)=x+1
+\]
+and height
+\[
+h=x(4-x)-x=3x-x^2.
+\]
+Thus the volume is
+\begin{align*}
+V
+&=
+2\pi\int_0^3 (x+1)(3x-x^2)\dd x\\
+&=
+2\pi\int_0^3
+\left(3x+3x^2-x^2-x^3\right)\dd x\\
+&=
+2\pi\int_0^3
+\left(3x+2x^2-x^3\right)\dd x.
+\end{align*}
+Evaluate:
+\begin{align*}
+V
+&=
+2\pi
+\left[
+\frac{3x^2}{2}
++
+\frac{2x^3}{3}
+-
+\frac{x^4}{4}
+\right]_0^3\\
+&=
+2\pi
+\left(
+\frac{3(9)}{2}
++
+\frac{2(27)}{3}
+-
+\frac{81}{4}
+\right)\\
+&=
+2\pi
+\left(
+\frac{27}{2}
++
+18
+-
+\frac{81}{4}
+\right)\\
+&=
+2\pi
+\left(
+\frac{54}{4}
++
+\frac{72}{4}
+-
+\frac{81}{4}
+\right)\\
+&=
+2\pi\cdot \frac{45}{4}\\
+&=
+\frac{45\pi}{2}.
+\end{align*}
+Therefore
+\[
+\boxed{V=\frac{45\pi}{2}.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (15 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(8 marks)}
+\begin{itemize}
+\item 2 marks: Correctly rewrites $\cos^{2n+2}t=\cos^{2n}t(1-\sin^2t)$.
+\item 2 marks: Correctly separates $I_{n+1}$ into $I_n$ minus a simpler integral.
+\item 2 marks: Correctly evaluates $\int_{\pi/2}^{x}\cos^{2n}t\sin t\dd t$.
+\item 2 marks: Correctly obtains the stated reduction formula.
+\end{itemize}
+
+\item \textbf{(7 marks)}
+\begin{itemize}
+\item 2 marks: Correctly finds the intersection points $x=0$ and $x=3$.
+\item 2 marks: Correct shell radius $x+1$ and shell height $3x-x^2$.
+\item 2 marks: Correct volume integral and expansion.
+\item 1 mark: Correct exact value $45\pi/2$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 4 (Convergence tests, 16 marks)}
+
+\subsection{Problem}
+
+Determine whether each of the following series converges or diverges. Justify your answers.
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\[
+\sum_{n=1}^{\infty}\frac{5^n}{6^n-n}.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}\frac1{2^{\ln n}}.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}\left(1-\cos\left(\frac1n\right)\right).
+\]
+Recall that
+\[
+\sin x\le x
+\qquad\text{for }x\ge0.
+\]
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Limit comparison, direct comparison, and sine-bound comparison}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+a_n=\frac{5^n}{6^n-n}.
+\]
+Since the dominant terms are $5^n$ in the numerator and $6^n$ in the denominator, compare with
+\[
+b_n=\frac{5^n}{6^n}=\left(\frac56\right)^n.
+\]
+For $n\ge1$, $a_n>0$ and $b_n>0$. Compute
+\begin{align*}
+\lim_{n\to\infty}\frac{a_n}{b_n}
+&=
+\lim_{n\to\infty}
+\frac{5^n}{6^n-n}
+\cdot
+\frac{6^n}{5^n}\\
+&=
+\lim_{n\to\infty}
+\frac{1}{1-\frac{n}{6^n}}.
+\end{align*}
+Since
+\[
+\frac{n}{6^n}\to0,
+\]
+we obtain
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=1.
+\]
+The series
+\[
+\sum_{n=1}^{\infty}\left(\frac56\right)^n
+\]
+is a convergent geometric series because its common ratio satisfies $|5/6|<1$. Therefore, by the Limit Comparison Test,
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac{5^n}{6^n-n}
+\text{ converges}.}
+\]
+
+\item Since
+\[
+2<\ee,
+\]
+and $\ln n\ge0$ for $n\ge1$, we have
+\[
+2^{\ln n}\le \ee^{\ln n}=n.
+\]
+For $n\ge2$, this gives
+\[
+0<\frac1n\le \frac1{2^{\ln n}}.
+\]
+The harmonic series
+\[
+\sum_{n=2}^{\infty}\frac1n
+\]
+diverges. Hence, by the Comparison Test,
+\[
+\sum_{n=2}^{\infty}\frac1{2^{\ln n}}
+\]
+diverges. Adding the first term does not affect convergence, so
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac1{2^{\ln n}}
+\text{ diverges}.}
+\]
+
+\item We are given that
+\[
+\sin x\le x
+\qquad (x\ge0).
+\]
+For $x\ge0$, integrate both sides from $0$ to $x$:
+\[
+\int_0^x \sin t\dd t
+\le
+\int_0^x t\dd t.
+\]
+The left-hand side is
+\[
+\int_0^x \sin t\dd t
+=
+[-\cos t]_0^x
+=
+1-\cos x.
+\]
+The right-hand side is
+\[
+\int_0^x t\dd t=\frac{x^2}{2}.
+\]
+Therefore, for $x\ge0$,
+\[
+0\le 1-\cos x\le \frac{x^2}{2}.
+\]
+Now substitute
+\[
+x=\frac1n.
+\]
+Then
+\[
+0\le 1-\cos\left(\frac1n\right)\le \frac1{2n^2}.
+\]
+The comparison series
+\[
+\sum_{n=1}^{\infty}\frac1{2n^2}
+\]
+converges because it is a constant multiple of a $p$-series with $p=2>1$. By the Comparison Test,
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\left(1-\cos\left(\frac1n\right)\right)
+\text{ converges}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Growth-rate and small-angle recognition}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since
+\[
+6^n-n\sim 6^n,
+\]
+we have
+\[
+\frac{5^n}{6^n-n}
+\sim
+\frac{5^n}{6^n}
+=
+\left(\frac56\right)^n.
+\]
+The corresponding geometric series converges, so the original series converges:
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac{5^n}{6^n-n}
+\text{ converges}.}
+\]
+
+\item Rewrite
+\[
+2^{\ln n}
+=
+\ee^{(\ln 2)(\ln n)}
+=
+n^{\ln 2}.
+\]
+Hence
+\[
+\frac1{2^{\ln n}}
+=
+\frac1{n^{\ln 2}}.
+\]
+This is a $p$-series with
+\[
+p=\ln 2.
+\]
+Since
+\[
+\ln 2<1,
+\]
+the $p$-series
+\[
+\sum_{n=1}^{\infty}\frac1{n^{\ln 2}}
+\]
+diverges. Thus
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\frac1{2^{\ln n}}
+\text{ diverges}.}
+\]
+
+\item Using the Maclaurin expansion
+\[
+\cos x=1-\frac{x^2}{2}+O(x^4)
+\qquad(x\to0),
+\]
+we get
+\[
+1-\cos x=\frac{x^2}{2}+O(x^4).
+\]
+With $x=1/n$,
+\[
+1-\cos\left(\frac1n\right)
+\sim
+\frac1{2n^2}.
+\]
+Since
+\[
+\sum_{n=1}^{\infty}\frac1{2n^2}
+\]
+converges, the Limit Comparison Test gives
+\[
+\boxed{\displaystyle
+\sum_{n=1}^{\infty}\left(1-\cos\left(\frac1n\right)\right)
+\text{ converges}.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (16 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correct comparison with $(5/6)^n$.
+\item 2 marks: Correct limit comparison computation.
+\item 1 mark: Correct conclusion of convergence.
+\end{itemize}
+
+\item \textbf{(5 marks)}
+\begin{itemize}
+\item 2 marks: Correctly compares $2^{\ln n}$ with $n$ or rewrites it as $n^{\ln 2}$.
+\item 2 marks: Correctly compares with a divergent harmonic or $p$-series.
+\item 1 mark: Correct conclusion of divergence.
+\end{itemize}
+
+\item \textbf{(6 marks)}
+\begin{itemize}
+\item 2 marks: Correctly derives or uses $1-\cos x\le x^2/2$ for $x\ge0$.
+\item 2 marks: Correct substitution $x=1/n$.
+\item 1 mark: Correct comparison with $\sum 1/n^2$.
+\item 1 mark: Correct conclusion of convergence.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 5 (Power series and interval of convergence, 16 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Find the interval of convergence of the following power series and, for every $x\in\R$, determine whether the series converges absolutely, converges conditionally or diverges at $x$. Justify your answer.
+\[
+\sum_{n=2}^{\infty}\frac{(2x+5)^n}{3^n\ln n}.
+\]
+
+\item Find a power series centred at $2$ that represents the function
+\[
+f(x)=\frac1{2-3x},
+\]
+and state the interval of convergence of this series.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Ratio test and endpoint analysis}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+a_n=\frac{(2x+5)^n}{3^n\ln n}.
+\]
+For absolute convergence, consider
+\[
+|a_n|
+=
+\frac{|2x+5|^n}{3^n\ln n}.
+\]
+Using the Ratio Test,
+\begin{align*}
+\left|\frac{a_{n+1}}{a_n}\right|
+&=
+\frac{|2x+5|^{n+1}}{3^{n+1}\ln(n+1)}
+\cdot
+\frac{3^n\ln n}{|2x+5|^n}\\
+&=
+\frac{|2x+5|}{3}\cdot
+\frac{\ln n}{\ln(n+1)}.
+\end{align*}
+Since
+\[
+\lim_{n\to\infty}\frac{\ln n}{\ln(n+1)}=1,
+\]
+we obtain
+\[
+\rho
+=
+\lim_{n\to\infty}
+\left|\frac{a_{n+1}}{a_n}\right|
+=
+\frac{|2x+5|}{3}.
+\]
+By the Ratio Test, the series converges absolutely when
+\[
+\frac{|2x+5|}{3}<1.
+\]
+Equivalently,
+\[
+|2x+5|<3.
+\]
+Solving,
+\[
+-3<2x+5<3.
+\]
+Thus
+\[
+-8<2x<-2,
+\]
+so
+\[
+-4<x<-1.
+\]
+The series diverges when
+\[
+|2x+5|>3,
+\]
+that is, when
+\[
+x<-4
+\qquad\text{or}\qquad
+x>-1.
+\]
+
+Now check the endpoints.
+
+At $x=-4$,
+\[
+2x+5=-8+5=-3.
+\]
+The series becomes
+\[
+\sum_{n=2}^{\infty}\frac{(-3)^n}{3^n\ln n}
+=
+\sum_{n=2}^{\infty}\frac{(-1)^n}{\ln n}.
+\]
+Let
+\[
+b_n=\frac1{\ln n}.
+\]
+For $n\ge2$, $b_n>0$. Also,
+\[
+\lim_{n\to\infty}b_n=0.
+\]
+Since $\ln n$ is increasing, $b_n=1/\ln n$ is decreasing for $n\ge2$. Therefore, by the Alternating Series Test,
+\[
+\sum_{n=2}^{\infty}\frac{(-1)^n}{\ln n}
+\]
+converges.
+
+However, the absolute series at $x=-4$ is
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}.
+\]
+For $n\ge2$,
+\[
+\ln n<n,
+\]
+so
+\[
+\frac1{\ln n}>\frac1n.
+\]
+Since the harmonic series $\sum_{n=2}^{\infty}1/n$ diverges, the Comparison Test implies that
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}
+\]
+diverges. Hence the original series converges conditionally at $x=-4$.
+
+At $x=-1$,
+\[
+2x+5=-2+5=3.
+\]
+The series becomes
+\[
+\sum_{n=2}^{\infty}\frac{3^n}{3^n\ln n}
+=
+\sum_{n=2}^{\infty}\frac1{\ln n}.
+\]
+As shown above,
+\[
+\sum_{n=2}^{\infty}\frac1{\ln n}
+\]
+diverges by comparison with the harmonic series. Thus the original series diverges at $x=-1$.
+
+Therefore the interval of convergence is
+\[
+\boxed{[-4,-1)}.
+\]
+The complete classification is
+\[
+\boxed{
+\begin{array}{ll}
+\text{converges absolutely}, & -4<x<-1,\\[0.2em]
+\text{converges conditionally}, & x=-4,\\[0.2em]
+\text{diverges}, & x<-4\text{ or }x\ge -1.
+\end{array}}
+\]
+
+\item We want a power series centred at $2$, so rewrite the denominator using $x-2$:
+\[
+2-3x
+=
+2-3\bigl((x-2)+2\bigr)
+=
+2-3(x-2)-6
+=
+-4-3(x-2).
+\]
+Thus
+\begin{align*}
+\frac1{2-3x}
+&=
+\frac1{-4-3(x-2)}\\
+&=
+-\frac14\cdot \frac1{1+\frac34(x-2)}\\
+&=
+-\frac14\cdot \frac1{1-\left(-\frac34(x-2)\right)}.
+\end{align*}
+Using the geometric series
+\[
+\frac1{1-r}=\sum_{n=0}^{\infty}r^n,
+\qquad |r|<1,
+\]
+with
+\[
+r=-\frac34(x-2),
+\]
+we obtain
+\begin{align*}
+\frac1{2-3x}
+&=
+-\frac14
+\sum_{n=0}^{\infty}
+\left(-\frac34(x-2)\right)^n\\
+&=
+\sum_{n=0}^{\infty}
+(-1)^{n+1}\frac{3^n}{4^{n+1}}(x-2)^n.
+\end{align*}
+The convergence condition is
+\[
+\left|-\frac34(x-2)\right|<1,
+\]
+which is equivalent to
+\[
+|x-2|<\frac43.
+\]
+Hence
+\[
+-\frac43<x-2<\frac43,
+\]
+so
+\[
+\frac23<x<\frac{10}{3}.
+\]
+Therefore
+\[
+\boxed{
+\frac1{2-3x}
+=
+\sum_{n=0}^{\infty}
+(-1)^{n+1}\frac{3^n}{4^{n+1}}(x-2)^n,
+\qquad
+\frac23<x<\frac{10}{3}.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Cauchy--Hadamard radius check for part (a)}
+
+\begin{enumerate}[label=(\alph*)]
+\item Rewrite
+\[
+2x+5=2\left(x+\frac52\right).
+\]
+Then
+\[
+\sum_{n=2}^{\infty}\frac{(2x+5)^n}{3^n\ln n}
+=
+\sum_{n=2}^{\infty}
+\frac{2^n}{3^n\ln n}
+\left(x+\frac52\right)^n.
+\]
+This is a power series centred at
+\[
+-\frac52
+\]
+with coefficients
+\[
+c_n=\frac{2^n}{3^n\ln n}
+\qquad(n\ge2).
+\]
+By the Cauchy--Hadamard formula,
+\[
+R=
+\frac{1}{\limsup\limits_{n\to\infty}\sqrt[n]{|c_n|}}.
+\]
+Now
+\[
+\sqrt[n]{|c_n|}
+=
+\sqrt[n]{\frac{2^n}{3^n\ln n}}
+=
+\frac23\cdot \frac1{\sqrt[n]{\ln n}}.
+\]
+Since
+\[
+\lim_{n\to\infty}\sqrt[n]{\ln n}=1,
+\]
+we have
+\[
+\limsup_{n\to\infty}\sqrt[n]{|c_n|}
+=
+\frac23.
+\]
+Therefore
+\[
+R=\frac{1}{2/3}=\frac32.
+\]
+The open interval of absolute convergence is
+\[
+\left|x+\frac52\right|<\frac32.
+\]
+This gives
+\[
+-4<x<-1.
+\]
+Checking endpoints:
+\[
+x=-4
+\quad\Longrightarrow\quad
+\sum_{n=2}^{\infty}\frac{(-1)^n}{\ln n},
+\]
+which converges conditionally by the Alternating Series Test but not absolutely, while
+\[
+x=-1
+\quad\Longrightarrow\quad
+\sum_{n=2}^{\infty}\frac1{\ln n},
+\]
+which diverges by comparison with $\sum 1/n$. Hence
+\[
+\boxed{
+\begin{array}{ll}
+\text{converges absolutely}, & -4<x<-1,\\[0.2em]
+\text{conges conditionally}, & x=-4,\\[0.2em]
+\text{diverges}, & x<-4\text{ or }x\ge -1.
+\end{array}}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (16 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(10 marks)}
+\begin{itemize}
+\item 5 marks: Correct ratio-test or root-test setup.
+\item 2 marks: Correctly obtains $|2x+5|<3$ and the open interval $(-4,-1)$.
+\item 2 marks: Correctly shows lack of absolute convergence at $x=-4$.
+\item 1 mark: Correctly shows divergence at $x=-1$.
+\end{itemize}
+
+\item \textbf{(6 marks)}
+\begin{itemize}
+\item 2 marks: Correctly rewrites $2-3x$ in terms of $x-2$.
+\item 2 marks: Correctly applies the geometric series formula.
+\item 1 mark: Correct coefficients in the power series.
+\item 1 mark: Correct interval of convergence $(2/3,10/3)$.
+\end{itemize}
+\end{enumerate}
+
+% ============================================================
+\newpage
+\section{Question 6 (Maclaurin series and represented function, 18 marks)}
+
+\subsection{Problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+f(x)=(\cos x)\ln\sqrt{4-x^2}.
+\]
+Using Maclaurin series or otherwise, find the value of
+\[
+f^{(4)}(0).
+\]
+
+\item Determine the interval of convergence of the power series
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n n}{5^n}x^{2n},
+\]
+and find the function it represents on this interval.
+\end{enumerate}
+
+\newpage
+\subsection{Solution}
+
+\subsubsection{Method 1: Maclaurin coefficient extraction and differentiated geometric series}
+
+\begin{enumerate}[label=(\alph*)]
+\item We need the coefficient of $x^4$ in the Maclaurin series of
+\[
+f(x)=(\cos x)\ln\sqrt{4-x^2}.
+\]
+First,
+\[
+\cos x
+=
+1-\frac{x^2}{2!}+\frac{x^4}{4!}+O(x^6)
+=
+1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+\]
+Next,
+\begin{align*}
+\ln\sqrt{4-x^2}
+&=
+\frac12\ln(4-x^2)\\
+&=
+\frac12\ln\left(4\left(1-\frac{x^2}{4}\right)\right)\\
+&=
+\frac12\ln 4
++
+\frac12\ln\left(1-\frac{x^2}{4}\right)\\
+&=
+\ln 2
++
+\frac12\ln\left(1-\frac{x^2}{4}\right).
+\end{align*}
+Use the standard Maclaurin series
+\[
+\ln(1-u)
+=
+-u-\frac{u^2}{2}-\frac{u^3}{3}-\cdots,
+\qquad |u|<1.
+\]
+With
+\[
+u=\frac{x^2}{4},
+\]
+we get
+\begin{align*}
+\ln\left(1-\frac{x^2}{4}\right)
+&=
+-\frac{x^2}{4}
+-\frac12\left(\frac{x^2}{4}\right)^2
++O(x^6)\\
+&=
+-\frac{x^2}{4}
+-\frac{x^4}{32}
++O(x^6).
+\end{align*}
+Therefore
+\[
+\ln\sqrt{4-x^2}
+=
+\ln 2-\frac{x^2}{8}-\frac{x^4}{64}+O(x^6).
+\]
+Now multiply:
+\begin{align*}
+f(x)
+&=
+\left(1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6)\right)
+\left(\ln 2-\frac{x^2}{8}-\frac{x^4}{64}+O(x^6)\right).
+\end{align*}
+The coefficient of $x^4$ is obtained from three products:
+\[
+1\cdot\left(-\frac{x^4}{64}\right),
+\qquad
+\left(-\frac{x^2}{2}\right)\left(-\frac{x^2}{8}\right),
+\qquad
+\frac{x^4}{24}\cdot \ln 2.
+\]
+Thus the coefficient of $x^4$ is
+\[
+-\frac1{64}
++
+\frac1{16}
++
+\frac{\ln 2}{24}.
+\]
+Since
+\[
+f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n,
+\]
+we have
+\[
+\frac{f^{(4)}(0)}{4!}
+=
+-\frac1{64}
++
+\frac1{16}
++
+\frac{\ln 2}{24}.
+\]
+Multiply by $4!=24$:
+\begin{align*}
+f^{(4)}(0)
+&=
+24\left(
+-\frac1{64}
++
+\frac1{16}
++
+\frac{\ln 2}{24}
+\right)\\
+&=
+-\frac{24}{64}
++
+\frac{24}{16}
++
+\ln 2\\
+&=
+-\frac38+\frac32+\ln 2\\
+&=
+\frac98+\ln 2.
+\end{align*}
+Therefore
+\[
+\boxed{f^{(4)}(0)=\ln 2+\frac98.}
+\]
+
+\item Let
+\[
+y=-\frac{x^2}{5}.
+\]
+Then
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n n}{5^n}x^{2n}
+=
+\sum_{n=1}^{\infty}n\left(-\frac{x^2}{5}\right)^n
+=
+\sum_{n=1}^{\infty}ny^n.
+\]
+From the geometric series,
+\[
+\frac1{1-y}=\sum_{n=0}^{\infty}y^n,
+\qquad |y|<1.
+\]
+Differentiating term by term within $|y|<1$ gives
+\[
+\frac1{(1-y)^2}
+=
+\sum_{n=1}^{\infty}ny^{n-1}.
+\]
+Multiplying by $y$,
+\[
+\frac{y}{(1-y)^2}
+=
+\sum_{n=1}^{\infty}ny^n.
+\]
+Thus, for
+\[
+\left|-\frac{x^2}{5}\right|<1,
+\]
+the series represents
+\begin{align*}
+\frac{y}{(1-y)^2}
+&=
+\frac{-x^2/5}{\left(1+x^2/5\right)^2}\\
+&=
+\frac{-x^2/5}{\left((5+x^2)/5\right)^2}\\
+&=
+-\frac{x^2}{5}\cdot \frac{25}{(5+x^2)^2}\\
+&=
+-\frac{5x^2}{(5+x^2)^2}.
+\end{align*}
+The convergence condition is
+\[
+\left|-\frac{x^2}{5}\right|<1,
+\]
+which is equivalent to
+\[
+\frac{x^2}{5}<1.
+\]
+Hence
+\[
+x^2<5,
+\]
+so
+\[
+-\sqrt5<x<\sqrt5.
+\]
+At $x=\sqrt5$,
+\[
+\frac{(-1)^n n}{5^n}x^{2n}
+=
+\frac{(-1)^n n}{5^n}5^n
+=
+(-1)^n n,
+\]
+whose terms do not tend to $0$. Hence the series diverges at $x=\sqrt5$. At $x=-\sqrt5$, the same computation gives the term $(-1)^n n$, so the series also diverges. Therefore the interval of convergence is
+\[
+(-\sqrt5,\sqrt5).
+\]
+On this interval, the represented function is
+\[
+\boxed{
+\sum_{n=1}^{\infty}\frac{(-1)^n n}{5^n}x^{2n}
+=
+-\frac{5x^2}{(5+x^2)^2},
+\qquad
+-\sqrt5<x<\sqrt5.}
+\]
+\end{enumerate}
+
+\newpage
+\subsubsection{Method 2: Leibniz formula for part (a) and direct root test for part (b)}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+g(x)=\cos x,
+\qquad
+h(x)=\ln\sqrt{4-x^2}.
+\]
+Then
+\[
+f(x)=g(x)h(x).
+\]
+By the Leibniz formula,
+\[
+f^{(4)}(0)
+=
+\sum_{k=0}^{4}\binom4k g^{(k)}(0)h^{(4-k)}(0).
+\]
+We first compute the required derivatives at $0$.
+
+For $g(x)=\cos x$,
+\[
+g(0)=1,\qquad g'(0)=0,\qquad g''(0)=-1,\qquad g^{(3)}(0)=0,\qquad g^{(4)}(0)=1.
+\]
+
+For $h(x)$, use the local expansion obtained in Method 1:
+\[
+h(x)=\ln\sqrt{4-x^2}
+=
+\ln2-\frac{x^2}{8}-\frac{x^4}{64}+O(x^6).
+\]
+Hence
+\[
+h(0)=\ln2,\qquad h'(0)=0,
+\]
+\[
+\frac{h''(0)}{2!}=-\frac18
+\quad\Longrightarrow\quad
+h''(0)=-\frac14,
+\]
+and
+\[
+\frac{h^{(4)}(0)}{4!}=-\frac1{64}
+\quad\Longrightarrow\quad
+h^{(4)}(0)=-\frac{24}{64}=-\frac38.
+\]
+Only the terms with $k=0,2,4$ contribute:
+\begin{align*}
+f^{(4)}(0)
+&=
+\binom40 g(0)h^{(4)}(0)
++
+\binom42 g''(0)h''(0)
++
+\binom44 g^{(4)}(0)h(0)\\
+&=
+1\cdot1\cdot\left(-\frac38\right)
++
+6\cdot(-1)\cdot\left(-\frac14\right)
++
+1\cdot1\cdot\ln2\\
+&=
+-\frac38+\frac64+\ln2\\
+&=
+-\frac38+\frac32+\ln2\\
+&=
+\frac98+\ln2.
+\end{align*}
+Therefore
+\[
+\boxed{f^{(4)}(0)=\ln2+\frac98.}
+\]
+
+\item For the power series,
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n n}{5^n}x^{2n},
+\]
+let
+\[
+A_n=\left|\frac{(-1)^n n}{5^n}x^{2n}\right|
+=
+n\left(\frac{x^2}{5}\right)^n.
+\]
+Use the Root Test:
+\[
+\sqrt[n]{A_n}
+=
+\sqrt[n]{n}\cdot \frac{x^2}{5}.
+\]
+Since
+\[
+\lim_{n\to\infty}\sqrt[n]{n}=1,
+\]
+we get
+\[
+\lim_{n\to\infty}\sqrt[n]{A_n}
+=
+\frac{x^2}{5}.
+\]
+Thus the series converges absolutely if
+\[
+\frac{x^2}{5}<1,
+\]
+that is,
+\[
+-\sqrt5<x<\sqrt5.
+\]
+It diverges if $x^2/5>1$. At $x=\pm\sqrt5$, the general term becomes
+\[
+(-1)^n n,
+\]
+which does not tend to $0$, so the series diverges at both endpoints.
+
+Therefore the interval of convergence is
+\[
+\boxed{(-\sqrt5,\sqrt5).}
+\]
+Using
+\[
+\sum_{n=1}^{\infty}ny^n=\frac{y}{(1-y)^2},
+\qquad |y|<1,
+\]
+with
+\[
+y=-\frac{x^2}{5},
+\]
+the represented function is
+\[
+\boxed{
+-\frac{5x^2}{(5+x^2)^2},
+\qquad -\sqrt5<x<\sqrt5.}
+\]
+\end{enumerate}
+
+\subsubsection{Marking scheme (18 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(9 marks)}
+\begin{itemize}
+\item 2 marks: Correct Maclaurin expansion of $\cos x$ to order $x^4$.
+\item 3 marks: Correct Maclaurin expansion of $\ln\sqrt{4-x^2}$ to order $x^4$.
+\item 2 marks: Correctly extracts the coefficient of $x^4$ in the product.
+\item 2 marks: Correctly converts the coefficient to $f^{(4)}(0)=\ln2+9/8$.
+\end{itemize}
+
+\item \textbf{(9 marks)}
+\begin{itemize}
+\item 3 marks: Correctly recognises the series as $\sum ny^n$ with $y=-x^2/5$.
+\item 3 marks: Correctly obtains the convergence condition $|x|<\sqrt5$.
+\item 1 mark: Correctly checks that both endpoints diverge.
+\item 2 marks: Correctly simplifies the represented function to $-5x^2/(5+x^2)^2$.
+\end{itemize}
+\end{enumerate}
+
+\end{document}

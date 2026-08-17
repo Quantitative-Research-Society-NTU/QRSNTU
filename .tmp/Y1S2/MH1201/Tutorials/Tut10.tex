@@ -1,0 +1,917 @@
+\documentclass[12pt]{article}
+
+%------------- MH5200-STYLE PREAMBLE (compatible subset) -------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{xcolor}
+
+%------------- TITLE AND METADATA (REQUIRED STRUCTURE) -------------
+\newcommand{\CourseCode}{MH1201}
+\newcommand{\CourseName}{Linear Algebra II}
+\newcommand{\DocType}{Tutorial 10 (Week 12 \& 13) -- Problems \& Solutions}
+
+
+\title{
+\CourseCode\ \CourseName \\[0.3em]
+\large \DocType
+}
+\author{
+  Academic Year 2025/2026, Semester 2 \\[0.25em]
+  \textit{Quantitative Research Society @NTU}
+}
+\date{\today}
+
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+%------------- WATERMARK (MH5200-style approach) -------------
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+%------------- COMMON MACROS -------------
+\newcommand{\df}{\coloneqq}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Nullity}{nullity}
+\DeclareMathOperator{\Range}{range}
+\DeclareMathOperator{\tr}{trace}
+\newcommand{\Id}{\mathrm{id}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+%----------------------------------------
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+\begin{document}
+
+%------------- COVER PAGE -------------
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+%====================================================
+% OVERVIEW (PAGE 1)
+%====================================================
+\begin{center}
+  \rule{0.8\textwidth}{0.4pt}\\[4pt]
+  \textbf{Overview}\\[2pt]
+  \rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\noindent
+This tutorial emphasizes:
+\begin{itemize}[leftmargin=*]
+  \item Gram--Schmidt in abstract inner product spaces and stability on orthogonal inputs;
+  \item producing orthonormal bases that preserve a $T$-invariant flag, hence preserving upper-triangularity;
+  \item orthogonal polynomials on $[-1,1]$ and Fourier coefficients in an orthonormal basis;
+  \item inner products defined by Hermitian positive definite matrices and complex Gram--Schmidt;
+  \item orthogonal complements: $W\subseteq W^{\perp\perp}$ always, and $W=W^{\perp\perp}$ in finite dimensions;
+  \item explicit orthogonal decomposition $x=a+b$ with $a\in V$, $b\in V^\perp$ in $\R^4$;
+  \item Frobenius inner product on $\R^{n,n}$ and describing $D^\perp$ for diagonal $D$.
+\end{itemize}
+
+\newpage
+\tableofcontents
+\newpage
+
+%====================================================
+% QUESTION 1
+%====================================================
+\section{Problem 1 (Gram--Schmidt on an orthogonal basis)}
+\subsection{Problem}
+Let $(V,\ip{\cdot}{\cdot})$ be a finite-dimensional inner product space, with $\dim(V)=n\ge 1$.
+Let $\beta=(b_1,\dots,b_n)$ be an orthogonal ordered basis for $(V,\ip{\cdot}{\cdot})$.
+Show that applying Gram--Schmidt to $\beta$ with respect to $(V,\ip{\cdot}{\cdot})$ yields $\beta$ back.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Projections vanish because of orthogonality}
+Recall the (non-normalized) Gram--Schmidt construction:
+\[
+u_1=b_1,\qquad
+u_k \df b_k-\sum_{j=1}^{k-1}\proj_{u_j}(b_k),
+\quad
+\proj_{u_j}(b_k)\df \frac{\ip{b_k}{u_j}}{\ip{u_j}{u_j}}u_j,\qquad 2\le k\le n.
+\]
+We prove by induction that $u_k=b_k$ for all $k$.
+
+For $k=1$, $u_1=b_1$ is immediate.
+
+Assume $u_j=b_j$ for all $j<k$. Since $\beta$ is orthogonal, for each $j<k$,
+\[
+\ip{b_k}{u_j}=\ip{b_k}{b_j}=0.
+\]
+Hence each projection term is $0$, so
+\[
+u_k=b_k-\sum_{j=1}^{k-1} 0=b_k.
+\]
+Thus Gram--Schmidt returns the same ordered orthogonal basis $\beta$.
+
+\[
+\boxed{\,\text{If }\beta\text{ is already orthogonal, Gram--Schmidt outputs }\beta\text{ unchanged.}\,}
+\]
+
+\subsubsection{Method 2: Uniqueness from nested spans}
+In Gram--Schmidt, the output vectors satisfy:
+\[
+u_k\in \Span(b_1,\dots,b_k),
+\qquad
+\Span(u_1,\dots,u_k)=\Span(b_1,\dots,b_k),
+\qquad
+\ip{u_k}{u_j}=0\ (j<k).
+\]
+Because $\beta$ is orthogonal, the \emph{unique} vector in $\Span(b_1,\dots,b_k)$ which is orthogonal to
+$\Span(b_1,\dots,b_{k-1})$ and has nonzero component along $b_k$ is a scalar multiple of $b_k$.
+But Gram--Schmidt uses the formula $u_k=b_k-(\text{component in }\Span(u_1,\dots,u_{k-1}))$, which preserves the $b_k$-component,
+so the scalar multiple must be $1$, hence $u_k=b_k$.
+
+%====================================================
+% QUESTION 2
+%====================================================
+\newpage
+\section{Problem 2 (Orthonormal basis preserving upper-triangularity)}
+\subsection{Problem}
+Let
+\[
+\beta \df ((1,0,0),(1,1,1),(1,1,2)),
+\]
+which is an ordered basis for $\R^3$ (with the standard inner product $\cdot$).
+Let $T\in \cL(\R^3)$, and suppose that $[T]_{\beta}^{\beta}\in \R^{3,3}$ is upper triangular.
+Derive an orthonormal ordered basis $\gamma$ for $(\R^3,\cdot)$ for which $[T]_{\gamma}^{\gamma}\in\R^{3,3}$ is upper triangular.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Gram--Schmidt preserves the flag; hence upper triangular}
+Write $\beta=(b_1,b_2,b_3)$ with
+\[
+b_1=(1,0,0),\quad b_2=(1,1,1),\quad b_3=(1,1,2).
+\]
+Since $[T]_{\beta}^{\beta}$ is upper triangular, we have the equivalent $T$-invariance of the coordinate flag:
+\[
+T\bigl(\Span(b_1)\bigr)\subseteq \Span(b_1),\quad
+T\bigl(\Span(b_1,b_2)\bigr)\subseteq \Span(b_1,b_2),\quad
+T\bigl(\Span(b_1,b_2,b_3)\bigr)\subseteq \Span(b_1,b_2,b_3)=\R^3.
+\]
+Apply Gram--Schmidt to $\beta$ in the standard inner product.
+
+\medskip
+\noindent\textbf{Step 1: Compute $\gamma$ by Gram--Schmidt.}
+Let
+\[
+u_1=b_1,\qquad
+u_2=b_2-\proj_{u_1}(b_2),\qquad
+u_3=b_3-\proj_{u_1}(b_3)-\proj_{u_2}(b_3).
+\]
+Compute:
+\[
+\proj_{u_1}(b_2)=\frac{b_2\cdot u_1}{u_1\cdot u_1}u_1=\frac{1}{1}b_1=b_1,
+\quad\Rightarrow\quad u_2=b_2-b_1=(0,1,1).
+\]
+Similarly,
+\[
+\proj_{u_1}(b_3)=\frac{b_3\cdot u_1}{u_1\cdot u_1}u_1=b_1,
+\quad\Rightarrow\quad b_3-\proj_{u_1}(b_3)=(0,1,2).
+\]
+Now
+\[
+\proj_{u_2}(b_3)=\proj_{u_2}\bigl((0,1,2)\bigr)
+=\frac{(0,1,2)\cdot (0,1,1)}{(0,1,1)\cdot(0,1,1)}(0,1,1)
+=\frac{3}{2}(0,1,1).
+\]
+Thus
+\[
+u_3=(0,1,2)-\frac{3}{2}(0,1,1)=\left(0,-\frac12,\frac12\right).
+\]
+Normalize:
+\[
+\|u_1\|=1,\quad \|u_2\|=\sqrt2,\quad \|u_3\|=\sqrt{\frac12}.
+\]
+Hence an orthonormal basis is
+\[
+\gamma=(g_1,g_2,g_3)\df
+\left(
+(1,0,0),\ \left(0,\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right),\ \left(0,-\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right)
+\right).
+\]
+\[
+\boxed{\,
+\gamma=\left(
+(1,0,0),\ \left(0,\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right),\ \left(0,-\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right)
+\right)\ \text{is orthonormal.}
+\,}
+\]
+
+\medskip
+\noindent\textbf{Step 2: Show $[T]_\gamma^\gamma$ is upper triangular.}
+A key Gram--Schmidt property is
+\[
+g_k\in \Span(b_1,\dots,b_k)\qquad (k=1,2,3).
+\]
+Therefore
+\[
+\Span(g_1,\dots,g_k)=\Span(b_1,\dots,b_k)\qquad (k=1,2,3).
+\]
+Since $T(\Span(b_1,\dots,b_k))\subseteq \Span(b_1,\dots,b_k)$, we get
+\[
+T(\Span(g_1,\dots,g_k))\subseteq \Span(g_1,\dots,g_k)\qquad (k=1,2,3).
+\]
+This is exactly the condition that the matrix of $T$ in the ordered basis $\gamma$ is upper triangular.
+
+\[
+\boxed{\, [T]_{\gamma}^{\gamma}\ \text{is upper triangular.}\,}
+\]
+
+\subsubsection{Method 2: Upper-triangular similarity via an upper-triangular change-of-basis matrix}
+Let $B=[T]_{\beta}^{\beta}$ (upper triangular). Let $P$ be the change-of-basis matrix from $\gamma$-coordinates to $\beta$-coordinates:
+\[
+P \df [\Id]_{\beta}^{\gamma}.
+\]
+Because Gram--Schmidt produces $g_k\in\Span(b_1,\dots,b_k)$, the coordinate vector $[g_k]_\beta$ has no components in $b_{k+1},\dots,b_3$,
+so $P$ is upper triangular with nonzero diagonal (hence invertible).
+Then
+\[
+[T]_{\gamma}^{\gamma}=P^{-1}\,[T]_{\beta}^{\beta}\,P=P^{-1}BP.
+\]
+A product (and inverse) of upper-triangular invertible matrices is upper triangular, hence $[T]_{\gamma}^{\gamma}$ is upper triangular.
+
+%====================================================
+% QUESTION 3
+%====================================================
+\newpage
+\section{Problem 3 (Orthogonal polynomials on $[-1,1]$)}
+\subsection{Problem}
+Define a function $\ip{\cdot}{\cdot}:\cP_3(\R)\times \cP_3(\R)\to \R$ as follows:
+\[
+\forall P,Q\in\cP_3(\R):\qquad
+\ip{P}{Q}\df \int_{-1}^{1} P(x)\,Q(x)\,dx.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\ip{\cdot}{\cdot}$ is an inner product on $\cP_3(\R)$.
+\item Apply Gram--Schmidt to $(1,X,X^2,X^3)$ with respect to $(\cP_3(\R),\ip{\cdot}{\cdot})$.
+\item Normalize your answer to Part (b) to obtain an orthonormal basis $\beta$ for $(\cP_3(\R),\ip{\cdot}{\cdot})$.
+\item Compute the $\beta$-Fourier coefficients of $1-X+X^2-X^3$ with respect to $(\cP_3(\R),\ip{\cdot}{\cdot})$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct axiom verification + explicit Gram--Schmidt computations}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Inner product axioms.}
+Bilinearity follows from linearity of the integral:
+\[
+\ip{aP_1+bP_2}{Q}=a\ip{P_1}{Q}+b\ip{P_2}{Q},\qquad
+\ip{P}{aQ_1+bQ_2}=a\ip{P}{Q_1}+b\ip{P}{Q_2}.
+\]
+Symmetry holds because $P(x)Q(x)=Q(x)P(x)$:
+\[
+\ip{P}{Q}=\int_{-1}^1 P Q=\int_{-1}^1 Q P=\ip{Q}{P}.
+\]
+Positive definiteness: for $P\neq 0$,
+\[
+\ip{P}{P}=\int_{-1}^1 P(x)^2\,dx>0.
+\]
+Indeed, $P(x)^2\ge 0$ and is continuous; if the integral were $0$, then $P(x)^2=0$ for all $x\in[-1,1]$, so $P$ vanishes on an interval,
+hence $P$ is the zero polynomial, contradiction. Therefore $\ip{\cdot}{\cdot}$ is an inner product.
+
+\[
+\boxed{\,\ip{\cdot}{\cdot}\text{ is an inner product on }\cP_3(\R).\,}
+\]
+
+\item \textbf{Gram--Schmidt on $(1,X,X^2,X^3)$.}
+Let $v_0=1$, $v_1=X$, $v_2=X^2$, $v_3=X^3$.
+Define
+\[
+u_0=v_0,\qquad
+u_1=v_1-\proj_{u_0}(v_1),\qquad
+u_2=v_2-\proj_{u_0}(v_2)-\proj_{u_1}(v_2),\qquad
+u_3=v_3-\sum_{j=0}^{2}\proj_{u_j}(v_3).
+\]
+
+Compute required inner products using parity:
+\[
+\int_{-1}^1 x\,dx=0,\quad \int_{-1}^1 x^3\,dx=0,\quad \int_{-1}^1 x^5\,dx=0.
+\]
+Also
+\[
+\int_{-1}^1 1\,dx=2,\quad \int_{-1}^1 x^2\,dx=\frac{2}{3},\quad \int_{-1}^1 x^4\,dx=\frac{2}{5},\quad \int_{-1}^1 x^6\,dx=\frac{2}{7}.
+\]
+
+\underline{Step 1: $u_0=1$.}
+
+\underline{Step 2: $u_1$.}
+Since $\ip{X}{1}=\int_{-1}^1 x\,dx=0$, we get
+\[
+u_1=X.
+\]
+
+\underline{Step 3: $u_2$.}
+Compute
+\[
+\proj_{u_0}(X^2)=\frac{\ip{X^2}{1}}{\ip{1}{1}}1=\frac{\frac{2}{3}}{2}\cdot 1=\frac{1}{3}.
+\]
+Also $\ip{X^2}{X}=\int_{-1}^1 x^3\,dx=0$, so $\proj_{u_1}(X^2)=0$.
+Hence
+\[
+u_2=X^2-\frac{1}{3}.
+\]
+
+\underline{Step 4: $u_3$.}
+We have $\ip{X^3}{1}=\int_{-1}^1 x^3\,dx=0$, and
+\[
+\proj_{u_1}(X^3)=\frac{\ip{X^3}{X}}{\ip{X}{X}}X
+=\frac{\int_{-1}^1 x^4\,dx}{\int_{-1}^1 x^2\,dx}X
+=\frac{\frac{2}{5}}{\frac{2}{3}}X=\frac{3}{5}X.
+\]
+Finally,
+\[
+\ip{X^3}{u_2}=\int_{-1}^1 x^3\left(x^2-\frac13\right)\,dx
+=\int_{-1}^1 \left(x^5-\frac13 x^3\right)\,dx=0,
+\]
+so $\proj_{u_2}(X^3)=0$. Therefore
+\[
+u_3=X^3-\frac{3}{5}X.
+\]
+
+Thus Gram--Schmidt yields the orthogonal list
+\[
+\boxed{\,\bigl(1,\ X,\ X^2-\tfrac13,\ X^3-\tfrac35 X\bigr).\,}
+\]
+
+\item \textbf{Normalize to an orthonormal basis $\beta$.}
+Compute norms:
+
+\underline{$u_0=1$:} $\|u_0\|^2=\int_{-1}^1 1\,dx=2$, so $\|u_0\|=\sqrt2$.
+
+\underline{$u_1=X$:} $\|u_1\|^2=\int_{-1}^1 x^2\,dx=\frac{2}{3}$, so $\|u_1\|=\sqrt{\frac{2}{3}}$.
+
+\underline{$u_2=X^2-\frac13$:}
+\[
+\|u_2\|^2=\int_{-1}^1 \left(x^2-\frac13\right)^2dx
+=\int_{-1}^1\left(x^4-\frac{2}{3}x^2+\frac{1}{9}\right)dx
+=\frac{2}{5}-\frac{2}{3}\cdot\frac{2}{3}+\frac{1}{9}\cdot 2
+=\frac{8}{45}.
+\]
+So $\|u_2\|=\sqrt{\frac{8}{45}}$.
+
+\underline{$u_3=X^3-\frac35 X$:}
+\[
+\|u_3\|^2=\int_{-1}^1\left(x^3-\frac{3}{5}x\right)^2dx
+=\int_{-1}^1\left(x^6-\frac{6}{5}x^4+\frac{9}{25}x^2\right)dx
+=\frac{2}{7}-\frac{6}{5}\cdot\frac{2}{5}+\frac{9}{25}\cdot\frac{2}{3}
+=\frac{8}{175}.
+\]
+So $\|u_3\|=\sqrt{\frac{8}{175}}$.
+
+Define the orthonormal basis $\beta=(\beta_0,\beta_1,\beta_2,\beta_3)$ by $\beta_j=u_j/\|u_j\|$:
+\[
+\beta_0=\frac{1}{\sqrt2},\qquad
+\beta_1=\sqrt{\frac{3}{2}}\,X,\qquad
+\beta_2=\sqrt{\frac{45}{8}}\left(X^2-\frac13\right),\qquad
+\beta_3=\sqrt{\frac{175}{8}}\left(X^3-\frac35 X\right).
+\]
+\[
+\boxed{\,\beta=\left(\frac{1}{\sqrt2},\ \sqrt{\frac{3}{2}}X,\ \sqrt{\frac{45}{8}}\left(X^2-\frac13\right),\ \sqrt{\frac{175}{8}}\left(X^3-\frac35 X\right)\right)\ \text{is orthonormal.}\,}
+\]
+
+\item \textbf{$\beta$-Fourier coefficients of $f(X)=1-X+X^2-X^3$.}
+Since $\beta$ is orthonormal, the Fourier coefficient of $f$ along $\beta_j$ is
+\[
+c_j=\ip{f}{\beta_j}.
+\]
+
+\underline{$c_0$:}
+\[
+c_0=\ip{f}{\tfrac{1}{\sqrt2}}=\frac{1}{\sqrt2}\int_{-1}^1 (1-x+x^2-x^3)\,dx
+=\frac{1}{\sqrt2}\left(2+\frac{2}{3}\right)=\frac{8}{3\sqrt2}.
+\]
+
+\underline{$c_1$:}
+\[
+c_1=\ip{f}{\sqrt{\frac32}x}=\sqrt{\frac32}\int_{-1}^1 (1-x+x^2-x^3)x\,dx
+=\sqrt{\frac32}\int_{-1}^1(x-x^2+x^3-x^4)\,dx
+=\sqrt{\frac32}\left(-\frac{2}{3}-\frac{2}{5}\right)
+=-\frac{16}{15}\sqrt{\frac32}.
+\]
+
+\underline{$c_2$:}
+\[
+c_2=\ip{f}{\sqrt{\frac{45}{8}}\left(x^2-\frac13\right)}
+=\sqrt{\frac{45}{8}}\int_{-1}^1 (1-x+x^2-x^3)\left(x^2-\frac13\right)\,dx.
+\]
+Expanding and using parity (odd terms integrate to $0$) gives
+\[
+\int_{-1}^1 (1-x+x^2-x^3)\left(x^2-\frac13\right)\,dx
+=\frac{8}{45}.
+\]
+Thus
+\[
+c_2=\sqrt{\frac{45}{8}}\cdot \frac{8}{45}=\frac{4\sqrt5}{15\sqrt2}.
+\]
+
+\underline{$c_3$:}
+\[
+c_3=\ip{f}{\sqrt{\frac{175}{8}}\left(x^3-\frac35 x\right)}
+=\sqrt{\frac{175}{8}}\int_{-1}^1 (1-x+x^2-x^3)\left(x^3-\frac35 x\right)\,dx.
+\]
+Keeping only even powers after expansion yields
+\[
+\int_{-1}^1 (1-x+x^2-x^3)\left(x^3-\frac35 x\right)\,dx
+=-\frac{8}{175}.
+\]
+Hence
+\[
+c_3=\sqrt{\frac{175}{8}}\cdot\left(-\frac{8}{175}\right)=-\frac{4\sqrt7}{35\sqrt2}.
+\]
+
+Therefore the $\beta$-Fourier coefficients are
+\[
+\boxed{\,
+(c_0,c_1,c_2,c_3)=\left(\frac{8}{3\sqrt2},\ -\frac{16}{15}\sqrt{\frac32},\ \frac{4\sqrt5}{15\sqrt2},\ -\frac{4\sqrt7}{35\sqrt2}\right).
+\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Recognize (scaled) Legendre polynomials}
+The Gram--Schmidt output in (b) is (up to scaling) the Legendre family on $[-1,1]$:
+\[
+P_0=1,\quad P_1=x,\quad P_2=x^2-\frac13,\quad P_3=x^3-\frac35 x,
+\]
+which are mutually orthogonal under $\int_{-1}^1(\cdot)(\cdot)$.
+Normalization constants follow from explicit integrals $\int_{-1}^1 P_k(x)^2dx$.
+Fourier coefficients are $\ip{f}{\beta_k}$ (orthonormality), matching Method 1.
+
+%====================================================
+% QUESTION 4
+%====================================================
+\newpage
+\section{Problem 4 (Complex inner product via a Hermitian positive definite matrix)}
+\subsection{Problem}
+Define a function $\ip{\cdot}{\cdot}:\C^{3,1}\times \C^{3,1}\to \C$ as follows:
+\[
+\forall u,v\in \C^{3,1}:\qquad
+\ip{u}{v}\df u^{\dagger}
+\begin{bmatrix}
+2 & 1+i & 0\\
+1-i & 3 & 2\\
+0 & 2 & 4
+\end{bmatrix}
+v,
+\]
+where ${}^\dagger$ denotes conjugate transposition.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\ip{\cdot}{\cdot}$ is an inner product on $\C^{3,1}$.
+\item Apply Gram--Schmidt to the standard ordered basis for $\C^{3,1}$ with respect to $(\C^{3,1},\ip{\cdot}{\cdot})$.
+\item Normalize your answer to Part (b) to obtain an orthonormal basis $\beta$ for $(\C^{3,1},\ip{\cdot}{\cdot})$.
+\item Compute the $\beta$-Fourier coefficients of $\begin{bmatrix}1\\0\\ i\end{bmatrix}$ with respect to $(\C^{3,1},\ip{\cdot}{\cdot})$.
+\end{enumerate}
+
+\subsection{Solution}
+Let
+\[
+H\df
+\begin{bmatrix}
+2 & 1+i & 0\\
+1-i & 3 & 2\\
+0 & 2 & 4
+\end{bmatrix},
+\qquad
+\ip{u}{v}=u^\dagger H v.
+\]
+We use the standard convention: conjugate-linear in the first argument and linear in the second.
+
+\subsubsection{Method 1: Hermitian positive definite $\Rightarrow$ inner product; then compute Gram--Schmidt explicitly}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Axiom 1: sesquilinearity.}
+For $a,b\in\C$ and $u_1,u_2,v\in\C^{3,1}$,
+\[
+\ip{au_1+bu_2}{v}=(au_1+bu_2)^\dagger H v=\overline{a}\,u_1^\dagger Hv+\overline{b}\,u_2^\dagger Hv
+=\overline{a}\ip{u_1}{v}+\overline{b}\ip{u_2}{v},
+\]
+and similarly $\ip{u}{av_1+bv_2}=a\ip{u}{v_1}+b\ip{u}{v_2}$.
+
+\smallskip
+\noindent\textbf{Axiom 2: conjugate symmetry.}
+Since $H^\dagger=H$ (check immediately from entries), we have
+\[
+\overline{\ip{v}{u}}=\overline{v^\dagger H u}=u^\dagger H^\dagger v=u^\dagger H v=\ip{u}{v}.
+\]
+
+\smallskip
+\noindent\textbf{Axiom 3: positive definiteness.}
+Because $H$ is Hermitian, $\ip{u}{u}=u^\dagger H u\in\R$.
+We show $u^\dagger H u>0$ for $u\neq 0$ using Sylvester's criterion (leading principal minors):
+\[
+\det([2])=2>0,\qquad
+\det\begin{bmatrix}2&1+i\\1-i&3\end{bmatrix}
+=6-(1+i)(1-i)=6-2=4>0,
+\]
+and
+\[
+\det(H)=2\det\begin{bmatrix}3&2\\2&4\end{bmatrix}-(1+i)\det\begin{bmatrix}1-i&2\\0&4\end{bmatrix}
+=2(12-4)- (1+i)\cdot 4(1-i)
+=16-4\cdot 2=8>0.
+\]
+Hence $H$ is Hermitian positive definite, so $u^\dagger H u>0$ for all $u\neq 0$.
+Therefore $\ip{\cdot}{\cdot}$ is an inner product.
+
+\[
+\boxed{\,\ip{\cdot}{\cdot}\text{ is an inner product on }\C^{3,1}. \,}
+\]
+
+\item \textbf{Gram--Schmidt on the standard basis.}
+Let $e_1,e_2,e_3$ be the standard basis of $\C^{3,1}$.
+Define
+\[
+u_1=e_1,\qquad
+u_2=e_2-\proj_{u_1}(e_2),\qquad
+u_3=e_3-\proj_{u_1}(e_3)-\proj_{u_2}(e_3),
+\]
+where $\proj_{u}(v)=\dfrac{\ip{u}{v}}{\ip{u}{u}}u$.
+
+Compute the needed inner products using $\ip{e_i}{e_j}=H_{ij}$:
+\[
+\ip{u_1}{u_1}=\ip{e_1}{e_1}=2,\qquad
+\ip{u_1}{e_2}=\ip{e_1}{e_2}=1+i,\qquad
+\ip{u_1}{e_3}=\ip{e_1}{e_3}=0.
+\]
+Hence
+\[
+u_2=e_2-\frac{1+i}{2}e_1.
+\]
+Next,
+\[
+\ip{u_2}{u_2}=2,
+\qquad
+\ip{u_2}{e_3}=2,
+\]
+so $\proj_{u_2}(e_3)=\dfrac{2}{2}u_2=u_2$ and $\proj_{u_1}(e_3)=0$.
+Thus
+\[
+u_3=e_3-u_2=e_3-e_2+\frac{1+i}{2}e_1.
+\]
+So Gram--Schmidt yields the orthogonal ordered basis
+\[
+\boxed{\,
+(u_1,u_2,u_3)=\left(e_1,\ e_2-\frac{1+i}{2}e_1,\ \frac{1+i}{2}e_1-e_2+e_3\right).
+\,}
+\]
+
+\item \textbf{Normalize to an orthonormal basis $\beta$.}
+We already computed $\ip{u_1}{u_1}=2$ and $\ip{u_2}{u_2}=2$.
+Also,
+\[
+\ip{u_3}{u_3}=2
+\]
+(one direct check is $Hu_3=(0,0,2)^{\mathsf T}$, hence $u_3^\dagger Hu_3=2$).
+Therefore $\|u_k\|=\sqrt2$ for $k=1,2,3$.
+
+Define
+\[
+\beta=(\beta_1,\beta_2,\beta_3)\df \left(\frac{u_1}{\sqrt2},\ \frac{u_2}{\sqrt2},\ \frac{u_3}{\sqrt2}\right).
+\]
+Explicitly,
+\[
+\boxed{
+\beta=
+\left(
+\frac{1}{\sqrt2}\!\begin{bmatrix}1\\0\\0\end{bmatrix},\ 
+\frac{1}{\sqrt2}\!\begin{bmatrix}-\frac{1+i}{2}\\1\\0\end{bmatrix},\ 
+\frac{1}{\sqrt2}\!\begin{bmatrix}\frac{1+i}{2}\\-1\\1\end{bmatrix}
+\right)
+\ \text{is orthonormal in }(\C^{3,1},\ip{\cdot}{\cdot}).
+}
+\]
+
+\item \textbf{$\beta$-Fourier coefficients of $v=\begin{bmatrix}1\\0\\ i\end{bmatrix}$.}
+Since $\beta$ is orthonormal, coefficients are
+\[
+c_k=\ip{\beta_k}{v}\qquad (k=1,2,3).
+\]
+First compute
+\[
+Hv=
+\begin{bmatrix}
+2 & 1+i & 0\\
+1-i & 3 & 2\\
+0 & 2 & 4
+\end{bmatrix}
+\begin{bmatrix}1\\0\\ i\end{bmatrix}
+=
+\begin{bmatrix}
+2\\
+1+i\\
+4i
+\end{bmatrix}.
+\]
+Now:
+\[
+c_1=\ip{\beta_1}{v}
+=\left(\frac{1}{\sqrt2}e_1\right)^\dagger Hv
+=\frac{1}{\sqrt2}\,(2)=\sqrt2.
+\]
+Let $\alpha\df \frac{1+i}{2}$, so $u_2=e_2-\alpha e_1$ and $\overline{\alpha}=\frac{1-i}{2}$.
+Then
+\[
+c_2=\ip{\beta_2}{v}
+=\frac{1}{\sqrt2}\ip{u_2}{v}
+=\frac{1}{\sqrt2}\,u_2^\dagger(Hv)
+=\frac{1}{\sqrt2}\left((-\overline{\alpha})\cdot 2 + 1\cdot (1+i)\right)
+=\frac{1}{\sqrt2}(2i)=\sqrt2\,i.
+\]
+Similarly, $u_3=\alpha e_1-e_2+e_3$, so
+\[
+c_3=\ip{\beta_3}{v}
+=\frac{1}{\sqrt2}\,u_3^\dagger(Hv)
+=\frac{1}{\sqrt2}\left(\overline{\alpha}\cdot 2 - (1+i) + 4i\right)
+=\frac{1}{\sqrt2}(2i)=\sqrt2\,i.
+\]
+Therefore the Fourier coefficients are
+\[
+\boxed{\, (c_1,c_2,c_3)=\left(\sqrt2,\ \sqrt2\,i,\ \sqrt2\,i\right).\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Matrix/Gram-matrix formulation}
+Part (a) follows because $H$ is Hermitian positive definite, so $\ip{u}{v}=u^\dagger Hv$ satisfies all inner product axioms.
+For Gram--Schmidt, note that the projection coefficients are entries of the Gram matrix $H$ in the standard basis, making computations
+particularly simple: $\ip{e_i}{e_j}=H_{ij}$. The resulting orthogonal vectors match Method 1, and normalization is immediate once
+$\ip{u_k}{u_k}$ are computed.
+
+%====================================================
+% QUESTION 5
+%====================================================
+\newpage
+\section{Problem 5 (Double orthogonal complements)}
+\subsection{Problem}
+Let (i) $(V,\ip{\cdot}{\cdot})$ be an inner product space, and (ii) $W$ be a vector subspace of $V$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $W\subseteq W^{\perp\perp}$.
+\item Show that if $V$ is finite-dimensional, then $W=W^{\perp\perp}$.
+\item Show that if $V$ is infinite-dimensional, then it is not necessarily true that $W=W^{\perp\perp}$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Direct definition + dimension counting (finite-dimensional case)}
+\begin{enumerate}[label=(\alph*)]
+\item Let $w\in W$. To show $w\in W^{\perp\perp}$ we must show $\ip{w}{u}=0$ for all $u\in W^\perp$.
+But $u\in W^\perp$ means precisely that $\ip{u}{w'}=0$ for all $w'\in W$; in particular $\ip{u}{w}=0$.
+Using conjugate symmetry (or symmetry in the real case), $\ip{w}{u}=0$. Hence $w\in W^{\perp\perp}$.
+So $W\subseteq W^{\perp\perp}$.
+
+\[
+\boxed{\,W\subseteq W^{\perp\perp}\,}
+\]
+
+\item Assume $\dim(V)<\infty$. A standard theorem gives
+\[
+\dim(W)+\dim(W^\perp)=\dim(V).
+\]
+Apply this to $W^\perp$:
+\[
+\dim(W^\perp)+\dim(W^{\perp\perp})=\dim(V).
+\]
+Subtracting yields $\dim(W^{\perp\perp})=\dim(W)$. Together with (a) and finite-dimensionality,
+\[
+W\subseteq W^{\perp\perp}\ \text{ and }\ \dim(W)=\dim(W^{\perp\perp})
+\quad\Longrightarrow\quad
+W=W^{\perp\perp}.
+\]
+\[
+\boxed{\,\dim(V)<\infty\ \Rightarrow\ W=W^{\perp\perp}\,}
+\]
+
+\item In infinite dimensions, equality can fail. Let $V=\ell^2$ be the space of square-summable real sequences
+(with the standard inner product $\ip{x}{y}=\sum_{k=1}^\infty x_k y_k$), and let
+\[
+W=c_{00}\df \{x\in\ell^2:\ x\text{ has finite support}\}.
+\]
+Then $W$ is a subspace of $V$ and is infinite-dimensional (but not all of $\ell^2$).
+
+We claim $W^\perp=\{0\}$. Indeed, if $z\in W^\perp$, then for each standard basis vector $e_k\in c_{00}$ we have
+\[
+0=\ip{z}{e_k}=z_k,
+\]
+so all coordinates of $z$ are $0$, hence $z=0$.
+Therefore $W^\perp=\{0\}$ and hence $W^{\perp\perp}=V$.
+
+But $W\neq V$ (e.g.\ $(1,1/2,1/3,\dots)\in \ell^2$ but not finitely supported).
+Thus $W\neq W^{\perp\perp}$.
+
+\[
+\boxed{\,\text{In infinite dimensions, }W\neq W^{\perp\perp}\text{ can occur (e.g.\ }W=c_{00}\subset \ell^2).\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Orthogonal decomposition (finite-dimensional case) + ``closure'' intuition}
+\begin{enumerate}[label=(\alph*)]
+\item Same as Method 1.
+
+\item If $\dim(V)<\infty$, choose an orthonormal basis of $W$ and extend it to an orthonormal basis of $V$ by Gram--Schmidt:
+\[
+(\text{ONB of }W)\ \cup\ (\text{ONB of }W^\perp)=\text{ONB of }V.
+\]
+Then every $v\in V$ has a unique decomposition $v=w+u$ with $w\in W$, $u\in W^\perp$.
+Now if $v\in W^{\perp\perp}$, then $\ip{v}{u}=0$ for all $u\in W^\perp$.
+In particular, taking $u$ from the decomposition $v=w+u$ gives
+\[
+0=\ip{v}{u}=\ip{w+u}{u}=\ip{w}{u}+\ip{u}{u} = 0+\|u\|^2,
+\]
+so $u=0$ and hence $v=w\in W$. Thus $W^{\perp\perp}\subseteq W$, and with (a) we get equality.
+
+\item In general (especially in infinite dimensions), $W^{\perp\perp}$ corresponds to the ``closed span'' of $W$ in the norm topology,
+so if $W$ is not closed, strict inclusion may occur. The $\ell^2$ example above realizes this phenomenon concretely.
+\end{enumerate}
+
+%====================================================
+% QUESTION 6
+%====================================================
+\newpage
+\section{Problem 6 (Orthogonal complement and orthogonal decomposition in $\R^4$)}
+\subsection{Problem}
+Let
+\[
+V\df \{(w,x,y,z)\in\R^4\mid w-y+z=0\},
+\]
+which is a vector subspace of $\R^4$ (standard inner product $\cdot$).
+\begin{enumerate}[label=(\alph*)]
+\item Derive a basis for $V^\perp$.
+\item Derive an orthonormal basis for $(V,\cdot)$.
+\item Compute the unique $a\in V$ and $b\in V^\perp$ such that $(1,2,3,4)=a+b$.
+\end{enumerate}
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Solve linear constraints for $V^\perp$; then Gram--Schmidt inside $V$}
+\begin{enumerate}[label=(\alph*)]
+\item Parameterize $V$ by free variables $x,y,z$:
+\[
+w=y-z,\qquad (w,x,y,z)=(y-z,\ x,\ y,\ z)=x(0,1,0,0)+y(1,0,1,0)+z(-1,0,0,1).
+\]
+Let $u=(a,b,c,d)\in\R^4$. Then $u\in V^\perp$ iff $u\cdot v=0$ for all $v\in V$.
+It suffices to impose orthogonality to the spanning vectors:
+\[
+u\cdot(0,1,0,0)=b=0,\qquad
+u\cdot(1,0,1,0)=a+c=0,\qquad
+u\cdot(-1,0,0,1)=-a+d=0.
+\]
+Thus $b=0$, $c=-a$, $d=a$, so
+\[
+V^\perp=\Span\{(1,0,-1,1)\}.
+\]
+\[
+\boxed{\,V^\perp=\Span\{(1,0,-1,1)\}\,}.
+\]
+
+\item A convenient basis of $V$ from the parameterization is
+\[
+v_1=(0,1,0,0),\quad v_2=(1,0,1,0),\quad v_3=(-1,0,0,1).
+\]
+Apply Gram--Schmidt:
+
+\underline{Step 1:} $e_1=v_1$ (already unit), so $e_1=(0,1,0,0)$.
+
+\underline{Step 2:} $v_2\cdot e_1=0$, so $u_2=v_2$ and
+\[
+e_2=\frac{v_2}{\|v_2\|}=\frac{1}{\sqrt2}(1,0,1,0).
+\]
+
+\underline{Step 3:} Orthogonalize $v_3$ against $u_2=v_2$:
+\[
+v_3\cdot v_2=(-1)\cdot 1+0\cdot 0+0\cdot 1+1\cdot 0=-1,\qquad v_2\cdot v_2=2.
+\]
+So
+\[
+u_3=v_3-\proj_{v_2}(v_3)=v_3-\frac{-1}{2}v_2=v_3+\frac12 v_2=\left(-\frac12,0,\frac12,1\right).
+\]
+Equivalently, $2u_3=(-1,0,1,2)$, and $\|(-1,0,1,2)\|^2=6$. Hence
+\[
+e_3=\frac{1}{\sqrt6}(-1,0,1,2).
+\]
+Thus an orthonormal basis for $V$ is
+\[
+\boxed{\,
+\left(
+(0,1,0,0),\ \frac{1}{\sqrt2}(1,0,1,0),\ \frac{1}{\sqrt6}(-1,0,1,2)
+\right).
+\,}
+\]
+
+\item Let $p=(1,2,3,4)$. Since $V^\perp=\Span\{u\}$ with $u=(1,0,-1,1)$, we have
+\[
+b=\proj_{V^\perp}(p)=\frac{p\cdot u}{u\cdot u}u.
+\]
+Compute
+\[
+p\cdot u=1\cdot 1+2\cdot 0+3\cdot(-1)+4\cdot 1=2,\qquad u\cdot u=1+0+1+1=3.
+\]
+So
+\[
+b=\frac{2}{3}(1,0,-1,1)=\left(\frac23,0,-\frac23,\frac23\right).
+\]
+Then
+\[
+a=p-b=\left(1-\frac23,\ 2,\ 3+\frac23,\ 4-\frac23\right)=\left(\frac13,\ 2,\ \frac{11}{3},\ \frac{10}{3}\right).
+\]
+Check $a\in V$:
+\[
+w-y+z=\frac13-\frac{11}{3}+\frac{10}{3}=0.
+\]
+Therefore
+\[
+\boxed{\,
+a=\left(\frac13,\ 2,\ \frac{11}{3},\ \frac{10}{3}\right)\in V,
+\quad
+b=\left(\frac23,0,-\frac23,\frac23\right)\in V^\perp,
+\quad
+(1,2,3,4)=a+b.
+\,}
+\]
+\end{enumerate}
+
+\subsubsection{Method 2: Matrix viewpoint (constraint normal vector)}
+The subspace $V=\{x\in\R^4: n\cdot x=0\}$ where $n=(1,0,-1,1)$ (since $w-y+z=0$).
+Hence $V^\perp=\Span\{n\}$ immediately. The orthogonal decomposition of $p$ is
+\[
+p=\left(p-\frac{p\cdot n}{n\cdot n}n\right)+\frac{p\cdot n}{n\cdot n}n,
+\]
+matching the $a,b$ above.
+
+%====================================================
+% QUESTION 7
+%====================================================
+\newpage
+\section{Problem 7 (Diagonal matrices and Frobenius orthogonal complement)}
+\subsection{Problem}
+Let $n\in\mathbb{N}$, and consider the real inner product space $(\R^{n,n},\ip{\cdot}{\cdot}_F)$, where
+\[
+\ip{A}{B}_F\df \tr(A^{\mathsf T}B)=\sum_{i=1}^n\sum_{j=1}^n a_{ij}b_{ij}.
+\]
+Let
+\[
+D\df \{A\in\R^{n,n}\mid A\ \text{is diagonal}\}.
+\]
+Derive a basis for $D^\perp$.
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Characterize $D^\perp$ by testing against diagonal matrices}
+Let $X=(x_{ij})\in\R^{n,n}$. Then $X\in D^\perp$ iff $\ip{X}{\Delta}_F=0$ for all diagonal $\Delta=\diag(d_1,\dots,d_n)$.
+But
+\[
+\ip{X}{\Delta}_F=\sum_{i=1}^n\sum_{j=1}^n x_{ij}\Delta_{ij}=\sum_{i=1}^n x_{ii}d_i.
+\]
+For this to be $0$ for all choices of $(d_1,\dots,d_n)\in\R^n$, we must have $x_{ii}=0$ for every $i$.
+Thus
+\[
+D^\perp=\{X\in\R^{n,n}: x_{11}=x_{22}=\cdots=x_{nn}=0\},
+\]
+i.e.\ the subspace of matrices with zero diagonal.
+
+Let $E_{ij}$ be the standard matrix units. Then $\{E_{ij}: i\neq j\}$ spans precisely the zero-diagonal matrices and is linearly independent.
+Therefore
+\[
+\boxed{\,D^\perp=\Span\{E_{ij}: i\neq j\}\quad\text{and}\quad \{E_{ij}: i\neq j\}\ \text{is a basis of }D^\perp.\,}
+\]
+
+\subsubsection{Method 2: Orthogonal direct sum decomposition}
+Every matrix $A\in\R^{n,n}$ decomposes uniquely as
+\[
+A=\underbrace{\diag(a_{11},\dots,a_{nn})}_{\in D}\ +\ \underbrace{\bigl(A-\diag(a_{11},\dots,a_{nn})\bigr)}_{\text{zero diagonal}}.
+\]
+Moreover, diagonal matrices are Frobenius-orthogonal to zero-diagonal matrices, since
+\[
+\ip{\diag(d_1,\dots,d_n)}{X}_F=\sum_{i=1}^n d_i x_{ii}=0
+\]
+whenever $x_{ii}=0$. Hence $\R^{n,n}=D\oplus D^\perp$ and $D^\perp$ is exactly the zero-diagonal subspace,
+with basis $\{E_{ij}:i\neq j\}$.
+
+\end{document}

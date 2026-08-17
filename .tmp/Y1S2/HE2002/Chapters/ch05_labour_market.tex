@@ -1,0 +1,249 @@
+
+%==================================================
+% FILE: HE2002_RevisionNotes(2).tex
+% REPLACE: section The Labor Market
+%==================================================
+\section{The Labor Market}
+
+\subsection{Why the labour market matters for macroeconomics}
+
+The labour market is the bridge between output and inflation. When firms increase production, they hire more workers; unemployment falls; workers bargain from a stronger position; nominal wages rise; firms raise prices; and prices feed back into wage claims. This wage--price interaction is why macroeconomics cannot stop at the goods market.
+
+\begin{definition}{Labour-market categories}{}
+Each person of working age is classified as:
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Employed:} worked for pay or was temporarily absent from a job.
+\item \textbf{Unemployed:} did not work but actively searched for work.
+\item \textbf{Out of the labour force:} neither worked nor searched for work.
+\end{itemize}
+The \textbf{labour force} is the sum of employed and unemployed people.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Core labour-market rates}]
+\[
+L=N+U,
+\qquad
+u=\frac{U}{L},
+\qquad
+\text{Participation rate}=\frac{L}{\text{working-age population}}.
+\]
+In Lecture 5, unemployment is the key summary statistic because it captures labour-market tightness and therefore wage pressure.
+\end{keyformula}
+
+\subsection{Stocks, flows, and labour-market tightness}
+
+High unemployment matters on both margins:
+\begin{itemize}[leftmargin=1.5em]
+\item the employed face a higher probability of losing their jobs;
+\item the unemployed face a lower probability of finding jobs.
+\end{itemize}
+So unemployment is not only a stock variable. It also summarises underlying \emph{flows} into and out of employment.
+
+\begin{policynote}
+In a recession, the labour market weakens twice over: job loss becomes more likely, and job finding becomes slower. This is why the unemployment rate is a central state variable later in the Phillips curve and IS--LM--PC framework.
+\end{policynote}
+
+\subsection{Wage determination}
+
+\begin{definition}{Reservation wage and bargaining power}{}
+The \textbf{reservation wage} is the wage that makes a worker indifferent between accepting a job and remaining unemployed. Actual wages are often above reservation wages because firms care about retention, morale, effort, and recruitment. Workers also have different bargaining power depending on outside options and labour-market conditions.
+\end{definition}
+
+Two facts matter for macro wage setting:
+\begin{itemize}[leftmargin=1.5em]
+\item wages usually exceed reservation wages;
+\item wages are higher when unemployment is lower.
+\end{itemize}
+
+\begin{definition}{Efficiency wages}{}
+Under \textbf{efficiency-wage} logic, firms may deliberately pay above-minimum wages because higher wages can raise productivity, reduce shirking, reduce turnover, and attract better workers.
+\end{definition}
+
+\begin{keyformula}[title={Key Formula: Wage-setting relation}]
+\[
+W=P^eF(u,z),
+\qquad
+\frac{\partial F}{\partial u}<0.
+\]
+Nominal wages depend positively on the expected price level $P^e$, negatively on unemployment $u$, and on a catch-all variable $z$ summarising institutions such as unemployment benefits, minimum-wage rules, and bargaining arrangements.
+\end{keyformula}
+
+\paragraph{Interpretation of the arguments.}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{$P^e$:} workers care about the real wage, so higher expected prices induce higher nominal wage claims.
+\item \textbf{$u$:} higher unemployment weakens bargaining power and lowers the wage consistent with wage setting.
+\item \textbf{$z$:} stronger worker protection or more generous benefits raise wage pressure at a given unemployment rate.
+\end{itemize}
+
+\subsection{Price determination}
+
+Lecture 5 uses a simple production structure:
+\[
+Y=AN.
+\]
+With the normalisation $A=1$, one worker produces one unit of output, so marginal cost is the nominal wage $W$.
+
+\begin{keyformula}[title={Key Formula: Price-setting relation}]
+\[
+P=(1+m)W,
+\qquad
+\frac{W}{P}=\frac{1}{1+m}.
+\]
+The markup $m$ is the wedge between price and marginal cost. It determines the real wage firms are willing to pay.
+\end{keyformula}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{|p{2.2cm}|X|X|X|}
+\hline
+\textbf{Relation} & \textbf{Economic side} & \textbf{Slope / position} & \textbf{Main shifters} \\
+\hline
+WS & Workers and firms bargain over wages. & Downward sloping in $u$: weaker labour markets reduce the real wage sought in wage setting. & Expected prices and labour-market institutions $z$ \\
+\hline
+PS & Firms choose prices given marginal cost and markup. & Horizontal in the WS--PS diagram: the real wage implied by price setting is fixed at $1/(1+m)$. & Markup $m$ \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Wage setting, price setting, and the natural rate}
+
+If expected and actual prices coincide, $P^e=P$, then the wage-setting relation becomes
+\[
+\frac{W}{P}=F(u,z).
+\]
+This is the \textbf{WS relation}. It is downward sloping in unemployment.
+
+The price-setting relation gives
+\[
+\frac{W}{P}=\frac{1}{1+m}.
+\]
+This is the \textbf{PS relation}. It is horizontal because the markup, not unemployment directly, pins down the real wage consistent with price setting.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[->] (0,0) -- (8.2,0) node[right] {Unemployment rate, $u$};
+\draw[->] (0,0) -- (0,5.2) node[above] {Real wage, $W/P$};
+
+\draw[thick,blue!70!black] (0.7,4.4) .. controls (2.2,3.47) and (4.3,2.7) .. (7.1,1.1);
+\node[blue!70!black] at (6.9,1.6) {WS};
+
+\draw[thick,red!70!black] (0,2.3) -- (7.4,2.3);
+\node[red!70!black] at (6.9,2.6) {PS};
+
+\draw[dashed] (4.8,0) -- (4.8,2.3);
+\fill (4.8,2.3) circle (2pt);
+\node[above right] at (4.8,2.3) {$A$};
+\node[below] at (4.8,0) {$u_n$};
+\node[left] at (0,2.3) {$1/(1+m)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}{Natural rate of unemployment}{}
+The natural rate of unemployment is the unemployment rate at which the real wage implied by wage setting equals the real wage implied by price setting:
+\[
+F(u_n,z)=\frac{1}{1+m}.
+\]
+At $u_n$, the labour market is in equilibrium in the WS--PS framework.
+\end{theorem}
+
+\begin{theorem}{Natural employment and natural output}{}
+With $Y=N=L(1-u)$ in the course's simplified production structure,
+\[
+N_n=L(1-u_n),
+\qquad
+Y_n=N_n=L(1-u_n).
+\]
+So anything that raises $u_n$ lowers natural employment and natural output.
+\end{theorem}
+
+\subsection{Linear wage setting and the closed-form natural rate}
+
+If
+\[
+F(u,z)=1-\alpha u+z,
+\]
+then the natural rate satisfies
+\[
+1-\alpha u_n+z=\frac{1}{1+m}.
+\]
+
+\begin{keyformula}[title={Key Formula: Closed-form natural rate}]
+\[
+u_n=\frac{1+z-\frac{1}{1+m}}{\alpha}
+\approx \frac{m+z}{\alpha}.
+\]
+The approximation uses
+\[
+\frac{1}{1+m}\approx 1-m
+\]
+when the markup is not too large.
+\end{keyformula}
+
+\subsection{Comparative statics}
+
+\paragraph{Higher wage pressure: $z\uparrow$.}
+At a given unemployment rate, workers seek a higher real wage. WS shifts up, so the natural rate rises.
+
+\paragraph{Higher markup: $m\uparrow$.}
+A higher markup lowers the real wage firms are willing to pay:
+\[
+\frac{1}{1+m}\downarrow.
+\]
+PS shifts down, so the natural rate rises.
+
+\begin{theorem}{The central comparative statics of Lecture 5}{}
+\begin{itemize}[leftmargin=1.5em]
+\item $z\uparrow \Rightarrow$ WS shifts up $\Rightarrow u_n\uparrow \Rightarrow Y_n\downarrow$.
+\item $m\uparrow \Rightarrow$ PS shifts down $\Rightarrow u_n\uparrow \Rightarrow Y_n\downarrow$.
+\end{itemize}
+This is the logic later used for oil-price shocks and stagflation.
+\end{theorem}
+
+\begin{examplebox}[title={Worked Example: Natural unemployment with a higher markup}]
+Suppose the markup is initially $m=0.05$ and the wage-setting equation is
+\[
+W=P(1-u).
+\]
+Then
+\[
+\frac{W}{P}=1-u.
+\]
+From price setting,
+\[
+\frac{W}{P}=\frac{1}{1.05}=\frac{20}{21}.
+\]
+So the natural rate satisfies
+\[
+1-u_n=\frac{20}{21}
+\qquad\Rightarrow\qquad
+u_n=\frac{1}{21}\approx 4.76\%.
+\]
+
+Now let the markup rise to $m=0.10$. Then
+\[
+\frac{W}{P}=\frac{1}{1.10}=\frac{10}{11},
+\]
+so
+\[
+1-u_n=\frac{10}{11}
+\qquad\Rightarrow\qquad
+u_n=\frac{1}{11}\approx 9.09\%.
+\]
+
+A higher markup raises the natural rate because firms are willing to pay a lower real wage, and a weaker labour market is needed to make that wage consistent with wage setting.
+\end{examplebox}
+
+\begin{commonmistake}
+Do not say that unemployment directly shifts PS. In the course model, unemployment affects the \emph{wage-setting} relation. The price-setting relation shifts when the markup changes.
+\end{commonmistake}
+
+\begin{examtip}[title={Exam Focus: What you must be able to do quickly}]
+You should be able to:
+\begin{itemize}[leftmargin=1.5em]
+\item explain why WS slopes downward and PS is horizontal;
+\item derive $u_n$ from WS and PS;
+\item explain how $z$ and $m$ shift the diagram;
+\item connect a higher $u_n$ to lower natural employment and lower natural output;
+\item recognise that Lecture 5 is the starting point for Chapters 6 and 7.
+\end{itemize}
+\end{examtip}

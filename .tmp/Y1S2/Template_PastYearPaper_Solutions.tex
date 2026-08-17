@@ -1,0 +1,245 @@
+\documentclass[12pt]{article}
+
+% =========================
+% Geometry & core packages
+% =========================
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+
+% Optional (uncomment if you need figures/diagrams)
+% \usepackage{graphicx}
+% \usepackage{tikz}
+
+% =========================
+% Watermark (consistent style)
+% =========================
+\SetWatermarkText{Unofficial — QRS@NTU — qrsntu.org}
+\SetWatermarkScale{1}
+\SetWatermarkLightness{0.99}
+
+% =========================
+% Course metadata (edit here)
+% =========================
+
+\newcommand{\CourseCode}{QRS1001}
+\newcommand{\CourseName}{Sample Course}
+\newcommand{\DocType}{Final Exam (Solutions)}
+\newcommand{\ExamMeta}{AY 2025/2026, Semester 1}
+\newcommand{\ExamMetaShort}{Midterm AY25-26}
+
+\title{
+\Huge \CourseCode\ \CourseName \\[0.3em]
+\Large \DocType  \\[0.3em]
+\large \ExamMeta
+}
+\author{
+  \textit{\href{https://qrsntu.org}{Quantitative Research Society @NTU}}
+}
+\date{\today}
+
+
+
+% =========================
+% Header/footer styles
+% =========================
+%------------- HEADER & FOOTER (for page 2 onward) -------------
+\fancypagestyle{main}{
+  \fancyhf{}
+  \fancyhead[L]{\CourseCode\ \CourseName\ --\ \ExamMetaShort}
+  \fancyhead[R]{\href{https://qrsntu.org}{QRS@NTU}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------- SIMPLE FOOTER (page 1 only) -------------
+\fancypagestyle{plainfirst}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\scriptsize\textcolor{gray}{\textit{For academic reference only. This document is provided for educational purposes and does not constitute an official question paper, answer key, or any formally authorised academic material. Its content is not guaranteed to be complete or accurate.}}}
+}
+
+% =========================
+% Convenience macros
+% =========================
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+% Overview block (MH5200-like visual style)
+\newenvironment{overview}{
+  \par\bigskip
+  \begin{center}
+    \rule{0.92\linewidth}{0.6pt}\\[-0.2em]
+    \textbf{Overview}\\[-0.2em]
+    \rule{0.92\linewidth}{0.6pt}
+  \end{center}
+  \vspace{-0.3em}
+  \begin{itemize}[leftmargin=1.6em, itemsep=0.2em, topsep=0.2em]
+}{
+  \end{itemize}
+  \par\bigskip
+}
+
+
+% Optional: tighter list defaults (feel free to adjust)
+\setlist[enumerate]{itemsep=0.3em, topsep=0.3em}
+\setlist[itemize]{itemsep=0.2em, topsep=0.2em}
+
+\setcounter{secnumdepth}{-1} % Globally removes numbers from all sections
+\setcounter{tocdepth}{3}     % Ensures \subsubsection level shows in TOC
+
+% =========================
+% Document begins
+% =========================
+\begin{document}
+
+\maketitle
+\thispagestyle{plainfirst}
+\pagestyle{main}
+
+\begin{overview}
+  \item Techniques of integration: substitution, integration by parts, partial fractions, trigonometric identities/substitutions, improper integrals.
+  \item Sequences and series: convergence tests; absolute vs conditional convergence; power series and Taylor/Maclaurin series; interval of convergence (as applicable).
+  \item Applications (if included in the paper): area/volume/average value; parametric/polar (only if asked).
+\end{overview}
+
+\newpage
+\tableofcontents
+\newpage
+% ============================================================
+% Question template (copy/paste per question)
+% ============================================================
+\section{Question 1 (Short descriptor/marks)}
+% Paste question statement here (verbatim mathematical content).
+
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Main approach}
+\begin{align*}
+  % Step-by-step working
+  \boxed{\text{(final answer here)}}
+\end{align*}
+
+
+\subsubsection{Method 2: Alternative approach}
+\begin{align*}
+  % Distinct method or a clean verification (e.g., differentiate antiderivative)
+  \boxed{\text{(final answer here)}}
+\end{align*}
+
+\subsubsection{Marking scheme (8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(x marks)} description
+\begin{itemize}
+\item x mark: description
+\item x mark: description
+\end{itemize}
+\end{enumerate}
+
+
+% ------------------------------------------------------------
+\newpage
+
+\section{Question 2 (8 marks)}
+
+Consider an economy with three time periods $(t = 0, 1, 2)$ and interest rate $r = 0.20$.
+
+\begin{enumerate}[label=(\alph*)]
+\item (2 marks) What is the present value of receiving \$100 in period 1 and \$144 in period 2?
+\item (3 marks) Asset $A$ pays $(10, 20, 30)$ in periods 0, 1, and 2. Asset $B$ pays $(5, 40, 20)$. Which asset has higher present value? Show your calculation.
+\item (3 marks) You can buy asset $C$ for \$80 today. It pays \$0 in period 1 and \$120 in period 2. Should you buy asset $C$ or save your money at the interest rate $r = 0.20$? Calculate the net present value of buying asset $C$.
+\end{enumerate}
+\bigskip
+
+\subsection{Solution}
+
+\subsubsection{Method 1: Discounted present value and net present value}
+\noindent\textbf{Key idea.} Discount each future cash flow by $(1+r)^t$ and compare values at $t=0$.
+
+Here $r=0.20$, so $(1+r)=1.2$ and $(1+r)^2=1.44$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Present value:
+$$PV = \frac{100}{1.2} + \frac{144}{1.44} = \frac{250}{3} + 100 = \frac{550}{3}$$
+$$\boxed{PV = \frac{550}{3} \approx 183.33}$$
+
+\item Asset present values:
+$$PV_A = 10+\frac{20}{1.2}+\frac{30}{1.44} = 10+\frac{50}{3}+\frac{125}{6} = \frac{285}{6} = 47.5$$
+$$PV_B = 5+\frac{40}{1.2}+\frac{20}{1.44} = 5+\frac{100}{3}+\frac{125}{9} = \frac{470}{9} \approx 52.22$$
+Thus $PV_B > PV_A$, so asset $B$ has a higher present value.
+$$\boxed{PV_A = 47.5, \qquad PV_B = \frac{470}{9} \approx 52.22, \qquad \text{Asset } B \text{ is higher}}$$
+
+\item Asset $C$ costs $80$ today and pays $120$ in period 2.
+Its present value is $\frac{120}{1.44} = \frac{250}{3} \approx 83.33$, so the net present value is:
+$$NPV = \frac{120}{1.44} - 80 = \frac{250}{3} - 80 = \frac{10}{3} > 0$$
+$$\boxed{\text{Buy Asset } C \quad \left(NPV = \frac{10}{3} > 0\right)}$$
+\end{enumerate}
+
+\subsubsection{Method 2: Use discount factors and compare replicated value}
+\noindent\textbf{Key idea.} Let discount factors be $d_1=\frac{1}{1.2}=\frac{5}{6}$ and $d_2=\frac{1}{1.44}=\frac{25}{36}$; then $PV=\sum_t d_t \cdot \text{cashflow}_t$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Present value:
+$$PV = 100d_1 + 144d_2 = 100\left(\frac{5}{6}\right) + 144\left(\frac{25}{36}\right) = \frac{250}{3} + 100 = \frac{550}{3}$$
+$$\boxed{PV = \frac{550}{3} \approx 183.33}$$
+
+\item Asset present values:
+$$PV_A = 10 + 20d_1 + 30d_2 = 10 + 20\left(\frac{5}{6}\right) + 30\left(\frac{25}{36}\right) = 10 + \frac{50}{3} + \frac{125}{6} = 47.5$$
+$$PV_B = 5 + 40d_1 + 20d_2 = 5 + 40\left(\frac{5}{6}\right) + 20\left(\frac{25}{36}\right) = 5 + \frac{100}{3} + \frac{125}{9} = \frac{470}{9} \approx 52.22$$
+$$\boxed{PV_A = 47.5, \qquad PV_B = \frac{470}{9} \approx 52.22, \qquad \text{Asset } B \text{ is higher}}$$
+
+\item Compare cost $80$ with the present value of cash flows:
+$$PV_C = 120d_2 = 120\left(\frac{25}{36}\right) = \frac{250}{3} \approx 83.33$$
+Since $80 < \frac{250}{3}$, buying $C$ dominates saving at rate $r$.
+$$NPV = \frac{250}{3} - 80 = \frac{10}{3} > 0$$
+$$\boxed{\text{Buy Asset } C \quad \left(NPV = \frac{10}{3} > 0\right)}$$
+\end{enumerate}
+
+\vspace{1.5cm}
+\newpage
+\subsubsection{Marking scheme (8 marks)}
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{(2 marks)} Present value calculation
+\begin{itemize}
+\item 1 mark: Correct setup of the present value calculation (discount formula or discount factors).
+\item 1 mark: Correct final present value of $\frac{550}{3}$ (or approx $183.33$).
+\end{itemize}
+
+\item \textbf{(3 marks)} Asset present values comparison
+\begin{itemize}
+\item 1 mark: Correct calculation of $PV_A = 47.5$.
+\item 1 mark: Correct calculation of $PV_B = \frac{470}{9}$ (or approx $52.22$).
+\item 1 mark: Correct conclusion that Asset $B$ has a higher present value.
+\end{itemize}
+
+\item \textbf{(3 marks)} Net present value and investment decision
+\begin{itemize}
+\item 1 mark: Correct calculation of the present value of Asset $C$'s payoff ($PV = \frac{250}{3}$ or approx $83.33$).
+\item 1 mark: Correct calculation of the Net Present Value ($NPV = \frac{10}{3}$ or approx $3.33$).
+\item 1 mark: Correct conclusion to buy Asset $C$, properly justified by a positive NPV or the PV being strictly greater than the cost.
+\end{itemize}
+\end{enumerate}
+
+\newpage
+
+% ============================================================
+% (Add more questions as needed)
+% ============================================================
+
+\end{document}

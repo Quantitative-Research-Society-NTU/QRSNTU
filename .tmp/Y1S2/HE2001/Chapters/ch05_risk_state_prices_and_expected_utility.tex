@@ -1,0 +1,759 @@
+% chapters/ch05_risk_state_prices_and_expected_utility.tex
+
+\section{Risk, State Prices, and Expected Utility}
+
+This chapter extends consumer theory to uncertain environments. Instead of choosing bundles across goods or across time, the consumer now chooses contingent consumption across states of the world. This allows a unified treatment of insurance, asset markets, diversification, and expected utility. The central ideas are:
+\begin{enumerate}
+    \item uncertain payoffs can be represented as contingent consumption bundles;
+    \item state prices and asset prices are linked by no-arbitrage;
+    \item diversification and risk sharing can smooth consumption across states;
+    \item expected utility provides a tractable model of risk preferences.
+\end{enumerate}
+
+\subsection{Risk and Contingent Consumption}
+
+Suppose there are $S$ mutually exclusive states of the world. State $s$ occurs with probability $\pi_s$, where
+\[
+\pi_s \ge 0
+\qquad \text{and} \qquad
+\sum_{s=1}^S \pi_s = 1.
+\]
+
+\begin{definition}{Contingent consumption bundle}{ch5-contingent-bundle}
+A \emph{contingent consumption bundle} is a vector
+\[
+x=(x_1,x_2,\dots,x_S)\in \mathbb{R}_+^S,
+\]
+where $x_s$ is the amount of money or consumption received if state $s$ occurs.
+\end{definition}
+
+This is the correct representation for risky prospects. A lottery, job outcome, insurance payoff, or asset return can all be written as a contingent bundle.
+
+\begin{definition}{State prices and the contingent-claims budget set}{ch5-state-prices}
+Let
+\[
+p=(p_1,p_2,\dots,p_S)\in \mathbb{R}_{++}^S
+\]
+be the \emph{state price vector}, where $p_s$ is the price today of one unit of consumption delivered only in state $s$.
+
+If wealth is $m>0$, the consumer chooses $x$ subject to
+\[
+p\cdot x = \sum_{s=1}^S p_s x_s \le m.
+\]
+If the consumer has endowment
+\[
+\omega=(\omega_1,\dots,\omega_S),
+\]
+then the budget constraint becomes
+\[
+p\cdot x \le p\cdot \omega.
+\]
+\end{definition}
+
+State prices play exactly the same role here that ordinary prices played in Chapters 1--4. The difference is that the coordinates now refer to states rather than goods or dates.
+
+\begin{examplebox}[title={Worked Example: contingent consumption from an uncertain career outcome}]
+Suppose there are two states:
+\begin{itemize}
+    \item state 1: a high-paying job occurs with probability $0.2$;
+    \item state 2: onion farming occurs with probability $0.8$.
+\end{itemize}
+If the corresponding incomes are
+\[
+10^6 \quad \text{and} \quad 10^3,
+\]
+then the risky prospect is represented by
+\[
+x=(10^6,10^3),
+\qquad
+\pi=(0.2,0.8).
+\]
+This is a contingent consumption bundle because the realized payoff depends on which state occurs.
+\end{examplebox}
+
+\subsection{Insurance and State Prices}
+
+Insurance can be interpreted as trading contingent claims.
+
+\begin{examplebox}[title={Worked Example: insurance as contingent consumption}]
+Suppose the consumer is endowed with
+\[
+\omega=(8,2),
+\qquad
+\pi=(0.9,0.1),
+\]
+so state 1 is the good state and state 2 is the bad state. A unit of insurance:
+\begin{itemize}
+    \item costs $2$ today;
+    \item pays $3$ in state 2.
+\end{itemize}
+
+Relative to the endowment, buying one unit of insurance reduces state-1 consumption by $2$ and raises state-2 consumption by $1$. If $\theta$ units are purchased, then the resulting contingent bundle is
+\[
+x(\theta) = (8-2\theta,\, 2+\theta).
+\]
+
+If shorting insurance is allowed, then $\theta$ may be negative. For example,
+\[
+\theta=-2
+\]
+gives
+\[
+x(-2)=(12,0).
+\]
+
+Now observe that
+\[
+x_1 + 2x_2 = (8-2\theta)+2(2+\theta)=12
+\]
+for every $\theta$. Since
+\[
+12 = 8 + 2\cdot 2 = (1,2)\cdot (8,2),
+\]
+this budget line is exactly the same as the contingent-claims budget with state price vector
+\[
+\boxed{p=(1,2).}
+\]
+
+So insurance trading is equivalent to buying state-contingent consumption at prices $(1,2)$.
+\end{examplebox}
+
+\begin{examtip}
+When an insurance contract changes payoffs by a fixed amount across states, rewrite the set of attainable bundles as a linear equation. That linear equation usually reveals the implied state prices immediately.
+\end{examtip}
+
+\subsection{Assets, Portfolios, and Arbitrage}
+
+Assets can also be viewed as contingent consumption bundles.
+
+\begin{definition}{Assets, portfolios, and shorting}{ch5-assets}
+An asset is a contingent payoff vector
+\[
+a^k=(a_1^k,\dots,a_S^k)\in \mathbb{R}^S.
+\]
+If its price is $q_k$, then holding one unit of asset $k$ costs $q_k$ today and delivers $a_s^k$ in state $s$.
+
+A \emph{portfolio} is a vector
+\[
+\theta=(\theta_1,\dots,\theta_K),
+\]
+where $\theta_k$ is the quantity of asset $k$ held.
+
+The portfolio costs
+\[
+q\cdot \theta = \sum_{k=1}^K q_k \theta_k
+\]
+and delivers contingent consumption
+\[
+\sum_{k=1}^K \theta_k a^k.
+\]
+
+If $\theta_k<0$ is allowed, then shorting is allowed.
+\end{definition}
+
+\begin{definition}{Arbitrage}{ch5-arbitrage}
+A portfolio $\theta$ is an \emph{arbitrage opportunity} if:
+\begin{enumerate}
+    \item it costs nothing or yields money upfront:
+    \[
+    q\cdot \theta \le 0;
+    \]
+    \item its payoff is nonnegative in every state:
+    \[
+    \sum_{k=1}^K \theta_k a^k \ge 0;
+    \]
+    \item and it is strictly positive in at least one state.
+\end{enumerate}
+\end{definition}
+
+Arbitrage matters because no-arbitrage is the key pricing principle of the chapter: if two portfolios have the same state-contingent payoffs, they must have the same price.
+
+\begin{theorem}{Pricing by replication}{ch5-replication}
+Suppose a new asset $\tilde a$ can be replicated by an existing portfolio $\theta$, i.e.
+\[
+\tilde a = \sum_{k=1}^K \theta_k a^k.
+\]
+If there is no arbitrage, then the price of the new asset must be
+\[
+\tilde q = q\cdot \theta.
+\]
+\end{theorem}
+
+\begin{proof}
+If $\tilde q < q\cdot \theta$, then buy the new asset and short the replicating portfolio. This gives a positive profit today and zero net payoff in every state, which is an arbitrage.
+
+If $\tilde q > q\cdot \theta$, then short the new asset and buy the replicating portfolio. Again, the payoffs cancel state by state, leaving a sure profit today.
+
+So no-arbitrage requires
+\[
+\tilde q = q\cdot \theta.
+\]
+\end{proof}
+
+\begin{definition}{State-price representation}{ch5-state-representation}
+If Arrow securities exist, where:
+\[
+e^1=(1,0,\dots,0),\ e^2=(0,1,\dots,0),\ \dots,\ e^S=(0,\dots,0,1),
+\]
+and their prices are
+\[
+p=(p_1,\dots,p_S),
+\]
+then any asset
+\[
+a=(a_1,\dots,a_S)
+\]
+has no-arbitrage price
+\[
+q(a)=\sum_{s=1}^S p_s a_s = p\cdot a.
+\]
+\end{definition}
+
+So state prices are the building blocks of all asset prices.
+
+\begin{examplebox}[title={Worked Example: extracting state prices from asset prices}]
+Suppose there are two assets:
+\[
+a^1=(1,2), \qquad a^2=(1,1),
+\]
+with prices
+\[
+q_1=3, \qquad q_2=2.
+\]
+
+To find the price of one unit of state-1 consumption, construct the Arrow security $(1,0)$. Observe that
+\[
+2a^2-a^1 = 2(1,1)-(1,2) = (1,0).
+\]
+Hence its no-arbitrage price is
+\[
+2q_2-q_1 = 2\cdot 2 - 3 = 1.
+\]
+So
+\[
+p_1=1.
+\]
+
+To find the price of one unit of state-2 consumption, construct
+\[
+a^1-a^2 = (1,2)-(1,1) = (0,1),
+\]
+whose price is
+\[
+q_1-q_2 = 3-2 = 1.
+\]
+So
+\[
+p_2=1.
+\]
+
+Therefore the state price vector is
+\[
+\boxed{p=(1,1).}
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: contingent claims from a risky and a risk-free asset}]
+Suppose there are two assets:
+\begin{itemize}
+    \item a risk-free asset with payoff
+    \[
+    a^f=(1,1)
+    \]
+    and price
+    \[
+    q_f=3;
+    \]
+    \item a risky asset with payoff
+    \[
+    a^r=(2,1)
+    \]
+    and price
+    \[
+    q_r=4.
+    \]
+\end{itemize}
+If wealth is
+\[
+m=12,
+\]
+then spending all wealth on the risk-free asset buys
+\[
+\frac{12}{3}=4
+\]
+units, which yields
+\[
+(4,4).
+\]
+Spending all wealth on the risky asset buys
+\[
+\frac{12}{4}=3
+\]
+units, which yields
+\[
+(6,3).
+\]
+
+If a fraction $\alpha$ of wealth is spent on the risky asset and $1-\alpha$ on the risk-free asset, the payoff is
+\[
+(4,4)+\alpha\bigl((6,3)-(4,4)\bigr)
+=
+(4,4)+\alpha(2,-1).
+\]
+So each increase of $2$ units in state-1 payoff costs a reduction of $1$ unit in state-2 payoff. This is exactly the tradeoff implied by state prices
+\[
+\boxed{p=(1,2).}
+\]
+\end{examplebox}
+
+\begin{commonmistake}
+Do not confuse asset prices with state prices. Asset prices apply to entire payoff vectors; state prices apply to one unit of payoff in a single state. Asset prices are recovered from state prices by
+\[
+q(a)=p\cdot a.
+\]
+\end{commonmistake}
+
+\subsection{Diversification and Risk Sharing}
+
+Asset markets allow agents to reallocate consumption across states. This is valuable when people dislike large payoff fluctuations.
+
+\begin{definition}{Diversification}{ch5-diversification}
+Diversification means holding a portfolio of assets rather than concentrating wealth in one risky payoff. The aim is to reduce the variance of payoffs across states without sacrificing too much expected return.
+\end{definition}
+
+The most effective diversification combines assets with offsetting payoffs, ideally negatively correlated assets.
+
+\begin{examplebox}[title={Worked Example: diversification can create a safe payoff}]
+Suppose
+\[
+a=(1,0),
+\qquad
+a'=(0,1),
+\qquad
+\pi=\left(\frac12,\frac12\right).
+\]
+Each asset alone is risky:
+\begin{itemize}
+    \item $a$ pays only in state 1;
+    \item $a'$ pays only in state 2.
+\end{itemize}
+But the portfolio
+\[
+a+a'=(1,1)
+\]
+is risk-free.
+
+A second example: let
+\[
+\tilde a=(1,0),
+\qquad
+\tilde a'=(2,1).
+\]
+Both are risky, but if shorting is allowed,
+\[
+\tilde a' - \tilde a = (2,1)-(1,0)=(1,1),
+\]
+which is again risk-free.
+
+So diversification works not only by buying several assets, but also by combining long and short positions when markets permit it.
+\end{examplebox}
+
+\begin{policynote}[title={Policy Application: village risk sharing}]
+Suppose each villager faces idiosyncratic crop-failure risk. If one villager's crops fail while others' do not, the villagers can insure one another by trading state-contingent claims. This is risk sharing: each person gives up some consumption in good states in exchange for more consumption in bad states.
+
+However, if \emph{everyone} is hit by the same shock, such as a flood or drought, then internal insurance becomes ineffective. This is \emph{correlated risk}. It explains why some risks, especially large-scale natural-disaster risks, are difficult or expensive to insure.
+\end{policynote}
+
+\subsection{Expected Value and Expected Utility}
+
+To rank contingent bundles, the lecture introduces expected value and expected utility.
+
+\begin{definition}{Expected value}{ch5-expected-value}
+Given contingent bundle
+\[
+x=(x_1,\dots,x_S)
+\]
+with probabilities
+\[
+\pi=(\pi_1,\dots,\pi_S),
+\]
+its expected value is
+\[
+E[x] = \sum_{s=1}^S \pi_s x_s.
+\]
+\end{definition}
+
+Expected value is a natural benchmark, but by itself it does not capture attitudes toward risk. Many people prefer a safer bundle with lower expected value to a riskier bundle with higher expected value.
+
+\begin{definition}{Expected utility and Bernoulli utility}{ch5-expected-utility}
+Let
+\[
+u:\mathbb{R}_+ \to \mathbb{R}
+\]
+be a Bernoulli utility function. The expected utility of contingent bundle
+\[
+x=(x_1,\dots,x_S)
+\]
+is
+\[
+U(x)=E[u(x)] = \sum_{s=1}^S \pi_s u(x_s).
+\]
+\end{definition}
+
+The lecture assumes that $u$ is increasing, and often also concave.
+
+\begin{definition}{Increasing and concave Bernoulli utility}{ch5-inc-concave}
+A Bernoulli utility function $u$ is:
+\begin{itemize}
+    \item \emph{increasing} if more money is better:
+    \[
+    x>x' \implies u(x)>u(x');
+    \]
+    \item \emph{concave} if marginal utility is diminishing.
+\end{itemize}
+If $u$ is differentiable and concave, then $u'$ is decreasing.
+\end{definition}
+
+\begin{theorem}{Interior optimality under expected utility}{ch5-focexpected}
+Suppose the consumer maximizes
+\[
+U(x)=\sum_{s=1}^S \pi_s u(x_s)
+\]
+subject to
+\[
+p\cdot x \le m,
+\]
+and the optimum is interior. Then for any two states $i,j$,
+\[
+\frac{\pi_i u'(x_i)}{\pi_j u'(x_j)} = \frac{p_i}{p_j}.
+\]
+\end{theorem}
+
+\begin{proof}
+The marginal utility of state-$s$ consumption is
+\[
+MU_s = \pi_s u'(x_s).
+\]
+At an interior optimum, the tangency condition from earlier chapters gives
+\[
+\frac{MU_i}{MU_j} = \frac{p_i}{p_j}.
+\]
+Substituting the marginal utilities yields
+\[
+\frac{\pi_i u'(x_i)}{\pi_j u'(x_j)} = \frac{p_i}{p_j}.
+\]
+\end{proof}
+
+This can be rewritten as
+\[
+\frac{u'(x_i)}{u'(x_j)} = \frac{p_i/\pi_i}{p_j/\pi_j}.
+\]
+So what matters is the price of state consumption relative to its probability.
+
+\begin{examplebox}[title={Worked Example: optimal contingent consumption with logarithmic utility}]
+Suppose there are two states with probabilities
+\[
+\pi_1=\pi_2=\frac12,
+\]
+state prices
+\[
+p=(1,2),
+\]
+wealth
+\[
+m=12,
+\]
+and Bernoulli utility
+\[
+u(x)=\ln x.
+\]
+Then expected utility is
+\[
+U(x_1,x_2)=\frac12 \ln x_1 + \frac12 \ln x_2.
+\]
+
+At an interior optimum,
+\[
+\frac{\pi_1 u'(x_1)}{\pi_2 u'(x_2)}=\frac{p_1}{p_2}.
+\]
+Since
+\[
+u'(x)=\frac{1}{x}
+\quad \text{and} \quad
+\pi_1=\pi_2,
+\]
+this becomes
+\[
+\frac{1/x_1}{1/x_2} = \frac{1}{2}
+\quad \Longrightarrow \quad
+\frac{x_2}{x_1}=\frac12.
+\]
+So
+\[
+x_2=\frac{x_1}{2}.
+\]
+Using the budget constraint
+\[
+x_1 + 2x_2 = 12,
+\]
+we obtain
+\[
+x_1 + 2\left(\frac{x_1}{2}\right)=12
+\quad \Longrightarrow \quad
+2x_1=12
+\quad \Longrightarrow \quad
+x_1=6,
+\]
+and hence
+\[
+x_2=3.
+\]
+
+Therefore the optimal contingent bundle is
+\[
+\boxed{x=(6,3).}
+\]
+\end{examplebox}
+
+\subsection{First-Order Stochastic Dominance}
+
+Expected utility with increasing Bernoulli utility respects a natural ranking of risky prospects.
+
+\begin{definition}{Survival probability and first-order stochastic dominance}{ch5-fosd}
+Given contingent bundle
+\[
+x=(x_1,\dots,x_S)
+\]
+and probability vector $\pi$, define
+\[
+\pi(x,\alpha)
+\]
+to be the probability that $x$ pays at least $\alpha$.
+
+We say that $x$ \emph{first-order stochastically dominates} $x'$, written
+\[
+x \succeq_{FOSD} x',
+\]
+if
+\[
+\pi(x,\alpha) \ge \pi(x',\alpha)
+\qquad \text{for every } \alpha.
+\]
+\end{definition}
+
+This means that for every threshold $\alpha$, the probability of receiving at least $\alpha$ is weakly higher under $x$ than under $x'$.
+
+\begin{theorem}{FOSD theorem}{ch5-fosd-theorem}
+Suppose preferences take the expected-utility form
+\[
+U(x)=\sum_{s=1}^S \pi_s u(x_s),
+\]
+where $u$ is increasing. If
+\[
+x \succeq_{FOSD} x',
+\]
+then
+\[
+U(x)\ge U(x').
+\]
+\end{theorem}
+
+So FOSD is a robust welfare ranking: every consumer with increasing expected utility agrees that the dominating bundle is at least as good.
+
+\begin{examplebox}[title={Worked Example: checking first-order stochastic dominance}]
+Let
+\[
+\pi=\left(\frac14,\frac14,\frac12\right),
+\qquad
+x=(7,5,1),
+\qquad
+x'=(1,0,4).
+\]
+To test whether
+\[
+x \succeq_{FOSD} x',
+\]
+it is enough to check the payoff thresholds appearing in $x'$.
+
+For $\alpha=1$:
+\[
+\pi(x,1)=1,
+\qquad
+\pi(x',1)=\frac34.
+\]
+
+For $\alpha=0$:
+\[
+\pi(x,0)=1,
+\qquad
+\pi(x',0)=1.
+\]
+
+For $\alpha=4$:
+\[
+\pi(x,4)=\frac12,
+\qquad
+\pi(x',4)=\frac12.
+\]
+
+Thus
+\[
+\pi(x,\alpha)\ge \pi(x',\alpha)
+\]
+for all relevant thresholds, so
+\[
+\boxed{x \succeq_{FOSD} x'.}
+\]
+Therefore every consumer with increasing expected utility weakly prefers $x$ to $x'$.
+\end{examplebox}
+
+\subsection{Risk Attitudes}
+
+Concavity of Bernoulli utility captures dislike of risk.
+
+\begin{theorem}{Jensen inequality for expected utility}{ch5-jensen}
+If $u$ is concave, then for every contingent bundle $x$,
+\[
+u(E[x]) \ge E[u(x)].
+\]
+Equivalently,
+\[
+u(E[x]) \ge U(x).
+\]
+\end{theorem}
+
+\begin{proof}
+This is Jensen's inequality applied to the concave function $u$.
+\end{proof}
+
+The economic meaning is crucial: if utility is concave, then receiving the expected value for sure is at least as good as facing the risky prospect itself.
+
+\begin{definition}{Risk attitudes}{ch5-risk-attitudes}
+Let
+\[
+U(x)=E[u(x)].
+\]
+Then:
+\begin{itemize}
+    \item the consumer is \emph{risk averse} if
+    \[
+    u(E[x]) \ge U(x)
+    \quad \text{for all } x;
+    \]
+    \item the consumer is \emph{risk neutral} if
+    \[
+    u(E[x]) = U(x)
+    \quad \text{for all } x;
+    \]
+    \item the consumer is \emph{risk loving} if
+    \[
+    u(E[x]) \le U(x)
+    \quad \text{for all } x.
+    \]
+\end{itemize}
+\end{definition}
+
+\begin{theorem}{Linear utility implies risk neutrality}{ch5-risk-neutral}
+A consumer is risk neutral if the Bernoulli utility function is affine:
+\[
+u(x)=ax+b
+\qquad \text{with } a>0.
+\]
+In particular, $u(x)=x$ is risk neutral.
+\end{theorem}
+
+\begin{proof}
+If
+\[
+u(x)=ax+b,
+\]
+then
+\[
+U(x)=E[u(x)] = E[ax+b] = aE[x]+b = u(E[x]).
+\]
+So the consumer is risk neutral.
+\end{proof}
+
+\begin{examplebox}[title={Worked Example: same expected value, different risk}]
+Suppose
+\[
+\pi=\left(\frac12,\frac12\right).
+\]
+Compare the safe bundle
+\[
+x=(10^7,10^7)
+\]
+with the risky bundle
+\[
+x'=(4\times 10^7,0).
+\]
+Their expected values are
+\[
+E[x]=10^7,
+\qquad
+E[x']=2\times 10^7.
+\]
+So $x'$ has the higher expected value.
+
+However, if the consumer has increasing and concave Bernoulli utility, expected utility need not follow expected value. A sufficiently risk-averse consumer may prefer the certain bundle $x$ to the much riskier $x'$ despite its lower expected value.
+
+This is exactly why expected utility rather than expected value is the central decision criterion in the lecture.
+\end{examplebox}
+
+\begin{examplebox}[title={Worked Example: certainty equivalent under concavity}]
+Suppose
+\[
+\pi=\left(\frac12,\frac14,\frac14\right),
+\qquad
+x=(4,8,12).
+\]
+Then the expected value is
+\[
+E[x]=\frac12\cdot 4 + \frac14\cdot 8 + \frac14\cdot 12 = 2+2+3=7.
+\]
+If $u$ is increasing and concave, Jensen's inequality gives
+\[
+u(7) = u(E[x]) \ge U(x).
+\]
+So the consumer weakly prefers receiving $7$ for sure to receiving the contingent bundle $(4,8,12)$ itself.
+
+This is the standard exam interpretation of concavity:
+\[
+\boxed{\text{concavity } \Longleftrightarrow \text{ risk aversion}.}
+\]
+\end{examplebox}
+
+\begin{commonmistake}
+Do not conclude that a bundle with higher expected value must be preferred. That is true only for risk-neutral consumers. Under concave expected utility, a lower-mean but less risky bundle can be preferred.
+\end{commonmistake}
+
+\subsection{Chapter Summary}
+
+\begin{keyformula}[title={Key Formula: Lecture 5 Summary}]
+\begin{align*}
+x &= (x_1,\dots,x_S) && \text{contingent consumption bundle}, \\
+p\cdot x &\le m && \text{state-contingent budget}, \\
+q\cdot \theta &= \sum_{k=1}^K q_k \theta_k && \text{portfolio cost}, \\
+\sum_{k=1}^K \theta_k a^k &&& \text{portfolio payoff}, \\
+q(\tilde a) &= q\cdot \theta && \text{if } \tilde a=\sum_{k=1}^K \theta_k a^k, \\
+q(a) &= p\cdot a && \text{state-price representation}, \\
+E[x] &= \sum_{s=1}^S \pi_s x_s, \\
+U(x) &= E[u(x)] = \sum_{s=1}^S \pi_s u(x_s), \\
+\frac{\pi_i u'(x_i)}{\pi_j u'(x_j)} &= \frac{p_i}{p_j} && \text{interior optimum}, \\
+x \succeq_{FOSD} x' &\Longrightarrow U(x)\ge U(x') && \text{if } u \text{ is increasing}, \\
+u(E[x]) &\ge E[u(x)] && \text{if } u \text{ is concave}.
+\end{align*}
+\end{keyformula}
+
+\begin{examtip}
+The highest-yield skills from Lecture 5 are:
+\begin{itemize}
+    \item represent uncertain outcomes as contingent consumption bundles;
+    \item translate insurance or asset trading into state-contingent budgets;
+    \item identify arbitrage and use no-arbitrage to price replicated assets;
+    \item recover state prices from asset prices in simple two-state settings;
+    \item use expected utility rather than expected value when risk attitudes matter;
+    \item test first-order stochastic dominance carefully using payoff thresholds;
+    \item interpret concavity of Bernoulli utility as risk aversion.
+\end{itemize}
+\end{examtip}
