@@ -1389,6 +1389,279 @@
       }
     },
     {
+      "code": "MH1201",
+      "name": "Linear Algebra II",
+      "folderName": "MH1201",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH1201",
+      "materials": {
+        "finals": {
+          "21-22": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_21-22_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_21-22_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_21-22_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_22-23_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_23-24_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Finals_24-25_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "midterms": {
+          "21-22": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_21-22_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_21-22_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_21-22_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_21-22_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_21-22_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_21-22_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_22-23_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_22-23_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_22-23_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_23-24_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_23-24_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_23-24_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Midterms_24-25_Sem2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_24-25_Sem2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterms/MH1201_LinearAlgebraII_Midterms_24-25_Sem2_Solution by QRS.pdf"
+              }
+            ],
+            "reports": []
+          }
+        },
+        "revisionNotes": [
+          {
+            "name": "MH1201_RevisionNotes.pdf",
+            "path": "Notes/MH1201/MH1201_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "MH1201_Cheatsheet.pdf",
+            "path": "Notes/MH1201/MH1201_Cheatsheet.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201_Cheatsheet.pdf"
+          }
+        ],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 10": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 10_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 3": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 5_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 6": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 6_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 7": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 7_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 8": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 8_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 9": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Tutorials/MH1201_Tutorials_Tutorial 9_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1201_LinearAlgebraII_Practice 1_Solution by QRS.pdf",
+                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Midterm Practice/MH1201_LinearAlgebraII_Practice 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Midterm Practice/MH1201_LinearAlgebraII_Practice 1_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "MH1200",
       "name": "Linear Algebra I",
       "folderName": "MH1200",
@@ -1600,6 +1873,401 @@
       }
     },
     {
+      "code": "HE2001",
+      "name": "Microeconomics II",
+      "folderName": "HE2001",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2001",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "HE2001_RevisionNotes.pdf",
+            "path": "Notes/HE2001/HE2001_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 1": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf"
+              },
+              {
+                "name": "HE2001_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf"
+              },
+              {
+                "name": "HE2001_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 3": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf"
+              },
+              {
+                "name": "HE2001_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [
+              {
+                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 5_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 10": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 10_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 11": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 11_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 6": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 6_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 7": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 7_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 8": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 8_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 9": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_Tutorials_Tutorial 9_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_Practice 1_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Midterm Practice/HE2001_MicroeconomicsII_Practice 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Midterm Practice/HE2001_MicroeconomicsII_Practice 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2001_MicroeconomicsII_Practice 2_Solution by QRS.pdf",
+                "path": "Notes/HE2001/HE2001 - Microeconomics II - Midterm Practice/HE2001_MicroeconomicsII_Practice 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Midterm Practice/HE2001_MicroeconomicsII_Practice 2_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "MH1301",
+      "name": "Discrete Mathematics",
+      "folderName": "MH1301",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH1301",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH1301_RevisionNotes.pdf",
+            "path": "Notes/MH1301/MH1301_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "MH1301_Cheatsheet.pdf",
+            "path": "Notes/MH1301/MH1301_Cheatsheet.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301_Cheatsheet.pdf"
+          }
+        ],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 10": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 10_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 11": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 11_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 12": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 12_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 12_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 12_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 3": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 5_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 6": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 6_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 7": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 7_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 8": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 8_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 9": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Tutorials/MH1301_Tutorials_Tutorial 9_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH1301_DiscreteMathematics_Practice 1_Solution by QRS.pdf",
+                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Midterm Practice/MH1301_DiscreteMathematics_Practice 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Midterm Practice/MH1301_DiscreteMathematics_Practice 1_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "MH5100",
       "name": "Advanced Investigations in Calculus I",
       "folderName": "MH5100",
@@ -1703,6 +2371,158 @@
           }
         ],
         "tutorials": {},
+        "lectureNotes": [],
+        "practiceMaterials": {},
+        "pastYearZips": []
+      }
+    },
+    {
+      "code": "HE2002",
+      "name": "Macroeconomics II",
+      "folderName": "HE2002",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2002",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "HE2002_RevisionNotes.pdf",
+            "path": "Notes/HE2002/HE2002_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 3": {
+            "papers": [
+              {
+                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [
+              {
+                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [
+              {
+                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": []
+          },
+          "Tutorial 6": {
+            "papers": [
+              {
+                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 6_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 6_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 10": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 10_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 10_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 11": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 11_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 11_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 7": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 7_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 7_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 8": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 8_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 8_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 9": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2002_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 9_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_Tutorials_Tutorial 9_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
         "lectureNotes": [],
         "practiceMaterials": {},
         "pastYearZips": []
@@ -1827,113 +2647,6 @@
       }
     },
     {
-      "code": "HE2001",
-      "name": "Microeconomics II",
-      "folderName": "HE2001",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2001",
-      "materials": {
-        "finals": {},
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {
-          "Tutorial 1": {
-            "papers": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution Official.pdf"
-              },
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 2": {
-            "papers": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution Official.pdf"
-              },
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 3": {
-            "papers": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution Official.pdf"
-              },
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 4": {
-            "papers": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 5": {
-            "papers": [
-              {
-                "name": "HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
-                "path": "Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2001/HE2001 - Microeconomics II - Tutorials/HE2001_MicroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": []
-          }
-        },
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
       "code": "MH5200",
       "name": "Advanced Investigations in Linear Algebra I",
       "folderName": "MH5200",
@@ -1992,96 +2705,6 @@
           }
         ],
         "tutorials": {},
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
-      "code": "HE2002",
-      "name": "Macroeconomics II",
-      "folderName": "HE2002",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2002",
-      "materials": {
-        "finals": {},
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {
-          "Tutorial 1": {
-            "papers": [],
-            "solutions": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 1_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 2": {
-            "papers": [],
-            "solutions": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 2_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 3": {
-            "papers": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 3_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 4": {
-            "papers": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 4_Solution by QRS.pdf"
-              }
-            ]
-          },
-          "Tutorial 5": {
-            "papers": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 5_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": []
-          },
-          "Tutorial 6": {
-            "papers": [
-              {
-                "name": "HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf",
-                "path": "Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2002/HE2002 - Macroeconomics II - Tutorials/HE2002_MacroeconomicsII_25-26_Sem1_Tutorials_Tutorial 6_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": []
-          }
-        },
         "lectureNotes": [],
         "practiceMaterials": {},
         "pastYearZips": []
@@ -2332,108 +2955,6 @@
                 "name": "BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf",
                 "path": "Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/BR3213/BR3213 - Valuation and Risk Models - Finals/BR3213_ValuationandRiskModels_Finals_24-25_Sem1_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          }
-        },
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {},
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
-      "code": "MH1201",
-      "name": "Linear Algebra II",
-      "folderName": "MH1201",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH1201",
-      "materials": {
-        "finals": {
-          "22-23": {
-            "papers": [
-              {
-                "name": "MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_22-23_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "23-24": {
-            "papers": [
-              {
-                "name": "MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_23-24_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "24-25": {
-            "papers": [
-              {
-                "name": "MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1201/MH1201 - Linear Algebra II - Finals/MH1201_LinearAlgebraII_Finals_24-25_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          }
-        },
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {},
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
-      "code": "MH1301",
-      "name": "Discrete Mathematics",
-      "folderName": "MH1301",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH1301",
-      "materials": {
-        "finals": {
-          "22-23": {
-            "papers": [
-              {
-                "name": "MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_22-23_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "23-24": {
-            "papers": [
-              {
-                "name": "MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_23-24_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "24-25": {
-            "papers": [
-              {
-                "name": "MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1301/MH1301 - Discrete Mathematics - Finals/MH1301_DiscreteMathematics_Finals_24-25_Sem2_QuestionPaper.pdf"
               }
             ],
             "solutions": [],
@@ -3939,5 +4460,5 @@
       }
     }
   ],
-  "generatedAt": "2026-03-11T08:02:53.592Z"
+  "generatedAt": "2026-08-17T08:58:06.506Z"
 }
