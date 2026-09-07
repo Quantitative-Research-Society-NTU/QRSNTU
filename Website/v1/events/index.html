@@ -12,41 +12,33 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=20260907-final">
     <link rel="icon" href="../Files/logo-v1.png" type="image/png">
+    <link rel="stylesheet" href="../content.css?v=20260907-final">
+    <link rel="stylesheet" href="../fonts.css?v=20260907-final">
 </head>
 <body class="bg-white text-gray-800 font-body antialiased">
 
     <div id="root">
         <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md" data-root="../"></header>
 
-        <main class="pt-28 pb-20">
+        <main data-page="events" class="content-refinement pt-28 pb-20">
             <div class="container mx-auto px-6">
                 <header class="text-center mb-12 md:mb-16">
                     <h1 class="section-title">Events</h1>
                     <p class="section-subtitle">Industry talks, external workshops, office visits, and industry-linked competitions.</p>
                 </header>
 
-                <div class="max-w-4xl mx-auto space-y-16">
-                    <section id="events-upcoming-section">
-                        <h2 class="text-2xl font-serif font-bold text-gray-900 mb-6">Upcoming</h2>
-                        <div id="events-upcoming"></div>
-                    </section>
-                    <section>
-                        <h2 class="text-2xl font-serif font-bold text-gray-900 mb-6">Past</h2>
-                        <div id="events-past"></div>
-                    </section>
-                </div>
+                <div id="events-container" class="max-w-4xl mx-auto"></div>
             </div>
         </main>
 
         <footer id="site-footer" class="site-footer" data-root="../"></footer>
     </div>
 
-    <script type="module" src="https://esm.run/framer-motion"></script>
     <script type="module" src="../assets/header.js"></script>
-    <script type="module" src="../script.js"></script>
+    <script type="module" src="../script.js?v=20260907-final"></script>
     <script type="module" src="../assets/footer.js"></script>
-    <script type="module" src="../assets/events-page.js"></script>
+    <script type="module" src="../assets/events-page.js?v=20260907-final"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 // Renders the Publications page from data/publications.json ONLY. Do not
 // promote entries from data/research.json here — see data/README.md.
 import { loadData, personRefs, escapeHtml } from './qrs-data.js';
+import { mountCatalog, peopleSearch } from './catalog.js';
 
 async function renderPublications() {
     const container = document.getElementById('publications-container');
@@ -10,13 +11,14 @@ async function renderPublications() {
             people: '../data/people.json',
         });
 
+        const render = results => {
         const byYear = {};
-        publications.forEach(pub => {
+        results.forEach(pub => {
             (byYear[pub.year] ||= []).push(pub);
         });
         const years = Object.keys(byYear).sort((a, b) => b - a);
 
-        container.innerHTML = years.map(year => `
+        return years.map(year => `
             <section class="publication-year-group">
                 <h2 class="publication-year">${year}</h2>
                 <ul class="publication-list">
@@ -30,6 +32,17 @@ async function renderPublications() {
                         </li>`).join('')}
                 </ul>
             </section>`).join('');
+        };
+        mountCatalog({
+            container, items: publications, noun: 'publications',
+            filters: [
+                { key: 'author', label: 'Authors', options: [...new Set(publications.flatMap(p => p.authors || []))].map(value => ({value, label: people.find(p => p.id === value)?.name || value})), matches: (p, value) => (p.authors || []).includes(value) },
+                { key: 'year', label: 'Years', options: [...new Set(publications.map(p => p.year))].sort((a, b) => b - a).map(year => ({ value: String(year), label: String(year) })), matches: (p, value) => String(p.year) === value },
+                { key: 'venue', label: 'Venues', options: [...new Set(publications.map(p => p.venue))].sort().map(value => ({ value, label: value })), matches: (p, value) => p.venue === value },
+            ],
+            searchText: p => [p.title, p.venue, p.year, peopleSearch(p.authors, people)].join(' '),
+            render,
+        });
 
         if (window.lucide) lucide.createIcons();
     } catch (err) {

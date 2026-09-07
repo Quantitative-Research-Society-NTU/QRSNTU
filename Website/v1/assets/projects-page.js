@@ -3,6 +3,7 @@
 // working artifacts, not the curated, fully-published record — that lives on
 // the Publications page.
 import { loadData, personRefs, escapeHtml } from './qrs-data.js';
+import { mountCatalog, peopleSearch } from './catalog.js';
 
 const TYPE_LABELS = { research: 'Research', competition: 'Competition', infrastructure: 'Infrastructure' };
 const STATUS_LABELS = { active: 'Active', published: 'Published', submitted: 'Submitted', completed: 'Completed' };
@@ -45,7 +46,15 @@ async function renderProjects() {
             projects: '../data/projects.json',
         });
 
-        container.innerHTML = projects.map(p => projectCard(p, people)).join('');
+        mountCatalog({
+            container, items: projects, noun: 'projects',
+            filters: [
+                { key: 'type', label: 'Types', options: Object.entries(TYPE_LABELS).map(([value, label]) => ({ value, label })), matches: (p, value) => (p.type || []).includes(value) },
+                { key: 'status', label: 'Statuses', options: [...new Set(projects.map(p => p.status).filter(Boolean))].map(value => ({ value, label: STATUS_LABELS[value] || value })), matches: (p, value) => p.status === value },
+            ],
+            searchText: p => [p.title, p.alternate_title, p.summary, peopleSearch(p.participants, people), ...(p.recognition || []).map(r => `${r.event} ${r.result}`)].join(' '),
+            render: results => results.map(p => projectCard(p, people)).join(''),
+        });
         if (window.lucide) lucide.createIcons();
     } catch (err) {
         console.error('Error loading projects:', err);

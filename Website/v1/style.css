@@ -11,9 +11,9 @@
     --accent-yellow: #EAB308;
     --accent-red: #EF4444;
 
-    --font-body: 'Inter', sans-serif;
-    --font-sans: 'Playfair Display', serif;
-    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --font-sans: 'Playfair Display', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --font-heading: 'Playfair Display', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
 }
 
 
@@ -153,8 +153,8 @@ section {
     border-radius: 0.5rem;
     padding: 2rem;
     transition: border-color 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: none;
 }
 
 .project-card:hover, .quick-link-card:hover {
@@ -461,7 +461,7 @@ body > #root > footer a:hover i {
 
 h1, h2, h3, h4, h5, h6,
 .font-serif {
-    font-family: 'Playfair Display', serif !important;
+    font-family: var(--font-heading) !important;
 }
 
 /* ===================================== */
@@ -861,4 +861,35 @@ h1, h2, h3, h4, h5, h6,
     flex-direction: column;
     gap: 0.5rem;
     color: var(--text-primary);
+}
+
+/* Search controls retained independently of the visual redesign. */
+.catalog-toolbar { max-width: 64rem; margin: 0 auto 1.75rem; }
+.catalog-controls { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 1rem; }
+.catalog-controls label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: #465466; min-width: 8rem; }
+.catalog-search { flex: 1 1 16rem; }
+.catalog-controls input, .catalog-controls select { font: 400 0.875rem var(--font-body); color: #202d40; background: #fff; border: 1px solid #aeb8bf; border-radius: 3px; min-height: 44px; padding: 0.65rem 0.75rem; width: 100%; }
+.catalog-controls select { max-width: 16rem; }
+.catalog-reset { font-size: 0.8rem; min-height: 44px; color: #284e78; text-decoration: underline; }
+.catalog-reset:disabled { color: #747b83; cursor: default; text-decoration: none; }
+.catalog-count { font-size: 0.8rem; color: #586474; margin-top: 0.85rem; }
+.catalog-empty { padding: 3rem 1.5rem; border: 1px solid #d2d6d8; background: #fff; }
+.catalog-empty h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #37699a; outline-offset: 4px; }
+
+.catalog-toolbar { max-width: 56rem; }
+main > .container > .catalog-toolbar { max-width: 48rem; }
+.publication-year-group { padding-top: 0; padding-bottom: 0; }
+@media (max-width: 1023px) {
+    #header #mobile-menu { display: none; width: 100%; }
+    #header #mobile-menu:not(.hidden) { display: block; }
+    #header #mobile-menu > div { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-top: 1rem; }
+    #header #mobile-menu > div > a { margin-left: 0; }
+    #header #mobile-menu-button { display: block; }
+}
+
+@media (max-width: 640px) {
+    .catalog-controls label { flex: 1 1 40%; min-width: 0; }
+    .catalog-controls .catalog-search { flex-basis: 100%; }
+    .catalog-controls select { max-width: 100%; }
 }

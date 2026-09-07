@@ -1,0 +1,143 @@
+/* Only the content below inner-page titles. No banner or global style rules. */
+/* Content changes are scoped to main, preserving the shared site chrome. */
+main.content-refinement { --accent-blue: #183b63; --accent-red: #183b63; }
+main.content-refinement .btn-red { background: #183b63; border-color: #183b63; }
+main.content-refinement .catalog-controls .catalog-search { flex-basis: 100%; }
+main.content-refinement .event-results-group { padding-block: 1rem; }
+main.content-refinement .catalog-controls label { font-family: var(--font-body); }
+main[data-page="projects"] > section:last-child { background: #fff; }
+main[data-page="projects"] .project-full-card {
+    border: 0;
+    border-top: 1px solid #bdbdbd;
+    border-radius: 0;
+    padding: 2rem 0;
+    box-shadow: none;
+}
+main[data-page="projects"] .project-badges { margin-bottom: .5rem; }
+main.content-refinement .badge { border-radius: 0; background: #f1f1f1; color: #555; }
+main.content-refinement .badge-status { background: #edf2f8; color: #102c4b; }
+main[data-page="publications"] .publication-year-group {
+    display: grid;
+    grid-template-columns: 5rem minmax(0,1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+main[data-page="publications"] .publication-year { border: 0; color: #183b63; }
+main[data-page="publications"] .publication-entry { padding-bottom: 1rem; }
+main[data-page="publications"] #publications-container { max-width: 64rem; }
+main[data-page="publications"] .catalog-toolbar { max-width: 64rem; }
+main[data-page="events"] .event-card {
+    display: grid;
+    grid-template-columns: 12rem minmax(0,1fr);
+    column-gap: 2rem;
+}
+main[data-page="events"] .event-card > * { grid-column: 2; }
+main[data-page="events"] .event-card > .project-badges { grid-column: 1; grid-row: 1 / span 6; }
+main[data-page="programmes"] .programme-card,
+main[data-page="join_us"] .programme-card { display: flex; flex-direction: column; align-items: flex-start; }
+main[data-page="join_us"] .programme-card > svg { display: none; }
+main[data-page="join_us"] .programme-card > h2 { border-left: 3px solid #183b63; padding-left: 1rem; margin-bottom: 1.5rem; }
+main[data-page="programmes"] .programme-card > h2 { border-left: 3px solid #183b63; padding-left: 1rem; }
+main[data-page="people"] .space-y-16 > section { margin-top: 0; }
+main[data-page="people"] .person-directory-card:hover { border-bottom-color: #183b63; }
+main.content-refinement .person-section { border-top: 1px solid #ccc; padding-top: 1.5rem; margin-top: 2rem; }
+main[data-page="math_notes"] .course-card { background: #fff; border: 1px solid #dce1e8; border-radius: .5rem; box-shadow: 0 2px 6px rgba(17,24,44,.04); }
+main[data-page="math_notes"] .course-card:hover { transform: none; box-shadow: none; }
+main[data-page="math_notes"] .course-card:hover { border-color: #183b63; }
+main[data-page="math_notes"] .course-card.border-blue-500 { background: #edf2f8; border-color: #183b63; }
+@media(max-width:760px) {
+    main[data-page="events"] .event-card,
+    main[data-page="publications"] .publication-year-group { display: block; }
+    main[data-page="events"] .event-card > .project-badges { margin-bottom: 1rem; }
+}
+main.content-refinement > .container > div:not(.catalog-toolbar) {
+    background: #fff;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+main.content-refinement > .container > .catalog-toolbar { padding: 0; }
+main.content-refinement .publication-year-group { padding-block: 0; }
+main.content-refinement .publication-entry + .publication-entry {
+    padding-top: 1.5rem;
+    border-top: 1px solid #e1e5eb;
+}
+main.content-refinement > .container > div > section:not(.programme-card) {
+    padding-block: 2.5rem;
+}
+main.content-refinement > .container > div > section:not(.programme-card) + section {
+    border-top: 1px solid #d8d8d8;
+}
+main.content-refinement .programme-card {
+    border: 0;
+    border-top: 1px solid #bdbdbd;
+    border-radius: 0;
+    padding: 2rem 0;
+    background: #fff;
+}
+main.content-refinement .person-directory-card {
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    padding: 1.25rem 0;
+}
+main.content-refinement #branches-container { padding-bottom: .5rem; }
+/* Editorial section labels beside the content, without enclosing cards. */
+main.content-refinement > .container > .space-y-2 > section {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 2.5rem;
+}
+main.content-refinement > .container > .space-y-2 > section > h2 {
+    display: block;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 3px solid #183b63;
+    align-self: start;
+}
+main.content-refinement > .container > .space-y-2 > section > h2 svg { display: none; }
+main.content-refinement > .container > .space-y-2 > section > p {
+    border: 0;
+    padding-left: 0;
+}
+main.content-refinement > .container > .space-y-2 > section > .grid { gap: 2rem; }
+main.content-refinement > .container > .space-y-2 > section > .bg-gray-50 {
+    background: #f5f5f5;
+    border: 0;
+    border-radius: 0;
+}
+main.content-refinement .event-card {
+    border: 0;
+    border-top: 1px solid #ccc;
+    border-radius: 0;
+    padding: 2rem 0;
+    background: #fff;
+}
+main.content-refinement .publication-year { border-bottom: 1px solid #bbb; }
+main.content-refinement .card-link,
+main.content-refinement .external-link { color: #183b63; }
+main.content-refinement .programme-card > svg { color: #183b63; }
+main.content-refinement > .container > div > .shadow-lg {
+    background: #f5f5f5;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    border-left: 3px solid #183b63;
+    text-align: left;
+}
+main.content-refinement > .container > div > .shadow-lg .rounded-full {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding-left: 0;
+    flex-wrap: wrap;
+}
+@media(max-width:900px) {
+    main.content-refinement > .container > .space-y-2 > section { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+@media(max-width:640px) {
+    main.content-refinement .programme-card { padding: 1.5rem 0; }
+    main.content-refinement > .container > div > .shadow-lg { padding: 1.5rem; }
+}

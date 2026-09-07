@@ -1,6 +1,7 @@
 // Renders the Events page from data/events.json. Events here means
 // industrial/external activity only — never internal programme lectures.
 import { loadData, escapeHtml } from './qrs-data.js';
+import { mountCatalog } from './catalog.js';
 
 function formatDateRange(ev) {
     const opts = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -30,27 +31,28 @@ function eventCard(ev) {
 }
 
 async function renderEvents() {
-    const upcomingContainer = document.getElementById('events-upcoming');
-    const pastContainer = document.getElementById('events-past');
+    const container = document.getElementById('events-container');
     try {
         const { events } = await loadData({ events: '../data/events.json' });
-        const upcoming = events.filter(e => e.status !== 'past').sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
-        const past = events.filter(e => e.status === 'past').sort((a, b) => new Date(b.start_date) - new Date(a.start_date));
-
-        if (upcoming.length) {
-            upcomingContainer.innerHTML = upcoming.map(eventCard).join('');
-        } else {
-            document.getElementById('events-upcoming-section').classList.add('hidden');
-        }
-
-        pastContainer.innerHTML = past.length
-            ? past.map(eventCard).join('')
-            : `<p class="text-gray-600">No past events yet.</p>`;
+        mountCatalog({
+            container, items: events, noun: 'events',
+            filters: [
+                { key: 'status', label: 'Statuses', options: [{value:'upcoming',label:'Upcoming'},{value:'past',label:'Past'}], matches: (e, value) => (e.status === 'past' ? 'past' : 'upcoming') === value },
+                { key: 'type', label: 'Types', options: [...new Set(events.map(e => e.type).filter(Boolean))].sort().map(value => ({value,label:value})), matches: (e, value) => e.type === value },
+                { key: 'year', label: 'Years', options: [...new Set(events.map(e => e.start_date.slice(0,4)))].sort().reverse().map(value => ({value,label:value})), matches: (e, value) => e.start_date.startsWith(value) },
+            ],
+            searchText: e => [e.title,e.summary,e.location,e.qrs_role,e.start_date,...(e.organizers || []),...(e.partners || [])].join(' '),
+            render: results => {
+                const upcoming = results.filter(e => e.status !== 'past').sort((a,b) => new Date(a.start_date)-new Date(b.start_date));
+                const past = results.filter(e => e.status === 'past').sort((a,b) => new Date(b.start_date)-new Date(a.start_date));
+                return [[ 'Upcoming', upcoming ],[ 'Past', past ]].filter(([,items]) => items.length).map(([label,items]) => `<section class="event-results-group"><h2 class="text-2xl font-serif font-bold mb-6">${label}</h2>${items.map(eventCard).join('')}</section>`).join('');
+            },
+        });
 
         if (window.lucide) lucide.createIcons();
     } catch (err) {
         console.error('Error loading events:', err);
-        pastContainer.innerHTML = `<p class="text-gray-600">Events could not be loaded.</p>`;
+        container.innerHTML = `<p class="text-gray-600">Events could not be loaded.</p>`;
     }
 }
 

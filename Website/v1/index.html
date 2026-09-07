@@ -12,8 +12,10 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260907-final">
     <link rel="icon" href="Files/logo-v1.png" type="image/png">
+    <link rel="stylesheet" href="home.css?v=20260907-final">
+    <link rel="stylesheet" href="fonts.css?v=20260907-final">
 </head>
 <body class="bg-white text-gray-800 font-body antialiased">
 
@@ -78,19 +80,23 @@
                         <h2 class="section-title">Programmes</h2>
                         <p class="section-subtitle">Two ways to get started with QRS.</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
-                        <a href="programmes/#quant-foundations" class="quick-link-card">
-                            <i data-lucide="book-marked" class="h-10 w-10 mb-3 text-accent-green"></i>
-                            <h4 class="font-serif text-xl font-semibold text-gray-900">Quant Foundations</h4>
-                        </a>
-                        <a href="programmes/#research-academy" class="quick-link-card">
-                            <i data-lucide="flask-conical" class="h-10 w-10 mb-3 text-accent-blue"></i>
-                            <h4 class="font-serif text-xl font-semibold text-gray-900">Research Academy</h4>
-                        </a>
+                    <div class="programme-paths">
+                        <article class="programme-path">
+                            <p class="programme-level">01 / Foundations</p>
+                            <h3>Quant Foundations</h3>
+                            <p>Build a foundation in probability, data and quantitative finance through guided technical learning.</p>
+                            <dl><div><dt>Focus</dt><dd>Core concepts & practical methods</dd></div><div><dt>Format</dt><dd>Planned 4–6 weekly sessions</dd></div></dl>
+                            <a href="programmes/#quant-foundations" class="card-link">Explore Quant Foundations <span aria-hidden="true">→</span></a>
+                        </article>
+                        <article class="programme-path">
+                            <p class="programme-level">02 / Research</p>
+                            <h3>Research Academy</h3>
+                            <p>Develop a research question, test your ideas and work towards a paper with fellow researchers.</p>
+                            <dl><div><dt>Focus</dt><dd>Original research & publication</dd></div><div><dt>Format</dt><dd>Recurring collaborative research</dd></div></dl>
+                            <a href="programmes/#research-academy" class="card-link">Explore Research Academy <span aria-hidden="true">→</span></a>
+                        </article>
                     </div>
-                    <div class="text-center mt-12">
-                        <a href="join_us/" class="btn btn-red">Join QRS</a>
-                    </div>
+                    <div class="programme-contact"><p>Interested in taking part?</p><a href="join_us/" class="card-link">Find your way into QRS <span aria-hidden="true">→</span></a></div>
                  </div>
             </section>
         </main>
@@ -98,10 +104,9 @@
         <footer id="site-footer" class="site-footer" data-root=""></footer>
     </div>
 
-    <script type="module" src="https://esm.run/framer-motion"></script>
     <script type="module" src="assets/header.js"></script>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="script.js?v=20260907-final"></script>
     <script type="module" src="assets/footer.js"></script>
-    <script type="module" src="assets/home-page.js"></script>
+    <script type="module" src="assets/home-page.js?v=20260907-final"></script>
 </body>
 </html>
