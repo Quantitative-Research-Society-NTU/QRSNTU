@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join QRS | QRS@NTU</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Files/logo-v1.png" type="image/png">
+</head>
+<body class="bg-white text-gray-800 font-body antialiased">
+
+<div id="root">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md" data-root="../"></header>
+
+    <main class="pt-28 pb-20">
+        <div class="container mx-auto px-6">
+            <header class="text-center mb-12 md:mb-16">
+                <h1 class="section-title">Join QRS</h1>
+                <p class="section-subtitle">Three concise ways to get involved, depending on what you're looking for.</p>
+            </header>
+
+            <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+                <div class="programme-card">
+                    <i data-lucide="book-marked" class="h-8 w-8 text-accent-green mb-4"></i>
+                    <h2 class="font-serif text-xl font-bold text-gray-900 mb-2">Public / Quant Foundations</h2>
+                    <p class="text-gray-600 mb-4">Start with the introductory programme covering quantitative finance and research fundamentals.</p>
+                    <a href="../programmes/#quant-foundations" class="card-link">Quant Foundations <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>
+                </div>
+                <div class="programme-card">
+                    <i data-lucide="flask-conical" class="h-8 w-8 text-accent-blue mb-4"></i>
+                    <h2 class="font-serif text-xl font-bold text-gray-900 mb-2">Research / Research Academy</h2>
+                    <p class="text-gray-600 mb-4">Contribute to research projects and the Research Academy programme, or propose a project.</p>
+                    <a href="../programmes/#research-academy" class="card-link">Research Academy <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>
+                    <br>
+                    <a href="../projects/" class="card-link">Current Projects <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>
+                </div>
+                <div class="programme-card">
+                    <i data-lucide="calendar-days" class="h-8 w-8 text-accent-yellow mb-4"></i>
+                    <h2 class="font-serif text-xl font-bold text-gray-900 mb-2">Events / Operations</h2>
+                    <p class="text-gray-600 mb-4">Help run industry events, external workshops, or society operations and infrastructure.</p>
+                    <a href="../events/" class="card-link">Upcoming Events <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto text-center mt-16">
+                <p class="text-gray-600">To get involved, reach out to us directly:</p>
+                <p class="mt-2">
+                    <a href="mailto:contact@qrsntu.org" class="text-xl font-medium text-gray-800 hover:text-accent-blue transition-colors">contact@qrsntu.org</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer id="site-footer" class="site-footer" data-root="../"></footer>
+</div>
+
+<script type="module" src="https://esm.run/framer-motion"></script>
+<script type="module" src="../assets/header.js"></script>
+    <script type="module" src="../script.js"></script>
+    <script type="module" src="../assets/footer.js"></script>
+</body>
+</html>

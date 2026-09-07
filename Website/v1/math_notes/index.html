@@ -8,42 +8,17 @@
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="Files/logo-v1.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Files/logo-v1.png" type="image/png">
 </head>
 <body class="bg-white text-gray-800 font-body antialiased">
 
 <div id="root">
-    <header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="Files/logo-v1.png" alt="QRS@NTU Logo" class="h-10 w-10 rounded-md">
-                <span class="font-serif font-bold text-xl text-white">QRS@NTU</span>
-            </a>
-
-            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-100">
-                <i data-lucide="menu" class="h-6 w-6 text-gray-800"></i>
-            </button>
-
-            <div id="mobile-menu" class="hidden md:flex w-full md:w-auto items-center mt-4 md:mt-0">
-                <div class="flex flex-col md:flex-row md:items-center w-full space-y-3 md:space-y-0 md:space-x-4 lg:space-x-5 text-sm">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="about.html" class="nav-link">About</a>
-                    <a href="research.html" class="nav-link">Research</a>
-                    <a href="math_notes.html" class="nav-link">Math Notes</a>
-                    <a href="publications.html" class="nav-link">Publications</a>
-                    <a href="events_learning.html" class="nav-link">Events & Learning</a>
-                    <a href="awards_recognition.html" class="nav-link">Awards & Recognition</a>
-                    <a href="join_us.html" class="nav-link">Join Us</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md" data-root="../"></header>
 
     <!-- Main Content -->
     <main class="pt-32 pb-16">
@@ -114,27 +89,13 @@
         </div>
     </main>
 
-    <footer class="bg-gray-50 border-t border-gray-200">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
-            <div class="flex justify-center items-center space-x-6 mb-4">
-                <a href="https://github.com/Quantitative-Research-Society-NTU" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="github" class="h-6 w-6"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/quantitative-research-society-ntu/" target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="linkedin" class="h-6 w-6"></i>
-                </a>
-                <a href="mailto:contact@qrsntu.org" class="hover:text-accent-blue transition-colors">
-                    <i data-lucide="mail" class="h-6 w-6"></i>
-                </a>
-            </div>
-            <p class="font-sans">Contact us at <a href="mailto:contact@qrsntu.org" class="font-medium text-gray-600 hover:text-accent-blue transition-colors">contact@qrsntu.org</a></p>
-            <p class="mt-4 text-sm font-sans">&copy; 2025 QRS@NTU. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <footer id="site-footer" class="site-footer" data-root="../"></footer>
 </div>
 
 <script type="module" src="https://esm.run/framer-motion"></script>
-<script type="module" src="script.js"></script>
+<script type="module" src="../assets/header.js"></script>
+    <script type="module" src="../script.js"></script>
+    <script type="module" src="../assets/footer.js"></script>
 <script type="module" src="math_notes.js?v=1.9"></script>
 </body>
 </html>

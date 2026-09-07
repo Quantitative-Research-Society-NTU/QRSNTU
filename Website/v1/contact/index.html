@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | QRS@NTU</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Files/logo-v1.png" type="image/png">
+</head>
+<body class="bg-white text-gray-800 font-body antialiased">
+
+    <div id="root">
+        <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md" data-root="../"></header>
+
+        <main class="pt-28 pb-20">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12 md:mb-16">
+                    <h1 class="section-title">Contact Us</h1>
+                    <p class="section-subtitle">Get in touch with the QRS@NTU team.</p>
+                </header>
+                
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-lg p-8 sm:p-12 text-center border border-gray-200">
+                        <h2 class="text-3xl font-serif font-bold text-gray-900 mb-4">Get in Touch</h2>
+                        <p class="text-lg text-gray-600 mb-8">
+                            For general inquiries, partnership opportunities, or questions about our activities, please reach out to us. We look forward to hearing from you.
+                        </p>
+                        <div class="inline-flex items-center space-x-4 bg-gray-50 p-4 pr-6 rounded-full border border-gray-200">
+                            <i data-lucide="mail" class="h-7 w-7 text-accent-blue"></i>
+                            <a href="mailto:contact@qrsntu.org" class="text-xl font-medium text-gray-800 hover:text-accent-blue transition-colors">
+                                contact@qrsntu.org
+                            </a>
+                        </div>
+                        <p class="mt-8 text-sm text-gray-500 font-sans">We aim to respond to all inquiries within 2-3 business days.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer id="site-footer" class="site-footer" data-root="../"></footer>
+    </div>
+    
+    <script type="module" src="https://esm.run/framer-motion"></script>
+    <script type="module" src="../assets/header.js"></script>
+    <script type="module" src="../script.js"></script>
+    <script type="module" src="../assets/footer.js"></script>
+</body>
+</html>
