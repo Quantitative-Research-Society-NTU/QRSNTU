@@ -1,0 +1,105 @@
+[
+  {
+    "id": "yuhe-sui",
+    "short_id": "yh",
+    "name": "Yuhe Sui",
+    "preferred_name": "Yuhe",
+    "is_admin": true,
+    "is_current_ntu": true,
+    "openreview": "~Yuhe_Sui1",
+    "orcid": "0009-0002-7456-0804",
+    "github": "yuhesui",
+    "linkedin": null
+  },
+  {
+    "id": "jianing-zhang",
+    "short_id": "jn",
+    "name": "Jianing Zhang",
+    "preferred_name": "Jianing",
+    "is_admin": false,
+    "is_current_ntu": false,
+    "openreview": "~Jianing_Zhang17",
+    "orcid": "0009-0004-3810-9316",
+    "github": "Catherineya",
+    "linkedin": null
+  },
+  {
+    "id": "danlin-chen",
+    "short_id": "cdl",
+    "name": "Danlin Chen",
+    "preferred_name": "Danlin",
+    "is_admin": false,
+    "is_current_ntu": false,
+    "openreview": "~Danlin_Chen1",
+    "orcid": null,
+    "github": null,
+    "linkedin": null
+  },
+  {
+    "id": "shufang-chen",
+    "name": "Shufang Chen",
+    "preferred_name": null,
+    "is_admin": false,
+    "is_current_ntu": false,
+    "openreview": "~SHUFANG_CHEN1",
+    "orcid": null,
+    "github": "zhaohuisuo1111-droid",
+    "linkedin": null
+  },
+  {
+    "id": "xiaotong-li",
+    "name": "Xiaotong Li",
+    "preferred_name": null,
+    "is_admin": false,
+    "is_current_ntu": false,
+    "openreview": "~李晓彤1",
+    "orcid": "0009-0005-2622-8120",
+    "github": "ClzHhhhhhh",
+    "linkedin": null
+  },
+  {
+    "id": "wang-zimeng",
+    "name": "Wang Zimeng",
+    "preferred_name": "Zimeng",
+    "is_admin": false,
+    "is_current_ntu": false,
+    "role": "NUS Sub-branch Coordinator",
+    "openreview": "~Wang_Zimeng1",
+    "orcid": null,
+    "github": "jiangsuwangjing",
+    "linkedin": null
+  },
+  {
+    "id": "duy-anh-nguyen",
+    "name": "Duy Anh Nguyen",
+    "preferred_name": null,
+    "is_admin": false,
+    "is_current_ntu": true,
+    "openreview": null,
+    "orcid": null,
+    "github": "IMainMordekaiser",
+    "linkedin": null
+  },
+  {
+    "id": "luis-ji",
+    "name": "Luis Ji",
+    "preferred_name": "Luis",
+    "is_admin": true,
+    "is_current_ntu": true,
+    "openreview": null,
+    "orcid": null,
+    "github": null,
+    "linkedin": "https://www.linkedin.com/in/luisjicy/"
+  },
+  {
+    "id": "mi-zeyuan",
+    "name": "Mi Zeyuan",
+    "preferred_name": "Zeyuan",
+    "is_admin": true,
+    "is_current_ntu": true,
+    "openreview": null,
+    "orcid": null,
+    "github": null,
+    "linkedin": "https://www.linkedin.com/in/mizeyuan/"
+  }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "ntuinfo-com",
+    "title": "ntuinfo.com",
+    "type": [
+      "infrastructure"
+    ],
+    "status": "active",
+    "participants": [
+      "yuhe-sui"
+    ],
+    "summary": "A bilingual English/Chinese full-stack web application with a quantitative, multi-criteria scoring framework (mental load, physical load, difficulty) that ranks 100+ NTU student clubs and surfaces algorithmically-driven recommendations for students.",
+    "links": {
+      "website": "https://ntuinfo.com"
+    }
+  },
+  {
+    "id": "ai-native-workflow",
+    "title": "AI Native Workflow",
+    "type": [
+      "research",
+      "infrastructure"
+    ],
+    "status": "active",
+    "participants": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "shufang-chen",
+      "danlin-chen",
+      "wang-zimeng",
+      "xiaotong-li"
+    ],
+    "summary": "Research on hierarchical, verification-gated and recoverable workflows for scaling long-horizon AI-assisted research and agent execution."
+  },
+  {
+    "id": "attention-geometry",
+    "title": "Attention Geometry",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "participants": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "xiaotong-li"
+    ],
+    "summary": "Research on attention geometry, representation-relative identifiability, and geometry-adaptive prediction."
+  },
+  {
+    "id": "geoaft",
+    "title": "GeoAFT",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "participants": [
+      "yuhe-sui"
+    ],
+    "summary": "Research on post-training attention adaptation via geometry-adaptive fine-tuning (GeoAFT)."
+  },
+  {
+    "id": "approximation-rank-softmax-attention",
+    "title": "The Approximation Rank of Softmax Attention",
+    "type": [
+      "research"
+    ],
+    "status": "published",
+    "participants": [
+      "yuhe-sui",
+      "jianing-zhang"
+    ],
+    "summary": "Theoretical work on softmax-attention approximation rank, support geometry and robust interaction dimension."
+  },
+  {
+    "id": "policyattention",
+    "title": "PolicyAttention",
+    "type": [
+      "research"
+    ],
+    "status": "submitted",
+    "participants": [
+      "yuhe-sui"
+    ],
+    "summary": "Research on conditions under which softmax attention implements policy-improvement structure."
+  },
+  {
+    "id": "alphaallocator",
+    "title": "NTU-QRS AlphaAllocator",
+    "type": [
+      "research",
+      "competition"
+    ],
+    "status": "published",
+    "participants": [
+      "yuhe-sui"
+    ],
+    "summary": "A constrained Chinese financial-news overlay on top of classical risk-parity allocation, developed for NLPCC 2026 Shared Task 4.",
+    "recognition": [
+      {
+        "event": "NLPCC 2026 Shared Task 4",
+        "track": "Track 1",
+        "result": "1st"
+      },
+      {
+        "event": "NLPCC 2026 Shared Task 4",
+        "track": "Track 2",
+        "result": "6th"
+      }
+    ]
+  },
+  {
+    "id": "cffa-2026",
+    "title": "CFFA 2026 — China Future Financial Analyst Competition",
+    "alternate_title": "2026 第五届中国未来金融分析师大赛",
+    "type": [
+      "competition",
+      "research"
+    ],
+    "status": "active",
+    "participants": [
+      "yuhe-sui",
+      "wang-zimeng",
+      "luis-ji",
+      "wang-zhoufu",
+      "yu-jiaxue"
+    ],
+    "summary": "• Built a Greenwashing Risk Score across 1,676 Chinese green-bond issuances (2016–2025), using issue-spread regressions and portfolio sorts.\n• Pricing effects are weak unconditionally, but meaningful within credit-risk buckets after controls.",
+    "recognition": [
+      {
+        "event": "CFFA 2026",
+        "result": "National Finalist"
+      }
+    ],
+    "links": {
+      "github": "https://github.com/yuhesui/CFFA-2026"
+    }
+  }
+]
