@@ -864,7 +864,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Search controls retained independently of the visual redesign. */
-.catalog-toolbar { max-width: 64rem; margin: 0 auto 1.75rem; }
+.catalog-toolbar { max-width: 56rem; margin: 0 auto 1.75rem; }
 .catalog-controls { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 1rem; }
 .catalog-controls label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: #465466; min-width: 8rem; }
 .catalog-search { flex: 1 1 16rem; }
@@ -877,7 +877,6 @@ h1, h2, h3, h4, h5, h6,
 .catalog-empty h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #37699a; outline-offset: 4px; }
 
-.catalog-toolbar { max-width: 56rem; }
 main > .container > .catalog-toolbar { max-width: 48rem; }
 .publication-year-group { padding-top: 0; padding-bottom: 0; }
 @media (max-width: 1023px) {
