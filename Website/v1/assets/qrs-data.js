@@ -42,8 +42,14 @@ export function humanizeId(id) {
 // Bolds the preferred-name substring within the full name, when supplied.
 export function renderPersonName(person) {
     const { name, preferred_name } = person;
-    if (preferred_name && name.includes(preferred_name)) {
-        return name.replace(preferred_name, `<strong>${preferred_name}</strong>`);
+    if (preferred_name) {
+        const idx = name.indexOf(preferred_name);
+        if (idx !== -1) {
+            const before = escapeHtml(name.slice(0, idx));
+            const match = escapeHtml(preferred_name);
+            const after = escapeHtml(name.slice(idx + preferred_name.length));
+            return `${before}<strong>${match}</strong>${after}`;
+        }
     }
     return escapeHtml(name);
 }
