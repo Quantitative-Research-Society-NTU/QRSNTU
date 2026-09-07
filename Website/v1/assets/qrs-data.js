@@ -87,7 +87,10 @@ const EXTERNAL_LINK_ORDER = [
 export function externalLinksHTML(person, className = 'external-link') {
     return EXTERNAL_LINK_ORDER
         .filter(({ key }) => person[key])
-        .map(({ key, label, href }) => `<a href="${href(person[key])}" target="_blank" rel="noopener noreferrer" class="${className}">${label}<i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>`)
+        .map(({ key, label, href }) => {
+            const url = escapeHtml(href(person[key]));
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${className}">${label}<i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>`;
+        })
         .join('');
 }
 
