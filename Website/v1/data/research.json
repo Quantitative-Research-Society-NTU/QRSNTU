@@ -1,0 +1,171 @@
+[
+  {
+    "id": "agent-work-scale-human-attention-metaagents-2026",
+    "project_id": "ai-native-workflow",
+    "title": "How Can Agent Work Scale Without Scaling Human Attention?",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "shufang-chen",
+      "danlin-chen",
+      "wang-zimeng",
+      "xiaotong-li"
+    ],
+    "date": "2026-09-06",
+    "venue": "NeurIPS 2026 Workshop MetaAgents",
+    "status": "submitted",
+    "openreview": "h4NBBxuYzT"
+  },
+  {
+    "id": "same-attention-different-geometry-pretopost-2026",
+    "project_id": "attention-geometry",
+    "title": "Same Attention, Different Geometry: Identifiability Across Pre- and Post-Training",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-09-05",
+    "venue": "NeurIPS 2026 Workshop Pre-to-Post",
+    "status": "submitted",
+    "openreview": "kF1HfqAeVB"
+  },
+  {
+    "id": "verification-gated-hierarchical-execution-verifyagents-2026",
+    "project_id": "ai-native-workflow",
+    "title": "Verification-Gated Hierarchical Execution: A Demo for Long-Horizon Agents",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "shufang-chen",
+      "wang-zimeng",
+      "xiaotong-li"
+    ],
+    "date": "2026-08-30",
+    "venue": "NeurIPS 2026 Workshop VerifyAgents",
+    "status": "submitted",
+    "openreview": "HDqP2AdB4H"
+  },
+  {
+    "id": "policyattention-pta-2026",
+    "project_id": "policyattention",
+    "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-09-01",
+    "venue": "NeurIPS 2026 Workshop PTA",
+    "status": "submitted",
+    "openreview": "zbGWnk0kY3"
+  },
+  {
+    "id": "geoaft-iclr-2027",
+    "project_id": "geoaft",
+    "title": "GeoAFT: Fine-Tuning Attention Geometry Beyond Q/K Adaptation",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-08-23",
+    "venue": "ICLR 2027",
+    "status": "submitted",
+    "openreview": "EWMWZooLAu"
+  },
+  {
+    "id": "geoaft-ai-native-workflow-automlr-2026",
+    "project_id": "ai-native-workflow",
+    "related_project_ids": [
+      "geoaft"
+    ],
+    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "shufang-chen",
+      "xiaotong-li",
+      "wang-zimeng"
+    ],
+    "date": "2026-08-30",
+    "venue": "NeurIPS 2026 Workshop AutoMLR",
+    "status": "submitted",
+    "openreview": "9PwlVQ3gyj"
+  },
+  {
+    "id": "ai-native-workflow-education-2026",
+    "project_id": "ai-native-workflow",
+    "title": "AI Native Workflow for Research: Formalizing the AI Workflows Researchers Already Use",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "shufang-chen",
+      "danlin-chen",
+      "wang-zimeng",
+      "xiaotong-li"
+    ],
+    "date": "2026-09-05",
+    "venue": "NeurIPS 2026 Education Track",
+    "status": "submitted",
+    "openreview": "EdTanIYLpI"
+  },
+  {
+    "id": "approximation-rank-openreview-archive-2026",
+    "project_id": "approximation-rank-softmax-attention",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-08-28",
+    "venue": "OpenReview Archive",
+    "status": "published",
+    "openreview": "Tp4bN9eIe0",
+    "arxiv": "2608.28150"
+  },
+  {
+    "id": "geoaft-neurreps-proceedings-2026",
+    "project_id": "geoaft",
+    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Fixed-State Separations and Progressive Compression",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-08-25",
+    "venue": "NeurIPS 2026 Workshop NeurReps Proceedings",
+    "status": "submitted",
+    "openreview": "l4Mmw6CI4o"
+  },
+  {
+    "id": "geometry-adaptive-attention-neurreps-proceedings-2026",
+    "project_id": "attention-geometry",
+    "title": "Geometry-Adaptive Attention Enables Intrinsic-Dimensional Prediction",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang",
+      "xiaotong-li"
+    ],
+    "date": "2026-08-25",
+    "venue": "NeurIPS 2026 Workshop NeurReps Proceedings",
+    "status": "submitted",
+    "openreview": "UTJeLCNBnV"
+  },
+  {
+    "id": "approximation-rank-neurreps-ea-2026",
+    "project_id": "approximation-rank-softmax-attention",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang"
+    ],
+    "date": "2026-08-25",
+    "venue": "NeurIPS 2026 Workshop NeurReps Extended Abstracts",
+    "status": "submitted",
+    "openreview": "0zgsZ8FjVz"
+  },
+  {
+    "id": "alphaallocator-nlpcc-2026",
+    "project_id": "alphaallocator",
+    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "date": "2026-08-05",
+    "venue": "NLPCC 2026 Shared Tasks Poster",
+    "status": "published",
+    "openreview": "u09PzTYNHk"
+  }
+]

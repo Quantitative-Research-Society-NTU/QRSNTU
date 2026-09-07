@@ -6,14 +6,14 @@
     --text-secondary: #555555;
     --text-headings: #11182C;
 
-    --accent-blue: #3B82F6;
+    --accent-blue: #1D4ED8;
     --accent-green: #22C55E;
     --accent-yellow: #EAB308;
     --accent-red: #EF4444;
 
-    --font-body: 'inter', sans-serif;
-    --font-sans: 'Playfair Display', serif;
-    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --font-sans: 'Playfair Display', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --font-heading: 'Playfair Display', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
 }
 
 
@@ -48,8 +48,9 @@ header.fixed {
     color: #d1d5db;
 }
 
-.nav-link:hover {
-    color: var(--text-headings);
+.nav-link:hover,
+.nav-link.nav-link-active {
+    color: #ffffff;
 }
 
 .nav-link::after {
@@ -152,11 +153,28 @@ section {
     border-radius: 0.5rem;
     padding: 2rem;
     transition: border-color 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: none;
 }
 
 .project-card:hover, .quick-link-card:hover {
+    border-color: var(--accent-blue);
+}
+
+/* Cards injected by home-page.js after the page has already loaded (JSON
+   fetch is async). They share .project-card's look but must NOT start at
+   opacity:0 like it does — that reset is only ever cleared by script.js's
+   one-time scroll-entrance setup, which runs before these cards exist and so
+   never finds them, leaving them permanently invisible. */
+.home-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    transition: border-color 0.3s ease;
+}
+
+.home-card:hover {
     border-color: var(--accent-blue);
 }
 
@@ -173,6 +191,9 @@ section {
     flex-grow: 1;
     color: var(--text-primary);
     line-height: 1.7;
+    /* Some project summaries are written as "• point one\n• point two" —
+       preserve those line breaks instead of collapsing them into one line. */
+    white-space: pre-line;
 }
 
 .card-link {
@@ -228,9 +249,31 @@ section {
         transition: background-color 0.2s ease, color 0.2s ease;
     }
     #mobile-menu .nav-link:hover {
-        background-color: var(--bg-secondary);
-        color: var(--text-headings);
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
     }
+    .nav-cta {
+        align-self: flex-start;
+    }
+}
+
+/* Join QRS: the visually distinct primary CTA in the nav */
+.nav-cta {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--accent-blue);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.nav-cta:hover {
+    background-color: #1E40AF;
+    color: #ffffff;
 }
 
 /* Hero Section Redesign */
@@ -269,6 +312,24 @@ section {
     z-index: 1;
 }
 
+.hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    color: #cbd5e1;
+    max-width: 42rem;
+    margin: 1.5rem auto 0;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.hero-ctas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
 /* Footer and Text Color Overrides for Dark Theme */
 body > #root > footer {
     background-color: #11182C;
@@ -291,9 +352,116 @@ body > #root > footer a:hover i {
     color: var(--accent-blue);
 }
 
+/* ===================================== */
+/* Multi-column site footer              */
+/* ===================================== */
+
+.footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2.5rem;
+    text-align: left;
+    padding-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-col {
+    flex: 1 1 160px;
+    min-width: 150px;
+}
+
+.footer-col-brand {
+    flex: 2 1 220px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-brand-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.footer-blurb {
+    font-size: 0.9rem;
+    max-width: 24rem;
+    margin-bottom: 1.25rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.footer-col-title {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* Chapters and Collaborators share one footer column as two labeled
+   sub-groups, so the footer stays 3 columns regardless of how many "other
+   society" categories exist. */
+.footer-subgroup + .footer-subgroup {
+    margin-top: 1.25rem;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    width: fit-content;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer-copyright {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+    .footer-columns {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .footer-brand,
+    .footer-social,
+    .footer-link {
+        justify-content: center;
+    }
+
+    .footer-blurb {
+        max-width: none;
+    }
+}
+
 h1, h2, h3, h4, h5, h6,
 .font-serif {
-    font-family: 'Playfair Display', serif !important;
+    font-family: var(--font-heading) !important;
 }
 
 /* ===================================== */
@@ -341,7 +509,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .btn-view-materials:hover {
-    background-color: #2563EB;
+    background-color: #1E40AF;
     transform: translateY(-1px);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -396,3 +564,331 @@ h1, h2, h3, h4, h5, h6,
 /* ===================================== */
 /* Math Notes Specific Styles - END */
 /* ===================================== */
+
+/* Respect reduced-motion preferences: disable transitions/animations and
+   remove scroll-driven parallax/entrance effects entirely. */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===================================== */
+/* Shared data-driven page components    */
+/* (Projects, Publications, Events,      */
+/* People, Person profile)               */
+/* ===================================== */
+
+.badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    background-color: #eff6ff;
+    color: #1e40af;
+    margin-right: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-status {
+    background-color: #f0fdf4;
+    color: #166534;
+}
+
+.project-full-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    scroll-margin-top: 6rem;
+}
+
+.project-alt-title {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-style: italic;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-participants .label,
+.event-meta .label {
+    font-weight: 600;
+    color: var(--text-headings);
+}
+
+.project-recognition {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.project-recognition h4 {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.project-recognition ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.project-links {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+}
+
+.external-link:hover {
+    text-decoration: underline;
+}
+
+.person-link {
+    color: var(--accent-blue);
+}
+
+.person-link:hover {
+    text-decoration: underline;
+}
+
+.person-plain {
+    color: var(--text-secondary);
+}
+
+.event-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    scroll-margin-top: 6rem;
+}
+
+.event-meta {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* People directory */
+.person-directory-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.person-directory-card:hover {
+    border-color: var(--accent-blue);
+}
+
+.person-directory-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-headings);
+}
+
+/* Only the preferred-name substring (wrapped in <strong> by qrs-data.js)
+   should read as bold, so the surrounding name stays a lighter weight. */
+.person-directory-name strong,
+.person-name strong {
+    font-weight: 800;
+}
+
+.person-directory-role {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+}
+
+/* Person profile page */
+.person-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.person-photo {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 9999px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.person-name {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 500;
+    color: var(--text-headings);
+    margin-bottom: 0.25rem;
+}
+
+.person-role {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    margin-bottom: 0.75rem;
+}
+
+.external-links {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.person-section {
+    margin-bottom: 2rem;
+}
+
+.person-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.person-list a {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.person-list a:hover {
+    text-decoration: underline;
+}
+
+.person-list-meta {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+/* Publications */
+.publication-year-group {
+    margin-bottom: 2.5rem;
+}
+
+.publication-year {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-headings);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.publication-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.publication-entry {
+    scroll-margin-top: 6rem;
+}
+
+.publication-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text-headings);
+    margin-bottom: 0.25rem;
+}
+
+.publication-authors {
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.publication-venue {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Programmes */
+.programme-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2.5rem;
+}
+
+.programme-card ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+/* Search controls retained independently of the visual redesign. */
+.catalog-toolbar { max-width: 56rem; margin: 0 auto 1.75rem; }
+.catalog-controls { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 1rem; }
+.catalog-controls label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: #465466; min-width: 8rem; }
+.catalog-search { flex: 1 1 16rem; }
+.catalog-controls input, .catalog-controls select { font: 400 0.875rem var(--font-body); color: #202d40; background: #fff; border: 1px solid #aeb8bf; border-radius: 3px; min-height: 44px; padding: 0.65rem 0.75rem; width: 100%; }
+.catalog-controls select { max-width: 16rem; }
+.catalog-reset { font-size: 0.8rem; min-height: 44px; color: #284e78; text-decoration: underline; }
+.catalog-reset:disabled { color: #747b83; cursor: default; text-decoration: none; }
+.catalog-count { font-size: 0.8rem; color: #586474; margin-top: 0.85rem; }
+.catalog-empty { padding: 3rem 1.5rem; border: 1px solid #d2d6d8; background: #fff; }
+.catalog-empty h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #37699a; outline-offset: 4px; }
+
+main > .container > .catalog-toolbar { max-width: 48rem; }
+.publication-year-group { padding-top: 0; padding-bottom: 0; }
+@media (max-width: 1023px) {
+    #header #mobile-menu { display: none; width: 100%; }
+    #header #mobile-menu:not(.hidden) { display: block; }
+    #header #mobile-menu > div { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-top: 1rem; }
+    #header #mobile-menu > div > a { margin-left: 0; }
+    #header #mobile-menu-button { display: block; }
+}
+
+@media (max-width: 640px) {
+    .catalog-controls label { flex: 1 1 40%; min-width: 0; }
+    .catalog-controls .catalog-search { flex-basis: 100%; }
+    .catalog-controls select { max-width: 100%; }
+}

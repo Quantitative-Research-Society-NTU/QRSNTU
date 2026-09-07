@@ -1,0 +1,40 @@
+@font-face { font-family: 'QRS Noto Sans SC'; src: url('fonts/NotoSansSC.woff') format('woff'); font-style: normal; font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'QRS Noto Serif SC'; src: url('fonts/NotoSerifSC.woff') format('woff'); font-style: normal; font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'QRS Frutiger'; src: url('fonts/Frutiger45Light.otf') format('opentype'); font-style: normal; font-weight: 300; font-display: swap; }
+:root {
+    --font-body: 'QRS Frutiger', 'QRS Noto Sans SC', 'Segoe UI', sans-serif;
+    --font-sans: var(--font-body);
+    --font-heading: 'Playfair Display', 'QRS Noto Serif SC', serif;
+}
+/* Frutiger is for body/UI text. Heading families and weights follow V1. */
+body { font-weight: 300; }
+input, select, button { font-family: var(--font-body); }
+main[data-page="math_notes"] {
+    --font-body: 'QRS Frutiger', 'QRS Noto Sans SC', 'Segoe UI', sans-serif;
+    --font-sans: var(--font-body);
+    --font-heading: var(--font-body);
+    font-family: var(--font-body);
+}
+main[data-page="math_notes"] h2,
+main[data-page="math_notes"] h3,
+main[data-page="math_notes"] h4,
+main[data-page="math_notes"] .font-serif { font-family: var(--font-body) !important; }
+/* Serif is reserved for the site banner and the homepage society title. */
+#header { --font-body: 'Playfair Display', 'QRS Noto Serif SC', serif; --font-sans: var(--font-body); --font-heading: var(--font-body); }
+main { --font-heading: 'QRS Frutiger', 'QRS Noto Sans SC', 'Segoe UI', sans-serif; }
+main h1, main h2, main h3, main h4,
+main .section-title, main .card-title, main .publication-title { font-weight: 300; }
+main .hero-title { font-family: 'Playfair Display', 'QRS Noto Serif SC', serif !important; font-weight: 700; }
+main .hero-subtitle { font-family: var(--font-body); }
+main[data-page="math_notes"] h1 { font-family: var(--font-body) !important; }
+/* Keep editorial titles light even when a template adds font-bold utilities. */
+main .section-title,
+main .publication-year,
+main h2,
+main h3,
+main h4 {
+    font-family: 'QRS Frutiger', 'QRS Noto Sans SC', 'Segoe UI', sans-serif !important;
+    font-weight: 300 !important;
+    font-synthesis: none;
+}
+#site-footer { --font-heading: var(--font-body); }

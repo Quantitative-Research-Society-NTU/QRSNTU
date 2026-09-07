@@ -52,7 +52,7 @@ function getCourseFileCount(course) {
 async function loadCourses() {
     const loadingState = document.getElementById('loading-state');
     try {
-        const response = await fetch(`courses.json?v=${APP_VERSION}`);
+        const response = await fetch(`../courses.json?v=${APP_VERSION}`);
         if (!response.ok) throw new Error(`Failed to load courses data: ${response.status}`);
         const data = await response.json();
         allCourses = data.courses;

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "imc-tech-race-ntu-2026",
+    "title": "IMC Tech Race @ NTU",
+    "type": "industry",
+    "status": "past",
+    "start_date": "2026-09-02",
+    "end_date": "2026-09-02",
+    "start_time": "11:00",
+    "end_time": "13:00",
+    "timezone": "Asia/Singapore",
+    "location": "Nanyang Technological University",
+    "organizers": [
+      "IMC Trading"
+    ],
+    "partners": [],
+    "summary": "An on-campus coding race by IMC featuring 20 rapid computer-science problems, a live leaderboard, networking with IMC technologists, and prizes.",
+    "url": "https://builtin.com/job/imc-tech-race-singapore/10595673"
+  },
+  {
+    "id": "sg-hk-quant-trading-hackathon-2026",
+    "title": "Singapore vs Hong Kong Quant Trading Hackathon",
+    "type": "industry-competition",
+    "status": "past",
+    "start_date": "2026-02-23",
+    "end_date": "2026-04-21",
+    "timezone": "Asia/Singapore",
+    "location": "Singapore & Hong Kong / online",
+    "qrs_role": "Co-organizer",
+    "organizers": [
+      "HKU Data Science Association",
+      "NUS Investment Society",
+      "HKU Quantitative Research Society",
+      "Traders@UST",
+      "SMU FinTech Club",
+      "NTU Quantitative Research Society",
+      "CUHK Strategic Investment Society",
+      "SMU Quantitative Finance Society",
+      "CUHK Financial Technology Society",
+      "CUHK Quant Trading Society"
+    ],
+    "partners": [
+      "IMC Trading",
+      "Optiver",
+      "Cubist Systematic Strategies (Point72)",
+      "Gondor Capital"
+    ],
+    "platform_provider": "Roostoo Labs",
+    "summary": "A cross-border university quantitative-trading competition in which Singapore and Hong Kong teams built and deployed live crypto trading strategies, with city qualifiers followed by a SG-vs-HK final.",
+    "url": "https://luma.com/tqx5xvcy"
+  }
+]

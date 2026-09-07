@@ -1,0 +1,25 @@
+[
+  {
+    "id": "approximation-rank-softmax-attention-2026",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "authors": [
+      "yuhe-sui",
+      "jianing-zhang"
+    ],
+    "year": 2026,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2608.28150",
+    "project_id": "approximation-rank-softmax-attention"
+  },
+  {
+    "id": "alphaallocator-nlpcc-2026",
+    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
+    "authors": [
+      "yuhe-sui"
+    ],
+    "year": 2026,
+    "venue": "NLPCC 2026 Shared Tasks Poster",
+    "url": "https://openreview.net/forum?id=u09PzTYNHk",
+    "project_id": "alphaallocator"
+  }
+]
