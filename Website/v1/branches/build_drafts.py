@@ -8,10 +8,11 @@ from html import escape
 ROOT = Path(__file__).resolve().parents[1]
 CHAPTERS = [("nus", "NUS"), ("sjtu", "上交"), ("hkust", "HKUST"), ("cuhk", "香港中文大学"), ("fdu", "复旦"), ("cmu", "CMU")]
 SOURCES = [p for p in ROOT.rglob("index.html")
-           if p.relative_to(ROOT).parts[0] not in {"branches", "math_notes", "fonts", *(slug for slug, _ in CHAPTERS)}]
+           if p.relative_to(ROOT).parts[0] not in {"branches", "math_notes", "fonts", "site-map", "_site", *(slug for slug, _ in CHAPTERS)}]
 
 def generate(source, target, slug, campus, variant):
     page = source.read_text(encoding="utf-8")
+    page = re.sub(r'\s*<!-- SEO: generated -->.*?<!-- /SEO -->', '', page, flags=re.S)
     base = os.path.relpath(source.parent, target.parent).replace("\\", "/") + "/"
     page = page.replace("<head>", '<head>\n    <base href="' + base + '">\n    <meta name="robots" content="noindex,nofollow">')
     page = page.replace("<body ", f'<body data-chapter="{campus}" data-slug="{slug}" data-variant="{variant}" ')

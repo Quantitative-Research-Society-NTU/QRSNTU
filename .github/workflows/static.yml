@@ -7,6 +7,8 @@ on:
     branches: [ main ]
     paths:
       - 'Website/v1/**'
+      - 'Website/tools/**'
+      - '.github/workflows/static.yml'
 
   # Manual trigger via Actions tab
   workflow_dispatch:
@@ -37,6 +39,9 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Generate static SEO metadata and sitemaps
+        run: python3 Website/tools/generate_seo.py
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -83,6 +88,9 @@ jobs:
           
           bundle install
           bundle exec jekyll build
+
+      - name: Validate built sitemap and indexing metadata
+        run: python3 Website/tools/check_seo.py --site Website/v1/_site
 
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v3

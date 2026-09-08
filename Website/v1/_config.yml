@@ -1,2 +1,13 @@
+title: "QRS@NTU"
+description: "Quantitative Research Society at NTU"
+url: "https://qrsntu.org"
+baseurl: ""
 include:
   - courses.json
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - branches/build_drafts.py
+  - branches/README.md
+  - branches/about-zh.html
+  - fonts/Frutiger-readme.html

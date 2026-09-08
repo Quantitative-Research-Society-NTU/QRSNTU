@@ -94,7 +94,7 @@ async function renderFooter() {
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-col-title">Explore</h4>
-                    <nav class="footer-links">${exploreLinksHTML}</nav>
+                    <nav class="footer-links">${exploreLinksHTML}<a href="/site-map/" class="footer-link">Site map</a></nav>
                 </div>
                 ${communityColumnHTML}
             </div>
