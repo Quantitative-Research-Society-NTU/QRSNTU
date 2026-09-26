@@ -71,7 +71,7 @@ jobs:
           title: "QRS@NTU(TW)"
           description: "Quantitative Research Society at NTU"
           baseurl: ""
-          url: "https://qrsntu.org/tw/"
+          url: "qrsntu.org/tw"
           markdown: kramdown
           kramdown:
             input: GFM
