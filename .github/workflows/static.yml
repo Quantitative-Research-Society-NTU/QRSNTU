@@ -68,10 +68,10 @@ jobs:
           # Create _config.yml if it doesn't exist
           if [ ! -f _config.yml ]; then
             cat > _config.yml << EOF
-          title: "QRS@NTU"
+          title: "QRS@NTU(TW)"
           description: "Quantitative Research Society at NTU"
           baseurl: ""
-          url: "https://qrsntu.org"
+          url: "https://qrsntu.org/tw/"
           markdown: kramdown
           kramdown:
             input: GFM
