@@ -6,10 +6,15 @@
     "preferred_name": "Yuhe",
     "is_admin": true,
     "is_current_ntu": true,
+    "roles": [
+      "President & Founder, QRS@NTU",
+      "Principal Researcher, Quantitative Research Society"
+    ],
     "openreview": "~Yuhe_Sui1",
     "orcid": "0009-0002-7456-0804",
     "github": "yuhesui",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "jianing-zhang",
@@ -18,10 +23,14 @@
     "preferred_name": "Jianing",
     "is_admin": false,
     "is_current_ntu": false,
+    "roles": [
+      "Researcher, Quantitative Research Society"
+    ],
     "openreview": "~Jianing_Zhang17",
     "orcid": "0009-0004-3810-9316",
     "github": "Catherineya",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "danlin-chen",
@@ -30,10 +39,12 @@
     "preferred_name": "Danlin",
     "is_admin": false,
     "is_current_ntu": false,
+    "roles": [],
     "openreview": "~Danlin_Chen1",
     "orcid": null,
     "github": null,
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "shufang-chen",
@@ -41,10 +52,12 @@
     "preferred_name": null,
     "is_admin": false,
     "is_current_ntu": false,
+    "roles": [],
     "openreview": "~SHUFANG_CHEN1",
     "orcid": null,
     "github": "zhaohuisuo1111-droid",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "xiaotong-li",
@@ -52,10 +65,12 @@
     "preferred_name": null,
     "is_admin": false,
     "is_current_ntu": false,
+    "roles": [],
     "openreview": "~李晓彤1",
     "orcid": "0009-0005-2622-8120",
     "github": "ClzHhhhhhh",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "wang-zimeng",
@@ -63,11 +78,14 @@
     "preferred_name": "Zimeng",
     "is_admin": false,
     "is_current_ntu": false,
-    "role": "NUS Sub-branch Coordinator",
+    "roles": [
+      "NUS Sub-branch Coordinator"
+    ],
     "openreview": "~Wang_Zimeng1",
     "orcid": null,
     "github": "jiangsuwangjing",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "duy-anh-nguyen",
@@ -75,10 +93,12 @@
     "preferred_name": null,
     "is_admin": false,
     "is_current_ntu": true,
+    "roles": [],
     "openreview": null,
     "orcid": null,
     "github": "IMainMordekaiser",
-    "linkedin": null
+    "linkedin": null,
+    "service": []
   },
   {
     "id": "luis-ji",
@@ -86,10 +106,12 @@
     "preferred_name": "Luis",
     "is_admin": true,
     "is_current_ntu": true,
+    "roles": [],
     "openreview": null,
     "orcid": null,
     "github": null,
-    "linkedin": "https://www.linkedin.com/in/luisjicy/"
+    "linkedin": "https://www.linkedin.com/in/luisjicy/",
+    "service": []
   },
   {
     "id": "mi-zeyuan",
@@ -97,9 +119,27 @@
     "preferred_name": "Zeyuan",
     "is_admin": true,
     "is_current_ntu": true,
+    "roles": [
+      "Vice President, QRS@NTU"
+    ],
     "openreview": null,
     "orcid": null,
     "github": null,
-    "linkedin": "https://www.linkedin.com/in/mizeyuan/"
+    "linkedin": "https://www.linkedin.com/in/mizeyuan/",
+    "service": []
+  },
+  {
+    "id": "yingzhi-tang",
+    "name": "Yingzhi Tang",
+    "preferred_name": "Yingzhi",
+    "is_admin": false,
+    "roles": [
+      "Researcher, Quantitative Research Society"
+    ],
+    "openreview": "~Yingzhi_Tang2",
+    "orcid": null,
+    "github": null,
+    "linkedin": "https://www.linkedin.com/in/yingzhi-tang-735603360/",
+    "service": []
   }
 ]

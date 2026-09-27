@@ -8,6 +8,7 @@
     ],
     "year": 2026,
     "venue": "arXiv",
+    "type": "preprint",
     "url": "https://arxiv.org/abs/2608.28150",
     "project_id": "approximation-rank-softmax-attention"
   },

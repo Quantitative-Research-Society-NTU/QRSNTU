@@ -23,8 +23,8 @@ function renderHeader() {
     header.innerHTML = `
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
             <a href="${homeHref}" class="flex items-center gap-3">
-                <img src="${root}Files/logo-v1.png" alt="QRS@NTU Logo" class="h-10 w-10 rounded-md">
-                <span class="font-serif font-bold text-xl text-white">QRS@NTU</span>
+                <img src="${root}Files/logo-v1.png" alt="QRS Logo" class="h-10 w-10 rounded-md">
+                <span class="font-serif font-bold text-xl text-white">QRS</span>
             </a>
 
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-white/10" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">

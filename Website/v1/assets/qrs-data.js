@@ -1,4 +1,4 @@
-// Shared JSON-loading and rendering helpers for the QRS@NTU data-driven pages
+// Shared JSON-loading and rendering helpers for the QRS data-driven pages
 // (Projects, Publications, Events, People, and person profiles).
 //
 // Every page passes its own relative path prefixes, since pages live at
@@ -14,6 +14,7 @@ export const NAV_LINKS = [
     ['publications/', 'Publications'],
     ['programmes/', 'Programmes'],
     ['events/', 'Events'],
+    ['service/', 'Service'],
     ['math_notes/', 'Math Notes'],
     ['people/', 'People'],
     ['join_us/', 'Join QRS'],
@@ -100,6 +101,13 @@ export function externalLinksHTML(person, className = 'external-link') {
         .join('');
 }
 
+// A person's display roles, e.g. "President & Founder, QRS@NTU". Reads the
+// roles array, falling back to a legacy single `role` string.
+export function personRoles(person) {
+    if (Array.isArray(person.roles)) return person.roles.filter(Boolean);
+    return person.role ? [person.role] : [];
+}
+
 export function projectsForPerson(personId, projects) {
     return projects.filter(p => (p.participants || []).includes(personId));
 }
@@ -110,4 +118,12 @@ export function researchForPerson(personId, research) {
 
 export function publicationsForPerson(personId, publications) {
     return publications.filter(p => (p.authors || []).includes(personId));
+}
+
+// Non-archival outputs (workshop papers, preprints, working papers) are
+// tagged with a publication `type`; untagged entries count as archival.
+const NON_ARCHIVAL_TYPES = new Set(['workshop', 'preprint', 'working-paper']);
+
+export function isNonArchival(publication) {
+    return NON_ARCHIVAL_TYPES.has(publication.type);
 }

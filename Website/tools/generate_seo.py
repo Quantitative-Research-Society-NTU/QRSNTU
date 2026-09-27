@@ -16,17 +16,18 @@ ORIGIN = "https://qrsntu.org"
 SKIP = {"_site", "branches", "fonts", "nus", "cuhk", "fdu", "sjtu", "cmu", "hkust"}
 BLOCK = re.compile(r'\n?    <!-- SEO: generated -->.*?<!-- /SEO -->\n?', re.S)
 DESCRIPTIONS = {
-    "": "Quantitative Research Society at NTU: student quantitative and finance research, technical learning, industry events, and open mathematics notes.",
-    "about": "Learn about QRS@NTU, our quantitative research mission, technical learning, and open educational resources.",
-    "projects": "Explore QRS@NTU projects, competitions, and recognition in quantitative research, mathematics, and finance.",
-    "publications": "Browse research publications by QRS@NTU members, with author, year, and venue filters.",
-    "programmes": "Explore QRS@NTU programmes for quantitative research and industry preparation.",
-    "events": "Find QRS@NTU workshops, seminars, and events for quantitative research and technical learning.",
-    "people": "Meet the people behind QRS@NTU and explore their profiles, projects, and publications.",
+    "": "Quantitative Research Society (QRS): a cross-institutional academic research network in quantitative finance, machine learning, mathematics, and related fields, originating at NTU.",
+    "about": "About QRS, a cross-institutional academic research network, and QRS@NTU, its originating campus community at Nanyang Technological University.",
+    "projects": "Explore QRS research projects, competitions, and recognition in quantitative finance, machine learning, and mathematics.",
+    "publications": "Browse publications and preprints by QRS researchers, with author, year, and venue filters.",
+    "programmes": "Explore the QRS Research Academy, a cohort- and project-based research-training programme, and other QRS programmes.",
+    "events": "Find QRS and QRS@NTU talks, workshops, competitions, and community events.",
+    "service": "QRS supports academic workshops and research communities with web, publicity, outreach, and organisational infrastructure.",
+    "people": "Meet QRS@NTU officers and QRS researchers, and explore their profiles, projects, and publications.",
     "math_notes": "Browse NTU mathematics and economics past-year papers, solutions, revision notes, and course resources.",
-    "join_us": "Learn how to join QRS@NTU and take part in quantitative research, technical learning, and society activities.",
-    "contact": "Contact the Quantitative Research Society at NTU for enquiries and collaboration.",
-    "site-map": "Find all public QRS@NTU pages, including programmes, events, research publications, mathematics notes, and member profiles.",
+    "join_us": "Get involved with QRS through the QRS Research Academy or the QRS@NTU community.",
+    "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
+    "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
 }
 
 
@@ -62,13 +63,13 @@ def generate(check=False):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Map | QRS@NTU</title>
+    <title>Site Map | QRS</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" href="../Files/logo-v1.png" type="image/png">
 </head>
 <body>
     <main style="max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem;">
-        <h1>QRS@NTU Site Map</h1>
+        <h1>QRS Site Map</h1>
         <p>Explore our public pages and member profiles.</p>
         <nav aria-label="All public pages">
             <ul>
@@ -79,16 +80,16 @@ def generate(check=False):
 </body>
 </html>
 '''
-    pages.append((ROOT / "site-map/index.html", sitemap_page, "Site Map | QRS@NTU"))
+    pages.append((ROOT / "site-map/index.html", sitemap_page, "Site Map | QRS"))
     for path, source, title in pages:
         source = BLOCK.sub("\n", source)
         canonical = ORIGIN + route(path)
         slug = route(path).strip("/")
         person_match = re.search(r'data-person-id="([^"]+)"', source)
         person = people[person_match[1]] if person_match else None
-        description = DESCRIPTIONS.get(slug, f"{title.split(' | ')[0]} at QRS@NTU.")
+        description = DESCRIPTIONS.get(slug, f"{title.split(' | ')[0]} at QRS.")
         if person:
-            description = f"Explore {person['name']}'s QRS@NTU profile, projects, publications, and academic links."
+            description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
         graph = [{"@type": "ProfilePage" if person else "WebPage", "@id": canonical + "#webpage",
                   "url": canonical, "name": title, "description": description,
                   "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": "en"}]
@@ -96,23 +97,25 @@ def generate(check=False):
             graph[0]["mainEntity"] = {"@type": "Person", "name": person["name"], "url": canonical}
             # Supply a real name and links before the JS profile renderer runs.
             fallback = '<div id="person-profile"><h1>' + escape(person["name"]) + '</h1>'
-            if person.get("role"):
-                fallback += '<p>' + escape(person["role"]) + '</p>'
+            roles = person.get("roles") or ([person["role"]] if person.get("role") else [])
+            if roles:
+                fallback += '<p>' + '<br>'.join(escape(role) for role in roles) + '</p>'
             fallback += '<p><a href="/projects/">Projects</a> &middot; <a href="/publications/">Publications</a></p></div>'
             source = re.sub(r'<div id="person-profile">.*?</div>', lambda _: fallback, source, flags=re.S)
         if not slug:
             graph.extend([
-                {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/", "name": "QRS@NTU",
+                {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/", "name": "QRS",
+                 "alternateName": "Quantitative Research Society",
                  "publisher": {"@id": ORIGIN + "/#organization"}},
-                {"@type": "Organization", "@id": ORIGIN + "/#organization", "name": "Quantitative Research Society at NTU",
-                 "alternateName": "QRS@NTU", "url": ORIGIN + "/", "logo": ORIGIN + "/Files/logo-v1.png",
+                {"@type": "Organization", "@id": ORIGIN + "/#organization", "name": "Quantitative Research Society",
+                 "alternateName": ["QRS", "QRS@NTU"], "url": ORIGIN + "/", "logo": ORIGIN + "/Files/logo-v1.png",
                  "email": "contact@qrsntu.org", "sameAs": ["https://github.com/Quantitative-Research-Society-NTU",
                  "https://www.linkedin.com/company/quantitative-research-society-ntu/"]}])
         metadata = [f'<link rel="canonical" href="{canonical}">',
                     f'<meta name="description" content="{escape(description, quote=True)}">',
                     '<meta name="robots" content="index,follow,max-image-preview:large">',
                     '<meta property="og:type" content="website">',
-                    '<meta property="og:site_name" content="QRS@NTU">',
+                    '<meta property="og:site_name" content="QRS">',
                     f'<meta property="og:title" content="{escape(title, quote=True)}">',
                     f'<meta property="og:description" content="{escape(description, quote=True)}">',
                     f'<meta property="og:url" content="{canonical}">',

@@ -9,8 +9,15 @@
 .programme-path dt { color: #626b78; }
 .programme-path dd { margin: 0; color: #182e49; }
 .programme-path .card-link, .programme-contact .card-link { color: #183b63; }
+.programme-paths-lead { grid-template-columns: 3fr 2fr; }
+.programme-path-secondary { border-top-color: #bdbdbd; }
+.programme-path-secondary .programme-level { color: #626b78; }
+.programme-path-secondary h3 { font-size: 1.35rem; color: #444; }
+.programme-contact p { color: #555; max-width: 44rem; }
+.programme-contact .card-link { flex-shrink: 0; }
+.hero-note { position: relative; max-width: 42rem; margin: .75rem auto 0; text-align: center; font-size: .95rem; color: #94a3b8; }
 .programme-contact { max-width: 64rem; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid #d7dce3; display: flex; justify-content: space-between; gap: 1rem; font-size: 1rem; }
-@media(max-width:700px) { .programme-paths { grid-template-columns: 1fr; gap: 2rem; } .programme-contact { flex-direction: column; text-align: left; } }
+@media(max-width:700px) { .programme-paths, .programme-paths-lead { grid-template-columns: 1fr; gap: 2rem; } .programme-contact { flex-direction: column; text-align: left; } }
 :root { --accent-red: #183b63; }
 .nav-cta { background-color: var(--accent-red); }
 .nav-cta:hover, .btn-red:hover { background-color: #102c4b; border-color: #102c4b; }

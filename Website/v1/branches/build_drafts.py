@@ -16,6 +16,8 @@ def generate(source, target, slug, campus, variant):
     base = os.path.relpath(source.parent, target.parent).replace("\\", "/") + "/"
     page = page.replace("<head>", '<head>\n    <base href="' + base + '">\n    <meta name="robots" content="noindex,nofollow">')
     page = page.replace("<body ", f'<body data-chapter="{campus}" data-slug="{slug}" data-variant="{variant}" ')
+    # Statements about QRS's originating campus (marked data-origin) keep naming NTU.
+    page = re.sub(r'(<(\w+)\b[^>]*\bdata-origin\b[^>]*>.*?</\2>)', lambda m: m[1].replace("QRS@NTU", "QRS&#64;NTU"), page, flags=re.S)
     page = page.replace("QRS@NTU", f"QRS@{campus}").replace("Society @NTU", f"Society @{campus}")
     chinese = slug in {"sjtu", "cuhk", "fdu"}
     brand = f"量化研究协会@{campus}" if chinese else f"QRS@{campus}"

@@ -38,6 +38,9 @@ function linkGroup(title, items) {
 }
 
 async function renderFooter() {
+    // The main site speaks for the whole Society (QRS); campus previews set
+    // data-chapter and keep their own QRS@<campus> branding.
+    const isMainSite = !document.body.dataset.chapter;
     const chapter = document.body.dataset.chapter || 'NTU';
     const bilingual = {
         cuhk: ['QRS@CUHK', '量化研究协会@香港中文'],
@@ -46,7 +49,11 @@ async function renderFooter() {
     }[document.body.dataset.slug];
     const footerBrand = bilingual
         ? `<span class="block">${escapeHtml(bilingual[0])}</span><span class="block" lang="zh-Hans">${escapeHtml(bilingual[1])}</span>`
-        : escapeHtml(`QRS@${chapter}`);
+        : escapeHtml(isMainSite ? 'QRS' : `QRS@${chapter}`);
+    const blurb = isMainSite
+        ? "A cross-institutional academic research network. QRS@NTU is the Society's originating campus community."
+        : `Quantitative research, technical learning, and industry activity at ${chapter}.`;
+    const copyrightName = bilingual ? bilingual[0] : (isMainSite ? 'Quantitative Research Society' : `QRS@${chapter}`);
     const footer = document.getElementById('site-footer');
     if (!footer) return;
     const root = footer.dataset.root || '';
@@ -82,14 +89,14 @@ async function renderFooter() {
             <div class="footer-columns">
                 <div class="footer-col footer-col-brand">
                     <div class="footer-brand">
-                        <img src="${root}Files/logo-v1.png" alt="QRS@NTU Logo" class="h-9 w-9 rounded-md">
+                        <img src="${root}Files/logo-v1.png" alt="QRS Logo" class="h-9 w-9 rounded-md">
                         <span class="footer-brand-name">${footerBrand}</span>
                     </div>
-                    <p class="footer-blurb">Quantitative research, technical learning, and industry activity at ${chapter}.</p>
+                    <p class="footer-blurb">${escapeHtml(blurb)}</p>
                     <div class="footer-social">
-                        <a href="https://github.com/Quantitative-Research-Society-NTU" target="_blank" rel="noopener noreferrer" aria-label="QRS@NTU on GitHub">${GITHUB_ICON}</a>
-                        <a href="https://www.linkedin.com/company/quantitative-research-society-ntu/" target="_blank" rel="noopener noreferrer" aria-label="QRS@NTU on LinkedIn">${LINKEDIN_ICON}</a>
-                        <a href="mailto:contact@qrsntu.org" aria-label="Email QRS@NTU"><i data-lucide="mail" class="h-6 w-6"></i></a>
+                        <a href="https://github.com/Quantitative-Research-Society-NTU" target="_blank" rel="noopener noreferrer" aria-label="QRS on GitHub">${GITHUB_ICON}</a>
+                        <a href="https://www.linkedin.com/company/quantitative-research-society-ntu/" target="_blank" rel="noopener noreferrer" aria-label="QRS on LinkedIn">${LINKEDIN_ICON}</a>
+                        <a href="mailto:contact@qrsntu.org" aria-label="Email QRS"><i data-lucide="mail" class="h-6 w-6"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -100,7 +107,7 @@ async function renderFooter() {
             </div>
             <div class="footer-bottom">
                 <p>Contact us at <a href="mailto:contact@qrsntu.org" class="font-medium">contact@qrsntu.org</a></p>
-                <p class="footer-copyright"><a href="${root}contact/">Contact</a> &middot; &copy; <span id="footer-year"></span> ${escapeHtml(bilingual ? bilingual[0] : `QRS@${chapter}`)}. All Rights Reserved.</p>
+                <p class="footer-copyright"><a href="${root}contact/">Contact</a> &middot; &copy; <span id="footer-year"></span> ${escapeHtml(copyrightName)}. All Rights Reserved.</p>
             </div>
         </div>`;
 
