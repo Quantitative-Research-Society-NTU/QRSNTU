@@ -36,7 +36,7 @@ def generate(source, target, slug, campus, variant):
         page = re.sub(r'src="[^"]*assets/' + component + r'\.js(?:\?[^"]*)?"', f'src="{path}"', page)
     routing = os.path.relpath(ROOT / "branches/routing.js", source.parent).replace("\\", "/")
     if 'http-equiv="refresh"' in page:
-        for alias in ("yh", "jn", "cdl"):
+        for alias in ("yh", "jn", "cdl", "yz"):
             destination = os.path.relpath(ROOT / slug / alias, source.parent).replace("\\", "/") + "/"
             page = page.replace(f"../../{alias}/", destination)
     page = page.replace("</body>", f'<script type="module" src="{routing}"></script>\n</body>')

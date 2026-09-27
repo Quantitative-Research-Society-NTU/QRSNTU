@@ -88,7 +88,7 @@ def check(site, live):
     for alias, canonical in {"/index.html": "/", "/research.html": "/projects/",
                              "/events_learning.html": "/events/",
                              "/awards_recognition.html": "/projects/",
-                             "/people/yuhe-sui/": "/yh/", "/people/jianing-zhang/": "/jn/",
+                             "/people/yuhe-sui/": "/yh/", "/people/jianing-zhang/": "/jn/", "/people/yingzhi-tang/": "/yz/",
                              "/people/danlin-chen/": "/cdl/"}.items():
         assert Head(read(alias)).canonicals == [ORIGIN + canonical], alias
         assert ORIGIN + alias not in urls, alias

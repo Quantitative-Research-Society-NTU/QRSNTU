@@ -130,6 +130,7 @@
   },
   {
     "id": "yingzhi-tang",
+    "short_id": "yz",
     "name": "Yingzhi Tang",
     "preferred_name": "Yingzhi",
     "is_admin": false,
