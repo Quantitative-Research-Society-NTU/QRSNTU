@@ -2567,6 +2567,179 @@
       }
     },
     {
+      "code": "MH3100",
+      "name": "Real Analysis I",
+      "folderName": "MH3100",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH3100",
+      "materials": {
+        "finals": {
+          "22-23": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "23-24": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          },
+          "24-25": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [],
+            "reports": []
+          }
+        },
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "MH3100_RevisionNotes.pdf",
+            "path": "Notes/MH3100/MH3100_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "MH3100_Cheatsheet_Midterm.pdf",
+            "path": "Notes/MH3100/MH3100_Cheatsheet_Midterm.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100_Cheatsheet_Midterm.pdf"
+          }
+        ],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 3": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Tutorials/MH3100_Tutorials_Tutorial 5_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 1_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 2_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 2_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 3": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 3_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 3_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 3_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 3_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 4": {
+            "papers": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 4_QuestionPaper.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 4_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 4_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "MH3100_RealAnalysisI_Practice 4_Solution by QRS.pdf",
+                "path": "Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Midterm Practice/MH3100_RealAnalysisI_Practice 4_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "MH2100",
       "name": "Calculus III",
       "folderName": "MH2100",
@@ -3468,57 +3641,6 @@
                 "name": "MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf",
                 "path": "Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf",
                 "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH1403/MH1403 - Algorithms and Computing - Finals/MH1403_AlgorithmsandComputing_Finals_24-25_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          }
-        },
-        "midterms": {},
-        "revisionNotes": [],
-        "cheatSheets": [],
-        "problemSheets": [],
-        "tutorials": {},
-        "lectureNotes": [],
-        "practiceMaterials": {},
-        "pastYearZips": []
-      }
-    },
-    {
-      "code": "MH3100",
-      "name": "Real Analysis I",
-      "folderName": "MH3100",
-      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/MH3100",
-      "materials": {
-        "finals": {
-          "22-23": {
-            "papers": [
-              {
-                "name": "MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_22-23_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "23-24": {
-            "papers": [
-              {
-                "name": "MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_23-24_Sem2_QuestionPaper.pdf"
-              }
-            ],
-            "solutions": [],
-            "reports": []
-          },
-          "24-25": {
-            "papers": [
-              {
-                "name": "MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "path": "Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf",
-                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/MH3100/MH3100 - Real Analysis I - Finals/MH3100_RealAnalysisI_Finals_24-25_Sem2_QuestionPaper.pdf"
               }
             ],
             "solutions": [],
@@ -4831,5 +4953,5 @@
       }
     }
   ],
-  "generatedAt": "2026-09-28T12:18:58.544Z"
+  "generatedAt": "2026-09-28T17:34:02.936Z"
 }
