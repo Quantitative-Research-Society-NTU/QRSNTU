@@ -2996,6 +2996,119 @@
       }
     },
     {
+      "code": "HE2003",
+      "name": "Econometrics I",
+      "folderName": "HE2003",
+      "githubUrl": "https://github.com/Quantitative-Research-Society-NTU/QRSNTU/tree/main/Notes/HE2003",
+      "materials": {
+        "finals": {},
+        "midterms": {},
+        "revisionNotes": [
+          {
+            "name": "HE2003_RevisionNotes.pdf",
+            "path": "Notes/HE2003/HE2003_RevisionNotes.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003_RevisionNotes.pdf"
+          }
+        ],
+        "cheatSheets": [
+          {
+            "name": "HE2003_Cheatsheet_Quiz.pdf",
+            "path": "Notes/HE2003/HE2003_Cheatsheet_Quiz.pdf",
+            "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003_Cheatsheet_Quiz.pdf"
+          }
+        ],
+        "problemSheets": [],
+        "tutorials": {
+          "Tutorial 1": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2003_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 2": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2003_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 2_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 3": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2003_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 3_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 3_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 4": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2003_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 4_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 4_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Tutorial 5": {
+            "papers": [],
+            "solutions": [
+              {
+                "name": "HE2003_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 5_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Tutorials/HE2003_Tutorials_Tutorial 5_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "lectureNotes": [],
+        "practiceMaterials": {
+          "Practice 1": {
+            "papers": [
+              {
+                "name": "HE2003_EconometricsI_Practice 1_QuestionPaper.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 1_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 1_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2003_EconometricsI_Practice 1_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 1_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 1_Solution by QRS.pdf"
+              }
+            ]
+          },
+          "Practice 2": {
+            "papers": [
+              {
+                "name": "HE2003_EconometricsI_Practice 2_QuestionPaper.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 2_QuestionPaper.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 2_QuestionPaper.pdf"
+              }
+            ],
+            "solutions": [
+              {
+                "name": "HE2003_EconometricsI_Practice 2_Solution by QRS.pdf",
+                "path": "Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 2_Solution by QRS.pdf",
+                "downloadUrl": "https://raw.githubusercontent.com/Quantitative-Research-Society-NTU/QRSNTU/main/Notes/HE2003/HE2003 - Econometrics I - Midterm Practice/HE2003_EconometricsI_Practice 2_Solution by QRS.pdf"
+              }
+            ]
+          }
+        },
+        "pastYearZips": []
+      }
+    },
+    {
       "code": "MH5200",
       "name": "Advanced Investigations in Linear Algebra I",
       "folderName": "MH5200",
@@ -4718,5 +4831,5 @@
       }
     }
   ],
-  "generatedAt": "2026-08-17T11:12:01.347Z"
+  "generatedAt": "2026-09-28T12:17:34.562Z"
 }
