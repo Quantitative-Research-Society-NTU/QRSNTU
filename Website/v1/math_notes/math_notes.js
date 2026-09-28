@@ -2,8 +2,6 @@ let allCourses = [], filteredCourses = [], selectedCourses = new Set();
 let filterState = { examType: 'all', showSelectedOnly: false, searchQuery: '' };
 let expandedSections = new Set();
 
-const APP_VERSION = '1.9';
-
 document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
     await loadCourses();
@@ -52,7 +50,7 @@ function getCourseFileCount(course) {
 async function loadCourses() {
     const loadingState = document.getElementById('loading-state');
     try {
-        const response = await fetch(`../courses.json?v=${APP_VERSION}`);
+        const response = await fetch('../courses.json', { cache: 'no-cache' });
         if (!response.ok) throw new Error(`Failed to load courses data: ${response.status}`);
         const data = await response.json();
         allCourses = data.courses;
