@@ -16,16 +16,16 @@ ORIGIN = "https://qrsntu.org"
 SKIP = {"_site", "branches", "fonts", "nus", "cuhk", "fdu", "sjtu", "cmu", "hkust"}
 BLOCK = re.compile(r'\n?    <!-- SEO: generated -->.*?<!-- /SEO -->\n?', re.S)
 DESCRIPTIONS = {
-    "": "Quantitative Research Society (QRS): a cross-institutional academic research network in quantitative finance, machine learning, mathematics, and related fields, originating at NTU.",
-    "about": "About QRS, a cross-institutional academic research network, and QRS@NTU, its originating campus community at Nanyang Technological University.",
+    "": "QRS@NTU develops and conducts student-led research in quantitative finance, machine learning, and related technical areas.",
+    "about": "About QRS@NTU, which develops and conducts student-led research, and its place in the wider QRS network.",
     "projects": "Explore QRS research projects, competitions, and recognition in quantitative finance, machine learning, and mathematics.",
     "publications": "Browse publications and preprints by QRS researchers, with author, year, and venue filters.",
-    "programmes": "Explore the QRS Research Academy, a cohort- and project-based research-training programme, and other QRS programmes.",
+    "programmes": "The QRS Research Academy is the entry-stage educational research programme at QRS@NTU, with a path to QRS Researcher roles.",
     "events": "Find QRS and QRS@NTU talks, workshops, competitions, and community events.",
     "service": "QRS supports academic workshops and research communities with web, publicity, outreach, and organisational infrastructure.",
     "people": "Meet QRS@NTU officers and QRS researchers, and explore their profiles, projects, and publications.",
     "math_notes": "Browse NTU mathematics and economics past-year papers, solutions, revision notes, and course resources.",
-    "join_us": "Get involved with QRS through the QRS Research Academy or the QRS@NTU community.",
+    "join_us": "Apply to the QRS Research Academy or get involved with the QRS@NTU community.",
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
 }
