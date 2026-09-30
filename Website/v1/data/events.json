@@ -1,5 +1,27 @@
 [
   {
+    "id": "gmmg-singapore-2026",
+    "title": "Global Market Making Games 2026 — Singapore Qualifier",
+    "type": "industry-competition",
+    "status": "upcoming",
+    "start_date": "2026-10-16",
+    "end_date": "2026-10-16",
+    "start_time": "19:30",
+    "end_time": "21:00",
+    "timezone": "Asia/Singapore",
+    "location": "Singapore (venue to be announced)",
+    "qrs_role": "Singapore partner",
+    "organizers": [
+      "Amsterdam Investment Club"
+    ],
+    "partners": [
+      "Trading Interview",
+      "Flow Traders (Super Day partner)"
+    ],
+    "summary": "An individual global market-making competition open to university students across Singapore.",
+    "url": "/gmmg/"
+  },
+  {
     "id": "imc-tech-race-ntu-2026",
     "title": "IMC Tech Race @ NTU",
     "type": "industry",
