@@ -27,7 +27,42 @@ DESCRIPTIONS = {
     "math_notes": "Browse NTU mathematics and economics past-year papers, solutions, revision notes, and course resources.",
     "join_us": "Apply to the QRS Research Academy or get involved with the QRS@NTU community.",
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
+    "gmmg": "Compete individually in the Global Market Making Games 2026 Singapore qualifier on 16 October. Open to all university students in Singapore.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
+}
+
+
+def gmmg_events(canonical):
+    """Singapore qualifier and final as separate Events. The venue is still to be announced,
+    so the location is the country and city only; do not add a street address until confirmed."""
+    common = {
+        "@type": "Event",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {"@type": "Place", "name": "Singapore (venue to be announced)",
+                     "address": {"@type": "PostalAddress", "addressLocality": "Singapore", "addressCountry": "SG"}},
+        "url": canonical,
+        "inLanguage": "en",
+        "organizer": [
+            {"@type": "Organization", "name": "Amsterdam Investment Club", "url": "https://www.amsterdaminvestmentclub.com/"},
+            {"@type": "Organization", "name": "Quantitative Research Society", "alternateName": "QRS@NTU", "url": ORIGIN + "/"}],
+    }
+    qualifier = {**common, "@id": canonical + "#qualifier",
+                 "name": "Global Market Making Games 2026 - Singapore Qualifier",
+                 "description": "Individual market-making competition open to university students across Singapore. Results decide who progresses to the Singapore final.",
+                 "startDate": "2026-10-16T19:30:00+08:00", "endDate": "2026-10-16T21:00:00+08:00",
+                 "isAccessibleForFree": True,
+                 "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "url": canonical}}
+    final = {**common, "@id": canonical + "#final",
+             "name": "Global Market Making Games 2026 - Singapore Final",
+             "description": "Leading Singapore qualifiers compete in the Singapore final to decide the Singapore champion.",
+             "startDate": "2026-11-13T16:00:00+08:00", "endDate": "2026-11-13T19:00:00+08:00"}
+    return [qualifier, final]
+
+
+# Per-page extra structured data, keyed by route slug.
+PAGE_EXTRAS = {
+    "gmmg": {"graph": gmmg_events},
 }
 
 
@@ -102,6 +137,9 @@ def generate(check=False):
                 fallback += '<p>' + '<br>'.join(escape(role) for role in roles) + '</p>'
             fallback += '<p><a href="/projects/">Projects</a> &middot; <a href="/publications/">Publications</a></p></div>'
             source = re.sub(r'<div id="person-profile">.*?</div>', lambda _: fallback, source, flags=re.S)
+        extras = PAGE_EXTRAS.get(slug, {})
+        if extras:
+            graph.extend(extras["graph"](canonical))
         if not slug:
             graph.extend([
                 {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/", "name": "QRS",

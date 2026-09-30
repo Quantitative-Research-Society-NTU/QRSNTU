@@ -11,7 +11,16 @@ function formatDateRange(ev) {
     return `${start} – ${end}`;
 }
 
+function formatTime(ev) {
+    if (!ev.start_time) return '';
+    const zone = ev.timezone === 'Asia/Singapore' ? ' SGT' : '';
+    return `${ev.start_time}${ev.end_time ? `–${ev.end_time}` : ''}${zone}`;
+}
+
 function eventCard(ev) {
+    // Pages on this site ("/gmmg/") open in place; external event pages open in a new tab.
+    const internal = ev.url && ev.url.startsWith('/');
+    const time = formatTime(ev);
     const orgList = (ev.organizers || []).join(', ');
     const partnerList = (ev.partners || []).join(', ');
     return `
@@ -21,12 +30,12 @@ function eventCard(ev) {
                 <span class="badge badge-status">${ev.status === 'past' ? 'Past' : 'Upcoming'}</span>
             </div>
             <h3 class="card-title">${escapeHtml(ev.title)}</h3>
-            <p class="event-meta">${formatDateRange(ev)} &middot; ${escapeHtml(ev.location)}</p>
+            <p class="event-meta">${formatDateRange(ev)}${time ? ` &middot; ${time}` : ''} &middot; ${escapeHtml(ev.location)}</p>
             ${ev.qrs_role ? `<p class="event-meta">QRS role: ${escapeHtml(ev.qrs_role)}</p>` : ''}
             <p class="card-description">${escapeHtml(ev.summary)}</p>
             ${orgList ? `<p class="event-meta"><span class="label">Organisers:</span> ${escapeHtml(orgList)}</p>` : ''}
             ${partnerList ? `<p class="event-meta"><span class="label">Partners:</span> ${escapeHtml(partnerList)}</p>` : ''}
-            ${ev.url ? `<a href="${escapeHtml(ev.url)}" target="_blank" rel="noopener noreferrer" class="card-link">Event details <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>` : ''}
+            ${ev.url ? `<a href="${escapeHtml(ev.url)}"${internal ? '' : ' target="_blank" rel="noopener noreferrer"'} class="card-link">${internal ? 'Learn more' : 'Event details'} <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a>` : ''}
         </article>`;
 }
 
