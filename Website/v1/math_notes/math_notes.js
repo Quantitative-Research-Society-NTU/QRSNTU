@@ -197,6 +197,18 @@ function groupByIdentifier(items) {
     return grouped;
 }
 
+// A year can hold several papers (e.g. Midterm 1 and Midterm 2); the trailing
+// number in the filename ("QuestionPaper 2", "Solution by QRS 2") tells them apart.
+function extractPartNumber(filename) {
+    const match = filename.match(/(?:QuestionPaper|Solution(?: by QRS)?)\s+(\d+)(?=\s|\.pdf$)/i);
+    return match ? match[1] : null;
+}
+
+function withPartNumber(label, filename) {
+    const part = extractPartNumber(filename);
+    return part ? `${label} ${part}` : label;
+}
+
 function renderCourses(courses) {
     const container = document.getElementById('courses-container'), noResults = document.getElementById('no-results');
     if (courses.length === 0) {
@@ -291,24 +303,26 @@ function createCourseCard(course) {
             return a.name.localeCompare(b.name);
         });
 
-        const sliced = sorted.slice(0, 2);
-
-        const buttonsHtml = sliced.map(solution => {
-            let label = 'Solution';
+        const buttonsHtml = sorted.map(solution => {
+            const base = withPartNumber('Solution', solution.name);
+            let label = base;
             let colorClass = 'bg-purple-600 hover:bg-purple-700 text-white';
             const lowerName = solution.name.toLowerCase();
 
             if (solution.name.includes('by QRS')) {
-                label = 'Solution (QRS)';
+                label = `${base} (QRS)`;
                 colorClass = 'bg-green-600 hover:bg-green-700 text-white';
             } else if (lowerName.includes('handwritten')) {
-                label = 'Solution Handwritten';
+                label = `${base} Handwritten`;
                 colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (lowerName.includes('scanned')) {
-                label = 'Solution Scanned';
+                label = `${base} Scanned`;
+                colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
+            } else if (lowerName.includes('printed')) {
+                label = `${base} Printed`;
                 colorClass = 'bg-gray-200 hover:bg-gray-300 text-gray-900 italic border border-gray-300';
             } else if (solution.name.includes('Unofficial')) {
-                label = 'Solution (Other)';
+                label = `${base} (Other)`;
                 colorClass = 'bg-gray-600 hover:bg-gray-700 text-white';
             }
             return `<a href="${solution.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 ${colorClass} text-xs font-medium rounded transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${label}</a>`;
@@ -335,7 +349,7 @@ function createCourseCard(course) {
             const materials = course.materials.finals[year];
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
-                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
+                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${withPartNumber('Paper', paper.name)}</a>`;
             });
             sectionHtml += renderSolutions(materials.solutions);
             (materials.reports || []).forEach(report => {
@@ -363,7 +377,7 @@ function createCourseCard(course) {
             const materials = course.materials.midterms[year];
             sectionHtml += `<div class="mb-2 flex items-start flex-wrap gap-2"><span class="text-xs text-gray-700 mr-2 mt-1">AY ${year}:</span>`;
             materials.papers.forEach(paper => {
-                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>Paper</a>`;
+                sectionHtml += `<a href="${paper.downloadUrl}" download onclick="event.stopPropagation()" class="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"><i data-lucide="download" class="w-3 h-3 mr-1"></i>${withPartNumber('Paper', paper.name)}</a>`;
             });
             sectionHtml += renderSolutions(materials.solutions);
             sectionHtml += '</div>';
