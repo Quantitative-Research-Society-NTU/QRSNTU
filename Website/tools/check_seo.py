@@ -85,6 +85,12 @@ def check(site, live):
     directory = Head(read("/site-map/"))
     linked = {urljoin(ORIGIN, href) for href in directory.links}
     assert set(urls) - {ORIGIN + "/site-map/"} <= linked, "HTML sitemap omits a page"
+    if not live:
+        projects = json.loads((site / 'data/projects.json').read_text(encoding='utf-8'))
+        project_index = read('/projects/')
+        assert '<!-- PROJECTS: generated -->' in project_index, 'Projects need static crawlable content'
+        for project in projects:
+            assert f'href="{project["id"]}/"' in project_index, (project['id'], 'Missing static project link')
     for alias, canonical in {"/index.html": "/", "/research.html": "/projects/",
                              "/events_learning.html": "/events/",
                              "/awards_recognition.html": "/projects/",

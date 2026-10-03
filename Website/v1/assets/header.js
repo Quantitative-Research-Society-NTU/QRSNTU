@@ -5,7 +5,7 @@
 // comes before script.js's on every page, the nav is fully built by the time
 // script.js's DOMContentLoaded handler wires up its interactivity
 // (mobile-menu toggle, scroll effect, active-link highlight).
-import { NAV_LINKS } from './qrs-data.js';
+import { NAV_LINKS } from './qrs-data.js?v=20261003-data';
 
 function renderHeader() {
     const header = document.getElementById('header');

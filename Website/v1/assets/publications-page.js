@@ -1,5 +1,5 @@
 // Accepted records plus intentionally retained archives, merged by title.
-import { loadData, personRefs, publicPublications, publicationLinksHTML, escapeHtml } from './qrs-data.js';
+import { loadData, personRefs, publicPublications, publicationLinksHTML, escapeHtml } from './qrs-data.js?v=20261003-data';
 import { mountCatalog, peopleSearch } from './catalog.js';
 
 async function renderPublications() {

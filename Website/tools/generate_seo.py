@@ -82,7 +82,16 @@ def generate(check=False):
         if any(part in SKIP for part in path.relative_to(ROOT).parts):
             continue
         source = path.read_text(encoding="utf-8")
+        # Serve precompiled utilities locally; runtime CDN compilation used to
+        # block the parser before it could display the static About content.
+        asset_root = '../' * (len(path.relative_to(ROOT).parts) - 1)
+        source = re.sub(r'<script src="https://cdn.tailwindcss.com[^\"]*"></script>',
+                        '<link rel="stylesheet" href="' + asset_root + 'assets/tailwind.css?v=20261003-performance">', source)
+        source = source.replace('<script src="https://unpkg.com/lucide@latest"></script>',
+                                '<script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>')
         source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
+        source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261003-performance')
+        source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
         source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
@@ -106,8 +115,8 @@ def generate(check=False):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Map | QRS</title>
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/tailwind.css?v=20261003-performance">
+    <script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>
     <link rel="stylesheet" href="../style.css?v=20261003-shared">
     <link rel="stylesheet" href="../fonts.css?v=20260907-final">
     <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
@@ -155,6 +164,7 @@ def generate(check=False):
             roles = [role for role in roles if not (person.get('research_academy') and role == 'QRS Research Academy Member')]
             if roles:
                 fallback += '<p>' + '<br>'.join(escape(role) for role in roles) + '</p>'
+            fallback += ''.join('<p class="person-affiliation">' + escape(affiliation) + '</p>' for affiliation in person.get('affiliations', []))
             for education in person.get('education', []):
                 label = education['role'] + ', ' + education['institution']
                 fallback += '<p class="person-affiliation affiliation-row"><span>' + escape(label)
@@ -165,7 +175,10 @@ def generate(check=False):
                     fallback += '<span class="affiliation-dates">' + escape(education['dates']) + '</span>'
                 fallback += '</p>'
             for experience in person.get('experience', []):
-                fallback += '<p class="person-affiliation affiliation-row"><span>' + escape(experience['role'] + ', ' + experience['organisation']) + '</span>'
+                label = experience['role'] + ', ' + experience['organisation']
+                if experience.get('team'):
+                    label += ' · ' + experience['team']
+                fallback += '<p class="person-affiliation affiliation-row"><span>' + escape(label) + '</span>'
                 if experience.get('dates'):
                     fallback += '<span class="affiliation-dates">' + escape(experience['dates']) + '</span>'
                 fallback += '</p>'

@@ -1,7 +1,7 @@
 // Populates the homepage's Current Work and Publications previews
 // sections from the shared JSON data, keeping them in sync with the full
 // Projects/Publications/Events pages without duplicating hand-written content.
-import { loadData, personRefs, publicPublications, publicationLinksHTML, escapeHtml } from './qrs-data.js';
+import { loadData, personRefs, publicPublications, publicationLinksHTML, escapeHtml } from './qrs-data.js?v=20261003-data';
 
 async function renderHome() {
     try {

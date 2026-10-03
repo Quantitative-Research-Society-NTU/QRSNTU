@@ -23,7 +23,9 @@ export const NAV_LINKS = [
 export async function loadData(paths) {
     const entries = await Promise.all(
         Object.entries(paths).map(async ([key, url]) => {
-            const res = await fetch(url);
+            // Revalidate mutable canonical records; an old cached JSON response
+            // must not overwrite the newly generated static page content.
+            const res = await fetch(url, { cache: 'no-cache' });
             if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
             return [key, await res.json()];
         })

@@ -1,6 +1,6 @@
 // Officers appear once, before non-officer researchers and coordinators.
 // Academy membership stays on profiles; its roster has a dedicated link.
-import { loadData, renderPersonName, personRoles, personPath, escapeHtml } from './qrs-data.js';
+import { loadData, renderPersonName, personRoles, personPath, escapeHtml } from './qrs-data.js?v=20261003-data';
 
 const QRS_ROLE = /^(?:Principal )?Researcher, Quantitative Research Society$/;
 
@@ -8,7 +8,8 @@ function personCard(person) {
     return `
         <a href="${personPath(person, '../')}" class="person-directory-card">
             <span class="person-directory-name">${renderPersonName(person)}</span>
-            ${personRoles(person).map(role => `<span class="person-directory-role">${escapeHtml(role)}</span>`).join('')}
+            ${personRoles(person).filter(role => !(person.research_academy?.length && role === 'QRS Research Academy Member')).map(role => `<span class="person-directory-role">${escapeHtml(role)}</span>`).join('')}
+            ${(person.affiliations || []).map(affiliation => `<span class="person-directory-role">${escapeHtml(affiliation)}</span>`).join('')}
         </a>`;
 }
 
@@ -25,7 +26,7 @@ async function renderPeople() {
     try {
         const { people, branches } = await loadData({
             people: '../data/people.json',
-            branches: '../data/branches.json',
+            branches: '../data/branches.json?v=20261003-shared',
         });
 
         const officers = people.filter(p => p.is_admin);
