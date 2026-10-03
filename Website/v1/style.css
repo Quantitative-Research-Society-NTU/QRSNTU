@@ -375,6 +375,22 @@ body > #root > footer a:hover i {
 .footer-col-brand {
     flex: 2 1 220px;
 }
+#header .qrs-header-nav { max-width: 1440px; }
+.qrs-wordmark { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+.qrs-brand-title { font-family: var(--font-heading); color: #fff; font-size: 1.25rem; line-height: 1.25; white-space: nowrap; }
+#header .nav-link, #header .nav-cta { font-size: 1rem; }
+.qrs-footer-wordmark { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+.footer-col-community { flex: 2 1 380px; }
+.footer-community-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; }
+@media (max-width: 640px) {
+    #header .qrs-header-nav { padding-inline: 12px; }
+    #header #mobile-menu-button { padding: 4px; }
+    .qrs-brand { gap: 8px; }
+    .qrs-wordmark { width: 48px; height: 48px; }
+    .qrs-brand-title { font-size: clamp(.75rem, 3.7vw, 1.1rem); }
+    .footer-community-grid { grid-template-columns: 1fr; }
+    .footer-brand { flex-wrap: wrap; }
+}
 
 .footer-brand {
     display: flex;
@@ -879,7 +895,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 main > .container > .catalog-toolbar { max-width: 48rem; }
 .publication-year-group { padding-top: 0; padding-bottom: 0; }
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
     #header #mobile-menu { display: none; width: 100%; }
     #header #mobile-menu:not(.hidden) { display: block; }
     #header #mobile-menu > div { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-top: 1rem; }

@@ -96,7 +96,7 @@ export function externalLinksHTML(person, className = 'external-link') {
         .filter(({ key }) => person[key])
         .map(({ key, label, href }) => {
             const url = escapeHtml(href(person[key]));
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${className}">${label}<i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>`;
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${className}">[${label}]</a>`;
         })
         .join('');
 }
@@ -109,11 +109,53 @@ export function personRoles(person) {
 }
 
 export function projectsForPerson(personId, projects) {
-    return projects.filter(p => (p.participants || []).includes(personId));
+    return projects.filter(p => projectPeople(p).includes(personId));
+}
+
+export function projectPeople(project) {
+    return [...new Set([project.lead, ...(project.authors || []), ...(project.slicers || []), ...(project.participants || [])].filter(Boolean))];
+}
+
+export function projectRolesForPerson(personId, project) {
+    return [project.lead === personId ? 'Lead' : '',
+        (project.authors || []).includes(personId) ? 'Author' : '',
+        (project.slicers || []).includes(personId) ? 'Slicer' : ''].filter(Boolean);
+}
+
+export function acceptedResearch(research) {
+    return research.filter(r => r.status === 'accepted');
+}
+
+export function publicLinkLabel(label, url) {
+    if (url.includes('arxiv.org/')) return 'arXiv';
+    if (url.includes('github.com/')) return 'GitHub';
+    if (url.includes('openreview.net/')) return 'OpenReview';
+    return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+// Combine accepted records with retained archives without repeating a paper.
+// Keep archive anchors as aliases when an accepted version supersedes them.
+export function publicPublications(publications, research) {
+    const accepted = acceptedResearch(research).map(r => ({ ...r, type: 'workshop', links: r.url ? { [publicLinkLabel('Paper', r.url)]: r.url } : {}, legacy_ids: [] }));
+    const archives = [];
+    for (const publication of publications) {
+        const match = accepted.find(r => r.title === publication.title);
+        if (match) {
+            match.legacy_ids.push(publication.id);
+            if (publication.url) match.links[publicLinkLabel('Paper', publication.url)] = publication.url;
+        } else archives.push(publication);
+    }
+    return [...accepted, ...archives];
+}
+
+export function publicationLinksHTML(publication, rootBase = '') {
+    const links = publication.links || (publication.url ? { [publicLinkLabel('Paper', publication.url)]: publication.url } : {});
+    return (publication.project_id ? `<a href="${rootBase}projects/${publication.project_id}/" class="external-link"><strong>[Project]</strong></a> ` : '') +
+        Object.entries(links).map(([label, url]) => `<a href="${escapeHtml(url)}" class="external-link" target="_blank" rel="noopener noreferrer">[${escapeHtml(publicLinkLabel(label, url))}]</a>`).join(' ');
 }
 
 export function researchForPerson(personId, research) {
-    return research.filter(r => (r.authors || []).includes(personId));
+    return acceptedResearch(research).filter(r => (r.authors || []).includes(personId));
 }
 
 export function publicationsForPerson(personId, publications) {

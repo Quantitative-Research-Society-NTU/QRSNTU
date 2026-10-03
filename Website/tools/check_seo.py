@@ -92,7 +92,11 @@ def check(site, live):
                              "/people/danlin-chen/": "/cdl/"}.items():
         assert Head(read(alias)).canonicals == [ORIGIN + canonical], alias
         assert ORIGIN + alias not in urls, alias
-    for campus in ("nus", "cuhk", "fdu", "sjtu", "cmu", "hkust", "branches"):
+    for alias, canonical in {"attention-geometry": "geoattention", "approximation-rank-softmax-attention": "softrank"}.items():
+        head = Head(read(f"/projects/{alias}/"))
+        assert head.redirects and head.canonicals == [ORIGIN + f"/projects/{canonical}/"], alias
+        assert ORIGIN + f"/projects/{alias}/" not in urls, alias
+    for campus in ("nus", "cuhk", "fdu", "sjtu", "cmu", "hkust", "ntu-tw", "tw", "branches"):
         assert any("noindex" in value for value in Head(read(f"/{campus}/")).robots), campus
         assert not any(url.startswith(ORIGIN + f"/{campus}/") for url in urls), campus
     print(f"PASS: {len(urls)} canonical pages, XML/HTML sitemaps, robots, JSON-LD, aliases, and preview exclusions ({'live' if live else site}).")

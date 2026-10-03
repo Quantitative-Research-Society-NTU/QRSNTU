@@ -1,0 +1,18 @@
+.programme-paths { max-width: 64rem; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; text-align: left; }
+.programme-path { border-top: 2px solid #183b63; padding-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; }
+.programme-path .programme-level { font: 600 .75rem var(--font-body); text-transform: uppercase; letter-spacing: .08em; color: #183b63; margin-bottom: 1.25rem; }
+.programme-path h3 { font-size: 1.8rem; color: #11182c; margin-bottom: 1rem; }
+.programme-path > p:not(.programme-level) { color: #555; font-size: 1rem; margin-bottom: 1.5rem; }
+.programme-path dl { width: 100%; margin-top: auto; margin-bottom: 1.5rem; font: .9rem/1.6 var(--font-body); }
+.programme-path dl > div { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; padding-block: .75rem; border-top: 1px solid #e1e4e8; }
+.programme-path dt { color: #626b78; }
+.programme-path dd { margin: 0; color: #182e49; }
+.programme-path .card-link, .programme-contact .card-link { color: #183b63; }
+.programme-paths-lead { grid-template-columns: 3fr 2fr; }
+.programme-path-secondary { border-top-color: #bdbdbd; }
+.programme-path-secondary .programme-level { color: #626b78; }
+.programme-path-secondary h3 { font-size: 1.35rem; color: #444; }
+.programme-contact p { color: #555; max-width: 44rem; }
+.programme-contact .card-link { flex-shrink: 0; }
+.programme-contact { max-width: 64rem; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid #d7dce3; display: flex; justify-content: space-between; gap: 1rem; font-size: 1rem; }
+@media(max-width:700px) { .programme-paths, .programme-paths-lead { grid-template-columns: 1fr; gap: 2rem; } .programme-contact { flex-direction: column; text-align: left; } }

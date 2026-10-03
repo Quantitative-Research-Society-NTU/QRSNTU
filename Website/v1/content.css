@@ -1,4 +1,36 @@
 /* Only the content below inner-page titles. No banner or global style rules. */
+.research-content { overflow-wrap: anywhere; }
+.research-content .person-section p + p { margin-top: 1rem; }
+.research-content .person-section h2 { text-align: left; }
+.project-team { margin: 1.25rem 0; font-size: .875rem; line-height: 1.7; color: #6b7280; }
+.project-team p { margin: .2rem 0; }
+.research-content .publication-authors { font-size: .875rem; color: #6b7280; }
+.academy-history, .academy-history a { color: #6b7280; font-size: .875rem; }
+.academy-history { margin: .35rem 0; }
+.project-links { margin-top: 1rem; }
+.publication-meta { display: block; }
+.publication-links { display: flex; flex-wrap: wrap; gap: .5rem; font-size: .875rem; margin-top: .35rem; }
+.person-section .person-list li + li { margin-top: 1rem; }
+.project-heading .section-title { margin-bottom: .5rem; }
+.project-heading .project-summary { margin: .5rem 0 0; line-height: 1.65; color: #6b7280; }
+.profile-projects { margin-top: 1rem; font-size: 1rem; color: #183b63; line-height: 1.65; }
+.profile-projects strong { font-weight: 700; }
+.person-affiliation { margin: .3rem 0; color: #4b5563; font-size: .95rem; line-height: 1.5; }
+.person-header > div { flex: 1; min-width: 0; }
+.affiliation-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.affiliation-dates { flex-shrink: 0; font-size: .875rem; color: #6b7280; white-space: nowrap; }
+@media(max-width:640px) { .affiliation-row { flex-wrap: wrap; gap: .1rem .75rem; } .affiliation-dates { width: 100%; } }
+.person-affiliation.academy-history, .person-affiliation.academy-history a { color: #4b5563; font-size: .95rem; line-height: 1.5; }
+.affiliation-field { color: #6b7280; font-size: .875rem; }
+.academy-directory-link { margin: 1.5rem 0 0; }
+.academy-layout > section { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 2.5rem; padding: 2rem 0; }
+.academy-layout > section + section { border-top: 1px solid #d8d8d8; }
+.academy-layout > section > h2 { margin: 0; padding-left: 1rem; border-left: 3px solid #183b63; align-self: start; }
+.academy-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.academy-cohorts { color: #6b7280; font-size: .875rem; }
+.research-model > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 1rem; margin-bottom: 1rem; }
+.research-model dt { font-weight: 600; color: #183b63; }
+@media(max-width:900px) { .academy-layout > section { grid-template-columns: 1fr; gap: 1.5rem; } }
 /* Content changes are scoped to main, preserving the shared site chrome. */
 main.content-refinement { --accent-blue: #183b63; --accent-red: #183b63; }
 main.content-refinement .btn-red { background: #183b63; border-color: #183b63; }
@@ -77,6 +109,12 @@ main.content-refinement > .container > div > section:not(.programme-card) {
 main.content-refinement > .container > div > section:not(.programme-card) + section {
     border-top: 1px solid #d8d8d8;
 }
+main.content-refinement #person-profile > .person-section {
+    padding: 1.25rem 0 0;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+main.content-refinement #person-profile > .person-about { padding-bottom: 0; }
 main.content-refinement .programme-card {
     border: 0;
     border-top: 1px solid #bdbdbd;

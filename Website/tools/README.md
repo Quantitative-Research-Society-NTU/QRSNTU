@@ -2,6 +2,19 @@
 
 Production is built from `Website/v1` and published at `https://qrsntu.org`.
 
+Research and Academy pages are generated from V1 JSON and a shared template:
+run `python Website/tools/generate_research.py` before SEO generation.
+`--check` detects stale project/cohort pages. Run
+`python Website/tools/check_research.py` for schema, relationships, accepted-only
+visibility, cohort, route and internal-link audits, then regenerate campus
+previews with `python Website/v1/branches/build_drafts.py`.
+
+Optional browser regression checks: serve V1 on port 8765, then run
+`node Website/tools/check_research_browser.cjs` with Playwright available.
+An optional first argument supplies the Playwright package path. This checks
+390px/1280px layouts, data rendering, all member links, profiles, migration
+redirects and campus routing without adding a production dependency.
+
 Run `python Website/tools/generate_seo.py` after adding or editing public pages.
 It creates static canonical tags, descriptions, social metadata, JSON-LD,
 `robots.txt`, `sitemap.xml`, and the accessible `/site-map/` directory.

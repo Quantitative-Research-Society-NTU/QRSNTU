@@ -1,5 +1,181 @@
 [
   {
+    "id": "ai-native-workflow",
+    "title": "AI Native Workflow",
+    "type": [
+      "research",
+      "infrastructure"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [
+      "jianing-zhang",
+      "shufang-chen",
+      "danlin-chen",
+      "wang-zimeng",
+      "xiaotong-li"
+    ],
+    "slicers": [
+      "yizhe-chia"
+    ],
+    "summary": "Research on hierarchical, verification-gated and recoverable workflows for scaling long-horizon AI-assisted research and agent execution.",
+    "derived_research": "Derived research in progress",
+    "related_project_ids": [
+      "geoaft"
+    ]
+  },
+  {
+    "id": "frtbtrace",
+    "title": "FRTBTrace",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [],
+    "slicers": [],
+    "summary": "Active research on faithful, auditable, trade-level FRTB attribution.",
+    "derived_research": "Derived research in progress",
+    "links": {
+      "arXiv preprint": "https://arxiv.org/abs/2609.32238"
+    }
+  },
+  {
+    "id": "geoaft",
+    "title": "GeoAFT",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [],
+    "slicers": [],
+    "summary": "Research on post-training attention adaptation via geometry-adaptive fine-tuning.",
+    "derived_research": "Derived research in progress",
+    "related_project_ids": [
+      "ai-native-workflow",
+      "geoattention"
+    ]
+  },
+  {
+    "id": "geoattention",
+    "title": "GeoAttention",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [
+      "jianing-zhang",
+      "xiaotong-li"
+    ],
+    "slicers": [],
+    "summary": "Research on attention geometry, representation-relative identifiability, and geometry-adaptive prediction.",
+    "derived_research": "Derived research in progress",
+    "legacy_ids": [
+      "attention-geometry"
+    ],
+    "related_project_ids": [
+      "geoaft",
+      "softrank"
+    ]
+  },
+  {
+    "id": "policyattention",
+    "title": "PolicyAttention",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [
+      "shufang-chen",
+      "yingzhi-tang",
+      "xinyue-wu"
+    ],
+    "slicers": [
+      "shufang-chen",
+      "xinyue-wu"
+    ],
+    "summary": "Research on softmax policy improvement, its robustness, and its failure modes.",
+    "derived_research": "Derived research in progress",
+    "links": {
+      "arXiv preprint": "https://arxiv.org/abs/2609.30500"
+    }
+  },
+  {
+    "id": "riskhedge",
+    "title": "RiskHedge",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [
+      "yingzhi-tang",
+      "jianing-zhang",
+      "mi-zeyuan"
+    ],
+    "slicers": [
+      "wang-zimeng",
+      "yingzhi-tang"
+    ],
+    "summary": "Research on spectral-risk decisions, diverse scenarios, and selective robustness evaluation.",
+    "derived_research": "Derived research in progress"
+  },
+  {
+    "id": "softrank",
+    "title": "SoftRank",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [
+      "jianing-zhang",
+      "yingzhi-tang"
+    ],
+    "slicers": [
+      "jingshu-liu"
+    ],
+    "summary": "Theoretical research on softmax-attention approximation rank, support geometry, and robust interaction dimension.",
+    "derived_research": "Derived research in progress",
+    "legacy_ids": [
+      "approximation-rank-softmax-attention"
+    ],
+    "links": {
+      "arXiv preprint": "https://arxiv.org/abs/2608.28150"
+    }
+  },
+  {
+    "id": "hedgefidelity",
+    "title": "HedgeFidelity",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [],
+    "slicers": [],
+    "summary": "An early-stage research programme with derived research in progress.",
+    "derived_research": "Derived research in progress",
+    "stage": "early-stage"
+  },
+  {
+    "id": "decisionrank",
+    "title": "DecisionRank",
+    "type": [
+      "research"
+    ],
+    "status": "active",
+    "lead": "yuhe-sui",
+    "authors": [],
+    "slicers": [],
+    "summary": "An early-stage research programme with derived research in progress.",
+    "derived_research": "Derived research in progress",
+    "stage": "early-stage"
+  },
+  {
     "id": "ntuinfo-com",
     "title": "ntuinfo.com",
     "type": [
@@ -15,77 +191,8 @@
     }
   },
   {
-    "id": "ai-native-workflow",
-    "title": "AI Native Workflow",
-    "type": [
-      "research",
-      "infrastructure"
-    ],
-    "status": "active",
-    "participants": [
-      "yuhe-sui",
-      "jianing-zhang",
-      "shufang-chen",
-      "danlin-chen",
-      "wang-zimeng",
-      "xiaotong-li"
-    ],
-    "summary": "Research on hierarchical, verification-gated and recoverable workflows for scaling long-horizon AI-assisted research and agent execution."
-  },
-  {
-    "id": "attention-geometry",
-    "title": "Attention Geometry",
-    "type": [
-      "research"
-    ],
-    "status": "active",
-    "participants": [
-      "yuhe-sui",
-      "jianing-zhang",
-      "xiaotong-li"
-    ],
-    "summary": "Research on attention geometry, representation-relative identifiability, and geometry-adaptive prediction."
-  },
-  {
-    "id": "geoaft",
-    "title": "GeoAFT",
-    "type": [
-      "research"
-    ],
-    "status": "active",
-    "participants": [
-      "yuhe-sui"
-    ],
-    "summary": "Research on post-training attention adaptation via geometry-adaptive fine-tuning (GeoAFT)."
-  },
-  {
-    "id": "approximation-rank-softmax-attention",
-    "title": "The Approximation Rank of Softmax Attention",
-    "type": [
-      "research"
-    ],
-    "status": "published",
-    "participants": [
-      "yuhe-sui",
-      "jianing-zhang"
-    ],
-    "summary": "Theoretical work on softmax-attention approximation rank, support geometry and robust interaction dimension."
-  },
-  {
-    "id": "policyattention",
-    "title": "PolicyAttention",
-    "type": [
-      "research"
-    ],
-    "status": "submitted",
-    "participants": [
-      "yuhe-sui"
-    ],
-    "summary": "Research on conditions under which softmax attention implements policy-improvement structure."
-  },
-  {
     "id": "alphaallocator",
-    "title": "NTU-QRS AlphaAllocator",
+    "title": "AlphaAllocator",
     "type": [
       "research",
       "competition"
@@ -94,7 +201,7 @@
     "participants": [
       "yuhe-sui"
     ],
-    "summary": "A constrained Chinese financial-news overlay on top of classical risk-parity allocation, developed for NLPCC 2026 Shared Task 4.",
+    "summary": "A constrained Chinese financial-news overlay on classical risk-parity allocation, presented as a poster and oral at NLPCC 2026 Shared Task 4.",
     "recognition": [
       {
         "event": "NLPCC 2026 Shared Task 4",
@@ -106,7 +213,10 @@
         "track": "Track 2",
         "result": "6th"
       }
-    ]
+    ],
+    "links": {
+      "OpenReview": "https://openreview.net/forum?id=u09PzTYNHk"
+    }
   },
   {
     "id": "cffa-2026",

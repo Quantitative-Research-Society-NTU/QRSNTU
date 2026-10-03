@@ -13,8 +13,26 @@
     "openreview": "~Yuhe_Sui1",
     "orcid": "0009-0002-7456-0804",
     "github": "yuhesui",
-    "linkedin": null,
-    "service": []
+    "linkedin": "https://www.linkedin.com/in/yuhesui/",
+    "about": "Yuhe studies attention mechanisms, focusing on their geometry, approximation behaviour, and statistical efficiency. Research interests include adapting attention through post-training and fine-tuning, and applying these methods to quantitative finance, reinforcement learning, and sequential decision-making.",
+    "about_source": "https://www.linkedin.com/in/yuhesui/",
+    "service": [],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University",
+        "field": "Mathematical Sciences and Economics",
+        "dates": "Aug 2025 – Dec 2028",
+        "dates_source": "https://www.linkedin.com/in/yuhesui/"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Quant Intern",
+        "organisation": "UBS",
+        "dates": "May 2026 – Aug 2026"
+      }
+    ]
   },
   {
     "id": "jianing-zhang",
@@ -29,8 +47,45 @@
     "openreview": "~Jianing_Zhang17",
     "orcid": "0009-0004-3810-9316",
     "github": "Catherineya",
-    "linkedin": null,
-    "service": []
+    "linkedin": "https://www.linkedin.com/in/jianing-zhang-831446223/",
+    "about": "Jianing is pursuing a master's in Computational Data Science at Carnegie Mellon University. Previous experience at Alphabet and iFLYTEK includes fraud detection and multilingual AI pipelines. Jianing's interests span applied AI, machine learning engineering, data science, and data engineering, with an emphasis on scalable, trustworthy systems for healthcare and other practical applications.",
+    "about_source": "https://www.linkedin.com/in/jianing-zhang-831446223/",
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #1",
+        "status": "promoted",
+        "research_areas": [
+          "ai-native-workflow",
+          "geoattention",
+          "softrank"
+        ]
+      }
+    ],
+    "chinese_name": "章佳宁",
+    "education": [
+      {
+        "role": "MS",
+        "institution": "Carnegie Mellon University",
+        "field": "Computational Data Science",
+        "dates": "Aug 2025 – May 2027",
+        "dates_source": "https://www.linkedin.com/in/jianing-zhang-831446223/"
+      },
+      {
+        "role": "BS",
+        "institution": "New York University",
+        "field": "Data Science & Mathematics",
+        "dates": "Sep 2021 – May 2025",
+        "dates_source": "https://www.linkedin.com/in/jianing-zhang-831446223/"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Quant Intern",
+        "organisation": "UBS",
+        "dates": "May 2026 – Aug 2026"
+      }
+    ]
   },
   {
     "id": "danlin-chen",
@@ -44,7 +99,13 @@
     "orcid": null,
     "github": null,
     "linkedin": null,
-    "service": []
+    "service": [],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Western University"
+      }
+    ]
   },
   {
     "id": "shufang-chen",
@@ -52,12 +113,41 @@
     "preferred_name": null,
     "is_admin": false,
     "is_current_ntu": false,
-    "roles": [],
+    "roles": [
+      "QRS Research Academy Member"
+    ],
     "openreview": "~SHUFANG_CHEN1",
-    "orcid": null,
+    "orcid": "0009-0009-3627-7726",
     "github": "zhaohuisuo1111-droid",
     "linkedin": null,
-    "service": []
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #2",
+        "status": "member",
+        "research_areas": []
+      }
+    ],
+    "chinese_name": "陈淑芳",
+    "education": [
+      {
+        "role": "MS",
+        "institution": "The University of Hong Kong",
+        "field": "Computer Science"
+      },
+      {
+        "role": "BS",
+        "institution": "Beijing University of Posts and Telecommunications",
+        "field": "Computer Science"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Quant Intern",
+        "organisation": "UBS",
+        "dates": "May 2026 – Aug 2026"
+      }
+    ]
   },
   {
     "id": "xiaotong-li",
@@ -65,27 +155,71 @@
     "preferred_name": null,
     "is_admin": false,
     "is_current_ntu": false,
-    "roles": [],
+    "roles": [
+      "QRS Research Academy Member"
+    ],
     "openreview": "~李晓彤1",
     "orcid": "0009-0005-2622-8120",
     "github": "ClzHhhhhhh",
     "linkedin": null,
-    "service": []
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #1",
+        "status": "member",
+        "research_areas": [
+          "ai-native-workflow",
+          "geoattention"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Dalian University of Technology",
+        "field": "Economics & Management"
+      }
+    ]
   },
   {
     "id": "wang-zimeng",
     "name": "Wang Zimeng",
     "preferred_name": "Zimeng",
-    "is_admin": false,
+    "is_admin": true,
     "is_current_ntu": false,
     "roles": [
-      "NUS Sub-branch Coordinator"
+      "NUS Sub-branch Coordinator",
+      "QRS Research Academy Member"
     ],
     "openreview": "~Wang_Zimeng1",
     "orcid": null,
     "github": "jiangsuwangjing",
-    "linkedin": null,
-    "service": []
+    "linkedin": "https://www.linkedin.com/in/zimeng-wang-2b3919285/",
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #2",
+        "status": "member",
+        "research_areas": []
+      }
+    ],
+    "chinese_name": "王子蒙",
+    "education": [
+      {
+        "role": "BS",
+        "institution": "National University of Singapore",
+        "field": "Computer Science",
+        "dates": "2023 – 2027",
+        "dates_source": "https://www.linkedin.com/in/zimeng-wang-2b3919285/"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Quant Intern",
+        "organisation": "UBS",
+        "dates": "May 2026 – Aug 2026"
+      }
+    ]
   },
   {
     "id": "duy-anh-nguyen",
@@ -98,7 +232,13 @@
     "orcid": null,
     "github": "IMainMordekaiser",
     "linkedin": null,
-    "service": []
+    "service": [],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University"
+      }
+    ]
   },
   {
     "id": "luis-ji",
@@ -111,7 +251,9 @@
     "orcid": null,
     "github": null,
     "linkedin": "https://www.linkedin.com/in/luisjicy/",
-    "service": []
+    "service": [],
+    "about": "Happy to connect.",
+    "about_source": "https://www.linkedin.com/in/luisjicy/"
   },
   {
     "id": "mi-zeyuan",
@@ -126,7 +268,18 @@
     "orcid": null,
     "github": null,
     "linkedin": "https://www.linkedin.com/in/mizeyuan/",
-    "service": []
+    "about": "Mi studies Accountancy and Data Science & Artificial Intelligence at Nanyang Technological University, with an interest in quantitative finance. Through URECA, Mi researches volatility pricing and leverage-decay risk in leveraged ETF options, and has worked on systematic investment strategies with the Nanyang Student Investment Fund. Technical interests include statistical modelling and using mathematical and computational methods to study financial markets.",
+    "about_source": "https://www.linkedin.com/in/mizeyuan/",
+    "service": [],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University",
+        "field": "Accountancy and Data Science & Artificial Intelligence",
+        "dates": "Aug 2024 – May 2028",
+        "dates_source": "https://www.linkedin.com/in/mizeyuan/"
+      }
+    ]
   },
   {
     "id": "yingzhi-tang",
@@ -138,9 +291,120 @@
       "Researcher, Quantitative Research Society"
     ],
     "openreview": "~Yingzhi_Tang2",
-    "orcid": null,
+    "orcid": "0009-0004-7571-0100",
     "github": null,
     "linkedin": "https://www.linkedin.com/in/yingzhi-tang-735603360/",
-    "service": []
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #1",
+        "status": "promoted",
+        "research_areas": [
+          "policyattention",
+          "riskhedge"
+        ]
+      }
+    ],
+    "chinese_name": "唐樱之",
+    "education": [
+      {
+        "role": "BS",
+        "institution": "The Chinese University of Hong Kong, Shenzhen",
+        "field": "Quantitative Finance & Artificial Intelligence",
+        "dates": "2023 – 2027",
+        "dates_source": "https://www.linkedin.com/in/yingzhi-tang-735603360/"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Quant Intern",
+        "organisation": "UBS",
+        "dates": "Jul 2026 – Present"
+      }
+    ]
+  },
+  {
+    "id": "xinyue-wu",
+    "name": "Xinyue Wu",
+    "is_admin": false,
+    "roles": [
+      "QRS Research Academy Member"
+    ],
+    "service": [],
+    "chinese_name": "武新悦",
+    "research_academy": [
+      {
+        "batch": "2026 Fall #2",
+        "status": "member",
+        "research_areas": []
+      }
+    ],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University",
+        "field": "Mathematical Sciences and Economics",
+        "dates": "Aug 2024 – Aug 2027",
+        "dates_source": "https://www.linkedin.com/in/eric-xinyue-wu/"
+      }
+    ],
+    "openreview": "~Xinyue_Wu5",
+    "linkedin": "https://www.linkedin.com/in/eric-xinyue-wu/"
+  },
+  {
+    "id": "jingshu-liu",
+    "name": "Jingshu Liu",
+    "is_admin": false,
+    "roles": [
+      "QRS Research Academy Member"
+    ],
+    "service": [],
+    "chinese_name": "刘婧姝",
+    "research_academy": [
+      {
+        "batch": "2026 Fall #2",
+        "status": "member",
+        "research_areas": []
+      }
+    ],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Tsinghua University",
+        "field": "Mathematics",
+        "dates": "Sep 2025 – Jun 2029",
+        "dates_source": "https://www.linkedin.com/in/%E5%A9%A7%E5%A7%9D-%E5%88%98-7b034b384/"
+      }
+    ],
+    "openreview": "~Jingshu_Liu1",
+    "linkedin": "https://www.linkedin.com/in/%E5%A9%A7%E5%A7%9D-%E5%88%98-7b034b384/"
+  },
+  {
+    "id": "yizhe-chia",
+    "name": "Yizhe Chia",
+    "is_admin": false,
+    "roles": [
+      "QRS Research Academy Member"
+    ],
+    "service": [],
+    "research_academy": [
+      {
+        "batch": "2026 Fall #2",
+        "status": "member",
+        "research_areas": []
+      }
+    ],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University",
+        "field": "Mathematics",
+        "dates": "Aug 2025 – Dec 2028",
+        "dates_source": "https://www.linkedin.com/in/yizhechia/"
+      }
+    ],
+    "linkedin": "https://www.linkedin.com/in/yizhechia/",
+    "about": "An early fascination with the Pythagorean theorem inspired Yizhe to study Mathematical Sciences. Yizhe is interested in exploring connections across mathematics and applying mathematical ideas to practical problems.",
+    "about_source": "https://www.linkedin.com/in/yizhechia/"
   }
 ]
