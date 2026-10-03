@@ -30,7 +30,8 @@
       {
         "role": "Quant Intern",
         "organisation": "UBS",
-        "dates": "May 2026 – Aug 2026"
+        "dates": "May 2026 – Aug 2026",
+        "team": "PQA"
       }
     ]
   },
@@ -83,7 +84,8 @@
       {
         "role": "Quant Intern",
         "organisation": "UBS",
-        "dates": "May 2026 – Aug 2026"
+        "dates": "May 2026 – Aug 2026",
+        "team": "Algo"
       }
     ]
   },
@@ -217,7 +219,8 @@
       {
         "role": "Quant Intern",
         "organisation": "UBS",
-        "dates": "May 2026 – Aug 2026"
+        "dates": "May 2026 – Aug 2026",
+        "team": "PQA"
       }
     ]
   },
@@ -247,6 +250,19 @@
     "is_admin": true,
     "is_current_ntu": true,
     "roles": [],
+    "affiliations": [
+      "QRS@NTU"
+    ],
+    "education": [
+      {
+        "role": "BS",
+        "institution": "Nanyang Technological University",
+        "field": "Economics",
+        "dates": "Aug 2025 – Present",
+        "dates_source": "https://www.linkedin.com/in/luisjicy/",
+        "dates_note": "Start date supplied by the user."
+      }
+    ],
     "openreview": null,
     "orcid": null,
     "github": null,
@@ -294,6 +310,8 @@
     "orcid": "0009-0004-7571-0100",
     "github": null,
     "linkedin": "https://www.linkedin.com/in/yingzhi-tang-735603360/",
+    "about": "Yingzhi studies Financial Engineering with a minor in Artificial Intelligence at The Chinese University of Hong Kong, Shenzhen. Her interests span quantitative finance, machine learning, and robust decision-making. Her experience includes quantitative factor research, factor timing, and machine-learning-based trading strategies, alongside work on AI agent systems as a quantitative developer intern at UBS. At QRS, she contributes to PolicyAttention and RiskHedge, exploring the reliability of attention-based policy improvement and decision-making under uncertainty.",
+    "about_source": "Author-written biography based on a CV supplied by Yingzhi Tang and QRS project records.",
     "service": [],
     "research_academy": [
       {
@@ -310,14 +328,14 @@
       {
         "role": "BS",
         "institution": "The Chinese University of Hong Kong, Shenzhen",
-        "field": "Quantitative Finance & Artificial Intelligence",
+        "field": "Financial Engineering (minor in Artificial Intelligence)",
         "dates": "2023 – 2027",
         "dates_source": "https://www.linkedin.com/in/yingzhi-tang-735603360/"
       }
     ],
     "experience": [
       {
-        "role": "Quant Intern",
+        "role": "Quantitative Developer Intern",
         "organisation": "UBS",
         "dates": "Jul 2026 – Present"
       }
@@ -326,7 +344,11 @@
   {
     "id": "xinyue-wu",
     "name": "Xinyue Wu",
-    "is_admin": false,
+    "is_admin": true,
+    "is_current_ntu": true,
+    "affiliations": [
+      "QRS@NTU"
+    ],
     "roles": [
       "QRS Research Academy Member"
     ],

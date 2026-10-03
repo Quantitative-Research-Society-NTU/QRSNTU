@@ -4,7 +4,7 @@
 import {
     loadData, renderPersonName, personRoles, externalLinksHTML,
     projectsForPerson, publicPublications, publicationsForPerson, publicationLinksHTML, escapeHtml
-} from './qrs-data.js';
+} from './qrs-data.js?v=20261003-data';
 
 // research.json is a curated accepted-only collection; filter defensively too.
 
@@ -29,6 +29,7 @@ function serviceItem(record) {
 
 async function renderPersonProfile() {
     const container = document.getElementById('person-profile');
+    if (!container) return;
     const personId = document.body.dataset.personId;
     // Canonical profiles live at /people/<id>/ (two levels deep); a person
     // with a short_id is instead served straight from their vanity alias
@@ -62,8 +63,9 @@ async function renderPersonProfile() {
                 <div>
                     <h1 class="person-name">${renderPersonName(person)}</h1>
                     ${roles.length ? `<p class="person-role">${roles.map(escapeHtml).join('<br>')}</p>` : ''}
+                    ${(person.affiliations || []).map(affiliation => `<p class="person-affiliation">${escapeHtml(affiliation)}</p>`).join('')}
                     ${(person.education || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.institution)}${e.field ? `, <em>${escapeHtml(e.field)}</em>` : ''}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
-                    ${(person.experience || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.organisation)}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
+                    ${(person.experience || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.organisation)}${e.team ? ` · ${escapeHtml(e.team)}` : ''}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
                     ${(person.research_academy || []).map(a => `<p class="person-affiliation academy-history"><a href="${ROOT}research-academy/members/">${a.status === 'promoted' ? 'Graduate' : 'Member'}, QRS Research Academy, ${escapeHtml(a.batch)}</a></p>`).join('')}
                     ${links ? `<div class="external-links">${links}</div>` : ''}
                 </div>
@@ -81,8 +83,14 @@ async function renderPersonProfile() {
         if (window.lucide) lucide.createIcons();
     } catch (err) {
         console.error('Error loading person profile:', err);
-        container.innerHTML = `<p class="text-gray-600">Profile data could not be loaded.</p>`;
+        // The generated HTML already contains the biography. Keep it readable
+        // when enhancement fails instead of replacing it with an error.
+        if (!container.textContent.trim()) {
+            container.innerHTML = `<p class="text-gray-600">Profile data could not be loaded.</p>`;
+        }
     }
 }
 
-document.addEventListener('DOMContentLoaded', renderPersonProfile);
+// Module scripts run after parsing; profile data need not wait for unrelated
+// deferred scripts or other pages' DOMContentLoaded handlers.
+renderPersonProfile();

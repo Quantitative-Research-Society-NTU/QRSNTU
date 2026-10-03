@@ -40,12 +40,20 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Generate research pages and validate public data
         run: |
           python3 Website/tools/generate_research.py
+          node Website/tools/generate_project_index.mjs
           python3 Website/tools/generate_seo.py
           python3 Website/v1/branches/build_drafts.py
+          npx --yes --package tailwindcss@3.4.17 tailwindcss --config Website/tools/tailwind.config.cjs --input Website/tools/tailwind-input.css --output Website/v1/assets/tailwind.css --minify
           python3 Website/tools/check_research.py
+          node Website/tools/test_profile_loading.mjs
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

@@ -1,6 +1,6 @@
 // Renders the Events page from data/events.json. Events here means
 // industrial/external activity only — never internal programme lectures.
-import { loadData, escapeHtml } from './qrs-data.js';
+import { loadData, escapeHtml } from './qrs-data.js?v=20261003-data';
 import { mountCatalog } from './catalog.js';
 
 function formatDateRange(ev) {

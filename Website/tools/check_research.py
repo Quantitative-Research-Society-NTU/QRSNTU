@@ -108,6 +108,14 @@ def check(site):
     assert persons['mi-zeyuan']['roles'] == ['Vice President, QRS@NTU']
     assert persons['wang-zimeng']['roles'] == ['NUS Sub-branch Coordinator', 'QRS Research Academy Member']
     assert persons['wang-zimeng']['is_admin'] is True
+    for pid in ['luis-ji', 'xinyue-wu']:
+        assert persons[pid]['is_admin'] is True
+        assert persons[pid]['affiliations'] == ['QRS@NTU']
+    assert persons['luis-ji']['roles'] == []
+    assert persons['xinyue-wu']['roles'] == ['QRS Research Academy Member']
+    assert persons['luis-ji']['education'][0]['field'] == 'Economics'
+    assert persons['luis-ji']['education'][0]['dates'] == 'Aug 2025 – Present'
+    assert persons['yingzhi-tang']['about']
     directory = (site / 'people/index.html').read_text(encoding='utf-8')
     assert 'academy-container' not in directory and '../research-academy/members/' in directory and 'academy-section' not in directory
     assert 'hX0YN2Nvsz' in (site / 'research-academy/index.html').read_text(encoding='utf-8')

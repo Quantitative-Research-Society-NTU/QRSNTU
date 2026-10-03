@@ -1,4 +1,4 @@
-import { escapeHtml, humanizeId } from './qrs-data.js';
+import { escapeHtml, humanizeId } from './qrs-data.js?v=20261003-data';
 
 export function peopleSearch(ids, people) {
     return (ids || []).map(id => people.find(p => p.id === id)?.name || humanizeId(id)).join(' ');
