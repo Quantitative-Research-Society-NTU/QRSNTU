@@ -40,8 +40,12 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Generate static SEO metadata and sitemaps
-        run: python3 Website/tools/generate_seo.py
+      - name: Generate research pages and validate public data
+        run: |
+          python3 Website/tools/generate_research.py
+          python3 Website/tools/generate_seo.py
+          python3 Website/v1/branches/build_drafts.py
+          python3 Website/tools/check_research.py
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -90,7 +94,9 @@ jobs:
           bundle exec jekyll build
 
       - name: Validate built sitemap and indexing metadata
-        run: python3 Website/tools/check_seo.py --site Website/v1/_site
+        run: |
+          python3 Website/tools/check_seo.py --site Website/v1/_site
+          python3 Website/tools/check_research.py --site Website/v1/_site
 
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v3

@@ -1,23 +1,30 @@
 [
   {
-    "name": "QRS@NUS"
+    "name": "QRS@NUS",
+    "url": "https://qrsntu.org/nus/"
+  },
+  {
+    "name": "QRS@NTU (Taiwan)",
+    "url": "https://qrsntu.org/tw/"
   },
   {
     "name": "QRS@CMU",
     "status": "coming-soon",
-    "url": "https://qrsntu.org/cmu"
+    "url": "https://qrsntu.org/cmu/"
   },
   {
-    "name": "QRS@CUHK 量化研究协会@香港中文",
-    "url": "https://qrsntu.org/cuhk"
+    "name": "QRS@CUHKSZ 量化研究协会@港中深",
+    "url": "https://qrsntu.org/cuhk/",
+    "status": "coming-soon"
   },
   {
     "name": "QRS@FDU 量化研究协会@复旦",
-    "url": "https://qrsntu.org/fdu"
+    "url": "https://qrsntu.org/fdu/",
+    "status": "coming-soon"
   },
   {
     "name": "QRS@SJTU 量化研究协会@交大",
     "status": "coming-soon",
-    "url": "https://qrsntu.org/sjtu"
+    "url": "https://qrsntu.org/sjtu/"
   }
 ]

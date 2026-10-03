@@ -10,7 +10,7 @@
     "venue": "arXiv",
     "type": "preprint",
     "url": "https://arxiv.org/abs/2608.28150",
-    "project_id": "approximation-rank-softmax-attention"
+    "project_id": "softrank"
   },
   {
     "id": "alphaallocator-nlpcc-2026",
@@ -19,7 +19,7 @@
       "yuhe-sui"
     ],
     "year": 2026,
-    "venue": "NLPCC 2026 Shared Tasks Poster",
+    "venue": "NLPCC 2026 Shared Task 4 · Poster + Oral",
     "url": "https://openreview.net/forum?id=u09PzTYNHk",
     "project_id": "alphaallocator"
   }

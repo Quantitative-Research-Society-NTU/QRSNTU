@@ -3,13 +3,10 @@
 // lives here so profile pages never duplicate markup or data-lookup code.
 import {
     loadData, renderPersonName, personRoles, externalLinksHTML,
-    projectsForPerson, researchForPerson, publicationsForPerson, isNonArchival, escapeHtml
+    projectsForPerson, publicPublications, publicationsForPerson, publicationLinksHTML, escapeHtml
 } from './qrs-data.js';
 
-// Research outputs (data/research.json) are disabled site-wide for now (per
-// operator request) — flip this back to true to list them under
-// "Workshop & Preprint" on profiles.
-const SHOW_RESEARCH = false;
+// research.json is a curated accepted-only collection; filter defensively too.
 
 function section(title, items) {
     if (!items.length) return '';
@@ -44,7 +41,7 @@ async function renderPersonProfile() {
             people: `${ROOT}data/people.json`,
             projects: `${ROOT}data/projects.json`,
             publications: `${ROOT}data/publications.json`,
-            ...(SHOW_RESEARCH ? { research: `${ROOT}data/research.json` } : {}),
+            research: `${ROOT}data/research.json`,
         });
 
         const person = data.people.find(p => p.id === personId);
@@ -54,11 +51,10 @@ async function renderPersonProfile() {
         }
 
         const links = externalLinksHTML(person);
-        const roles = personRoles(person);
+        const roles = personRoles(person).filter(role => !(person.research_academy?.length && role === 'QRS Research Academy Member'));
         const myProjects = projectsForPerson(person.id, data.projects);
-        const myResearch = SHOW_RESEARCH ? researchForPerson(person.id, data.research) : [];
-        const myPublications = publicationsForPerson(person.id, data.publications);
-        const publicationItem = p => `<li><a href="${ROOT}publications/#pub-${p.id}">${escapeHtml(p.title)}</a><span class="person-list-meta">${escapeHtml(p.venue)}, ${p.year}</span></li>`;
+        const myPublications = publicationsForPerson(person.id, publicPublications(data.publications, data.research));
+        const publicationItem = p => `<li><a href="${ROOT}publications/#pub-${p.id}">${escapeHtml(p.title)}</a><span class="person-list-meta publication-meta">${escapeHtml(p.venue)}, ${p.year}</span><span class="publication-links">${publicationLinksHTML(p, ROOT)}</span></li>`;
 
         container.innerHTML = `
             <div class="person-header">
@@ -66,16 +62,19 @@ async function renderPersonProfile() {
                 <div>
                     <h1 class="person-name">${renderPersonName(person)}</h1>
                     ${roles.length ? `<p class="person-role">${roles.map(escapeHtml).join('<br>')}</p>` : ''}
+                    ${(person.education || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.institution)}${e.field ? `, <em>${escapeHtml(e.field)}</em>` : ''}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
+                    ${(person.experience || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.organisation)}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
+                    ${(person.research_academy || []).map(a => `<p class="person-affiliation academy-history"><a href="${ROOT}research-academy/members/">${a.status === 'promoted' ? 'Graduate' : 'Member'}, QRS Research Academy, ${escapeHtml(a.batch)}</a></p>`).join('')}
                     ${links ? `<div class="external-links">${links}</div>` : ''}
                 </div>
             </div>
 
-            ${section('Projects', myProjects.map(p => `<li><a href="${ROOT}projects/#project-${p.id}">${escapeHtml(p.title)}</a></li>`))}
-            ${section('Publications', myPublications.filter(p => !isNonArchival(p)).map(publicationItem))}
-            ${section('Workshop &amp; Preprint', [
-                ...myPublications.filter(isNonArchival).map(publicationItem),
-                ...myResearch.map(r => `<li>${escapeHtml(r.title)}<span class="person-list-meta">${escapeHtml(r.venue)}, ${new Date(r.date).getFullYear()}</span></li>`),
-            ])}
+            ${myProjects.length ? `<p class="profile-projects"><strong>Projects:</strong> ${myProjects.map(p => `<a href="${ROOT}projects/${p.id}/">${escapeHtml(p.title)}</a>`).join(', ')}</p>` : ''}
+            ${person.about ? `<section class="person-section person-about">
+                <h2 class="font-serif text-xl font-bold text-gray-900 mb-4">About</h2>
+                <p>${escapeHtml(person.about)}</p>
+            </section>` : ''}
+            ${section('Publications', myPublications.map(publicationItem))}
             ${section('Service', (person.service || []).map(serviceItem))}
         `;
 

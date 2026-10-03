@@ -13,10 +13,10 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1] / "v1"
 ORIGIN = "https://qrsntu.org"
-SKIP = {"_site", "branches", "fonts", "nus", "cuhk", "fdu", "sjtu", "cmu", "hkust"}
+SKIP = {"_site", "branches", "fonts", "nus", "cuhk", "fdu", "sjtu", "cmu", "hkust", "ntu-tw", "tw"}
 BLOCK = re.compile(r'\n?    <!-- SEO: generated -->.*?<!-- /SEO -->\n?', re.S)
 DESCRIPTIONS = {
-    "": "QRS@NTU develops and conducts student-led research in quantitative finance, machine learning, and related technical areas.",
+    "": "QRS connects students and researchers across institutions to advance research in quantitative finance, machine learning, and related technical fields.",
     "about": "About QRS@NTU, which develops and conducts student-led research, and its place in the wider QRS network.",
     "projects": "Explore QRS research projects, competitions, and recognition in quantitative finance, machine learning, and mathematics.",
     "publications": "Browse publications and preprints by QRS researchers, with author, year, and venue filters.",
@@ -24,6 +24,8 @@ DESCRIPTIONS = {
     "events": "Find QRS and QRS@NTU talks, workshops, competitions, and community events.",
     "service": "QRS supports academic workshops and research communities with web, publicity, outreach, and organisational infrastructure.",
     "people": "Meet QRS@NTU officers and QRS researchers, and explore their profiles, projects, and publications.",
+    "research-academy": "From guided research to independent research leadership: explore the QRS Research Academy, project roles, cohorts, and applications.",
+    "research-academy/members": "Meet QRS Research Academy members and alumni across cohorts, including researchers promoted from the Academy.",
     "math_notes": "Browse NTU mathematics and economics past-year papers, solutions, revision notes, and course resources.",
     "join_us": "Apply to the QRS Research Academy or get involved with the QRS@NTU community.",
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
@@ -74,11 +76,16 @@ def route(path):
 def generate(check=False):
     pending = {}
     people = {p["id"]: p for p in json.loads((ROOT / "data/people.json").read_text(encoding="utf-8"))}
+    projects = {p["id"]: p for p in json.loads((ROOT / "data/projects.json").read_text(encoding="utf-8"))}
     pages = []
     for path in sorted(ROOT.rglob("*.html")):
         if any(part in SKIP for part in path.relative_to(ROOT).parts):
             continue
         source = path.read_text(encoding="utf-8")
+        source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
+        source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
+        source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
+        source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
         if re.search(r'<meta\b[^>]*content=["\'][^"\']*noindex', source, re.I):
             continue
         if re.search(r'http-equiv=["\']refresh', source, re.I):
@@ -99,11 +106,15 @@ def generate(check=False):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Map | QRS</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="icon" href="../Files/logo-v1.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../style.css?v=20261003-shared">
+    <link rel="stylesheet" href="../fonts.css?v=20260907-final">
+    <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
 </head>
 <body>
-    <main style="max-width: 60rem; margin: 3rem auto; padding: 0 1.5rem;">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md" data-root="../"></header>
+    <main style="max-width: 60rem; margin: 0 auto; padding: 7rem 1.5rem 3rem;">
         <h1>QRS Site Map</h1>
         <p>Explore our public pages and member profiles.</p>
         <nav aria-label="All public pages">
@@ -112,6 +123,10 @@ def generate(check=False):
             </ul>
         </nav>
     </main>
+    <footer id="site-footer" class="site-footer" data-root="../"></footer>
+    <script type="module" src="../assets/header.js?v=20261003-shared"></script>
+    <script type="module" src="../script.js?v=20260907-final"></script>
+    <script type="module" src="../assets/footer.js?v=20261003-shared"></script>
 </body>
 </html>
 '''
@@ -123,6 +138,8 @@ def generate(check=False):
         person_match = re.search(r'data-person-id="([^"]+)"', source)
         person = people[person_match[1]] if person_match else None
         description = DESCRIPTIONS.get(slug, f"{title.split(' | ')[0]} at QRS.")
+        if slug.startswith('projects/') and slug.split('/')[-1] in projects:
+            description = projects[slug.split('/')[-1]]['summary']
         if person:
             description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
         graph = [{"@type": "ProfilePage" if person else "WebPage", "@id": canonical + "#webpage",
@@ -130,11 +147,35 @@ def generate(check=False):
                   "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": "en"}]
         if person:
             graph[0]["mainEntity"] = {"@type": "Person", "name": person["name"], "url": canonical}
+            if person.get('linkedin'):
+                graph[0]["mainEntity"]["sameAs"] = [person['linkedin']]
             # Supply a real name and links before the JS profile renderer runs.
             fallback = '<div id="person-profile"><h1>' + escape(person["name"]) + '</h1>'
             roles = person.get("roles") or ([person["role"]] if person.get("role") else [])
+            roles = [role for role in roles if not (person.get('research_academy') and role == 'QRS Research Academy Member')]
             if roles:
                 fallback += '<p>' + '<br>'.join(escape(role) for role in roles) + '</p>'
+            for education in person.get('education', []):
+                label = education['role'] + ', ' + education['institution']
+                fallback += '<p class="person-affiliation affiliation-row"><span>' + escape(label)
+                if education.get('field'):
+                    fallback += ', <em>' + escape(education['field']) + '</em>'
+                fallback += '</span>'
+                if education.get('dates'):
+                    fallback += '<span class="affiliation-dates">' + escape(education['dates']) + '</span>'
+                fallback += '</p>'
+            for experience in person.get('experience', []):
+                fallback += '<p class="person-affiliation affiliation-row"><span>' + escape(experience['role'] + ', ' + experience['organisation']) + '</span>'
+                if experience.get('dates'):
+                    fallback += '<span class="affiliation-dates">' + escape(experience['dates']) + '</span>'
+                fallback += '</p>'
+            if person.get('research_academy'):
+                for academy in person['research_academy']:
+                    label = 'Graduate' if academy['status'] == 'promoted' else 'Member'
+                    fallback += '<p class="person-affiliation academy-history"><a href="/research-academy/members/">' + label + ', QRS Research Academy, ' + escape(academy['batch']) + '</a></p>'
+            if person.get('about'):
+                fallback += '<section class="person-section person-about"><h2>About</h2><p>' + escape(person['about']) + '</p>'
+                fallback += '</section>'
             fallback += '<p><a href="/projects/">Projects</a> &middot; <a href="/publications/">Publications</a></p></div>'
             source = re.sub(r'<div id="person-profile">.*?</div>', lambda _: fallback, source, flags=re.S)
         extras = PAGE_EXTRAS.get(slug, {})
@@ -146,7 +187,7 @@ def generate(check=False):
                  "alternateName": "Quantitative Research Society",
                  "publisher": {"@id": ORIGIN + "/#organization"}},
                 {"@type": "Organization", "@id": ORIGIN + "/#organization", "name": "Quantitative Research Society",
-                 "alternateName": ["QRS", "QRS@NTU"], "url": ORIGIN + "/", "logo": ORIGIN + "/Files/logo-v1.png",
+                 "alternateName": ["QRS", "QRS@NTU"], "url": ORIGIN + "/", "logo": ORIGIN + "/Files/logo-v2-surface.png",
                  "email": "contact@qrsntu.org", "sameAs": ["https://github.com/Quantitative-Research-Society-NTU",
                  "https://www.linkedin.com/company/quantitative-research-society-ntu/"]}])
         metadata = [f'<link rel="canonical" href="{canonical}">',
@@ -157,7 +198,7 @@ def generate(check=False):
                     f'<meta property="og:title" content="{escape(title, quote=True)}">',
                     f'<meta property="og:description" content="{escape(description, quote=True)}">',
                     f'<meta property="og:url" content="{canonical}">',
-                    f'<meta property="og:image" content="{ORIGIN}/Files/logo-v1.png">',
+                    f'<meta property="og:image" content="{ORIGIN}/Files/logo-v2-surface.png">',
                     '<meta name="twitter:card" content="summary">',
                     '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace('<', '\\u003c') + '</script>']
         block = '    <!-- SEO: generated -->\n    ' + '\n    '.join(metadata) + '\n    <!-- /SEO -->\n'
@@ -165,7 +206,7 @@ def generate(check=False):
         # Initial HTML exposes a navigation link even without JS rendering the footer.
         source = re.sub(r'(<footer id="site-footer"[^>]*>).*?(</footer>)',
                         r'\1<a href="/site-map/">Site map</a>\2', source, flags=re.S)
-        pending[path] = source
+        pending[path] = '\n'.join(line.rstrip() for line in source.splitlines()) + '\n'
 
     namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
     ET.register_namespace("", namespace)

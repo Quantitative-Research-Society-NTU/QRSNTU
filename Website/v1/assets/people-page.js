@@ -1,10 +1,8 @@
-// Renders the People directory: Officers (is_admin: true), then Researchers
-// (non-admin people holding a Quantitative Research Society role), then
-// Coordination (other non-admin people with an explicit role). Branches are
-// listed below, only when data/branches.json is non-empty.
+// Officers appear once, before non-officer researchers and coordinators.
+// Academy membership stays on profiles; its roster has a dedicated link.
 import { loadData, renderPersonName, personRoles, personPath, escapeHtml } from './qrs-data.js';
 
-const QRS_ROLE = /, Quantitative Research Society$/;
+const QRS_ROLE = /^(?:Principal )?Researcher, Quantitative Research Society$/;
 
 function personCard(person) {
     return `
@@ -33,7 +31,7 @@ async function renderPeople() {
         const officers = people.filter(p => p.is_admin);
         const others = people.filter(p => !p.is_admin && personRoles(p).length);
         const researchers = others.filter(p => personRoles(p).some(role => QRS_ROLE.test(role)));
-        const coordination = others.filter(p => !researchers.includes(p));
+        const coordination = others.filter(p => !researchers.includes(p) && personRoles(p).some(role => role !== 'QRS Research Academy Member'));
 
         document.getElementById('officers-container').innerHTML = officers.map(personCard).join('');
         fillGroup('researchers-section', 'researchers-container', researchers);
@@ -42,7 +40,7 @@ async function renderPeople() {
         const branchesSection = document.getElementById('branches-section');
         if (branches.length) {
             document.getElementById('branches-container').innerHTML = branches.map(b => `
-                <a href="${escapeHtml(b.url)}" target="_blank" rel="noopener noreferrer" class="external-link">${escapeHtml(b.name)}<i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>`).join('');
+                <a href="${escapeHtml(b.url)}" target="_blank" rel="noopener noreferrer" class="external-link">${escapeHtml(b.name)}${b.status === 'coming-soon' ? ' — Coming soon' : ''}<i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>`).join('');
         } else {
             branchesSection.classList.add('hidden');
         }

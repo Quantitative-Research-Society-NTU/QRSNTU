@@ -18,7 +18,7 @@ const LINKEDIN_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 2
 function siteLink(value) {
     const url = new URL(value, document.baseURI);
     const path = url.pathname.replace(/^\/|\/$/g, "");
-    if (url.hostname === "qrsntu.org" && ["", "cmu", "cuhk", "fdu", "sjtu", "hkust"].includes(path)) {
+    if (url.hostname === "qrsntu.org" && ["", "cmu", "cuhk", "cuhksz", "fdu", "sjtu", "hkust", "nus", "tw"].includes(path)) {
         return new URL("../" + (path ? path + "/" : ""), import.meta.url).href;
     }
     return url.href;
@@ -43,7 +43,7 @@ async function renderFooter() {
     const isMainSite = !document.body.dataset.chapter;
     const chapter = document.body.dataset.chapter || 'NTU';
     const bilingual = {
-        cuhk: ['QRS@CUHK', '量化研究协会@香港中文'],
+        cuhk: ['QRS@CUHKSZ', '量化研究协会@港中深'],
         sjtu: ['QRS@SJTU', '量化研究协会@交大'],
         fdu: ['QRS@FDU', '量化研究协会@复旦'],
     }[document.body.dataset.slug];
@@ -62,7 +62,7 @@ async function renderFooter() {
     let collaborators = [];
     try {
         ({ branches, collaborators } = await loadData({
-            branches: `${root}data/branches.json?v=20260907-footer-clickable`,
+            branches: `${root}data/branches.json?v=20261003-shared`,
             collaborators: `${root}data/collaborators.json`,
         }));
     } catch (err) {
@@ -79,9 +79,13 @@ async function renderFooter() {
     // "other society" category.
     const communityColumnHTML = (branches.length || collaborators.length) ? `
         <div class="footer-col footer-col-community">
-            ${linkGroup('MAIN BRANCH:', [{name: 'QRS@NTU', url: 'https://qrsntu.org/'}])}
-            ${linkGroup('SUB BRANCH:', branches)}
-            ${linkGroup('Collaborators', collaborators)}
+            <div class="footer-community-grid">
+                ${linkGroup('SUB BRANCH:', branches)}
+                <div>
+                    ${linkGroup('MAIN BRANCH:', [{name: 'QRS@NTU', url: 'https://qrsntu.org/'}])}
+                    ${linkGroup('Collaborators', collaborators)}
+                </div>
+            </div>
         </div>` : '';
 
     footer.innerHTML = `
@@ -89,8 +93,9 @@ async function renderFooter() {
             <div class="footer-columns">
                 <div class="footer-col footer-col-brand">
                     <div class="footer-brand">
-                        <img src="${root}Files/logo-v1.png" alt="QRS Logo" class="h-9 w-9 rounded-md">
-                        <span class="footer-brand-name">${footerBrand}</span>
+                        <img src="${root}Files/logo-v2-surface.png" alt="QRS surface logo" class="qrs-footer-wordmark">
+                        <span class="footer-brand-name">Quantitative Research Society</span>
+                        ${isMainSite ? '' : `<span class="footer-brand-name">${footerBrand}</span>`}
                     </div>
                     <p class="footer-blurb">${escapeHtml(blurb)}</p>
                     <div class="footer-social">
@@ -101,7 +106,7 @@ async function renderFooter() {
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-col-title">Explore</h4>
-                    <nav class="footer-links">${exploreLinksHTML}<a href="/site-map/" class="footer-link">Site map</a></nav>
+                    <nav class="footer-links">${exploreLinksHTML}<a href="${new URL('../site-map/', import.meta.url).href}" data-site-link class="footer-link">Site map</a></nav>
                 </div>
                 ${communityColumnHTML}
             </div>
