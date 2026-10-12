@@ -6,6 +6,7 @@
   <div class="geo-hero-text">
     <p class="geo-eyebrow">QRS research programme · Fine-tuning · Attention</p>
     <h1 class="hero-title geo-title">GeoAFT</h1>
+    <p class="geo-fullname"><b>Geo</b>metric <b>A</b>ttention <b>F</b>ine-<b>T</b>uning</p>
     <p class="geo-deck">Adapting how representations relate to one another, not only the representations themselves.</p>
     <p class="geo-lead">A pretrained Transformer learns <strong>representations</strong> and a <strong>rule for comparing them</strong>. Fine-tuning usually changes the first. GeoAFT adapts the second.</p>
     <div class="geo-actions">
@@ -21,9 +22,9 @@
   <figure class="geo-hero-figure geo-live" data-geo-hero aria-labelledby="hero-cap">
     <div class="geo-live-static">{{svg:assets/geoaft/hero-same-points.svg}}</div>
     <figcaption id="hero-cap">
-      <span class="geo-js-only">The grid is the ruler: each cell is one unit of distance under the current geometry, and colour shows how compatible each place is with the query <em>q</em>. As the geometry stretches and turns, attention to the keys re-ranks. The points do not move.</span>
+      <span class="geo-js-only">The grid is the ruler and colour is compatibility with <em>q</em>. The geometry stretches, attention re-ranks, the points stay put.</span>
       <span class="geo-nojs-only"><span class="geo-legend-dash" aria-hidden="true"></span>Pretrained dot-product attention concentrates on key B. <span class="geo-legend-solid" aria-hidden="true"></span>After the geometry is adapted, attention moves to F and A. The points do not move.</span>
-      <span class="geo-illustrative">Illustrative 2-D toy, not trained-model behaviour.</span>
+      <span class="geo-illustrative">Illustrative 2-D toy.</span>
     </figcaption>
   </figure>
 </header>
@@ -33,22 +34,30 @@
   <div class="geo-glance-grid" data-reveal="rise">
     <article class="geo-card geo-card-rel">
       <p class="geo-kicker">The idea</p>
-      <p>LoRA-style methods change how queries and keys are <em>produced</em>. GeoAFT changes how they are <em>compared</em>:</p>
+      <p>LoRA-style methods change how queries and keys are <em>produced</em>. Geometric attention fine-tuning changes how they are <em>compared</em>:</p>
       <div class="geo-equation geo-equation-sm"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>s</mi><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mi>k</mi><mi>j</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><msub><mi>&#x003B1;</mi><mi>h</mi></msub><mspace width="0.167em" /><msub><mover><mi>g</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>&#x003D5;</mi></msub><mo minsize="1.2em" maxsize="1.2em">(</mo><msub><mi>P</mi><mi>q</mi></msub><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><mspace width="0.278em" /><msub><mi>P</mi><mi>k</mi></msub><msub><mi>k</mi><mi>j</mi></msub><mo minsize="1.2em" maxsize="1.2em">)</mo></mrow></math></div>
-      <p>The gate <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B1;</mi><mi>h</mi></msub></mrow></math> starts at zero, so training begins from exactly the pretrained attention.</p>
+      <p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>g</mi><mi>&#x003D5;</mi></msub></mrow></math> is a small trainable geometry. The gate <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B1;</mi><mi>h</mi></msub></mrow></math> starts at zero, so training begins from exactly the pretrained attention.</p>
     </article>
     <article class="geo-card geo-card-rel" data-reveal>
-      <p class="geo-kicker">Synthetic experiments <span class="geo-tag">controlled</span></p>
-      <div class="geo-meter"><span class="geo-meter-name">Learned <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow></math></span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.983%"></span></span><span class="geo-meter-value" data-count>99.983%</span></div>
-      <div class="geo-meter"><span class="geo-meter-name">Mahalanobis</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.991%"></span></span><span class="geo-meter-value" data-count>99.991%</span></div>
-      <div class="geo-meter"><span class="geo-meter-name">Nonlinear</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.934%"></span></span><span class="geo-meter-value" data-count>99.934%</span></div>
-      <p class="geo-stat-note">Oracle-gap recovery of a known target relation, not classification accuracy. The nonlinear fit uses 46 trainable parameters against 8,705 for a generic scorer: economy, not superiority.</p>
+      <p class="geo-kicker">Experiments</p>
+      <div class="geo-exp-split">
+        <div>
+          <h4>Synthetic <span class="geo-tag">controlled</span></h4>
+          <div class="geo-meter"><span class="geo-meter-name">Learned <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow></math></span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.983%"></span></span><span class="geo-meter-value" data-count>99.983%</span></div>
+          <div class="geo-meter"><span class="geo-meter-name">Mahalanobis</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.991%"></span></span><span class="geo-meter-value" data-count>99.991%</span></div>
+          <div class="geo-meter"><span class="geo-meter-name">Nonlinear</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal" style="--w: 99.934%"></span></span><span class="geo-meter-value" data-count>99.934%</span></div>
+          <p class="geo-stat-note">Recovery of a known target relation, not classification accuracy. The nonlinear fit uses 46 trainable parameters against 8,705 for a generic scorer: economy, not superiority.</p>
+        </div>
+        <div>
+          <h4>Real benchmarks <span class="geo-status geo-status-open">In progress</span></h4>
+          <p>Evaluation on natural tasks is ongoing. No natural-task or state-of-the-art result is claimed.</p>
+        </div>
+      </div>
     </article>
-    <article class="geo-card geo-card-rep" id="paper">
-      <p class="geo-kicker">Real benchmarks <span class="geo-status geo-status-open">In progress</span></p>
-      <p>Evaluation on natural tasks is ongoing. No natural-task or state-of-the-art result is claimed.</p>
-      {{accepted}}
-    </article>
+  </div>
+  <div class="geo-foot" id="paper">
+    {{accepted}}
+    {{related}}
   </div>
 </section>
 </div>

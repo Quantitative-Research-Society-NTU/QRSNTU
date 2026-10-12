@@ -2,7 +2,7 @@
 <p class="geo-back"><a href="../" class="card-link">&larr; GeoAFT overview</a></p>
 
 <header class="geo-details-head">
-  <p class="geo-eyebrow">GeoAFT · How it works</p>
+  <p class="geo-eyebrow">GeoAFT · Geometric Attention Fine-Tuning · How it works</p>
   <h1 class="geo-details-title">The idea, the experiments, and the maths</h1>
   <p class="geo-lead">Start with the intuition and the pictures. The precise definitions, controls and full tables are collected at the end.</p>
   {{team}}
@@ -75,6 +75,10 @@
     <div class="geo-fig-wide">{{svg:assets/geoaft/fig3-mechanism-wide.svg}}</div>
     <div class="geo-fig-narrow">{{svg:assets/geoaft/fig3-mechanism-narrow.svg}}</div>
     <figcaption id="fig3-cap"><strong>Figure 3. The GeoAFT score.</strong> A structured geometry branch is centred over valid keys, scaled by a gate that starts at zero, and added before a single softmax.</figcaption>
+  </figure>
+  <figure class="geo-figure geo-figure-sm geo-gate" data-geo-gate aria-labelledby="gate-cap">
+    <div class="geo-gate-static">{{svg:assets/geoaft/hero-same-points.svg}}</div>
+    <figcaption id="gate-cap"><strong>Open the gate.</strong> <span class="geo-js-only">At gate 0 the attention is exactly the pretrained dot-product attention. Slide it up, or switch the geometry, and the same score formula moves attention to other keys.</span><span class="geo-nojs-only">Dashed lines show pretrained dot-product attention; solid lines show attention after the geometry term is added.</span> <span class="geo-illustrative">Illustrative toy example.</span></figcaption>
   </figure>
   <ul class="geo-points" data-reveal="rise">
     <li><strong>Starts from the pretrained model.</strong> Each gate \(\alpha_h\) is initialized at zero, so training begins from exactly the pretrained attention.</li>

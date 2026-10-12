@@ -1,5 +1,5 @@
 // GeoAFT microsite enhancements: header offset, active section, the stretching-geometry figure (overview),
-// the geometry explorer (details) and bar reveals.
+// the geometry explorer and gate figure (details), reveals and the reading-progress bar.
 // Everything here is optional: without JavaScript the page shows static figures and plain links.
 // The toy geometry mirrors Website/tools/geoaft/build_figures.py (see assets/geoaft/toy.json).
 
@@ -55,7 +55,11 @@ function score(kind, q, k, state) {
 }
 function attention(kind, state) {
     const names = Object.keys(TOY.keys);
-    const logits = names.map(n => score(kind, state.q, TOY.keys[n], state) / TOY.tau[kind]);
+    // With state.gate set, the score is the GeoAFT form s_base + gate * g rather than g alone.
+    const logits = names.map(n => {
+        const g = score(kind, state.q, TOY.keys[n], state) / TOY.tau[kind];
+        return state.gate === undefined ? g : score('dot', state.q, TOY.keys[n], state) / TOY.tau.dot + state.gate * g;
+    });
     const top = Math.max(...logits);
     const w = logits.map(v => Math.exp(v - top));
     const z = w.reduce((a, b) => a + b, 0);
@@ -129,7 +133,8 @@ function panelSVG(kind, title, formula, color, x, y, w, h, uid, state) {
     s += `<clipPath id="lclip-${uid}"><rect x="${cx0}" y="${cy0}" width="${cx1 - cx0}" height="${cy1 - cy0}" rx="6"/></clipPath>`;
     s += `<rect class="geo-drag-surface" x="${cx0}" y="${cy0}" width="${cx1 - cx0}" height="${cy1 - cy0}" rx="6" fill="#fbfbfa" stroke="${C.rule}"/>`;
     s += `<g clip-path="url(#lclip-${uid})" pointer-events="none">`;
-    s += contours(kind, f, state);
+    s += state.gate === undefined ? contours(kind, f, state)
+        : `<g opacity="${(1 - state.gate).toFixed(2)}">${contours('dot', f, state)}</g><g opacity="${state.gate.toFixed(2)}">${contours(kind, f, state)}</g>`;
     if (kind === 'dot') {
         const a = f(state.q[0] * 0.15, state.q[1] * 0.15), b = f(state.q[0] * 2.3, state.q[1] * 2.3);
         s += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${color}" stroke-width="1.4" stroke-opacity=".55" marker-end="url(#larrow-${uid})"/>`;
@@ -300,7 +305,20 @@ function initExplorer(fig) {
         };
         orbit = requestAnimationFrame(step);
     }
-    playBtn.addEventListener('click', () => setPlaying(!orbit));
+    let auto = false;
+    playBtn.addEventListener('click', () => { auto = false; setPlaying(!orbit); });
+    // The first time the explorer is seen, carry the query round one loop, then put it back.
+    const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!calm && 'IntersectionObserver' in window) {
+        const seen = new IntersectionObserver(entries => {
+            if (!entries.some(e => e.isIntersecting)) return;
+            seen.disconnect();
+            auto = true;
+            setPlaying(true);
+            setTimeout(() => { if (auto && orbit) { setPlaying(false); state.q = [...TOY.query]; render(); } }, 10500);
+        }, { threshold: 0.5 });
+        seen.observe(live);
+    }
     controls.querySelector('[data-reset]').addEventListener('click', () => {
         setPlaying(false);
         Object.assign(state, { q: [...TOY.query], p: TOY.p, angle: TOY.angle });
@@ -315,12 +333,89 @@ function initExplorer(fig) {
     render();
 }
 
+// ---------------------------------------------------------------- gate figure (details)
+// One panel, same toy as the explorer. The slider is the gate in S = s_base + gate * g:
+// at 0 the attention is exactly the dot-product attention; raising it adds the chosen geometry.
+function initGate(fig) {
+    const RULES = [['l2', 'Euclidean'], ['lp', 'L1'], ['maha', 'Mahalanobis']];
+    const state = { q: [...TOY.query], p: TOY.p, angle: TOY.angle, gate: 0, rule: 2 };
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const controls = document.createElement('div');
+    controls.className = 'geo-explorer-controls geo-gate-controls';
+    controls.innerHTML = `
+        <label><span>Gate α</span> <input type="range" min="0" max="1" step="0.01" value="0" aria-describedby="geo-gate-out"><output id="geo-gate-out">0.00</output></label>
+        <div class="geo-gate-rules" role="group" aria-label="Geometry added to the pretrained score">
+            ${RULES.map(([, t], i) => `<button type="button" data-rule="${i}" aria-pressed="${i === state.rule}">${t}</button>`).join('')}
+        </div>
+        <button type="button" data-play>▶ Replay</button>`;
+    const live = document.createElement('div');
+    live.className = 'geo-gate-live';
+    const readout = document.createElement('p');
+    readout.className = 'geo-explorer-readout';
+    readout.setAttribute('aria-live', 'polite');
+    const slider = controls.querySelector('input'), out = controls.querySelector('output');
+    const W = 520, H = 430;
+    let announce = 0;
+    function render() {
+        const [kind, name] = RULES[state.rule];
+        const res = panelSVG(kind, 'Attention from q to the same seven keys', `q · k + α g${SUB('φ')}(q, k)`, C.teal, 0, 0, W, H, 'gate', state);
+        live.innerHTML = `<svg xmlns="${NS}" viewBox="0 0 ${W} ${H}" class="geo-svg" role="img" aria-label="Toy attention from one query to seven fixed keys, for the current gate and geometry.">${res.svg}</svg>`;
+        out.textContent = state.gate.toFixed(2);
+        const top = Object.entries(res.att).sort((a, b) => b[1] - a[1])[0];
+        clearTimeout(announce);
+        announce = setTimeout(() => {
+            readout.textContent = state.gate === 0
+                ? `Gate 0: exactly the pretrained attention. Most-attended key ${top[0]} (${Math.round(100 * top[1])}%).`
+                : `Gate ${state.gate.toFixed(2)} with ${name} geometry. Most-attended key ${top[0]} (${Math.round(100 * top[1])}%).`;
+        }, 120);
+    }
+    // Animate the gate from 0 to `to`; every frame recomputes the softmax, so the lines,
+    // labels and bars move together.
+    let touched = false, raf = 0;
+    function sweep(to, duration, delay = 0) {
+        cancelAnimationFrame(raf);
+        if (reduced) { state.gate = to; slider.value = to; render(); return; }
+        const t0 = performance.now() + delay;
+        const step = now => {
+            const t = Math.max(0, Math.min(1, (now - t0) / duration));
+            state.gate = Math.round(100 * to * t * t * (3 - 2 * t)) / 100;
+            slider.value = state.gate;
+            render();
+            if (t < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+    }
+    slider.addEventListener('input', () => { touched = true; cancelAnimationFrame(raf); state.gate = Number(slider.value); render(); });
+    controls.querySelectorAll('[data-rule]').forEach(btn => btn.addEventListener('click', () => {
+        touched = true;
+        state.rule = Number(btn.dataset.rule);
+        controls.querySelectorAll('[data-rule]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+        sweep(state.gate || 1, 2000);
+    }));
+    controls.querySelector('[data-play]').addEventListener('click', () => { touched = true; sweep(1, 5000); });
+    fig.querySelector('.geo-gate-static').hidden = true;
+    fig.prepend(controls);
+    controls.after(live);
+    live.after(readout);
+    fig.classList.add('is-live');
+    render();
+    // Once, when first seen: open the gate so the reader sees attention move.
+    if (!reduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+            if (!entries.some(e => e.isIntersecting)) return;
+            io.disconnect();
+            if (!touched) sweep(1, 5000, 600);
+        }, { threshold: 0.5 });
+        io.observe(live);
+    }
+}
+
 // ---------------------------------------------------------------- stretching-geometry figure (overview hero)
 // Same toy as the explorer. A learned metric stretches and turns: the grid is its ruler (one
 // cell = one unit of distance), the colour field is compatibility with q, and the list below
 // re-ranks the keys by attention. The query and keys are never moved.
 function initHero(fig) {
-    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 23, T = 13000;
+    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 13000;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const smooth = t => t * t * (3 - 2 * t);
     const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
@@ -405,7 +500,7 @@ function initHero(fig) {
 
 // Blocks marked data-reveal animate once when they scroll into view: bars grow (CSS), numbers
 // marked data-count count up to their printed value, children of data-reveal="rise" enter in
-// sequence, and arrows in data-flow diagrams run for a few seconds.
+// sequence, and data-flow diagrams assemble piece by piece and then run their arrows for a few seconds.
 function countUp(el) {
     const final = el.textContent, m = final.match(/^([\d,]*\.?\d+)(.*)$/);
     if (!m) return;
@@ -423,7 +518,10 @@ function revealOnScroll() {
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!targets.length || reduced || !('IntersectionObserver' in window)) return;
     document.querySelectorAll('.geo').forEach(el => el.classList.add('geo-anim'));
-    targets.forEach(t => { if (t.dataset.reveal === 'rise') [...t.children].forEach((c, i) => c.style.setProperty('--i', i)); });
+    targets.forEach(t => {
+        if (t.dataset.reveal === 'rise') [...t.children].forEach((c, i) => c.style.setProperty('--i', i));
+        if (t.hasAttribute('data-flow')) t.querySelectorAll('svg').forEach(svg => [...svg.children].forEach((c, i) => c.style.setProperty('--i', i)));
+    });
     const io = new IntersectionObserver(entries => entries.forEach(e => {
         if (!e.isIntersecting) return;
         const el = e.target;
@@ -433,10 +531,30 @@ function revealOnScroll() {
         if (el.hasAttribute('data-flow')) {
             const arrows = el.querySelectorAll('svg [marker-end]');
             arrows.forEach(a => a.classList.add('gf-flow'));
-            setTimeout(() => arrows.forEach(a => a.classList.remove('gf-flow')), 3600);
+            setTimeout(() => arrows.forEach(a => a.classList.remove('gf-flow')), 5200);
         }
     }), { threshold: 0.2 });
     targets.forEach(t => io.observe(t));
+}
+
+// A thin bar under the site header showing how far down the details page the reader is.
+function readingProgress() {
+    const page = document.querySelector('.geo-details');
+    if (!page) return;
+    const bar = document.createElement('div');
+    bar.className = 'geo-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    bar.innerHTML = '<span></span>';
+    page.append(bar);
+    const fill = bar.firstChild;
+    let queued = false;
+    const update = () => {
+        queued = false;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        fill.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    };
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
 }
 
 if (root) {
@@ -447,6 +565,10 @@ if (root) {
     if (header && 'ResizeObserver' in window) new ResizeObserver(syncHeaderOffset).observe(header);
     trackSections(document.querySelector('.geo-details-toc'));
     revealOnScroll();
+    readingProgress();
+    document.querySelectorAll('[data-geo-gate]').forEach(fig => {
+        try { initGate(fig); } catch (err) { console.warn('GeoAFT gate figure unavailable; showing static figure.', err); }
+    });
     document.querySelectorAll('[data-geo-hero]').forEach(fig => {
         try { initHero(fig); } catch (err) { console.warn('GeoAFT hero figure unavailable; showing static figure.', err); }
     });
