@@ -377,9 +377,9 @@ function initGate(fig) {
         touched = true;
         state.rule = Number(btn.dataset.rule);
         controls.querySelectorAll('[data-rule]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-        sweep(state.gate || 1, 800);
+        sweep(state.gate || 1, 2000);
     }));
-    controls.querySelector('[data-play]').addEventListener('click', () => { touched = true; sweep(1, 1800); });
+    controls.querySelector('[data-play]').addEventListener('click', () => { touched = true; sweep(1, 5000); });
     fig.querySelector('.geo-gate-static').hidden = true;
     fig.prepend(controls);
     controls.after(live);
@@ -391,7 +391,7 @@ function initGate(fig) {
         const io = new IntersectionObserver(entries => {
             if (!entries.some(e => e.isIntersecting)) return;
             io.disconnect();
-            if (!touched) sweep(1, 1800, 700);
+            if (!touched) sweep(1, 5000, 600);
         }, { threshold: 0.5 });
         io.observe(live);
     }
@@ -451,5 +451,5 @@ if (root) {
     window.__geoaftAttention = (kind, q = TOY.query) => attention(kind, { q, p: TOY.p, angle: TOY.angle });
 }
 
-// Shared with the explainer animatic (Website/tools/geoaft/video), which reuses the same geometry.
-export { TOY, attention, geometries, panelSVG };
+// Shared with the explainer animatic (Website/tools/geoaft/video) and geoaft-test.js, which reuse the same geometry.
+export { TOY, C, attention, geometries, panelSVG, score, frame, contours };

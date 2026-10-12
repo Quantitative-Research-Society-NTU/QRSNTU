@@ -32,7 +32,7 @@ DESCRIPTIONS = {
     "gmmg": "Compete individually in the Global Market Making Games 2026 Singapore qualifier on 16 October. Open to all university students in Singapore.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
     "projects/geoaft": "GeoAFT studies fine-tuning that adapts how representations relate, through a structured compatibility geometry in attention, and when that differs from ordinary weight adaptation.",
-    "projects/geoaft/details": "GeoAFT technical details: compatibility-space adaptation, identity-preserving initialization, the Mahalanobis equivalence, controlled experiments, oracle-gap recovery and results with qualifiers.",
+    "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
 }
 
 
