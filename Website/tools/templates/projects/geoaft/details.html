@@ -3,10 +3,14 @@
 <p class="geo-back"><a href="../" class="card-link">&larr; GeoAFT overview</a></p>
 
 <header class="geo-details-head">
-  <p class="geo-eyebrow">GeoAFT · Geometric Attention Fine-Tuning · How it works</p>
-  <h1 class="geo-details-title">The idea, the experiments, and the maths</h1>
-  <p class="geo-lead">Start with the intuition and the pictures. The precise definitions, controls and full tables are collected at the end.</p>
-  {{team}}
+  <div>
+    <p class="geo-eyebrow">GeoAFT · Geometric Attention Fine-Tuning · How it works</p>
+    <h1 class="geo-details-title">The idea, the experiments, and the maths</h1>
+  </div>
+  <div>
+    <p class="geo-lead">Start with the intuition and the pictures. The precise definitions, controls and full tables are collected at the end.</p>
+    {{team}}
+  </div>
 </header>
 
 <div class="geo-details-layout">
@@ -76,10 +80,6 @@
     <div class="geo-fig-wide">{{svg:assets/geoaft/fig3-mechanism-wide.svg}}</div>
     <div class="geo-fig-narrow">{{svg:assets/geoaft/fig3-mechanism-narrow.svg}}</div>
     <figcaption id="fig3-cap"><strong>Figure 3. The GeoAFT score.</strong> A structured geometry branch is centred over valid keys, scaled by a gate that starts at zero, and added before a single softmax.</figcaption>
-  </figure>
-  <figure class="geo-figure geo-figure-sm geo-gate" data-geo-gate aria-labelledby="gate-cap">
-    <div class="geo-gate-static">{{svg:assets/geoaft/hero-same-points.svg}}</div>
-    <figcaption id="gate-cap"><strong>Open the gate.</strong> <span class="geo-js-only">At gate 0 the attention is exactly the pretrained dot-product attention. Slide it up, or switch the geometry, and the same score formula moves attention to other keys.</span><span class="geo-nojs-only">Dashed lines show pretrained dot-product attention; solid lines show attention after the geometry term is added.</span> <span class="geo-illustrative">Illustrative toy example.</span></figcaption>
   </figure>
   <ul class="geo-points" data-reveal="rise">
     <li><strong>Starts from the pretrained model.</strong> Each gate <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B1;</mi><mi>h</mi></msub></mrow></math> is initialized at zero, so training begins from exactly the pretrained attention.</li>
@@ -292,7 +292,6 @@
     <li><strong>Natural tasks.</strong> Earlier natural-task experiments with previous versions of the method were negative. On hierarchical text classification and a GLUE MRPC replication, tuned Q/K-LoRA and full Q/K adaptation outperformed GeoAFT. Later coordinate-based variants did not exceed matched continued-training controls. This is why the project now asks <em>when</em> geometry adaptation helps rather than <em>whether</em> it helps in general.</li>
     <li><strong>From score to task.</strong> A score change that Q/K cannot represent can still be erased by the value and output path, so non-absorbability in the score matrix does not imply task usefulness.</li>
     <li><strong>Efficiency.</strong> Trainable-parameter counts are not inference cost. No accuracy–compute frontier is claimed until compatible measurements of time, throughput and memory are complete.</li>
-    <li><strong>Novelty boundary.</strong> Changing attention geometry and learning kernels both have precedents. The contribution under study is the <em>regime map</em>.</li>
   </ul>
 </section>
 
