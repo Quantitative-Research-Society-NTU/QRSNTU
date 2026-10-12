@@ -38,6 +38,7 @@ def evidence_values():
         'g_R_raw': f"{g['R']}",
         'm_R_raw': f"{m['R']}",
         'ratio': f"{m['trainable_parameters'] / g['trainable_parameters']:.0f}",
+        'param_share': f"{100 * g['trainable_parameters'] / m['trainable_parameters']:.2f}",
         'wins': n['paired_wins'],
         'diff': f"{100 * (g['R'] - m['R']):.2f}",
     }

@@ -18,13 +18,13 @@
 <text class="gf-t gf-m" x="165.0" y="342" font-size="13.5" text-anchor="middle">Oracle-gap recovery R</text>
 <text class="gf-t gf-m" x="316.0" y="20" font-size="12.5" text-anchor="end">oracle</text>
 <text class="gf-t gf-h" x="14" y="66.0" font-size="15.5">GeoAFT</text>
-<circle cx="315.9" cy="88.0" r="7" fill="#00929a" stroke="#fff" stroke-width="2"/>
+<circle class="gf-dot" cx="315.9" cy="88.0" r="7" fill="#00929a" stroke="#fff" stroke-width="2"/>
 <text class="gf-t gf-strong" x="315.9" y="113.0" font-size="13" text-anchor="end" style="fill:#006f76">99.983% · 99.991%</text>
 <text class="gf-t gf-h" x="14" y="154.0" font-size="15.5">Generic pair-MLP scorer</text>
-<rect x="242.2" y="169.0" width="35.1" height="14" rx="4" fill="#8b95a3" fill-opacity=".9"/>
+<rect class="gf-bar" x="242.2" y="169.0" width="35.1" height="14" rx="4" fill="#8b95a3" fill-opacity=".9"/>
 <line x1="14.0" y1="176.0" x2="238.2" y2="176.0" stroke="#8b95a3" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
 <text class="gf-t gf-strong" x="277.3" y="201.0" font-size="13" text-anchor="end" style="fill:#374151">6.4–12.2 pts behind</text>
 <text class="gf-t gf-h" x="14" y="242.0" font-size="15.5">Q/K-LoRA</text>
-<rect x="64.0" y="257.0" width="10.9" height="14" rx="4" fill="#c05f0c" fill-opacity=".9"/>
+<rect class="gf-bar" x="64.0" y="257.0" width="10.9" height="14" rx="4" fill="#c05f0c" fill-opacity=".9"/>
 <line x1="14.0" y1="264.0" x2="60.0" y2="264.0" stroke="#c05f0c" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
 <text class="gf-t gf-strong" x="64.0" y="289.0" font-size="13" text-anchor="start" style="fill:#93480a">39.9–41.7 pts behind</text></svg>

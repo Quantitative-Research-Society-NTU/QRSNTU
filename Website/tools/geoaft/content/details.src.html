@@ -4,7 +4,7 @@
 <header class="geo-details-head">
   <p class="geo-eyebrow">GeoAFT · Technical details</p>
   <h1 class="geo-details-title">Compatibility-space adaptation: method, controls and results</h1>
-  <p class="geo-lead">This page states the method precisely, explains why each control exists, and lists the current results with their qualifiers. For the narrative version, see the <a class="card-link" href="../">overview</a>.</p>
+  <p class="geo-lead">This page states the method precisely, explains why each control exists, and lists the current results with their qualifiers. It also holds the figures and the interactive geometry explorer. For the one-page summary, see the <a class="card-link" href="../">overview</a>.</p>
   {{team}}
 </header>
 
@@ -35,6 +35,11 @@
   <p>Consider one attention head of a pretrained Transformer. For token states \(x_i\), the head forms queries \(q_i = W_Q x_i\) and keys \(k_j = W_K x_j\), and scores each pair with a compatibility function. In standard attention this is the scaled dot product</p>
   <div class="geo-equation">\[ s_{\mathrm{base}}(q_i, k_j) = \frac{q_i^{\top} k_j}{\sqrt{d}}, \qquad A_{ij} = \operatorname{softmax}_{j \in \mathcal{V}(i)}\, s_{\mathrm{base}}(q_i, k_j), \]</div>
   <p>where \(\mathcal{V}(i)\) is the set of keys that query \(i\) may attend to (its causal or padding mask). Following the framing of the project, a pretrained system exposes two adaptation targets: the <strong>representation map</strong> that produces \(q\) and \(k\), and the <strong>relation</strong> \(s\) used to compare them. Most parameter-efficient fine-tuning changes the former, \((W_Q, W_K) \to (W_Q + \Delta W_Q,\ W_K + \Delta W_K)\), and leaves \(s\) unchanged.</p>
+  <figure class="geo-figure" data-reveal data-flow aria-labelledby="fig1-cap">
+    <div class="geo-fig-wide">{{svg:assets/geoaft/fig1-paths-wide.svg}}</div>
+    <div class="geo-fig-narrow">{{svg:assets/geoaft/fig1-paths-narrow.svg}}</div>
+    <figcaption id="fig1-cap"><strong>Figure 1. Two places to adapt attention.</strong> Conventional PEFT edits the projections that produce \(q\) and \(k\). GeoAFT adds a trainable term to the compatibility function and leaves \(q\) and \(k\) as they are.</figcaption>
+  </figure>
 </section>
 
 <section id="definition" aria-labelledby="definition-h">
@@ -48,12 +53,22 @@
     <li>\(c > 0\): a fixed calibration scale, estimated once without labels in the implementation, so that the branch starts on a logit scale comparable to the base score;</li>
     <li>\(\alpha_h\): a per-head gate, initialized at \(0\).</li>
   </ul>
+  <figure class="geo-figure" data-reveal data-flow aria-labelledby="fig3-cap">
+    <div class="geo-fig-wide">{{svg:assets/geoaft/fig3-mechanism-wide.svg}}</div>
+    <div class="geo-fig-narrow">{{svg:assets/geoaft/fig3-mechanism-narrow.svg}}</div>
+    <figcaption id="fig3-cap"><strong>Figure 3. The GeoAFT score.</strong> The pretrained score is kept. A structured geometry branch is centred over valid keys, scaled by a gate that starts at zero, and added before a single softmax.</figcaption>
+  </figure>
   <p>The representations \(q_i\) and \(k_j\) are not modified by this branch. GeoAFT can be used on its own, with \(W_Q\) and \(W_K\) frozen, or alongside a conventional Q/K adapter. Comparing those configurations under matched budgets is the point of the experiments.</p>
   <p class="geo-note"><strong>Development note.</strong> The earliest prototype mixed a bank of fixed operators per head through a router initialized at the dot product, then compiled the selection into a static model. Later versions use the gated residual above, which adds a trainable geometry instead of selecting among fixed ones and can be compared directly with matched Q/K adaptation.</p>
 </section>
 
 <section id="families" aria-labelledby="families-h">
   <h2 id="families-h"><span class="geo-sec-n">3</span>Geometry families and parameterizations</h2>
+  <p>Changing the geometry changes what counts as similar. Hold one query and seven keys fixed. Under the <strong>dot product</strong>, the most compatible key is the one furthest along the query’s direction, which is not the nearest one. <strong>Euclidean</strong> distance prefers the nearest neighbour. <strong>Taxicab (L1)</strong> distance prefers neighbours along the coordinate axes. An <strong>anisotropic Mahalanobis</strong> metric prefers neighbours along a direction it treats as cheap. The winner changes every time, and no point has moved.</p>
+  <figure class="geo-figure geo-explorer" data-geo-explorer aria-labelledby="fig2-cap">
+    <div class="geo-explorer-static">{{svg:assets/geoaft/fig2-geometry-grid.svg}}</div>
+    <figcaption id="fig2-cap"><strong>Figure 2. Same points, different relations.</strong> Each panel scores the same query \(q\) against the same keys A–G with a different compatibility rule. Lines and bars show the resulting softmax attention, with a fixed temperature for each rule. <span class="geo-js-only">Drag the query, press Animate query, or focus the figure and use the arrow keys. Every rule responds to the same query.</span> <span class="geo-illustrative">Illustrative toy example, not trained-model behaviour.</span></figcaption>
+  </figure>
   <p>With \(u = P_q q\) and \(v = P_k k\), the families used in the controlled experiments are:</p>
   <div class="geo-table-wrap" role="region" aria-label="Geometry families" tabindex="0">
   <table class="geo-table">
@@ -145,6 +160,18 @@
     </tbody>
   </table>
   </div>
+  <figure class="geo-figure" data-reveal aria-labelledby="fig4a-cap">
+    <p class="geo-figure-title">Controlled \(L_p\) and Mahalanobis targets <span class="geo-tag">synthetic</span></p>
+    <div class="geo-fig-wide">{{svg:assets/geoaft/fig4a-recovery-wide.svg}}</div>
+    <div class="geo-fig-narrow">{{svg:assets/geoaft/fig4a-recovery-narrow.svg}}</div>
+    <figcaption id="fig4a-cap"><strong>Figure 4a. Near-oracle recovery of a known relation.</strong> GeoAFT recovers {{ev:lp}}% (\(L_p\)) and {{ev:mahalanobis}}% (Mahalanobis) of the oracle gap. At the tested budgets, Q/K-LoRA has to reach the target by moving \(q\) and \(k\), and stays {{ev:qk_margin}} points behind. The tested generic pair-MLP scorers stay {{ev:pair_margin}} points behind. Comparator bars are placed using these reported margins, and each range spans both targets.</figcaption>
+  </figure>
+  <figure class="geo-figure" data-reveal aria-labelledby="fig4b-cap">
+    <p class="geo-figure-title">Controlled nonlinear target <span class="geo-tag">synthetic</span></p>
+    <div class="geo-fig-wide">{{svg:assets/geoaft/fig4b-params-wide.svg}}</div>
+    <div class="geo-fig-narrow">{{svg:assets/geoaft/fig4b-params-narrow.svg}}</div>
+    <figcaption id="fig4b-cap"><strong>Figure 4b. A compact description of a nonlinear relation.</strong> A {{ev:g_params}}-parameter GeoAFT scorer reaches \(R\) = {{ev:g_R}}%. The tested {{ev:m_params}}-parameter PairMLP reaches {{ev:m_R}}%, using about {{ev:ratio}}× more trainable parameters for a similar fit. This is evidence of <em>economy</em>, not superiority. The counts are trainable parameters, not inference cost.</figcaption>
+  </figure>
   <h3>Registered comparisons</h3>
   <p>Comparison rules and success margins were fixed before final testing. <strong>Not all registered superiority gates passed.</strong> Three outcomes define the boundary of the current evidence:</p>
   <ul>
@@ -153,10 +180,37 @@
     <li><strong>Nonlinear target.</strong> GeoAFT won every paired comparison against the tested PairMLP, but the advantage fell below the preregistered materiality threshold.</li>
   </ul>
   <p>Taken together, the evidence supports two of the three regimes from the overview. <em>Exact reparameterization</em> is established analytically, and the exact-control result is consistent with it. <em>Economical parameterization</em> is supported in controlled settings. <em>Distinct adaptation capacity</em> has not yet been demonstrated.</p>
+  <h3 id="regime-map">The three regimes</h3>
+  <p>A geometry update can look different from a weight update and still compute the same function. Before asking whether geometry adaptation <em>helps</em>, we have to ask which kind of change it is.</p>
+  <ol class="geo-regimes" data-reveal="rise">
+    <li class="geo-regime">
+      <div class="geo-regime-glyph">{{svg:assets/geoaft/fig5-regime-1.svg}}</div>
+      <p class="geo-regime-n">1</p>
+      <h4>Exact reparameterization</h4>
+      <p class="geo-status geo-status-established"><span aria-hidden="true">✓</span> Established analytically</p>
+      <p>The geometry change describes a function that a conventional scorer already represents. The Mahalanobis overlay is the worked case in <a href="#equivalence" class="card-link">§6</a>.</p>
+    </li>
+    <li class="geo-regime">
+      <div class="geo-regime-glyph">{{svg:assets/geoaft/fig5-regime-2.svg}}</div>
+      <p class="geo-regime-n">2</p>
+      <h4>Economical parameterization</h4>
+      <p class="geo-status geo-status-supported"><span aria-hidden="true">◐</span> Supported in controlled experiments</p>
+      <p>A structured geometry may represent the same useful interaction, or a close approximation of it, with far fewer optimized parameters. On the nonlinear target, {{ev:g_params}} trainable parameters fit about as well as the tested {{ev:m_params}}-parameter PairMLP.</p>
+    </li>
+    <li class="geo-regime">
+      <div class="geo-regime-glyph">{{svg:assets/geoaft/fig5-regime-3.svg}}</div>
+      <p class="geo-regime-n">3</p>
+      <h4>Distinct adaptation capacity</h4>
+      <p class="geo-status geo-status-open"><span aria-hidden="true">○</span> Under investigation</p>
+      <p>Some compatibility changes may be hard for a restricted conventional family to reach (<a href="#qk-vs-score" class="card-link">§5</a>). Whether that difference survives the value and output path and appears in downstream tasks is the open question.</p>
+    </li>
+  </ol>
+  <p class="geo-pull">The Mahalanobis result is why this project is not about “non-dot geometry is better”. Near-perfect recovery can come from a reparameterization of a known score family.</p>
 </section>
 
 <section id="limitations" aria-labelledby="limitations-h">
   <h2 id="limitations-h"><span class="geo-sec-n">11</span>Limitations and open questions</h2>
+  <p>Fine-tuning works within a budget of parameters, memory and optimization effort. GeoAFT turns a design default, the compatibility rule, into something that can be adapted <em>and</em> compared against matched conventional adaptation. Our working hypothesis is that relations matter most when representations are constrained: frozen or compressed features, small adaptation budgets, or similarity-critical tasks. Where representations are flexible, ordinary PEFT may absorb the same change. Either outcome is informative.</p>
   <ul>
     <li><strong>Synthetic scope.</strong> The results above recover known relations on fixed representations. They are not natural-task results, and they say nothing about state-of-the-art performance.</li>
     <li><strong>Natural tasks.</strong> Earlier natural-task experiments with previous versions of the method were negative. On hierarchical text classification and a GLUE MRPC replication, tuned Q/K-LoRA and full Q/K adaptation outperformed GeoAFT. Later coordinate-based variants did not exceed matched continued-training controls. This is why the project now asks <em>when</em> geometry adaptation helps rather than <em>whether</em> it helps in general. Broader evaluation of the current method is ongoing, and no results from it are reported here.</li>

@@ -19,15 +19,15 @@
 <text class="gf-t gf-m" x="876.0" y="20" font-size="12.5" text-anchor="end">oracle</text>
 <text class="gf-t gf-h" x="234" y="69.0" font-size="15.5" text-anchor="end">GeoAFT</text>
 <text class="gf-t gf-m" x="234" y="87.0" font-size="12.5" text-anchor="end">structured geometry residual</text>
-<circle cx="875.9" cy="71.0" r="7" fill="#00929a" stroke="#fff" stroke-width="2"/>
+<circle class="gf-dot" cx="875.9" cy="71.0" r="7" fill="#00929a" stroke="#fff" stroke-width="2"/>
 <text class="gf-t gf-strong" x="875.9" y="96.0" font-size="13" text-anchor="end" style="fill:#006f76">99.983% (L<tspan baseline-shift="sub" font-size="9">p</tspan>) · 99.991% (Mahalanobis)</text>
 <text class="gf-t gf-h" x="234" y="143.0" font-size="15.5" text-anchor="end">Generic pair-MLP scorer</text>
 <text class="gf-t gf-m" x="234" y="161.0" font-size="12.5" text-anchor="end">tested learned scores</text>
-<rect x="723.0" y="138.0" width="72.7" height="14" rx="4" fill="#8b95a3" fill-opacity=".9"/>
+<rect class="gf-bar" x="723.0" y="138.0" width="72.7" height="14" rx="4" fill="#8b95a3" fill-opacity=".9"/>
 <line x1="250.0" y1="145.0" x2="719.0" y2="145.0" stroke="#8b95a3" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
 <text class="gf-t gf-strong" x="795.8" y="170.0" font-size="13" text-anchor="end" style="fill:#374151">≈88–94% · 6.4–12.2 points behind GeoAFT</text>
 <text class="gf-t gf-h" x="234" y="217.0" font-size="15.5" text-anchor="end">Q/K-LoRA</text>
 <text class="gf-t gf-m" x="234" y="235.0" font-size="12.5" text-anchor="end">adapts the projections</text>
-<rect x="353.7" y="212.0" width="22.6" height="14" rx="4" fill="#c05f0c" fill-opacity=".9"/>
+<rect class="gf-bar" x="353.7" y="212.0" width="22.6" height="14" rx="4" fill="#c05f0c" fill-opacity=".9"/>
 <line x1="250.0" y1="219.0" x2="349.7" y2="219.0" stroke="#c05f0c" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
 <text class="gf-t gf-strong" x="353.7" y="244.0" font-size="13" text-anchor="start" style="fill:#93480a">≈58–60% · 39.9–41.7 points behind GeoAFT</text></svg>

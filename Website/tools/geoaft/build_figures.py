@@ -2,6 +2,7 @@
 
 Outputs go to Website/v1/assets/geoaft/. Every empirical number is read from
 evidence.json; geometry panels are computed from TOY, which geoaft.js mirrors.
+Bars carry class gf-bar / gf-dot so geoaft.css can grow them in when a figure scrolls into view.
 Standard library only. Run: python Website/tools/geoaft/build_figures.py
 """
 import json
@@ -420,9 +421,9 @@ def fig_recovery():
                 out.append(f'<text class="gf-t gf-m" x="{x0 - 16}" y="{cy + 16}" font-size="12.5" text-anchor="end">{escape(sub)}</text>')
             A, B = sx(a), sx(b)
             if b - a < 0.5:
-                out.append(f'<circle cx="{B:.1f}" cy="{cy:.1f}" r="7" fill="{color}" stroke="#fff" stroke-width="2"/>')
+                out.append(f'<circle class="gf-dot" cx="{B:.1f}" cy="{cy:.1f}" r="7" fill="{color}" stroke="#fff" stroke-width="2"/>')
             else:
-                out.append(f'<rect x="{A:.1f}" y="{cy - 7:.1f}" width="{B - A:.1f}" height="14" rx="4" fill="{color}" fill-opacity=".9"/>')
+                out.append(f'<rect class="gf-bar" x="{A:.1f}" y="{cy - 7:.1f}" width="{B - A:.1f}" height="14" rx="4" fill="{color}" fill-opacity=".9"/>')
                 out.append(f'<line x1="{sx(lo):.1f}" y1="{cy:.1f}" x2="{A - 4:.1f}" y2="{cy:.1f}" stroke="{color}" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>')
             text_x, anchor = (B, 'end') if a > 75 else (A, 'start')
             text_y = cy + 25
@@ -469,7 +470,7 @@ def fig_params():
                 out.append(f'<text class="gf-t gf-h" x="{x0 - 16}" y="{cy - 2}" font-size="15.5" text-anchor="end">{name}</text>')
                 out.append(f'<text class="gf-t gf-m" x="{x0 - 16}" y="{cy + 16}" font-size="12.5" text-anchor="end">{sub}</text>')
             B = sx(d['trainable_parameters'])
-            out.append(f'<rect x="{x0:.1f}" y="{cy - 8:.1f}" width="{B - x0:.1f}" height="16" rx="4" fill="{color}"/>')
+            out.append(f'<rect class="gf-bar" x="{x0:.1f}" y="{cy - 8:.1f}" width="{B - x0:.1f}" height="16" rx="4" fill="{color}"/>')
             n = f'{d["trainable_parameters"]:,}'
             if B - x0 > 0.7 * (x1 - x0):
                 out.append(f'<text class="gf-t gf-strong" x="{B - 8:.1f}" y="{cy + 5:.1f}" font-size="13.5" text-anchor="end" fill="#fff">{n}</text>')

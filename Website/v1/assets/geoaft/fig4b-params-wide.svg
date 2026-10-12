@@ -17,11 +17,11 @@
 <text class="gf-t gf-m" x="730" y="20" font-size="12.5">oracle-gap recovery</text>
 <text class="gf-t gf-h" x="234" y="61.0" font-size="15.5" text-anchor="end">GeoAFT</text>
 <text class="gf-t gf-m" x="234" y="79.0" font-size="12.5" text-anchor="end">structured nonlinear geometry</text>
-<rect x="250.0" y="55.0" width="174.6" height="16" rx="4" fill="#00929a"/>
+<rect class="gf-bar" x="250.0" y="55.0" width="174.6" height="16" rx="4" fill="#00929a"/>
 <text class="gf-t gf-strong" x="432.6" y="68.0" font-size="13.5" style="fill:#006f76">46</text>
 <text class="gf-t" x="730" y="68.0" font-size="15">R = 99.934%</text>
 <text class="gf-t gf-h" x="234" y="127.0" font-size="15.5" text-anchor="end">PairMLP</text>
 <text class="gf-t gf-m" x="234" y="145.0" font-size="12.5" text-anchor="end">generic learned scorer</text>
-<rect x="250.0" y="121.0" width="413.7" height="16" rx="4" fill="#8b95a3"/>
+<rect class="gf-bar" x="250.0" y="121.0" width="413.7" height="16" rx="4" fill="#8b95a3"/>
 <text class="gf-t gf-strong" x="655.7" y="134.0" font-size="13.5" text-anchor="end" style="fill:#fff">8,705</text>
 <text class="gf-t" x="730" y="134.0" font-size="15">R = 99.539%</text></svg>
