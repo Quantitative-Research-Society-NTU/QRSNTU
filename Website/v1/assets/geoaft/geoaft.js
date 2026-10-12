@@ -1,4 +1,4 @@
-// GeoAFT microsite enhancements: header offset, active section, the gate figure (overview),
+// GeoAFT microsite enhancements: header offset, active section, the stretching-geometry figure (overview),
 // the geometry explorer (details) and bar reveals.
 // Everything here is optional: without JavaScript the page shows static figures and plain links.
 // The toy geometry mirrors Website/tools/geoaft/build_figures.py (see assets/geoaft/toy.json).
@@ -55,11 +55,7 @@ function score(kind, q, k, state) {
 }
 function attention(kind, state) {
     const names = Object.keys(TOY.keys);
-    // With state.gate set, the score is the GeoAFT form s_base + gate * g rather than g alone.
-    const logits = names.map(n => {
-        const g = score(kind, state.q, TOY.keys[n], state) / TOY.tau[kind];
-        return state.gate === undefined ? g : score('dot', state.q, TOY.keys[n], state) / TOY.tau.dot + state.gate * g;
-    });
+    const logits = names.map(n => score(kind, state.q, TOY.keys[n], state) / TOY.tau[kind]);
     const top = Math.max(...logits);
     const w = logits.map(v => Math.exp(v - top));
     const z = w.reduce((a, b) => a + b, 0);
@@ -133,8 +129,7 @@ function panelSVG(kind, title, formula, color, x, y, w, h, uid, state) {
     s += `<clipPath id="lclip-${uid}"><rect x="${cx0}" y="${cy0}" width="${cx1 - cx0}" height="${cy1 - cy0}" rx="6"/></clipPath>`;
     s += `<rect class="geo-drag-surface" x="${cx0}" y="${cy0}" width="${cx1 - cx0}" height="${cy1 - cy0}" rx="6" fill="#fbfbfa" stroke="${C.rule}"/>`;
     s += `<g clip-path="url(#lclip-${uid})" pointer-events="none">`;
-    s += state.gate === undefined ? contours(kind, f, state)
-        : `<g opacity="${(1 - state.gate).toFixed(2)}">${contours('dot', f, state)}</g><g opacity="${state.gate.toFixed(2)}">${contours(kind, f, state)}</g>`;
+    s += contours(kind, f, state);
     if (kind === 'dot') {
         const a = f(state.q[0] * 0.15, state.q[1] * 0.15), b = f(state.q[0] * 2.3, state.q[1] * 2.3);
         s += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${color}" stroke-width="1.4" stroke-opacity=".55" marker-end="url(#larrow-${uid})"/>`;
@@ -320,81 +315,92 @@ function initExplorer(fig) {
     render();
 }
 
-// ---------------------------------------------------------------- gate figure (overview hero)
-// One panel, same toy as the explorer. The slider is the gate in S = s_base + gate * g:
-// at 0 the attention is exactly the dot-product attention; raising it adds the chosen geometry.
-function initGate(fig) {
-    const RULES = [['l2', 'Euclidean'], ['lp', 'L1'], ['maha', 'Mahalanobis']];
-    const state = { q: [...TOY.query], p: TOY.p, angle: TOY.angle, gate: 0, rule: 2 };
+// ---------------------------------------------------------------- stretching-geometry figure (overview hero)
+// Same toy as the explorer. A learned metric stretches and turns: the grid is its ruler (one
+// cell = one unit of distance), the colour field is compatibility with q, and the list below
+// re-ranks the keys by attention. The query and keys are never moved.
+function initHero(fig) {
+    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 23, T = 13000;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const controls = document.createElement('div');
-    controls.className = 'geo-explorer-controls geo-gate-controls';
-    controls.innerHTML = `
-        <label><span>Gate α</span> <input type="range" min="0" max="1" step="0.01" value="0" aria-describedby="geo-gate-out"><output id="geo-gate-out">0.00</output></label>
-        <div class="geo-gate-rules" role="group" aria-label="Geometry added to the pretrained score">
-            ${RULES.map(([, t], i) => `<button type="button" data-rule="${i}" aria-pressed="${i === state.rule}">${t}</button>`).join('')}
-        </div>
-        <button type="button" data-play>▶ Replay</button>`;
-    const live = document.createElement('div');
-    live.className = 'geo-gate-live';
-    const readout = document.createElement('p');
-    readout.className = 'geo-explorer-readout';
-    readout.setAttribute('aria-live', 'polite');
-    const slider = controls.querySelector('input'), out = controls.querySelector('output');
-    const W = 520, H = 430;
-    let announce = 0;
-    function render() {
-        const [kind, name] = RULES[state.rule];
-        const res = panelSVG(kind, 'Attention from q to the same seven keys', `q · k + α g${SUB('φ')}(q, k)`, C.teal, 0, 0, W, H, 'gate', state);
-        live.innerHTML = `<svg xmlns="${NS}" viewBox="0 0 ${W} ${H}" class="geo-svg" role="img" aria-label="Toy attention from one query to seven fixed keys, for the current gate and geometry.">${res.svg}</svg>`;
-        out.textContent = state.gate.toFixed(2);
-        const top = Object.entries(res.att).sort((a, b) => b[1] - a[1])[0];
-        clearTimeout(announce);
-        announce = setTimeout(() => {
-            readout.textContent = state.gate === 0
-                ? `Gate 0: exactly the pretrained attention. Most-attended key ${top[0]} (${Math.round(100 * top[1])}%).`
-                : `Gate ${state.gate.toFixed(2)} with ${name} geometry. Most-attended key ${top[0]} (${Math.round(100 * top[1])}%).`;
-        }, 120);
+    const smooth = t => t * t * (3 - 2 * t);
+    const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
+
+    const head = document.createElement('div');
+    head.className = 'geo-live-head';
+    head.innerHTML = '<span class="geo-live-rule"></span><button type="button"></button>';
+    const stage = document.createElement('div');
+    stage.innerHTML = `<div class="geo-live-field"><canvas width="${GX}" height="${GY}"></canvas><svg xmlns="${NS}" viewBox="0 0 ${W} ${H}" class="geo-svg" role="img" aria-label="Animated toy: a distance grid stretches and turns under one query and seven fixed keys, and attention to the keys changes."></svg></div>` +
+        `<ol class="geo-live-rank" style="height:${names.length * ROW}px" aria-label="Attention to each key, highest first">${names.map(n => `<li data-k="${n}"><span>${n}</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal"></span></span><span class="geo-meter-value"></span></li>`).join('')}</ol>`;
+    const label = head.querySelector('span'), btn = head.querySelector('button');
+    const ctx = stage.querySelector('canvas').getContext('2d'), img = ctx.createImageData(GX, GY), svgEl = stage.querySelector('svg');
+    const rows = [...stage.querySelectorAll('li')];
+
+    function draw(ms) {
+        // Loop: stretch one direction, turn the metric through half a circle, relax again.
+        const x = ms % T;
+        const a = x < 2500 ? smooth(x / 2500) : x < 9500 ? 1 : x < 12000 ? 1 - smooth((x - 9500) / 2500) : 0;
+        const theta = (TOY.angle + (x < 2500 ? 0 : x < 9500 ? 180 * smooth((x - 2500) / 7000) : 180)) * Math.PI / 180;
+        const l1 = TOY.eig[0] ** a, l2 = TOY.eig[1] ** a, e1 = [Math.cos(theta), Math.sin(theta)], e2 = [-e1[1], e1[0]];
+        const dist = (px, py) => { const dx = px - q[0], dy = py - q[1], m1 = dx * e1[0] + dy * e1[1], m2 = dx * e2[0] + dy * e2[1]; return Math.sqrt(l1 * m1 * m1 + l2 * m2 * m2); };
+        // Colour field: how compatible each location is with q (softened so the slope stays visible).
+        for (let j = 0, n = 0; j < GY; j++) for (let i = 0; i < GX; i++, n++) {
+            const v = Math.exp(-dist(x0 + (i + 0.5) / GX * (x1 - x0), y1 - (j + 0.5) / GY * (y1 - y0)) / 1.1);
+            img.data[4 * n] = 251 - 141 * v; img.data[4 * n + 1] = 251 - 55 * v; img.data[4 * n + 2] = 250 - 50 * v; img.data[4 * n + 3] = 255;
+        }
+        ctx.putImageData(img, 0, 0);
+        // Softmax attention over the keys under the current metric.
+        const logits = names.map(n => -dist(...TOY.keys[n]) / TOY.tau.maha), top = Math.max(...logits);
+        const w = logits.map(v => Math.exp(v - top)), z = w.reduce((p, c) => p + c, 0);
+        const att = Object.fromEntries(names.map((n, i) => [n, w[i] / z]));
+        // Ruler grid and two equal-distance rings.
+        const at = (u, v) => f(q[0] + u * e1[0] + v * e2[0], q[1] + u * e1[1] + v * e2[1]);
+        const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
+        let s = '';
+        for (let n = -30; n <= 30; n++) {
+            const c = 0.3 * n;
+            s += `<path d="M${pt(at(c / Math.sqrt(l1), -9))}L${pt(at(c / Math.sqrt(l1), 9))}M${pt(at(-9, c / Math.sqrt(l2)))}L${pt(at(9, c / Math.sqrt(l2)))}" stroke="${C.navy}" stroke-opacity="${n % 2 === 0 ? 0.3 : 0.13}" fill="none"/>`;
+        }
+        for (const r of [0.6, 1.2]) {
+            const ring = [];
+            for (let j = 0; j <= 72; j++) { const t = 2 * Math.PI * j / 72; ring.push(pt(at(r * Math.cos(t) / Math.sqrt(l1), r * Math.sin(t) / Math.sqrt(l2)))); }
+            s += `<path d="M${ring.join('L')}Z" fill="none" stroke="${C.tealInk}" stroke-width="1.8"/>`;
+        }
+        let dots = '';
+        for (const n of names) {
+            const [kx, ky] = f(...TOY.keys[n]), v = att[n];
+            s += `<line x1="${qx.toFixed(1)}" y1="${qy.toFixed(1)}" x2="${kx.toFixed(1)}" y2="${ky.toFixed(1)}" stroke="${C.navy}" stroke-width="${(0.5 + 9 * v).toFixed(2)}" stroke-opacity="${(0.15 + 0.75 * v).toFixed(2)}" stroke-linecap="round"/>`;
+            dots += `<circle cx="${kx.toFixed(1)}" cy="${ky.toFixed(1)}" r="6.5" fill="#fff" stroke="${C.navy}" stroke-width="1.8"/><text class="gf-t gf-h gf-strong" x="${(kx + 10).toFixed(1)}" y="${(ky - 9).toFixed(1)}" font-size="17">${n}</text>`;
+        }
+        svgEl.innerHTML = s + dots + `<circle cx="${qx.toFixed(1)}" cy="${qy.toFixed(1)}" r="9" fill="${C.navy}" stroke="#fff" stroke-width="2.5"/><text class="gf-x" x="${(qx - 6).toFixed(1)}" y="${(qy - 15).toFixed(1)}" font-size="20">q</text>`;
+        // Ranking: rows slide to their new place as the order changes.
+        const order = [...names].sort((m, n) => att[n] - att[m]);
+        rows.forEach(li => {
+            const n = li.dataset.k;
+            li.style.transform = `translateY(${order.indexOf(n) * ROW}px)`;
+            li.classList.toggle('is-top', order[0] === n);
+            li.querySelector('.geo-bar').style.width = `${(100 * att[n]).toFixed(1)}%`;
+            li.querySelector('.geo-meter-value').textContent = `${Math.round(100 * att[n])}%`;
+        });
+        label.textContent = a < 0.03 ? 'Euclidean: every direction costs the same' : 'Learned metric: one direction is cheap, another costly';
     }
-    // Animate the gate from 0 to `to`; every frame recomputes the softmax, so the lines,
-    // labels and bars move together.
-    let touched = false, raf = 0;
-    function sweep(to, duration, delay = 0) {
+
+    let t = reduced ? 5200 : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
+    const tick = now => { t += Math.min(now - last, 100); last = now; draw(t); raf = requestAnimationFrame(tick); };
+    const sync = () => {
         cancelAnimationFrame(raf);
-        if (reduced) { state.gate = to; slider.value = to; render(); return; }
-        const t0 = performance.now() + delay;
-        const step = now => {
-            const t = Math.max(0, Math.min(1, (now - t0) / duration));
-            state.gate = Math.round(100 * to * t * t * (3 - 2 * t)) / 100;
-            slider.value = state.gate;
-            render();
-            if (t < 1) raf = requestAnimationFrame(step);
-        };
-        raf = requestAnimationFrame(step);
-    }
-    slider.addEventListener('input', () => { touched = true; cancelAnimationFrame(raf); state.gate = Number(slider.value); render(); });
-    controls.querySelectorAll('[data-rule]').forEach(btn => btn.addEventListener('click', () => {
-        touched = true;
-        state.rule = Number(btn.dataset.rule);
-        controls.querySelectorAll('[data-rule]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-        sweep(state.gate || 1, 2000);
-    }));
-    controls.querySelector('[data-play]').addEventListener('click', () => { touched = true; sweep(1, 5000); });
-    fig.querySelector('.geo-gate-static').hidden = true;
-    fig.prepend(controls);
-    controls.after(live);
-    live.after(readout);
+        btn.textContent = playing ? '❚❚ Pause' : '▶ Play';
+        if (playing && visible) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    };
+    btn.addEventListener('click', () => { playing = !playing; sync(); });
+    fig.querySelector('.geo-live-static').hidden = true;
+    fig.prepend(head);
+    head.after(stage);
     fig.classList.add('is-live');
-    render();
-    // Once, when first seen: open the gate so the reader sees attention move.
-    if (!reduced && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver(entries => {
-            if (!entries.some(e => e.isIntersecting)) return;
-            io.disconnect();
-            if (!touched) sweep(1, 5000, 600);
-        }, { threshold: 0.5 });
-        io.observe(live);
-    }
+    draw(t);
+    if (!visible) new IntersectionObserver(es => { visible = es.some(e => e.isIntersecting); sync(); }, { threshold: 0.2 }).observe(fig);
+    sync();
+    // Exposed so a frame at any time can be rendered and checked without waiting for playback.
+    window.__geoaftHeroFrame = draw;
 }
 
 // Blocks marked data-reveal animate once when they scroll into view: bars grow (CSS), numbers
@@ -441,8 +447,8 @@ if (root) {
     if (header && 'ResizeObserver' in window) new ResizeObserver(syncHeaderOffset).observe(header);
     trackSections(document.querySelector('.geo-details-toc'));
     revealOnScroll();
-    document.querySelectorAll('[data-geo-gate]').forEach(fig => {
-        try { initGate(fig); } catch (err) { console.warn('GeoAFT gate figure unavailable; showing static figure.', err); }
+    document.querySelectorAll('[data-geo-hero]').forEach(fig => {
+        try { initHero(fig); } catch (err) { console.warn('GeoAFT hero figure unavailable; showing static figure.', err); }
     });
     document.querySelectorAll('[data-geo-explorer]').forEach(fig => {
         try { initExplorer(fig); } catch (err) { console.warn('GeoAFT explorer unavailable; showing static figure.', err); }
@@ -451,5 +457,5 @@ if (root) {
     window.__geoaftAttention = (kind, q = TOY.query) => attention(kind, { q, p: TOY.p, angle: TOY.angle });
 }
 
-// Shared with the explainer animatic (Website/tools/geoaft/video) and geoaft-test.js, which reuse the same geometry.
-export { TOY, C, attention, geometries, panelSVG, score, frame, contours };
+// Shared with the explainer animatic (Website/tools/geoaft/video), which reuses the same geometry.
+export { TOY, attention, geometries, panelSVG };

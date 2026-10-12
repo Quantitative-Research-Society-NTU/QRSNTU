@@ -70,9 +70,6 @@ def generate(check=False):
             body = PLACEHOLDER.sub(fill, (CUSTOM / p['id'] / spec['template']).read_text(encoding='utf-8'))
             body = re.sub(r'^<!--.*?-->\n', '', body, flags=re.S)
             head = ''.join(f'<link rel="stylesheet" href="{root}{href}{version}">' for href in spec.get('stylesheets', []))
-            if spec.get('noindex'):
-                # Review pages: kept out of search and (via generate_seo.py) out of the sitemaps.
-                head = '<meta name="robots" content="noindex">' + head
             scripts = ''.join(f'<script type="module" src="{root}{src}{version}"></script>' for src in spec.get('scripts', []))
             page(route, spec['title'], body, 'projects', head=head, scripts=scripts, width=config.get('width'))
 

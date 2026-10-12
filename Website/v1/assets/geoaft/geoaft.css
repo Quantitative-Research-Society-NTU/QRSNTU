@@ -197,16 +197,6 @@
 .geo-bar-neutral { background: #8b95a3; }
 .geo-meter-value { color: var(--geo-ink); font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
 
-/* ---------- Gate figure (enhanced by geoaft.js) ---------- */
-.geo-gate-controls { gap: .75rem 1.5rem; margin-bottom: .75rem; }
-.geo-gate-controls label { flex: 1 1 11rem; }
-.geo-gate-controls label > span { white-space: nowrap; }
-.geo-gate-controls input[type="range"] { flex: 1 1 auto; width: auto; min-width: 6rem; }
-.geo-gate-rules { display: flex; flex-wrap: wrap; gap: .4rem; }
-.geo-gate-rules button[aria-pressed="true"] { background: var(--geo-navy); color: #fff; border-color: var(--geo-navy); }
-.geo-gate-live svg { width: 100%; height: auto; display: block; }
-.geo-gate .geo-illustrative { display: block; margin-top: .25rem; }
-
 /* ---------- Bars that grow in when scrolled into view ---------- */
 @media (prefers-reduced-motion: no-preference) {
     .geo-anim [data-reveal] :is(.gf-bar, .geo-bar) { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); transition: transform .9s cubic-bezier(.2, .7, .2, 1) .1s; }
@@ -270,18 +260,19 @@
 .geo-details-body .geo-regime h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
 .geo-details-body .geo-regime p { font-size: .93rem; }
 
-/* ---------- Figure options (projects/geoaft/test, built by geoaft-test.js) ---------- */
-.geo-test-grid { display: grid; gap: 2.5rem; padding-top: 2rem; }
-@media (min-width: 1100px) { .geo-test-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; } }
-.geo-test-grid > section { padding: 0; }
-.geo-test-grid h2 { font-size: 1.35rem; margin: 0 0 .75rem; }
-.geo-opt { margin: 0; max-width: 36rem; }
-.geo-opt-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .6rem; min-height: 2.6rem; }
-.geo-opt-rule { color: var(--geo-ink); font-size: .98rem; line-height: 1.3; }
-.geo-opt-head button { border: 1px solid #c4cad3; border-radius: 6px; padding: .35rem .8rem; background: #fff; color: var(--geo-navy); font-size: .9rem; white-space: nowrap; }
-.geo-opt-head button:hover { border-color: var(--geo-navy); }
-.geo-opt-field { position: relative; aspect-ratio: 540 / 420; border: 1px solid var(--geo-rule); border-radius: 8px; overflow: hidden; }
-.geo-opt-field canvas, .geo-opt-field svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.geo-opt-rank { list-style: none; margin: .9rem 0 0; padding: 0; position: relative; }
-.geo-opt-rank li { position: absolute; left: 0; right: 0; top: 0; height: 22px; display: grid; grid-template-columns: 1.2rem minmax(0, 1fr) 2.8rem; gap: .6rem; align-items: center; font-size: .9rem; transition: transform .45s ease; }
-.geo-opt-rank .geo-bar { min-width: 2px; }
+/* ---------- Stretching-geometry figure (overview hero, built by geoaft.js) ---------- */
+.geo-live { max-width: 31rem; width: 100%; justify-self: center; }
+.geo-live-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .6rem; min-height: 2.4rem; }
+.geo-live-rule { color: var(--geo-ink); font-size: .98rem; line-height: 1.3; }
+.geo-live-head button { border: 1px solid #c4cad3; border-radius: 6px; padding: .35rem .8rem; background: #fff; color: var(--geo-navy); font-size: .9rem; white-space: nowrap; }
+.geo-live-head button:hover { border-color: var(--geo-navy); }
+.geo-live-field { position: relative; aspect-ratio: 540 / 420; border: 1px solid var(--geo-rule); border-radius: 8px; overflow: hidden; }
+.geo-live-field canvas, .geo-live-field svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.geo-live-rank { list-style: none; margin: .8rem 0 0; padding: 0; position: relative; }
+.geo-live-rank li { position: absolute; left: 0; right: 0; top: 0; height: 19px; display: grid; grid-template-columns: 1.2rem minmax(0, 1fr) 2.8rem; gap: .6rem; align-items: center; font-size: .9rem; transition: transform .45s ease; }
+.geo-live-rank .geo-meter-track { height: 11px; }
+.geo-live-rank .geo-bar { min-width: 2px; opacity: .45; }
+.geo-live-rank .is-top .geo-bar { opacity: 1; }
+.geo-live-rank .is-top > span:first-child { color: var(--geo-ink); font-weight: 600; }
+.geo-live .geo-illustrative { display: block; margin-top: .25rem; }
+@media (prefers-reduced-motion: reduce) { .geo-live-rank li { transition: none; } }

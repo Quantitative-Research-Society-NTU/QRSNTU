@@ -1,7 +1,7 @@
 {
   "_note": "Project-specific pages rendered by generate_research.py. Templates are built from Website/tools/geoaft/content by build_content.py.",
   "width": "max-w-6xl",
-  "version": "20261012-geoaft3",
+  "version": "20261012-geoaft4",
   "pages": [
     {
       "template": "index.html",
@@ -23,18 +23,6 @@
       ],
       "scripts": [
         "assets/geoaft/geoaft.js"
-      ]
-    },
-    {
-      "template": "test.html",
-      "route": "test",
-      "title": "GeoAFT: Figure Options",
-      "noindex": true,
-      "stylesheets": [
-        "assets/geoaft/geoaft.css"
-      ],
-      "scripts": [
-        "assets/geoaft/geoaft-test.js"
       ]
     }
   ]

@@ -17,10 +17,10 @@
       <p class="geo-hero-paper">Workshop paper: <a href="#paper" class="card-link">NeurIPS 2026 AutoMLR</a></p>
     </div>
   </div>
-  <figure class="geo-hero-figure geo-gate" data-geo-gate aria-labelledby="hero-cap">
-    <div class="geo-gate-static">{{svg:assets/geoaft/hero-same-points.svg}}</div>
+  <figure class="geo-hero-figure geo-live" data-geo-hero aria-labelledby="hero-cap">
+    <div class="geo-live-static">{{svg:assets/geoaft/hero-same-points.svg}}</div>
     <figcaption id="hero-cap">
-      <span class="geo-js-only">Lines and bars show the attention each key receives from the query <em>q</em>. As the gate opens, a geometry term is added to the score: attention moves, the points do not.</span>
+      <span class="geo-js-only">The grid is the ruler: each cell is one unit of distance under the current geometry, and colour shows how compatible each place is with the query <em>q</em>. As the geometry stretches and turns, attention to the keys re-ranks. The points do not move.</span>
       <span class="geo-nojs-only"><span class="geo-legend-dash" aria-hidden="true"></span>Pretrained dot-product attention concentrates on key B. <span class="geo-legend-solid" aria-hidden="true"></span>After the geometry is adapted, attention moves to F and A. The points do not move.</span>
       <span class="geo-illustrative">Illustrative 2-D toy, not trained-model behaviour.</span>
     </figcaption>
