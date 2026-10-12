@@ -20,7 +20,7 @@
     <li class="geo-toc-part">The evidence</li>
     <li><a href="#synthetic">Synthetic experiments</a></li>
     <li><a href="#regimes">What the results mean</a></li>
-    <li><a href="#benchmarks">Real benchmarks</a></li>
+    <li><a href="#benchmarks">In progress and future directions</a></li>
     <li class="geo-toc-part">Technical details</li>
     <li><a href="#definition">Notation and definition</a></li>
     <li><a href="#families">Families, centring and masks</a></li>
@@ -62,8 +62,8 @@
 <section id="intuition" aria-labelledby="intuition-h">
   <h2 id="intuition-h"><span class="geo-sec-n">2</span>Same points, different relations</h2>
   <p>Changing the geometry changes what counts as similar. Hold one query and seven keys fixed. The <strong>dot product</strong> prefers the key furthest along the query’s direction. <strong>Euclidean</strong> distance prefers the nearest key. <strong>Taxicab (L1)</strong> distance prefers neighbours along the axes. An <strong>anisotropic Mahalanobis</strong> metric prefers neighbours along a direction it treats as cheap. The winner changes every time, and no point has moved.</p>
-  <figure class="geo-figure geo-figure-sm geo-explorer" data-geo-explorer aria-labelledby="fig2-cap">
-    <div class="geo-explorer-static">{{svg:assets/geoaft/fig2-geometry-grid.svg}}</div>
+  <figure class="geo-figure geo-explorer" data-geo-explorer aria-labelledby="fig2-cap">
+    <div class="geo-explorer-static"><div class="geo-fig-wide">{{svg:assets/geoaft/fig2-geometry-wide.svg}}</div><div class="geo-fig-narrow">{{svg:assets/geoaft/fig2-geometry-grid.svg}}</div></div>
     <figcaption id="fig2-cap"><strong>Figure 2. Try it.</strong> Each panel scores the same query <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>q</mi></mrow></math> against the same keys A–G with a different rule. <span class="geo-js-only">Drag the query, press Animate query, or focus the figure and use the arrow keys.</span> <span class="geo-illustrative">Illustrative toy example, not trained-model behaviour.</span></figcaption>
   </figure>
 </section>
@@ -89,6 +89,28 @@
 </section>
 
 <p class="geo-part">Part 2 · The evidence</p>
+
+<div class="geo-board" data-reveal="rise" aria-label="Project status">
+  <div>
+    <h3>Tested so far <span class="geo-tag">synthetic</span></h3>
+    <ul class="geo-checks">
+      <li>Recovery of three known target relations: learned <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow></math>, Mahalanobis and a structured nonlinear compatibility</li>
+      <li>Head-to-head against Q/K-LoRA, a fixed geometry bank, generic pair-MLP scorers, projected-dot and exact structural controls</li>
+      <li>The fixed geometry bank on its own: it nearly closes the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow></math> gap</li>
+      <li>The Mahalanobis equivalence, shown analytically and consistent with the exact control</li>
+      <li>Implementation checks: zero gate reproduces the pretrained attention; masked keys stay out of centring</li>
+    </ul>
+  </div>
+  <div>
+    <h3>In progress <span class="geo-status geo-status-open">Not yet reported</span></h3>
+    <ul class="geo-checks geo-checks-open">
+      <li>Real benchmarks: the current method on natural tasks</li>
+      <li>How strongly a score difference is transmitted to the task</li>
+      <li>Compatible measurements of time, throughput and memory</li>
+      <li>Whether geometry offers adaptation capacity that restricted Q/K updates lack</li>
+    </ul>
+  </div>
+</div>
 
 <section id="synthetic" aria-labelledby="synthetic-h">
   <h2 id="synthetic-h"><span class="geo-sec-n">4</span>Synthetic experiments <span class="geo-tag">controlled</span></h2>
@@ -158,8 +180,14 @@
 </section>
 
 <section id="benchmarks" aria-labelledby="benchmarks-h">
-  <h2 id="benchmarks-h"><span class="geo-sec-n">6</span>Real benchmarks <span class="geo-status geo-status-open">In progress</span></h2>
-  <p>Evaluation of the current method on natural tasks is ongoing, and no results from it are reported here. Results will be added as they become available.</p>
+  <h2 id="benchmarks-h"><span class="geo-sec-n">6</span>In progress and future directions</h2>
+  <p><strong>Real benchmarks are in progress.</strong> Evaluation of the current method on natural tasks is ongoing, and no results from it are reported here. The directions below are what that work is organised around.</p>
+  <ol class="geo-next-list geo-next-list-2" data-reveal="rise">
+    <li><h3>Map the regimes</h3><p>Say, for a given setting, whether a geometry update is a reparameterization, an economy, or a distinct capacity. The goal is a map of when adaptation should change representations and when it should change how they interact.</p></li>
+    <li><h3>Constrained representations</h3><p>Test the working hypothesis that relations matter most when representations are constrained: frozen or compressed features, small adaptation budgets, or similarity-critical tasks.</p></li>
+    <li><h3>From score to task</h3><p>A score change that Q/K cannot represent can still be erased by the value and output path. Current work studies the conditions under which the difference is transmitted downstream.</p></li>
+    <li><h3>Honest efficiency</h3><p>Trainable-parameter counts are not inference cost. No accuracy–compute frontier is claimed until time, throughput and memory are measured compatibly.</p></li>
+  </ol>
 </section>
 
 <p class="geo-part">Part 3 · Technical details</p>

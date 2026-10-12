@@ -193,7 +193,7 @@ function initExplorer(fig) {
         const width = live.clientWidth || fig.clientWidth || 900;
         const single = width < 560;
         fig.classList.toggle('is-single', single);
-        const cols = single ? 1 : width >= 860 ? 4 : 2;
+        const cols = single ? 1 : width >= 780 ? 4 : 2;
         const pw = cols === 4 ? 250 : cols === 2 ? 270 : 340, ph = single ? 350 : 330, gap = 16;
         const all = geometries(state);
         const geos = single ? [all[state.single]] : all;
@@ -537,6 +537,24 @@ function revealOnScroll() {
     targets.forEach(t => io.observe(t));
 }
 
+// Overview: the hero stays put and fades while the cards below slide up over it (see .geo-hero in
+// geoaft.css, which makes it sticky on tall, wide screens).
+function heroFade() {
+    const hero = document.querySelector('.geo-overview .geo-hero');
+    if (!hero || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    const update = () => {
+        // Only where the stylesheet has pinned the hero; on small screens it scrolls away normally.
+        const pinned = getComputedStyle(hero).position === 'sticky';
+        const p = pinned ? Math.max(0, Math.min(1, window.scrollY / (hero.offsetHeight * 0.6))) : 0;
+        hero.style.opacity = (1 - p).toFixed(3);
+        hero.style.transform = p ? `scale(${(1 - 0.04 * p).toFixed(4)})` : '';
+        hero.style.visibility = p === 1 ? 'hidden' : '';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+}
+
 // A thin bar under the site header showing how far down the details page the reader is.
 function readingProgress() {
     const page = document.querySelector('.geo-details');
@@ -566,6 +584,7 @@ if (root) {
     trackSections(document.querySelector('.geo-details-toc'));
     revealOnScroll();
     readingProgress();
+    heroFade();
     document.querySelectorAll('[data-geo-gate]').forEach(fig => {
         try { initGate(fig); } catch (err) { console.warn('GeoAFT gate figure unavailable; showing static figure.', err); }
     });
