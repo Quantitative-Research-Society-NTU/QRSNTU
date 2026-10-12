@@ -301,16 +301,9 @@
     .geo-overview .geo-hero, .geo-details-head { position: sticky; top: calc(var(--geo-header) + 1rem); z-index: 0; }
 }
 
-/* ---------- Site navigation bar on the GeoAFT pages: slimmer, and it slides away on scroll down ----------
-   Scoped with :has(.geo), so the shared header on every other page is unchanged. geoaft.js toggles
-   .geo-nav-hidden and keeps --geo-header in step. */
-body:has(.geo) #header { transition: transform .3s ease, background-color .3s; }
-body:has(.geo) #header .qrs-header-nav { padding-block: .45rem; }
-body:has(.geo) #header .qrs-wordmark { width: 44px; height: 44px; }
-body:has(.geo) #header.geo-nav-hidden { transform: translateY(-100%); }
-body:has(.geo) main { padding-top: 5.25rem; }
+/* ---------- Things pinned under the site navigation bar follow it when it slides away ---------- */
 .geo-details-toc, .geo-progress { transition: top .3s ease; }
-@media (prefers-reduced-motion: reduce) { body:has(.geo) #header, .geo-details-toc, .geo-progress { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .geo-details-toc, .geo-progress { transition: none; } }
 
 /* ---------- Status lists and future directions ---------- */
 .geo ul.geo-checks { list-style: none; padding: 0; margin: .75rem 0 0; }

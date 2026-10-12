@@ -46,3 +46,23 @@ function renderHeader() {
 }
 
 renderHeader();
+
+// The bar slides away while the reader scrolls down and returns on any scroll up. It stays put near
+// the top of the page, while the mobile menu is open, and while it holds keyboard focus.
+function autoHideHeader() {
+    const header = document.getElementById('header');
+    if (!header) return;
+    let last = window.scrollY;
+    const set = hidden => header.classList.toggle('nav-hidden', hidden);
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY, menu = document.getElementById('mobile-menu');
+        const menuOpen = menu && !menu.classList.contains('hidden') && window.innerWidth < 768;
+        if (y < 480 || menuOpen || header.contains(document.activeElement)) set(false);
+        else if (y > last + 4) set(true);
+        else if (y < last - 4) set(false);
+        last = y;
+    }, { passive: true });
+    header.addEventListener('focusin', () => set(false));
+}
+
+autoHideHeader();

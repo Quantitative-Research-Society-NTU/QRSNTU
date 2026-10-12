@@ -9,30 +9,8 @@ function syncHeaderOffset() {
     const header = document.getElementById('header');
     if (!root || !header) return;
     // While the bar is slid away, things pinned beneath it move up to the top of the window.
-    const h = header.classList.contains('geo-nav-hidden') ? 0 : Math.round(header.getBoundingClientRect().height) || 62;
+    const h = header.classList.contains('nav-hidden') ? 0 : Math.round(header.getBoundingClientRect().height) || 62;
     document.querySelectorAll('.geo').forEach(el => el.style.setProperty('--geo-header', h + 'px'));
-}
-
-// The dark site navigation bar slides away while the reader scrolls down and returns on any scroll up.
-// It stays put near the top of the page, while its mobile menu is open, and while it has keyboard focus.
-function autoHideNav() {
-    const header = document.getElementById('header');
-    if (!header) return;
-    let last = window.scrollY;
-    const set = hidden => {
-        if (header.classList.contains('geo-nav-hidden') === hidden) return;
-        header.classList.toggle('geo-nav-hidden', hidden);
-        syncHeaderOffset();
-    };
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY, menu = document.getElementById('mobile-menu');
-        const menuOpen = menu && !menu.classList.contains('hidden') && window.innerWidth < 768;
-        if (y < 480 || menuOpen || header.contains(document.activeElement)) set(false);
-        else if (y > last + 4) set(true);
-        else if (y < last - 4) set(false);
-        last = y;
-    }, { passive: true });
-    header.addEventListener('focusin', () => set(false));
 }
 
 function trackSections(nav) {
@@ -357,7 +335,7 @@ function initExplorer(fig) {
 // product. Rings and grid are the rule's ruler, the colour field is compatibility with q, and the list
 // below re-ranks the keys by attention. The query and keys are never moved.
 function initHero(fig) {
-    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 28500;
+    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 15000, PACE = 28500 / 15000;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const smooth = t => t * t * (3 - 2 * t);
     const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
@@ -376,8 +354,9 @@ function initHero(fig) {
     const seg = (x, a, b) => smooth(Math.max(0, Math.min(1, (x - a) / (b - a))));
     const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
     function draw(ms) {
-        // Timeline (ms): Euclidean, p 2→1→4→2, metric stretches, turns and relaxes, then cosine, dot, back.
-        const x = ms % T;
+        // Timeline: Euclidean, p 2→1→4→2, metric stretches, turns and relaxes, then cosine, dot, back.
+        // The marks below are written on a 28.5 s script and played at PACE, so one loop takes T = 15 s.
+        const x = (ms % T) * PACE;
         const p = x < 5000 ? 2 - seg(x, 1500, 4000) : x < 7500 ? 1 + 3 * seg(x, 5000, 7500) : 4 - 2 * seg(x, 7500, 9000);
         const a = seg(x, 10000, 12000) - seg(x, 17000, 18500);
         const wCos = seg(x, 18500, 21000) - seg(x, 22000, 24500), wDot = seg(x, 22000, 24500) - seg(x, 25500, 28000);
@@ -476,7 +455,7 @@ function initHero(fig) {
             : Math.abs(p - 2) > 0.05 ? `Lp distance, p = ${p.toFixed(1)}` : 'Euclidean distance';
     }
 
-    let t = reduced ? 13500 : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
+    let t = reduced ? 13500 / PACE : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
     const tick = now => { t += Math.min(now - last, 100); last = now; draw(t); raf = requestAnimationFrame(tick); };
     const sync = () => {
         cancelAnimationFrame(raf);
@@ -609,10 +588,11 @@ if (root) {
     window.addEventListener('resize', syncHeaderOffset);
     const header = document.getElementById('header');
     if (header && 'ResizeObserver' in window) new ResizeObserver(syncHeaderOffset).observe(header);
+    // assets/header.js hides the bar on scroll down by toggling a class; follow it.
+    if (header && 'MutationObserver' in window) new MutationObserver(syncHeaderOffset).observe(header, { attributes: true, attributeFilter: ['class'] });
     trackSections(document.querySelector('.geo-details-toc'));
     revealOnScroll();
     readingProgress();
-    autoHideNav();
     heroFade();
     document.querySelectorAll('[data-geo-scatter]').forEach(initScatter);
     document.querySelectorAll('[data-geo-hero]').forEach(fig => {

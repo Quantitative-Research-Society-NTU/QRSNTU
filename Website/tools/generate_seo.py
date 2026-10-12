@@ -95,8 +95,10 @@ def generate(check=False):
                                 '<script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>')
         source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261003-performance')
+        source = source.replace('header.js?v=20261003-shared', 'header.js?v=20261012-nav')
         source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
+        source = source.replace('style.css?v=20261003-shared', 'style.css?v=20261012-nav')
         source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
         source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
         if re.search(r'<meta\b[^>]*content=["\'][^"\']*noindex', source, re.I):
@@ -121,7 +123,7 @@ def generate(check=False):
     <title>Site Map | QRS</title>
     <link rel="stylesheet" href="../assets/tailwind.css?v=20261003-performance">
     <script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>
-    <link rel="stylesheet" href="../style.css?v=20261003-shared">
+    <link rel="stylesheet" href="../style.css?v=20261012-nav">
     <link rel="stylesheet" href="../fonts.css?v=20260907-final">
     <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
 </head>
@@ -137,7 +139,7 @@ def generate(check=False):
         </nav>
     </main>
     <footer id="site-footer" class="site-footer" data-root="../"></footer>
-    <script type="module" src="../assets/header.js?v=20261003-shared"></script>
+    <script type="module" src="../assets/header.js?v=20261012-nav"></script>
     <script type="module" src="../script.js?v=20260907-final"></script>
     <script type="module" src="../assets/footer.js?v=20261003-shared"></script>
 </body>
