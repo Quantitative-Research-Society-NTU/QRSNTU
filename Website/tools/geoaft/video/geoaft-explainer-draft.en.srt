@@ -1,0 +1,95 @@
+1
+00:00:00,600 --> 00:00:05,600
+A pretrained Transformer learns two things: representations, and a rule for comparing them.
+
+2
+00:00:05,950 --> 00:00:09,030
+When we fine-tune, we usually change the representations.
+
+3
+00:00:09,380 --> 00:00:13,990
+The rule that decides which tokens attend to which is simply inherited.
+
+4
+00:00:14,940 --> 00:00:18,790
+Take one query and seven keys, and hold them fixed.
+
+5
+00:00:19,140 --> 00:00:24,140
+Under the dot product, attention goes to B, furthest along the query’s direction.
+
+6
+00:00:24,490 --> 00:00:27,570
+With Euclidean distance, the nearest key, A, wins.
+
+7
+00:00:27,920 --> 00:00:29,520
+Taxicab distance picks D.
+
+8
+00:00:29,870 --> 00:00:31,790
+An anisotropic metric picks F.
+
+9
+00:00:32,140 --> 00:00:34,450
+Nothing moved. Only the geometry changed.
+
+10
+00:00:35,400 --> 00:00:37,320
+GeoAFT makes that geometry trainable.
+
+11
+00:00:37,670 --> 00:00:45,360
+It keeps the pretrained score and adds a small structured term, like a learned L-p distance or a Mahalanobis metric.
+
+12
+00:00:45,710 --> 00:00:50,710
+Its gate starts at zero, so training begins exactly at the pretrained model.
+
+13
+00:00:51,660 --> 00:00:55,890
+We first tested it on synthetic targets with a known relation.
+
+14
+00:00:56,240 --> 00:01:01,630
+GeoAFT recovered over ninety-nine point nine percent of the oracle gap on both targets.
+
+15
+00:01:01,980 --> 00:01:09,280
+That is about forty points ahead of Q/K LoRA, and six to twelve points ahead of tested generic scorers.
+
+16
+00:01:09,630 --> 00:01:14,630
+Not every registered comparison passed: a fixed L-p bank came almost as close.
+
+17
+00:01:14,980 --> 00:01:23,450
+On a nonlinear target, 46 trainable parameters fit about as well as the tested 8,705-parameter MLP: an economy, not a clear win.
+
+18
+00:01:23,800 --> 00:01:25,720
+But theory adds a twist.
+
+19
+00:01:26,070 --> 00:01:33,380
+A Mahalanobis geometry is exactly a bilinear score plus a key-dependent bias: a known score family, not new capacity.
+
+20
+00:01:34,330 --> 00:01:37,020
+So geometry adaptation is not uniformly better.
+
+21
+00:01:37,370 --> 00:01:43,140
+Some updates are exact reparameterizations, some are more economical, and some may add new capacity.
+
+22
+00:01:43,490 --> 00:01:49,260
+Telling these apart is the real question. So far, the evidence is controlled and synthetic.
+
+23
+00:01:50,210 --> 00:01:55,210
+When should adaptation change representations, and when should it change how they relate?
+
+24
+00:01:55,560 --> 00:01:57,480
+More on the QRS website.

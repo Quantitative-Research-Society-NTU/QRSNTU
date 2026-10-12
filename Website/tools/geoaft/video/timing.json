@@ -1,0 +1,201 @@
+{
+ "total": 119.43,
+ "lines": [
+  {
+   "scene": "puzzle",
+   "beat": "title",
+   "start": 0.6,
+   "end": 5.6,
+   "text": "A pretrained Transformer learns two things: representations, and a rule for comparing them."
+  },
+  {
+   "scene": "puzzle",
+   "beat": "reps",
+   "start": 5.95,
+   "end": 9.03,
+   "text": "When we fine-tune, we usually change the representations."
+  },
+  {
+   "scene": "puzzle",
+   "beat": "rule",
+   "start": 9.38,
+   "end": 13.99,
+   "text": "The rule that decides which tokens attend to which is simply inherited."
+  },
+  {
+   "scene": "intuition",
+   "beat": "setup",
+   "start": 14.94,
+   "end": 18.79,
+   "text": "Take one query and seven keys, and hold them fixed."
+  },
+  {
+   "scene": "intuition",
+   "beat": "dot",
+   "start": 19.14,
+   "end": 24.14,
+   "text": "Under the dot product, attention goes to B, furthest along the query\u2019s direction."
+  },
+  {
+   "scene": "intuition",
+   "beat": "l2",
+   "start": 24.49,
+   "end": 27.57,
+   "text": "With Euclidean distance, the nearest key, A, wins."
+  },
+  {
+   "scene": "intuition",
+   "beat": "lp",
+   "start": 27.92,
+   "end": 29.52,
+   "text": "Taxicab distance picks D."
+  },
+  {
+   "scene": "intuition",
+   "beat": "maha",
+   "start": 29.87,
+   "end": 31.79,
+   "text": "An anisotropic metric picks F."
+  },
+  {
+   "scene": "intuition",
+   "beat": "still",
+   "start": 32.14,
+   "end": 34.45,
+   "text": "Nothing moved. Only the geometry changed."
+  },
+  {
+   "scene": "method",
+   "beat": "trainable",
+   "start": 35.4,
+   "end": 37.32,
+   "text": "GeoAFT makes that geometry trainable."
+  },
+  {
+   "scene": "method",
+   "beat": "term",
+   "start": 37.67,
+   "end": 45.36,
+   "text": "It keeps the pretrained score and adds a small structured term, like a learned L-p distance or a Mahalanobis metric."
+  },
+  {
+   "scene": "method",
+   "beat": "gate",
+   "start": 45.71,
+   "end": 50.71,
+   "text": "Its gate starts at zero, so training begins exactly at the pretrained model."
+  },
+  {
+   "scene": "evidence",
+   "beat": "setup",
+   "start": 51.66,
+   "end": 55.89,
+   "text": "We first tested it on synthetic targets with a known relation."
+  },
+  {
+   "scene": "evidence",
+   "beat": "recovery",
+   "start": 56.24,
+   "end": 61.63,
+   "text": "GeoAFT recovered over ninety-nine point nine percent of the oracle gap on both targets."
+  },
+  {
+   "scene": "evidence",
+   "beat": "margins",
+   "start": 61.98,
+   "end": 69.28,
+   "text": "That is about forty points ahead of Q/K LoRA, and six to twelve points ahead of tested generic scorers."
+  },
+  {
+   "scene": "evidence",
+   "beat": "caveat",
+   "start": 69.63,
+   "end": 74.63,
+   "text": "Not every registered comparison passed: a fixed L-p bank came almost as close."
+  },
+  {
+   "scene": "evidence",
+   "beat": "params",
+   "start": 74.98,
+   "end": 83.45,
+   "text": "On a nonlinear target, 46 trainable parameters fit about as well as the tested 8,705-parameter MLP: an economy, not a clear win."
+  },
+  {
+   "scene": "evidence",
+   "beat": "twist",
+   "start": 83.8,
+   "end": 85.72,
+   "text": "But theory adds a twist."
+  },
+  {
+   "scene": "evidence",
+   "beat": "equivalence",
+   "start": 86.07,
+   "end": 93.38,
+   "text": "A Mahalanobis geometry is exactly a bilinear score plus a key-dependent bias: a known score family, not new capacity."
+  },
+  {
+   "scene": "meaning",
+   "beat": "notuniform",
+   "start": 94.33,
+   "end": 97.02,
+   "text": "So geometry adaptation is not uniformly better."
+  },
+  {
+   "scene": "meaning",
+   "beat": "regimes",
+   "start": 97.37,
+   "end": 103.14,
+   "text": "Some updates are exact reparameterizations, some are more economical, and some may add new capacity."
+  },
+  {
+   "scene": "meaning",
+   "beat": "question",
+   "start": 103.49,
+   "end": 109.26,
+   "text": "Telling these apart is the real question. So far, the evidence is controlled and synthetic."
+  },
+  {
+   "scene": "close",
+   "beat": "question",
+   "start": 110.21,
+   "end": 115.21,
+   "text": "When should adaptation change representations, and when should it change how they relate?"
+  },
+  {
+   "scene": "close",
+   "beat": "url",
+   "start": 115.56,
+   "end": 117.48,
+   "text": "More on the QRS website."
+  }
+ ],
+ "scenes": {
+  "puzzle": {
+   "start": 0.6,
+   "end": 14.94
+  },
+  "intuition": {
+   "start": 14.94,
+   "end": 35.4
+  },
+  "method": {
+   "start": 35.4,
+   "end": 51.66
+  },
+  "evidence": {
+   "start": 51.66,
+   "end": 94.33
+  },
+  "meaning": {
+   "start": 94.33,
+   "end": 110.21
+  },
+  "close": {
+   "start": 110.21,
+   "end": 119.43
+  }
+ },
+ "words": 275,
+ "cutdown_words": 155
+}

@@ -11,6 +11,9 @@ from string import Template
 
 ROOT = Path(__file__).resolve().parents[1] / 'v1'
 TEMPLATE = Template((Path(__file__).parent / 'templates/research-page.html').read_text(encoding='utf-8'))
+# Optional project-specific pages: templates/projects/<id>/page.json lists the routes to render.
+CUSTOM = Path(__file__).parent / 'templates/projects'
+PLACEHOLDER = re.compile(r'\{\{\s*(\w+)(?::([^}\s]+))?\s*\}\}')
 SEO = re.compile(r'\s*<!-- SEO: generated -->.*?<!-- /SEO -->\s*', re.S)
 
 def read(name):
@@ -26,7 +29,7 @@ def generate(check=False):
     people, projects, research = read('people'), read('projects'), read('research')
     person_map = {p['id']: p for p in people}
     project_map = {p['id']: p for p in projects}
-    accepted = [r for r in research if r.get('status') == 'accepted']
+    accepted_research = [r for r in research if r.get('status') == 'accepted']
     pending = {}
 
     def person_link(pid, root):
@@ -40,35 +43,67 @@ def generate(check=False):
     def project_link(pid, root):
         return f'<a href="{root}projects/{pid}/" class="card-link">{escape(project_map[pid]["title"])}</a>'
 
-    def page(route, title, content, kind='research', attributes='', scripts=''):
+    def page(route, title, content, kind='research', attributes='', scripts='', head='', width=None):
         root = '../' * len(route.split('/'))
-        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width='max-w-6xl' if kind == 'academy' else 'max-w-4xl', attributes=attributes, content=content, scripts=scripts)
+        width = width or ('max-w-6xl' if kind == 'academy' else 'max-w-4xl')
+        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width=width, attributes=attributes, content=content, scripts=scripts, head=head)
+
+    def inline_svg(relative):
+        # Inline so figure text uses the page fonts; strip any XML prolog.
+        source = (ROOT / relative).read_text(encoding='utf-8')
+        return re.sub(r'^\s*<\?xml[^>]*>\s*', '', source).strip()
+
+    def custom_pages(p, blocks):
+        config = json.loads((CUSTOM / p['id'] / 'page.json').read_text(encoding='utf-8'))
+        for spec in config['pages']:
+            route = 'projects/' + p['id'] + ('/' + spec['route'] if spec['route'] else '')
+            root = '../' * len(route.split('/'))
+            version = '?v=' + config['version']
+            values = dict(blocks, root=root)
+            def fill(match):
+                name, argument = match[1], match[2]
+                if name == 'svg':
+                    return inline_svg(argument)
+                if name not in values:
+                    raise SystemExit(f'Unknown placeholder {{{{{name}}}}} in {spec["template"]}')
+                return values[name].replace('../../', root) if name != 'root' else root
+            body = PLACEHOLDER.sub(fill, (CUSTOM / p['id'] / spec['template']).read_text(encoding='utf-8'))
+            body = re.sub(r'^<!--.*?-->\n', '', body, flags=re.S)
+            head = ''.join(f'<link rel="stylesheet" href="{root}{href}{version}">' for href in spec.get('stylesheets', []))
+            scripts = ''.join(f'<script type="module" src="{root}{src}{version}"></script>' for src in spec.get('scripts', []))
+            page(route, spec['title'], body, 'projects', head=head, scripts=scripts, width=config.get('width'))
 
     for p in projects:
         root = '../../'
         status = 'Early-stage / Active derived research' if p.get('stage') == 'early-stage' else p['status'].capitalize()
-        content = f'<p class="mb-8"><a href="../" class="card-link">&larr; All projects</a></p><header class="project-heading"><h1 class="section-title">{escape(p["title"])}</h1><p class="badge badge-status">{escape(status)}</p><p class="project-summary">{escape(p["summary"])}</p></header>'
+        header = f'<p class="mb-8"><a href="../" class="card-link">&larr; All projects</a></p><header class="project-heading"><h1 class="section-title">{escape(p["title"])}</h1><p class="badge badge-status">{escape(status)}</p><p class="project-summary">{escape(p["summary"])}</p></header>'
         if p.get('alternate_title'):
-            content += f'<p>{escape(p["alternate_title"])}</p>'
+            header += f'<p>{escape(p["alternate_title"])}</p>'
+        team = accepted = ''
         if p.get('lead'):
-            content += '<div class="project-team">' + ''.join('<p><span class="label">' + label + ':</span> ' + ', '.join(person_link(pid, root) for pid in ids) + '</p>' for label, ids in [('Lead', [p['lead']]), ('Authors', p['authors']), ('Slicers', p['slicers'])] if ids) + '</div>'
-            papers = [r for r in accepted if r['project_id'] == p['id'] or p['id'] in r.get('related_project_ids', [])]
+            team = '<div class="project-team">' + ''.join('<p><span class="label">' + label + ':</span> ' + ', '.join(person_link(pid, root) for pid in ids) + '</p>' for label, ids in [('Lead', [p['lead']]), ('Authors', p['authors']), ('Slicers', p['slicers'])] if ids) + '</div>'
+            papers = [r for r in accepted_research if r['project_id'] == p['id'] or p['id'] in r.get('related_project_ids', [])]
             items = []
             for r in papers:
                 link = f'<a href="{escape(r["url"], quote=True)}" class="external-link" target="_blank" rel="noopener noreferrer">[OpenReview]</a>' if r.get('url') else ''
                 items.append(f'<li id="research-{r["id"]}" class="publication-entry"><h3 class="publication-title">{escape(r["title"])}</h3><p class="publication-authors">{", ".join(person_link(pid, root) for pid in r["authors"])}</p><p class="person-list-meta">{escape(r["venue"])} · {r["year"]} · Accepted {link}</p></li>')
             if items:
-                content += section('Accepted Research', '<ul class="person-list">' + ''.join(items) + '</ul>')
+                accepted = section('Accepted Research', '<ul class="person-list">' + ''.join(items) + '</ul>')
         else:
-            content += '<div class="project-team"><p><span class="label">Participants:</span> ' + ', '.join(person_link(pid, root) for pid in p.get('participants', [])) + '</p></div>'
+            team = '<div class="project-team"><p><span class="label">Participants:</span> ' + ', '.join(person_link(pid, root) for pid in p.get('participants', [])) + '</p></div>'
+        recognition = links = related = ''
         if p.get('recognition'):
-            content += section('Recognition', '<ul class="person-list">' + ''.join('<li>' + escape(' · '.join(filter(None, [r['event'], r.get('track'), r['result']]))) + '</li>' for r in p['recognition']) + '</ul>')
+            recognition = section('Recognition', '<ul class="person-list">' + ''.join('<li>' + escape(' · '.join(filter(None, [r['event'], r.get('track'), r['result']]))) + '</li>' for r in p['recognition']) + '</ul>')
         if p.get('links'):
             labels = {'arXiv preprint': 'arXiv', 'github': 'GitHub', 'website': 'Website'}
-            content += '<div class="project-links">' + ''.join(f'<a href="{escape(url, quote=True)}" class="external-link" target="_blank" rel="noopener noreferrer">[{escape(labels.get(label, label))}]</a>' for label, url in p['links'].items()) + '</div>'
+            links = '<div class="project-links">' + ''.join(f'<a href="{escape(url, quote=True)}" class="external-link" target="_blank" rel="noopener noreferrer">[{escape(labels.get(label, label))}]</a>' for label, url in p['links'].items()) + '</div>'
         if p.get('related_project_ids'):
-            content += section('Related projects', '<p>' + ', '.join(project_link(pid, root) for pid in p['related_project_ids']) + '</p>')
-        page('projects/' + p['id'], p['title'], content, 'projects')
+            related = section('Related projects', '<p>' + ', '.join(project_link(pid, root) for pid in p['related_project_ids']) + '</p>')
+        if (CUSTOM / p['id'] / 'page.json').exists():
+            custom_pages(p, {'status': escape(status), 'team': team, 'accepted': accepted, 'recognition': recognition, 'links': links, 'related': related})
+        else:
+            content = header + team + accepted + recognition + links + related
+            page('projects/' + p['id'], p['title'], content, 'projects')
         for alias in p.get('legacy_ids', []):
             destination = '../' + p['id'] + '/'
             pending[ROOT / 'projects' / alias / 'index.html'] = f'<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><title>{escape(p["title"])} | QRS</title><meta http-equiv="refresh" content="0; url={destination}"><link rel="canonical" href="https://qrsntu.org/projects/{p["id"]}/"></head><body><a href="{destination}">Continue to {escape(p["title"])}</a></body></html>\n'

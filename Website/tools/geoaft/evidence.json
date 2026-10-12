@@ -1,0 +1,44 @@
+{
+  "_note": "Single source for every number displayed on the GeoAFT pages and figures. Values are copied verbatim from the cited sources; do not round them here. Comparator R positions on the recovery figure are derived from the reported margins, not measured directly. Update this file (and rerun build_figures.py) when per-target values are released.",
+  "sources": {
+    "proposal": "GeoAFT preliminary evidence as summarised in the author's research proposal (v11, October 2026), Prior Work section",
+    "brief": "Project-lead evidence summary, 12 October 2026",
+    "repo": "https://github.com/yuhesui/GeoAFT"
+  },
+  "metric": {
+    "name": "oracle-gap recovery",
+    "symbol": "R",
+    "definition": "R = (L_base - L_method) / (L_base - L_oracle), where L is the KL divergence from the target attention distribution on held-out synthetic data. R = 1 means the method closes the whole gap the target-generating oracle closes; R = 0 means no improvement over the unadapted base. It is not classification accuracy."
+  },
+  "controlled_targets": {
+    "setting": "synthetic, fixed representations, known target compatibility function",
+    "lp": {"label": "Learned-L_p target", "geoaft_R_percent": 99.983},
+    "mahalanobis": {"label": "Mahalanobis target", "geoaft_R_percent": 99.991},
+    "qk_lora_margin_points": [39.9, 41.7],
+    "pair_mlp_margin_points": [6.4, 12.2],
+    "pair_mlp_paired_cells": "positive in all 25 paired cells on each target",
+    "margin_scope": "range across the two targets; the per-target assignment of each end of the range is not reproduced here",
+    "qualifiers": [
+      "The fixed L_p geometry bank nearly exhausted the available oracle gap on the L_p target, so the L_p superiority gate could not be met.",
+      "The exact quadratic (bilinear-plus-key-quadratic) control outperformed the Mahalanobis overlay, as the analytic equivalence predicts."
+    ]
+  },
+  "nonlinear_target": {
+    "setting": "synthetic nonlinear compatibility target",
+    "geoaft": {"trainable_parameters": 46, "R": 0.9993429},
+    "pair_mlp": {"trainable_parameters": 8705, "R": 0.9953917},
+    "paired_wins": "15/15",
+    "qualifier": "The recovery advantage is below the preregistered materiality threshold; the result supports economy, not superiority. Parameter counts are trainable parameters, not inference cost."
+  },
+  "analytic": {
+    "mahalanobis_equivalence": "-(q-k)^T M (q-k) = 2 q^T M k - k^T M k - q^T M q; the last term is constant across keys and cancels under row-wise softmax, so squared-Mahalanobis compatibility is softmax-equivalent to a bilinear-plus-key-quadratic score."
+  },
+  "not_claimed": [
+    "broad or current state of the art",
+    "universal superiority over LoRA",
+    "an accuracy-compute Pareto frontier",
+    "new Mahalanobis expressivity beyond the equivalent score family",
+    "established natural-task regimes",
+    "results from planned benchmarks"
+  ]
+}

@@ -31,6 +31,8 @@ DESCRIPTIONS = {
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
     "gmmg": "Compete individually in the Global Market Making Games 2026 Singapore qualifier on 16 October. Open to all university students in Singapore.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
+    "projects/geoaft": "GeoAFT studies fine-tuning that adapts how representations relate, through a structured compatibility geometry in attention, and when that differs from ordinary weight adaptation.",
+    "projects/geoaft/details": "GeoAFT technical details: compatibility-space adaptation, identity-preserving initialization, the Mahalanobis equivalence, controlled experiments, oracle-gap recovery and results with qualifiers.",
 }
 
 
@@ -65,6 +67,8 @@ def gmmg_events(canonical):
 # Per-page extra structured data, keyed by route slug.
 PAGE_EXTRAS = {
     "gmmg": {"graph": gmmg_events},
+    "projects/geoaft": {"image": "/assets/geoaft/geoaft-social.jpg"},
+    "projects/geoaft/details": {"image": "/assets/geoaft/geoaft-social.jpg"},
 }
 
 
@@ -147,7 +151,7 @@ def generate(check=False):
         person_match = re.search(r'data-person-id="([^"]+)"', source)
         person = people[person_match[1]] if person_match else None
         description = DESCRIPTIONS.get(slug, f"{title.split(' | ')[0]} at QRS.")
-        if slug.startswith('projects/') and slug.split('/')[-1] in projects:
+        if slug not in DESCRIPTIONS and slug.startswith('projects/') and slug.split('/')[-1] in projects:
             description = projects[slug.split('/')[-1]]['summary']
         if person:
             description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
@@ -192,8 +196,9 @@ def generate(check=False):
             fallback += '<p><a href="/projects/">Projects</a> &middot; <a href="/publications/">Publications</a></p></div>'
             source = re.sub(r'<div id="person-profile">.*?</div>', lambda _: fallback, source, flags=re.S)
         extras = PAGE_EXTRAS.get(slug, {})
-        if extras:
+        if "graph" in extras:
             graph.extend(extras["graph"](canonical))
+        image = ORIGIN + extras.get("image", "/Files/logo-v2-surface.png")
         if not slug:
             graph.extend([
                 {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/", "name": "QRS",
@@ -211,8 +216,8 @@ def generate(check=False):
                     f'<meta property="og:title" content="{escape(title, quote=True)}">',
                     f'<meta property="og:description" content="{escape(description, quote=True)}">',
                     f'<meta property="og:url" content="{canonical}">',
-                    f'<meta property="og:image" content="{ORIGIN}/Files/logo-v2-surface.png">',
-                    '<meta name="twitter:card" content="summary">',
+                    f'<meta property="og:image" content="{image}">',
+                    '<meta name="twitter:card" content="' + ('summary_large_image' if "image" in extras else 'summary') + '">',
                     '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace('<', '\\u003c') + '</script>']
         block = '    <!-- SEO: generated -->\n    ' + '\n    '.join(metadata) + '\n    <!-- /SEO -->\n'
         source = source.replace('</head>', block + '</head>')

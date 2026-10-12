@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>GeoAFT explainer animatic</title>
+<link rel="stylesheet" href="/v1/fonts.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v1/assets/geoaft/geoaft.css">
+<style>
+html,body{margin:0;background:#0d1424}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fbfbfa;color:#374151;
+  font-family:'QRS Frutiger','Segoe UI',sans-serif;font-weight:300}
+.scene,.layer{position:absolute;inset:0;opacity:0}
+.brand{position:absolute;left:48px;top:30px;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#006f76}
+.brand b{font-weight:400;color:#11182c;letter-spacing:.04em;text-transform:none;font-family:'Playfair Display',serif;font-size:19px;margin-right:12px}
+.prog{position:absolute;left:0;bottom:0;height:4px;background:#00929a}
+.mark{position:absolute;right:48px;top:30px;font-size:14px;color:#6b7280}
+h1,h2,h3,p{margin:0}
+.big-title{font-family:'Playfair Display',serif;font-weight:700;font-size:120px;color:#11182c;letter-spacing:-.01em}
+.serif{font-family:'Playfair Display',serif}
+.h2{font-size:44px;color:#11182c;line-height:1.15}
+.h3{font-size:28px;color:#11182c}
+.body{font-size:24px;line-height:1.45}
+.muted{color:#6b7280}
+.tag{display:inline-block;font-size:15px;letter-spacing:.1em;text-transform:uppercase;border:1px solid #c4cad3;border-radius:999px;padding:4px 14px;color:#6b7280}
+.card{position:absolute;background:#fff;border:1px solid #dfe3e8;border-radius:14px;padding:28px 32px}
+.pill{display:inline-block;border-radius:999px;padding:6px 16px;font-size:19px}
+.pill-ochre{background:#fbeee2;color:#93480a;border:1px solid #e9b98f}
+.pill-gray{border:1px dashed #9aa3af;color:#6b7280}
+.pill-teal{background:#e2f3f3;color:#006f76;border:1px solid #9fd3d5}
+.pill-navy{background:#183b63;color:#fff}
+.row{display:flex;align-items:baseline;gap:18px;font-size:26px;padding:10px 0;border-bottom:1px solid #e5e7eb}
+.row b{font-weight:400;color:#11182c;min-width:270px}
+.row span{color:#006f76}
+math{font-family:'STIX Two Math','Cambria Math','Latin Modern Math',math,serif}
+.eq{font-size:34px;color:#11182c}
+.eq-big{font-size:40px;color:#11182c;display:flex;align-items:center;gap:14px;justify-content:center}
+.strike{position:relative;display:inline-block}
+.strike::after{content:'';position:absolute;left:-6px;right:-6px;top:52%;height:3px;background:#c05f0c;transform:scaleX(var(--s,0));transform-origin:left}
+.callout{font-size:22px;color:#93480a}
+.teal{color:#006f76}
+.figwrap svg{width:100%;height:auto;display:block}
+.regime{position:absolute;top:190px;width:340px}
+.regime .glyph svg{width:100%;height:auto}
+.regime h3{font-size:24px;color:#11182c;margin:18px 0 12px;font-weight:300}
+.regime p{font-size:19px;line-height:1.45}
+.foot{position:absolute;left:48px;right:48px;bottom:96px;font-size:18px;color:#6b7280}
+</style></head>
+<body><div class="stage" id="stage">
+  <div class="brand"><b>GeoAFT</b>draft explainer</div>
+  <div class="mark">QRS · Quantitative Research Society</div>
+
+  <!-- 1. Puzzle -->
+  <div class="scene" id="s-puzzle">
+    <div class="layer" id="p-title" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px">
+      <div class="big-title">GeoAFT</div>
+      <div class="body muted" style="font-size:30px">Adapting how representations relate, not only the representations</div>
+    </div>
+    <div class="layer" id="p-cards">
+      <div class="card" style="left:90px;top:150px;width:470px;height:400px">
+        <div class="h3">Representations</div>
+        <div class="body muted" style="margin-top:6px">queries <i>q</i> and keys <i>k</i></div>
+        <svg id="p-points" viewBox="0 0 470 240" style="width:100%;margin-top:14px"></svg>
+        <div id="p-reps-pill" style="opacity:0"><span class="pill pill-ochre">Fine-tuning changes these</span></div>
+      </div>
+      <div class="card" style="left:720px;top:150px;width:470px;height:400px">
+        <div class="h3">Relation</div>
+        <div class="body muted" style="margin-top:6px">the rule for comparing them</div>
+        <div class="eq" style="margin:78px 0 92px;text-align:center"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>s</mi><mo stretchy="false">&#x00028;</mo><mi>q</mi><mo>&#x0002C;</mo><mi>k</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><msup><mi>q</mi><mrow><mo>&#x022A4;</mo></mrow></msup><mi>k</mi></mrow><mrow><msqrt><mrow><mi>d</mi></mrow></msqrt></mrow></mfrac></mrow></math></div>
+        <div id="p-rule-pill" style="opacity:0"><span class="pill pill-gray">Usually inherited from pretraining</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Intuition -->
+  <div class="scene" id="s-intuition">
+    <div id="i-panels" style="position:absolute;left:60px;top:78px;width:560px;height:580px"></div>
+    <div style="position:absolute;left:680px;top:120px;width:540px">
+      <div class="h2">Same points,<br>different relations</div>
+      <div id="i-rows" style="margin-top:34px"></div>
+      <div id="i-still" class="body" style="margin-top:34px;opacity:0;color:#11182c">Nothing moved. Only the geometry changed.</div>
+    </div>
+    <div class="foot" style="left:680px">Illustrative 2-D example: softmax attention over seven fixed keys.</div>
+  </div>
+
+  <!-- 3. Method -->
+  <div class="scene" id="s-method">
+    <div style="position:absolute;left:60px;top:84px" class="h2">GeoAFT: a structured residual on the attention score</div>
+    <div class="figwrap" id="m-fig" style="position:absolute;left:90px;top:140px;width:1100px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="fig3w-title" class="geo-svg" width="980" height="360"><title id="fig3w-title">Diagram of the GeoAFT score: the pretrained score of query q_i and key k_j is kept. In parallel, low-dimensional projections feed a structured geometry g_phi, whose output is centred over each row’s valid keys and scaled by a per-head gate alpha_h that starts at zero. The two are added, masked, and passed through one softmax, so at initialization the attention equals the pretrained attention.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><defs><marker id="f3d-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#6b7280"/></marker><marker id="f3d-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#00929a"/></marker><marker id="f3d-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#c05f0c"/></marker></defs>
+<rect x="10" y="140" width="150" height="80" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="85.0" y="176.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Query, key</text>
+<text class="gf-x" x="85.0" y="197.0" font-size="14" text-anchor="middle">q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan></text>
+<rect x="230" y="40" width="260" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="360.0" y="74.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Pretrained score</text>
+<text class="gf-x" x="360.0" y="95.0" font-size="14" text-anchor="middle">s<tspan baseline-shift="sub" font-size="10">base</tspan>(q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan>)</text>
+<rect x="230" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="305.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Projections</text>
+<text class="gf-x" x="305.0" y="301.0" font-size="14" text-anchor="middle">P<tspan baseline-shift="sub" font-size="10">q</tspan> q, P<tspan baseline-shift="sub" font-size="10">k</tspan> k</text>
+<rect x="400" y="246" width="170" height="76" rx="10" fill="#e2f3f3" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="485.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Structured geometry</text>
+<text class="gf-x" x="485.0" y="301.0" font-size="14" text-anchor="middle">g<tspan baseline-shift="sub" font-size="10">φ</tspan>  (L<tspan baseline-shift="sub" font-size="10">p</tspan>, Mahalanobis, …)</text>
+<rect x="590" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="665.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Centre over</text>
+<text class="gf-t gf-m" x="665.0" y="301.0" font-size="14" text-anchor="middle">valid keys</text>
+<circle cx="790" cy="178" r="22" fill="#fff" stroke="#11182c" stroke-width="1.5"/>
+<text class="gf-t gf-h" x="790" y="186" font-size="24" text-anchor="middle">+</text>
+<rect x="840" y="140" width="130" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="905.0" y="174.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Mask, softmax</text>
+<text class="gf-x" x="905.0" y="195.0" font-size="14" text-anchor="middle">A<tspan baseline-shift="sub" font-size="10">ij</tspan></text>
+<line x1="164" y1="170" x2="226" y2="86" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<line x1="164" y1="196" x2="226" y2="280" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="384" y1="284" x2="396" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="574" y1="284" x2="586" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<path d="M 494 78 L 790 78 L 790 150" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<path d="M 744 284 L 790 284 L 790 206" fill="none" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<rect x="752" y="226" width="76" height="30" rx="15" fill="#fff" stroke="#00929a"/>
+<text class="gf-x" x="790" y="247" font-size="16" text-anchor="middle">× α<tspan baseline-shift="sub" font-size="10">h</tspan></text>
+<line x1="816" y1="178" x2="836" y2="178" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<text class="gf-t" x="590" y="350" font-size="14" style="fill:#006f76">α<tspan baseline-shift="sub" font-size="10">h</tspan> = 0 at initialization  ⇒  exactly the pretrained attention</text>
+<text class="gf-t gf-m" x="500" y="30" font-size="13" text-anchor="middle">kept as is</text></svg></div>
+    <div id="m-eq" class="eq" style="position:absolute;left:0;right:0;top:568px;text-align:center;opacity:0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>s</mi><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mi>k</mi><mi>j</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><msub><mi>&#x003B1;</mi><mi>h</mi></msub><mspace width="0.167em" /><msub><mover><mi>g</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>&#x003D5;</mi></msub><mo stretchy="false">&#x00028;</mo><msub><mi>P</mi><mi>q</mi></msub><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mi>P</mi><mi>k</mi></msub><msub><mi>k</mi><mi>j</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+    <div id="m-gate" style="position:absolute;left:0;right:0;top:650px;text-align:center;opacity:0"><span class="pill pill-teal" style="font-size:21px">gate α<sub>h</sub> = 0 at initialization ⇒ exactly the pretrained model</span></div>
+  </div>
+
+  <!-- 4. Evidence -->
+  <div class="scene" id="s-evidence">
+    <div class="layer" id="e-setup">
+      <div style="position:absolute;left:90px;top:150px;width:1100px">
+        <span class="tag">Controlled · synthetic targets</span>
+        <div class="h2" style="margin:22px 0 40px">What we found so far</div>
+        <div style="display:flex;gap:60px;align-items:center">
+          <div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>R</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>L</mi><mrow><mtext>base</mtext></mrow></msub><mo>&#x02212;</mo><msub><mi>L</mi><mrow><mtext>method</mtext></mrow></msub></mrow><mrow><msub><mi>L</mi><mrow><mtext>base</mtext></mrow></msub><mo>&#x02212;</mo><msub><mi>L</mi><mrow><mtext>oracle</mtext></mrow></msub></mrow></mfrac></mrow></math></div>
+          <div class="body" style="max-width:560px">Oracle-gap recovery <i>R</i>: the share of the gap between the unadapted model and the target-generating oracle that a method closes. <b style="font-weight:400;color:#11182c">Not classification accuracy.</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="layer" id="e-recovery">
+      <div style="position:absolute;left:90px;top:96px" class="h3">Controlled L<sub>p</sub> and Mahalanobis targets <span class="tag" style="margin-left:12px">synthetic</span></div>
+      <div class="figwrap" id="e-fig4a" style="position:absolute;left:60px;top:150px;width:1160px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 312" role="img" aria-labelledby="fig4aw-title" class="geo-svg" width="900" height="312"><title id="fig4aw-title">Chart: oracle-gap recovery on the controlled L_p and Mahalanobis targets. GeoAFT recovers 99.983% and 99.991% of the gap. The tested generic pair-MLP scorers are 6.4–12.2 points lower, and Q/K-LoRA is 39.9–41.7 points lower; ranges span the two targets.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><line x1="250.0" y1="26" x2="250.0" y2="256" stroke="#eef0f3" stroke-width="1"/>
+<text class="gf-t gf-m" x="250.0" y="276" font-size="13" text-anchor="middle">50%</text>
+<line x1="375.2" y1="26" x2="375.2" y2="256" stroke="#eef0f3" stroke-width="1"/>
+<text class="gf-t gf-m" x="375.2" y="276" font-size="13" text-anchor="middle">60%</text>
+<line x1="500.4" y1="26" x2="500.4" y2="256" stroke="#eef0f3" stroke-width="1"/>
+<text class="gf-t gf-m" x="500.4" y="276" font-size="13" text-anchor="middle">70%</text>
+<line x1="625.6" y1="26" x2="625.6" y2="256" stroke="#eef0f3" stroke-width="1"/>
+<text class="gf-t gf-m" x="625.6" y="276" font-size="13" text-anchor="middle">80%</text>
+<line x1="750.8" y1="26" x2="750.8" y2="256" stroke="#eef0f3" stroke-width="1"/>
+<text class="gf-t gf-m" x="750.8" y="276" font-size="13" text-anchor="middle">90%</text>
+<line x1="876.0" y1="26" x2="876.0" y2="256" stroke="#cfd4dc" stroke-width="1"/>
+<text class="gf-t gf-m" x="876.0" y="276" font-size="13" text-anchor="middle">100%</text>
+<text class="gf-t gf-m" x="563.0" y="300" font-size="13.5" text-anchor="middle">Oracle-gap recovery R  (100% = matches the target-generating oracle)</text>
+<text class="gf-t gf-m" x="876.0" y="20" font-size="12.5" text-anchor="end">oracle</text>
+<text class="gf-t gf-h" x="234" y="69.0" font-size="15.5" text-anchor="end">GeoAFT</text>
+<text class="gf-t gf-m" x="234" y="87.0" font-size="12.5" text-anchor="end">structured geometry residual</text>
+<circle cx="875.9" cy="71.0" r="7" fill="#00929a" stroke="#fff" stroke-width="2"/>
+<text class="gf-t gf-strong" x="875.9" y="96.0" font-size="13" text-anchor="end" style="fill:#006f76">99.983% (L<tspan baseline-shift="sub" font-size="9">p</tspan>) · 99.991% (Mahalanobis)</text>
+<text class="gf-t gf-h" x="234" y="143.0" font-size="15.5" text-anchor="end">Generic pair-MLP scorer</text>
+<text class="gf-t gf-m" x="234" y="161.0" font-size="12.5" text-anchor="end">tested learned scores</text>
+<rect x="723.0" y="138.0" width="72.7" height="14" rx="4" fill="#8b95a3" fill-opacity=".9"/>
+<line x1="250.0" y1="145.0" x2="719.0" y2="145.0" stroke="#8b95a3" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
+<text class="gf-t gf-strong" x="795.8" y="170.0" font-size="13" text-anchor="end" style="fill:#374151">≈88–94% · 6.4–12.2 points behind GeoAFT</text>
+<text class="gf-t gf-h" x="234" y="217.0" font-size="15.5" text-anchor="end">Q/K-LoRA</text>
+<text class="gf-t gf-m" x="234" y="235.0" font-size="12.5" text-anchor="end">adapts the projections</text>
+<rect x="353.7" y="212.0" width="22.6" height="14" rx="4" fill="#c05f0c" fill-opacity=".9"/>
+<line x1="250.0" y1="219.0" x2="349.7" y2="219.0" stroke="#c05f0c" stroke-opacity=".25" stroke-width="2" stroke-dasharray="2 4"/>
+<text class="gf-t gf-strong" x="353.7" y="244.0" font-size="13" text-anchor="start" style="fill:#93480a">≈58–60% · 39.9–41.7 points behind GeoAFT</text></svg></div>
+      <div class="foot" id="e-caveat" style="opacity:0;font-size:19px;left:90px">Not all registered superiority comparisons passed: a fixed L<sub>p</sub> bank nearly closed the gap. Comparator ranges are derived from reported margins.</div>
+    </div>
+    <div class="layer" id="e-params">
+      <div style="position:absolute;left:90px;top:96px" class="h3">Controlled nonlinear target <span class="tag" style="margin-left:12px">synthetic</span></div>
+      <div class="figwrap" style="position:absolute;left:60px;top:150px;width:1160px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-labelledby="fig4bw-title" class="geo-svg" width="900" height="220"><title id="fig4bw-title">Chart: on the controlled nonlinear target, GeoAFT used 46 trainable parameters and reached R = 0.9993429; the PairMLP used 8,705 and reached R = 0.9953917. About 189 times fewer trainable parameters, with near-equal recovery.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><line x1="250.0" y1="24" x2="250.0" y2="162" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="250.0" y="182" font-size="13" text-anchor="middle">1</text>
+<line x1="355.0" y1="24" x2="355.0" y2="162" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="355.0" y="182" font-size="13" text-anchor="middle">10</text>
+<line x1="460.0" y1="24" x2="460.0" y2="162" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="460.0" y="182" font-size="13" text-anchor="middle">100</text>
+<line x1="565.0" y1="24" x2="565.0" y2="162" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="565.0" y="182" font-size="13" text-anchor="middle">1,000</text>
+<line x1="670.0" y1="24" x2="670.0" y2="162" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="670.0" y="182" font-size="13" text-anchor="middle">10,000</text>
+<text class="gf-t gf-m" x="460.0" y="206" font-size="13.5" text-anchor="middle">Trainable parameters (log scale)</text>
+<text class="gf-t gf-m" x="730" y="20" font-size="12.5">oracle-gap recovery</text>
+<text class="gf-t gf-h" x="234" y="61.0" font-size="15.5" text-anchor="end">GeoAFT</text>
+<text class="gf-t gf-m" x="234" y="79.0" font-size="12.5" text-anchor="end">structured nonlinear geometry</text>
+<rect x="250.0" y="55.0" width="174.6" height="16" rx="4" fill="#00929a"/>
+<text class="gf-t gf-strong" x="432.6" y="68.0" font-size="13.5" style="fill:#006f76">46</text>
+<text class="gf-t" x="730" y="68.0" font-size="15">R = 99.934%</text>
+<text class="gf-t gf-h" x="234" y="127.0" font-size="15.5" text-anchor="end">PairMLP</text>
+<text class="gf-t gf-m" x="234" y="145.0" font-size="12.5" text-anchor="end">generic learned scorer</text>
+<rect x="250.0" y="121.0" width="413.7" height="16" rx="4" fill="#8b95a3"/>
+<text class="gf-t gf-strong" x="655.7" y="134.0" font-size="13.5" text-anchor="end" style="fill:#fff">8,705</text>
+<text class="gf-t" x="730" y="134.0" font-size="15">R = 99.539%</text></svg></div>
+      <div style="position:absolute;left:150px;top:540px;width:980px" class="body"><span class="teal" style="font-size:30px">≈ 189× fewer trainable parameters than the tested PairMLP</span><br><span class="muted" style="font-size:20px">Recovery differs by 0.40 points, below the preregistered materiality threshold: economy, not superiority. Trainable parameters, not inference cost.</span></div>
+    </div>
+    <div class="layer" id="e-twist">
+      <div style="position:absolute;left:90px;top:120px" class="h2">But theory adds a twist</div>
+      <div style="position:absolute;left:0;right:0;top:300px" class="eq-big">
+        <span><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x02212;</mo><mo stretchy="false">&#x00028;</mo><mi>q</mi><mo>&#x02212;</mo><mi>k</mi><msup><mo stretchy="false">&#x00029;</mo><mrow><mo>&#x022A4;</mo></mrow></msup><mi>M</mi><mo stretchy="false">&#x00028;</mo><mi>q</mi><mo>&#x02212;</mo><mi>k</mi><mo stretchy="false">&#x00029;</mo><mspace width="0.278em" /><mo>&#x0003D;</mo></mrow></math></span><span><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mspace width="0.167em" /><msup><mi>q</mi><mrow><mo>&#x022A4;</mo></mrow></msup><mi>M</mi><mi>k</mi><mo>&#x02212;</mo><msup><mi>k</mi><mrow><mo>&#x022A4;</mo></mrow></msup><mi>M</mi><mi>k</mi></mrow></math></span><span class="strike" id="e-strike"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x02212;</mo><mspace width="0.167em" /><msup><mi>q</mi><mrow><mo>&#x022A4;</mo></mrow></msup><mi>M</mi><mi>q</mi></mrow></math></span>
+      </div>
+      <div id="e-cancel" class="callout" style="position:absolute;left:820px;top:380px;width:380px;opacity:0">same for every key → cancels in softmax</div>
+      <div id="e-equiv" class="body" style="position:absolute;left:0;right:0;top:500px;text-align:center;opacity:0;font-size:28px;color:#11182c">A Mahalanobis overlay is exactly a <span class="teal">bilinear score + key-dependent bias</span>.<br><span class="muted" style="font-size:22px">A known score family: recovering it is not new capacity.</span></div>
+    </div>
+  </div>
+
+  <!-- 5. Meaning -->
+  <div class="scene" id="s-meaning">
+    <div style="position:absolute;left:90px;top:96px" class="h2">Geometry adaptation is not uniformly better</div>
+    <div class="regime" id="r1" style="left:90px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r1-title" class="geo-svg" width="260" height="124"><title id="r1-title">Schematic: two different score formulas produce identical attention after softmax.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="0" y="8" width="140" height="40" rx="8" fill="#e2f3f3" stroke="#00929a"/>
+<text class="gf-x" x="70" y="33" font-size="13.5" text-anchor="middle">−(q−k)ᵀM(q−k)</text>
+<rect x="0" y="70" width="140" height="40" rx="8" fill="#fbeee2" stroke="#c05f0c"/>
+<text class="gf-x" x="70" y="95" font-size="13.5" text-anchor="middle">2qᵀMk − kᵀMk</text>
+<path d="M142,28 C160,28 160,56 170,56" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<path d="M142,90 C160,90 160,62 170,62" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="176" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.72"/>
+<rect x="191" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.38"/>
+<rect x="206" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="221" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="191" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="206" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="221" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="206" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="221" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="236" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="176" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.36"/>
+<rect x="221" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.68"/>
+<rect x="236" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.14"/>
+<rect x="176" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.16"/>
+<rect x="236" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<text class="gf-t gf-m" x="213" y="118" font-size="11.5" text-anchor="middle">same attention</text></svg></div><h3>1 · Exact reparameterization</h3><span class="pill pill-navy">Established analytically</span><p style="margin-top:14px">Mahalanobis = bilinear score + key bias</p></div>
+    <div class="regime" id="r2" style="left:465px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r2-title" class="geo-svg" width="260" height="124"><title id="r2-title">Schematic: a 46-parameter structured geometry and an 8,705-parameter generic scorer fit the same target almost equally well.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="40" y="18" width="22" height="22" rx="3" fill="#00929a"/>
+<text class="gf-t" x="72" y="34" font-size="13" style="fill:#006f76">46</text>
+<rect x="8" y="58" width="86" height="52" rx="3" fill="#8b95a3" fill-opacity=".55"/>
+<text class="gf-t" x="100" y="90" font-size="13">8,705</text>
+<path d="M140,30 C158,30 158,56 168,56" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<path d="M140,86 C158,86 158,62 168,62" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="176" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<rect x="191" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="206" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="191" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<rect x="206" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="191" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.91"/>
+<rect x="221" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.10"/>
+<rect x="176" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="206" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.92"/>
+<rect x="236" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="176" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.10"/>
+<rect x="221" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.92"/>
+<text class="gf-t gf-m" x="213" y="118" font-size="11.5" text-anchor="middle">near-identical fit</text></svg></div><h3>2 · Economical parameterization</h3><span class="pill pill-teal">Supported in controlled experiments</span><p style="margin-top:14px">46 vs 8,705 trainable parameters, similar fit</p></div>
+    <div class="regime" id="r3" style="left:840px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r3-title" class="geo-svg" width="260" height="124"><title id="r3-title">Schematic: a compatibility pattern produced by a structured geometry that a restricted low-rank Q/K family may not reach.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="0" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.93"/>
+<rect x="14" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="28" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="56" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="0" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="14" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.93"/>
+<rect x="28" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="0" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="14" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="28" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.91"/>
+<rect x="42" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.10"/>
+<rect x="0" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="14" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="28" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.92"/>
+<rect x="56" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="0" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="14" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="28" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.10"/>
+<rect x="42" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.92"/>
+<text class="gf-t gf-m" x="35" y="118" font-size="11.5" text-anchor="middle">geometry</text>
+<text class="gf-t gf-h" x="130" y="64" font-size="24" text-anchor="middle">≠</text>
+<rect x="190" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.90"/>
+<rect x="204" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.33"/>
+<rect x="218" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.17"/>
+<rect x="232" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.11"/>
+<rect x="246" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.09"/>
+<rect x="190" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.56"/>
+<rect x="204" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.38"/>
+<rect x="218" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.28"/>
+<rect x="232" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.20"/>
+<rect x="246" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.16"/>
+<rect x="190" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.27"/>
+<rect x="204" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.29"/>
+<rect x="218" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.31"/>
+<rect x="232" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.34"/>
+<rect x="246" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.37"/>
+<rect x="190" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.11"/>
+<rect x="204" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.15"/>
+<rect x="218" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.22"/>
+<rect x="232" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.40"/>
+<rect x="246" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.72"/>
+<rect x="190" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.08"/>
+<rect x="204" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.10"/>
+<rect x="218" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.14"/>
+<rect x="232" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.34"/>
+<rect x="246" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.93"/>
+<text class="gf-t gf-m" x="225" y="118" font-size="11.5" text-anchor="middle">rank-r Q/K</text>
+<text class="gf-t gf-m" x="130" y="90" font-size="11" text-anchor="middle">out of reach?</text></svg></div><h3>3 · Distinct capacity</h3><span class="pill pill-gray">Under investigation</span><p style="margin-top:14px">Changes a restricted Q/K family cannot reach, and that matter downstream</p></div>
+    <div class="foot" id="m-foot" style="opacity:0;font-size:21px">So far, the evidence is controlled and synthetic. Broader evaluation is ongoing.</div>
+  </div>
+
+  <!-- 6. Close -->
+  <div class="scene" id="s-close" style="display:flex;flex-direction:column;justify-content:center;padding:0 140px">
+    <div style="font-size:50px;line-height:1.25;color:#11182c">When should adaptation change <span style="color:#93480a">representations</span>, and when should it change <span class="teal">how they relate</span>?</div>
+    <div id="c-url" style="margin-top:48px;opacity:0;font-size:28px"><span class="serif" style="font-weight:700;color:#11182c">GeoAFT</span><span class="muted" style="margin-left:18px">qrsntu.org/projects/geoaft</span></div>
+  </div>
+
+  <div class="prog" id="prog"></div>
+</div>
+<script type="module">
+import { panelSVG, geometries, TOY, attention } from '/v1/assets/geoaft/geoaft.js';
+const T = {"total": 119.43, "lines": [{"scene": "puzzle", "beat": "title", "start": 0.6, "end": 5.6, "text": "A pretrained Transformer learns two things: representations, and a rule for comparing them."}, {"scene": "puzzle", "beat": "reps", "start": 5.95, "end": 9.03, "text": "When we fine-tune, we usually change the representations."}, {"scene": "puzzle", "beat": "rule", "start": 9.38, "end": 13.99, "text": "The rule that decides which tokens attend to which is simply inherited."}, {"scene": "intuition", "beat": "setup", "start": 14.94, "end": 18.79, "text": "Take one query and seven keys, and hold them fixed."}, {"scene": "intuition", "beat": "dot", "start": 19.14, "end": 24.14, "text": "Under the dot product, attention goes to B, furthest along the query\u2019s direction."}, {"scene": "intuition", "beat": "l2", "start": 24.49, "end": 27.57, "text": "With Euclidean distance, the nearest key, A, wins."}, {"scene": "intuition", "beat": "lp", "start": 27.92, "end": 29.52, "text": "Taxicab distance picks D."}, {"scene": "intuition", "beat": "maha", "start": 29.87, "end": 31.79, "text": "An anisotropic metric picks F."}, {"scene": "intuition", "beat": "still", "start": 32.14, "end": 34.45, "text": "Nothing moved. Only the geometry changed."}, {"scene": "method", "beat": "trainable", "start": 35.4, "end": 37.32, "text": "GeoAFT makes that geometry trainable."}, {"scene": "method", "beat": "term", "start": 37.67, "end": 45.36, "text": "It keeps the pretrained score and adds a small structured term, like a learned L-p distance or a Mahalanobis metric."}, {"scene": "method", "beat": "gate", "start": 45.71, "end": 50.71, "text": "Its gate starts at zero, so training begins exactly at the pretrained model."}, {"scene": "evidence", "beat": "setup", "start": 51.66, "end": 55.89, "text": "We first tested it on synthetic targets with a known relation."}, {"scene": "evidence", "beat": "recovery", "start": 56.24, "end": 61.63, "text": "GeoAFT recovered over ninety-nine point nine percent of the oracle gap on both targets."}, {"scene": "evidence", "beat": "margins", "start": 61.98, "end": 69.28, "text": "That is about forty points ahead of Q/K LoRA, and six to twelve points ahead of tested generic scorers."}, {"scene": "evidence", "beat": "caveat", "start": 69.63, "end": 74.63, "text": "Not every registered comparison passed: a fixed L-p bank came almost as close."}, {"scene": "evidence", "beat": "params", "start": 74.98, "end": 83.45, "text": "On a nonlinear target, 46 trainable parameters fit about as well as the tested 8,705-parameter MLP: an economy, not a clear win."}, {"scene": "evidence", "beat": "twist", "start": 83.8, "end": 85.72, "text": "But theory adds a twist."}, {"scene": "evidence", "beat": "equivalence", "start": 86.07, "end": 93.38, "text": "A Mahalanobis geometry is exactly a bilinear score plus a key-dependent bias: a known score family, not new capacity."}, {"scene": "meaning", "beat": "notuniform", "start": 94.33, "end": 97.02, "text": "So geometry adaptation is not uniformly better."}, {"scene": "meaning", "beat": "regimes", "start": 97.37, "end": 103.14, "text": "Some updates are exact reparameterizations, some are more economical, and some may add new capacity."}, {"scene": "meaning", "beat": "question", "start": 103.49, "end": 109.26, "text": "Telling these apart is the real question. So far, the evidence is controlled and synthetic."}, {"scene": "close", "beat": "question", "start": 110.21, "end": 115.21, "text": "When should adaptation change representations, and when should it change how they relate?"}, {"scene": "close", "beat": "url", "start": 115.56, "end": 117.48, "text": "More on the QRS website."}], "scenes": {"puzzle": {"start": 0.6, "end": 14.94}, "intuition": {"start": 14.94, "end": 35.4}, "method": {"start": 35.4, "end": 51.66}, "evidence": {"start": 51.66, "end": 94.33}, "meaning": {"start": 94.33, "end": 110.21}, "close": {"start": 110.21, "end": 119.43}}, "words": 275, "cutdown_words": 155};
+const beat = (scene, name) => T.lines.find(l => l.scene === scene && l.beat === name);
+const clamp = x => Math.max(0, Math.min(1, x));
+const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const fadeWin = (t, a, b, d = .5) => clamp((t - a) / d) * clamp((b - t) / d);
+const $ = id => document.getElementById(id);
+const set = (id, o) => { const e = typeof id === 'string' ? $(id) : id; e.style.opacity = o.toFixed(3); };
+
+// Puzzle: representation points drift (fine-tuning moves them).
+const base = [[60, 170], [120, 60], [200, 140], [260, 70], [330, 180], [400, 100], [170, 210]];
+function drawPoints(t, amp) {
+  const pts = base.map(([x, y], i) => [x + amp * 18 * Math.sin(t * 1.3 + i), y + amp * 12 * Math.cos(t * 1.1 + 2 * i)]);
+  let s = pts.slice(1).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="#fff" stroke="#64748b" stroke-width="2.5"/>`).join('');
+  s += `<circle cx="${pts[0][0]}" cy="${pts[0][1]}" r="11" fill="#183b63"/>`;
+  if (amp > 0) s += base.slice(1).map(([x, y], i) => `<line x1="${x}" y1="${y}" x2="${pts[i + 1][0]}" y2="${pts[i + 1][1]}" stroke="#c05f0c" stroke-width="2" stroke-opacity="${.6 * amp}"/>`).join('');
+  $('p-points').innerHTML = s;
+}
+
+// Intuition: geometry panels by beat with cross-fades.
+const order = { setup: 'dot', dot: 'dot', l2: 'l2', lp: 'lp', maha: 'maha', still: 'maha' };
+const geos = Object.fromEntries(geometries({ p: 1, angle: 105, q: TOY.query }).map(g => [g[0], g]));
+const state = { q: [...TOY.query], p: 1, angle: 105 };
+const panelCache = {};
+function panel(kind) {
+  if (!panelCache[kind]) {
+    const [k, title, formula, color] = geos[kind];
+    panelCache[kind] = `<svg viewBox="0 0 560 580" style="width:560px;height:580px" class="geo">${panelSVG(k, title, formula, color, 0, 0, 560, 580, 'v' + k, state).svg}</svg>`;
+  }
+  return panelCache[kind];
+}
+const panelsEl = $('i-panels');
+['dot', 'l2', 'lp', 'maha'].forEach(k => { const d = document.createElement('div'); d.className = 'layer'; d.dataset.kind = k; d.innerHTML = panel(k); d.querySelectorAll('text').forEach(t => { const fs = parseFloat(t.getAttribute('font-size') || 13); t.setAttribute('font-size', fs * 1.35); }); panelsEl.appendChild(d); });
+const names = { dot: 'Dot product', l2: 'Euclidean distance', lp: 'Taxicab (L1) distance', maha: 'Anisotropic metric' };
+const rowsEl = $('i-rows');
+['dot', 'l2', 'lp', 'maha'].forEach(k => {
+  const a = attention(k, state); const top = Object.entries(a).sort((x, y) => y[1] - x[1])[0];
+  const r = document.createElement('div'); r.className = 'row'; r.dataset.kind = k; r.style.opacity = 0;
+  r.innerHTML = `<b>${names[k]}</b><span>→ key ${top[0]} · ${Math.round(100 * top[1])}%</span>`; rowsEl.appendChild(r);
+});
+
+// Evidence: hide comparator rows of Fig 4a until the margins beat.
+const fig4a = $('e-fig4a').querySelector('svg');
+const vb = fig4a.viewBox.baseVal;
+const cover = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+cover.setAttribute('x', 0); cover.setAttribute('y', 34 + 74 - 4); cover.setAttribute('width', vb.width); cover.setAttribute('height', 2 * 74 + 2); cover.setAttribute('fill', '#fbfbfa');
+fig4a.appendChild(cover);
+
+const S = T.scenes;
+window.renderAt = function (t) {
+  for (const [name, s] of Object.entries(S)) set('s-' + name, fadeWin(t, s.start - .25, s.end + .25, .45));
+  $('prog').style.width = (100 * t / T.total).toFixed(2) + '%';
+  // 1
+  const reps = beat('puzzle', 'reps'), rule = beat('puzzle', 'rule');
+  set('p-title', fadeWin(t, 0, reps.start - .2, .6));
+  set('p-cards', clamp((t - reps.start + .2) / .6));
+  set('p-reps-pill', clamp((t - reps.start - .8) / .5));
+  set('p-rule-pill', clamp((t - rule.start - .5) / .5));
+  drawPoints(t, clamp((t - reps.start - .6) / 1.2) * (1 - clamp((t - rule.start) / 1.5)) );
+  // 2
+  let current = 'dot', since = 99;
+  for (const l of T.lines.filter(l => l.scene === 'intuition')) if (t >= l.start - .3) { const k = order[l.beat]; if (k !== current) since = t - (l.start - .3); current = k; }
+  const kinds = ['dot', 'l2', 'lp', 'maha'];
+  panelsEl.querySelectorAll('.layer').forEach(d => set(d, d.dataset.kind === current ? clamp(since / .5) : 0));
+  const prevIdx = kinds.indexOf(current) - 1;
+  if (prevIdx >= 0 && since < .5) set(panelsEl.querySelector(`[data-kind="${kinds[prevIdx]}"]`), 1 - since / .5);
+  rowsEl.querySelectorAll('.row').forEach(r => { const b = beat('intuition', r.dataset.kind); set(r, clamp((t - b.start - .2) / .4)); });
+  set('i-still', clamp((t - beat('intuition', 'still').start) / .5));
+  // 3
+  const m0 = S.method.start, term = beat('method', 'term'), gate = beat('method', 'gate');
+  const reveal = ease(clamp((t - m0 - .3) / (term.end - m0 - .5)));
+  $('m-fig').style.clipPath = `inset(0 ${(100 - 100 * reveal).toFixed(2)}% 0 0)`;
+  set('m-eq', clamp((t - term.start - 1.5) / .6));
+  set('m-gate', clamp((t - gate.start - .3) / .5));
+  // 4
+  const es = beat('evidence', 'setup'), er = beat('evidence', 'recovery'), em = beat('evidence', 'margins'), ep = beat('evidence', 'params'), et = beat('evidence', 'twist'), eq = beat('evidence', 'equivalence');
+  set('e-setup', fadeWin(t, es.start - .2, er.start - .1, .4));
+  set('e-recovery', fadeWin(t, er.start - .1, ep.start - .1, .4));
+  cover.setAttribute('opacity', (1 - clamp((t - em.start) / .6)).toFixed(3));
+  set('e-caveat', clamp((t - beat('evidence', 'caveat').start) / .5));
+  set('e-params', fadeWin(t, ep.start - .1, et.start - .1, .4));
+  set('e-twist', fadeWin(t, et.start - .1, S.evidence.end + 1, .4));
+  $('e-strike').style.setProperty('--s', ease(clamp((t - eq.start - 1.2) / .8)).toFixed(3));
+  set('e-cancel', clamp((t - eq.start - 1.8) / .5));
+  set('e-equiv', clamp((t - eq.start - 3.0) / .6));
+  // 5
+  const rr = beat('meaning', 'regimes');
+  ['r1', 'r2', 'r3'].forEach((id, i) => set(id, clamp((t - rr.start - i * 2.2) / .5)));
+  set('m-foot', clamp((t - beat('meaning', 'question').start - 2.5) / .5));
+  // 6
+  set('c-url', clamp((t - beat('close', 'url').start) / .5));
+};
+window.__ready = document.fonts.ready.then(() => { window.renderAt(0); return true; });
+if (location.search.includes('play')) { const t0 = performance.now(); const loop = () => { const t = (performance.now() - t0) / 1000; window.renderAt(t % T.total); requestAnimationFrame(loop); }; loop(); }
+</script></body></html>
