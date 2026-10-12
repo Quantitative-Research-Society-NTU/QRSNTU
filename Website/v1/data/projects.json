@@ -50,7 +50,7 @@
     "lead": "yuhe-sui",
     "authors": [],
     "slicers": [],
-    "summary": "Research on post-training attention adaptation via geometry-adaptive fine-tuning.",
+    "summary": "Geometric Attention Fine-Tuning: adapting the rule a pretrained Transformer uses to compare representations, not only the representations themselves.",
     "derived_research": "Derived research in progress",
     "related_project_ids": [
       "ai-native-workflow",

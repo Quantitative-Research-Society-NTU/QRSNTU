@@ -31,7 +31,7 @@ DESCRIPTIONS = {
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
     "gmmg": "Compete individually in the Global Market Making Games 2026 Singapore qualifier on 16 October. Open to all university students in Singapore.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
-    "projects/geoaft": "GeoAFT studies fine-tuning that adapts how representations relate, through a structured compatibility geometry in attention, and when that differs from ordinary weight adaptation.",
+    "projects/geoaft": "GeoAFT, Geometric Attention Fine-Tuning: adapting how a pretrained Transformer compares representations, and when that differs from ordinary weight adaptation.",
     "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
 }
 
