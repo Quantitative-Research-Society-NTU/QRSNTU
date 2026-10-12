@@ -1,201 +1,239 @@
 {
- "total": 119.43,
+ "total": 141.78,
  "lines": [
   {
    "scene": "puzzle",
    "beat": "title",
    "start": 0.6,
-   "end": 5.6,
+   "end": 2.2,
+   "text": "GeoAFT: geometric attention fine-tuning."
+  },
+  {
+   "scene": "puzzle",
+   "beat": "two",
+   "start": 2.55,
+   "end": 7.55,
    "text": "A pretrained Transformer learns two things: representations, and a rule for comparing them."
   },
   {
    "scene": "puzzle",
    "beat": "reps",
-   "start": 5.95,
-   "end": 9.03,
-   "text": "When we fine-tune, we usually change the representations."
+   "start": 7.9,
+   "end": 9.82,
+   "text": "Fine-tuning usually changes the representations."
   },
   {
    "scene": "puzzle",
    "beat": "rule",
-   "start": 9.38,
-   "end": 13.99,
+   "start": 10.17,
+   "end": 14.79,
    "text": "The rule that decides which tokens attend to which is simply inherited."
   },
   {
    "scene": "intuition",
    "beat": "setup",
-   "start": 14.94,
-   "end": 18.79,
-   "text": "Take one query and seven keys, and hold them fixed."
+   "start": 15.74,
+   "end": 19.58,
+   "text": "Take one query and seven keys, and hold them still."
   },
   {
    "scene": "intuition",
-   "beat": "dot",
-   "start": 19.14,
-   "end": 24.14,
-   "text": "Under the dot product, attention goes to B, furthest along the query\u2019s direction."
-  },
-  {
-   "scene": "intuition",
-   "beat": "l2",
-   "start": 24.49,
-   "end": 27.57,
-   "text": "With Euclidean distance, the nearest key, A, wins."
+   "beat": "euclid",
+   "start": 19.93,
+   "end": 23.4,
+   "text": "Measure with Euclidean distance, and the nearest key wins."
   },
   {
    "scene": "intuition",
    "beat": "lp",
-   "start": 27.92,
-   "end": 29.52,
-   "text": "Taxicab distance picks D."
+   "start": 23.75,
+   "end": 29.13,
+   "text": "Bend the ruler into an L-p distance, and a different key takes the lead."
   },
   {
    "scene": "intuition",
    "beat": "maha",
-   "start": 29.87,
-   "end": 31.79,
-   "text": "An anisotropic metric picks F."
+   "start": 29.48,
+   "end": 33.71,
+   "text": "Stretch and turn a learned metric, and the ranking shifts again."
+  },
+  {
+   "scene": "intuition",
+   "beat": "cos",
+   "start": 34.06,
+   "end": 35.98,
+   "text": "Cosine looks only at direction."
+  },
+  {
+   "scene": "intuition",
+   "beat": "dot",
+   "start": 36.33,
+   "end": 41.33,
+   "text": "The dot product, the pretrained default, rewards whatever lies furthest along the query."
   },
   {
    "scene": "intuition",
    "beat": "still",
-   "start": 32.14,
-   "end": 34.45,
+   "start": 41.68,
+   "end": 43.99,
    "text": "Nothing moved. Only the geometry changed."
   },
   {
    "scene": "method",
    "beat": "trainable",
-   "start": 35.4,
-   "end": 37.32,
+   "start": 44.94,
+   "end": 46.87,
    "text": "GeoAFT makes that geometry trainable."
   },
   {
    "scene": "method",
    "beat": "term",
-   "start": 37.67,
-   "end": 45.36,
-   "text": "It keeps the pretrained score and adds a small structured term, like a learned L-p distance or a Mahalanobis metric."
+   "start": 47.22,
+   "end": 52.22,
+   "text": "It keeps the pretrained score and adds a small, structured term on top."
   },
   {
    "scene": "method",
    "beat": "gate",
-   "start": 45.71,
-   "end": 50.71,
-   "text": "Its gate starts at zero, so training begins exactly at the pretrained model."
+   "start": 52.57,
+   "end": 57.57,
+   "text": "A gate starts at zero, so training begins from exactly the pretrained model."
   },
   {
-   "scene": "evidence",
+   "scene": "tested",
    "beat": "setup",
-   "start": 51.66,
-   "end": 55.89,
-   "text": "We first tested it on synthetic targets with a known relation."
+   "start": 58.52,
+   "end": 64.28,
+   "text": "So far we have tested it where the right answer is known: three synthetic targets."
   },
   {
-   "scene": "evidence",
-   "beat": "recovery",
-   "start": 56.24,
-   "end": 61.63,
-   "text": "GeoAFT recovered over ninety-nine point nine percent of the oracle gap on both targets."
+   "scene": "tested",
+   "beat": "three",
+   "start": 64.63,
+   "end": 70.79,
+   "text": "On each, GeoAFT recovers more than ninety-nine point nine percent of the gap to the oracle."
   },
   {
-   "scene": "evidence",
-   "beat": "margins",
-   "start": 61.98,
-   "end": 69.28,
-   "text": "That is about forty points ahead of Q/K LoRA, and six to twelve points ahead of tested generic scorers."
+   "scene": "tested",
+   "beat": "field",
+   "start": 71.14,
+   "end": 75.37,
+   "text": "Here is every method we ran, by trainable parameters and recovery."
   },
   {
-   "scene": "evidence",
+   "scene": "tested",
+   "beat": "qk",
+   "start": 75.72,
+   "end": 78.8,
+   "text": "Low-rank Q/K adaptation stays about forty points behind."
+  },
+  {
+   "scene": "tested",
+   "beat": "scorers",
+   "start": 79.15,
+   "end": 85.68,
+   "text": "Generic learned scorers trail by six to twelve points, or need thousands of parameters to come close."
+  },
+  {
+   "scene": "tested",
    "beat": "caveat",
-   "start": 69.63,
-   "end": 74.63,
-   "text": "Not every registered comparison passed: a fixed L-p bank came almost as close."
+   "start": 86.03,
+   "end": 94.5,
+   "text": "One caution: on the L-p target a fixed geometry bank comes almost as close, so not every comparison is a clear win."
   },
   {
-   "scene": "evidence",
-   "beat": "params",
-   "start": 74.98,
-   "end": 83.45,
-   "text": "On a nonlinear target, 46 trainable parameters fit about as well as the tested 8,705-parameter MLP: an economy, not a clear win."
+   "scene": "regimes",
+   "beat": "intro",
+   "start": 95.45,
+   "end": 99.29,
+   "text": "So a geometry update can be one of three things."
   },
   {
-   "scene": "evidence",
-   "beat": "twist",
-   "start": 83.8,
-   "end": 85.72,
-   "text": "But theory adds a twist."
+   "scene": "regimes",
+   "beat": "list",
+   "start": 99.64,
+   "end": 106.95,
+   "text": "An exact rewrite of something weights already do, a cheaper way to say the same thing, or something new."
   },
   {
-   "scene": "evidence",
-   "beat": "equivalence",
-   "start": 86.07,
-   "end": 93.38,
-   "text": "A Mahalanobis geometry is exactly a bilinear score plus a key-dependent bias: a known score family, not new capacity."
+   "scene": "regimes",
+   "beat": "status",
+   "start": 107.3,
+   "end": 112.68,
+   "text": "The first is proven, the second is supported, and the third is still open."
   },
   {
-   "scene": "meaning",
-   "beat": "notuniform",
-   "start": 94.33,
-   "end": 97.02,
-   "text": "So geometry adaptation is not uniformly better."
+   "scene": "next",
+   "beat": "progress",
+   "start": 113.63,
+   "end": 115.56,
+   "text": "Real benchmarks are in progress."
   },
   {
-   "scene": "meaning",
-   "beat": "regimes",
-   "start": 97.37,
-   "end": 103.14,
-   "text": "Some updates are exact reparameterizations, some are more economical, and some may add new capacity."
+   "scene": "next",
+   "beat": "rq1",
+   "start": 115.91,
+   "end": 122.83,
+   "text": "Next, we ask when geometry adaptation is actually different, across richer families such as spherical and hyperbolic geometry."
   },
   {
-   "scene": "meaning",
-   "beat": "question",
-   "start": 103.49,
-   "end": 109.26,
-   "text": "Telling these apart is the real question. So far, the evidence is controlled and synthetic."
+   "scene": "next",
+   "beat": "rq2",
+   "start": 123.18,
+   "end": 127.41,
+   "text": "Whether geometry can become conditional on the input, layer or head."
+  },
+  {
+   "scene": "next",
+   "beat": "rq3",
+   "start": 127.76,
+   "end": 131.61,
+   "text": "And whether the idea survives beyond attention, and under compression."
   },
   {
    "scene": "close",
    "beat": "question",
-   "start": 110.21,
-   "end": 115.21,
+   "start": 132.56,
+   "end": 137.56,
    "text": "When should adaptation change representations, and when should it change how they relate?"
   },
   {
    "scene": "close",
    "beat": "url",
-   "start": 115.56,
-   "end": 117.48,
+   "start": 137.91,
+   "end": 139.83,
    "text": "More on the QRS website."
   }
  ],
  "scenes": {
   "puzzle": {
    "start": 0.6,
-   "end": 14.94
+   "end": 15.74
   },
   "intuition": {
-   "start": 14.94,
-   "end": 35.4
+   "start": 15.74,
+   "end": 44.94
   },
   "method": {
-   "start": 35.4,
-   "end": 51.66
+   "start": 44.94,
+   "end": 58.52
   },
-  "evidence": {
-   "start": 51.66,
-   "end": 94.33
+  "tested": {
+   "start": 58.52,
+   "end": 95.45
   },
-  "meaning": {
-   "start": 94.33,
-   "end": 110.21
+  "regimes": {
+   "start": 95.45,
+   "end": 113.63
+  },
+  "next": {
+   "start": 113.63,
+   "end": 132.56
   },
   "close": {
-   "start": 110.21,
-   "end": 119.43
+   "start": 132.56,
+   "end": 141.78
   }
  },
- "words": 275,
- "cutdown_words": 155
+ "words": 327
 }

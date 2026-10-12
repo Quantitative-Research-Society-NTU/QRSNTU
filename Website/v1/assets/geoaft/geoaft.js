@@ -334,19 +334,17 @@ function initExplorer(fig) {
 // Euclidean, L_p (p from 1 to 4), a Mahalanobis metric that stretches and turns, cosine and the dot
 // product. Rings and grid are the rule's ruler, the colour field is compatibility with q, and the list
 // below re-ranks the keys by attention. The query and keys are never moved.
-function initHero(fig) {
+// buildLive(stage) builds the figure into `stage` and returns draw(ms), which renders the frame for
+// that time and returns the current rule's label. draw depends only on ms, so the explainer video
+// renders it frame by frame; draw.order (keys, most attended first) and draw.row (row height) let
+// it place the ranking rows itself instead of relying on CSS transitions.
+function buildLive(stage) {
     const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 15000, PACE = 28500 / 15000;
-    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const smooth = t => t * t * (3 - 2 * t);
     const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
 
-    const head = document.createElement('div');
-    head.className = 'geo-live-head';
-    head.innerHTML = '<span class="geo-live-rule"></span><button type="button"></button>';
-    const stage = document.createElement('div');
     stage.innerHTML = `<div class="geo-live-field"><canvas width="${GX}" height="${GY}"></canvas><svg xmlns="${NS}" viewBox="0 0 ${W} ${H}" class="geo-svg" role="img" aria-label="Animated toy: a distance grid stretches and turns under one query and seven fixed keys, and attention to the keys changes."></svg></div>` +
         `<ol class="geo-live-rank" style="height:${names.length * ROW}px" aria-label="Attention to each key, highest first">${names.map(n => `<li data-k="${n}"><span>${n}</span><span class="geo-meter-track"><span class="geo-bar geo-bar-teal"></span></span><span class="geo-meter-value"></span></li>`).join('')}</ol>`;
-    const label = head.querySelector('span'), btn = head.querySelector('button');
     const ctx = stage.querySelector('canvas').getContext('2d'), img = ctx.createImageData(GX, GY), svgEl = stage.querySelector('svg');
     const rows = [...stage.querySelectorAll('li')];
 
@@ -449,13 +447,27 @@ function initHero(fig) {
             li.querySelector('.geo-bar').style.width = `${(100 * att[n]).toFixed(1)}%`;
             li.querySelector('.geo-meter-value').textContent = `${Math.round(100 * att[n])}%`;
         });
-        label.textContent = wDot > 0.5 ? 'Dot product: further along q scores higher'
+        draw.order = order;
+        return wDot > 0.5 ? 'Dot product: further along q scores higher'
             : wCos > 0.5 ? 'Cosine: only direction matters'
             : a > 0.03 ? 'Mahalanobis metric: one direction is cheap'
             : Math.abs(p - 2) > 0.05 ? `Lp distance, p = ${p.toFixed(1)}` : 'Euclidean distance';
     }
 
-    let t = reduced ? 13500 / PACE : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
+    draw.pace = PACE;   // script milliseconds per millisecond passed to draw()
+    draw.row = ROW;
+    return draw;
+}
+
+function initHero(fig) {
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const head = document.createElement('div');
+    head.className = 'geo-live-head';
+    head.innerHTML = '<span class="geo-live-rule"></span><button type="button"></button>';
+    const stage = document.createElement('div');
+    const label = head.querySelector('span'), btn = head.querySelector('button');
+    const frameAt = buildLive(stage), draw = ms => { label.textContent = frameAt(ms); };
+    let t = reduced ? 7100 : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
     const tick = now => { t += Math.min(now - last, 100); last = now; draw(t); raf = requestAnimationFrame(tick); };
     const sync = () => {
         cancelAnimationFrame(raf);
@@ -606,4 +618,4 @@ if (root) {
 }
 
 // Shared with the explainer animatic (Website/tools/geoaft/video), which reuses the same geometry.
-export { TOY, attention, geometries, panelSVG };
+export { TOY, attention, geometries, panelSVG, buildLive };
