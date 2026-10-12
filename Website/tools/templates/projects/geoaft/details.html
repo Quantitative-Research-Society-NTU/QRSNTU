@@ -139,15 +139,10 @@
     </article>
   </div>
   <p>On the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>p</mi></msub></mrow></math> and Mahalanobis targets, Q/K-LoRA stays 39.9–41.7 points behind GeoAFT at the tested budgets, and the tested pair-MLP scorers 6.4–12.2 points; each range spans both targets.</p>
-  <figure class="geo-figure geo-dense" data-geo-tabs aria-labelledby="fig4-cap">
-    <div class="geo-dense-panel" data-tab-title="(a) Capability">
-      <img src="{{root}}assets/geoaft/fig4-capability.png" width="1900" height="1170" loading="lazy" alt="Dot plot. Rows are method families: GeoAFT, FFN base, learned scorer, structured control, fixed geometry or bank, and Q/K PEFT. The horizontal axis is oracle-gap recovery for the three synthetic targets. Dotted envelopes join the strongest point of each family per target, and the GeoAFT row holds the best point for each synthetic target.">
-    </div>
-    <div class="geo-dense-panel" data-tab-title="(b) Efficiency">
-      <img src="{{root}}assets/geoaft/fig4-efficiency.png" width="1594" height="1170" loading="lazy" alt="Scatter plot of relative performance against trainable parameters on a log scale, with a dashed Pareto frontier for each target. Diamonds are GeoAFT variants and circles are other methods.">
-    </div>
-    <img class="geo-dense-legend" src="{{root}}assets/geoaft/fig4-legend.png" width="1650" height="103" loading="lazy" alt="Colour key: blue L p geometry, orange Mahalanobis geometry, green nonlinear geometry, purple RTE adaptation.">
-    <figcaption id="fig4-cap"><strong>Figure 4. The synthetic experiments in full.</strong> <strong>(a)</strong> Each row is a method family; dotted envelopes join the strongest point of each family for each target, and rings mark the best point per target. <strong>(b)</strong> Relative performance against trainable parameters, with a dashed Pareto frontier per target; diamonds are GeoAFT variants. Metrics are protocol-local, not a common leaderboard. The purple series is an internal RTE study on its own top axes; it is preliminary and not reported as a result here.</figcaption>
+  <figure class="geo-figure geo-scatter" data-geo-scatter data-reveal aria-labelledby="fig4-cap">
+    <div class="geo-fig-wide">{{svg:assets/geoaft/fig4-methods-wide.svg}}</div>
+    <div class="geo-fig-narrow">{{svg:assets/geoaft/fig4-methods-narrow.svg}}</div>
+    <figcaption id="fig4-cap"><strong>Figure 4. Every tested method on the three synthetic targets.</strong> Each point is one method: its trainable parameters against its oracle-gap recovery <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>. The vertical axis is logarithmic in the remaining gap, so 99%, 99.9% and 99.99% are evenly spaced. Diamonds are GeoAFT variants; the solid ring marks the selected one and the dotted ring the best other method. The dashed line is the Pareto frontier. <span class="geo-js-only">Hover a point for its details, or a legend entry to isolate that family.</span> Counts are trainable parameters, not inference cost.</figcaption>
   </figure>
   <div class="geo-scope" role="note">
     <p><strong>Scope.</strong> These are controlled synthetic results. Not every registered superiority comparison passed, and recovering a target is not the same as adding capacity. <a class="card-link" href="#protocol">Protocol, controls and full table →</a></p>

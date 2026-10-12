@@ -3,7 +3,8 @@
   "sources": {
     "proposal": "GeoAFT preliminary evidence as summarised in the author's research proposal (v11, October 2026), Prior Work section",
     "brief": "Project-lead evidence summary, 12 October 2026",
-    "repo": "https://github.com/yuhesui/GeoAFT"
+    "repo": "https://github.com/yuhesui/GeoAFT",
+    "plot_data": "Author's per-method plot data (GeoAFT refined publication figures v3: type1_data_v3.csv, type2_data_v3.csv), kept in Website/tools/geoaft/source/ and used only by fig_methods() in build_figures.py; synthetic targets only"
   },
   "metric": {
     "name": "oracle-gap recovery",

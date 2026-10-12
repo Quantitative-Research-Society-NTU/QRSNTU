@@ -1,0 +1,76 @@
+Target,Color,Method,Method group,Family,Role,Mean metric,y,syn_score,rte_score,plot_x,Is frontier point
+SOTA1A,#0072B2,bilinear_keyquad,BilinearKeyQuadratic,Structured control,Baseline / control,0.920602178,1.0,92.0602178,,92.0602178,True
+SOTA1A,#0072B2,fixed_lp_1p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.918294357,4.0,91.82943569999999,,91.82943569999999,False
+SOTA1A,#0072B2,fixed_lp_2p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.953244634,4.0,95.3244634,,95.3244634,True
+SOTA1A,#0072B2,fixed_lp_3,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.937634756,4.0,93.7634756,,93.7634756,False
+SOTA1A,#0072B2,fixed_lp_3p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.91693853,4.0,91.693853,,91.693853,False
+SOTA1A,#0072B2,fixed_lp_4,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.896066303,4.0,89.6066303,,89.6066303,False
+SOTA1A,#0072B2,extra_qk_r1,ExtraQK,Q/K / attention PEFT,Baseline / control,0.144725666,3.0,14.4725666,,14.4725666,False
+SOTA1A,#0072B2,fixed_cosine,FixedCosine;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.635083896,4.0,63.5083896,,63.5083896,False
+SOTA1A,#0072B2,fixed_l1,FixedL1;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.821854825,4.0,82.18548249999999,,82.18548249999999,False
+SOTA1A,#0072B2,fixed_l2,FixedL2;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.953197598,4.0,95.3197598,,95.3197598,False
+SOTA1A,#0072B2,fixed_squared_l2,FixedSquaredL2;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.920638348,4.0,92.0638348,,92.0638348,False
+SOTA1A,#0072B2,full_qk,FullQK,Q/K / attention PEFT,Baseline / control,0.584177929,3.0,58.417792899999995,,58.417792899999995,True
+SOTA1A,#0072B2,pair_mlp_h1,GenericPairMLP,Generic learned scorer,Baseline / control,0.851360838,2.0,85.1360838,,85.1360838,False
+SOTA1A,#0072B2,pair_mlp_h4,GenericPairMLP,Generic learned scorer,Baseline / control,0.877982605,2.0,87.7982605,,87.7982605,True
+SOTA1A,#0072B2,geo_cosine,GeoAFT,GeoAFT,GeoAFT variant,0.635082628,5.0,63.508262800000004,,63.508262800000004,False
+SOTA1A,#0072B2,geo_dot,GeoAFT,GeoAFT,GeoAFT variant,0.584353465,5.0,58.435346499999994,,58.435346499999994,False
+SOTA1A,#0072B2,geo_lp,GeoAFT,GeoAFT,GeoAFT variant,0.999831034,5.0,99.98310339999999,,99.98310339999999,True
+SOTA1A,#0072B2,geo_mahalanobis_r1,GeoAFT,GeoAFT,GeoAFT variant,0.920631713,5.0,92.06317130000001,,92.06317130000001,False
+SOTA1A,#0072B2,geo_mahalanobis_r2,GeoAFT,GeoAFT,GeoAFT variant,0.920632769,5.0,92.0632769,,92.0632769,False
+SOTA1A,#0072B2,geo_mahalanobis_r4,GeoAFT,GeoAFT,GeoAFT variant,0.920628303,5.0,92.0628303,,92.0628303,False
+SOTA1A,#0072B2,geo_rq,GeoAFT,GeoAFT,GeoAFT variant,0.952496761,5.0,95.2496761,,95.2496761,False
+SOTA1A,#0072B2,projected_dot,ProjectedDot,Q/K / attention PEFT,Baseline / control,0.584046547,3.0,58.4046547,,58.4046547,False
+SOTA1A,#0072B2,lora_r1,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.144725666,3.0,14.4725666,,14.4725666,False
+SOTA1A,#0072B2,lora_r2,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.290093819,3.0,29.009381899999998,,29.009381899999998,False
+SOTA1A,#0072B2,lora_r4,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.583260395,3.0,58.32603950000001,,58.32603950000001,False
+SOTA1A,#0072B2,selected,GeoAFT,GeoAFT,Selected GeoAFT,0.999831034,5.0,99.98310339999999,,99.98310339999999,False
+SOTA1B,#E69F00,fixed_lp_1p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.789451042,4.0,78.9451042,,78.9451042,False
+SOTA1B,#E69F00,fixed_lp_2p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.783237544,4.0,78.3237544,,78.3237544,False
+SOTA1B,#E69F00,fixed_lp_3,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.758210375,4.0,75.8210375,,75.8210375,False
+SOTA1B,#E69F00,fixed_lp_3p5,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.732290088,4.0,73.22900879999999,,73.22900879999999,False
+SOTA1B,#E69F00,fixed_lp_4,DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.708619304,4.0,70.86193039999999,,70.86193039999999,False
+SOTA1B,#E69F00,extra_qk_r1,ExtraQK,Q/K / attention PEFT,Baseline / control,0.307017275,3.0,30.701727499999997,,30.701727499999997,False
+SOTA1B,#E69F00,fixed_cosine,FixedCosine;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.552588806,4.0,55.258880600000005,,55.258880600000005,False
+SOTA1B,#E69F00,fixed_l1,FixedL1;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.725440683,4.0,72.54406829999999,,72.54406829999999,False
+SOTA1B,#E69F00,fixed_l2,FixedL2;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.79932464,4.0,79.93246400000001,,79.93246400000001,False
+SOTA1B,#E69F00,fixed_squared_l2,FixedSquaredL2;DiscreteFixedBank,Fixed geometry / bank,Baseline / control,0.81838148,4.0,81.838148,,81.838148,True
+SOTA1B,#E69F00,full_qk,FullQK,Q/K / attention PEFT,Baseline / control,0.601294995,3.0,60.12949950000001,,60.12949950000001,True
+SOTA1B,#E69F00,pair_mlp_h1,GenericPairMLP,Generic learned scorer,Baseline / control,0.897275251,2.0,89.72752510000001,,89.72752510000001,False
+SOTA1B,#E69F00,pair_mlp_h4,GenericPairMLP,Generic learned scorer,Baseline / control,0.935440067,2.0,93.54400670000001,,93.54400670000001,True
+SOTA1B,#E69F00,geo_cosine,GeoAFT,GeoAFT,GeoAFT variant,0.552588118,5.0,55.2588118,,55.2588118,False
+SOTA1B,#E69F00,geo_dot,GeoAFT,GeoAFT,GeoAFT variant,0.510931794,5.0,51.0931794,,51.0931794,False
+SOTA1B,#E69F00,geo_lp,GeoAFT,GeoAFT,GeoAFT variant,0.800664837,5.0,80.0664837,,80.0664837,False
+SOTA1B,#E69F00,geo_mahalanobis_r1,GeoAFT,GeoAFT,GeoAFT variant,0.997702444,5.0,99.7702444,,99.7702444,False
+SOTA1B,#E69F00,geo_mahalanobis_r2,GeoAFT,GeoAFT,GeoAFT variant,0.998754572,5.0,99.8754572,,99.8754572,False
+SOTA1B,#E69F00,geo_mahalanobis_r4,GeoAFT,GeoAFT,GeoAFT variant,0.999908016,5.0,99.9908016,,99.9908016,False
+SOTA1B,#E69F00,geo_rq,GeoAFT,GeoAFT,GeoAFT variant,0.814496975,5.0,81.4496975,,81.4496975,False
+SOTA1B,#E69F00,projected_dot,ProjectedDot,Q/K / attention PEFT,Baseline / control,0.601262751,3.0,60.1262751,,60.1262751,False
+SOTA1B,#E69F00,lora_r1,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.307017275,3.0,30.701727499999997,,30.701727499999997,False
+SOTA1B,#E69F00,lora_r2,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.466680499,3.0,46.6680499,,46.6680499,False
+SOTA1B,#E69F00,lora_r4,QK_LoRA_rank_sweep,Q/K / attention PEFT,Baseline / control,0.601086973,3.0,60.1086973,,60.1086973,False
+SOTA1B,#E69F00,selected,GeoAFT,GeoAFT,Selected GeoAFT,0.999908849,5.0,99.9908849,,99.9908849,True
+SOTA1C,#009E73,warped_axis,AxisWarp,Generic learned scorer,Baseline / control,0.520190831,2.0,52.019083099999996,,52.019083099999996,False
+SOTA1C,#009E73,bilinear_keyquad,BilinearKeyQuadratic,Structured control,Baseline / control,0.877099347,1.0,87.7099347,,87.7099347,True
+SOTA1C,#009E73,geo_lp,CanonicalLp,Fixed geometry / bank,Baseline / control,0.43212478,4.0,43.212478,,43.212478,True
+SOTA1C,#009E73,full_qk,FullQK,Q/K / attention PEFT,Baseline / control,0.611708269,3.0,61.170826899999994,,61.170826899999994,True
+SOTA1C,#009E73,warped_open,GeoAFT,GeoAFT,GeoAFT variant,0.999342725,5.0,99.93427249999999,,99.93427249999999,False
+SOTA1C,#009E73,warped_zero,GeoAFT,GeoAFT,GeoAFT variant,0.999315522,5.0,99.9315522,,99.9315522,False
+SOTA1C,#009E73,kernel_mixture,KernelMixture,Generic learned scorer,Baseline / control,0.437679413,2.0,43.767941300000004,,43.767941300000004,False
+SOTA1C,#009E73,geo_mahalanobis_r4,Mahalanobis,Structured control,Baseline / control,0.874020741,1.0,87.40207410000001,,87.40207410000001,False
+SOTA1C,#009E73,feature_lp32,NonlinearFeatureLp,Generic learned scorer,Baseline / control,0.988894565,2.0,98.8894565,,98.8894565,False
+SOTA1C,#009E73,feature_lp64,NonlinearFeatureLp,Generic learned scorer,Baseline / control,0.993233563,2.0,99.3233563,,99.3233563,False
+SOTA1C,#009E73,pair_mlp_h16,PairMLP,Generic learned scorer,Baseline / control,0.982483376,2.0,98.2483376,,98.2483376,False
+SOTA1C,#009E73,pair_mlp_h256,PairMLP,Generic learned scorer,Baseline / control,0.995391707,2.0,99.5391707,,99.5391707,True
+SOTA1C,#009E73,pair_mlp_h64,PairMLP,Generic learned scorer,Baseline / control,0.99284112,2.0,99.28411200000001,,99.28411200000001,False
+SOTA1C,#009E73,lora_r4,QKLoRA,Q/K / attention PEFT,Baseline / control,0.611312551,3.0,61.131255100000004,,61.131255100000004,False
+SOTA1C,#009E73,selected,GeoAFT,GeoAFT,Selected GeoAFT,0.999342925,5.0,99.9342925,,99.9342925,True
+SOTA3V2,#CC79A7,quadratic,BilinearKeyQuadratic,Structured control,Baseline / control,0.629317269,1.0,,99.55527318611037,99.55527318611037,True
+SOTA3V2,#CC79A7,extra_qk,ExtraQK,Q/K / attention PEFT,Baseline / control,0.629317269,3.0,,99.55527318611037,99.55527318611037,True
+SOTA3V2,#CC79A7,ffn_only,FFNOnly,FFN baseline,Baseline / control,0.62248996,0.0,,98.4752223975772,98.4752223975772,True
+SOTA3V2,#CC79A7,fixed_l2,FixedSquaredL2,Fixed geometry / bank,Baseline / control,0.630120482,4.0,,99.68233801267823,99.68233801267823,True
+SOTA3V2,#CC79A7,rq,GeoAFT,GeoAFT,GeoAFT variant,0.616465863,5.0,,97.5222362774162,97.5222362774162,False
+SOTA3V2,#CC79A7,warped_rq,GeoAFT,GeoAFT,GeoAFT variant,0.610040161,5.0,,96.5057179812648,96.5057179812648,False
+SOTA3V2,#CC79A7,lorada,LoRaDAReconstruction,Q/K / attention PEFT,Baseline / control,0.601606426,3.0,,95.17153753959595,95.17153753959595,False
+SOTA3V2,#CC79A7,mahalanobis,Mahalanobis,Structured control,Baseline / control,0.603212851,1.0,,95.42566703453595,95.42566703453595,False
+SOTA3V2,#CC79A7,selected,GeoAFT,GeoAFT,Selected GeoAFT,0.632128514,5.0,,100.0,100.0,True

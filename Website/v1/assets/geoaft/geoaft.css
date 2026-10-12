@@ -341,14 +341,17 @@
 .geo-ladder-state { display: block; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--geo-muted); margin-bottom: .2rem; }
 .geo-ladder .is-done .geo-ladder-state { color: var(--geo-teal-ink); }
 
-/* ---------- Details: the dense results figure (author's panels, tabbed by geoaft.js) ---------- */
-.geo-dense img { display: block; width: 100%; height: auto; }
-.geo-dense-panel { animation: geo-fade .35s ease; }
-.geo-dense-panel + .geo-dense-panel { margin-top: 1rem; }
-.geo-dense .geo-dense-legend { max-width: 36rem; margin: .25rem auto 0; }
-@keyframes geo-fade { from { opacity: 0; } }
-.geo-tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
-.geo-tabs button { border: 1px solid #c4cad3; border-radius: 6px; padding: .35rem .8rem; background: #fff; color: var(--geo-navy); font-size: .9rem; }
-.geo-tabs button:hover { border-color: var(--geo-navy); }
-.geo-tabs button[aria-pressed="true"] { background: var(--geo-navy); color: #fff; border-color: var(--geo-navy); }
-@media print { .geo-tabs { display: none; } .geo-dense-panel[hidden] { display: block !important; } }
+/* ---------- Details: per-method scatter (built by build_figures.py, enhanced by geoaft.js) ---------- */
+.geo-scatter .gf-pt { transition: opacity .2s ease; }
+.geo-scatter .gf-pt.is-dim { opacity: .12; }
+.geo-scatter.is-live .gf-key { cursor: pointer; }
+.geo-scatter .gf-key.is-on text { font-weight: 600; text-decoration: underline; }
+.geo-scatter .gf-pt:hover :is(circle, path):last-child { stroke: #11182c; stroke-width: 1.6; }
+@media (prefers-reduced-motion: no-preference) {
+    .geo-anim .geo-scatter[data-reveal] .gf-pt { opacity: 0; }
+    .geo-anim .geo-scatter[data-reveal].is-in .gf-pt { opacity: 1; transition: opacity .6s ease .2s; }
+    .geo-anim .geo-scatter[data-reveal].is-in .gf-pt.is-dim { opacity: .12; }
+    .geo-anim .geo-scatter[data-reveal] .gf-frontier { stroke-dashoffset: 0; opacity: 0; transition: opacity .8s ease .7s; }
+    .geo-anim .geo-scatter[data-reveal].is-in .gf-frontier { opacity: 1; }
+}
+@media print { .geo-anim .geo-scatter[data-reveal] :is(.gf-pt, .gf-frontier) { opacity: 1 !important; } }

@@ -411,11 +411,12 @@ function initGate(fig) {
 }
 
 // ---------------------------------------------------------------- stretching-geometry figure (overview hero)
-// Same toy as the explorer. A learned metric stretches and turns: the grid is its ruler (one
-// cell = one unit of distance), the colour field is compatibility with q, and the list below
-// re-ranks the keys by attention. The query and keys are never moved.
+// Same toy as the explorer. The compatibility rule cycles through the families the project uses:
+// Euclidean, L_p (p from 1 to 4), a Mahalanobis metric that stretches and turns, cosine and the dot
+// product. Rings and grid are the rule's ruler, the colour field is compatibility with q, and the list
+// below re-ranks the keys by attention. The query and keys are never moved.
 function initHero(fig) {
-    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 13000;
+    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 28500;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const smooth = t => t * t * (3 - 2 * t);
     const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
@@ -430,35 +431,87 @@ function initHero(fig) {
     const ctx = stage.querySelector('canvas').getContext('2d'), img = ctx.createImageData(GX, GY), svgEl = stage.querySelector('svg');
     const rows = [...stage.querySelectorAll('li')];
 
+    const field = new Float32Array(GX * GY), qn = Math.hypot(q[0], q[1]), COS_TAU = 0.15;
+    const seg = (x, a, b) => smooth(Math.max(0, Math.min(1, (x - a) / (b - a))));
+    const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
     function draw(ms) {
-        // Loop: stretch one direction, turn the metric through half a circle, relax again.
+        // Timeline (ms): Euclidean, p 2→1→4→2, metric stretches, turns and relaxes, then cosine, dot, back.
         const x = ms % T;
-        const a = x < 2500 ? smooth(x / 2500) : x < 9500 ? 1 : x < 12000 ? 1 - smooth((x - 9500) / 2500) : 0;
-        const theta = (TOY.angle + (x < 2500 ? 0 : x < 9500 ? 180 * smooth((x - 2500) / 7000) : 180)) * Math.PI / 180;
+        const p = x < 5000 ? 2 - seg(x, 1500, 4000) : x < 7500 ? 1 + 3 * seg(x, 5000, 7500) : 4 - 2 * seg(x, 7500, 9000);
+        const a = seg(x, 10000, 12000) - seg(x, 17000, 18500);
+        const wCos = seg(x, 18500, 21000) - seg(x, 22000, 24500), wDot = seg(x, 22000, 24500) - seg(x, 25500, 28000);
+        const wGeo = Math.max(0, 1 - wCos - wDot);
+        const theta = x > 21500 ? 0 : (TOY.angle * seg(x, 9000, 10000) + 180 * seg(x, 12000, 17000)) * Math.PI / 180;
         const l1 = TOY.eig[0] ** a, l2 = TOY.eig[1] ** a, e1 = [Math.cos(theta), Math.sin(theta)], e2 = [-e1[1], e1[0]];
-        const dist = (px, py) => { const dx = px - q[0], dy = py - q[1], m1 = dx * e1[0] + dy * e1[1], m2 = dx * e2[0] + dy * e2[1]; return Math.sqrt(l1 * m1 * m1 + l2 * m2 * m2); };
+        const dist = (px, py) => {
+            const dx = px - q[0], dy = py - q[1];
+            if (a > 0) { const m1 = dx * e1[0] + dy * e1[1], m2 = dx * e2[0] + dy * e2[1]; return Math.sqrt(l1 * m1 * m1 + l2 * m2 * m2); }
+            return (Math.abs(dx) ** p + Math.abs(dy) ** p) ** (1 / p);
+        };
+        // Between rules the logits are blended, so every frame is a valid softmax score.
+        const logit = (px, py) => {
+            const along = q[0] * px + q[1] * py;
+            return (wGeo ? -wGeo * dist(px, py) / TOY.tau.l2 : 0) + (wCos ? wCos * along / (qn * (Math.hypot(px, py) || 1e-9)) / COS_TAU : 0) + (wDot ? wDot * along / TOY.tau.dot : 0);
+        };
         // Colour field: how compatible each location is with q (softened so the slope stays visible).
+        let peak = -Infinity;
         for (let j = 0, n = 0; j < GY; j++) for (let i = 0; i < GX; i++, n++) {
-            const v = Math.exp(-dist(x0 + (i + 0.5) / GX * (x1 - x0), y1 - (j + 0.5) / GY * (y1 - y0)) / 1.1);
+            const v = logit(x0 + (i + 0.5) / GX * (x1 - x0), y1 - (j + 0.5) / GY * (y1 - y0));
+            field[n] = v;
+            if (v > peak) peak = v;
+        }
+        for (let n = 0; n < field.length; n++) {
+            const v = Math.exp(0.2 * (field[n] - peak));
             img.data[4 * n] = 251 - 141 * v; img.data[4 * n + 1] = 251 - 55 * v; img.data[4 * n + 2] = 250 - 50 * v; img.data[4 * n + 3] = 255;
         }
         ctx.putImageData(img, 0, 0);
-        // Softmax attention over the keys under the current metric.
-        const logits = names.map(n => -dist(...TOY.keys[n]) / TOY.tau.maha), top = Math.max(...logits);
-        const w = logits.map(v => Math.exp(v - top)), z = w.reduce((p, c) => p + c, 0);
+        // Softmax attention over the keys under the current rule.
+        const logits = names.map(n => logit(...TOY.keys[n])), top = Math.max(...logits);
+        const w = logits.map(v => Math.exp(v - top)), z = w.reduce((m, c) => m + c, 0);
         const att = Object.fromEntries(names.map((n, i) => [n, w[i] / z]));
-        // Ruler grid and two equal-distance rings.
-        const at = (u, v) => f(q[0] + u * e1[0] + v * e2[0], q[1] + u * e1[1] + v * e2[1]);
-        const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
         let s = '';
-        for (let n = -30; n <= 30; n++) {
-            const c = 0.3 * n;
-            s += `<path d="M${pt(at(c / Math.sqrt(l1), -9))}L${pt(at(c / Math.sqrt(l1), 9))}M${pt(at(-9, c / Math.sqrt(l2)))}L${pt(at(9, c / Math.sqrt(l2)))}" stroke="${C.navy}" stroke-opacity="${n % 2 === 0 ? 0.3 : 0.13}" fill="none"/>`;
+        if (wGeo > 0.01) {
+            // Distance rules: a grid of unit cells plus equal-distance rings around q.
+            const at = (u, v) => f(q[0] + u * e1[0] + v * e2[0], q[1] + u * e1[1] + v * e2[1]);
+            let g = '';
+            for (let n = -30; n <= 30; n++) {
+                const c = 0.3 * n;
+                g += `<path d="M${pt(at(c / Math.sqrt(l1), -9))}L${pt(at(c / Math.sqrt(l1), 9))}M${pt(at(-9, c / Math.sqrt(l2)))}L${pt(at(9, c / Math.sqrt(l2)))}" stroke="${C.navy}" stroke-opacity="${n % 2 === 0 ? 0.26 : 0.11}" fill="none"/>`;
+            }
+            for (const r of [0.3, 0.6, 0.9, 1.2, 1.5, 1.8]) {
+                const ring = [];
+                for (let j = 0; j <= 96; j++) {
+                    const t = 2 * Math.PI * j / 96, c = Math.cos(t), sn = Math.sin(t);
+                    ring.push(pt(a > 0 ? at(r * c / Math.sqrt(l1), r * sn / Math.sqrt(l2))
+                        : f(q[0] + r * Math.sign(c) * Math.abs(c) ** (2 / p), q[1] + r * Math.sign(sn) * Math.abs(sn) ** (2 / p))));
+                }
+                const main = r === 0.6 || r === 1.2;
+                g += `<path d="M${ring.join('L')}Z" fill="none" stroke="${C.tealInk}" stroke-width="${main ? 1.8 : 0.9}" stroke-opacity="${main ? 1 : 0.5}"/>`;
+            }
+            s += `<g opacity="${wGeo.toFixed(2)}">${g}</g>`;
         }
-        for (const r of [0.6, 1.2]) {
-            const ring = [];
-            for (let j = 0; j <= 72; j++) { const t = 2 * Math.PI * j / 72; ring.push(pt(at(r * Math.cos(t) / Math.sqrt(l1), r * Math.sin(t) / Math.sqrt(l2)))); }
-            s += `<path d="M${ring.join('L')}Z" fill="none" stroke="${C.tealInk}" stroke-width="1.8"/>`;
+        if (wCos > 0.01) {
+            // Cosine: only the direction from the origin matters, so the level sets are rays.
+            const base = Math.atan2(q[1], q[0]);
+            let g = '';
+            for (let k = -11; k <= 12; k++) {
+                const ang = base + k * Math.PI / 12;
+                g += `<path d="M${pt(f(0, 0))}L${pt(f(9 * Math.cos(ang), 9 * Math.sin(ang)))}" stroke="${C.tealInk}" stroke-width="${k === 0 ? 1.8 : 0.9}" stroke-opacity="${k === 0 ? 1 : 0.5}" fill="none"/>`;
+            }
+            s += `<g opacity="${wCos.toFixed(2)}">${g}</g>`;
+        }
+        if (wDot > 0.01) {
+            // Dot product: level sets are lines across q's direction; further along q scores higher.
+            const u = [q[0] / qn, q[1] / qn], v = [-u[1], u[0]];
+            let g = '';
+            for (let c = -2.25; c <= 4.5; c += 0.75) {
+                g += `<path d="M${pt(f(u[0] * c - v[0] * 9, u[1] * c - v[1] * 9))}L${pt(f(u[0] * c + v[0] * 9, u[1] * c + v[1] * 9))}" stroke="${C.tealInk}" stroke-width="${Math.abs(c - 1.5) < 0.01 ? 1.8 : 0.9}" stroke-opacity=".6" fill="none"/>`;
+            }
+            s += `<g opacity="${wDot.toFixed(2)}">${g}</g>`;
+        }
+        if (wCos + wDot > 0.01) {
+            const [ox, oy] = f(0, 0);
+            s += `<g opacity="${Math.min(1, wCos + wDot).toFixed(2)}"><path d="M${ox - 6},${oy}h12M${ox},${oy - 6}v12" stroke="${C.navy}" stroke-width="1.6"/><text class="gf-t gf-m" x="${ox + 8}" y="${oy + 16}" font-size="14">origin</text></g>`;
         }
         let dots = '';
         for (const n of names) {
@@ -476,10 +529,13 @@ function initHero(fig) {
             li.querySelector('.geo-bar').style.width = `${(100 * att[n]).toFixed(1)}%`;
             li.querySelector('.geo-meter-value').textContent = `${Math.round(100 * att[n])}%`;
         });
-        label.textContent = a < 0.03 ? 'Euclidean: every direction costs the same' : 'Learned metric: one direction is cheap, another costly';
+        label.textContent = wDot > 0.5 ? 'Dot product: further along q scores higher'
+            : wCos > 0.5 ? 'Cosine: only direction matters'
+            : a > 0.03 ? 'Mahalanobis metric: one direction is cheap'
+            : Math.abs(p - 2) > 0.05 ? `Lp distance, p = ${p.toFixed(1)}` : 'Euclidean distance';
     }
 
-    let t = reduced ? 5200 : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
+    let t = reduced ? 13500 : 0, last = 0, raf = 0, playing = !reduced, visible = !('IntersectionObserver' in window);
     const tick = now => { t += Math.min(now - last, 100); last = now; draw(t); raf = requestAnimationFrame(tick); };
     const sync = () => {
         cancelAnimationFrame(raf);
@@ -555,27 +611,35 @@ function heroFade() {
     update();
 }
 
-// Figures marked data-geo-tabs show one panel at a time; without JavaScript the panels simply stack.
-function initTabs(fig) {
-    const panels = [...fig.querySelectorAll('[data-tab-title]')];
-    if (panels.length < 2) return;
-    const bar = document.createElement('div');
-    bar.className = 'geo-tabs';
-    bar.setAttribute('role', 'group');
-    bar.setAttribute('aria-label', 'Choose a panel');
-    const show = i => {
-        panels.forEach((panel, j) => { panel.hidden = j !== i; });
-        [...bar.children].forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
-    };
-    panels.forEach((panel, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.textContent = panel.dataset.tabTitle;
-        b.addEventListener('click', () => show(i));
-        bar.append(b);
+// The per-method scatter: hovering a point names it below the figure; hovering or clicking a legend
+// entry isolates that method family. The static SVG (with <title> tooltips) works without this.
+function initScatter(fig) {
+    const readout = document.createElement('p');
+    readout.className = 'geo-explorer-readout';
+    readout.setAttribute('aria-live', 'polite');
+    const hint = 'Hover a point to see the method, its parameter count and its recovery.';
+    readout.textContent = hint;
+    fig.querySelector('figcaption').before(readout);
+    let pinned = null;
+    const isolate = family => fig.querySelectorAll('.gf-pt').forEach(pt => pt.classList.toggle('is-dim', !!family && pt.dataset.family !== family));
+    const markKeys = () => fig.querySelectorAll('.gf-key').forEach(k => k.classList.toggle('is-on', k.dataset.family === pinned));
+    fig.addEventListener('pointerover', e => {
+        const pt = e.target.closest('.gf-pt'), key = e.target.closest('.gf-key');
+        if (pt) readout.textContent = pt.dataset.label;
+        if (key) isolate(key.dataset.family);
     });
-    fig.prepend(bar);
-    show(0);
+    fig.addEventListener('pointerout', e => {
+        if (e.target.closest('.gf-pt')) readout.textContent = hint;
+        if (e.target.closest('.gf-key')) isolate(pinned);
+    });
+    fig.addEventListener('click', e => {
+        const key = e.target.closest('.gf-key');
+        if (!key) return;
+        pinned = pinned === key.dataset.family ? null : key.dataset.family;
+        isolate(pinned);
+        markKeys();
+    });
+    fig.classList.add('is-live');
 }
 
 // A thin bar under the site header showing how far down the details page the reader is.
@@ -608,7 +672,7 @@ if (root) {
     revealOnScroll();
     readingProgress();
     heroFade();
-    document.querySelectorAll('[data-geo-tabs]').forEach(initTabs);
+    document.querySelectorAll('[data-geo-scatter]').forEach(initScatter);
     document.querySelectorAll('[data-geo-gate]').forEach(fig => {
         try { initGate(fig); } catch (err) { console.warn('GeoAFT gate figure unavailable; showing static figure.', err); }
     });

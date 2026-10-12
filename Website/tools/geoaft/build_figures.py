@@ -3,9 +3,10 @@
 Outputs go to Website/v1/assets/geoaft/. Every empirical number is read from
 evidence.json; geometry panels are computed from TOY, which geoaft.js mirrors.
 Bars carry class gf-bar / gf-dot so geoaft.css can grow them in when a figure scrolls into view.
-Standard library only, except fig_preliminary(), which crops the author's results figure and needs
-Pillow (skipped with a note when it is not installed). Run: python Website/tools/geoaft/build_figures.py
+The per-method scatter (fig_methods) is plotted from the author's plot data in source/*.csv.
+Standard library only. Run: python Website/tools/geoaft/build_figures.py
 """
+import csv
 import json
 import math
 from html import escape
@@ -551,21 +552,107 @@ def fig_regimes():
     write('fig5-regime-3.svg', svg(260, 124, '\n'.join(o), 'Schematic: a compatibility pattern produced by a structured geometry that a restricted low-rank Q/K family may not reach.', 'r3'))
 
 
-def fig_preliminary():
-    """Split the author's two-panel preliminary-results figure (source/) into panels the page can stack or tab."""
-    try:
-        from PIL import Image
-    except ImportError:
-        print('skipped fig4 panels (pip install pillow to rebuild them)')
-        return
-    src = Image.open(HERE / 'source' / 'geoaft_preliminary_results.png').convert('RGBA')
-    page = Image.new('RGBA', src.size, 'white')
-    page.alpha_composite(src)
-    for name, box in [('fig4-capability.png', (0, 0, 1900, 1170)), ('fig4-efficiency.png', (2070, 0, 3664, 1170)),
-                      ('fig4-legend.png', (1150, 1170, 2800, 1273))]:
-        OUT.mkdir(parents=True, exist_ok=True)
-        page.crop(box).convert('P', palette=Image.ADAPTIVE, colors=128).save(OUT / name, optimize=True)
-        print('wrote', name)
+VIOLET = '#7a5ea8'
+FAMILIES = [('GeoAFT', 'GeoAFT', TEAL), ('Generic learned scorer', 'Generic learned scorer', NEUTRAL),
+            ('Structured control', 'Structured control', NAVY), ('Fixed geometry / bank', 'Fixed geometry or bank', OCHRE),
+            ('Q/K / attention PEFT', 'Q/K adaptation', VIOLET)]
+SYNTHETIC = [('SOTA1A', 'Learned L<tspan baseline-shift="sub" font-size="11">p</tspan> target', 'learned L_p'),
+             ('SOTA1B', 'Mahalanobis target', 'Mahalanobis'), ('SOTA1C', 'Structured nonlinear target', 'structured nonlinear')]
+
+
+def method_points():
+    """Every tested method on the synthetic targets: (target, family, group, method, params, R%)."""
+    read = lambda name: list(csv.DictReader((HERE / 'source' / name).open(encoding='utf-8')))
+    family = {}
+    for row in read('type1_data_v3.csv'):
+        for group in row['Method group'].split(';'):
+            family.setdefault((row['Target'], group), row['Family'])
+    points = []
+    for row in read('type2_data_v3.csv'):
+        if row['Target'] not in {t for t, *_ in SYNTHETIC}:
+            continue   # real-task rows are not shown on the site
+        points.append({'target': row['Target'], 'family': family[(row['Target'], row['Method group'])], 'group': row['Method group'],
+                       'method': row['Method'], 'selected': row['Source'] == 'selected_group', 'geo': row['Is GeoAFT'] == 'True',
+                       'params': float(row['Params']), 'R': 100 * float(row['Mean metric'])})
+    return points
+
+
+def fig_methods():
+    """Small multiples, one per synthetic target: trainable parameters against oracle-gap recovery for every method."""
+    points = method_points()
+    colour = {key: c for key, _, c in FAMILIES}
+    GAP_FLOOR, X0, X1 = 0.005, -0.15, 4.15
+    span = 2 - math.log10(GAP_FLOOR)
+    label = ('Chart: for each of the three synthetic targets, every tested method is plotted by trainable parameters and '
+             'oracle-gap recovery. GeoAFT variants reach the highest recovery on each target with tens of parameters or fewer; '
+             'on the L_p target a fixed geometry bank is close behind, and on the nonlinear target generic learned scorers '
+             'come close only with hundreds to thousands of parameters.')
+
+    def build(cols, pw, ph):
+        rows = math.ceil(len(SYNTHETIC) / cols)
+        legend_h = 34 if cols > 1 else 84
+        W, H = cols * pw, rows * ph + legend_h
+        out = []
+        for i, (target, title, _) in enumerate(SYNTHETIC):
+            ox, oy = (i % cols) * pw, (i // cols) * ph
+            x0, x1, y0, y1 = ox + 80, ox + pw - 14, oy + 76, oy + ph - 52
+            sx = lambda v: x0 + (math.log10(v) - X0) / (X1 - X0) * (x1 - x0)
+            sy = lambda r: y1 - (2 - math.log10(max(100 - r, GAP_FLOOR))) / span * (y1 - y0)
+            out.append(f'<g data-target="{target}">')
+            out.append(f'<text class="gf-t gf-h" x="{ox + 8}" y="{oy + 22}" font-size="16.5">{title}</text>')
+            for r, lab in [(0, '0%'), (90, '90%'), (99, '99%'), (99.9, '99.9%'), (99.99, '99.99%')]:
+                out.append(f'<line x1="{x0}" y1="{sy(r):.1f}" x2="{x1}" y2="{sy(r):.1f}" stroke="{GRID}"/>')
+                out.append(f'<text class="gf-t gf-m" x="{x0 - 7}" y="{sy(r) + 4:.1f}" font-size="12.5" text-anchor="end">{lab}</text>')
+            for e, lab in enumerate(['1', '10', '100', '1k', '10k']):
+                out.append(f'<line x1="{sx(10 ** e):.1f}" y1="{y0}" x2="{sx(10 ** e):.1f}" y2="{y1}" stroke="{GRID}"/>')
+                out.append(f'<text class="gf-t gf-m" x="{sx(10 ** e):.1f}" y="{y1 + 18}" font-size="12.5" text-anchor="middle">{lab}</text>')
+            out.append(f'<line x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}" stroke="{RULE}"/>')
+            out.append(f'<text class="gf-t gf-m" x="{(x0 + x1) / 2:.1f}" y="{y1 + 38}" font-size="13" text-anchor="middle">Trainable parameters (log scale)</text>')
+            if i % cols == 0:
+                out.append(f'<text class="gf-t gf-m" transform="translate({ox + 14},{(y0 + y1) / 2:.1f}) rotate(-90)" font-size="13" text-anchor="middle">Oracle-gap recovery R</text>')
+            mine = sorted((pt for pt in points if pt['target'] == target), key=lambda pt: (pt['params'], -pt['R']))
+            # Pareto frontier: each point that beats every cheaper one.
+            best, frontier = -1, []
+            for pt in mine:
+                if pt['R'] > best + 1e-9:
+                    best = pt['R']
+                    frontier.append(pt)
+            path = 'M' + 'L'.join(f'{sx(pt["params"]):.1f},{sy(pt["R"]):.1f}' for pt in frontier)
+            out.append(f'<path class="gf-frontier" d="{path}" fill="none" stroke="{INK}" stroke-opacity=".45" stroke-width="1.3" stroke-dasharray="5 4"/>')
+            for pt in sorted(mine, key=lambda pt: pt['geo']):   # GeoAFT drawn last, on top
+                X, Y, c = sx(pt['params']), sy(pt['R']), colour[pt['family']]
+                name = pt['group'] if pt['method'] == 'selected' else f"{pt['group']} · {pt['method']}"
+                tip = f"{name} — {pt['params']:,.0f} trainable parameters, R = {pt['R']:.3f}%"
+                mark = (f'<path d="M{X:.1f},{Y - 7:.1f}L{X + 7:.1f},{Y:.1f}L{X:.1f},{Y + 7:.1f}L{X - 7:.1f},{Y:.1f}Z" fill="{c}" stroke="#fff" stroke-width="1.2"/>'
+                        if pt['geo'] else f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="4.6" fill="{c}" fill-opacity=".85" stroke="#fff" stroke-width="1"/>')
+                if pt['geo'] and pt['selected']:
+                    mark = f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="11.5" fill="none" stroke="{TEAL_INK}" stroke-width="1.6"/>' + mark
+                out.append(f'<g class="gf-pt" data-family="{escape(pt["family"])}" data-label="{escape(tip)}"><title>{escape(tip)}</title>{mark}</g>')
+            geo = next(pt for pt in mine if pt['geo'] and pt['selected'])
+            rival = max((pt for pt in mine if not pt['geo']), key=lambda pt: pt['R'])
+            # Headline numbers sit under the title so they never collide with points.
+            out.append(f'<text class="gf-t gf-strong" x="{ox + 8}" y="{oy + 42}" font-size="13.5" fill="{TEAL_INK}">GeoAFT: {geo["R"]:.3f}% with {geo["params"]:,.0f} parameters</text>')
+            out.append(f'<text class="gf-t" x="{ox + 8}" y="{oy + 60}" font-size="13">Best other: {escape(rival["group"])}, {rival["R"]:.3f}% with {rival["params"]:,.0f}</text>')
+            out.append(f'<circle cx="{sx(rival["params"]):.1f}" cy="{sy(rival["R"]):.1f}" r="9.5" fill="none" stroke="{INK}" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="2 2"/>')
+            out.append('</g>')
+        ly, lx = rows * ph + 6, 8
+        keys = [(k, lab, c, True) for k, lab, c in FAMILIES]
+        for j, (key, lab, c, _) in enumerate(keys):
+            if cols == 1:
+                X, Y = 8 + (j % 2) * 186, ly + 14 + (j // 2) * 24
+            else:
+                X, Y = lx, ly + 14
+                lx += 34 + 7.4 * len(lab)
+            mark = (f'<path d="M{X + 7},{Y - 11}L{X + 14},{Y - 4}L{X + 7},{Y + 3}L{X},{Y - 4}Z" fill="{c}"/>' if key == 'GeoAFT'
+                    else f'<circle cx="{X + 7}" cy="{Y - 4}" r="5" fill="{c}"/>')
+            out.append(f'<g class="gf-key" data-family="{escape(key)}">{mark}<text class="gf-t" x="{X + 20}" y="{Y}" font-size="13">{lab}</text></g>')
+        return W, H, '\n'.join(out)
+
+    W, H, body = build(3, 400, 384)
+    write('fig4-methods-wide.svg', svg(W, H, body, label, 'fig4w'))
+    W, H, body = build(1, 400, 384)
+    write('fig4-methods-narrow.svg', svg(W, H, body, label, 'fig4n'))
+
 
 
 def write_toy_json():
@@ -583,5 +670,5 @@ if __name__ == '__main__':
     fig_recovery()
     fig_params()
     fig_regimes()
-    fig_preliminary()
+    fig_methods()
     write_toy_json()

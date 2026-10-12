@@ -1,7 +1,7 @@
 {
   "_note": "Project-specific pages rendered by generate_research.py. Templates are built from Website/tools/geoaft/content by build_content.py.",
   "width": "max-w-6xl",
-  "version": "20261012-geoaft7",
+  "version": "20261012-geoaft8",
   "pages": [
     {
       "template": "index.html",
