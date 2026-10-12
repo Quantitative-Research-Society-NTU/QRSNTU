@@ -277,9 +277,6 @@
 .geo-details-body .geo-exp p { font-size: .93rem; line-height: 1.55; margin: 0 0 .5rem; }
 .geo-details-body .geo-exp .geo-exp-target { color: var(--geo-muted); font-size: .88rem; }
 .geo-meter-wide { grid-template-columns: minmax(0, 1fr) auto; margin: .6rem 0 .75rem; }
-.geo-fig-pair { display: grid; gap: 1.5rem; margin: 1.5rem 0 1rem; }
-@media (min-width: 760px) { .geo-fig-pair { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-.geo-details-body .geo-fig-pair .geo-figure { margin: 0; max-width: 360px; }
 .geo-details-body .geo-regimes { margin-top: 1.25rem; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 760px) { .geo-details-body .geo-regimes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .geo-details-body .geo-regime { margin: 0; }
@@ -329,3 +326,29 @@
 .geo .geo-next-list h3 { font-size: 1.1rem; margin: 0 0 .3rem; }
 .geo-next-list h3::before { content: counter(next) "  "; color: var(--geo-teal-ink); }
 .geo .geo-next-list p { margin: 0; line-height: 1.55; font-size: .95rem; }
+.geo-next > h2 .geo-tag { vertical-align: middle; margin-left: .5rem; font-family: 'QRS Frutiger', 'Frutiger', 'Segoe UI', Inter, system-ui, sans-serif; }
+.geo ol.geo-next-list-1 { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+.geo .geo-next-list p + p { margin-top: .5rem; }
+.geo p.geo-chips { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .4rem; font-size: .85rem; }
+.geo-chips b { min-width: 2.6rem; color: var(--geo-ink); font-weight: 600; }
+.geo-chip { border: 1px solid #9fd3d5; background: var(--geo-teal-tint); color: var(--geo-teal-ink); border-radius: 999px; padding: .05rem .6rem; }
+.geo-chip-next { border: 1px dashed #9aa3af; background: none; color: var(--geo-muted); }
+.geo ol.geo-ladder { list-style: none; padding: 0; margin: .75rem 0 1.25rem; display: grid; gap: 1rem; }
+@media (min-width: 760px) { .geo ol.geo-ladder { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.geo-ladder li { border-top: 3px dashed #b9c0ca; padding-top: .6rem; margin: 0; font-size: .92rem; line-height: 1.5; }
+.geo-ladder li.is-done { border-top: 3px solid var(--geo-teal); }
+.geo-ladder b { display: block; color: var(--geo-ink); font-weight: 600; font-size: 1rem; }
+.geo-ladder-state { display: block; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--geo-muted); margin-bottom: .2rem; }
+.geo-ladder .is-done .geo-ladder-state { color: var(--geo-teal-ink); }
+
+/* ---------- Details: the dense results figure (author's panels, tabbed by geoaft.js) ---------- */
+.geo-dense img { display: block; width: 100%; height: auto; }
+.geo-dense-panel { animation: geo-fade .35s ease; }
+.geo-dense-panel + .geo-dense-panel { margin-top: 1rem; }
+.geo-dense .geo-dense-legend { max-width: 36rem; margin: .25rem auto 0; }
+@keyframes geo-fade { from { opacity: 0; } }
+.geo-tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
+.geo-tabs button { border: 1px solid #c4cad3; border-radius: 6px; padding: .35rem .8rem; background: #fff; color: var(--geo-navy); font-size: .9rem; }
+.geo-tabs button:hover { border-color: var(--geo-navy); }
+.geo-tabs button[aria-pressed="true"] { background: var(--geo-navy); color: #fff; border-color: var(--geo-navy); }
+@media print { .geo-tabs { display: none; } .geo-dense-panel[hidden] { display: block !important; } }

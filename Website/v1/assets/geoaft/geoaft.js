@@ -555,6 +555,29 @@ function heroFade() {
     update();
 }
 
+// Figures marked data-geo-tabs show one panel at a time; without JavaScript the panels simply stack.
+function initTabs(fig) {
+    const panels = [...fig.querySelectorAll('[data-tab-title]')];
+    if (panels.length < 2) return;
+    const bar = document.createElement('div');
+    bar.className = 'geo-tabs';
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Choose a panel');
+    const show = i => {
+        panels.forEach((panel, j) => { panel.hidden = j !== i; });
+        [...bar.children].forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+    };
+    panels.forEach((panel, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = panel.dataset.tabTitle;
+        b.addEventListener('click', () => show(i));
+        bar.append(b);
+    });
+    fig.prepend(bar);
+    show(0);
+}
+
 // A thin bar under the site header showing how far down the details page the reader is.
 function readingProgress() {
     const page = document.querySelector('.geo-details');
@@ -585,6 +608,7 @@ if (root) {
     revealOnScroll();
     readingProgress();
     heroFade();
+    document.querySelectorAll('[data-geo-tabs]').forEach(initTabs);
     document.querySelectorAll('[data-geo-gate]').forEach(fig => {
         try { initGate(fig); } catch (err) { console.warn('GeoAFT gate figure unavailable; showing static figure.', err); }
     });

@@ -137,16 +137,17 @@
       <p><strong>Caveat.</strong> {{ev:wins}} paired wins, but the difference is below the preregistered materiality threshold: economy, not superiority.</p>
     </article>
   </div>
-  <div class="geo-fig-pair">
-    <figure class="geo-figure" data-reveal aria-labelledby="fig4a-cap">
-      {{svg:assets/geoaft/fig4a-recovery-narrow.svg}}
-      <figcaption id="fig4a-cap"><strong>Figure 4a. \(L_p\) and Mahalanobis targets.</strong> At the tested budgets Q/K-LoRA stays {{ev:qk_margin}} points behind GeoAFT, and the tested pair-MLP scorers {{ev:pair_margin}} points. Comparator bars are placed from these reported margins; each range spans both targets.</figcaption>
-    </figure>
-    <figure class="geo-figure" data-reveal aria-labelledby="fig4b-cap">
-      {{svg:assets/geoaft/fig4b-params-narrow.svg}}
-      <figcaption id="fig4b-cap"><strong>Figure 4b. Nonlinear target.</strong> About {{ev:ratio}}× fewer trainable parameters for a similar fit. Counts are trainable parameters, not inference cost.</figcaption>
-    </figure>
-  </div>
+  <p>On the \(L_p\) and Mahalanobis targets, Q/K-LoRA stays {{ev:qk_margin}} points behind GeoAFT at the tested budgets, and the tested pair-MLP scorers {{ev:pair_margin}} points; each range spans both targets.</p>
+  <figure class="geo-figure geo-dense" data-geo-tabs aria-labelledby="fig4-cap">
+    <div class="geo-dense-panel" data-tab-title="(a) Capability">
+      <img src="{{root}}assets/geoaft/fig4-capability.png" width="1900" height="1170" loading="lazy" alt="Dot plot. Rows are method families: GeoAFT, FFN base, learned scorer, structured control, fixed geometry or bank, and Q/K PEFT. The horizontal axis is oracle-gap recovery for the three synthetic targets. Dotted envelopes join the strongest point of each family per target, and the GeoAFT row holds the best point for each synthetic target.">
+    </div>
+    <div class="geo-dense-panel" data-tab-title="(b) Efficiency">
+      <img src="{{root}}assets/geoaft/fig4-efficiency.png" width="1594" height="1170" loading="lazy" alt="Scatter plot of relative performance against trainable parameters on a log scale, with a dashed Pareto frontier for each target. Diamonds are GeoAFT variants and circles are other methods.">
+    </div>
+    <img class="geo-dense-legend" src="{{root}}assets/geoaft/fig4-legend.png" width="1650" height="103" loading="lazy" alt="Colour key: blue L p geometry, orange Mahalanobis geometry, green nonlinear geometry, purple RTE adaptation.">
+    <figcaption id="fig4-cap"><strong>Figure 4. The synthetic experiments in full.</strong> <strong>(a)</strong> Each row is a method family; dotted envelopes join the strongest point of each family for each target, and rings mark the best point per target. <strong>(b)</strong> Relative performance against trainable parameters, with a dashed Pareto frontier per target; diamonds are GeoAFT variants. Metrics are protocol-local, not a common leaderboard. The purple series is an internal RTE study on its own top axes; it is preliminary and not reported as a result here.</figcaption>
+  </figure>
   <div class="geo-scope" role="note">
     <p><strong>Scope.</strong> These are controlled synthetic results. Not every registered superiority comparison passed, and recovering a target is not the same as adding capacity. <a class="card-link" href="#protocol">Protocol, controls and full table →</a></p>
   </div>
@@ -175,18 +176,36 @@
       <p>Changes a restricted conventional family cannot reach. Whether this survives downstream is the open question.</p>
     </li>
   </ol>
-  <p class="geo-pull">The goal is a map of when adaptation should change representations and when it should change how they interact, not a claim that one geometry always wins.</p>
 </section>
 
 <section id="benchmarks" aria-labelledby="benchmarks-h">
   <h2 id="benchmarks-h"><span class="geo-sec-n">6</span>In progress and future directions</h2>
-  <p><strong>Real benchmarks are in progress.</strong> Evaluation of the current method on natural tasks is ongoing, and no results from it are reported here. The directions below are what that work is organised around.</p>
-  <ol class="geo-next-list geo-next-list-2" data-reveal="rise">
-    <li><h3>Map the regimes</h3><p>Say, for a given setting, whether a geometry update is a reparameterization, an economy, or a distinct capacity. The goal is a map of when adaptation should change representations and when it should change how they interact.</p></li>
-    <li><h3>Constrained representations</h3><p>Test the working hypothesis that relations matter most when representations are constrained: frozen or compressed features, small adaptation budgets, or similarity-critical tasks.</p></li>
-    <li><h3>From score to task</h3><p>A score change that Q/K cannot represent can still be erased by the value and output path. Current work studies the conditions under which the difference is transmitted downstream.</p></li>
-    <li><h3>Honest efficiency</h3><p>Trainable-parameter counts are not inference cost. No accuracy–compute frontier is claimed until time, throughput and memory are measured compatibly.</p></li>
+  <p><strong>Real benchmarks are in progress.</strong> Evaluation of the current method on natural tasks is ongoing, and no results from it are reported here. The programme ahead is organised around three research questions.</p>
+  <ol class="geo-next-list geo-next-list-1" data-reveal="rise">
+    <li>
+      <h3>When is geometry adaptation actually different?</h3>
+      <p>The aim is not a larger metric menu. Each geometry family will be paired with a containment control that asks whether it can be compiled into an ordinary representation or score update. Theory will separate exact reparameterization, lower-complexity parameterization of an equivalent class, and genuinely distinct capacity.</p>
+      <p class="geo-chips"><b>Now</b> <span class="geo-chip">dot</span><span class="geo-chip">cosine</span><span class="geo-chip">L1 / L2</span><span class="geo-chip">learned \(L_p\)</span><span class="geo-chip">Mahalanobis</span><span class="geo-chip">rational-quadratic</span></p>
+      <p class="geo-chips"><b>Next</b> <span class="geo-chip geo-chip-next">spherical</span><span class="geo-chip geo-chip-next">hyperbolic</span><span class="geo-chip geo-chip-next">mixed curvature</span><span class="geo-chip geo-chip-next">local metric</span><span class="geo-chip geo-chip-next">learned kernel</span><span class="geo-chip geo-chip-next">dynamic geometry</span></p>
+    </li>
+    <li>
+      <h3>Can geometry become conditional?</h3>
+      <p>A single global metric will be generalized so that the geometry can depend on the input, layer, head or local statistics, through low-rank coordinate maps, kernel mixtures, local metrics, learned curvature and small selectors. Projected-dot and generic learned-score controls will isolate geometry from added projection capacity or search breadth.</p>
+    </li>
+    <li>
+      <h3>Does it survive beyond attention and under compression?</h3>
+      <p>In JEPA-style latent prediction, a fixed distance between predicted and target latents will be replaced by a structured, trainable one. The same framework will be studied on encoder, vision and decoder-only models, with model size, token budget, latent dimension, adaptation budget and BF16 → INT8 → INT4 precision as probes. Stronger representations may give geometry more to exploit, or make it redundant because conventional PEFT absorbs the mismatch.</p>
+    </li>
   </ol>
+  <h3>How it will be judged</h3>
+  <ol class="geo-ladder" data-reveal="rise">
+    <li class="is-done"><span class="geo-ladder-state">Tested, synthetic</span><b>Identifiability</b> Can the geometry recover a known relation?</li>
+    <li><span class="geo-ladder-state">Planned</span><b>Functional necessity</b> Does changing the relation improve prediction when features are frozen or constrained?</li>
+    <li><span class="geo-ladder-state">Planned</span><b>Complementarity</b> Do gains survive equal-budget conventional PEFT, projected-dot, fixed-geometry, exact-containment and generic-score controls?</li>
+    <li><span class="geo-ladder-state">Planned</span><b>Regime dependence</b> How do the answers change with architecture, scale and compression?</li>
+  </ol>
+  <p>Experiments will move from controlled targets to geometry-critical frozen-feature, prototype and retrieval tasks, and then to pretrained Transformer, vision and JEPA systems. Model, split, comparator family, search budget, seeds and success margins will be frozen before final testing, and task quality will be reported with trainable and stored state, wall time, throughput and peak memory.</p>
+  <p class="geo-pull">Geometry is unlikely to help uniformly. Similarity-critical, frozen or compressed regimes may benefit, while flexible networks may absorb the same change through ordinary PEFT. Both outcomes are useful: the intended result is a regime map of where adaptation capacity should be allocated.</p>
 </section>
 
 <p class="geo-part">Part 3 · Technical details</p>

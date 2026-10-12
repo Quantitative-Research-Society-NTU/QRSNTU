@@ -3,7 +3,8 @@
 Outputs go to Website/v1/assets/geoaft/. Every empirical number is read from
 evidence.json; geometry panels are computed from TOY, which geoaft.js mirrors.
 Bars carry class gf-bar / gf-dot so geoaft.css can grow them in when a figure scrolls into view.
-Standard library only. Run: python Website/tools/geoaft/build_figures.py
+Standard library only, except fig_preliminary(), which crops the author's results figure and needs
+Pillow (skipped with a note when it is not installed). Run: python Website/tools/geoaft/build_figures.py
 """
 import json
 import math
@@ -550,6 +551,23 @@ def fig_regimes():
     write('fig5-regime-3.svg', svg(260, 124, '\n'.join(o), 'Schematic: a compatibility pattern produced by a structured geometry that a restricted low-rank Q/K family may not reach.', 'r3'))
 
 
+def fig_preliminary():
+    """Split the author's two-panel preliminary-results figure (source/) into panels the page can stack or tab."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print('skipped fig4 panels (pip install pillow to rebuild them)')
+        return
+    src = Image.open(HERE / 'source' / 'geoaft_preliminary_results.png').convert('RGBA')
+    page = Image.new('RGBA', src.size, 'white')
+    page.alpha_composite(src)
+    for name, box in [('fig4-capability.png', (0, 0, 1900, 1170)), ('fig4-efficiency.png', (2070, 0, 3664, 1170)),
+                      ('fig4-legend.png', (1150, 1170, 2800, 1273))]:
+        OUT.mkdir(parents=True, exist_ok=True)
+        page.crop(box).convert('P', palette=Image.ADAPTIVE, colors=128).save(OUT / name, optimize=True)
+        print('wrote', name)
+
+
 def write_toy_json():
     """Machine-readable copy of the toy so geoaft.js and tests can check they agree."""
     data = dict(TOY)
@@ -565,4 +583,5 @@ if __name__ == '__main__':
     fig_recovery()
     fig_params()
     fig_regimes()
+    fig_preliminary()
     write_toy_json()
