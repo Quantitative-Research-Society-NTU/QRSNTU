@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>GeoAFT explainer animatic</title>
+<link rel="stylesheet" href="/v1/fonts.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v1/assets/geoaft/geoaft.css">
+<style>
+html,body{margin:0;background:#0d1424}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fbfbfa;color:#374151;
+  font-family:'QRS Frutiger','Segoe UI',sans-serif;font-weight:300}
+.scene,.layer{position:absolute;inset:0;opacity:0}
+.brand{position:absolute;left:48px;top:30px;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#006f76}
+.brand b{font-weight:400;color:#11182c;letter-spacing:.04em;text-transform:none;font-family:'Playfair Display',serif;font-size:19px;margin-right:12px}
+.prog{position:absolute;left:0;bottom:0;height:4px;background:#00929a}
+.mark{position:absolute;right:48px;top:30px;font-size:14px;color:#6b7280}
+h1,h2,h3,p{margin:0}
+.big-title{font-family:'Playfair Display',serif;font-weight:700;font-size:120px;color:#11182c;letter-spacing:-.01em;line-height:1}
+.full-name{font-size:34px;color:#006f76;letter-spacing:.01em}
+.full-name b{font-weight:600;color:#11182c}
+.serif{font-family:'Playfair Display',serif}
+.h2{font-size:44px;color:#11182c;line-height:1.15}
+.h3{font-size:28px;color:#11182c}
+.body{font-size:24px;line-height:1.45}
+.muted{color:#6b7280}
+.tag{display:inline-block;font-size:15px;letter-spacing:.1em;text-transform:uppercase;border:1px solid #c4cad3;border-radius:999px;padding:4px 14px;color:#6b7280;vertical-align:middle}
+.card{position:absolute;background:#fff;border:1px solid #dfe3e8;border-radius:14px;padding:28px 32px}
+.pill{display:inline-block;border-radius:999px;padding:6px 16px;font-size:19px}
+.pill-ochre{background:#fbeee2;color:#93480a;border:1px solid #e9b98f}
+.pill-gray{border:1px dashed #9aa3af;color:#6b7280}
+.pill-teal{background:#e2f3f3;color:#006f76;border:1px solid #9fd3d5}
+.pill-navy{background:#183b63;color:#fff}
+math{font-family:'STIX Two Math','Cambria Math','Latin Modern Math',math,serif}
+.eq{font-size:34px;color:#11182c}
+.teal{color:#006f76}
+.figwrap svg{width:100%;height:auto;display:block}
+.foot{position:absolute;left:48px;right:48px;bottom:40px;font-size:19px;color:#6b7280}
+/* intuition: the project-page figure, rendered frame by frame */
+#i-live{position:absolute;left:70px;top:84px;width:540px}
+#i-live .geo-live-rank li{transition:none;font-size:17px;grid-template-columns:1.4rem minmax(0,1fr) 3.4rem}
+#i-rule{font-size:30px;color:#006f76;min-height:84px;line-height:1.3}
+/* tested */
+.tcard{position:absolute;top:250px;width:330px;height:250px;background:#fff;border:1px solid #dfe3e8;border-top:4px solid #00929a;border-radius:0 0 14px 14px;padding:24px 28px;box-sizing:border-box}
+.tcard .num{font-size:64px;color:#11182c;font-variant-numeric:tabular-nums;margin:14px 0 12px;line-height:1}
+.tcard .track{height:14px;border-radius:5px;background:#eef0f3;overflow:hidden}
+.tcard .track span{display:block;height:100%;background:#00929a;border-radius:5px}
+/* regimes */
+.regime{position:absolute;top:190px;width:340px}
+.regime .glyph svg{width:100%;height:auto}
+.regime h3{font-size:24px;color:#11182c;margin:18px 0 12px;font-weight:300}
+.regime p{font-size:19px;line-height:1.45}
+/* next */
+.rq{position:absolute;top:300px;width:340px;border-left:4px solid #183b63;padding:2px 0 2px 20px;box-sizing:border-box}
+.rq .n{font-size:17px;letter-spacing:.12em;color:#006f76}
+.rq h3{font-size:25px;line-height:1.25;color:#11182c;font-weight:300;margin:6px 0 12px}
+.rq p{font-size:19px;line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:6px 6px;margin-top:12px;font-size:15px}
+.chip{border:1px dashed #9aa3af;border-radius:999px;padding:1px 11px;color:#6b7280}
+</style></head>
+<body><div class="stage" id="stage">
+  <div class="brand"><b>GeoAFT</b>draft explainer</div>
+  <div class="mark">QRS · Quantitative Research Society</div>
+
+  <!-- 1. Puzzle -->
+  <div class="scene" id="s-puzzle">
+    <div class="layer" id="p-title" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
+      <div class="big-title">GeoAFT</div>
+      <div class="full-name"><b>Geo</b>metric <b>A</b>ttention <b>F</b>ine-<b>T</b>uning</div>
+      <div class="body muted" style="font-size:26px;margin-top:10px">Adapting how representations relate, not only the representations</div>
+    </div>
+    <div class="layer" id="p-cards">
+      <div class="card" style="left:90px;top:150px;width:470px;height:400px">
+        <div class="h3">Representations</div>
+        <div class="body muted" style="margin-top:6px">queries <i>q</i> and keys <i>k</i></div>
+        <svg id="p-points" viewBox="0 0 470 240" style="width:100%;margin-top:14px"></svg>
+        <div id="p-reps-pill" style="opacity:0"><span class="pill pill-ochre">Fine-tuning changes these</span></div>
+      </div>
+      <div class="card" style="left:720px;top:150px;width:470px;height:400px">
+        <div class="h3">Relation</div>
+        <div class="body muted" style="margin-top:6px">the rule for comparing them</div>
+        <div class="eq" style="margin:78px 0 92px;text-align:center"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>s</mi><mo stretchy="false">&#x00028;</mo><mi>q</mi><mo>&#x0002C;</mo><mi>k</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><msup><mi>q</mi><mrow><mo>&#x022A4;</mo></mrow></msup><mi>k</mi></mrow><mrow><msqrt><mrow><mi>d</mi></mrow></msqrt></mrow></mfrac></mrow></math></div>
+        <div id="p-rule-pill" style="opacity:0"><span class="pill pill-gray">Usually inherited from pretraining</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Intuition: one figure, the rule keeps changing -->
+  <div class="scene" id="s-intuition">
+    <div class="geo" id="i-live"></div>
+    <div style="position:absolute;left:690px;top:130px;width:530px">
+      <div class="h2">Same points,<br>different relations</div>
+      <div class="body muted" style="margin:26px 0 10px;font-size:20px;letter-spacing:.1em;text-transform:uppercase">Current rule</div>
+      <div id="i-rule"></div>
+      <div class="body" style="margin-top:22px;font-size:21px">Rings and grid are the ruler. Colour is compatibility with <i>q</i>. The bars rank the keys by attention.</div>
+      <div id="i-still" class="body" style="margin-top:26px;opacity:0;color:#11182c;font-size:28px">Nothing moved. Only the geometry changed.</div>
+    </div>
+    <div class="foot" style="left:690px">Illustrative 2-D toy: softmax attention over seven fixed keys.</div>
+  </div>
+
+  <!-- 3. Method -->
+  <div class="scene" id="s-method">
+    <div style="position:absolute;left:60px;top:84px" class="h2">GeoAFT: a structured term on the attention score</div>
+    <div class="figwrap" id="m-fig" style="position:absolute;left:90px;top:150px;width:1100px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="fig3w-title" class="geo-svg" width="980" height="360"><title id="fig3w-title">Diagram of the GeoAFT score: the pretrained score of query q_i and key k_j is kept. In parallel, low-dimensional projections feed a structured geometry g_phi, whose output is centred over each row’s valid keys and scaled by a per-head gate alpha_h that starts at zero. The two are added, masked, and passed through one softmax, so at initialization the attention equals the pretrained attention.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><defs><marker id="f3d-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#6b7280"/></marker><marker id="f3d-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#00929a"/></marker><marker id="f3d-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#c05f0c"/></marker></defs>
+<rect x="10" y="140" width="150" height="80" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="85.0" y="176.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Query, key</text>
+<text class="gf-x" x="85.0" y="197.0" font-size="14" text-anchor="middle">q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan></text>
+<rect x="230" y="40" width="260" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="360.0" y="74.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Pretrained score</text>
+<text class="gf-x" x="360.0" y="95.0" font-size="14" text-anchor="middle">s<tspan baseline-shift="sub" font-size="10">base</tspan>(q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan>)</text>
+<rect x="230" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="305.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Projections</text>
+<text class="gf-x" x="305.0" y="301.0" font-size="14" text-anchor="middle">P<tspan baseline-shift="sub" font-size="10">q</tspan> q, P<tspan baseline-shift="sub" font-size="10">k</tspan> k</text>
+<rect x="400" y="246" width="170" height="76" rx="10" fill="#e2f3f3" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="485.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Structured geometry</text>
+<text class="gf-x" x="485.0" y="301.0" font-size="14" text-anchor="middle">g<tspan baseline-shift="sub" font-size="10">φ</tspan>  (L<tspan baseline-shift="sub" font-size="10">p</tspan>, Mahalanobis, …)</text>
+<rect x="590" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="665.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Centre over</text>
+<text class="gf-t gf-m" x="665.0" y="301.0" font-size="14" text-anchor="middle">valid keys</text>
+<circle cx="790" cy="178" r="22" fill="#fff" stroke="#11182c" stroke-width="1.5"/>
+<text class="gf-t gf-h" x="790" y="186" font-size="24" text-anchor="middle">+</text>
+<rect x="840" y="140" width="130" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="905.0" y="174.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Mask, softmax</text>
+<text class="gf-x" x="905.0" y="195.0" font-size="14" text-anchor="middle">A<tspan baseline-shift="sub" font-size="10">ij</tspan></text>
+<line x1="164" y1="170" x2="226" y2="86" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<line x1="164" y1="196" x2="226" y2="280" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="384" y1="284" x2="396" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="574" y1="284" x2="586" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<path d="M 494 78 L 790 78 L 790 150" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<path d="M 744 284 L 790 284 L 790 206" fill="none" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<rect x="752" y="226" width="76" height="30" rx="15" fill="#fff" stroke="#00929a"/>
+<text class="gf-x" x="790" y="247" font-size="16" text-anchor="middle">× α<tspan baseline-shift="sub" font-size="10">h</tspan></text>
+<line x1="816" y1="178" x2="836" y2="178" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<text class="gf-t" x="590" y="350" font-size="14" style="fill:#006f76">α<tspan baseline-shift="sub" font-size="10">h</tspan> = 0 at initialization  ⇒  exactly the pretrained attention</text>
+<text class="gf-t gf-m" x="500" y="30" font-size="13" text-anchor="middle">kept as is</text></svg></div>
+    <div id="m-eq" class="eq" style="position:absolute;left:0;right:0;top:572px;text-align:center;opacity:0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>s</mi><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mi>k</mi><mi>j</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><msub><mi>&#x003B1;</mi><mi>h</mi></msub><mspace width="0.167em" /><msub><mover><mi>g</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>&#x003D5;</mi></msub><mo stretchy="false">&#x00028;</mo><msub><mi>P</mi><mi>q</mi></msub><msub><mi>q</mi><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mi>P</mi><mi>k</mi></msub><msub><mi>k</mi><mi>j</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+    <div id="m-gate" style="position:absolute;left:0;right:0;top:646px;text-align:center;opacity:0"><span class="pill pill-teal" style="font-size:21px">gate α<sub>h</sub> = 0 at initialization ⇒ exactly the pretrained model</span></div>
+  </div>
+
+  <!-- 4. Tested so far -->
+  <div class="scene" id="s-tested">
+    <div class="layer" id="t-cards">
+      <div style="position:absolute;left:90px;top:100px;width:1100px">
+        <div class="h2">Tested so far <span class="tag" style="margin-left:14px">synthetic · controlled</span></div>
+        <div class="body" style="margin-top:16px;font-size:22px">Three targets with a known relation. Score: oracle-gap recovery <i>R</i>, where 100% matches the oracle. <b style="font-weight:400;color:#11182c">Not classification accuracy.</b></div>
+      </div>
+      <div class="tcard" style="left:90px"><div class="h3">Learned L<sub>p</sub></div><div class="num" data-to="99.983"></div><div class="track"><span></span></div><p class="muted" style="font-size:18px;margin-top:14px">target: an L<sub>p</sub> distance</p></div>
+      <div class="tcard" style="left:475px"><div class="h3">Mahalanobis</div><div class="num" data-to="99.991"></div><div class="track"><span></span></div><p class="muted" style="font-size:18px;margin-top:14px">target: a Mahalanobis metric</p></div>
+      <div class="tcard" style="left:860px"><div class="h3">Structured nonlinear</div><div class="num" data-to="99.934"></div><div class="track"><span></span></div><p class="muted" style="font-size:18px;margin-top:14px">46 trainable parameters</p></div>
+    </div>
+    <div class="layer" id="t-field">
+      <div style="position:absolute;left:60px;top:84px" class="h2">Every method we ran <span class="tag" style="margin-left:14px">synthetic</span></div>
+      <div class="figwrap" id="t-fig" style="position:absolute;left:44px;top:158px;width:1192px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 418" role="img" aria-labelledby="fig4w-title" class="geo-svg" width="1200" height="418"><title id="fig4w-title">Chart: for each of the three synthetic targets, every tested method is plotted by trainable parameters and oracle-gap recovery. GeoAFT variants reach the highest recovery on each target with tens of parameters or fewer; on the L_p target a fixed geometry bank is close behind, and on the nonlinear target generic learned scorers come close only with hundreds to thousands of parameters.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><g data-target="SOTA1A">
+<text class="gf-t gf-h" x="8" y="22" font-size="16.5">Learned L<tspan baseline-shift="sub" font-size="11">p</tspan> target</text>
+<line x1="80" y1="332.0" x2="386" y2="332.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="73" y="336.0" font-size="12.5" text-anchor="end">0%</text>
+<line x1="80" y1="272.5" x2="386" y2="272.5" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="73" y="276.5" font-size="12.5" text-anchor="end">90%</text>
+<line x1="80" y1="213.0" x2="386" y2="213.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="73" y="217.0" font-size="12.5" text-anchor="end">99%</text>
+<line x1="80" y1="153.4" x2="386" y2="153.4" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="73" y="157.4" font-size="12.5" text-anchor="end">99.9%</text>
+<line x1="80" y1="93.9" x2="386" y2="93.9" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="73" y="97.9" font-size="12.5" text-anchor="end">99.99%</text>
+<line x1="90.7" y1="76" x2="90.7" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="90.7" y="350" font-size="12.5" text-anchor="middle">1</text>
+<line x1="161.8" y1="76" x2="161.8" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="161.8" y="350" font-size="12.5" text-anchor="middle">10</text>
+<line x1="233.0" y1="76" x2="233.0" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="233.0" y="350" font-size="12.5" text-anchor="middle">100</text>
+<line x1="304.2" y1="76" x2="304.2" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="304.2" y="350" font-size="12.5" text-anchor="middle">1k</text>
+<line x1="375.3" y1="76" x2="375.3" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="375.3" y="350" font-size="12.5" text-anchor="middle">10k</text>
+<line x1="80" y1="332" x2="386" y2="332" stroke="#cfd4dc"/>
+<text class="gf-t gf-m" x="233.0" y="370" font-size="13" text-anchor="middle">Trainable parameters (log scale)</text>
+<text class="gf-t gf-m" transform="translate(14,204.0) rotate(-90)" font-size="13" text-anchor="middle">Oracle-gap recovery R</text>
+<path class="gf-frontier" d="M90.7,174.0L124.6,107.5" fill="none" stroke="#11182c" stroke-opacity=".45" stroke-width="1.3" stroke-dasharray="5 4"/>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank — 1 trainable parameters, R = 99.779%"><title>DiscreteFixedBank — 1 trainable parameters, R = 99.779%</title><circle cx="90.7" cy="174.0" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_2p5 — 1 trainable parameters, R = 95.324%"><title>DiscreteFixedBank · fixed_lp_2p5 — 1 trainable parameters, R = 95.324%</title><circle cx="90.7" cy="252.8" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedL2 — 1 trainable parameters, R = 95.320%"><title>FixedL2 — 1 trainable parameters, R = 95.320%</title><circle cx="90.7" cy="252.9" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_3 — 1 trainable parameters, R = 93.763%"><title>DiscreteFixedBank · fixed_lp_3 — 1 trainable parameters, R = 93.763%</title><circle cx="90.7" cy="260.3" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedSquaredL2 — 1 trainable parameters, R = 92.064%"><title>FixedSquaredL2 — 1 trainable parameters, R = 92.064%</title><circle cx="90.7" cy="266.5" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_1p5 — 1 trainable parameters, R = 91.829%"><title>DiscreteFixedBank · fixed_lp_1p5 — 1 trainable parameters, R = 91.829%</title><circle cx="90.7" cy="267.3" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_3p5 — 1 trainable parameters, R = 91.694%"><title>DiscreteFixedBank · fixed_lp_3p5 — 1 trainable parameters, R = 91.694%</title><circle cx="90.7" cy="267.7" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_4 — 1 trainable parameters, R = 89.607%"><title>DiscreteFixedBank · fixed_lp_4 — 1 trainable parameters, R = 89.607%</title><circle cx="90.7" cy="273.5" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedL1 — 1 trainable parameters, R = 82.185%"><title>FixedL1 — 1 trainable parameters, R = 82.185%</title><circle cx="90.7" cy="287.4" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedCosine — 1 trainable parameters, R = 63.508%"><title>FixedCosine — 1 trainable parameters, R = 63.508%</title><circle cx="90.7" cy="305.9" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="ExtraQK — 32 trainable parameters, R = 14.473%"><title>ExtraQK — 32 trainable parameters, R = 14.473%</title><circle cx="197.8" cy="328.0" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="GenericPairMLP · pair_mlp_h1 — 35 trainable parameters, R = 85.136%"><title>GenericPairMLP · pair_mlp_h1 — 35 trainable parameters, R = 85.136%</title><circle cx="200.6" cy="282.7" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="QK_LoRA_rank_sweep · lora_r2 — 64 trainable parameters, R = 29.009%"><title>QK_LoRA_rank_sweep · lora_r2 — 64 trainable parameters, R = 29.009%</title><circle cx="219.2" cy="323.1" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Structured control" data-label="BilinearKeyQuadratic — 65 trainable parameters, R = 92.060%"><title>BilinearKeyQuadratic — 65 trainable parameters, R = 92.060%</title><circle cx="219.7" cy="266.5" r="4.6" fill="#183b63" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="ProjectedDot — 65 trainable parameters, R = 58.405%"><title>ProjectedDot — 65 trainable parameters, R = 58.405%</title><circle cx="219.7" cy="309.3" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="FullQK — 128 trainable parameters, R = 58.418%"><title>FullQK — 128 trainable parameters, R = 58.418%</title><circle cx="240.6" cy="309.3" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="QK_LoRA_rank_sweep — 128 trainable parameters, R = 58.326%"><title>QK_LoRA_rank_sweep — 128 trainable parameters, R = 58.326%</title><circle cx="240.6" cy="309.4" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="GenericPairMLP — 137 trainable parameters, R = 87.798%"><title>GenericPairMLP — 137 trainable parameters, R = 87.798%</title><circle cx="242.7" cy="277.6" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_dot — 1 trainable parameters, R = 58.435%"><title>GeoAFT · geo_dot — 1 trainable parameters, R = 58.435%</title><path d="M90.7,302.3L97.7,309.3L90.7,316.3L83.7,309.3Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_cosine — 2 trainable parameters, R = 63.508%"><title>GeoAFT · geo_cosine — 2 trainable parameters, R = 63.508%</title><path d="M112.1,298.9L119.1,305.9L112.1,312.9L105.1,305.9Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT — 3 trainable parameters, R = 99.983%"><title>GeoAFT — 3 trainable parameters, R = 99.983%</title><circle cx="124.6" cy="107.5" r="11.5" fill="none" stroke="#006f76" stroke-width="1.6"/><path d="M124.6,100.5L131.6,107.5L124.6,114.5L117.6,107.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_rq — 3 trainable parameters, R = 95.250%"><title>GeoAFT · geo_rq — 3 trainable parameters, R = 95.250%</title><path d="M124.6,246.2L131.6,253.2L124.6,260.2L117.6,253.2Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r1 — 18 trainable parameters, R = 92.063%"><title>GeoAFT · geo_mahalanobis_r1 — 18 trainable parameters, R = 92.063%</title><path d="M180.0,259.5L187.0,266.5L180.0,273.5L173.0,266.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r2 — 26 trainable parameters, R = 92.063%"><title>GeoAFT · geo_mahalanobis_r2 — 26 trainable parameters, R = 92.063%</title><path d="M191.4,259.5L198.4,266.5L191.4,273.5L184.4,266.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r4 — 42 trainable parameters, R = 92.063%"><title>GeoAFT · geo_mahalanobis_r4 — 42 trainable parameters, R = 92.063%</title><path d="M206.2,259.5L213.2,266.5L206.2,273.5L199.2,266.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<text class="gf-t gf-strong" x="8" y="42" font-size="13.5" style="fill:#006f76">GeoAFT: 99.983% with 3 parameters</text>
+<text class="gf-t" x="8" y="60" font-size="13">Best other: DiscreteFixedBank, 99.779% with 1</text>
+<circle cx="90.7" cy="174.0" r="9.5" fill="none" stroke="#11182c" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="2 2"/>
+</g>
+<g data-target="SOTA1B">
+<text class="gf-t gf-h" x="408" y="22" font-size="16.5">Mahalanobis target</text>
+<line x1="480" y1="332.0" x2="786" y2="332.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="473" y="336.0" font-size="12.5" text-anchor="end">0%</text>
+<line x1="480" y1="272.5" x2="786" y2="272.5" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="473" y="276.5" font-size="12.5" text-anchor="end">90%</text>
+<line x1="480" y1="213.0" x2="786" y2="213.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="473" y="217.0" font-size="12.5" text-anchor="end">99%</text>
+<line x1="480" y1="153.4" x2="786" y2="153.4" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="473" y="157.4" font-size="12.5" text-anchor="end">99.9%</text>
+<line x1="480" y1="93.9" x2="786" y2="93.9" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="473" y="97.9" font-size="12.5" text-anchor="end">99.99%</text>
+<line x1="490.7" y1="76" x2="490.7" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="490.7" y="350" font-size="12.5" text-anchor="middle">1</text>
+<line x1="561.8" y1="76" x2="561.8" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="561.8" y="350" font-size="12.5" text-anchor="middle">10</text>
+<line x1="633.0" y1="76" x2="633.0" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="633.0" y="350" font-size="12.5" text-anchor="middle">100</text>
+<line x1="704.2" y1="76" x2="704.2" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="704.2" y="350" font-size="12.5" text-anchor="middle">1k</text>
+<line x1="775.3" y1="76" x2="775.3" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="775.3" y="350" font-size="12.5" text-anchor="middle">10k</text>
+<line x1="480" y1="332" x2="786" y2="332" stroke="#cfd4dc"/>
+<text class="gf-t gf-m" x="633.0" y="370" font-size="13" text-anchor="middle">Trainable parameters (log scale)</text>
+<path class="gf-frontier" d="M490.7,287.9L580.0,174.9L591.4,159.1L606.2,91.5" fill="none" stroke="#11182c" stroke-opacity=".45" stroke-width="1.3" stroke-dasharray="5 4"/>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank — 1 trainable parameters, R = 81.838%"><title>DiscreteFixedBank — 1 trainable parameters, R = 81.838%</title><circle cx="490.7" cy="287.9" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedL2 — 1 trainable parameters, R = 79.932%"><title>FixedL2 — 1 trainable parameters, R = 79.932%</title><circle cx="490.7" cy="290.5" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_1p5 — 1 trainable parameters, R = 78.945%"><title>DiscreteFixedBank · fixed_lp_1p5 — 1 trainable parameters, R = 78.945%</title><circle cx="490.7" cy="291.7" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_2p5 — 1 trainable parameters, R = 78.324%"><title>DiscreteFixedBank · fixed_lp_2p5 — 1 trainable parameters, R = 78.324%</title><circle cx="490.7" cy="292.5" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_3 — 1 trainable parameters, R = 75.821%"><title>DiscreteFixedBank · fixed_lp_3 — 1 trainable parameters, R = 75.821%</title><circle cx="490.7" cy="295.3" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_3p5 — 1 trainable parameters, R = 73.229%"><title>DiscreteFixedBank · fixed_lp_3p5 — 1 trainable parameters, R = 73.229%</title><circle cx="490.7" cy="297.9" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedL1 — 1 trainable parameters, R = 72.544%"><title>FixedL1 — 1 trainable parameters, R = 72.544%</title><circle cx="490.7" cy="298.6" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="DiscreteFixedBank · fixed_lp_4 — 1 trainable parameters, R = 70.862%"><title>DiscreteFixedBank · fixed_lp_4 — 1 trainable parameters, R = 70.862%</title><circle cx="490.7" cy="300.1" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="FixedCosine — 1 trainable parameters, R = 55.259%"><title>FixedCosine — 1 trainable parameters, R = 55.259%</title><circle cx="490.7" cy="311.2" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="ExtraQK — 32 trainable parameters, R = 30.702%"><title>ExtraQK — 32 trainable parameters, R = 30.702%</title><circle cx="597.8" cy="322.5" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="GenericPairMLP · pair_mlp_h1 — 35 trainable parameters, R = 89.728%"><title>GenericPairMLP · pair_mlp_h1 — 35 trainable parameters, R = 89.728%</title><circle cx="600.6" cy="273.2" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="QK_LoRA_rank_sweep · lora_r2 — 64 trainable parameters, R = 46.668%"><title>QK_LoRA_rank_sweep · lora_r2 — 64 trainable parameters, R = 46.668%</title><circle cx="619.2" cy="315.8" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="ProjectedDot — 65 trainable parameters, R = 60.126%"><title>ProjectedDot — 65 trainable parameters, R = 60.126%</title><circle cx="619.7" cy="308.2" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="FullQK — 128 trainable parameters, R = 60.129%"><title>FullQK — 128 trainable parameters, R = 60.129%</title><circle cx="640.6" cy="308.2" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="QK_LoRA_rank_sweep — 128 trainable parameters, R = 60.109%"><title>QK_LoRA_rank_sweep — 128 trainable parameters, R = 60.109%</title><circle cx="640.6" cy="308.2" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="GenericPairMLP — 137 trainable parameters, R = 93.564%"><title>GenericPairMLP — 137 trainable parameters, R = 93.564%</title><circle cx="642.7" cy="261.1" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="GenericPairMLP · pair_mlp_h4 — 137 trainable parameters, R = 93.544%"><title>GenericPairMLP · pair_mlp_h4 — 137 trainable parameters, R = 93.544%</title><circle cx="642.7" cy="261.2" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_dot — 1 trainable parameters, R = 51.093%"><title>GeoAFT · geo_dot — 1 trainable parameters, R = 51.093%</title><path d="M490.7,306.5L497.7,313.5L490.7,320.5L483.7,313.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_cosine — 2 trainable parameters, R = 55.259%"><title>GeoAFT · geo_cosine — 2 trainable parameters, R = 55.259%</title><path d="M512.1,304.2L519.1,311.2L512.1,318.2L505.1,311.2Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_rq — 3 trainable parameters, R = 81.450%"><title>GeoAFT · geo_rq — 3 trainable parameters, R = 81.450%</title><path d="M524.6,281.5L531.6,288.5L524.6,295.5L517.6,288.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_lp — 3 trainable parameters, R = 80.066%"><title>GeoAFT · geo_lp — 3 trainable parameters, R = 80.066%</title><path d="M524.6,283.3L531.6,290.3L524.6,297.3L517.6,290.3Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r1 — 18 trainable parameters, R = 99.770%"><title>GeoAFT · geo_mahalanobis_r1 — 18 trainable parameters, R = 99.770%</title><path d="M580.0,167.9L587.0,174.9L580.0,181.9L573.0,174.9Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r2 — 26 trainable parameters, R = 99.875%"><title>GeoAFT · geo_mahalanobis_r2 — 26 trainable parameters, R = 99.875%</title><path d="M591.4,152.1L598.4,159.1L591.4,166.1L584.4,159.1Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT — 42 trainable parameters, R = 99.991%"><title>GeoAFT — 42 trainable parameters, R = 99.991%</title><circle cx="606.2" cy="91.5" r="11.5" fill="none" stroke="#006f76" stroke-width="1.6"/><path d="M606.2,84.5L613.2,91.5L606.2,98.5L599.2,91.5Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · geo_mahalanobis_r4 — 42 trainable parameters, R = 99.991%"><title>GeoAFT · geo_mahalanobis_r4 — 42 trainable parameters, R = 99.991%</title><path d="M606.2,84.8L613.2,91.8L606.2,98.8L599.2,91.8Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<text class="gf-t gf-strong" x="408" y="42" font-size="13.5" style="fill:#006f76">GeoAFT: 99.991% with 42 parameters</text>
+<text class="gf-t" x="408" y="60" font-size="13">Best other: GenericPairMLP, 93.564% with 137</text>
+<circle cx="642.7" cy="261.1" r="9.5" fill="none" stroke="#11182c" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="2 2"/>
+</g>
+<g data-target="SOTA1C">
+<text class="gf-t gf-h" x="808" y="22" font-size="16.5">Structured nonlinear target</text>
+<line x1="880" y1="332.0" x2="1186" y2="332.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="873" y="336.0" font-size="12.5" text-anchor="end">0%</text>
+<line x1="880" y1="272.5" x2="1186" y2="272.5" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="873" y="276.5" font-size="12.5" text-anchor="end">90%</text>
+<line x1="880" y1="213.0" x2="1186" y2="213.0" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="873" y="217.0" font-size="12.5" text-anchor="end">99%</text>
+<line x1="880" y1="153.4" x2="1186" y2="153.4" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="873" y="157.4" font-size="12.5" text-anchor="end">99.9%</text>
+<line x1="880" y1="93.9" x2="1186" y2="93.9" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="873" y="97.9" font-size="12.5" text-anchor="end">99.99%</text>
+<line x1="890.7" y1="76" x2="890.7" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="890.7" y="350" font-size="12.5" text-anchor="middle">1</text>
+<line x1="961.8" y1="76" x2="961.8" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="961.8" y="350" font-size="12.5" text-anchor="middle">10</text>
+<line x1="1033.0" y1="76" x2="1033.0" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="1033.0" y="350" font-size="12.5" text-anchor="middle">100</text>
+<line x1="1104.2" y1="76" x2="1104.2" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="1104.2" y="350" font-size="12.5" text-anchor="middle">1k</text>
+<line x1="1175.3" y1="76" x2="1175.3" y2="332" stroke="#eef0f3"/>
+<text class="gf-t gf-m" x="1175.3" y="350" font-size="12.5" text-anchor="middle">10k</text>
+<line x1="880" y1="332" x2="1186" y2="332" stroke="#cfd4dc"/>
+<text class="gf-t gf-m" x="1033.0" y="370" font-size="13" text-anchor="middle">Trainable parameters (log scale)</text>
+<path class="gf-frontier" d="M924.6,317.4L980.0,313.0L1006.2,278.4L1009.0,142.6" fill="none" stroke="#11182c" stroke-opacity=".45" stroke-width="1.3" stroke-dasharray="5 4"/>
+<g class="gf-pt" data-family="Fixed geometry / bank" data-label="CanonicalLp — 3 trainable parameters, R = 43.212%"><title>CanonicalLp — 3 trainable parameters, R = 43.212%</title><circle cx="924.6" cy="317.4" r="4.6" fill="#c05f0c" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="AxisWarp — 18 trainable parameters, R = 52.019%"><title>AxisWarp — 18 trainable parameters, R = 52.019%</title><circle cx="980.0" cy="313.0" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="KernelMixture — 28 trainable parameters, R = 43.768%"><title>KernelMixture — 28 trainable parameters, R = 43.768%</title><circle cx="993.7" cy="317.1" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Structured control" data-label="Mahalanobis — 42 trainable parameters, R = 87.402%"><title>Mahalanobis — 42 trainable parameters, R = 87.402%</title><circle cx="1006.2" cy="278.4" r="4.6" fill="#183b63" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Structured control" data-label="BilinearKeyQuadratic — 65 trainable parameters, R = 87.710%"><title>BilinearKeyQuadratic — 65 trainable parameters, R = 87.710%</title><circle cx="1019.7" cy="277.8" r="4.6" fill="#183b63" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="FullQK — 128 trainable parameters, R = 61.171%"><title>FullQK — 128 trainable parameters, R = 61.171%</title><circle cx="1040.6" cy="307.5" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Q/K / attention PEFT" data-label="QKLoRA — 128 trainable parameters, R = 61.131%"><title>QKLoRA — 128 trainable parameters, R = 61.131%</title><circle cx="1040.6" cy="307.6" r="4.6" fill="#7a5ea8" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="PairMLP · pair_mlp_h16 — 545 trainable parameters, R = 98.248%"><title>PairMLP · pair_mlp_h16 — 545 trainable parameters, R = 98.248%</title><circle cx="1085.4" cy="227.4" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="NonlinearFeatureLp · feature_lp32 — 554 trainable parameters, R = 98.889%"><title>NonlinearFeatureLp · feature_lp32 — 554 trainable parameters, R = 98.889%</title><circle cx="1085.9" cy="215.7" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="NonlinearFeatureLp — 1,062 trainable parameters, R = 99.323%"><title>NonlinearFeatureLp — 1,062 trainable parameters, R = 99.323%</title><circle cx="1106.0" cy="202.9" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="NonlinearFeatureLp · feature_lp64 — 1,098 trainable parameters, R = 99.323%"><title>NonlinearFeatureLp · feature_lp64 — 1,098 trainable parameters, R = 99.323%</title><circle cx="1107.1" cy="202.9" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="PairMLP · pair_mlp_h64 — 2,177 trainable parameters, R = 99.284%"><title>PairMLP · pair_mlp_h64 — 2,177 trainable parameters, R = 99.284%</title><circle cx="1128.2" cy="204.3" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="Generic learned scorer" data-label="PairMLP — 8,705 trainable parameters, R = 99.539%"><title>PairMLP — 8,705 trainable parameters, R = 99.539%</title><circle cx="1171.0" cy="192.9" r="4.6" fill="#8b95a3" fill-opacity=".85" stroke="#fff" stroke-width="1"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT — 46 trainable parameters, R = 99.934%"><title>GeoAFT — 46 trainable parameters, R = 99.934%</title><circle cx="1009.0" cy="142.6" r="11.5" fill="none" stroke="#006f76" stroke-width="1.6"/><path d="M1009.0,135.6L1016.0,142.6L1009.0,149.6L1002.0,142.6Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · warped_open — 46 trainable parameters, R = 99.934%"><title>GeoAFT · warped_open — 46 trainable parameters, R = 99.934%</title><path d="M1009.0,135.6L1016.0,142.6L1009.0,149.6L1002.0,142.6Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<g class="gf-pt" data-family="GeoAFT" data-label="GeoAFT · warped_zero — 46 trainable parameters, R = 99.932%"><title>GeoAFT · warped_zero — 46 trainable parameters, R = 99.932%</title><path d="M1009.0,136.6L1016.0,143.6L1009.0,150.6L1002.0,143.6Z" fill="#00929a" stroke="#fff" stroke-width="1.2"/></g>
+<text class="gf-t gf-strong" x="808" y="42" font-size="13.5" style="fill:#006f76">GeoAFT: 99.934% with 46 parameters</text>
+<text class="gf-t" x="808" y="60" font-size="13">Best other: PairMLP, 99.539% with 8,705</text>
+<circle cx="1171.0" cy="192.9" r="9.5" fill="none" stroke="#11182c" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="2 2"/>
+</g>
+<g class="gf-key" data-family="GeoAFT"><path d="M15,393L22,400L15,407L8,400Z" fill="#00929a"/><text class="gf-t" x="28" y="404" font-size="13">GeoAFT</text></g>
+<g class="gf-key" data-family="Generic learned scorer"><circle cx="93.4" cy="400" r="5" fill="#8b95a3"/><text class="gf-t" x="106.4" y="404" font-size="13">Generic learned scorer</text></g>
+<g class="gf-key" data-family="Structured control"><circle cx="290.20000000000005" cy="400" r="5" fill="#183b63"/><text class="gf-t" x="303.20000000000005" y="404" font-size="13">Structured control</text></g>
+<g class="gf-key" data-family="Fixed geometry / bank"><circle cx="457.4000000000001" cy="400" r="5" fill="#c05f0c"/><text class="gf-t" x="470.4000000000001" y="404" font-size="13">Fixed geometry or bank</text></g>
+<g class="gf-key" data-family="Q/K / attention PEFT"><circle cx="654.2" cy="400" r="5" fill="#7a5ea8"/><text class="gf-t" x="667.2" y="404" font-size="13">Q/K adaptation</text></g></svg></div>
+      <div id="t-note" style="position:absolute;left:60px;right:60px;top:600px;font-size:23px;color:#11182c;text-align:center"></div>
+    </div>
+  </div>
+
+  <!-- 5. Regimes -->
+  <div class="scene" id="s-regimes">
+    <div style="position:absolute;left:90px;top:96px" class="h2">A geometry update can be one of three things</div>
+    <div class="regime" id="r1" style="left:90px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r1-title" class="geo-svg" width="260" height="124"><title id="r1-title">Schematic: two different score formulas produce identical attention after softmax.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="0" y="8" width="140" height="40" rx="8" fill="#e2f3f3" stroke="#00929a"/>
+<text class="gf-x" x="70" y="33" font-size="13.5" text-anchor="middle">−(q−k)ᵀM(q−k)</text>
+<rect x="0" y="70" width="140" height="40" rx="8" fill="#fbeee2" stroke="#c05f0c"/>
+<text class="gf-x" x="70" y="95" font-size="13.5" text-anchor="middle">2qᵀMk − kᵀMk</text>
+<path d="M142,28 C160,28 160,56 170,56" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<path d="M142,90 C160,90 160,62 170,62" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="176" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.72"/>
+<rect x="191" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.38"/>
+<rect x="206" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="221" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="191" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="206" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="221" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="206" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="221" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="236" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="176" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.36"/>
+<rect x="221" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.68"/>
+<rect x="236" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.14"/>
+<rect x="176" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.16"/>
+<rect x="236" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<text class="gf-t gf-m" x="213" y="118" font-size="11.5" text-anchor="middle">same attention</text></svg></div><h3>1 · Exact reparameterization</h3><span class="pill pill-navy" id="r1s">Established analytically</span><p style="margin-top:14px">A rewrite of something weights already do</p></div>
+    <div class="regime" id="r2" style="left:465px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r2-title" class="geo-svg" width="260" height="124"><title id="r2-title">Schematic: a 46-parameter structured geometry and an 8,705-parameter generic scorer fit the same target almost equally well.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="40" y="18" width="22" height="22" rx="3" fill="#00929a"/>
+<text class="gf-t" x="72" y="34" font-size="13" style="fill:#006f76">46</text>
+<rect x="8" y="58" width="86" height="52" rx="3" fill="#8b95a3" fill-opacity=".55"/>
+<text class="gf-t" x="100" y="90" font-size="13">8,705</text>
+<path d="M140,30 C158,30 158,56 168,56" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<path d="M140,86 C158,86 158,62 168,62" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="176" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<rect x="191" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="206" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="191" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<rect x="206" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="191" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.91"/>
+<rect x="221" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.10"/>
+<rect x="176" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="206" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.92"/>
+<rect x="236" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="176" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.10"/>
+<rect x="221" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="236" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.92"/>
+<text class="gf-t gf-m" x="213" y="118" font-size="11.5" text-anchor="middle">near-identical fit</text></svg></div><h3>2 · Economical parameterization</h3><span class="pill pill-teal" id="r2s">Supported in controlled experiments</span><p style="margin-top:14px">The same thing, said with far fewer parameters</p></div>
+    <div class="regime" id="r3" style="left:840px"><div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r3-title" class="geo-svg" width="260" height="124"><title id="r3-title">Schematic: a compatibility pattern produced by a structured geometry that a restricted low-rank Q/K family may not reach.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="0" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.93"/>
+<rect x="14" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="28" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="56" y="22" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="0" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="14" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.93"/>
+<rect x="28" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="36" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="0" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="14" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="28" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.91"/>
+<rect x="42" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="50" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.10"/>
+<rect x="0" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="14" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="28" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="42" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.92"/>
+<rect x="56" y="64" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="0" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="14" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.08"/>
+<rect x="28" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.10"/>
+<rect x="42" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.09"/>
+<rect x="56" y="78" width="12" height="12" rx="2" fill="#00929a" fill-opacity="0.92"/>
+<text class="gf-t gf-m" x="35" y="118" font-size="11.5" text-anchor="middle">geometry</text>
+<text class="gf-t gf-h" x="130" y="64" font-size="24" text-anchor="middle">≠</text>
+<rect x="190" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.90"/>
+<rect x="204" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.33"/>
+<rect x="218" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.17"/>
+<rect x="232" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.11"/>
+<rect x="246" y="22" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.09"/>
+<rect x="190" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.56"/>
+<rect x="204" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.38"/>
+<rect x="218" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.28"/>
+<rect x="232" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.20"/>
+<rect x="246" y="36" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.16"/>
+<rect x="190" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.27"/>
+<rect x="204" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.29"/>
+<rect x="218" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.31"/>
+<rect x="232" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.34"/>
+<rect x="246" y="50" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.37"/>
+<rect x="190" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.11"/>
+<rect x="204" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.15"/>
+<rect x="218" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.22"/>
+<rect x="232" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.40"/>
+<rect x="246" y="64" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.72"/>
+<rect x="190" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.08"/>
+<rect x="204" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.10"/>
+<rect x="218" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.14"/>
+<rect x="232" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.34"/>
+<rect x="246" y="78" width="12" height="12" rx="2" fill="#c05f0c" fill-opacity="0.93"/>
+<text class="gf-t gf-m" x="225" y="118" font-size="11.5" text-anchor="middle">rank-r Q/K</text>
+<text class="gf-t gf-m" x="130" y="90" font-size="11" text-anchor="middle">out of reach?</text></svg></div><h3>3 · Distinct capacity</h3><span class="pill pill-gray" id="r3s">Under investigation</span><p style="margin-top:14px">Changes a restricted Q/K family cannot reach</p></div>
+  </div>
+
+  <!-- 6. In progress and next -->
+  <div class="scene" id="s-next">
+    <div style="position:absolute;left:90px;top:96px;right:90px">
+      <div class="h2">Real benchmarks <span class="pill pill-gray" style="margin-left:14px;vertical-align:middle">In progress</span></div>
+      <div id="n-head" class="h3" style="margin-top:56px;opacity:0">Where this is going <span class="tag" style="margin-left:12px">proposed</span></div>
+    </div>
+    <div class="rq" id="rq1" style="left:90px"><div class="n">QUESTION 1</div><h3>When is geometry adaptation actually different?</h3><p>Every family is paired with a containment control.</p><div class="chips"><span class="chip">spherical</span><span class="chip">hyperbolic</span><span class="chip">mixed curvature</span><span class="chip">local metric</span><span class="chip">learned kernel</span><span class="chip">dynamic</span></div></div>
+    <div class="rq" id="rq2" style="left:470px"><div class="n">QUESTION 2</div><h3>Can geometry become conditional?</h3><p>Let it depend on the input, layer, head or local statistics, not one global metric.</p></div>
+    <div class="rq" id="rq3" style="left:850px"><div class="n">QUESTION 3</div><h3>Does it survive beyond attention and under compression?</h3><p>JEPA-style latent prediction; encoder, vision and decoder-only models; BF16 → INT8 → INT4.</p></div>
+  </div>
+
+  <!-- 7. Close -->
+  <div class="scene" id="s-close" style="display:flex;flex-direction:column;justify-content:center;padding:0 140px">
+    <div style="font-size:50px;line-height:1.25;color:#11182c">When should adaptation change <span style="color:#93480a">representations</span>, and when should it change <span class="teal">how they relate</span>?</div>
+    <div id="c-url" style="margin-top:48px;opacity:0;font-size:28px"><span class="serif" style="font-weight:700;color:#11182c">GeoAFT</span><span class="muted" style="margin-left:18px">qrsntu.org/projects/geoaft</span></div>
+  </div>
+
+  <div class="prog" id="prog"></div>
+</div>
+<script type="module">
+import { buildLive } from '/v1/assets/geoaft/geoaft.js';
+const T = {"total": 141.78, "lines": [{"scene": "puzzle", "beat": "title", "start": 0.6, "end": 2.2, "text": "GeoAFT: geometric attention fine-tuning."}, {"scene": "puzzle", "beat": "two", "start": 2.55, "end": 7.55, "text": "A pretrained Transformer learns two things: representations, and a rule for comparing them."}, {"scene": "puzzle", "beat": "reps", "start": 7.9, "end": 9.82, "text": "Fine-tuning usually changes the representations."}, {"scene": "puzzle", "beat": "rule", "start": 10.17, "end": 14.79, "text": "The rule that decides which tokens attend to which is simply inherited."}, {"scene": "intuition", "beat": "setup", "start": 15.74, "end": 19.58, "text": "Take one query and seven keys, and hold them still."}, {"scene": "intuition", "beat": "euclid", "start": 19.93, "end": 23.4, "text": "Measure with Euclidean distance, and the nearest key wins."}, {"scene": "intuition", "beat": "lp", "start": 23.75, "end": 29.13, "text": "Bend the ruler into an L-p distance, and a different key takes the lead."}, {"scene": "intuition", "beat": "maha", "start": 29.48, "end": 33.71, "text": "Stretch and turn a learned metric, and the ranking shifts again."}, {"scene": "intuition", "beat": "cos", "start": 34.06, "end": 35.98, "text": "Cosine looks only at direction."}, {"scene": "intuition", "beat": "dot", "start": 36.33, "end": 41.33, "text": "The dot product, the pretrained default, rewards whatever lies furthest along the query."}, {"scene": "intuition", "beat": "still", "start": 41.68, "end": 43.99, "text": "Nothing moved. Only the geometry changed."}, {"scene": "method", "beat": "trainable", "start": 44.94, "end": 46.87, "text": "GeoAFT makes that geometry trainable."}, {"scene": "method", "beat": "term", "start": 47.22, "end": 52.22, "text": "It keeps the pretrained score and adds a small, structured term on top."}, {"scene": "method", "beat": "gate", "start": 52.57, "end": 57.57, "text": "A gate starts at zero, so training begins from exactly the pretrained model."}, {"scene": "tested", "beat": "setup", "start": 58.52, "end": 64.28, "text": "So far we have tested it where the right answer is known: three synthetic targets."}, {"scene": "tested", "beat": "three", "start": 64.63, "end": 70.79, "text": "On each, GeoAFT recovers more than ninety-nine point nine percent of the gap to the oracle."}, {"scene": "tested", "beat": "field", "start": 71.14, "end": 75.37, "text": "Here is every method we ran, by trainable parameters and recovery."}, {"scene": "tested", "beat": "qk", "start": 75.72, "end": 78.8, "text": "Low-rank Q/K adaptation stays about forty points behind."}, {"scene": "tested", "beat": "scorers", "start": 79.15, "end": 85.68, "text": "Generic learned scorers trail by six to twelve points, or need thousands of parameters to come close."}, {"scene": "tested", "beat": "caveat", "start": 86.03, "end": 94.5, "text": "One caution: on the L-p target a fixed geometry bank comes almost as close, so not every comparison is a clear win."}, {"scene": "regimes", "beat": "intro", "start": 95.45, "end": 99.29, "text": "So a geometry update can be one of three things."}, {"scene": "regimes", "beat": "list", "start": 99.64, "end": 106.95, "text": "An exact rewrite of something weights already do, a cheaper way to say the same thing, or something new."}, {"scene": "regimes", "beat": "status", "start": 107.3, "end": 112.68, "text": "The first is proven, the second is supported, and the third is still open."}, {"scene": "next", "beat": "progress", "start": 113.63, "end": 115.56, "text": "Real benchmarks are in progress."}, {"scene": "next", "beat": "rq1", "start": 115.91, "end": 122.83, "text": "Next, we ask when geometry adaptation is actually different, across richer families such as spherical and hyperbolic geometry."}, {"scene": "next", "beat": "rq2", "start": 123.18, "end": 127.41, "text": "Whether geometry can become conditional on the input, layer or head."}, {"scene": "next", "beat": "rq3", "start": 127.76, "end": 131.61, "text": "And whether the idea survives beyond attention, and under compression."}, {"scene": "close", "beat": "question", "start": 132.56, "end": 137.56, "text": "When should adaptation change representations, and when should it change how they relate?"}, {"scene": "close", "beat": "url", "start": 137.91, "end": 139.83, "text": "More on the QRS website."}], "scenes": {"puzzle": {"start": 0.6, "end": 15.74}, "intuition": {"start": 15.74, "end": 44.94}, "method": {"start": 44.94, "end": 58.52}, "tested": {"start": 58.52, "end": 95.45}, "regimes": {"start": 95.45, "end": 113.63}, "next": {"start": 113.63, "end": 132.56}, "close": {"start": 132.56, "end": 141.78}}, "words": 327};
+const beat = (scene, name) => T.lines.find(l => l.scene === scene && l.beat === name);
+const clamp = x => Math.max(0, Math.min(1, x));
+const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const fadeWin = (t, a, b, d = .5) => clamp((t - a) / d) * clamp((b - t) / d);
+const $ = id => document.getElementById(id);
+const set = (id, o) => { const e = typeof id === 'string' ? $(id) : id; e.style.opacity = o.toFixed(3); };
+
+// Puzzle: representation points drift (fine-tuning moves them).
+const base = [[60, 170], [120, 60], [200, 140], [260, 70], [330, 180], [400, 100], [170, 210]];
+function drawPoints(t, amp) {
+  const pts = base.map(([x, y], i) => [x + amp * 18 * Math.sin(t * 1.3 + i), y + amp * 12 * Math.cos(t * 1.1 + 2 * i)]);
+  let s = pts.slice(1).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="#fff" stroke="#64748b" stroke-width="2.5"/>`).join('');
+  s += `<circle cx="${pts[0][0]}" cy="${pts[0][1]}" r="11" fill="#183b63"/>`;
+  if (amp > 0) s += base.slice(1).map(([x, y], i) => `<line x1="${x}" y1="${y}" x2="${pts[i + 1][0]}" y2="${pts[i + 1][1]}" stroke="#c05f0c" stroke-width="2" stroke-opacity="${.6 * amp}"/>`).join('');
+  $('p-points').innerHTML = s;
+}
+
+// Intuition: the project-page figure. Its own script runs Euclidean → L_p → Mahalanobis → cosine → dot
+// on a 28.5 s clock; here each narration beat is pinned to the matching stretch of that clock.
+const live = buildLive($('i-live'));
+const liveRows = [...$('i-live').querySelectorAll('.geo-live-rank li')];
+const MARKS = [['setup', 'start', 0], ['euclid', 'end', 1500], ['lp', 'end', 9500], ['maha', 'end', 18500], ['cos', 'end', 21800], ['dot', 'end', 25300]]
+  .map(([b, edge, x]) => [beat('intuition', b)[edge], x]);
+function figureClock(t) {
+  if (t <= MARKS[0][0]) return 0;
+  for (let i = 1; i < MARKS.length; i++) if (t <= MARKS[i][0]) { const [t0, x0] = MARKS[i - 1], [t1, x1] = MARKS[i]; return x0 + (x1 - x0) * (t - t0) / (t1 - t0); }
+  return MARKS[MARKS.length - 1][1];
+}
+
+// Tested: every point of the per-method scatter, grouped by method family.
+const points = [...$('t-fig').querySelectorAll('.gf-pt')];
+const frontiers = [...$('t-fig').querySelectorAll('.gf-frontier')];
+const NOTES = { qk: 'Low-rank Q/K adaptation: about 40 points behind', scorers: 'Generic learned scorers: 6–12 points behind, or thousands of parameters', caveat: 'A fixed geometry bank comes almost as close on the L<sub>p</sub> target. Not every comparison is a clear win.' };
+const FOCUS = { qk: 'Q/K / attention PEFT', scorers: 'Generic learned scorer', caveat: 'Fixed geometry / bank' };
+
+const S = T.scenes;
+window.renderAt = function (t) {
+  for (const [name, s] of Object.entries(S)) set('s-' + name, fadeWin(t, s.start - .25, s.end + .25, .45));
+  $('prog').style.width = (100 * t / T.total).toFixed(2) + '%';
+  // 1
+  const two = beat('puzzle', 'two'), reps = beat('puzzle', 'reps'), rule = beat('puzzle', 'rule');
+  set('p-title', fadeWin(t, 0, two.start - .2, .6));
+  set('p-cards', clamp((t - two.start + .2) / .6));
+  set('p-reps-pill', clamp((t - reps.start - .3) / .5));
+  set('p-rule-pill', clamp((t - rule.start - .5) / .5));
+  drawPoints(t, clamp((t - reps.start) / 1.0) * (1 - clamp((t - rule.start) / 1.5)));
+  // 2
+  if (t > S.intuition.start - 1 && t < S.intuition.end + 1) {
+    // Ranking rows glide: each row sits at its rank averaged over a short window around t.
+    const place = {};
+    for (let k = -3; k <= 3; k++) { live(figureClock(t + k * .07) / live.pace); live.order.forEach((n, i) => { place[n] = (place[n] || 0) + i / 7; }); }
+    $('i-rule').textContent = live(figureClock(t) / live.pace);
+    liveRows.forEach(li => { li.style.transform = `translateY(${(place[li.dataset.k] * live.row).toFixed(1)}px)`; });
+  }
+  set('i-still', clamp((t - beat('intuition', 'still').start) / .5));
+  // 3
+  const m0 = S.method.start, term = beat('method', 'term'), gate = beat('method', 'gate');
+  const reveal = ease(clamp((t - m0 - .3) / (term.end - m0 - .5)));
+  $('m-fig').style.clipPath = `inset(0 ${(100 - 100 * reveal).toFixed(2)}% 0 0)`;
+  set('m-eq', clamp((t - term.start - 1.0) / .6));
+  set('m-gate', clamp((t - gate.start - .3) / .5));
+  // 4
+  const three = beat('tested', 'three'), field = beat('tested', 'field');
+  set('t-cards', fadeWin(t, S.tested.start - .2, field.start - .1, .4));
+  set('t-field', clamp((t - field.start + .1) / .4));
+  const grow = ease(clamp((t - three.start - .2) / 2.2));
+  document.querySelectorAll('.tcard').forEach(card => {
+    const to = Number(card.querySelector('.num').dataset.to);
+    card.querySelector('.num').textContent = to.toFixed(3) + '%';   // always the reported value; it fades in as the bar fills
+    card.querySelector('.num').style.opacity = grow.toFixed(3);
+    card.querySelector('.track span').style.width = (to * grow).toFixed(2) + '%';
+  });
+  let focus = null, note = '';
+  for (const key of ['qk', 'scorers', 'caveat']) if (t >= beat('tested', key).start - .1) { focus = FOCUS[key]; note = NOTES[key]; }
+  const since = focus ? Math.min(...['qk', 'scorers', 'caveat'].map(k => t - beat('tested', k).start + .1).filter(v => v >= 0)) : 9;
+  points.forEach((pt, i) => {
+    const appear = clamp((t - field.start - .3 - 1.6 * i / points.length) / .4);
+    const keep = !focus || pt.dataset.family === focus || pt.dataset.family === 'GeoAFT';
+    pt.style.opacity = (appear * (keep ? 1 : 1 - .86 * clamp(since / .4))).toFixed(3);
+  });
+  frontiers.forEach(f => { f.style.opacity = clamp((t - field.start - 2.2) / .6).toFixed(3); });
+  $('t-note').innerHTML = note;
+  set('t-note', focus ? clamp(since / .4) : 0);
+  // 5
+  const list = beat('regimes', 'list'), status = beat('regimes', 'status');
+  ['r1', 'r2', 'r3'].forEach((id, i) => {
+    set(id, clamp((t - list.start - i * (list.end - list.start) / 3.4) / .5));
+    set(id + 's', clamp((t - status.start - i * (status.end - status.start) / 3.4) / .4));
+  });
+  // 6
+  set('n-head', clamp((t - beat('next', 'rq1').start + .2) / .5));
+  ['rq1', 'rq2', 'rq3'].forEach(id => set(id, clamp((t - beat('next', id).start) / .5)));
+  // 7
+  set('c-url', clamp((t - beat('close', 'url').start) / .5));
+};
+window.__ready = document.fonts.ready.then(() => { window.renderAt(0); return true; });
+if (location.search.includes('play')) { const t0 = performance.now(); const loop = () => { const t = (performance.now() - t0) / 1000; window.renderAt(t % T.total); requestAnimationFrame(loop); }; loop(); }
+</script></body></html>

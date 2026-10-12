@@ -31,6 +31,8 @@ DESCRIPTIONS = {
     "contact": "Contact the Quantitative Research Society (QRS) for enquiries and collaboration.",
     "gmmg": "Compete individually in the Global Market Making Games 2026 Singapore qualifier on 16 October. Open to all university students in Singapore.",
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
+    "projects/geoaft": "GeoAFT studies fine-tuning that adapts how representations relate, through a structured compatibility geometry in attention, and when that differs from ordinary weight adaptation.",
+    "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
 }
 
 
@@ -65,6 +67,8 @@ def gmmg_events(canonical):
 # Per-page extra structured data, keyed by route slug.
 PAGE_EXTRAS = {
     "gmmg": {"graph": gmmg_events},
+    "projects/geoaft": {"image": "/assets/geoaft/geoaft-social.jpg"},
+    "projects/geoaft/details": {"image": "/assets/geoaft/geoaft-social.jpg"},
 }
 
 
@@ -91,8 +95,10 @@ def generate(check=False):
                                 '<script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>')
         source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261003-performance')
+        source = source.replace('header.js?v=20261003-shared', 'header.js?v=20261012-nav')
         source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
+        source = source.replace('style.css?v=20261003-shared', 'style.css?v=20261012-nav')
         source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
         source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
         if re.search(r'<meta\b[^>]*content=["\'][^"\']*noindex', source, re.I):
@@ -117,7 +123,7 @@ def generate(check=False):
     <title>Site Map | QRS</title>
     <link rel="stylesheet" href="../assets/tailwind.css?v=20261003-performance">
     <script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>
-    <link rel="stylesheet" href="../style.css?v=20261003-shared">
+    <link rel="stylesheet" href="../style.css?v=20261012-nav">
     <link rel="stylesheet" href="../fonts.css?v=20260907-final">
     <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
 </head>
@@ -133,7 +139,7 @@ def generate(check=False):
         </nav>
     </main>
     <footer id="site-footer" class="site-footer" data-root="../"></footer>
-    <script type="module" src="../assets/header.js?v=20261003-shared"></script>
+    <script type="module" src="../assets/header.js?v=20261012-nav"></script>
     <script type="module" src="../script.js?v=20260907-final"></script>
     <script type="module" src="../assets/footer.js?v=20261003-shared"></script>
 </body>
@@ -147,7 +153,7 @@ def generate(check=False):
         person_match = re.search(r'data-person-id="([^"]+)"', source)
         person = people[person_match[1]] if person_match else None
         description = DESCRIPTIONS.get(slug, f"{title.split(' | ')[0]} at QRS.")
-        if slug.startswith('projects/') and slug.split('/')[-1] in projects:
+        if slug not in DESCRIPTIONS and slug.startswith('projects/') and slug.split('/')[-1] in projects:
             description = projects[slug.split('/')[-1]]['summary']
         if person:
             description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
@@ -192,8 +198,9 @@ def generate(check=False):
             fallback += '<p><a href="/projects/">Projects</a> &middot; <a href="/publications/">Publications</a></p></div>'
             source = re.sub(r'<div id="person-profile">.*?</div>', lambda _: fallback, source, flags=re.S)
         extras = PAGE_EXTRAS.get(slug, {})
-        if extras:
+        if "graph" in extras:
             graph.extend(extras["graph"](canonical))
+        image = ORIGIN + extras.get("image", "/Files/logo-v2-surface.png")
         if not slug:
             graph.extend([
                 {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/", "name": "QRS",
@@ -211,8 +218,8 @@ def generate(check=False):
                     f'<meta property="og:title" content="{escape(title, quote=True)}">',
                     f'<meta property="og:description" content="{escape(description, quote=True)}">',
                     f'<meta property="og:url" content="{canonical}">',
-                    f'<meta property="og:image" content="{ORIGIN}/Files/logo-v2-surface.png">',
-                    '<meta name="twitter:card" content="summary">',
+                    f'<meta property="og:image" content="{image}">',
+                    '<meta name="twitter:card" content="' + ('summary_large_image' if "image" in extras else 'summary') + '">',
                     '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace('<', '\\u003c') + '</script>']
         block = '    <!-- SEO: generated -->\n    ' + '\n    '.join(metadata) + '\n    <!-- /SEO -->\n'
         source = source.replace('</head>', block + '</head>')

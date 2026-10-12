@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 560" role="img" aria-labelledby="fig1n-title" class="geo-svg" width="380" height="560"><title id="fig1n-title">Diagram: attention computes token states, projections, representations q and k, a compatibility score s(q,k), and a softmax. Conventional PEFT edits the projections, which changes scores indirectly. GeoAFT adds a trainable term to the compatibility score itself and leaves q and k unchanged.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><defs><marker id="f1m-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#6b7280"/></marker><marker id="f1m-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#00929a"/></marker><marker id="f1m-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#c05f0c"/></marker></defs>
+<rect x="10" y="10" width="170" height="70" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="95.0" y="41.0" font-size="15" text-anchor="middle" style="fill:#11182c">Token states</text>
+<text class="gf-x" x="95.0" y="62.0" font-size="14" text-anchor="middle">x</text>
+<line x1="95" y1="84" x2="95" y2="106" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f1m-m)"/>
+<rect x="10" y="112" width="170" height="70" rx="10" fill="#fbeee2" stroke="#c05f0c" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="95.0" y="143.0" font-size="15" text-anchor="middle" style="fill:#11182c">Projections</text>
+<text class="gf-x" x="95.0" y="164.0" font-size="14" text-anchor="middle">W<tspan baseline-shift="sub" font-size="9">Q</tspan>, W<tspan baseline-shift="sub" font-size="9">K</tspan></text>
+<line x1="95" y1="186" x2="95" y2="208" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f1m-m)"/>
+<rect x="10" y="214" width="170" height="70" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="95.0" y="245.0" font-size="15" text-anchor="middle" style="fill:#11182c">Representations</text>
+<text class="gf-x" x="95.0" y="266.0" font-size="14" text-anchor="middle">q, k</text>
+<line x1="95" y1="288" x2="95" y2="310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f1m-m)"/>
+<rect x="10" y="316" width="170" height="70" rx="10" fill="#e2f3f3" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="95.0" y="347.0" font-size="15" text-anchor="middle" style="fill:#11182c">Compatibility</text>
+<text class="gf-x" x="95.0" y="368.0" font-size="14" text-anchor="middle">s(q, k)</text>
+<line x1="95" y1="390" x2="95" y2="412" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f1m-m)"/>
+<rect x="10" y="418" width="170" height="70" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="95.0" y="449.0" font-size="15" text-anchor="middle" style="fill:#11182c">Attention</text>
+<text class="gf-t gf-m" x="95.0" y="470.0" font-size="14" text-anchor="middle">softmax over keys</text>
+<line x1="240" y1="147" x2="186" y2="147" stroke="#c05f0c" stroke-width="1.8" marker-end="url(#f1m-o)"/>
+<text class="gf-t gf-strong" x="246" y="128" font-size="14.5" style="fill:#93480a">Conventional PEFT</text>
+<text class="gf-xr" x="246" y="150" font-size="14"><tspan font-style="italic">W</tspan> + Δ<tspan font-style="italic">W</tspan></text>
+<text class="gf-t gf-m" x="246" y="170" font-size="12.5">changes how q, k</text>
+<text class="gf-t gf-m" x="246" y="186" font-size="12.5">are produced</text>
+<line x1="240" y1="351" x2="186" y2="351" stroke="#00929a" stroke-width="1.8" marker-end="url(#f1m-t)"/>
+<text class="gf-t gf-strong" x="246" y="332" font-size="14.5" style="fill:#006f76">GeoAFT</text>
+<text class="gf-x" x="246" y="354" font-size="14">s + α g<tspan baseline-shift="sub" font-size="9">φ</tspan>(q, k)</text>
+<text class="gf-t gf-m" x="246" y="374" font-size="12.5">changes how q, k</text>
+<text class="gf-t gf-m" x="246" y="390" font-size="12.5">are compared</text>
+<text class="gf-t gf-m" x="10" y="520" font-size="12.5">Q/K edits still move the scores —</text>
+<text class="gf-t gf-m" x="10" y="538" font-size="12.5">indirectly, through q and k.</text></svg>

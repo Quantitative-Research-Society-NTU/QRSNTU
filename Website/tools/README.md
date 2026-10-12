@@ -63,3 +63,30 @@ The preferred URLs are HTTPS, non-www, and trailing-slash directories.
 Submit `https://qrsntu.org/sitemap.xml` after verifying deployment. Redirect
 sources are expected to remain excluded; the destination is the indexable URL.
 Sitemaps and schema help discovery and interpretation but cannot guarantee indexing.
+
+## GeoAFT research microsite
+
+`/projects/geoaft/` and `/projects/geoaft/details/` are rendered by `generate_research.py`
+from project-specific templates in `tools/templates/projects/geoaft/` (listed in its
+`page.json`). Project data, team, accepted research and related projects still come from the
+V1 JSON, so the pages survive normal regeneration. Projects without a `page.json` are unchanged.
+
+Authoring sources live in `tools/geoaft/`:
+
+- `evidence.json`: the only place displayed numbers are stored.
+- `build_figures.py`: SVG figures in `v1/assets/geoaft/` (standard library only).
+- `content/*.src.html`: page text with LaTeX. `build_content.py` (needs `pip install latex2mathml`)
+  writes the templates with static MathML; `--check` detects stale templates.
+- `video/`: explainer narration (`script.py`), storyboard (`STORYBOARD.md`), animatic and renderer.
+
+After editing evidence, content or figures:
+
+```sh
+python Website/tools/geoaft/build_figures.py
+python Website/tools/geoaft/build_content.py
+python Website/tools/generate_research.py   # then the usual SEO / previews / checks
+```
+
+The interactive geometry explorer (`assets/geoaft/geoaft.js`) mirrors the toy in
+`build_figures.py`; `assets/geoaft/toy.json` holds reference weights for parity checks. Without
+JavaScript the static figure is shown.
