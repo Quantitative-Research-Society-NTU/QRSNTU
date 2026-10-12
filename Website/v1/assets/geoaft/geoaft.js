@@ -8,8 +8,31 @@ const root = document.querySelector('.geo');
 function syncHeaderOffset() {
     const header = document.getElementById('header');
     if (!root || !header) return;
-    const h = Math.round(header.getBoundingClientRect().height) || 96;
+    // While the bar is slid away, things pinned beneath it move up to the top of the window.
+    const h = header.classList.contains('geo-nav-hidden') ? 0 : Math.round(header.getBoundingClientRect().height) || 62;
     document.querySelectorAll('.geo').forEach(el => el.style.setProperty('--geo-header', h + 'px'));
+}
+
+// The dark site navigation bar slides away while the reader scrolls down and returns on any scroll up.
+// It stays put near the top of the page, while its mobile menu is open, and while it has keyboard focus.
+function autoHideNav() {
+    const header = document.getElementById('header');
+    if (!header) return;
+    let last = window.scrollY;
+    const set = hidden => {
+        if (header.classList.contains('geo-nav-hidden') === hidden) return;
+        header.classList.toggle('geo-nav-hidden', hidden);
+        syncHeaderOffset();
+    };
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY, menu = document.getElementById('mobile-menu');
+        const menuOpen = menu && !menu.classList.contains('hidden') && window.innerWidth < 768;
+        if (y < 480 || menuOpen || header.contains(document.activeElement)) set(false);
+        else if (y > last + 4) set(true);
+        else if (y < last - 4) set(false);
+        last = y;
+    }, { passive: true });
+    header.addEventListener('focusin', () => set(false));
 }
 
 function trackSections(nav) {
@@ -334,7 +357,7 @@ function initExplorer(fig) {
 // product. Rings and grid are the rule's ruler, the colour field is compatibility with q, and the list
 // below re-ranks the keys by attention. The query and keys are never moved.
 function initHero(fig) {
-    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 19, T = 28500;
+    const names = Object.keys(TOY.keys), W = 540, H = 420, GX = 108, GY = 84, ROW = 21, T = 28500;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const smooth = t => t * t * (3 - 2 * t);
     const f = frame(0, 0, W, H), q = TOY.query, [x0, x1, y0, y1] = TOY.domain, [qx, qy] = f(...q);
@@ -589,6 +612,7 @@ if (root) {
     trackSections(document.querySelector('.geo-details-toc'));
     revealOnScroll();
     readingProgress();
+    autoHideNav();
     heroFade();
     document.querySelectorAll('[data-geo-scatter]').forEach(initScatter);
     document.querySelectorAll('[data-geo-hero]').forEach(fig => {

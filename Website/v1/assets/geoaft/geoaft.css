@@ -124,7 +124,7 @@
 .geo-details-head { display: grid; gap: .5rem 3rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--geo-rule); background: #fff; }
 @media (min-width: 900px) { .geo-details-head { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: end; } }
 .geo-details-head .geo-lead { margin-bottom: .5rem; max-width: none; }
-.geo-details-title { font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.18; margin: 0; }
+.geo-details-title { font-size: clamp(2rem, 4vw, 2.9rem); line-height: 1.18; margin: 0; }
 .geo-details-layout { display: grid; gap: 2rem; padding-top: 2rem; }
 @media (min-width: 1024px) { .geo-details-layout { grid-template-columns: 14rem minmax(0, 1fr); gap: 3.5rem; } }
 .geo-details-toc { font-size: .92rem; }
@@ -278,7 +278,7 @@
 .geo-details-body .geo-regime p { font-size: .93rem; }
 
 /* ---------- Stretching-geometry figure (overview hero, built by geoaft.js) ---------- */
-.geo-live { max-width: 23rem; width: 100%; justify-self: center; }
+.geo-live { max-width: 27rem; width: 100%; justify-self: center; }
 .geo-live-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .6rem; min-height: 2.4rem; }
 .geo-live-rule { color: var(--geo-ink); font-size: .98rem; line-height: 1.3; }
 .geo-live-head button { border: 1px solid #c4cad3; border-radius: 6px; padding: .35rem .8rem; background: #fff; color: var(--geo-navy); font-size: .9rem; white-space: nowrap; }
@@ -286,7 +286,7 @@
 .geo-live-field { position: relative; aspect-ratio: 540 / 420; border: 1px solid var(--geo-rule); border-radius: 8px; overflow: hidden; }
 .geo-live-field canvas, .geo-live-field svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .geo-live-rank { list-style: none; margin: .8rem 0 0; padding: 0; position: relative; }
-.geo-live-rank li { position: absolute; left: 0; right: 0; top: 0; height: 17px; display: grid; grid-template-columns: 1.2rem minmax(0, 1fr) 2.8rem; gap: .6rem; align-items: center; font-size: .9rem; transition: transform .45s ease; }
+.geo-live-rank li { position: absolute; left: 0; right: 0; top: 0; height: 19px; display: grid; grid-template-columns: 1.2rem minmax(0, 1fr) 2.8rem; gap: .6rem; align-items: center; font-size: .9rem; transition: transform .45s ease; }
 .geo-live-rank .geo-meter-track { height: 11px; }
 .geo-live-rank .geo-bar { min-width: 2px; opacity: .45; }
 .geo-live-rank .is-top .geo-bar { opacity: 1; }
@@ -294,19 +294,23 @@
 .geo-live .geo-illustrative { display: block; margin-top: .25rem; }
 @media (prefers-reduced-motion: reduce) { .geo-live-rank li { transition: none; } }
 
-/* ---------- Page heads: compact, and fading under the content as the page scrolls ---------- */
-.geo-back { margin-bottom: 1rem; }
-.geo-overview .geo-hero { gap: 1.5rem 3rem; padding-bottom: 1.25rem; }
-.geo-overview .geo-title.hero-title { font-size: clamp(2.75rem, 5.5vw, 4.25rem); margin-bottom: 1rem; }
-.geo-overview .geo-deck { font-size: clamp(1.2rem, 2vw, 1.45rem); margin-bottom: 1rem; }
-.geo-overview .geo-lead { font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.1rem; }
-.geo-overview .geo-actions { margin-bottom: 1.1rem; }
-.geo-overview .geo-eyebrow { margin-bottom: .6rem; }
+/* ---------- Page heads fade under the content as the page scrolls ---------- */
 .geo-overview .geo-hero, .geo-details-head { transform-origin: 50% 30%; will-change: opacity, transform; }
 .geo-overview .geo-glance, .geo-details-layout { position: relative; z-index: 1; background: #fff; }
 @media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .geo-overview .geo-hero, .geo-details-head { position: sticky; top: calc(var(--geo-header) + 1rem); z-index: 0; }
 }
+
+/* ---------- Site navigation bar on the GeoAFT pages: slimmer, and it slides away on scroll down ----------
+   Scoped with :has(.geo), so the shared header on every other page is unchanged. geoaft.js toggles
+   .geo-nav-hidden and keeps --geo-header in step. */
+body:has(.geo) #header { transition: transform .3s ease, background-color .3s; }
+body:has(.geo) #header .qrs-header-nav { padding-block: .45rem; }
+body:has(.geo) #header .qrs-wordmark { width: 44px; height: 44px; }
+body:has(.geo) #header.geo-nav-hidden { transform: translateY(-100%); }
+body:has(.geo) main { padding-top: 5.25rem; }
+.geo-details-toc, .geo-progress { transition: top .3s ease; }
+@media (prefers-reduced-motion: reduce) { body:has(.geo) #header, .geo-details-toc, .geo-progress { transition: none; } }
 
 /* ---------- Status lists and future directions ---------- */
 .geo ul.geo-checks { list-style: none; padding: 0; margin: .75rem 0 0; }
