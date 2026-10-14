@@ -28,7 +28,7 @@
   },
   {
     "id": "workshop-policyattention-evorobust-2026",
-    "date": "2026-10-03",
+    "date": "2026-10-04",
     "type": "paper",
     "title": "PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement",
     "summary": "Accepted at NeurIPS 2026 EvoRobust.",
@@ -39,13 +39,47 @@
   },
   {
     "id": "workshop-riskhedge-evorobust-2026",
-    "date": "2026-10-03",
+    "date": "2026-10-04",
     "type": "paper",
     "title": "Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests",
     "summary": "Accepted at NeurIPS 2026 EvoRobust.",
     "url": "https://openreview.net/forum?id=OzOTmkkAWW",
     "project_ids": [
       "riskhedge"
+    ]
+  },
+  {
+    "id": "workshop-geoaft-automlr-2026",
+    "date": "2026-10-04",
+    "type": "paper",
+    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
+    "summary": "Accepted at NeurIPS 2026 AutoMLR.",
+    "url": "https://openreview.net/forum?id=9PwlVQ3gyj",
+    "project_ids": [
+      "ai-native-workflow",
+      "geoaft"
+    ]
+  },
+  {
+    "id": "workshop-policyattention-pta-2026",
+    "date": "2026-10-04",
+    "type": "paper",
+    "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
+    "summary": "Accepted at NeurIPS 2026 PTA.",
+    "url": "https://openreview.net/forum?id=zbGWnk0kY3",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "workshop-softrank-neurreps-2026",
+    "date": "2026-10-04",
+    "type": "paper",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "summary": "Accepted at NeurIPS 2026 NeurReps Extended Abstracts.",
+    "url": "https://openreview.net/forum?id=0zgsZ8FjVz",
+    "project_ids": [
+      "softrank"
     ]
   },
   {
@@ -90,51 +124,6 @@
     ]
   },
   {
-    "id": "workshop-geoaft-automlr-2026",
-    "date": "2026-09-07",
-    "type": "paper",
-    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
-    "summary": "Accepted at NeurIPS 2026 AutoMLR.",
-    "url": "https://openreview.net/forum?id=9PwlVQ3gyj",
-    "project_ids": [
-      "ai-native-workflow",
-      "geoaft"
-    ]
-  },
-  {
-    "id": "workshop-policyattention-pta-2026",
-    "date": "2026-09-07",
-    "type": "paper",
-    "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
-    "summary": "Accepted at NeurIPS 2026 PTA.",
-    "url": "https://openreview.net/forum?id=zbGWnk0kY3",
-    "project_ids": [
-      "policyattention"
-    ]
-  },
-  {
-    "id": "workshop-softrank-neurreps-2026",
-    "date": "2026-09-07",
-    "type": "paper",
-    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
-    "summary": "Accepted at NeurIPS 2026 NeurReps Extended Abstracts.",
-    "url": "https://openreview.net/forum?id=0zgsZ8FjVz",
-    "project_ids": [
-      "softrank"
-    ]
-  },
-  {
-    "id": "nlpcc-alphaallocator-2026",
-    "date": "2026-09-07",
-    "type": "paper",
-    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
-    "summary": "Presented at NLPCC 2026 Shared Task 4, as a poster and an oral.",
-    "url": "https://openreview.net/forum?id=u09PzTYNHk",
-    "project_ids": [
-      "alphaallocator"
-    ]
-  },
-  {
     "id": "arxiv-softrank-2026",
     "date": "2026-08-28",
     "type": "paper",
@@ -143,6 +132,17 @@
     "url": "https://arxiv.org/abs/2608.28150",
     "project_ids": [
       "softrank"
+    ]
+  },
+  {
+    "id": "nlpcc-alphaallocator-2026",
+    "date": "2026-08-05",
+    "type": "paper",
+    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
+    "summary": "Presented at NLPCC 2026 Shared Task 4, as a poster and an oral.",
+    "url": "https://openreview.net/forum?id=u09PzTYNHk",
+    "project_ids": [
+      "alphaallocator"
     ]
   },
   {
