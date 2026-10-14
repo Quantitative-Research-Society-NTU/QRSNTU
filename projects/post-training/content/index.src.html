@@ -1,0 +1,80 @@
+<div class="pt pt-overview" id="top">
+
+<header class="pt-hero">
+  <div class="pt-hero-text">
+    <p class="pt-eyebrow">QRS explainer · Large language models</p>
+    <h1 class="hero-title pt-title">Post-training</h1>
+    <p class="pt-deck">How a model that predicts the next word becomes an assistant that answers, follows instructions and reasons.</p>
+    <p class="pt-lead">Pre-training teaches a language model what text looks like. Post-training reshapes what it chooses to say: first by imitating good answers, then by learning which of its own answers people prefer, and most recently by rewarding answers that can be checked.</p>
+    <div class="pt-actions">
+      <a class="pt-btn pt-btn-primary" href="guide/">Read the guide →</a>
+      <a class="pt-btn" href="#pipeline">The pipeline at a glance</a>
+    </div>
+    <p class="pt-hero-meta">A long read in six parts, from the history to the derivations, with ten interactive figures.</p>
+  </div>
+  <figure class="pt-hero-figure pt-live" data-pt-hero aria-labelledby="hero-cap">
+    <div class="pt-static">{{svg:hero-static.svg}}</div>
+    <figcaption id="hero-cap">
+      <span class="pt-js-only">One prompt, five possible replies. The base model mostly continues the document; supervised fine-tuning moves probability onto answers; preference tuning concentrates it on the answer people preferred. The facts the model knows do not change.</span>
+      <span class="pt-illustrative">Illustrative probabilities, not measurements from a real model.</span>
+    </figcaption>
+  </figure>
+</header>
+
+<section class="pt-glance" id="pipeline" aria-labelledby="pipeline-h">
+  <h2 id="pipeline-h">The pipeline at a glance</h2>
+  <p class="pt-note">The classic recipe runs left to right. The last column shows the two main departures from it.</p>
+  <ol class="pt-map" data-reveal="rise">
+    <li class="is-base">
+      <p class="pt-map-kind">Starting point</p>
+      <h3>Pre-training</h3>
+      <p>Predict the next token on a very large amount of text. Knowledge and skills, but no notion of answering.</p>
+      <a class="card-link" href="guide/#history">History →</a>
+    </li>
+    <li>
+      <p class="pt-map-kind">Imitate</p>
+      <h3>Supervised fine-tuning</h3>
+      <p>Train on prompt–response demonstrations with the same next-token loss, counted on the response only.</p>
+      <a class="card-link" href="guide/#sft">SFT →</a>
+    </li>
+    <li>
+      <p class="pt-map-kind">Compare</p>
+      <h3>Reward model</h3>
+      <p>Fit a scalar score to human comparisons with the Bradley–Terry model: the preferred reply should score higher.</p>
+      <a class="card-link" href="guide/#reward-model">Reward model →</a>
+    </li>
+    <li>
+      <p class="pt-map-kind">Optimise</p>
+      <h3>RL with PPO</h3>
+      <p>Sample replies, score them, and push the policy towards high reward while a KL penalty keeps it near the SFT model.</p>
+      <a class="card-link" href="guide/#ppo">PPO →</a>
+    </li>
+    <li class="is-alt">
+      <p class="pt-map-kind">Departures</p>
+      <h3>DPO</h3>
+      <p>Skip the reward model and the RL loop: a classification-style loss on preference pairs, derived from the same objective.</p>
+      <div class="pt-map-or">
+        <h3>RLVR and GRPO</h3>
+        <p>Replace learned rewards with checkable ones (a correct maths answer, passing tests) and the critic with a group of samples.</p>
+      </div>
+      <a class="card-link" href="guide/#dpo">DPO →</a> &nbsp; <a class="card-link" href="guide/#grpo">GRPO →</a>
+    </li>
+  </ol>
+
+  <div class="pt-learn" aria-labelledby="learn-h">
+    <h2 id="learn-h">What you will learn</h2>
+    <ol class="pt-learn-list" data-reveal="rise">
+      <li><a href="guide/#history">From task models to pre-train and adapt</a><p>ULMFiT, GPT-1, BERT, GPT-2, T5 and GPT-3, and the question they leave open.</p></li>
+      <li><a href="guide/#sft">Supervised fine-tuning</a><p>The objective, derived; chat templates and loss masks; why a little data goes a long way.</p></li>
+      <li><a href="guide/#preference">Learning from preferences</a><p>Why comparisons, the Bradley–Terry reward model, and reward hacking.</p></li>
+      <li><a href="guide/#rl-setup">Reinforcement learning, from scratch</a><p>MDPs, returns, policy gradients, value functions, Bellman equations, TD and GAE.</p></li>
+      <li><a href="guide/#trpo-ppo">RLHF in practice</a><p>Trust regions, PPO’s clipped objective, the InstructGPT pipeline and its limits.</p></li>
+      <li><a href="guide/#dpo">Beyond PPO</a><p>DPO, verifiable rewards, GRPO, DeepSeek-R1, and what is still open.</p></li>
+    </ol>
+  </div>
+
+  <div class="pt-foot">
+    <p>An explainer, not a QRS research project. The toy figures are illustrative; every other claim cites its source in the guide’s <a class="card-link" href="guide/#references">references</a>.</p>
+  </div>
+</section>
+</div>

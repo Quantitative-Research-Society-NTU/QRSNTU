@@ -37,6 +37,8 @@ DESCRIPTIONS = {
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
     "projects/geoaft": "GeoAFT, Geometric Attention Fine-Tuning: adapting how a pretrained Transformer compares representations, and when that differs from ordinary weight adaptation.",
     "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
+    "learn/post-training": "An illustrated explainer on LLM post-training: how supervised fine-tuning, reward models, RLHF with PPO, DPO and GRPO turn a pre-trained language model into an assistant.",
+    "learn/post-training/guide": "The full guide to LLM post-training: history from ULMFiT to GPT-3, SFT, Bradley-Terry reward models, policy gradients, GAE, PPO, InstructGPT, DPO, RLVR, GRPO and DeepSeek-R1, with derivations and interactive figures.",
 }
 
 

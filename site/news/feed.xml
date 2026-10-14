@@ -15,6 +15,14 @@
 <description>An individual global market-making competition open to university students across Singapore.</description>
 </item>
 <item>
+<title>Post-training, explained: from SFT to GRPO</title>
+<link>https://qrsntu.org/learn/post-training/</link>
+<guid isPermaLink="false">qrs-news-post-training-explainer-2026</guid>
+<pubDate>Tue, 13 Oct 2026 16:00:00 GMT</pubDate>
+<category>Guide</category>
+<description>A long-read explainer on how language models are post-trained, from supervised fine-tuning and reward models to PPO, DPO and GRPO, with derivations and ten interactive figures.</description>
+</item>
+<item>
 <title>GeoAFT: new project page and draft explainer</title>
 <link>https://qrsntu.org/projects/geoaft/</link>
 <guid isPermaLink="false">qrs-news-geoaft-project-page-2026</guid>

@@ -1,5 +1,13 @@
 [
   {
+    "id": "post-training-explainer-2026",
+    "date": "2026-10-14",
+    "type": "guide",
+    "title": "Post-training, explained: from SFT to GRPO",
+    "summary": "A long-read explainer on how language models are post-trained, from supervised fine-tuning and reward models to PPO, DPO and GRPO, with derivations and ten interactive figures.",
+    "url": "/learn/post-training/"
+  },
+  {
     "id": "geoaft-project-page-2026",
     "date": "2026-10-12",
     "type": "research",
