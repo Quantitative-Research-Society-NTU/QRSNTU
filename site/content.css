@@ -209,3 +209,11 @@ main.content-refinement > .container > div > .shadow-lg .rounded-full {
 .news-article th { background: #f9fafb; }
 .news-article a { color: #183b63; text-decoration: underline; }
 .news-work-meta { display: block; font-size: .9rem; color: #6b7280; }
+
+/* Sponsors: About page cards and the homepage "Supported by" strip */
+.sponsor-list { display: grid; gap: 1.25rem; }
+@media (min-width: 768px) { .sponsor-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sponsor-card { border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1.25rem 1.4rem; background: #fff; }
+.sponsor-card p { margin: .9rem 0 .6rem; line-height: 1.65; }
+.sponsor-logo { display: inline-block; line-height: 0; }
+.sponsor-logo img { height: 40px; width: auto; max-width: 100%; }

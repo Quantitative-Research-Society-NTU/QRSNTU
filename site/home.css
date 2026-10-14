@@ -18,3 +18,17 @@
  .hero-ctas { gap: .65rem; padding-inline: 1rem; }
  .hero-ctas .btn { padding-inline: 1.1rem; }
 }
+
+/* Latest News strip (cards rendered by tools/generate_news.mjs) */
+.news-teaser .news-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .75rem; margin: 0 0 .4rem; font-size: .875rem; color: #6b7280; }
+.news-teaser .news-meta .badge { margin: 0; }
+.news-teaser .card-title a { color: inherit; }
+.news-teaser .card-title a:hover { text-decoration: underline; }
+
+/* "Supported by" sponsor strip (logos rendered by tools/generate_sponsors.py) */
+.sponsor-logo { display: inline-block; line-height: 0; }
+.home-sponsors { padding: 2.5rem 0 3rem; border-top: 1px solid #e5e7eb; background: #fff; }
+.home-sponsors-label { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #6b7280; margin: 0 0 1.1rem; font-weight: 500; }
+.home-sponsors-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem 3rem; margin-bottom: 1rem; }
+.home-sponsors-logos .sponsor-logo img { height: 36px; opacity: .9; transition: opacity .2s; }
+.home-sponsors-logos .sponsor-logo:hover img { opacity: 1; }

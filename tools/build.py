@@ -22,6 +22,7 @@ STEPS = [
     ('project and profile pages', [sys.executable, 'tools/generate_research.py']),
     ('projects index', ['node', 'tools/generate_project_index.mjs']),
     ('news', ['node', 'tools/generate_news.mjs']),
+    ('sponsors', [sys.executable, 'tools/generate_sponsors.py']),
     ('search metadata and sitemaps', [sys.executable, 'tools/generate_seo.py']),
     ('campus previews', [sys.executable, 'tools/branches/build_drafts.py']),
 ]

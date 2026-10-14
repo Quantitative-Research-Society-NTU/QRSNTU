@@ -107,7 +107,7 @@ def generate(check=False):
         source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('style.css?v=20261003-shared', 'style.css?v=20261012-nav')
-        source = source.replace('content.css?v=20261003-shared', 'content.css?v=20261014-news')
+        source = source.replace('content.css?v=20261003-shared', 'content.css?v=20261015-sponsors')
         source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
         source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
         if re.search(r'<meta\b[^>]*content=["\'][^"\']*noindex', source, re.I):

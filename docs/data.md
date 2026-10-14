@@ -37,3 +37,7 @@ also preserves inbound `#project-…` anchors. Vanity profile routes are retaine
 
 * `news.json`: curated news items for `/news/`, the homepage and the RSS feed (see
   `tools/README.md`). Events in `events.json` are added to the feed automatically.
+* `sponsors.json`: organisation-wide sponsors, shown on About (`/about/#sponsors`, with the
+  sponsor's own description) and as a "Supported by" logo row on the homepage, both written by
+  `tools/generate_sponsors.py`. Logos live in `site/Files/sponsors/` (a light-background and an
+  on-dark version). Event-specific partners stay in `events.json`.
