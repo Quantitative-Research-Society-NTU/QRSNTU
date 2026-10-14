@@ -16,6 +16,8 @@ Both need Python 3.10+ and Node 20+ and nothing else (the Tailwind step fetches
 `.github/workflows/static.yml` runs the two commands on pushes to `main` that touch `site/`,
 `tools/` or `projects/`, and after the "Generate Notes JSON" workflow, then uploads `site/`.
 In the repository settings, Pages must use "GitHub Actions" as its source.
+`.github/workflows/check.yml` runs the same two commands on pull requests, without deploying,
+and fails if the build would change committed files.
 
 ## Cloudflare Pages (possible move)
 

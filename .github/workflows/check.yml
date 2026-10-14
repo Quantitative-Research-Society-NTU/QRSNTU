@@ -1,0 +1,39 @@
+name: Check site
+
+# Pull requests run the same build and checks as the deploy workflow, without publishing, and
+# fail if the committed site/ output is stale (the build would change it).
+
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'tools/**'
+      - 'projects/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and validate
+        run: |
+          python3 tools/build.py
+          python3 tools/check.py
+
+      - name: Committed output is current
+        run: |
+          if ! git diff --quiet; then
+            git diff --stat
+            echo "::error::tools/build.py changed committed files; run it locally and commit the output."
+            exit 1
+          fi
