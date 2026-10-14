@@ -91,6 +91,7 @@
     "url": "/news/neurips-2026-workshops/",
     "project_ids": [
       "ai-native-workflow",
+      "geoaft",
       "policyattention",
       "riskhedge",
       "softrank"

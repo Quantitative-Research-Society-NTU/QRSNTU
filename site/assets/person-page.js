@@ -7,7 +7,7 @@ import {
 } from './qrs-data.js?v=20261014-news';
 
 // The society name is always set in the serif brand face (see .qrs-name in fonts.css).
-const qrsName = html => html.replace(/(?<![A-Za-z] )Quantitative Research Society/g, '<span class="qrs-name">$&</span>');
+const qrsName = html => html.replace(/(^|[^A-Za-z] )Quantitative Research Society/g, '$1<span class="qrs-name">Quantitative Research Society</span>');
 
 // research.json is a curated accepted-only collection; filter defensively too.
 
