@@ -76,7 +76,7 @@
 .pt-map .pt-map-or { border-top: 1px solid var(--pt-rule); margin-top: .55rem; padding-top: .5rem; }
 .pt-learn { margin-top: 2.5rem; }
 .pt ol.pt-learn-list { list-style: none; padding: 0; margin: .75rem 0 1rem; display: grid; gap: .8rem 1.75rem; counter-reset: learn; }
-@media (min-width: 760px) { .pt ol.pt-learn-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 760px) { .pt ol.pt-learn-list { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); } }
 .pt-learn-list li { counter-increment: learn; border-left: 3px solid var(--pt-navy); padding: .1rem 0 .1rem .9rem; margin: 0; }
 .pt-learn-list a { display: block; color: var(--pt-ink); font-size: 1.02rem; line-height: 1.35; margin-bottom: .2rem; }
 .pt-learn-list a::before { content: counter(learn) "  "; color: var(--pt-teal-ink); }
@@ -228,3 +228,73 @@
     .pt-guide-toc, .pt-controls, .pt-progress, .pt-live-head, .pt-live-chips { display: none !important; }
     .pt-anim [data-reveal="rise"] > * { opacity: 1 !important; transform: none !important; }
 }
+
+/* ---------- Byline, language links, reading time ---------- */
+.pt-byline { font-size: .9rem; color: var(--pt-muted); margin: 0 0 .35rem; }
+.pt-byline strong { font-weight: 400; color: var(--pt-ink); }
+.pt-lang { font-size: .9rem; margin: 0 0 .5rem; }
+.pt-lang a { color: var(--pt-navy); }
+.pt-lang a:hover { text-decoration: underline; }
+.pt-part .pt-part-time { display: inline-block; margin-left: .6rem; letter-spacing: .04em; text-transform: none; color: var(--pt-muted); font-size: .78rem; }
+.pt-toc-time { display: block; font-size: .68rem; letter-spacing: .04em; text-transform: none; color: #9aa3af; margin-top: .1rem; }
+
+/* ---------- Reading mode toggle (guide); "intuition only" hides derivations and proofs ---------- */
+.pt-mode { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; margin: 0 0 1rem; font-size: .85rem; }
+.pt-mode[hidden] { display: none; }
+.pt-mode-label { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; color: var(--pt-muted); width: 100%; }
+.pt-mode .pt-seg button { padding: .25rem .6rem; font-size: .82rem; }
+.pt-seg button[aria-pressed="true"] { background: var(--pt-navy); color: #fff; border-color: var(--pt-navy); }
+.pt-mode-note { display: none; width: 100%; color: var(--pt-muted); font-size: .8rem; line-height: 1.45; }
+.pt-intuition .pt-mode-note { display: block; }
+.pt-intuition .pt-deriv, .pt-intuition details.pt-proof { display: none !important; }
+
+/* ---------- Running example panels ---------- */
+.pt-example { margin: 1.5rem 0; padding: 1rem 1.2rem .6rem; border: 1px solid #9fd3d5; border-left: 3px solid var(--pt-teal); border-radius: 0 8px 8px 0; background: #f4fbfb; max-width: 54rem; }
+.pt-example .pt-kicker { margin-bottom: .4rem; }
+.pt-guide-body .pt-example p { margin: 0 0 .7rem; }
+.pt-example .pt-table-wrap { background: #fff; margin: .6rem 0 .9rem; }
+.pt-table-narrow { max-width: 30rem; }
+.pt-table-narrow .pt-table { min-width: 0; }
+.pt-toy td:nth-child(2) { min-width: 13rem; }
+.pt-table .num { font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+
+/* ---------- Pseudocode boxes ---------- */
+.pt-algo .pt-algo-in { font-size: .9rem; color: var(--pt-muted); margin: 0 0 .3rem !important; }
+.pt-guide-body .pt-algo ol ol { list-style: lower-alpha; margin: .2rem 0 .2rem; }
+.pt-algo li { font-size: .95rem; }
+
+/* ---------- Self-check questions ---------- */
+.pt-guide-body details.pt-quiz { margin: 1rem 0 .5rem; max-width: 46rem; border: 1px dashed #9aa3af; border-radius: 8px; padding: .7rem 1rem; }
+.pt-quiz summary { cursor: pointer; color: var(--pt-ink); line-height: 1.55; }
+.pt-quiz summary b { color: var(--pt-teal-ink); font-weight: 400; letter-spacing: .06em; text-transform: uppercase; font-size: .75rem; margin-right: .4rem; }
+.pt-quiz[open] { border-style: solid; border-color: #9fd3d5; background: #f4fbfb; }
+.pt-guide-body .pt-quiz p { margin: .6rem 0 .2rem; }
+
+/* ---------- Methods side by side: a table on wide screens, one card per method on phones ---------- */
+.pt-matrix-wrap { margin: 1.25rem 0 1.5rem; max-width: 64rem; }
+.pt-matrix { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.5; }
+.pt-matrix th, .pt-matrix td { text-align: left; vertical-align: top; padding: .65rem .75rem; border-bottom: 1px solid var(--pt-rule); }
+.pt-matrix thead th { background: var(--pt-soft); color: var(--pt-ink); font-weight: 400; font-size: .82rem; }
+.pt-matrix tbody th { color: var(--pt-ink); font-weight: 400; white-space: nowrap; border-left: 3px solid var(--pt-teal); }
+.pt-matrix tbody tr.is-sft th { border-left-color: var(--pt-navy); }
+.pt-matrix tbody tr.is-dpo th { border-left-style: dashed; }
+.pt-matrix small { display: block; color: var(--pt-muted); font-size: .8rem; }
+@media (max-width: 860px) {
+    .pt-matrix, .pt-matrix tbody, .pt-matrix tr, .pt-matrix th, .pt-matrix td { display: block; width: 100%; }
+    .pt-matrix thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .pt-matrix tbody tr { border: 1px solid var(--pt-rule); border-top: 3px solid var(--pt-teal); border-radius: 0 0 8px 8px; margin: 0 0 1rem; }
+    .pt-matrix tbody tr.is-sft { border-top-color: var(--pt-navy); }
+    .pt-matrix tbody tr.is-dpo { border-top-style: dashed; }
+    .pt-matrix tbody th { border-left: 0; background: var(--pt-soft); font-size: 1rem; white-space: normal; }
+    .pt-matrix td { border-bottom: 1px solid var(--pt-rule); padding: .5rem .75rem; }
+    .pt-matrix td:last-child { border-bottom: 0; }
+    .pt-matrix td::before { content: attr(data-label); display: block; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--pt-muted); margin-bottom: .15rem; }
+}
+.pt-diag { display: grid; gap: 1rem; margin: 1rem 0 1.5rem; max-width: 64rem; }
+@media (min-width: 760px) { .pt-diag { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pt-diag > div { border: 1px solid var(--pt-rule); border-top: 3px solid var(--pt-ochre); border-radius: 0 0 8px 8px; padding: .8rem 1rem .5rem; min-width: 0; }
+.pt-guide-body .pt-diag h4 { margin: 0 0 .4rem; font-size: 1.02rem; }
+.pt-guide-body .pt-diag p { font-size: .92rem; line-height: 1.6; margin: 0 0 .45rem; }
+.pt-diag p b { font-weight: 600; color: var(--pt-ink); }
+.pt-algo { overflow-x: auto; }
+.pt-toy th:first-child, .pt-toy tbody th { white-space: nowrap; }

@@ -56,6 +56,13 @@
     {"id": "deepseek2025", "authors": ["DeepSeek-AI"], "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning", "year": 2025, "venue": "arXiv:2501.12948", "arxiv": "2501.12948"},
     {"id": "yu2025dapo", "authors": ["Qiying Yu", "et al."], "title": "DAPO: An Open-Source LLM Reinforcement Learning System at Scale", "year": 2025, "venue": "arXiv:2503.14476", "arxiv": "2503.14476"},
     {"id": "liu2025drgrpo", "authors": ["Zichen Liu", "et al."], "title": "Understanding R1-Zero-Like Training: A Critical Perspective", "year": 2025, "venue": "arXiv:2503.20783", "arxiv": "2503.20783"},
+    {"id": "rajbhandari2020", "authors": ["Samyam Rajbhandari", "Jeff Rasley", "Olatunji Ruwase", "Yuxiong He"], "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models", "year": 2020, "venue": "SC 2020", "arxiv": "1910.02054"},
+    {"id": "zheng2023judge", "authors": ["Lianmin Zheng", "et al."], "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena", "year": 2023, "venue": "NeurIPS 2023 Datasets and Benchmarks", "arxiv": "2306.05685"},
+    {"id": "chiang2024arena", "authors": ["Wei-Lin Chiang", "et al."], "title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference", "year": 2024, "venue": "ICML 2024", "arxiv": "2403.04132"},
+    {"id": "dubois2024lc", "authors": ["Yann Dubois", "et al."], "title": "Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators", "year": 2024, "venue": "arXiv:2404.04475", "arxiv": "2404.04475"},
+    {"id": "cobbe2021", "authors": ["Karl Cobbe", "et al."], "title": "Training Verifiers to Solve Math Word Problems", "year": 2021, "venue": "arXiv:2110.14168", "arxiv": "2110.14168"},
+    {"id": "hendrycks2021math", "authors": ["Dan Hendrycks", "et al."], "title": "Measuring Mathematical Problem Solving With the MATH Dataset", "year": 2021, "venue": "NeurIPS 2021 Datasets and Benchmarks", "arxiv": "2103.03874"},
+    {"id": "chen2021codex", "authors": ["Mark Chen", "et al."], "title": "Evaluating Large Language Models Trained on Code", "year": 2021, "venue": "arXiv:2107.03374", "arxiv": "2107.03374"},
     {"id": "yue2025", "authors": ["Yang Yue", "et al."], "title": "Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?", "year": 2025, "venue": "arXiv:2504.13837", "arxiv": "2504.13837"}
   ]
 }

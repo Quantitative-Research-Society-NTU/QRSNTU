@@ -38,6 +38,7 @@ DESCRIPTIONS = {
     "projects/geoaft": "GeoAFT, Geometric Attention Fine-Tuning: adapting how a pretrained Transformer compares representations, and when that differs from ordinary weight adaptation.",
     "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
     "learn/post-training": "An illustrated explainer on LLM post-training: how supervised fine-tuning, reward models, RLHF with PPO, DPO and GRPO turn a pre-trained language model into an assistant.",
+    "learn/post-training/zh": "LLM 后训练完整指南（中文版）：从 ULMFiT 到 GPT-3 的历史，SFT、Bradley–Terry 奖励模型、策略梯度、GAE、PPO、InstructGPT、DPO、RLVR、GRPO 与 DeepSeek-R1，含推导与交互图。",
     "learn/post-training/guide": "The full guide to LLM post-training: history from ULMFiT to GPT-3, SFT, Bradley-Terry reward models, policy gradients, GAE, PPO, InstructGPT, DPO, RLVR, GRPO and DeepSeek-R1, with derivations and interactive figures.",
 }
 
@@ -164,9 +165,10 @@ def generate(check=False):
             description = projects[slug.split('/')[-1]]['summary']
         if person:
             description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
+        language = re.search(r'<html lang="([^"]+)"', source)
         graph = [{"@type": "ProfilePage" if person else "WebPage", "@id": canonical + "#webpage",
                   "url": canonical, "name": title, "description": description,
-                  "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": "en"}]
+                  "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": language[1] if language else "en"}]
         if person:
             graph[0]["mainEntity"] = {"@type": "Person", "name": person["name"], "url": canonical}
             if person.get('linkedin'):

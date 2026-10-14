@@ -1,0 +1,85 @@
+{
+  "prompt": "What is the capital of France?",
+  "replies": [
+    {
+      "text": "What is the capital of Germany?",
+      "short": "Quiz: Germany?",
+      "ok": 0
+    },
+    {
+      "text": "France is a country in Western Europe, bordered by…",
+      "short": "Rambles",
+      "ok": 0
+    },
+    {
+      "text": "Paris.",
+      "short": "Paris.",
+      "ok": 1
+    },
+    {
+      "text": "The capital of France is Paris.",
+      "short": "Full sentence",
+      "ok": 1
+    },
+    {
+      "text": "Lyon.",
+      "short": "Lyon.",
+      "ok": 0
+    },
+    {
+      "text": "Great question! The capital of France is Paris, a city famous for…",
+      "short": "Flattering",
+      "ok": 1
+    }
+  ],
+  "base": [
+    0.42,
+    0.26,
+    0.12,
+    0.07,
+    0.1,
+    0.03
+  ],
+  "sft": [
+    0.04,
+    0.11,
+    0.4,
+    0.33,
+    0.09,
+    0.03
+  ],
+  "reward": [
+    -1.5,
+    -0.4,
+    0.5,
+    1.6,
+    -1,
+    2.2
+  ],
+  "rlhf": [
+    0.0033296682924577113,
+    0.027507909976836303,
+    0.24603105803800673,
+    0.6097724699495326,
+    0.01235181361083932,
+    0.10100708013232727
+  ],
+  "beta": 1,
+  "V": 0.6000000000000001,
+  "adv": [
+    -2.1,
+    -1,
+    -0.10000000000000009,
+    1,
+    -1.6,
+    1.6
+  ],
+  "gap": 1.1,
+  "bt": 0.7502601055951177,
+  "dpoLoss": 0.28733532511543075,
+  "correct": {
+    "base": 0.22,
+    "sft": 0.76,
+    "rlhf": 0.9568106081198666
+  }
+}

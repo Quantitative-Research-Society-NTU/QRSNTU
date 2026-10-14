@@ -15,8 +15,10 @@ TEMPLATE = Template((Path(__file__).parent / 'templates/research-page.html').rea
 # routes, build/ holds the page templates and public/ the files served at /projects/<id>/assets/.
 # A page.json may set "base" (e.g. "learn/post-training") to publish somewhere other than
 # /projects/<id>/; a folder whose id is not in projects.json is rendered only if it sets "base",
-# and then has no project data ({{team}}, {{status}}, ... are unavailable).
+# and then has no project data ({{team}}, {{status}}, ... are unavailable). A page entry may also set
+# "lang" (default "en") and "alternates", {hreflang: route}, which become <link rel="alternate"> tags.
 CUSTOM = Path(__file__).resolve().parents[1] / 'projects'
+ORIGIN = 'https://qrsntu.org'
 PLACEHOLDER = re.compile(r'\{\{\s*(\w+)(?::([^}\s]+))?\s*\}\}')
 SEO = re.compile(r'\s*<!-- SEO: generated -->.*?<!-- /SEO -->\s*', re.S)
 
@@ -49,10 +51,10 @@ def generate(check=False):
     def project_link(pid, root):
         return f'<a href="{root}projects/{pid}/" class="card-link">{escape(project_map[pid]["title"])}</a>'
 
-    def page(route, title, content, kind='research', attributes='', scripts='', head='', width=None):
+    def page(route, title, content, kind='research', attributes='', scripts='', head='', width=None, lang='en'):
         root = '../' * len(route.split('/'))
         width = width or ('max-w-6xl' if kind == 'academy' else 'max-w-4xl')
-        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width=width, attributes=attributes, content=content, scripts=scripts, head=head)
+        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width=width, attributes=attributes, content=content, scripts=scripts, head=head, lang=lang)
 
     def inline_svg(path):
         # Inline so figure text uses the page fonts; strip any XML prolog.
@@ -83,8 +85,10 @@ def generate(check=False):
             body = PLACEHOLDER.sub(fill, (home / 'build' / spec['template']).read_text(encoding='utf-8'))
             body = re.sub(r'^<!--.*?-->\n', '', body, flags=re.S)
             head = ''.join(f'<link rel="stylesheet" href="{assets}{href}{version}">' for href in spec.get('stylesheets', []))
+            head += ''.join(f'<link rel="alternate" hreflang="{code}" href="{ORIGIN}/{base}/{target + "/" if target else ""}">'
+                            for code, target in spec.get('alternates', {}).items())
             scripts = ''.join(f'<script type="module" src="{assets}{src}{version}"></script>' for src in spec.get('scripts', []))
-            page(route, spec['title'], body, config.get('kind', 'projects'), head=head, scripts=scripts, width=config.get('width'))
+            page(route, spec['title'], body, config.get('kind', 'projects'), head=head, scripts=scripts, width=config.get('width'), lang=spec.get('lang', 'en'))
 
     for p in projects:
         root = '../../'

@@ -1,5 +1,5 @@
 <!-- Built by projects/post-training/build_content.py from content/*.src.html; edit the source, not this file. -->
-<div class="pt pt-overview" id="top">
+<div class="pt pt-overview" id="top" data-lang="en">
 
 <header class="pt-hero">
   <div class="pt-hero-text">
@@ -11,12 +11,14 @@
       <a class="pt-btn pt-btn-primary" href="guide/">Read the guide →</a>
       <a class="pt-btn" href="#pipeline">The pipeline at a glance</a>
     </div>
-    <p class="pt-hero-meta">A long read in six parts, from the history to the derivations, with ten interactive figures.</p>
+    <p class="pt-hero-meta">A long read in seven parts, from the history to the derivations and the practice, with ten interactive figures.</p>
+    <p class="pt-byline">By <strong>Yuhe Sui</strong> · Last reviewed: 14 October 2026</p>
+    <p class="pt-lang" lang="zh-Hans"><a href="zh/" hreflang="zh-Hans">中文版指南 →</a></p>
   </div>
   <figure class="pt-hero-figure pt-live" data-pt-hero aria-labelledby="hero-cap">
     <div class="pt-static">{{svg:hero-static.svg}}</div>
     <figcaption id="hero-cap">
-      <span class="pt-js-only">One prompt, five possible replies. The base model mostly continues the document; supervised fine-tuning moves probability onto answers; preference tuning concentrates it on the answer people preferred. The facts the model knows do not change.</span>
+      <span class="pt-js-only">One prompt, six possible replies: the running example of the guide. The base model mostly continues the document; supervised fine-tuning moves probability onto answers; RLHF concentrates it on the reply the reward model scores highest, mostly the complete sentence but partly a flattering reply the reward model over-rates. The facts the model knows do not change.</span>
       <span class="pt-illustrative">Illustrative probabilities, not measurements from a real model.</span>
     </figcaption>
   </figure>
@@ -70,7 +72,8 @@
       <li><a href="guide/#preference">Learning from preferences</a><p>Why comparisons, the Bradley–Terry reward model, and reward hacking.</p></li>
       <li><a href="guide/#rl-setup">Reinforcement learning, from scratch</a><p>MDPs, returns, policy gradients, value functions, Bellman equations, TD and GAE.</p></li>
       <li><a href="guide/#trpo-ppo">RLHF in practice</a><p>Trust regions, PPO’s clipped objective, the InstructGPT pipeline and its limits.</p></li>
-      <li><a href="guide/#dpo">Beyond PPO</a><p>DPO, verifiable rewards, GRPO, DeepSeek-R1, and what is still open.</p></li>
+      <li><a href="guide/#dpo">Beyond PPO</a><p>DPO, verifiable rewards, GRPO and DeepSeek-R1.</p></li>
+      <li><a href="guide/#compare">In practice</a><p>The methods side by side, reported settings, memory costs, failure diagnosis, evaluation and open questions.</p></li>
     </ol>
   </div>
 

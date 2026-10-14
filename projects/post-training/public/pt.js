@@ -14,6 +14,111 @@ const C = {
     ochre: '#c05f0c', ochreInk: '#93480a', ochreTint: '#fbeee2', gray: '#8b95a3', violet: '#7a5ea8',
 };
 
+// ------------------------------------------------------------------ the running example
+// One prompt and six whole replies, used by the hero and by figures 2, 3, 9 and 10, and by the
+// "back to our example" panels (build_figures.mjs writes the derived numbers to toy.json, which
+// build_content.py reads). Every number here is an illustrative toy, not a measurement.
+const TOY = {
+    prompt: 'What is the capital of France?',
+    replies: [
+        { text: 'What is the capital of Germany?', short: 'Quiz: Germany?', ok: 0 },
+        { text: 'France is a country in Western Europe, bordered by…', short: 'Rambles', ok: 0 },
+        { text: 'Paris.', short: 'Paris.', ok: 1 },
+        { text: 'The capital of France is Paris.', short: 'Full sentence', ok: 1 },
+        { text: 'Lyon.', short: 'Lyon.', ok: 0 },
+        { text: 'Great question! The capital of France is Paris, a city famous for…', short: 'Flattering', ok: 1 },
+    ],
+    base: [0.42, 0.26, 0.12, 0.07, 0.10, 0.03],     // pre-trained model
+    sft: [0.04, 0.11, 0.40, 0.33, 0.09, 0.03],      // after SFT; the reference policy for RLHF and DPO
+    reward: [-1.5, -0.4, 0.5, 1.6, -1.0, 2.2],      // reward model scores; it over-rates the flattering reply
+    beta: 1,                                         // KL weight for the "after RLHF" column
+};
+// The KL-regularised optimum pi*(y) ∝ pi_ref(y) exp(r(y)/beta) over the six replies (section 19).
+function toyOpt(beta, ref = TOY.sft) {
+    const logw = ref.map((p, i) => Math.log(p) + TOY.reward[i] / beta);
+    const m = Math.max(...logw), w = logw.map(v => Math.exp(v - m)), z = w.reduce((a, b) => a + b, 0);
+    const pi = w.map(v => v / z), logZ = m + Math.log(z);
+    const kl = pi.reduce((a, p, i) => a + (p > 0 ? p * Math.log(p / ref[i]) : 0), 0);
+    const er = pi.reduce((a, p, i) => a + p * TOY.reward[i], 0);
+    return { pi, kl, er, logZ };
+}
+function toyFacts() {
+    const rlhf = toyOpt(TOY.beta).pi, V = TOY.sft.reduce((a, p, i) => a + p * TOY.reward[i], 0);
+    const correct = d => d.reduce((a, p, i) => a + p * TOY.replies[i].ok, 0), gap = TOY.reward[3] - TOY.reward[2];
+    return {
+        prompt: TOY.prompt, replies: TOY.replies, base: TOY.base, sft: TOY.sft, reward: TOY.reward, rlhf, beta: TOY.beta,
+        V, adv: TOY.reward.map(r => r - V), gap, bt: 1 / (1 + Math.exp(-gap)), dpoLoss: Math.log(1 + Math.exp(-gap)),
+        correct: { base: correct(TOY.base), sft: correct(TOY.sft), rlhf: correct(rlhf) },
+    };
+}
+
+// ------------------------------------------------------------------ interface strings (English and Chinese)
+// Labels inside the SVG figures stay in English; controls, readouts and the timeline card follow the page.
+const LANG = HAS_DOM && root && root.dataset.lang === 'zh' ? 'zh' : 'en';
+const STRINGS = {
+    en: {
+        play: '▶ Play', pause: '❚❚ Pause', prev: 'Previous milestone', next: 'Next milestone', reset: 'Reset',
+        tlAria: 'Timeline. Use the arrow keys to move between milestones.',
+        eras: { vec: 'Word vectors', pre: 'Pre-train, then adapt', arch: 'Architecture', scale: 'Scale and prompting', post: 'Post-training' },
+        parisBase: 'Base model', parisSft: 'After SFT', parisAmount: 'Amount of SFT', model: 'Model',
+        parisSay: (p, a, a0, l, l0) => `P(Paris) = ${p}. Tokens that begin an answer (Paris, The, Great) hold ${a} of the probability; the base model gave them ${a0}. The wrong answer, Lyon, does not grow (${l0} → ${l}): SFT moved probability from continuing the document to answering.`,
+        rA: 'Reward of A', rB: 'Reward of B', shift: 'Shift both',
+        btSay: (a, b, d, p, loss, slope) => `r(A) = ${a}, r(B) = ${b}, gap Δ = ${d}. P(A preferred) = ${p}. Loss if A was chosen = ${loss}; its slope in Δ is −(1 − σ(Δ)) = ${slope}.`,
+        gamma: 'Discount γ',
+        discSay: (g, w, q, pa, win) => `γ = ${g}: a reward 10 steps ahead is weighted ${w}. Quick stream G₀ = ${q}, patient stream G₀ = 5 × γ⁹ = ${pa}, so the ${win === 'patient' ? 'patient' : 'quick'} stream is preferred. The two tie at γ ≈ 0.836.`,
+        run1: 'Run 1 episode', run20: 'Run 20 episodes', alpha: 'Step size α', left: 'left end (0)', right: 'right end (+1)',
+        mctdEp: (k, path) => `Episode ${k}: ${path}.`,
+        mctdSay: (n, a, mc, td) => `After ${n} episode${n === 1 ? '' : 's'} with α = ${a}: RMS error ${mc} (Monte Carlo) and ${td} (TD).`,
+        offset: 'Constant added to every reward', run: '▶ Run',
+        banditRunning: (o, t, n) => `Rewards offset by +${o}. Running: step ${t} of ${n}.`,
+        banditSay: (o, t, runs, m0, s0, k0, m1, s1, k1) => `Rewards offset by +${o}. After ${t} steps, probability of choosing the best arm (mean ± s.d. over ${runs} runs): ${m0} ± ${s0} without a baseline, with ${k0} runs ending below 50%; ${m1} ± ${s1} with a baseline, with ${k1} below 50%.`,
+        gaeZero: 'λ = 0: the advantage is the one-step TD error δₜ, low variance but biased by the critic.',
+        gaeOne: 'λ = 1: the advantage is the Monte Carlo return minus V(sₜ), unbiased but high variance.',
+        gaeMid: 'In between: real rewards for the first few steps, the critic for the rest.',
+        gaeSay: (mode, gl, half) => `${mode} γλ = ${gl}; the weights halve every ${half} steps.`,
+        eps: 'Clip range ε', ratio: 'Ratio ρ',
+        ppoPart: (pos, obj, clipped) => `${pos ? 'A > 0' : 'A < 0'}: objective ${obj}, ${clipped ? 'clipped, so this sample contributes no gradient' : 'gradient active'}`,
+        ppoSay: (r, e, parts) => `ρ = ${r}, ε = ${e}. ${parts.join('. ')}.`,
+        beta: 'KL weight β',
+        klSay: (b, er, kl, ex, c) => `β = ${b}: expected reward ${er} at KL ${kl} nats; the flattering reply y₆ gets ${ex}. The implicit reward β log(π*/π_ref) equals the true reward minus the same constant β log Z = ${c} for every reply.`,
+        policy: 'Sample from', policies: ['Base model', 'SFT model', 'After RLHF'], groupSize: 'Group size', sample: 'Sample a new group',
+        grpoSay: (i, k, g, m, sd, none) => `Group ${i}: ${k} of ${g} answers correct; mean reward ${m}, standard deviation ${sd}. ` + (none ? 'Every answer got the same reward, so every advantage is 0 and this group gives no learning signal.' : 'Correct answers get a positive advantage and wrong ones a negative advantage; each token of an answer shares its answer’s advantage.'),
+        modeFull: 'Full maths', modeIntuition: 'Intuition only', modeLabel: 'Reading mode',
+        modeNote: 'Derivations and proofs are hidden; key equations, figures and algorithms stay.',
+    },
+    zh: {
+        play: '▶ 播放', pause: '❚❚ 暂停', prev: '上一个节点', next: '下一个节点', reset: '重置',
+        tlAria: '时间线。可用方向键在节点之间移动。',
+        eras: { vec: '词向量', pre: '先预训练，再适配', arch: '模型架构', scale: '规模与提示', post: '后训练' },
+        parisBase: '基座模型', parisSft: 'SFT 之后', parisAmount: 'SFT 程度', model: '模型',
+        parisSay: (p, a, a0, l, l0) => `P(Paris) = ${p}。以回答开头的 token（Paris、The、Great）共占 ${a} 的概率，基座模型只给了 ${a0}。错误答案 Lyon 没有变多（${l0} → ${l}）：SFT 把概率从“续写文档”挪到了“回答问题”。`,
+        rA: 'A 的奖励', rB: 'B 的奖励', shift: '整体平移',
+        btSay: (a, b, d, p, loss, slope) => `r(A) = ${a}，r(B) = ${b}，差值 Δ = ${d}。P(A 更好) = ${p}。若 A 是被选中的回答，损失为 ${loss}；它对 Δ 的斜率为 −(1 − σ(Δ)) = ${slope}。`,
+        gamma: '折扣因子 γ',
+        discSay: (g, w, q, pa, win) => `γ = ${g}：10 步之后的奖励权重为 ${w}。“快”奖励流 G₀ = ${q}，“慢”奖励流 G₀ = 5 × γ⁹ = ${pa}，因此更偏好${win === 'patient' ? '慢' : '快'}的那一条。两者在 γ ≈ 0.836 处持平。`,
+        run1: '运行 1 个回合', run20: '运行 20 个回合', alpha: '步长 α', left: '左端（0）', right: '右端（+1）',
+        mctdEp: (k, path) => `第 ${k} 个回合：${path}。`,
+        mctdSay: (n, a, mc, td) => `α = ${a}，运行 ${n} 个回合后：均方根误差 ${mc}（蒙特卡洛）与 ${td}（TD）。`,
+        offset: '给每个奖励加上的常数', run: '▶ 运行',
+        banditRunning: (o, t, n) => `奖励整体加 ${o}。运行中：第 ${t} / ${n} 步。`,
+        banditSay: (o, t, runs, m0, s0, k0, m1, s1, k1) => `奖励整体加 ${o}。${t} 步之后，选中最优臂的概率（${runs} 次运行的均值 ± 标准差）：无 baseline 时为 ${m0} ± ${s0}，其中 ${k0} 次低于 50%；有 baseline 时为 ${m1} ± ${s1}，其中 ${k1} 次低于 50%。`,
+        gaeZero: 'λ = 0：advantage 就是一步 TD 误差 δₜ，方差低，但会带上 critic 的偏差。',
+        gaeOne: 'λ = 1：advantage 是蒙特卡洛回报减去 V(sₜ)，无偏，但方差大。',
+        gaeMid: '介于两者之间：前几步用真实奖励，其余交给 critic。',
+        gaeSay: (mode, gl, half) => `${mode} γλ = ${gl}；权重每 ${half} 步减半。`,
+        eps: '裁剪范围 ε', ratio: '比率 ρ',
+        ppoPart: (pos, obj, clipped) => `${pos ? 'A > 0' : 'A < 0'}：目标值 ${obj}，${clipped ? '已被裁剪，该样本不贡献梯度' : '梯度有效'}`,
+        ppoSay: (r, e, parts) => `ρ = ${r}，ε = ${e}。${parts.join('；')}。`,
+        beta: 'KL 权重 β',
+        klSay: (b, er, kl, ex, c) => `β = ${b}：期望奖励 ${er}，KL 为 ${kl} nats；奉承式回答 y₆ 占 ${ex}。隐式奖励 β log(π*/π_ref) 对每个回答都等于真实奖励减去同一个常数 β log Z = ${c}。`,
+        policy: '采样自', policies: ['基座模型', 'SFT 模型', 'RLHF 之后'], groupSize: '组大小', sample: '重新采样一组',
+        grpoSay: (i, k, g, m, sd, none) => `第 ${i} 组：${g} 个回答中 ${k} 个正确；平均奖励 ${m}，标准差 ${sd}。` + (none ? '所有回答奖励相同，因此 advantage 全为 0，这一组不提供学习信号。' : '正确回答得到正的 advantage，错误回答得到负的 advantage；同一个回答的每个 token 共享这个 advantage。'),
+        modeFull: '完整数学', modeIntuition: '只看直觉', modeLabel: '阅读模式',
+        modeNote: '推导和证明已隐藏；关键公式、图和算法仍然保留。',
+    },
+};
+const S = key => STRINGS[LANG][key] ?? STRINGS.en[key];
+
 // ------------------------------------------------------------------ small helpers
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = t => t * t * (3 - 2 * t);
@@ -121,12 +226,11 @@ function mount(fig, spec) {
 // renormalised, so every frame is a valid distribution. Rows move to their rank with a soft rank,
 // so the frame is a pure function of time (no CSS transitions).
 const HERO = {
-    rows: ['What is the capital of Germany?', 'France is a country in Western Europe, bordered by…', 'Paris.', 'The capital of France is Paris.', 'Lyon.'],
-    notes: ['continues the quiz', 'keeps writing', 'answers', 'answers in full', 'wrong'],
+    notes: ['continues the quiz', 'keeps writing', 'answers', 'answers in full', 'wrong', 'flatters'],
     stages: [
-        { name: 'Base model', label: 'Base model: it continues the document', p: [0.44, 0.27, 0.12, 0.07, 0.10] },
-        { name: 'After SFT', label: 'After SFT: it answers the question', p: [0.04, 0.12, 0.40, 0.30, 0.14] },
-        { name: 'After preference tuning', label: 'After preference tuning: the answer raters preferred', p: [0.01, 0.03, 0.17, 0.74, 0.05] },
+        { label: 'Base model: it continues the document', p: TOY.base },
+        { label: 'After SFT: it answers the question', p: TOY.sft },
+        { label: 'After RLHF: the reply the reward model scores highest, within a KL budget', p: toyOpt(TOY.beta).pi },
     ],
     period: 15000,
 };
@@ -147,22 +251,23 @@ function heroSVG(from, to, w, narrow = false) {
     const colour = mix(C.navy, C.teal, level);
     const W = narrow ? 350 : 460, ROW = 50, TOP = 76, BW = narrow ? 280 : 280;
     let s = R(0, 0, W, 50, C.soft, 'rx="8"');
-    s += T(14, 21, 'User', { size: 12, cls: 'pf-m' }) + T(14, 40, 'What is the capital of France?', { size: 16, cls: 'pf-h' });
+    s += T(14, 21, 'User', { size: 12, cls: 'pf-m' }) + T(14, 40, TOY.prompt, { size: 16, cls: 'pf-h' });
     s += T(0, 68, 'Probability of each whole reply', { size: 12, cls: 'pf-m' });
-    HERO.rows.forEach((text, i) => {
+    TOY.replies.forEach(({ text }, i) => {
         let rank = 0;
-        p.forEach((q, j) => { if (j !== i) rank += sigmoid((q - p[i]) / 0.005); });
+        p.forEach((q, j) => { if (j !== i) rank += sigmoid((q - p[i]) / 0.003); });
         const y = TOP + rank * ROW;
         const top = rank < 0.5;
         s += `<g transform="translate(0 ${n1(y)})">`;
-        s += T(0, 15, esc(narrow && text.length > 40 ? text.slice(0, 38) + '…' : text), { size: 14, cls: top ? 'pf-h' : '' });
+        const max = narrow ? 36 : 54, label = `y${i + 1}  ` + (text.length > max ? text.slice(0, max - 2).trimEnd() + '…' : text);
+        s += T(0, 15, esc(label), { size: 14, cls: top ? 'pf-h' : '' });
         s += R(0, 23, BW, 12, C.grid, 'rx="3"') + R(0, 23, BW * p[i], 12, colour, `rx="3" opacity="${top ? 1 : 0.55}"`);
         s += T(BW + 10, 34, pct(p[i]), { size: 14, cls: top ? 'pf-h pf-strong' : 'pf-m' });
         if (!narrow) s += T(BW + 52, 34, HERO.notes[i], { size: 11.5, cls: 'pf-m' });
         s += '</g>';
     });
     const label = (w < 0.5 ? HERO.stages[from] : HERO.stages[to]).label;
-    return { svg: svg(W, TOP + 5 * ROW - 6, 'Animated toy: the probabilities a language model gives to five possible replies, before and after each stage of post-training.', s), label, stage: w < 0.5 ? from : to };
+    return { svg: svg(W, TOP + 6 * ROW - 6, 'Animated toy: the probabilities a language model gives to six possible replies, before and after each stage of post-training.', s), label, stage: w < 0.5 ? from : to };
 }
 function initHero(fig) {
     const head = document.createElement('div');
@@ -174,7 +279,7 @@ function initHero(fig) {
     chips.className = 'pt-live-chips';
     chips.setAttribute('role', 'group');
     chips.setAttribute('aria-label', 'Show a stage');
-    chips.innerHTML = HERO.stages.map((st, i) => `<button type="button" data-stage="${i}">${['Base', 'SFT', 'Preference'][i]}</button>`).join('<span aria-hidden="true">→</span>');
+    chips.innerHTML = HERO.stages.map((st, i) => `<button type="button" data-stage="${i}">${['Base', 'SFT', 'RLHF'][i]}</button>`).join('<span aria-hidden="true">→</span>');
     const label = head.querySelector('span'), btn = head.querySelector('button');
     const holds = [1500, 6000, 11500];
     let t = REDUCED ? holds[2] : 0, last = 0, raf = 0, playing = !REDUCED, visible = !('IntersectionObserver' in window);
@@ -237,9 +342,28 @@ const EVENTS = [
     ['2024', 'o1', 'OpenAI o1', 'post', 'Large-scale reinforcement learning for reasoning; performance improves with more RL training and with more thinking at test time.'],
     ['2025', 'DeepSeek-R1', 'DeepSeek-R1', 'post', 'Reinforcement learning with rule-based rewards produces long chains of thought; a multi-stage pipeline makes them readable.'],
 ];
+// Chinese text for the timeline card, in the same order as EVENTS.
+const EVENTS_ZH = [
+    '为每个词学习一个固定向量，来源是无标注文本，再作为输入特征交给各个任务专用模型。',
+    '先把 LSTM 训练成语言模型或序列自编码器，再用它初始化有监督分类器。训练更稳定，泛化也更好。',
+    '只依赖注意力的架构，可以并行处理整条序列，使大得多的预训练变得可行。',
+    '对整个预训练语言模型做分类微调，并用分层学习率和逐层解冻来避免遗忘。',
+    '由双向 LSTM 语言模型得到的上下文相关词表示，按任务加权组合后作为特征输入任务模型。',
+    '在书籍语料上预训练的 Transformer 解码器，再针对每个任务微调，任务被改写成 token 序列。',
+    '用掩码语言建模预训练的双向 Transformer 编码器，然后分别为每个任务微调。',
+    '15 亿参数的语言模型，以零样本方式评测：任务直接写成文本，完全不做微调。',
+    '把所有任务都表述为“输入文本、输出文本”，并加上任务前缀。模型越大，效果持续提升。',
+    '1750 亿参数。可以在提示中给几个示例来指定任务：上下文学习，不更新权重。',
+    '指令微调：在大量以自然语言指令表述的任务上微调，提升了在未见任务上的零样本表现。',
+    '完整的 RLHF 流程：监督微调、在人类排序上训练的奖励模型，以及针对该奖励模型的 PPO。',
+    '直接在偏好对上优化策略，不需要单独的奖励模型，也不需要强化学习循环。',
+    '不用 critic 的 PPO 变体：每个采样回答都与同一提示下采样的其他回答相比较。',
+    '面向推理的大规模强化学习：更多 RL 训练和测试时更多的思考都会提升表现。',
+    '用基于规则的奖励做强化学习，产生长思维链；多阶段流程让它们变得可读。',
+];
 const timeline = {
     state: () => ({ i: 11 }),
-    controls: () => '<button type="button" data-step="-1" aria-label="Previous milestone">◀</button><button type="button" data-step="1" aria-label="Next milestone">▶</button><button type="button" data-play aria-pressed="false">▶ Play</button>',
+    controls: () => `<button type="button" data-step="-1" aria-label="${S('prev')}">◀</button><button type="button" data-step="1" aria-label="${S('next')}">▶</button><button type="button" data-play aria-pressed="false">${S('play')}</button>`,
     render(st, narrow) {
         let s = '';
         const keys = Object.keys(ERAS);
@@ -284,8 +408,8 @@ const timeline = {
         ctx.stage.after(card);
         ctx.readout.hidden = true;
         const show = () => {
-            const e = EVENTS[ctx.state.i];
-            card.innerHTML = `<p class="pt-tl-meta"><span style="color:${ERAS[e[3]][1]}">●</span> ${e[0]} · ${ERAS[e[3]][0]}</p><h4>${esc(e[2])}</h4><p>${esc(e[4])}</p>`;
+            const e = EVENTS[ctx.state.i], text = LANG === 'zh' ? EVENTS_ZH[ctx.state.i] : e[4];
+            card.innerHTML = `<p class="pt-tl-meta"><span style="color:${ERAS[e[3]][1]}">●</span> ${e[0]} · ${S('eras')[e[3]]}</p><h4>${esc(e[2])}</h4><p>${esc(text)}</p>`;
             card.style.borderTopColor = ERAS[e[3]][1];
         };
         const go = i => { ctx.state.i = (i + EVENTS.length) % EVENTS.length; ctx.draw(); show(); };
@@ -295,7 +419,7 @@ const timeline = {
             clearInterval(timer);
             timer = 0;
             play.setAttribute('aria-pressed', String(on));
-            play.textContent = on ? '❚❚ Pause' : '▶ Play';
+            play.textContent = on ? S('pause') : S('play');
             if (on) timer = setInterval(() => { if (ctx.state.i === EVENTS.length - 1) setPlay(false); else go(ctx.state.i + 1); }, 1700);
         };
         ctx.controls.addEventListener('click', e => {
@@ -307,7 +431,7 @@ const timeline = {
         });
         ctx.stage.addEventListener('click', e => { const g = e.target.closest('[data-i]'); if (g) { setPlay(false); go(Number(g.dataset.i)); } });
         ctx.stage.setAttribute('tabindex', '0');
-        ctx.stage.setAttribute('aria-label', 'Timeline. Use the arrow keys to move between milestones.');
+        ctx.stage.setAttribute('aria-label', S('tlAria'));
         ctx.stage.addEventListener('keydown', e => {
             const d = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[e.key];
             if (!d) return;
@@ -321,36 +445,36 @@ const timeline = {
 };
 
 // ------------------------------------------------------------------ figure 2: next-token distribution before and after SFT
-const PARIS = {
-    tokens: [' Paris', ' The', '↵ new line', ' What', ' I', ' France', ' Well', ' Lyon', 'all other tokens'],
-    base: [0.17, 0.10, 0.22, 0.12, 0.07, 0.05, 0.04, 0.03, 0.20],
-    sft: [0.55, 0.27, 0.01, 0.01, 0.03, 0.02, 0.01, 0.02, 0.08],
-};
+// The running example at token level: each of the six replies begins with a different token, so the
+// probability of a first token equals the probability of its reply in TOY.
+const PARIS = { order: [2, 3, 5, 0, 1, 4], tokens: [' Paris', ' The', ' Great', ' What', ' France', ' Lyon'] };
+PARIS.base = PARIS.order.map(i => TOY.base[i]);
+PARIS.sft = PARIS.order.map(i => TOY.sft[i]);
 function parisProbs(s) { return softmax(PARIS.base.map((v, i) => (1 - s) * Math.log(v) + s * Math.log(PARIS.sft[i]))); }
 const paris = {
     state: () => ({ s: 1 }),
-    controls: st => '<span class="pt-seg" role="group" aria-label="Model"><button type="button" data-s="0">Base model</button><button type="button" data-s="1">After SFT</button></span>' +
-        range('s', 'Amount of SFT', 0, 1, 0.01, st.s, pct(st.s)),
+    controls: st => `<span class="pt-seg" role="group" aria-label="${S('model')}"><button type="button" data-s="0">${S('parisBase')}</button><button type="button" data-s="1">${S('parisSft')}</button></span>` +
+        range('s', S('parisAmount'), 0, 1, 0.01, st.s, pct(st.s)),
     render(st, narrow) {
         const p = parisProbs(st.s), col = mix(C.navy, C.teal, st.s);
         const W = narrow ? 380 : 760, lab = narrow ? 118 : 150, bw = W - lab - 64, top = 74, row = narrow ? 30 : 28;
         let s = R(0, 0, W, 54, C.soft, 'rx="8"');
-        s += T(12, 22, 'User: What is the capital of France?', { size: narrow ? 13 : 15, cls: 'pf-h' });
+        s += T(12, 22, 'User: ' + TOY.prompt, { size: narrow ? 13 : 15, cls: 'pf-h' });
         s += T(12, 43, 'Assistant: <tspan style="fill:' + C.tealInk + '">▮</tspan>  ← next token?', { size: narrow ? 13 : 15 });
         PARIS.tokens.forEach((tok, i) => {
-            const y = top + i * row, other = i === PARIS.tokens.length - 1;
-            s += T(lab - 10, y + 15, esc(tok.replace(/^ /, '␣')), { size: 13, anchor: 'end', cls: other ? 'pf-m' : 'pf-mono' });
+            const y = top + i * row;
+            s += T(lab - 10, y + 15, esc(tok.replace(/^ /, '␣')) + `<tspan class="pf-m" font-size="11"> y${PARIS.order[i] + 1}</tspan>`, { size: 13, anchor: 'end', cls: 'pf-mono' });
             s += R(lab, y + 4, bw, 14, C.grid, 'rx="3"');
-            s += R(lab, y + 4, bw * p[i], 14, other ? C.gray : col, 'rx="3"');
+            s += R(lab, y + 4, bw * p[i], 14, col, 'rx="3"');
             s += R(lab, y + 4, bw * PARIS.base[i], 14, 'none', `rx="3" stroke="${C.navy}" stroke-dasharray="3 3" stroke-width="1.2"`);
             s += T(lab + bw + 8, y + 16, pct(p[i]), { size: 13, cls: i === 0 ? 'pf-h pf-strong' : '' });
         });
         const H = top + PARIS.tokens.length * row + 18;
         s += R(lab, H - 12, 18, 8, 'none', `stroke="${C.navy}" stroke-dasharray="3 3"`) + T(lab + 24, H - 4, 'dashed outline: base model', { size: 11.5, cls: 'pf-m' });
-        const answer = p[0] + p[1];
+        const answer = p[0] + p[1] + p[2], answer0 = PARIS.base[0] + PARIS.base[1] + PARIS.base[2];
         return {
             svg: svg(W, H, 'Bar chart of next-token probabilities after the prompt, for the base model and after supervised fine-tuning.', s),
-            say: `P(Paris) = ${pct(p[0])}. Tokens that begin an answer (Paris, The) hold ${pct(answer)} of the probability; the base model gave them ${pct(PARIS.base[0] + PARIS.base[1])}. Lyon stays near ${pct(p[7])}: the shift is in behaviour, not knowledge.`,
+            say: S('parisSay')(pct(p[0]), pct(answer), pct(answer0), pct(p[5]), pct(PARIS.base[5])),
         };
     },
     bind(ctx) {
@@ -381,15 +505,17 @@ const paris = {
 
 // ------------------------------------------------------------------ figure 3: Bradley–Terry
 const bt = {
-    state: () => ({ a: 1.2, b: 0.2 }),
-    controls: st => range('a', 'Reward of A', -4, 4, 0.1, st.a, st.a.toFixed(1)) + range('b', 'Reward of B', -4, 4, 0.1, st.b, st.b.toFixed(1)) +
-        '<button type="button" data-shift>Shift both</button><button type="button" data-reset>Reset</button>',
+    // Starts at the running example: A = y4 (the full sentence), B = y3 ("Paris.").
+    state: () => ({ a: TOY.reward[3], b: TOY.reward[2] }),
+    controls: st => range('a', S('rA'), -4, 4, 0.1, st.a, st.a.toFixed(1)) + range('b', S('rB'), -4, 4, 0.1, st.b, st.b.toFixed(1)) +
+        `<button type="button" data-shift>${S('shift')}</button><button type="button" data-reset>${S('reset')}</button>`,
     render(st, narrow) {
         const W = narrow ? 380 : 760, d = st.a - st.b, p = sigmoid(d), loss = -Math.log(p);
         let s = '';
         // reward axis
         const A = frame(narrow ? 20 : 40, 30, W - (narrow ? 40 : 80), 10, [-4, 4], [0, 1]);
         s += T(A.x, 16, 'Reward model scores ' + ITAL('r') + '(' + ITAL('x') + ', ' + ITAL('y') + ')', { size: 12, cls: 'pf-m' });
+        s += T(A.x + A.w, 16, narrow ? 'A starts as y4, B as y3' : 'Starts at the running example: A = y4 (full sentence), B = y3 (“Paris.”)', { size: 12, anchor: 'end', cls: 'pf-m' });
         s += L(A.x, 52, A.x + A.w, 52, '#b9c0ca', 1.5);
         for (let v = -4; v <= 4; v++) s += L(A.sx(v), 48, A.sx(v), 56, '#b9c0ca') + T(A.sx(v), 72, String(v), { size: 11, anchor: 'middle', cls: 'pf-m' });
         const xa = A.sx(st.a), xb = A.sx(st.b);
@@ -413,7 +539,7 @@ const bt = {
         const H = narrow ? F2.y + ph + 42 : y0 + ph + 42;
         return {
             svg: svg(W, H, 'Bradley–Terry model: probability that reply A is preferred, as a sigmoid of the reward gap, and the corresponding loss.', s),
-            say: `r(A) = ${num(st.a, 1)}, r(B) = ${num(st.b, 1)}, gap Δ = ${num(d, 1)}. P(A preferred) = ${pct(p, 1)}. Loss if A was chosen = ${loss.toFixed(3)}; its slope in Δ is −(1 − σ(Δ)) = ${num(-(1 - p), 3)}.`,
+            say: S('btSay')(num(st.a, 1), num(st.b, 1), num(d, 1), pct(p, 1), loss.toFixed(3), num(-(1 - p), 3)),
         };
     },
     bind(ctx) {
@@ -457,7 +583,7 @@ const bt = {
 // ------------------------------------------------------------------ figure 4: discount factor
 const discount = {
     state: () => ({ g: 0.9 }),
-    controls: st => range('g', 'Discount γ', 0, 0.99, 0.01, st.g, st.g.toFixed(2)),
+    controls: st => range('g', S('gamma'), 0, 0.99, 0.01, st.g, st.g.toFixed(2)),
     render(st, narrow) {
         const g = st.g, N = 20, W = narrow ? 380 : 760;
         const F = frame(narrow ? 40 : 56, 78, W - (narrow ? 56 : 300), 150, [-0.5, N - 0.5], [0, 1]);
@@ -485,7 +611,7 @@ const discount = {
         const H = narrow ? by + 90 : F.y + F.h + 44;
         return {
             svg: svg(W, H, 'Bar chart of the discount weights gamma to the power k, and the discounted return of a quick and a patient reward stream.', s),
-            say: `γ = ${g.toFixed(2)}: a reward 10 steps ahead is weighted ${(g ** 9).toFixed(3)}. Quick stream G₀ = 1.00, patient stream G₀ = 5 × γ⁹ = ${patient.toFixed(2)}, so the ${win} stream is preferred. The two tie at γ ≈ 0.836.`,
+            say: S('discSay')(g.toFixed(2), (g ** 9).toFixed(3), '1.00', patient.toFixed(2), win),
         };
     },
     bind(ctx) {
@@ -530,8 +656,8 @@ function walkLearn(n, alpha, partial = Infinity) {
 }
 const mctd = {
     state: () => ({ n: 0, alpha: 0.1, step: Infinity }),
-    controls: st => '<button type="button" data-ep="1">Run 1 episode</button><button type="button" data-ep="20">Run 20 episodes</button><button type="button" data-reset>Reset</button>' +
-        range('alpha', 'Step size α', 0.02, 0.3, 0.01, st.alpha, st.alpha.toFixed(2)),
+    controls: st => `<button type="button" data-ep="1">${S('run1')}</button><button type="button" data-ep="20">${S('run20')}</button><button type="button" data-reset>${S('reset')}</button>` +
+        range('alpha', S('alpha'), 0.02, 0.3, 0.01, st.alpha, st.alpha.toFixed(2)),
     render(st, narrow) {
         const { mc, td, hist } = walkLearn(st.n, st.alpha, st.step);
         const W = narrow ? 380 : 760, names = ['A', 'B', 'C', 'D', 'E'];
@@ -548,7 +674,7 @@ const mctd = {
             const k = st.step !== Infinity ? st.n : st.n - 1, path = WALK[k], upto = st.step !== Infinity ? Math.min(st.step, path.length - 1) : path.length - 1;
             const pos = path[upto];
             s += `<circle cx="${n1(cx(pos))}" cy="${cy}" r="6" fill="${C.ochre}"/>`;
-            pathNote = `Episode ${k + 1}: ` + path.slice(0, upto + 1).map(i => i === 0 ? 'left end (0)' : i === 6 ? 'right end (+1)' : names[i - 1]).join(' → ') + '.';
+            pathNote = S('mctdEp')(k + 1, path.slice(0, upto + 1).map(i => i === 0 ? S('left') : i === 6 ? S('right') : names[i - 1]).join(' → '));
         }
         // value estimates
         const vx = narrow ? 44 : 56, vw = narrow ? 300 : 300, vy = 100, vh = 170;
@@ -570,7 +696,7 @@ const mctd = {
         s += P(hist.td.slice(0, upto).map((v, i) => [G.sx(i), G.sy(Math.min(v, 0.3))]), C.teal, 1.8);
         const H = narrow ? ry + vh + 46 : vy + vh + 56;
         const last = hist.mc.length - 1;
-        const say = (pathNote ? pathNote + ' ' : '') + `After ${st.n} episode${st.n === 1 ? '' : 's'} with α = ${st.alpha.toFixed(2)}: RMS error ${hist.mc[last].toFixed(3)} (Monte Carlo) and ${hist.td[last].toFixed(3)} (TD).`;
+        const say = (pathNote ? pathNote + ' ' : '') + S('mctdSay')(st.n, st.alpha.toFixed(2), hist.mc[last].toFixed(3), hist.td[last].toFixed(3));
         return { svg: svg(W, H, 'Random-walk example: value estimates from Monte Carlo and TD learning compared with the true values, and their errors over episodes.', s), say };
     },
     bind(ctx) {
@@ -641,8 +767,8 @@ function banditRuns(offset) {
 function spread(vals) { const m = vals.reduce((a, b) => a + b, 0) / vals.length; return [m, Math.sqrt(vals.reduce((a, b) => a + (b - m) ** 2, 0) / vals.length)]; }
 const bandit = {
     state: () => ({ offset: 10, t: BANDIT.steps }),
-    controls: st => '<span class="pt-seg" role="group" aria-label="Constant added to every reward">' + [0, 5, 10, 20].map(v => `<button type="button" data-off="${v}" aria-pressed="${v === st.offset}">+${v}</button>`).join('') + '</span>' +
-        '<button type="button" data-run>▶ Run</button>',
+    controls: st => `<span class="pt-seg" role="group" aria-label="${S('offset')}">` + [0, 5, 10, 20].map(v => `<button type="button" data-off="${v}" aria-pressed="${v === st.offset}">+${v}</button>`).join('') + '</span>' +
+        `<button type="button" data-run>${S('run')}</button>`,
     render(st, narrow) {
         const runs = banditRuns(st.offset), W = narrow ? 380 : 760, t = st.t;
         const pw = narrow ? 300 : 300, ph = 170;
@@ -660,8 +786,8 @@ const bandit = {
             stats.push(spread(set.map(r => r[t])).concat([set.filter(r => r[t] < 0.5).length]));
         });
         const H = narrow ? 34 + 2 * (ph + 84) - 30 : 34 + ph + 46;
-        const say = t < BANDIT.steps ? `Rewards offset by +${st.offset}. Running: step ${t} of ${BANDIT.steps}.` :
-            `Rewards offset by +${st.offset}. After ${t} steps, probability of choosing the best arm (mean ± s.d. over ${BANDIT.runs} runs): ${stats[0][0].toFixed(2)} ± ${stats[0][1].toFixed(2)} without a baseline, with ${stats[0][2]} runs ending below 50%; ${stats[1][0].toFixed(2)} ± ${stats[1][1].toFixed(2)} with a baseline, with ${stats[1][2]} below 50%.`;
+        const say = t < BANDIT.steps ? S('banditRunning')(st.offset, t, BANDIT.steps) :
+            S('banditSay')(st.offset, t, BANDIT.runs, stats[0][0].toFixed(2), stats[0][1].toFixed(2), stats[0][2], stats[1][0].toFixed(2), stats[1][1].toFixed(2), stats[1][2]);
         return { svg: svg(W, H, 'Two panels of learning curves: probability of choosing the best arm over update steps, for twelve runs of REINFORCE without and with a baseline.', s), say };
     },
     bind(ctx) {
@@ -708,10 +834,10 @@ const gae = {
         else for (let k = 1; k <= N; k++) { const v = (1 - l) * l ** (k - 1); s += R(G.sx(k) - bw / 2, G.sy(v), bw, G.sy(0) - G.sy(v), C.navy, 'opacity=".75"'); }
         const H = G.y + G.h + 44;
         const half = gl > 0 && gl < 1 ? Math.log(0.5) / Math.log(gl) : (gl >= 1 ? Infinity : 0);
-        const mode = l <= 0.001 ? 'λ = 0: the advantage is the one-step TD error δₜ, low variance but biased by the critic.' : l >= 0.999 ? 'λ = 1: the advantage is the Monte Carlo return minus V(sₜ), unbiased but high variance.' : 'In between: real rewards for the first few steps, the critic for the rest.';
+        const mode = l <= 0.001 ? S('gaeZero') : l >= 0.999 ? S('gaeOne') : S('gaeMid');
         return {
             svg: svg(W, H, 'Bar charts of the GAE weights on future TD errors and on k-step advantage estimates.', s),
-            say: `${mode} γλ = ${gl.toFixed(3)}; the weights halve every ${Number.isFinite(half) ? half.toFixed(1) : '∞'} steps.`,
+            say: S('gaeSay')(mode, gl.toFixed(3), Number.isFinite(half) ? half.toFixed(1) : '∞'),
         };
     },
     bind(ctx) {
@@ -722,7 +848,7 @@ const gae = {
 // ------------------------------------------------------------------ figure 8: PPO's clipped objective
 const ppo = {
     state: () => ({ eps: 0.2, r: 1.35 }),
-    controls: st => range('eps', 'Clip range ε', 0.05, 0.5, 0.01, st.eps, st.eps.toFixed(2)) + range('r', 'Ratio ρ', 0, 2, 0.01, st.r, st.r.toFixed(2)),
+    controls: st => range('eps', S('eps'), 0.05, 0.5, 0.01, st.eps, st.eps.toFixed(2)) + range('r', S('ratio'), 0, 2, 0.01, st.r, st.r.toFixed(2)),
     render(st, narrow) {
         const { eps, r } = st, W = narrow ? 380 : 760, pw = narrow ? 300 : 290, ph = 170;
         let s = '';
@@ -742,14 +868,14 @@ const ppo = {
             s += T(F.sx(1 - eps), F.y + 14, '1−ε', { size: 11, anchor: 'end', cls: 'pf-m' }) + T(F.sx(1 + eps) + 2, F.y + 14, '1+ε', { size: 11, cls: 'pf-m' });
             const label = A > 0 ? (flat ? 'clipped: no gradient' : 'gradient pushes ρ up') : (flat ? 'clipped: no gradient' : 'gradient pushes ρ down');
             s += T(F.x + F.w, A > 0 ? F.y + F.h - 8 : F.y + 30, label, { size: 12, anchor: 'end', fill: flat ? C.muted : ink });
-            says.push(`${A > 0 ? 'A > 0' : 'A < 0'}: objective ${num(clipObj(r))}, ${flat ? 'clipped, so this sample contributes no gradient' : 'gradient active'}`);
+            says.push(S('ppoPart')(A > 0, num(clipObj(r)), flat));
         });
         const lx = narrow ? 50 : 56, ly = narrow ? 40 + 2 * (ph + 92) - 22 : 40 + ph + 62;
         s += L(lx, ly - 4, lx + 22, ly - 4, C.gray, 1.4, 'stroke-dasharray="5 4"') + T(lx + 28, ly, 'unclipped ρA', { size: 12 });
         s += L(lx + 130, ly - 4, lx + 152, ly - 4, C.navy, 2.6) + T(lx + 158, ly, 'PPO: min(ρA, clip(ρ, 1−ε, 1+ε)A)', { size: 12 });
         return {
             svg: svg(W, ly + 12, 'Two plots of the PPO clipped surrogate objective against the probability ratio, for a positive and a negative advantage.', s),
-            say: `ρ = ${r.toFixed(2)}, ε = ${eps.toFixed(2)}. ${says.join('. ')}.`,
+            say: S('ppoSay')(r.toFixed(2), eps.toFixed(2), says),
         };
     },
     bind(ctx) {
@@ -758,21 +884,13 @@ const ppo = {
 };
 
 // ------------------------------------------------------------------ figure 9: the KL-regularised optimum and DPO's implicit reward
-const KLTOY = {
-    names: ['Short, correct', 'Correct, explained', 'Hedged', 'Long, flattering', 'Off-topic', 'Exploit'],
-    ref: [0.30, 0.28, 0.17, 0.12, 0.10, 0.03],
-    r: [1.0, 1.5, 0.4, 1.7, -1.0, 3.0],
-};
-function klOpt(beta) {
-    const w = KLTOY.ref.map((p, i) => Math.log(p) + KLTOY.r[i] / beta), pi = softmax(w);
-    const m = Math.max(...w), logZ = m + Math.log(KLTOY.ref.reduce((a, p, i) => a + Math.exp(Math.log(p) + KLTOY.r[i] / beta - m), 0));
-    const kl = pi.reduce((a, p, i) => a + (p > 0 ? p * Math.log(p / KLTOY.ref[i]) : 0), 0);
-    const er = pi.reduce((a, p, i) => a + p * KLTOY.r[i], 0);
-    return { pi, kl, er, logZ };
-}
+// The running example: the SFT model is the reference, and y6 (the flattering reply) is the one the
+// reward model over-rates.
+const KLTOY = { names: TOY.replies.map((r, i) => `y${i + 1} ${r.short}`), ref: TOY.sft, r: TOY.reward };
+const klOpt = beta => toyOpt(beta);
 const klfig = {
     state: () => ({ lb: 0 }),  // log10(beta)
-    controls: st => range('lb', 'KL weight β', -1.3, 1, 0.01, st.lb, (10 ** st.lb).toFixed(2)),
+    controls: st => range('lb', S('beta'), -1.3, 1, 0.01, st.lb, (10 ** st.lb).toFixed(2)),
     render(st, narrow) {
         const beta = 10 ** st.lb, o = klOpt(beta), W = narrow ? 380 : 760, K = KLTOY.names.length;
         let s = '';
@@ -788,12 +906,12 @@ const klfig = {
         });
         // (b) frontier: expected reward against KL as beta varies
         const bx = narrow ? 50 : 470, by = narrow ? ay + K * row + 46 : 36, bw = narrow ? 300 : 270, bh = narrow ? 130 : 110;
-        const F = frame(bx, by, bw, bh, [0, 3.6], [0.6, 3.0]);
-        s += axes(F, { xt: [0, 1, 2, 3], yt: [1, 2, 3], xl: 'KL(π* ‖ π' + SUB('ref') + ')', yl: 'Expected reward', fy: v => v.toFixed(0) });
+        const F = frame(bx, by, bw, bh, [0, 3.6], [0.4, 2.4]);
+        s += axes(F, { xt: [0, 1, 2, 3], yt: [0.5, 1, 1.5, 2], xl: 'KL(π* ‖ π' + SUB('ref') + ')', yl: 'Expected reward', fy: v => v.toFixed(1) });
         const curve = [];
-        for (let lb = 1.3; lb >= -1.6; lb -= 0.02) { const q = klOpt(10 ** lb); curve.push([F.sx(Math.min(q.kl, 3.6)), F.sy(clamp(q.er, 0.6, 3))]); }
+        for (let lb = 1.6; lb >= -1.6; lb -= 0.02) { const q = klOpt(10 ** lb); curve.push([F.sx(Math.min(q.kl, 3.6)), F.sy(clamp(q.er, 0.4, 2.4))]); }
         s += P(curve, C.navy, 1.8, 'opacity=".75"');
-        s += `<circle cx="${n1(F.sx(Math.min(o.kl, 3.6)))}" cy="${n1(F.sy(clamp(o.er, 0.6, 3)))}" r="6" fill="${C.teal}" stroke="#fff" stroke-width="2"/>`;
+        s += `<circle cx="${n1(F.sx(Math.min(o.kl, 3.6)))}" cy="${n1(F.sy(clamp(o.er, 0.4, 2.4)))}" r="6" fill="${C.teal}" stroke="#fff" stroke-width="2"/>`;
         // (c) implicit reward: beta log(pi*/pi_ref) = r - beta log Z
         const cy = narrow ? by + bh + 80 : by + bh + 76, cw = bw, ch = narrow ? 120 : 110;
         const G = frame(bx, cy, cw, ch, [-0.5, K - 0.5], [-5, 3.5]);
@@ -805,12 +923,12 @@ const klfig = {
             s += R(x - bwid / 2, y1, bwid, y2 - y1, C.teal, 'opacity=".85"');
             const t1 = G.sy(Math.max(0, KLTOY.r[i])), t2 = G.sy(Math.min(0, KLTOY.r[i]));
             s += R(x - bwid / 2, t1, bwid, t2 - t1, 'none', `stroke="${C.navy}" stroke-width="1.3" stroke-dasharray="3 3"`);
-            s += T(x, G.y + G.h + 15, String(i + 1), { size: 11, anchor: 'middle', cls: 'pf-m' });
+            s += T(x, G.y + G.h + 15, 'y' + (i + 1), { size: 11, anchor: 'middle', cls: 'pf-m' });
         });
         const H = cy + ch + 30;
         return {
             svg: svg(W, H, 'Toy example of the KL-regularised optimal policy: bars for six replies, the reward-versus-KL trade-off curve, and the implicit reward.', s),
-            say: `β = ${beta.toFixed(2)}: expected reward ${o.er.toFixed(2)} at KL ${o.kl.toFixed(2)} nats; the exploit reply gets ${pct(o.pi[5])}. Implicit reward β log(π*/π_ref) equals the true reward minus the same constant β log Z = ${(beta * o.logZ).toFixed(2)} for every reply.`,
+            say: S('klSay')(beta.toFixed(2), o.er.toFixed(2), o.kl.toFixed(2), pct(o.pi[5]), (beta * o.logZ).toFixed(2)),
         };
     },
     bind(ctx) {
@@ -819,12 +937,13 @@ const klfig = {
 };
 
 // ------------------------------------------------------------------ figure 10: GRPO group-relative advantages
-const GRPO_WRONG = ['418', '398', '4008', '308', '406', '428'];
-function grpoGroup(index, G, p) {
-    const r = rng(7919 * index + 17), out = [];
+const GRPO_POLICIES = () => [TOY.base, TOY.sft, toyOpt(TOY.beta).pi];
+function grpoGroup(index, G, policy) {
+    const r = rng(7919 * index + 17), dist = GRPO_POLICIES()[policy], out = [];
     for (let i = 0; i < G; i++) {
-        const ok = r() < p, wrong = GRPO_WRONG[Math.floor(r() * GRPO_WRONG.length)];
-        out.push({ ans: ok ? '408' : wrong, reward: ok ? 1 : 0 });
+        let u = r(), k = 0;
+        while (k < dist.length - 1 && u > dist[k]) { u -= dist[k]; k++; }
+        out.push({ k, reward: TOY.replies[k].ok });
     }
     const mean = out.reduce((a, o) => a + o.reward, 0) / G;
     const sd = Math.sqrt(out.reduce((a, o) => a + (o.reward - mean) ** 2, 0) / G);
@@ -832,56 +951,57 @@ function grpoGroup(index, G, p) {
     return { out, mean, sd };
 }
 const grpo = {
-    state: () => ({ index: 2, G: 8, p: 0.5 }),
-    controls: st => '<span class="pt-seg" role="group" aria-label="Group size">' + [4, 8, 16].map(v => `<button type="button" data-g="${v}" aria-pressed="${v === st.G}">G = ${v}</button>`).join('') + '</span>' +
-        range('p', 'Chance an answer is right', 0, 1, 0.05, st.p, pct(st.p)) + '<button type="button" data-sample>Sample a new group</button>',
+    state: () => ({ index: 2, G: 8, policy: 0 }),  // group 2 from the base model has one correct reply
+    controls: st => `<span class="pt-seg" role="group" aria-label="${S('policy')}">` + S('policies').map((nm, i) => `<button type="button" data-pol="${i}" aria-pressed="${i === st.policy}">${nm}</button>`).join('') + '</span>' +
+        `<span class="pt-seg" role="group" aria-label="${S('groupSize')}">` + [4, 8, 16].map(v => `<button type="button" data-g="${v}" aria-pressed="${v === st.G}">G = ${v}</button>`).join('') + '</span>' +
+        `<button type="button" data-sample>${S('sample')}</button>`,
     render(st, narrow) {
-        const { out, mean, sd } = grpoGroup(st.index, st.G, st.p), W = narrow ? 380 : 760, G = st.G;
-        let s = R(0, 0, W, 34, C.soft, 'rx="6"') + T(12, 22, `Prompt: What is 17 × 24?   Verifier: reward 1 if the final answer is 408, else 0.`, { size: narrow ? 11 : 13 });
+        const { out, mean, sd } = grpoGroup(st.index, st.G, st.policy), W = narrow ? 380 : 760, G = st.G;
+        let s;
+        if (narrow) s = R(0, 0, W, 48, C.soft, 'rx="6"') + T(10, 19, 'Prompt: ' + TOY.prompt, { size: 11.5 }) + T(10, 37, 'Verifier: reward 1 if the reply names Paris, else 0.', { size: 11.5 });
+        else s = R(0, 0, W, 34, C.soft, 'rx="6"') + T(12, 22, `Prompt: ${TOY.prompt}    Verifier: reward 1 if the reply names Paris, else 0.`, { size: 13 });
         const amax = 3;
         let H;
         if (!narrow) {
             const x0 = 60, cw = (W - x0 - 10) / G, top = 58;
-            s += T(0, top + 18, 'answer', { size: 11, cls: 'pf-m' }) + T(0, top + 40, 'reward', { size: 11, cls: 'pf-m' }) + T(0, top + 120, 'advantage', { size: 11, cls: 'pf-m' });
+            s += T(0, top + 18, 'reply', { size: 11, cls: 'pf-m' }) + T(0, top + 40, 'reward', { size: 11, cls: 'pf-m' }) + T(0, top + 120, 'advantage', { size: 11, cls: 'pf-m' });
             const F = frame(x0, top + 58, W - x0 - 10, 124, [0, 1], [-amax, amax]);
             s += L(F.x, F.sy(0), F.x + F.w, F.sy(0), '#b9c0ca');
             out.forEach((o, i) => {
                 const cx = x0 + (i + 0.5) * cw, ok = o.reward === 1, col = o.adv > 0 ? C.teal : o.adv < 0 ? C.ochre : C.gray;
-                s += R(cx - cw * 0.42, top, cw * 0.84, 28, ok ? C.tealTint : C.ochreTint, 'rx="5"') + T(cx, top + 19, (ok ? '✓ ' : '✗ ') + o.ans, { size: G > 8 ? 10.5 : 13, anchor: 'middle', fill: ok ? C.tealInk : C.ochreInk });
+                s += R(cx - cw * 0.42, top, cw * 0.84, 28, ok ? C.tealTint : C.ochreTint, 'rx="5"') + T(cx, top + 19, (ok ? '✓ ' : '✗ ') + 'y' + (o.k + 1), { size: G > 8 ? 11 : 13, anchor: 'middle', fill: ok ? C.tealInk : C.ochreInk });
                 s += T(cx, top + 46, String(o.reward), { size: 13, anchor: 'middle', cls: 'pf-strong' });
-                const y1 = F.sy(Math.max(0, o.adv)), y2 = F.sy(Math.min(0, o.adv));
+                const a = clamp(o.adv, -amax, amax), y1 = F.sy(Math.max(0, a)), y2 = F.sy(Math.min(0, a));
                 s += R(cx - cw * 0.3, y1, cw * 0.6, Math.max(y2 - y1, 1), col, 'rx="2"');
-                s += T(cx, o.adv >= 0 ? y1 - 5 : y2 + 14, (o.adv > 0 ? '+' : '') + o.adv.toFixed(2), { size: G > 8 ? 10 : 12, anchor: 'middle' });
+                s += T(cx, o.adv >= 0 ? y1 - 5 : y2 + 14, (o.adv > 0 ? '+' : o.adv < 0 ? '−' : '') + Math.abs(o.adv).toFixed(2), { size: G > 8 ? 10 : 12, anchor: 'middle' });
             });
             H = top + 200;
         } else {
-            const top = 50, row = G > 8 ? 22 : 30, mid = 250, half = 110;
-            s += T(4, top, 'answer', { size: 11, cls: 'pf-m' }) + T(108, top, 'r', { size: 11, cls: 'pf-m' }) + T(mid, top, 'advantage', { size: 11, anchor: 'middle', cls: 'pf-m' });
+            const top = 66, row = G > 8 ? 22 : 30, mid = 250, half = 88;
+            s += T(4, top, 'reply', { size: 11, cls: 'pf-m' }) + T(150, top, 'r', { size: 11, cls: 'pf-m' }) + T(mid, top, 'advantage', { size: 11, anchor: 'middle', cls: 'pf-m' });
             s += L(mid, top + 6, mid, top + 8 + G * row, '#b9c0ca');
             out.forEach((o, i) => {
                 const y = top + 10 + i * row, ok = o.reward === 1, col = o.adv > 0 ? C.teal : o.adv < 0 ? C.ochre : C.gray;
-                s += R(4, y, 86, row - 5, ok ? C.tealTint : C.ochreTint, 'rx="4"') + T(10, y + row / 2 + 2, (ok ? '✓ ' : '✗ ') + o.ans, { size: 12, fill: ok ? C.tealInk : C.ochreInk });
-                s += T(108, y + row / 2 + 2, String(o.reward), { size: 12, cls: 'pf-strong' });
-                const w = half * o.adv / amax;
+                s += R(4, y, 132, row - 5, ok ? C.tealTint : C.ochreTint, 'rx="4"') + T(10, y + row / 2 + 2, (ok ? '✓ ' : '✗ ') + 'y' + (o.k + 1) + ' ' + TOY.replies[o.k].short, { size: 11.5, fill: ok ? C.tealInk : C.ochreInk });
+                s += T(150, y + row / 2 + 2, String(o.reward), { size: 12, cls: 'pf-strong' });
+                const w = half * clamp(o.adv, -amax, amax) / amax;
                 s += R(Math.min(mid, mid + w), y + 3, Math.max(Math.abs(w), 1), row - 11, col, 'rx="2"');
-                s += T(o.adv >= 0 ? mid + Math.max(w, 0) + 4 : mid + w - 4, y + row / 2 + 2, (o.adv > 0 ? '+' : '') + o.adv.toFixed(2), { size: 11, anchor: o.adv >= 0 ? 'start' : 'end' });
+                s += T(o.adv >= 0 ? mid + Math.max(w, 0) + 4 : mid + w - 4, y + row / 2 + 2, (o.adv > 0 ? '+' : o.adv < 0 ? '−' : '') + Math.abs(o.adv).toFixed(2), { size: 11, anchor: o.adv >= 0 ? 'start' : 'end' });
             });
             H = top + 16 + G * row;
         }
-        const none = sd === 0;
         return {
-            svg: svg(W, H, 'A group of sampled answers with their rewards and group-relative advantages.', s),
-            say: `Group ${st.index}: ${out.filter(o => o.reward).length} of ${G} correct; mean reward ${mean.toFixed(2)}, standard deviation ${sd.toFixed(2)}. ` +
-                (none ? 'Every answer got the same reward, so every advantage is 0 and this group gives no learning signal.' : 'Correct answers get a positive advantage and wrong ones a negative advantage; each token of an answer shares its answer’s advantage.'),
+            svg: svg(W, H, 'A group of sampled replies with their verifier rewards and group-relative advantages.', s),
+            say: S('grpoSay')(st.index, out.filter(o => o.reward).length, G, mean.toFixed(2), sd.toFixed(2), sd === 0),
         };
     },
     bind(ctx) {
         ctx.controls.addEventListener('click', e => {
-            const g = e.target.closest('[data-g]');
+            const g = e.target.closest('[data-g]'), pol = e.target.closest('[data-pol]');
             if (g) { ctx.state.G = Number(g.dataset.g); ctx.controls.querySelectorAll('[data-g]').forEach(b => b.setAttribute('aria-pressed', String(b === g))); ctx.draw(); }
+            else if (pol) { ctx.state.policy = Number(pol.dataset.pol); ctx.controls.querySelectorAll('[data-pol]').forEach(b => b.setAttribute('aria-pressed', String(b === pol))); ctx.draw(); }
             else if (e.target.closest('[data-sample]')) { ctx.state.index++; ctx.draw(); }
         });
-        ctx.controls.addEventListener('input', e => { if (e.target.dataset.k) { ctx.state.p = Number(e.target.value); ctx.output('p', pct(ctx.state.p)); ctx.draw(); } });
     },
 };
 
@@ -953,7 +1073,34 @@ function readingProgress() {
     update();
 }
 
+// Reading mode: "intuition only" hides derivations (.pt-deriv) and proof fold-outs; the choice is kept
+// in localStorage when it is available. Without JavaScript the toggle stays hidden and everything shows.
+function readingMode() {
+    const page = document.querySelector('.pt-guide'), box = document.querySelector('[data-pt-mode]');
+    if (!page || !box) return;
+    const KEY = 'pt-reading-mode';
+    let mode = 'full';
+    try { if (window.localStorage.getItem(KEY) === 'intuition') mode = 'intuition'; } catch (err) { /* storage blocked: use the default */ }
+    box.innerHTML = `<span class="pt-mode-label">${S('modeLabel')}</span><span class="pt-seg" role="group" aria-label="${S('modeLabel')}">` +
+        `<button type="button" data-mode="full">${S('modeFull')}</button><button type="button" data-mode="intuition">${S('modeIntuition')}</button></span>` +
+        `<span class="pt-mode-note">${S('modeNote')}</span>`;
+    box.hidden = false;
+    const apply = () => {
+        page.classList.toggle('pt-intuition', mode === 'intuition');
+        box.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+    };
+    box.addEventListener('click', e => {
+        const b = e.target.closest('[data-mode]');
+        if (!b) return;
+        mode = b.dataset.mode;
+        try { window.localStorage.setItem(KEY, mode); } catch (err) { /* not remembered, still applied */ }
+        apply();
+    });
+    apply();
+}
+
 if (root) {
+    readingMode();
     syncHeaderOffset();
     window.addEventListener('load', syncHeaderOffset);
     window.addEventListener('resize', syncHeaderOffset);
@@ -973,4 +1120,4 @@ if (root) {
     });
 }
 
-export { FIGS, heroAt, heroSVG, HERO };
+export { FIGS, heroAt, heroSVG, HERO, TOY, toyFacts };

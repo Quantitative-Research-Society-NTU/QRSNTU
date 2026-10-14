@@ -94,3 +94,7 @@ the page's `data-page` value (default `projects`). A folder under `projects/` wh
 have no project data, so only `{{root}}`, `{{assets}}` and `{{svg:...}}` are available, and
 `public/` is served at `/<base>/assets/`. They do not appear in the Projects list. Example:
 `projects/post-training/` publishes `/learn/post-training/` with `"base": "learn/post-training"`.
+Each page entry may also set `"lang"` (the `<html lang>`, default `en`; `generate_seo.py` copies it to
+the JSON-LD `inLanguage`) and `"alternates"`, a map from hreflang code to a route under `base`,
+which becomes `<link rel="alternate" hreflang=...>` tags (used by the post-training English and
+Chinese guides).
