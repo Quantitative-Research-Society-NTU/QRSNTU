@@ -24,7 +24,8 @@ const check = process.argv.includes('--check');
 const stale = [];
 for (const [name, body] of Object.entries(files)) {
     const path = join(pub, name), text = body + '\n';
-    if (!existsSync(path) || readFileSync(path, 'utf8') !== text) {
+    // Compare with line endings normalised, so a CRLF checkout is not reported as stale.
+    if (!existsSync(path) || readFileSync(path, 'utf8').replace(/\r\n/g, '\n') !== text) {
         stale.push(name);
         if (!check) writeFileSync(path, text, 'utf8');
     }
