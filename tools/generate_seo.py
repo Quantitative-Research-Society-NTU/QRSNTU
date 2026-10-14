@@ -102,9 +102,11 @@ def generate(check=False):
         source = source.replace('<script src="https://unpkg.com/lucide@latest"></script>',
                                 '<script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>')
         source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
-        source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261003-performance')
+        source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261015-serif')
         source = source.replace('header.js?v=20261003-shared', 'header.js?v=20261014-news')
+        source = source.replace('footer.js?v=20261003-shared', 'footer.js?v=20261015-serif')
         source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
+        source = source.replace('people-page.js?v=20261003-index', 'people-page.js?v=20261015-serif')
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('style.css?v=20261003-shared', 'style.css?v=20261012-nav')
         source = source.replace('content.css?v=20261003-shared', 'content.css?v=20261015-sponsors')
@@ -133,7 +135,7 @@ def generate(check=False):
     <link rel="stylesheet" href="../assets/tailwind.css?v=20261003-performance">
     <script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>
     <link rel="stylesheet" href="../style.css?v=20261012-nav">
-    <link rel="stylesheet" href="../fonts.css?v=20260907-final">
+    <link rel="stylesheet" href="../fonts.css?v=20261015-serif">
     <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
 </head>
 <body>
@@ -150,7 +152,7 @@ def generate(check=False):
     <footer id="site-footer" class="site-footer" data-root="../"></footer>
     <script type="module" src="../assets/header.js?v=20261014-news"></script>
     <script type="module" src="../script.js?v=20260907-final"></script>
-    <script type="module" src="../assets/footer.js?v=20261003-shared"></script>
+    <script type="module" src="../assets/footer.js?v=20261015-serif"></script>
 </body>
 </html>
 '''

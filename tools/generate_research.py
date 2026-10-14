@@ -163,7 +163,7 @@ def generate(check=False):
         if existing.exists() and 'tools/generate_research.py' not in existing.read_text(encoding='utf-8'):
             continue
         root = '../' * len(route.split('/'))
-        page(route, p['name'], '<p class="mb-8"><a href="' + root + 'people/" class="card-link">&larr; Back to People</a></p><div id="person-profile"></div>', 'people', f'data-person-id="{p["id"]}" data-root="{root}"', f'<script type="module" src="{root}assets/person-page.js?v=20261003-performance"></script>')
+        page(route, p['name'], '<p class="mb-8"><a href="' + root + 'people/" class="card-link">&larr; Back to People</a></p><div id="person-profile"></div>', 'people', f'data-person-id="{p["id"]}" data-root="{root}"', f'<script type="module" src="{root}assets/person-page.js?v=20261015-serif"></script>')
 
     def normalized(source):
         source = SEO.sub('', source)

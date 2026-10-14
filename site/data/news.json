@@ -29,9 +29,9 @@
   {
     "id": "workshop-policyattention-evorobust-2026",
     "date": "2026-10-04",
-    "type": "paper",
+    "type": "workshop",
     "title": "PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement",
-    "summary": "Accepted at NeurIPS 2026 EvoRobust.",
+    "summary": "Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.",
     "url": "https://openreview.net/forum?id=VgswuGrqp6",
     "project_ids": [
       "policyattention"
@@ -40,9 +40,9 @@
   {
     "id": "workshop-riskhedge-evorobust-2026",
     "date": "2026-10-04",
-    "type": "paper",
+    "type": "workshop",
     "title": "Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests",
-    "summary": "Accepted at NeurIPS 2026 EvoRobust.",
+    "summary": "Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.",
     "url": "https://openreview.net/forum?id=OzOTmkkAWW",
     "project_ids": [
       "riskhedge"
@@ -51,9 +51,9 @@
   {
     "id": "workshop-geoaft-automlr-2026",
     "date": "2026-10-04",
-    "type": "paper",
+    "type": "workshop",
     "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
-    "summary": "Accepted at NeurIPS 2026 AutoMLR.",
+    "summary": "Workshop paper accepted at the AutoMLR Workshop, NeurIPS 2026.",
     "url": "https://openreview.net/forum?id=9PwlVQ3gyj",
     "project_ids": [
       "ai-native-workflow",
@@ -63,9 +63,9 @@
   {
     "id": "workshop-policyattention-pta-2026",
     "date": "2026-10-04",
-    "type": "paper",
+    "type": "workshop",
     "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
-    "summary": "Accepted at NeurIPS 2026 PTA.",
+    "summary": "Workshop paper accepted at the PTA Workshop, NeurIPS 2026.",
     "url": "https://openreview.net/forum?id=zbGWnk0kY3",
     "project_ids": [
       "policyattention"
@@ -74,9 +74,9 @@
   {
     "id": "workshop-softrank-neurreps-2026",
     "date": "2026-10-04",
-    "type": "paper",
+    "type": "workshop",
     "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
-    "summary": "Accepted at NeurIPS 2026 NeurReps Extended Abstracts.",
+    "summary": "Extended abstract accepted at the NeurReps Workshop, NeurIPS 2026.",
     "url": "https://openreview.net/forum?id=0zgsZ8FjVz",
     "project_ids": [
       "softrank"

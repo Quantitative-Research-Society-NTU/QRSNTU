@@ -3,7 +3,7 @@
     "id": "geoaft-ai-native-workflow-automlr-2026",
     "project_id": "ai-native-workflow",
     "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
-    "venue": "NeurIPS 2026 AutoMLR",
+    "venue": "AutoMLR Workshop, NeurIPS 2026",
     "authors": [
       "yuhe-sui",
       "jianing-zhang",
@@ -23,7 +23,7 @@
     "url": "https://openreview.net/forum?id=VgswuGrqp6",
     "project_id": "policyattention",
     "title": "PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement",
-    "venue": "NeurIPS 2026 EvoRobust",
+    "venue": "EvoRobust Workshop, NeurIPS 2026",
     "authors": [
       "yuhe-sui",
       "yingzhi-tang",
@@ -36,7 +36,7 @@
     "id": "policyattention-pta-2026",
     "project_id": "policyattention",
     "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
-    "venue": "NeurIPS 2026 PTA",
+    "venue": "PTA Workshop, NeurIPS 2026",
     "authors": [
       "yuhe-sui"
     ],
@@ -49,7 +49,7 @@
     "url": "https://openreview.net/forum?id=OzOTmkkAWW",
     "project_id": "riskhedge",
     "title": "Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests",
-    "venue": "NeurIPS 2026 EvoRobust",
+    "venue": "EvoRobust Workshop, NeurIPS 2026",
     "authors": [
       "yuhe-sui",
       "yingzhi-tang"
@@ -61,7 +61,7 @@
     "id": "approximation-rank-neurreps-ea-2026",
     "project_id": "softrank",
     "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
-    "venue": "NeurIPS 2026 NeurReps Extended Abstracts",
+    "venue": "NeurReps Workshop, NeurIPS 2026 (extended abstract)",
     "authors": [
       "yuhe-sui",
       "jianing-zhang"

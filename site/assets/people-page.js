@@ -1,6 +1,9 @@
 // Officers appear once, before non-officer researchers and coordinators.
 // Academy membership stays on profiles; its roster has a dedicated link.
 import { loadData, renderPersonName, personRoles, personPath, escapeHtml } from './qrs-data.js?v=20261014-news';
+// The society name is always set in the serif brand face (see .qrs-name in fonts.css).
+const qrsName = html => html.replace(/(?<![A-Za-z] )Quantitative Research Society/g, '<span class="qrs-name">$&</span>');
+
 
 const QRS_ROLE = /^(?:Principal )?Researcher, Quantitative Research Society$/;
 
@@ -8,7 +11,7 @@ function personCard(person) {
     return `
         <a href="${personPath(person, '../')}" class="person-directory-card">
             <span class="person-directory-name">${renderPersonName(person)}</span>
-            ${personRoles(person).filter(role => !(person.research_academy?.length && role === 'QRS Research Academy Member')).map(role => `<span class="person-directory-role">${escapeHtml(role)}</span>`).join('')}
+            ${personRoles(person).filter(role => !(person.research_academy?.length && role === 'QRS Research Academy Member')).map(role => `<span class="person-directory-role">${qrsName(escapeHtml(role))}</span>`).join('')}
             ${(person.affiliations || []).map(affiliation => `<span class="person-directory-role">${escapeHtml(affiliation)}</span>`).join('')}
         </a>`;
 }
