@@ -1,0 +1,43 @@
+[
+  {
+    "id": "geoaft-project-page-2026",
+    "date": "2026-10-12",
+    "type": "research",
+    "title": "GeoAFT: new project page and draft explainer",
+    "summary": "Geometric Attention Fine-Tuning now has its own project page, with an interactive geometry explorer, the controlled synthetic results and a draft explainer video.",
+    "url": "/projects/geoaft/",
+    "project_ids": ["geoaft"]
+  },
+  {
+    "id": "math-notes-fully-worked-2026",
+    "date": "2026-10-12",
+    "type": "release",
+    "title": "MH3100, MH2100 and HE2003 solutions republished",
+    "summary": "Solutions for MH3100, MH2100 and HE2003 are republished in a multi-method, fully worked style.",
+    "url": "/math_notes/"
+  },
+  {
+    "id": "research-academy-2026",
+    "date": "2026-09-30",
+    "type": "announcement",
+    "title": "QRS Research Academy",
+    "summary": "The QRS Research Academy takes members from guided research to independent research leadership. Applications are open from the Academy page.",
+    "url": "/research-academy/"
+  },
+  {
+    "id": "events-guide-2026-jan",
+    "date": "2026-01-22",
+    "type": "guide",
+    "title": "Quant & FinTech Events Guide, January 2026",
+    "summary": "Campus events, recruiting programmes, conferences and industry expos for students interested in quant and fintech.",
+    "url": "/news/events-guide-2026-jan/"
+  },
+  {
+    "id": "dec2025-major-update",
+    "date": "2025-12-10",
+    "type": "release",
+    "title": "QRS@NTU major update, December 2025",
+    "summary": "Website fixes to folders, search and ranking, and final examination papers added for over 70 SPMS and NBS courses.",
+    "url": "/news/dec2025-major-update/"
+  }
+]

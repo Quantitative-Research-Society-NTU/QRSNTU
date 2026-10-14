@@ -1,0 +1,80 @@
+"""Generate campus branch previews from the site pages (site/<campus>/)."""
+from pathlib import Path
+import os
+import re
+import json
+from html import escape
+
+ROOT = Path(__file__).resolve().parents[2] / "site"
+HERE = Path(__file__).resolve().parent
+CHAPTERS = [("nus", "NUS"), ("sjtu", "上交"), ("hkust", "HKUST"), ("cuhk", "香港中文大学（深圳）"), ("fdu", "复旦"), ("cmu", "CMU"), ("ntu-tw", "NTU(TW)")]
+SOURCES = [p for p in ROOT.rglob("index.html")
+           if p.relative_to(ROOT).parts[0] not in {"branches", "math_notes", "fonts", "site-map", "news", "tw", *(slug for slug, _ in CHAPTERS)}]
+
+def generate(source, target, slug, campus, variant):
+    page = source.read_text(encoding="utf-8")
+    page = re.sub(r'\s*<!-- SEO: generated -->.*?<!-- /SEO -->', '', page, flags=re.S)
+    base = os.path.relpath(source.parent, target.parent).replace("\\", "/") + "/"
+    page = page.replace("<head>", '<head>\n    <base href="' + base + '">\n    <meta name="robots" content="noindex,nofollow">')
+    page = page.replace("<body ", f'<body data-chapter="{campus}" data-slug="{slug}" data-variant="{variant}" ')
+    # Statements about QRS's originating campus (marked data-origin) keep naming NTU.
+    page = re.sub(r'(<(\w+)\b[^>]*\bdata-origin\b[^>]*>.*?</\2>)', lambda m: m[1].replace("QRS@NTU", "QRS&#64;NTU"), page, flags=re.S)
+    page = page.replace("QRS@NTU", f"QRS@{campus}").replace("Society @NTU", f"Society @{campus}")
+    chinese = slug in {"sjtu", "cuhk", "fdu"}
+    brand = f"量化研究协会@{campus}" if chinese else f"QRS@{campus}"
+    page = page.replace(f'data-chapter="{campus}"', f'data-chapter="{campus}" data-brand="{brand}"')
+    if chinese:
+        page = page.replace(f"QRS@{campus}", brand).replace(f"Quantitative Research Society @{campus}", brand)
+    if source.parent.name == "about":
+        page = page.replace("society at NTU", f"society at {campus}").replace("across NTU", f"across {campus}")
+        page = re.sub(r'Publish notes, problem sets, and past-year papers for NTU modules on <a .*?</a>\.', "Share technical notes, research methods, and reproducible learning resources.", page)
+        if chinese:
+            content = (HERE / "about-zh.html").read_text(encoding="utf-8").replace("{{campus}}", campus)
+            page = re.sub(r'<main\b.*?</main>', lambda _: content, page, flags=re.S)
+            page = page.replace('<html lang="en">', '<html lang="zh-Hans">').replace(f"About | {brand}", f"关于我们 | {brand}")
+    for component in ("header", "footer"):
+        path = os.path.relpath(ROOT / "branches" / f"{component}.js", source.parent).replace("\\", "/")
+        page = re.sub(r'src="[^"]*assets/' + component + r'\.js(?:\?[^"]*)?"', f'src="{path}?v=20261003-shared"', page)
+    routing = os.path.relpath(ROOT / "branches/routing.js", source.parent).replace("\\", "/")
+    if 'http-equiv="refresh"' in page:
+        if source.relative_to(ROOT).parts[0] == 'projects':
+            original = re.search(r'url=([^"\s]+)', page)[1]
+            canonical = (source.parent / original).resolve().relative_to(ROOT)
+            destination = os.path.relpath(ROOT / slug / canonical, source.parent).replace("\\", "/") + "/"
+            page = page.replace('url=' + original, 'url=' + destination).replace('href="' + original + '"', 'href="' + destination + '"')
+        for alias in ("yh", "jn", "cdl", "yz"):
+            destination = os.path.relpath(ROOT / slug / alias, source.parent).replace("\\", "/") + "/"
+            page = page.replace(f"../../{alias}/", destination)
+    page = page.replace("</body>", f'<script type="module" src="{routing}"></script>\n</body>')
+    if variant == "landing" and source == ROOT / "index.html":
+        # Preserve the exact original hero; full research feeds belong to the full version.
+        start = page.index('            <section id="current-work"')
+        end = page.index("        </main>", start)
+        page = page[:start] + page[end:]
+        page = re.sub(r'<script[^>]+src="assets/home-page.js[^"]*"[^>]*></script>', "", page)
+    # The shared renderer fills only #header; preserve project/content headers.
+    if source == ROOT / "index.html" and variant == "full":
+        projects = json.loads((ROOT / "data/projects.json").read_text(encoding="utf-8"))
+        renderer = (ROOT / "assets/home-page.js").read_text(encoding="utf-8")
+        picks = re.search(r'const HOME_FEATURED_PROJECT_IDS = (\[[^;]+\])', renderer)[1]
+        ids = re.findall(r"'([^']+)'", picks)
+        cards = []
+        for project_id in ids:
+            project = next((p for p in projects if p['id'] == project_id), None)
+            if not project:
+                continue
+            href = os.path.relpath(ROOT / slug / "projects" / project_id, source.parent).replace("\\", "/") + "/"
+            cards.append(f'''<div class="home-card"><h3 class="card-title">{escape(project['title'])}</h3><p class="card-description">{escape(project['summary'])}</p><a href="{href}" class="card-link">Learn more <i data-lucide="arrow-right" class="inline-block h-4 w-4 ml-1"></i></a></div>''')
+        page = page.replace('<div id="home-projects" class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"></div>', '<div id="home-projects" class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">' + ''.join(cards) + '</div>')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    page = '\n'.join(line.rstrip() for line in page.splitlines()) + '\n'
+    target.write_text(page, encoding="utf-8")
+
+for slug, campus in CHAPTERS:
+    branch = ROOT / slug
+    for source in SOURCES:
+        generate(source, branch / source.relative_to(ROOT), slug, campus, "full")
+    for source in (ROOT / "index.html", ROOT / "about/index.html"):
+        generate(source, branch / "landing" / source.relative_to(ROOT), slug, campus, "landing")
+
+print(f"Generated {len(CHAPTERS)} branches with {len(SOURCES)} full-content pages and 2 landing pages each.")

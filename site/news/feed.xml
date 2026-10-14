@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>QRS News</title>
+<link>https://qrsntu.org/news/</link>
+<atom:link href="https://qrsntu.org/news/feed.xml" rel="self" type="application/rss+xml"/>
+<description>News from the Quantitative Research Society: research, releases, events and guides.</description>
+<language>en</language>
+<item>
+<title>Upcoming: Global Market Making Games 2026 — Singapore Qualifier</title>
+<link>https://qrsntu.org/gmmg/</link>
+<guid isPermaLink="false">qrs-news-event-gmmg-singapore-2026</guid>
+<pubDate>Thu, 15 Oct 2026 16:00:00 GMT</pubDate>
+<category>Event</category>
+<description>An individual global market-making competition open to university students across Singapore.</description>
+</item>
+<item>
+<title>GeoAFT: new project page and draft explainer</title>
+<link>https://qrsntu.org/projects/geoaft/</link>
+<guid isPermaLink="false">qrs-news-geoaft-project-page-2026</guid>
+<pubDate>Sun, 11 Oct 2026 16:00:00 GMT</pubDate>
+<category>Research</category>
+<description>Geometric Attention Fine-Tuning now has its own project page, with an interactive geometry explorer, the controlled synthetic results and a draft explainer video.</description>
+</item>
+<item>
+<title>MH3100, MH2100 and HE2003 solutions republished</title>
+<link>https://qrsntu.org/math_notes/</link>
+<guid isPermaLink="false">qrs-news-math-notes-fully-worked-2026</guid>
+<pubDate>Sun, 11 Oct 2026 16:00:00 GMT</pubDate>
+<category>Release</category>
+<description>Solutions for MH3100, MH2100 and HE2003 are republished in a multi-method, fully worked style.</description>
+</item>
+<item>
+<title>QRS Research Academy</title>
+<link>https://qrsntu.org/research-academy/</link>
+<guid isPermaLink="false">qrs-news-research-academy-2026</guid>
+<pubDate>Tue, 29 Sep 2026 16:00:00 GMT</pubDate>
+<category>Announcement</category>
+<description>The QRS Research Academy takes members from guided research to independent research leadership. Applications are open from the Academy page.</description>
+</item>
+<item>
+<title>IMC Tech Race @ NTU</title>
+<link>https://builtin.com/job/imc-tech-race-singapore/10595673</link>
+<guid isPermaLink="false">qrs-news-event-imc-tech-race-ntu-2026</guid>
+<pubDate>Tue, 01 Sep 2026 16:00:00 GMT</pubDate>
+<category>Event</category>
+<description>An on-campus coding race by IMC featuring 20 rapid computer-science problems, a live leaderboard, networking with IMC technologists, and prizes.</description>
+</item>
+<item>
+<title>Singapore vs Hong Kong Quant Trading Hackathon</title>
+<link>https://luma.com/tqx5xvcy</link>
+<guid isPermaLink="false">qrs-news-event-sg-hk-quant-trading-hackathon-2026</guid>
+<pubDate>Sun, 22 Feb 2026 16:00:00 GMT</pubDate>
+<category>Event</category>
+<description>A cross-border university quantitative-trading competition in which Singapore and Hong Kong teams built and deployed live crypto trading strategies, with city qualifiers followed by a SG-vs-HK final.</description>
+</item>
+<item>
+<title>Quant &amp; FinTech Events Guide, January 2026</title>
+<link>https://qrsntu.org/news/events-guide-2026-jan/</link>
+<guid isPermaLink="false">qrs-news-events-guide-2026-jan</guid>
+<pubDate>Wed, 21 Jan 2026 16:00:00 GMT</pubDate>
+<category>Guide</category>
+<description>Campus events, recruiting programmes, conferences and industry expos for students interested in quant and fintech.</description>
+</item>
+<item>
+<title>QRS@NTU major update, December 2025</title>
+<link>https://qrsntu.org/news/dec2025-major-update/</link>
+<guid isPermaLink="false">qrs-news-dec2025-major-update</guid>
+<pubDate>Tue, 09 Dec 2025 16:00:00 GMT</pubDate>
+<category>Release</category>
+<description>Website fixes to folders, search and ranking, and final examination papers added for over 70 SPMS and NBS courses.</description>
+</item>
+</channel>
+</rss>

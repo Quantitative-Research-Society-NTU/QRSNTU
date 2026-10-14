@@ -21,11 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
+      # The runner's preinstalled Node is enough for this script.
       - name: Generate courses JSON
         run: node .github/scripts/generate-courses.js
 
@@ -33,7 +29,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add Website/v1/courses.json
+          git add site/courses.json
           if git diff --staged --quiet; then
             echo "courses.json unchanged"
             exit 0

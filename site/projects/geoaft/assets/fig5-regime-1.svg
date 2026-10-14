@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 124" role="img" aria-labelledby="r1-title" class="geo-svg" width="260" height="124"><title id="r1-title">Schematic: two different score formulas produce identical attention after softmax.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><text class="gf-t gf-m" font-size="11" x="0" y="0"></text>
+<rect x="0" y="8" width="140" height="40" rx="8" fill="#e2f3f3" stroke="#00929a"/>
+<text class="gf-x" x="70" y="33" font-size="13.5" text-anchor="middle">−(q−k)ᵀM(q−k)</text>
+<rect x="0" y="70" width="140" height="40" rx="8" fill="#fbeee2" stroke="#c05f0c"/>
+<text class="gf-x" x="70" y="95" font-size="13.5" text-anchor="middle">2qᵀMk − kᵀMk</text>
+<path d="M142,28 C160,28 160,56 170,56" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<path d="M142,90 C160,90 160,62 170,62" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<rect x="176" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.72"/>
+<rect x="191" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.38"/>
+<rect x="206" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="221" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="22" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="191" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="206" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="221" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="236" y="37" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="176" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.11"/>
+<rect x="206" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.70"/>
+<rect x="221" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.37"/>
+<rect x="236" y="52" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="176" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.36"/>
+<rect x="221" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.68"/>
+<rect x="236" y="67" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.14"/>
+<rect x="176" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="191" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.08"/>
+<rect x="206" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.09"/>
+<rect x="221" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.16"/>
+<rect x="236" y="82" width="13" height="13" rx="2" fill="#183b63" fill-opacity="0.93"/>
+<text class="gf-t gf-m" x="213" y="118" font-size="11.5" text-anchor="middle">same attention</text></svg>

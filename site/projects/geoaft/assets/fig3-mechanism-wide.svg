@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="fig3w-title" class="geo-svg" width="980" height="360"><title id="fig3w-title">Diagram of the GeoAFT score: the pretrained score of query q_i and key k_j is kept. In parallel, low-dimensional projections feed a structured geometry g_phi, whose output is centred over each row’s valid keys and scaled by a per-head gate alpha_h that starts at zero. The two are added, masked, and passed through one softmax, so at initialization the attention equals the pretrained attention.</title><style>
+.gf-t{font-family:'QRS Frutiger','Frutiger','Segoe UI',Inter,system-ui,sans-serif;fill:#374151;font-weight:300}
+.gf-h{fill:#11182c;font-weight:400}.gf-m{fill:#6b7280}.gf-strong{font-weight:600}
+.gf-x{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-style:italic;fill:#11182c}
+.gf-xr{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;fill:#11182c}
+</style><defs><marker id="f3d-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#6b7280"/></marker><marker id="f3d-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#00929a"/></marker><marker id="f3d-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#c05f0c"/></marker></defs>
+<rect x="10" y="140" width="150" height="80" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="85.0" y="176.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Query, key</text>
+<text class="gf-x" x="85.0" y="197.0" font-size="14" text-anchor="middle">q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan></text>
+<rect x="230" y="40" width="260" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="360.0" y="74.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Pretrained score</text>
+<text class="gf-x" x="360.0" y="95.0" font-size="14" text-anchor="middle">s<tspan baseline-shift="sub" font-size="10">base</tspan>(q<tspan baseline-shift="sub" font-size="10">i</tspan>, k<tspan baseline-shift="sub" font-size="10">j</tspan>)</text>
+<rect x="230" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="305.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Projections</text>
+<text class="gf-x" x="305.0" y="301.0" font-size="14" text-anchor="middle">P<tspan baseline-shift="sub" font-size="10">q</tspan> q, P<tspan baseline-shift="sub" font-size="10">k</tspan> k</text>
+<rect x="400" y="246" width="170" height="76" rx="10" fill="#e2f3f3" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="485.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Structured geometry</text>
+<text class="gf-x" x="485.0" y="301.0" font-size="14" text-anchor="middle">g<tspan baseline-shift="sub" font-size="10">φ</tspan>  (L<tspan baseline-shift="sub" font-size="10">p</tspan>, Mahalanobis, …)</text>
+<rect x="590" y="246" width="150" height="76" rx="10" fill="#fff" stroke="#00929a" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="665.0" y="280.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Centre over</text>
+<text class="gf-t gf-m" x="665.0" y="301.0" font-size="14" text-anchor="middle">valid keys</text>
+<circle cx="790" cy="178" r="22" fill="#fff" stroke="#11182c" stroke-width="1.5"/>
+<text class="gf-t gf-h" x="790" y="186" font-size="24" text-anchor="middle">+</text>
+<rect x="840" y="140" width="130" height="76" rx="10" fill="#fff" stroke="#cfd4dc" stroke-width="1.4"/>
+<text class="gf-t gf-h" x="905.0" y="174.0" font-size="15.5" text-anchor="middle" style="fill:#11182c">Mask, softmax</text>
+<text class="gf-x" x="905.0" y="195.0" font-size="14" text-anchor="middle">A<tspan baseline-shift="sub" font-size="10">ij</tspan></text>
+<line x1="164" y1="170" x2="226" y2="86" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<line x1="164" y1="196" x2="226" y2="280" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="384" y1="284" x2="396" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<line x1="574" y1="284" x2="586" y2="284" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<path d="M 494 78 L 790 78 L 790 150" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<path d="M 744 284 L 790 284 L 790 206" fill="none" stroke="#00929a" stroke-width="1.5" marker-end="url(#f3d-t)"/>
+<rect x="752" y="226" width="76" height="30" rx="15" fill="#fff" stroke="#00929a"/>
+<text class="gf-x" x="790" y="247" font-size="16" text-anchor="middle">× α<tspan baseline-shift="sub" font-size="10">h</tspan></text>
+<line x1="816" y1="178" x2="836" y2="178" stroke="#6b7280" stroke-width="1.5" marker-end="url(#f3d-m)"/>
+<text class="gf-t" x="590" y="350" font-size="14" style="fill:#006f76">α<tspan baseline-shift="sub" font-size="10">h</tspan> = 0 at initialization  ⇒  exactly the pretrained attention</text>
+<text class="gf-t gf-m" x="500" y="30" font-size="13" text-anchor="middle">kept as is</text></svg>
