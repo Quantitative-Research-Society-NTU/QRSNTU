@@ -675,7 +675,7 @@ cheese → <span class="y">?</span></div>
       <tr><th scope="row">GAE \(\lambda\)、折扣 \(\gamma\)</th><td>advantage 的偏差–方差；视野</td><td>在其基准实验中 \(\lambda = 0.95\)、\(\gamma = 0.99\)</td><td>{{citet:schulman2017ppo}}</td></tr>
       <tr><th scope="row">RLHF 的 KL 权重 \(\beta\)</th><td>与 SFT 模型的距离</td><td>0.02；PPO-ptx 的预训练混合系数为 27.8</td><td>{{citet:ouyang2022}}</td></tr>
       <tr><th scope="row">自适应 KL</th><td>让 KL 保持在目标附近，而不固定 \(\beta\)</td><td>训练中调整 \(\beta\) 以达到目标 KL</td><td>{{citet:ziegler2019}}</td></tr>
-      <tr><th scope="row">DPO 的 \(\beta\)</th><td>隐式 KL 约束的强度</td><td>大多数实验中为 0.1</td><td>{{citet:rafailov2023}}</td></tr>
+      <tr><th scope="row">DPO 的 \(\beta\)</th><td>隐式 KL 约束的强度</td><td>默认 0.1；TL;DR 摘要任务为 0.5</td><td>{{citet:rafailov2023}}</td></tr>
       <tr><th scope="row">GRPO 组大小 \(G\)、KL 权重 \(\beta\)</th><td>每个提示用于 baseline 的样本数；与参考模型的距离</td><td>\(G = 64\)，\(\beta = 0.04\)</td><td>{{citet:shao2024}}</td></tr>
       <tr><th scope="row">解耦的裁剪范围</th><td>允许低概率 token 增长得比缩小得更多</td><td>\(\epsilon_{\mathrm{low}} = 0.2\)，\(\epsilon_{\mathrm{high}} = 0.28\)</td><td>{{citet:yu2025dapo}}</td></tr>
     </tbody>
