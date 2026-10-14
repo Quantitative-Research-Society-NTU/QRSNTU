@@ -3,6 +3,10 @@
 import { loadData, escapeHtml } from './qrs-data.js?v=20261014-news';
 import { mountCatalog } from './catalog.js';
 
+// An event is past once its last day is over (viewer's local date), so "Upcoming" never goes stale.
+const todayISO = () => new Date().toLocaleDateString('en-CA');
+const isPastEvent = (ev, today = todayISO()) => (ev.end_date || ev.start_date) < today;
+
 function formatDateRange(ev) {
     const opts = { day: 'numeric', month: 'short', year: 'numeric' };
     const start = new Date(ev.start_date).toLocaleDateString('en-SG', opts);
@@ -27,7 +31,7 @@ function eventCard(ev) {
         <article id="event-${ev.id}" class="event-card">
             <div class="project-badges">
                 <span class="badge">${escapeHtml(ev.type)}</span>
-                <span class="badge badge-status">${ev.status === 'past' ? 'Past' : 'Upcoming'}</span>
+                <span class="badge badge-status">${isPastEvent(ev) ? 'Past' : 'Upcoming'}</span>
             </div>
             <h3 class="card-title">${escapeHtml(ev.title)}</h3>
             <p class="event-meta">${formatDateRange(ev)}${time ? ` &middot; ${time}` : ''} &middot; ${escapeHtml(ev.location)}</p>
@@ -46,14 +50,14 @@ async function renderEvents() {
         mountCatalog({
             container, items: events, noun: 'events',
             filters: [
-                { key: 'status', label: 'Statuses', options: [{value:'upcoming',label:'Upcoming'},{value:'past',label:'Past'}], matches: (e, value) => (e.status === 'past' ? 'past' : 'upcoming') === value },
+                { key: 'status', label: 'Statuses', options: [{value:'upcoming',label:'Upcoming'},{value:'past',label:'Past'}], matches: (e, value) => (isPastEvent(e) ? 'past' : 'upcoming') === value },
                 { key: 'type', label: 'Types', options: [...new Set(events.map(e => e.type).filter(Boolean))].sort().map(value => ({value,label:value})), matches: (e, value) => e.type === value },
                 { key: 'year', label: 'Years', options: [...new Set(events.map(e => e.start_date.slice(0,4)))].sort().reverse().map(value => ({value,label:value})), matches: (e, value) => e.start_date.startsWith(value) },
             ],
             searchText: e => [e.title,e.summary,e.location,e.qrs_role,e.start_date,...(e.organizers || []),...(e.partners || [])].join(' '),
             render: results => {
-                const upcoming = results.filter(e => e.status !== 'past').sort((a,b) => new Date(a.start_date)-new Date(b.start_date));
-                const past = results.filter(e => e.status === 'past').sort((a,b) => new Date(b.start_date)-new Date(a.start_date));
+                const upcoming = results.filter(e => !isPastEvent(e)).sort((a,b) => new Date(a.start_date)-new Date(b.start_date));
+                const past = results.filter(e => isPastEvent(e)).sort((a,b) => new Date(b.start_date)-new Date(a.start_date));
                 return [[ 'Upcoming', upcoming ],[ 'Past', past ]].filter(([,items]) => items.length).map(([label,items]) => `<section class="event-results-group"><h2 class="text-2xl font-serif font-bold mb-6">${label}</h2>${items.map(eventCard).join('')}</section>`).join('');
             },
         });

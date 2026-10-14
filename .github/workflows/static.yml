@@ -41,6 +41,11 @@ jobs:
           python3 tools/build.py
           python3 tools/check.py
 
+      # GeoAFT assets moved to /projects/geoaft/assets/; keep the old URLs (shared social card and
+      # video) working. Pages cannot redirect non-HTML files, so publish a copy at the old path.
+      - name: Keep old GeoAFT asset URLs
+        run: mkdir -p site/assets/geoaft && cp -r site/projects/geoaft/assets/. site/assets/geoaft/
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

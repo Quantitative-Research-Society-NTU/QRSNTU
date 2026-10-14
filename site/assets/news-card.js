@@ -15,6 +15,11 @@ export const NEWS_TYPES = {
     award: 'Award',
 };
 
+// An event is past once its last day is over (viewer's local date), so "Upcoming" never goes stale.
+const todayISO = () => new Date().toLocaleDateString('en-CA');
+const isPastEvent = (ev, today = todayISO()) => (ev.end_date || ev.start_date) < today;
+export { todayISO, isPastEvent };
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Fixed format so the build-time and in-browser renderings match exactly.
@@ -23,13 +28,14 @@ export function formatNewsDate(iso) {
     return `${d} ${MONTHS[m - 1]} ${y}`;
 }
 
-export function buildFeed(news, events = []) {
+// Pass today (YYYY-MM-DD) to prefix events that have not ended with "Upcoming:".
+export function buildFeed(news, events = [], today = null) {
     const covered = new Set(news.map(item => item.event_id).filter(Boolean));
     const fromEvents = events.filter(ev => !covered.has(ev.id)).map(ev => ({
         id: 'event-' + ev.id,
         date: ev.start_date,
         type: 'event',
-        title: ev.status === 'past' ? ev.title : 'Upcoming: ' + ev.title,
+        title: today && !isPastEvent(ev, today) ? 'Upcoming: ' + ev.title : ev.title,
         summary: ev.summary,
         url: ev.url || '/events/#event-' + ev.id,
         event_id: ev.id,

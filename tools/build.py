@@ -33,12 +33,13 @@ CSS = ('Tailwind CSS', [NPX, '--yes', '--package', 'tailwindcss@3.4.17', 'tailwi
 def cloudflare_files():
     """Cloudflare Pages reads _redirects and _headers from the output folder; GitHub Pages ignores them."""
     redirects = []
-    for page in sorted(SITE.rglob('index.html')):
+    for page in sorted(SITE.rglob('*.html')):
         text = page.read_text(encoding='utf-8', errors='ignore')
         match = re.search(r'http-equiv=["\']refresh["\'][^>]*url=([^"\'>\s]+)', text, re.I)
         if not match:
             continue
-        source = '/' + page.parent.relative_to(SITE).as_posix() + '/'
+        rel = page.relative_to(SITE).as_posix()
+        source = '/' + (rel[:-len('index.html')] if page.name == 'index.html' else rel)
         target = match[1]
         if not target.startswith(('http://', 'https://', '/')):
             # Campus previews set <base href>, so their relative links resolve against it.
@@ -46,6 +47,8 @@ def cloudflare_files():
             folder = (page.parent / base[1]).resolve() if base else page.parent.resolve()
             target = '/' + (folder / target).resolve().relative_to(SITE.resolve()).as_posix() + '/'
         redirects.append(f'{source} {target} 301')
+    # GeoAFT assets moved from /assets/geoaft/ (social card, video) to the project folder.
+    redirects.append('/assets/geoaft/* /projects/geoaft/assets/:splat 301')
     (SITE / '_redirects').write_text('\n'.join(redirects) + '\n', encoding='utf-8', newline='\n')
     (SITE / '_headers').write_text(
         '/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n'
