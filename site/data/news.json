@@ -14,7 +14,9 @@
     "title": "GeoAFT: new project page and draft explainer",
     "summary": "Geometric Attention Fine-Tuning now has its own project page, with an interactive geometry explorer, the controlled synthetic results and a draft explainer video.",
     "url": "/projects/geoaft/",
-    "project_ids": ["geoaft"]
+    "project_ids": [
+      "geoaft"
+    ]
   },
   {
     "id": "math-notes-fully-worked-2026",
@@ -25,12 +27,123 @@
     "url": "/math_notes/"
   },
   {
+    "id": "workshop-policyattention-evorobust-2026",
+    "date": "2026-10-03",
+    "type": "paper",
+    "title": "PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement",
+    "summary": "Accepted at NeurIPS 2026 EvoRobust.",
+    "url": "https://openreview.net/forum?id=VgswuGrqp6",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "workshop-riskhedge-evorobust-2026",
+    "date": "2026-10-03",
+    "type": "paper",
+    "title": "Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests",
+    "summary": "Accepted at NeurIPS 2026 EvoRobust.",
+    "url": "https://openreview.net/forum?id=OzOTmkkAWW",
+    "project_ids": [
+      "riskhedge"
+    ]
+  },
+  {
     "id": "research-academy-2026",
     "date": "2026-09-30",
     "type": "announcement",
     "title": "QRS Research Academy",
     "summary": "The QRS Research Academy takes members from guided research to independent research leadership. Applications are open from the Academy page.",
     "url": "/research-academy/"
+  },
+  {
+    "id": "arxiv-frtbtrace-2026",
+    "date": "2026-09-26",
+    "type": "paper",
+    "title": "Exact Trade-Level Attribution of FRTB-IMA Capital",
+    "summary": "The FRTBTrace paper is on arXiv (2609.32238).",
+    "url": "https://arxiv.org/abs/2609.32238",
+    "project_ids": [
+      "frtbtrace"
+    ]
+  },
+  {
+    "id": "arxiv-policyattention-2026",
+    "date": "2026-09-24",
+    "type": "paper",
+    "title": "PolicyAttention: Softmax Attention Implements Policy Mirror Descent for Closed-Loop Control",
+    "summary": "The PolicyAttention paper is on arXiv (2609.30500).",
+    "url": "https://arxiv.org/abs/2609.30500",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "arxiv-softrank-v2-2026",
+    "date": "2026-09-22",
+    "type": "paper",
+    "title": "SoftRank preprint updated to version 2",
+    "summary": "Version 2 of “Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention” is on arXiv (2608.28150).",
+    "url": "https://arxiv.org/abs/2608.28150",
+    "project_ids": [
+      "softrank"
+    ]
+  },
+  {
+    "id": "workshop-geoaft-automlr-2026",
+    "date": "2026-09-07",
+    "type": "paper",
+    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
+    "summary": "Accepted at NeurIPS 2026 AutoMLR.",
+    "url": "https://openreview.net/forum?id=9PwlVQ3gyj",
+    "project_ids": [
+      "ai-native-workflow",
+      "geoaft"
+    ]
+  },
+  {
+    "id": "workshop-policyattention-pta-2026",
+    "date": "2026-09-07",
+    "type": "paper",
+    "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
+    "summary": "Accepted at NeurIPS 2026 PTA.",
+    "url": "https://openreview.net/forum?id=zbGWnk0kY3",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "workshop-softrank-neurreps-2026",
+    "date": "2026-09-07",
+    "type": "paper",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "summary": "Accepted at NeurIPS 2026 NeurReps Extended Abstracts.",
+    "url": "https://openreview.net/forum?id=0zgsZ8FjVz",
+    "project_ids": [
+      "softrank"
+    ]
+  },
+  {
+    "id": "nlpcc-alphaallocator-2026",
+    "date": "2026-09-07",
+    "type": "paper",
+    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
+    "summary": "Presented at NLPCC 2026 Shared Task 4, as a poster and an oral.",
+    "url": "https://openreview.net/forum?id=u09PzTYNHk",
+    "project_ids": [
+      "alphaallocator"
+    ]
+  },
+  {
+    "id": "arxiv-softrank-2026",
+    "date": "2026-08-28",
+    "type": "paper",
+    "title": "Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention",
+    "summary": "The SoftRank paper is on arXiv (2608.28150).",
+    "url": "https://arxiv.org/abs/2608.28150",
+    "project_ids": [
+      "softrank"
+    ]
   },
   {
     "id": "events-guide-2026-jan",

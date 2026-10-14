@@ -7,6 +7,7 @@ import { escapeHtml } from './qrs-data.js?v=20261014-news';
 export const NEWS_TYPES = {
     announcement: 'Announcement',
     research: 'Research',
+    paper: 'Paper',
     event: 'Event',
     release: 'Release',
     guide: 'Guide',

@@ -48,7 +48,7 @@ def generate(source, target, slug, campus, variant):
     page = page.replace("</body>", f'<script type="module" src="{routing}"></script>\n</body>')
     if variant == "landing" and source == ROOT / "index.html":
         # Preserve the exact original hero; full research feeds belong to the full version.
-        start = page.index('            <section id="current-work"')
+        start = page.index('            <section id="home-news"') if 'id="home-news"' in page else page.index('            <section id="current-work"')
         end = page.index("        </main>", start)
         page = page[:start] + page[end:]
         page = re.sub(r'<script[^>]+src="assets/home-page.js[^"]*"[^>]*></script>', "", page)
