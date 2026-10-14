@@ -208,3 +208,4 @@ main.content-refinement > .container > div > .shadow-lg .rounded-full {
 .news-article th, .news-article td { border: 1px solid #e5e7eb; padding: .45rem .7rem; text-align: left; vertical-align: top; }
 .news-article th { background: #f9fafb; }
 .news-article a { color: #183b63; text-decoration: underline; }
+.news-work-meta { display: block; font-size: .9rem; color: #6b7280; }

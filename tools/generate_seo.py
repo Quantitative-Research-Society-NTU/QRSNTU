@@ -24,6 +24,7 @@ DESCRIPTIONS = {
     "events": "Find QRS and QRS@NTU talks, workshops, competitions, and community events.",
     "news": "News from QRS: research, releases, events and guides, with search and filters and an RSS feed.",
     "news/dec2025-major-update": "The December 2025 QRS@NTU update: website fixes to folders, search and ranking, and final examination papers for over 70 SPMS and NBS courses.",
+    "news/neurips-2026-workshops": "Five works from the QRS Research Academy's inaugural cohort were accepted to NeurIPS 2026 workshops.",
     "news/events-guide-2026-jan": "Quant and fintech events for students in January 2026: campus events, recruiting programmes, conferences and industry expos.",
     "join_us/prerequisites": "Prerequisite guidelines for applying to QRS@NTU: mathematics, probability and statistics, and programming foundations.",
     "service": "QRS supports academic workshops and research communities with web, publicity, outreach, and organisational infrastructure.",

@@ -83,6 +83,20 @@
     ]
   },
   {
+    "id": "neurips-2026-workshops",
+    "date": "2026-10-04",
+    "type": "announcement",
+    "title": "Five works accepted to NeurIPS 2026 workshops",
+    "summary": "Five works from our inaugural QRS Research Academy cohort (2026 Fall #1) were accepted to NeurIPS 2026 workshops, spanning softmax-attention geometry, policy improvement, risk-sensitive decision-making and AI-native research workflows.",
+    "url": "/news/neurips-2026-workshops/",
+    "project_ids": [
+      "ai-native-workflow",
+      "policyattention",
+      "riskhedge",
+      "softrank"
+    ]
+  },
+  {
     "id": "research-academy-2026",
     "date": "2026-09-30",
     "type": "announcement",
