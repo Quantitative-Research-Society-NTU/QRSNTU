@@ -441,7 +441,7 @@ function scanDirectory() {
 }
 
 const courses = scanDirectory();
-const outputPath = path.join(__dirname, '../../Website/v1/courses.json');
+const outputPath = path.join(__dirname, '../../site/courses.json');
 
 fs.writeFileSync(
     outputPath,

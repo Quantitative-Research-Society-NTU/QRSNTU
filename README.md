@@ -48,3 +48,16 @@ A small, elite academic society at NTU dedicated to advancing quantitative resea
 
 ## 📬 Contact
 
+
+---
+
+## 🗂️ Repository layout
+
+| Folder | Contents |
+|---|---|
+| `site/` | The public website, published as is (https://qrsntu.org) |
+| `tools/` | Generators and checks: `python tools/build.py`, then `python tools/check.py` |
+| `projects/` | Project microsites with their own pages and assets (e.g. `projects/geoaft/`) |
+| `Notes/` | Course notes and past papers, listed on the Math Notes page |
+| `docs/` | Data conventions (`docs/data.md`) and hosting (`docs/hosting.md`) |
+| `Archived/` | Retired files kept for reference |

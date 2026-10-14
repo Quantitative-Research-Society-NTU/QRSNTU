@@ -1,23 +1,23 @@
-# .github/workflows/deploy.yml
 name: Deploy site to GitHub Pages
 
+# The site is plain static files in site/. tools/build.py regenerates them and tools/check.py
+# validates them; the folder is then published as is (no Jekyll). The same two commands work on
+# other hosts; see docs/hosting.md.
+
 on:
-  # Old trigger: still deploy if someone manually pushes changes under Website/v1/**
   push:
     branches: [ main ]
     paths:
-      - 'Website/v1/**'
-      - 'Website/tools/**'
+      - 'site/**'
+      - 'tools/**'
+      - 'projects/**'
       - '.github/workflows/static.yml'
-
-  # Manual trigger via Actions tab
   workflow_dispatch:
-
-  # NEW: Run this workflow whenever "Generate Notes JSON" completes
+  # courses.json is committed by the "Generate Notes JSON" workflow, whose push does not trigger
+  # this one, so deploy when it finishes successfully.
   workflow_run:
     workflows: ["Generate Notes JSON"]
-    types:
-      - completed
+    types: [ completed ]
 
 permissions:
   contents: read
@@ -30,86 +30,22 @@ concurrency:
 
 jobs:
   build:
-    # NEW: if triggered by workflow_run, only run when it succeeded
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Generate research pages and validate public data
+      # The runner's preinstalled Python 3 and Node are enough: the tools use standard libraries.
+      - name: Build and validate
         run: |
-          python3 Website/tools/generate_research.py
-          node Website/tools/generate_project_index.mjs
-          python3 Website/tools/generate_seo.py
-          python3 Website/v1/branches/build_drafts.py
-          npx --yes --package tailwindcss@3.4.17 tailwindcss --config Website/tools/tailwind.config.cjs --input Website/tools/tailwind-input.css --output Website/v1/assets/tailwind.css --minify
-          python3 Website/tools/check_research.py
-          node Website/tools/test_profile_loading.mjs
+          python3 tools/build.py
+          python3 tools/check.py
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
-          working-directory: ./Website/v1
-
-      - name: Build Jekyll site
-        run: |
-          cd Website/v1
-          # Create Gemfile if it doesn't exist
-          if [ ! -f Gemfile ]; then
-            cat > Gemfile << EOF
-          source 'https://rubygems.org'
-          gem 'jekyll', '~> 4.3'
-          gem 'kramdown-parser-gfm'
-          group :jekyll_plugins do
-            gem 'jekyll-optional-front-matter'
-          end
-          EOF
-          fi
-          
-          # Create _config.yml if it doesn't exist
-          if [ ! -f _config.yml ]; then
-            cat > _config.yml << EOF
-          title: "QRS@NTU"
-          description: "Quantitative Research Society at NTU"
-          baseurl: ""
-          url: "https://qrsntu.org"
-          markdown: kramdown
-          kramdown:
-            input: GFM
-          plugins:
-            - jekyll-optional-front-matter
-          
-          # Collections for organized content
-          collections:
-            publications:
-              output: true
-              permalink: /:collection/:name/
-          EOF
-          fi
-          
-          bundle install
-          bundle exec jekyll build
-
-      - name: Validate built sitemap and indexing metadata
-        run: |
-          python3 Website/tools/check_seo.py --site Website/v1/_site
-          python3 Website/tools/check_research.py --site Website/v1/_site
-
-      - name: Upload artifact to Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: Website/v1/_site
+          path: site
 
   deploy:
     needs: build

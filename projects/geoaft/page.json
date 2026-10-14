@@ -1,0 +1,29 @@
+{
+  "_note": "Project pages rendered by tools/generate_research.py from build/ (made by build_content.py from content/). Files in public/ are served at /projects/geoaft/assets/.",
+  "width": "max-w-6xl",
+  "version": "20261014-geoaft13",
+  "pages": [
+    {
+      "template": "index.html",
+      "route": "",
+      "title": "GeoAFT",
+      "stylesheets": [
+        "geoaft.css"
+      ],
+      "scripts": [
+        "geoaft.js"
+      ]
+    },
+    {
+      "template": "details.html",
+      "route": "details",
+      "title": "GeoAFT: How It Works",
+      "stylesheets": [
+        "geoaft.css"
+      ],
+      "scripts": [
+        "geoaft.js"
+      ]
+    }
+  ]
+}
