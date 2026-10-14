@@ -1,0 +1,53 @@
+{
+  "_note": "Explainer pages rendered by tools/generate_research.py from build/ (made by build_content.py from content/). Not a research project: it has no entry in site/data/projects.json, so it publishes at its own base. Files in public/ are served at /learn/post-training/assets/. Each page may set lang and hreflang alternates (routes relative to base).",
+  "base": "learn/post-training",
+  "kind": "learn",
+  "width": "max-w-6xl",
+  "version": "20261014-pt2",
+  "pages": [
+    {
+      "template": "index.html",
+      "route": "",
+      "title": "Post-Training, Explained",
+      "stylesheets": [
+        "pt.css"
+      ],
+      "scripts": [
+        "pt.js"
+      ]
+    },
+    {
+      "template": "guide.html",
+      "route": "guide",
+      "title": "Post-Training: The Full Guide",
+      "alternates": {
+        "en": "guide",
+        "zh-Hans": "zh",
+        "x-default": "guide"
+      },
+      "stylesheets": [
+        "pt.css"
+      ],
+      "scripts": [
+        "pt.js"
+      ]
+    },
+    {
+      "template": "zh.html",
+      "route": "zh",
+      "title": "后训练：完整指南",
+      "lang": "zh-Hans",
+      "alternates": {
+        "en": "guide",
+        "zh-Hans": "zh",
+        "x-default": "guide"
+      },
+      "stylesheets": [
+        "pt.css"
+      ],
+      "scripts": [
+        "pt.js"
+      ]
+    }
+  ]
+}

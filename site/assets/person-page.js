@@ -6,6 +6,9 @@ import {
     projectsForPerson, publicPublications, publicationsForPerson, publicationLinksHTML, escapeHtml
 } from './qrs-data.js?v=20261014-news';
 
+// The society name is always set in the serif brand face (see .qrs-name in fonts.css).
+const qrsName = html => html.replace(/(^|[^A-Za-z] )Quantitative Research Society/g, '$1<span class="qrs-name">Quantitative Research Society</span>');
+
 // research.json is a curated accepted-only collection; filter defensively too.
 
 function section(title, items) {
@@ -62,7 +65,7 @@ async function renderPersonProfile() {
                 ${person.photo ? `<img src="${ROOT}${escapeHtml(person.photo)}" alt="${escapeHtml(person.name)}" class="person-photo">` : ''}
                 <div>
                     <h1 class="person-name">${renderPersonName(person)}</h1>
-                    ${roles.length ? `<p class="person-role">${roles.map(escapeHtml).join('<br>')}</p>` : ''}
+                    ${roles.length ? `<p class="person-role">${roles.map(role => qrsName(escapeHtml(role))).join('<br>')}</p>` : ''}
                     ${(person.affiliations || []).map(affiliation => `<p class="person-affiliation">${escapeHtml(affiliation)}</p>`).join('')}
                     ${(person.education || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.institution)}${e.field ? `, <em>${escapeHtml(e.field)}</em>` : ''}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}
                     ${(person.experience || []).map(e => `<p class="person-affiliation affiliation-row"><span>${escapeHtml(e.role)}, ${escapeHtml(e.organisation)}${e.team ? ` · ${escapeHtml(e.team)}` : ''}</span>${e.dates ? `<span class="affiliation-dates">${escapeHtml(e.dates)}</span>` : ''}</p>`).join('')}

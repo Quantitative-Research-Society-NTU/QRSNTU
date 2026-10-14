@@ -15,6 +15,14 @@
 <description>An individual global market-making competition open to university students across Singapore.</description>
 </item>
 <item>
+<title>Post-training, explained: from SFT to GRPO</title>
+<link>https://qrsntu.org/learn/post-training/</link>
+<guid isPermaLink="false">qrs-news-post-training-explainer-2026</guid>
+<pubDate>Tue, 13 Oct 2026 16:00:00 GMT</pubDate>
+<category>Guide</category>
+<description>A long-read explainer on how language models are post-trained, from supervised fine-tuning and reward models to PPO, DPO and GRPO, with derivations and ten interactive figures.</description>
+</item>
+<item>
 <title>GeoAFT: new project page and draft explainer</title>
 <link>https://qrsntu.org/projects/geoaft/</link>
 <guid isPermaLink="false">qrs-news-geoaft-project-page-2026</guid>
@@ -31,6 +39,54 @@
 <description>Solutions for MH3100, MH2100 and HE2003 are republished in a multi-method, fully worked style.</description>
 </item>
 <item>
+<title>Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests</title>
+<link>https://openreview.net/forum?id=OzOTmkkAWW</link>
+<guid isPermaLink="false">qrs-news-workshop-riskhedge-evorobust-2026</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Workshop paper</category>
+<description>Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.</description>
+</item>
+<item>
+<title>Five works accepted to NeurIPS 2026 workshops</title>
+<link>https://qrsntu.org/news/neurips-2026-workshops/</link>
+<guid isPermaLink="false">qrs-news-neurips-2026-workshops</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Announcement</category>
+<description>Five works from our inaugural QRS Research Academy cohort (2026 Fall #1) were accepted to NeurIPS 2026 workshops, spanning softmax-attention geometry, policy improvement, risk-sensitive decision-making and AI-native research workflows.</description>
+</item>
+<item>
+<title>Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow</title>
+<link>https://openreview.net/forum?id=9PwlVQ3gyj</link>
+<guid isPermaLink="false">qrs-news-workshop-geoaft-automlr-2026</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Workshop paper</category>
+<description>Workshop paper accepted at the AutoMLR Workshop, NeurIPS 2026.</description>
+</item>
+<item>
+<title>PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement</title>
+<link>https://openreview.net/forum?id=VgswuGrqp6</link>
+<guid isPermaLink="false">qrs-news-workshop-policyattention-evorobust-2026</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Workshop paper</category>
+<description>Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.</description>
+</item>
+<item>
+<title>PolicyAttention: When Softmax Attention Becomes Policy Improvement</title>
+<link>https://openreview.net/forum?id=zbGWnk0kY3</link>
+<guid isPermaLink="false">qrs-news-workshop-policyattention-pta-2026</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Workshop paper</category>
+<description>Workshop paper accepted at the PTA Workshop, NeurIPS 2026.</description>
+</item>
+<item>
+<title>The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension</title>
+<link>https://openreview.net/forum?id=0zgsZ8FjVz</link>
+<guid isPermaLink="false">qrs-news-workshop-softrank-neurreps-2026</guid>
+<pubDate>Sat, 03 Oct 2026 16:00:00 GMT</pubDate>
+<category>Workshop paper</category>
+<description>Extended abstract accepted at the NeurReps Workshop, NeurIPS 2026.</description>
+</item>
+<item>
 <title>QRS Research Academy</title>
 <link>https://qrsntu.org/research-academy/</link>
 <guid isPermaLink="false">qrs-news-research-academy-2026</guid>
@@ -39,12 +95,52 @@
 <description>The QRS Research Academy takes members from guided research to independent research leadership. Applications are open from the Academy page.</description>
 </item>
 <item>
+<title>Exact Trade-Level Attribution of FRTB-IMA Capital</title>
+<link>https://arxiv.org/abs/2609.32238</link>
+<guid isPermaLink="false">qrs-news-arxiv-frtbtrace-2026</guid>
+<pubDate>Fri, 25 Sep 2026 16:00:00 GMT</pubDate>
+<category>Paper</category>
+<description>The FRTBTrace paper is on arXiv (2609.32238).</description>
+</item>
+<item>
+<title>PolicyAttention: Softmax Attention Implements Policy Mirror Descent for Closed-Loop Control</title>
+<link>https://arxiv.org/abs/2609.30500</link>
+<guid isPermaLink="false">qrs-news-arxiv-policyattention-2026</guid>
+<pubDate>Wed, 23 Sep 2026 16:00:00 GMT</pubDate>
+<category>Paper</category>
+<description>The PolicyAttention paper is on arXiv (2609.30500).</description>
+</item>
+<item>
+<title>SoftRank preprint updated to version 2</title>
+<link>https://arxiv.org/abs/2608.28150</link>
+<guid isPermaLink="false">qrs-news-arxiv-softrank-v2-2026</guid>
+<pubDate>Mon, 21 Sep 2026 16:00:00 GMT</pubDate>
+<category>Paper</category>
+<description>Version 2 of “Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention” is on arXiv (2608.28150).</description>
+</item>
+<item>
 <title>IMC Tech Race @ NTU</title>
 <link>https://builtin.com/job/imc-tech-race-singapore/10595673</link>
 <guid isPermaLink="false">qrs-news-event-imc-tech-race-ntu-2026</guid>
 <pubDate>Tue, 01 Sep 2026 16:00:00 GMT</pubDate>
 <category>Event</category>
 <description>An on-campus coding race by IMC featuring 20 rapid computer-science problems, a live leaderboard, networking with IMC technologists, and prizes.</description>
+</item>
+<item>
+<title>Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention</title>
+<link>https://arxiv.org/abs/2608.28150</link>
+<guid isPermaLink="false">qrs-news-arxiv-softrank-2026</guid>
+<pubDate>Thu, 27 Aug 2026 16:00:00 GMT</pubDate>
+<category>Paper</category>
+<description>The SoftRank paper is on arXiv (2608.28150).</description>
+</item>
+<item>
+<title>NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation</title>
+<link>https://openreview.net/forum?id=u09PzTYNHk</link>
+<guid isPermaLink="false">qrs-news-nlpcc-alphaallocator-2026</guid>
+<pubDate>Tue, 04 Aug 2026 16:00:00 GMT</pubDate>
+<category>Paper</category>
+<description>Presented at NLPCC 2026 Shared Task 4, as a poster and an oral.</description>
 </item>
 <item>
 <title>Singapore vs Hong Kong Quant Trading Hackathon</title>

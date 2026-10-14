@@ -1,12 +1,22 @@
 [
   {
+    "id": "post-training-explainer-2026",
+    "date": "2026-10-14",
+    "type": "guide",
+    "title": "Post-training, explained: from SFT to GRPO",
+    "summary": "A long-read explainer on how language models are post-trained, from supervised fine-tuning and reward models to PPO, DPO and GRPO, with derivations and ten interactive figures.",
+    "url": "/learn/post-training/"
+  },
+  {
     "id": "geoaft-project-page-2026",
     "date": "2026-10-12",
     "type": "research",
     "title": "GeoAFT: new project page and draft explainer",
     "summary": "Geometric Attention Fine-Tuning now has its own project page, with an interactive geometry explorer, the controlled synthetic results and a draft explainer video.",
     "url": "/projects/geoaft/",
-    "project_ids": ["geoaft"]
+    "project_ids": [
+      "geoaft"
+    ]
   },
   {
     "id": "math-notes-fully-worked-2026",
@@ -17,12 +27,138 @@
     "url": "/math_notes/"
   },
   {
+    "id": "workshop-policyattention-evorobust-2026",
+    "date": "2026-10-04",
+    "type": "workshop",
+    "title": "PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement",
+    "summary": "Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.",
+    "url": "https://openreview.net/forum?id=VgswuGrqp6",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "workshop-riskhedge-evorobust-2026",
+    "date": "2026-10-04",
+    "type": "workshop",
+    "title": "Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests",
+    "summary": "Workshop paper accepted at the EvoRobust Workshop, NeurIPS 2026.",
+    "url": "https://openreview.net/forum?id=OzOTmkkAWW",
+    "project_ids": [
+      "riskhedge"
+    ]
+  },
+  {
+    "id": "workshop-geoaft-automlr-2026",
+    "date": "2026-10-04",
+    "type": "workshop",
+    "title": "Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow",
+    "summary": "Workshop paper accepted at the AutoMLR Workshop, NeurIPS 2026.",
+    "url": "https://openreview.net/forum?id=9PwlVQ3gyj",
+    "project_ids": [
+      "ai-native-workflow",
+      "geoaft"
+    ]
+  },
+  {
+    "id": "workshop-policyattention-pta-2026",
+    "date": "2026-10-04",
+    "type": "workshop",
+    "title": "PolicyAttention: When Softmax Attention Becomes Policy Improvement",
+    "summary": "Workshop paper accepted at the PTA Workshop, NeurIPS 2026.",
+    "url": "https://openreview.net/forum?id=zbGWnk0kY3",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "workshop-softrank-neurreps-2026",
+    "date": "2026-10-04",
+    "type": "workshop",
+    "title": "The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension",
+    "summary": "Extended abstract accepted at the NeurReps Workshop, NeurIPS 2026.",
+    "url": "https://openreview.net/forum?id=0zgsZ8FjVz",
+    "project_ids": [
+      "softrank"
+    ]
+  },
+  {
+    "id": "neurips-2026-workshops",
+    "date": "2026-10-04",
+    "type": "announcement",
+    "title": "Five works accepted to NeurIPS 2026 workshops",
+    "summary": "Five works from our inaugural QRS Research Academy cohort (2026 Fall #1) were accepted to NeurIPS 2026 workshops, spanning softmax-attention geometry, policy improvement, risk-sensitive decision-making and AI-native research workflows.",
+    "url": "/news/neurips-2026-workshops/",
+    "project_ids": [
+      "ai-native-workflow",
+      "geoaft",
+      "policyattention",
+      "riskhedge",
+      "softrank"
+    ]
+  },
+  {
     "id": "research-academy-2026",
     "date": "2026-09-30",
     "type": "announcement",
     "title": "QRS Research Academy",
     "summary": "The QRS Research Academy takes members from guided research to independent research leadership. Applications are open from the Academy page.",
     "url": "/research-academy/"
+  },
+  {
+    "id": "arxiv-frtbtrace-2026",
+    "date": "2026-09-26",
+    "type": "paper",
+    "title": "Exact Trade-Level Attribution of FRTB-IMA Capital",
+    "summary": "The FRTBTrace paper is on arXiv (2609.32238).",
+    "url": "https://arxiv.org/abs/2609.32238",
+    "project_ids": [
+      "frtbtrace"
+    ]
+  },
+  {
+    "id": "arxiv-policyattention-2026",
+    "date": "2026-09-24",
+    "type": "paper",
+    "title": "PolicyAttention: Softmax Attention Implements Policy Mirror Descent for Closed-Loop Control",
+    "summary": "The PolicyAttention paper is on arXiv (2609.30500).",
+    "url": "https://arxiv.org/abs/2609.30500",
+    "project_ids": [
+      "policyattention"
+    ]
+  },
+  {
+    "id": "arxiv-softrank-v2-2026",
+    "date": "2026-09-22",
+    "type": "paper",
+    "title": "SoftRank preprint updated to version 2",
+    "summary": "Version 2 of “Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention” is on arXiv (2608.28150).",
+    "url": "https://arxiv.org/abs/2608.28150",
+    "project_ids": [
+      "softrank"
+    ]
+  },
+  {
+    "id": "arxiv-softrank-2026",
+    "date": "2026-08-28",
+    "type": "paper",
+    "title": "Intrinsic Interaction Geometry Controls the Low-Rank Complexity of Softmax Attention",
+    "summary": "The SoftRank paper is on arXiv (2608.28150).",
+    "url": "https://arxiv.org/abs/2608.28150",
+    "project_ids": [
+      "softrank"
+    ]
+  },
+  {
+    "id": "nlpcc-alphaallocator-2026",
+    "date": "2026-08-05",
+    "type": "paper",
+    "title": "NTU-QRS AlphaAllocator: Bounded Transformer News Overlays for Chinese Macro-Asset Allocation",
+    "summary": "Presented at NLPCC 2026 Shared Task 4, as a poster and an oral.",
+    "url": "https://openreview.net/forum?id=u09PzTYNHk",
+    "project_ids": [
+      "alphaallocator"
+    ]
   },
   {
     "id": "events-guide-2026-jan",

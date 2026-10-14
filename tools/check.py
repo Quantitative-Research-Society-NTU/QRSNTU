@@ -11,6 +11,7 @@ REPO = Path(__file__).resolve().parents[1]
 CHECKS = [
     ('generated pages are current', [sys.executable, 'tools/generate_research.py', '--check']),
     ('news output is current', ['node', 'tools/generate_news.mjs', '--check']),
+    ('sponsor blocks are current', [sys.executable, 'tools/generate_sponsors.py', '--check']),
     ('data, routes and internal links', [sys.executable, 'tools/check_research.py']),
     ('search metadata and sitemaps', [sys.executable, 'tools/check_seo.py']),
     ('profile loading', ['node', 'tools/test_profile_loading.mjs']),

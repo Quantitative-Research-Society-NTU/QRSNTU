@@ -38,3 +38,5 @@ main h4 {
     font-synthesis: none;
 }
 #site-footer { --font-heading: var(--font-body); }
+/* The society name is always serif, as in the site banner. */
+.qrs-name, #site-footer .footer-brand-name { font-family: 'Playfair Display', 'QRS Noto Serif SC', serif !important; }

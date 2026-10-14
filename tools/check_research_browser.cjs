@@ -82,7 +82,7 @@ const origin = process.env.QRS_TEST_ORIGIN || 'http://127.0.0.1:8765';
     await page.getByRole('button', { name: 'Clear filters' }).click();
     await visit('/');
     assert.equal(await page.locator('#home-projects .home-card').count(), 2);
-    assert.equal(await page.locator('#home-publications .home-card').count(), 2);
+    assert.equal(await page.locator('#home-news .news-teaser').count(), 3);
     for (const id of ['quick-links', 'home-events-section', 'home-service-section', 'home-ntu-section']) assert.equal(await page.locator('#' + id).count(), 0);
     await visit('/programmes/');
     assert.equal(await page.getByRole('link', { name: 'Apply to QRS Research Academy' }).count(), 1);

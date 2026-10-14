@@ -13,7 +13,12 @@ ROOT = Path(__file__).resolve().parents[1] / 'site'
 TEMPLATE = Template((Path(__file__).parent / 'templates/research-page.html').read_text(encoding='utf-8'))
 # Optional project-specific pages live in projects/<id>/ at the repository root: page.json lists the
 # routes, build/ holds the page templates and public/ the files served at /projects/<id>/assets/.
+# A page.json may set "base" (e.g. "learn/post-training") to publish somewhere other than
+# /projects/<id>/; a folder whose id is not in projects.json is rendered only if it sets "base",
+# and then has no project data ({{team}}, {{status}}, ... are unavailable). A page entry may also set
+# "lang" (default "en") and "alternates", {hreflang: route}, which become <link rel="alternate"> tags.
 CUSTOM = Path(__file__).resolve().parents[1] / 'projects'
+ORIGIN = 'https://qrsntu.org'
 PLACEHOLDER = re.compile(r'\{\{\s*(\w+)(?::([^}\s]+))?\s*\}\}')
 SEO = re.compile(r'\s*<!-- SEO: generated -->.*?<!-- /SEO -->\s*', re.S)
 
@@ -32,7 +37,8 @@ def generate(check=False):
     project_map = {p['id']: p for p in projects}
     accepted_research = [r for r in research if r.get('status') == 'accepted']
     pending = {}
-    copies = {}   # site file -> project public file, for /projects/<id>/assets/
+    copies = {}   # site file -> project public file, for <base>/assets/
+    served_dirs = set()
 
     def person_link(pid, root):
         person = person_map.get(pid)
@@ -45,27 +51,29 @@ def generate(check=False):
     def project_link(pid, root):
         return f'<a href="{root}projects/{pid}/" class="card-link">{escape(project_map[pid]["title"])}</a>'
 
-    def page(route, title, content, kind='research', attributes='', scripts='', head='', width=None):
+    def page(route, title, content, kind='research', attributes='', scripts='', head='', width=None, lang='en'):
         root = '../' * len(route.split('/'))
         width = width or ('max-w-6xl' if kind == 'academy' else 'max-w-4xl')
-        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width=width, attributes=attributes, content=content, scripts=scripts, head=head)
+        pending[ROOT / route / 'index.html'] = TEMPLATE.substitute(title=escape(title), root=root, kind=kind, width=width, attributes=attributes, content=content, scripts=scripts, head=head, lang=lang)
 
     def inline_svg(path):
         # Inline so figure text uses the page fonts; strip any XML prolog.
         source = path.read_text(encoding='utf-8')
         return re.sub(r'^\s*<\?xml[^>]*>\s*', '', source).strip()
 
-    def custom_pages(p, blocks):
-        home = CUSTOM / p['id']
+    def custom_pages(pid, blocks):
+        home = CUSTOM / pid
         config = json.loads((home / 'page.json').read_text(encoding='utf-8'))
-        public, served = home / 'public', ROOT / 'projects' / p['id'] / 'assets'
+        base = config.get('base', 'projects/' + pid)
+        public, served = home / 'public', ROOT / base / 'assets'
+        served_dirs.add(served)
         for source in sorted(f for f in public.rglob('*') if f.is_file()):
             copies[served / source.relative_to(public)] = source
         for spec in config['pages']:
-            route = 'projects/' + p['id'] + ('/' + spec['route'] if spec['route'] else '')
+            route = base + ('/' + spec['route'] if spec['route'] else '')
             root = '../' * len(route.split('/'))
             version = '?v=' + config['version']
-            assets = f'{root}projects/{p["id"]}/assets/'
+            assets = f'{root}{base}/assets/'
             values = dict(blocks, root=root, assets=assets)
             def fill(match):
                 name, argument = match[1], match[2]
@@ -77,8 +85,10 @@ def generate(check=False):
             body = PLACEHOLDER.sub(fill, (home / 'build' / spec['template']).read_text(encoding='utf-8'))
             body = re.sub(r'^<!--.*?-->\n', '', body, flags=re.S)
             head = ''.join(f'<link rel="stylesheet" href="{assets}{href}{version}">' for href in spec.get('stylesheets', []))
+            head += ''.join(f'<link rel="alternate" hreflang="{code}" href="{ORIGIN}/{base}/{target + "/" if target else ""}">'
+                            for code, target in spec.get('alternates', {}).items())
             scripts = ''.join(f'<script type="module" src="{assets}{src}{version}"></script>' for src in spec.get('scripts', []))
-            page(route, spec['title'], body, 'projects', head=head, scripts=scripts, width=config.get('width'))
+            page(route, spec['title'], body, config.get('kind', 'projects'), head=head, scripts=scripts, width=config.get('width'), lang=spec.get('lang', 'en'))
 
     for p in projects:
         root = '../../'
@@ -107,13 +117,19 @@ def generate(check=False):
         if p.get('related_project_ids'):
             related = section('Related projects', '<p>' + ', '.join(project_link(pid, root) for pid in p['related_project_ids']) + '</p>')
         if (CUSTOM / p['id'] / 'page.json').exists():
-            custom_pages(p, {'status': escape(status), 'team': team, 'accepted': accepted, 'recognition': recognition, 'links': links, 'related': related})
+            custom_pages(p['id'], {'status': escape(status), 'team': team, 'accepted': accepted, 'recognition': recognition, 'links': links, 'related': related})
         else:
             content = header + team + accepted + recognition + links + related
             page('projects/' + p['id'], p['title'], content, 'projects')
         for alias in p.get('legacy_ids', []):
             destination = '../' + p['id'] + '/'
             pending[ROOT / 'projects' / alias / 'index.html'] = f'<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><title>{escape(p["title"])} | QRS</title><meta http-equiv="refresh" content="0; url={destination}"><link rel="canonical" href="https://qrsntu.org/projects/{p["id"]}/"></head><body><a href="{destination}">Continue to {escape(p["title"])}</a></body></html>\n'
+
+    # Standalone pages (explainers, guides) that are not research projects.
+    for config_path in sorted(CUSTOM.glob('*/page.json')):
+        pid = config_path.parent.name
+        if pid not in project_map and 'base' in json.loads(config_path.read_text(encoding='utf-8')):
+            custom_pages(pid, {})
 
     batches = sorted({a['batch'] for p in people for a in p.get('research_academy', [])})
     def academy_row(title, body):
@@ -147,7 +163,7 @@ def generate(check=False):
         if existing.exists() and 'tools/generate_research.py' not in existing.read_text(encoding='utf-8'):
             continue
         root = '../' * len(route.split('/'))
-        page(route, p['name'], '<p class="mb-8"><a href="' + root + 'people/" class="card-link">&larr; Back to People</a></p><div id="person-profile"></div>', 'people', f'data-person-id="{p["id"]}" data-root="{root}"', f'<script type="module" src="{root}assets/person-page.js?v=20261003-performance"></script>')
+        page(route, p['name'], '<p class="mb-8"><a href="' + root + 'people/" class="card-link">&larr; Back to People</a></p><div id="person-profile"></div>', 'people', f'data-person-id="{p["id"]}" data-root="{root}"', f'<script type="module" src="{root}assets/person-page.js?v=20261015-serif"></script>')
 
     def normalized(source):
         source = SEO.sub('', source)
@@ -159,7 +175,6 @@ def generate(check=False):
     changed = [p for p, value in pending.items() if not p.exists() or normalized(p.read_text(encoding='utf-8')) != normalized(value)]
     # Project files are copied as they are; anything left in a served assets folder that no longer
     # exists in the project is stale and removed.
-    served_dirs = {ROOT / 'projects' / f.relative_to(ROOT / 'projects').parts[0] / 'assets' for f in copies}
     stale = [f for d in served_dirs if d.exists() for f in d.rglob('*') if f.is_file() and f not in copies]
     copied = [d for d, s in copies.items() if not d.exists() or d.read_bytes() != s.read_bytes()]
     if check and (changed or copied or stale):

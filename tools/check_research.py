@@ -17,11 +17,11 @@ REQUIRED = {
     'hedgefidelity': ([], []), 'decisionrank': ([], []),
 }
 PAPERS = {
-    'geoaft-ai-native-workflow-automlr-2026': ('ai-native-workflow', 'Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow', 'NeurIPS 2026 AutoMLR', ['yuhe-sui', 'jianing-zhang', 'shufang-chen', 'xiaotong-li', 'wang-zimeng']),
-    'policyattention-evorobust-2026': ('policyattention', 'PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement', 'NeurIPS 2026 EvoRobust', ['yuhe-sui', 'yingzhi-tang', 'xinyue-wu']),
-    'policyattention-pta-2026': ('policyattention', 'PolicyAttention: When Softmax Attention Becomes Policy Improvement', 'NeurIPS 2026 PTA', ['yuhe-sui']),
-    'riskhedge-evorobust-2026': ('riskhedge', 'Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests', 'NeurIPS 2026 EvoRobust', ['yuhe-sui', 'yingzhi-tang']),
-    'approximation-rank-neurreps-ea-2026': ('softrank', 'The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension', 'NeurIPS 2026 NeurReps Extended Abstracts', ['yuhe-sui', 'jianing-zhang']),
+    'geoaft-ai-native-workflow-automlr-2026': ('ai-native-workflow', 'Geometric Attention Fine-Tuning Is Representation-Relative: Autonomous ML Research with AI-Native Workflow', 'AutoMLR Workshop, NeurIPS 2026', ['yuhe-sui', 'jianing-zhang', 'shufang-chen', 'xiaotong-li', 'wang-zimeng']),
+    'policyattention-evorobust-2026': ('policyattention', 'PolicyAttention: Robustness and Failure Modes of Softmax Policy Improvement', 'EvoRobust Workshop, NeurIPS 2026', ['yuhe-sui', 'yingzhi-tang', 'xinyue-wu']),
+    'policyattention-pta-2026': ('policyattention', 'PolicyAttention: When Softmax Attention Becomes Policy Improvement', 'PTA Workshop, NeurIPS 2026', ['yuhe-sui']),
+    'riskhedge-evorobust-2026': ('riskhedge', 'Diverse Scenarios, Selective Evaluation: Certified Spectral-Risk Decisions under Costly Robustness Tests', 'EvoRobust Workshop, NeurIPS 2026', ['yuhe-sui', 'yingzhi-tang']),
+    'approximation-rank-neurreps-ea-2026': ('softrank', 'The Approximation Rank of Softmax Attention: Sharp Geometric Laws and Robust Interaction Dimension', 'NeurReps Workshop, NeurIPS 2026 (extended abstract)', ['yuhe-sui', 'jianing-zhang']),
 }
 FORBIDDEN = re.compile(r'AIFW\d*|NRW\d*|Promoted2Researcher|Disconti\.|safety deadline|submission deadline|How Can Agent Work Scale Without Scaling Human Attention\?|Same Attention, Different Geometry: Identifiability Across Pre- and Post-Training|Verification-Gated Hierarchical Execution: A Demo for Long-Horizon Agents|GeoAFT: Fine-Tuning Attention Geometry Beyond Q/K Adaptation|AI Native Workflow for Research: Formalizing the AI Workflows Researchers Already Use|Geometric Attention Fine-Tuning Is Representation-Relative: Fixed-State Separations and Progressive Compression|Geometry-Adaptive Attention Enables Intrinsic-Dimensional Prediction', re.I)
 

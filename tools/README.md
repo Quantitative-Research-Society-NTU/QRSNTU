@@ -87,3 +87,14 @@ figures, video) and their authoring sources. `generate_research.py` renders the 
 `site/projects/<id>/` and copies `public/` to `site/projects/<id>/assets/`; templates refer to
 those files with `{{assets}}` and inline SVGs with `{{svg:name.svg}}`. Projects without a
 `page.json` keep the standard generated page. See `projects/geoaft/README.md`.
+
+A `page.json` may set `"base"` to publish somewhere other than `/projects/<id>/`, and `"kind"` for
+the page's `data-page` value (default `projects`). A folder under `projects/` whose id is not in
+`projects.json` is rendered only if its `page.json` sets `base`; such pages (explainers, guides)
+have no project data, so only `{{root}}`, `{{assets}}` and `{{svg:...}}` are available, and
+`public/` is served at `/<base>/assets/`. They do not appear in the Projects list. Example:
+`projects/post-training/` publishes `/learn/post-training/` with `"base": "learn/post-training"`.
+Each page entry may also set `"lang"` (the `<html lang>`, default `en`; `generate_seo.py` copies it to
+the JSON-LD `inLanguage`) and `"alternates"`, a map from hreflang code to a route under `base`,
+which becomes `<link rel="alternate" hreflang=...>` tags (used by the post-training English and
+Chinese guides).

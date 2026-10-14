@@ -2,7 +2,7 @@
 // list written by tools/generate_news.mjs stays in place if the data cannot be loaded.
 import { loadData } from './qrs-data.js?v=20261014-news';
 import { mountCatalog } from './catalog.js?v=20261014-news';
-import { NEWS_TYPES, buildFeed, newsCard } from './news-card.js?v=20261014-news';
+import { NEWS_TYPES, buildFeed, newsCard } from './news-card.js?v=20261015-workshop';
 
 async function renderNews() {
     const container = document.getElementById('news-container');

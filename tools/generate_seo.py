@@ -24,6 +24,7 @@ DESCRIPTIONS = {
     "events": "Find QRS and QRS@NTU talks, workshops, competitions, and community events.",
     "news": "News from QRS: research, releases, events and guides, with search and filters and an RSS feed.",
     "news/dec2025-major-update": "The December 2025 QRS@NTU update: website fixes to folders, search and ranking, and final examination papers for over 70 SPMS and NBS courses.",
+    "news/neurips-2026-workshops": "Five works from the QRS Research Academy's inaugural cohort were accepted to NeurIPS 2026 workshops.",
     "news/events-guide-2026-jan": "Quant and fintech events for students in January 2026: campus events, recruiting programmes, conferences and industry expos.",
     "join_us/prerequisites": "Prerequisite guidelines for applying to QRS@NTU: mathematics, probability and statistics, and programming foundations.",
     "service": "QRS supports academic workshops and research communities with web, publicity, outreach, and organisational infrastructure.",
@@ -37,6 +38,9 @@ DESCRIPTIONS = {
     "site-map": "Find all public QRS pages, including programmes, events, research publications, mathematics notes, and member profiles.",
     "projects/geoaft": "GeoAFT, Geometric Attention Fine-Tuning: adapting how a pretrained Transformer compares representations, and when that differs from ordinary weight adaptation.",
     "projects/geoaft/details": "How GeoAFT works: the intuition for adapting attention geometry, the method in one picture, controlled synthetic experiments with their caveats, and the technical details.",
+    "learn/post-training": "An illustrated explainer on LLM post-training: how supervised fine-tuning, reward models, RLHF with PPO, DPO and GRPO turn a pre-trained language model into an assistant.",
+    "learn/post-training/zh": "LLM 后训练完整指南（中文版）：从 ULMFiT 到 GPT-3 的历史，SFT、Bradley–Terry 奖励模型、策略梯度、GAE、PPO、InstructGPT、DPO、RLVR、GRPO 与 DeepSeek-R1，含推导与交互图。",
+    "learn/post-training/guide": "The full guide to LLM post-training: history from ULMFiT to GPT-3, SFT, Bradley-Terry reward models, policy gradients, GAE, PPO, InstructGPT, DPO, RLVR, GRPO and DeepSeek-R1, with derivations and interactive figures.",
 }
 
 
@@ -98,12 +102,14 @@ def generate(check=False):
         source = source.replace('<script src="https://unpkg.com/lucide@latest"></script>',
                                 '<script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>')
         source = re.sub(r'(assets/(?:header|footer|person-page)\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
-        source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261003-performance')
+        source = source.replace('person-page.js?v=20261003-shared', 'person-page.js?v=20261015-serif')
         source = source.replace('header.js?v=20261003-shared', 'header.js?v=20261014-news')
+        source = source.replace('footer.js?v=20261003-shared', 'footer.js?v=20261015-serif')
         source = re.sub(r'(assets/(?:people|projects)-page\.js)(?:\?v=[^"\s]+)?', r'\1?v=20261003-index', source)
+        source = source.replace('people-page.js?v=20261003-index', 'people-page.js?v=20261015-serif')
         source = re.sub(r'((?:content|style)\.css)(?:\?v=[^"\s]+)?', r'\1?v=20261003-shared', source)
         source = source.replace('style.css?v=20261003-shared', 'style.css?v=20261012-nav')
-        source = source.replace('content.css?v=20261003-shared', 'content.css?v=20261014-news')
+        source = source.replace('content.css?v=20261003-shared', 'content.css?v=20261015-sponsors')
         source = source.replace('Files/logo-v1.png', 'Files/logo-v2-surface.png')
         source = source.replace('Files/logo-v2.png', 'Files/logo-v2-surface.png')
         if re.search(r'<meta\b[^>]*content=["\'][^"\']*noindex', source, re.I):
@@ -129,7 +135,7 @@ def generate(check=False):
     <link rel="stylesheet" href="../assets/tailwind.css?v=20261003-performance">
     <script async src="https://unpkg.com/lucide@latest" onload="lucide.createIcons()"></script>
     <link rel="stylesheet" href="../style.css?v=20261012-nav">
-    <link rel="stylesheet" href="../fonts.css?v=20260907-final">
+    <link rel="stylesheet" href="../fonts.css?v=20261015-serif">
     <link rel="icon" href="../Files/logo-v2-surface.png" type="image/png">
 </head>
 <body>
@@ -146,7 +152,7 @@ def generate(check=False):
     <footer id="site-footer" class="site-footer" data-root="../"></footer>
     <script type="module" src="../assets/header.js?v=20261014-news"></script>
     <script type="module" src="../script.js?v=20260907-final"></script>
-    <script type="module" src="../assets/footer.js?v=20261003-shared"></script>
+    <script type="module" src="../assets/footer.js?v=20261015-serif"></script>
 </body>
 </html>
 '''
@@ -162,9 +168,10 @@ def generate(check=False):
             description = projects[slug.split('/')[-1]]['summary']
         if person:
             description = f"Explore {person['name']}'s QRS profile, projects, publications, and academic links."
+        language = re.search(r'<html lang="([^"]+)"', source)
         graph = [{"@type": "ProfilePage" if person else "WebPage", "@id": canonical + "#webpage",
                   "url": canonical, "name": title, "description": description,
-                  "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": "en"}]
+                  "isPartOf": {"@id": ORIGIN + "/#website"}, "inLanguage": language[1] if language else "en"}]
         if person:
             graph[0]["mainEntity"] = {"@type": "Person", "name": person["name"], "url": canonical}
             if person.get('linkedin'):
