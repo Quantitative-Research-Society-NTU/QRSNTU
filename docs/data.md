@@ -36,7 +36,8 @@ Old project directory URLs redirect to the new names; the projects renderer
 also preserves inbound `#project-…` anchors. Vanity profile routes are retained.
 
 * `news.json`: curated news items for `/news/`, the homepage and the RSS feed (see
-  `tools/README.md`). Events in `events.json` are added to the feed automatically.
+  `tools/README.md`). Events in `events.json` are added to the feed automatically. Whether an event is upcoming or past
+  is worked out in the browser from `start_date`/`end_date`; the `status` field is not used for display.
 * `sponsors.json`: organisation-wide sponsors, shown on About (`/about/#sponsors`, with the
   sponsor's own description) and as a "Supported by" logo row on the homepage, both written by
   `tools/generate_sponsors.py`. Logos live in `site/Files/sponsors/` (a light-background and an

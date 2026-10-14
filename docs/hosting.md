@@ -17,7 +17,8 @@ Both need Python 3.10+ and Node 20+ and nothing else (the Tailwind step fetches
 `tools/` or `projects/`, and after the "Generate Notes JSON" workflow, then uploads `site/`.
 In the repository settings, Pages must use "GitHub Actions" as its source.
 `.github/workflows/check.yml` runs the same two commands on pull requests, without deploying,
-and fails if the build would change committed files.
+and fails if the build would change committed files. The deploy also publishes a copy of
+`projects/geoaft/assets/` at the old `/assets/geoaft/` URLs; on Cloudflare, `_redirects` covers them.
 
 ## Cloudflare Pages (possible move)
 

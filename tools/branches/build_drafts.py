@@ -24,6 +24,8 @@ def generate(source, target, slug, campus, variant):
     brand = f"量化研究协会@{campus}" if chinese else f"QRS@{campus}"
     page = page.replace(f'data-chapter="{campus}"', f'data-chapter="{campus}" data-brand="{brand}"')
     if chinese:
+        # Their About page is replaced by about-zh.html, which has no sponsors section.
+        page = page.replace('<a href="about/#sponsors" class="card-link">', '<a href="about/#sponsors" class="card-link" data-site-link>')
         page = page.replace(f"QRS@{campus}", brand).replace(f"Quantitative Research Society @{campus}", brand)
     if source.parent.name == "about":
         page = page.replace("society at NTU", f"society at {campus}").replace("across NTU", f"across {campus}")
