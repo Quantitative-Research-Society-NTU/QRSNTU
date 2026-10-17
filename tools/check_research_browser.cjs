@@ -47,7 +47,7 @@ const origin = process.env.QRS_TEST_ORIGIN || 'http://127.0.0.1:8765';
             await fits();
         }
         await visit('/research-academy/');
-        assert.equal(await page.getByRole('link', { name: 'Apply to QRS Research Academy' }).getAttribute('href'), 'https://forms.cloud.microsoft/r/hX0YN2Nvsz');
+        assert.equal(await page.getByRole('link', { name: 'Apply to QRS Research Academy' }).getAttribute('href'), 'https://forms.gle/GGV5hH8oQqBY1ReP8');
         await fits();
         await visit('/research-academy/members/');
         if (process.argv[3]) await page.screenshot({ path: `${process.argv[3]}/academy-${width}.png`, fullPage: true });
