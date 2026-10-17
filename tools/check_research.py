@@ -118,7 +118,7 @@ def check(site):
     assert persons['yingzhi-tang']['about']
     directory = (site / 'people/index.html').read_text(encoding='utf-8')
     assert 'academy-container' not in directory and '../research-academy/members/' in directory and 'academy-section' not in directory
-    assert 'hX0YN2Nvsz' in (site / 'research-academy/index.html').read_text(encoding='utf-8')
+    assert 'GGV5hH8oQqBY1ReP8' in (site / 'research-academy/index.html').read_text(encoding='utf-8')
 
     broken, count = [], 0
     for path in site.rglob('*'):
